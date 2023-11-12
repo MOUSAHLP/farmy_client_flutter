@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class FontConstantEnglish {
-  static const String fontFamily = "Calibri";
+  static const String fontFamily = "FrutigerLTArabic";
 }
 
 class FontConstantArabic {
