@@ -64,4 +64,11 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/lotties/
+  fonts:
+    - family: FrutigerLTArabic
+      fonts:
+        - asset: fonts/FrutigerLTArabic45Light.ttf
+        - asset: fonts/FrutigerLTArabic55Roman.ttf
+        - asset: fonts/FrutigerLTArabic65Bold.ttf
+
 
