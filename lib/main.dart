@@ -45,7 +45,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width/2,
       decoration: BoxDecoration(gradient: LinearGradient(colors: [])),
     );
   }
