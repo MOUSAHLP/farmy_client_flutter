@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
 
-import 'package:miamed/core/app_router/app_router.dart';
-import 'package:miamed/presentation/resources/color_manager.dart';
 import '../../../resources/assets_manager.dart';
+
 class BackGroundAuth extends StatelessWidget {
   const BackGroundAuth({
     Key? key,
@@ -20,31 +23,56 @@ class BackGroundAuth extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+              image: AssetImage(ImageManager.auth),
+              fit: BoxFit.cover,
+            )),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+          color: ColorManager.primary.withOpacity(0.65),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height:82,),
-                  Image.asset(IconsManager.logo,width: 101,height: 93),
+                  const SizedBox(
+                    height: 90,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("فارمي",style: getBoldStyle(color: Colors.white,fontSize: 36)),
+                      const SizedBox(width: 5,),
+                      SvgPicture.asset(IconsManager.logoApp,
+                          width: 89, height: 107),
+                      const SizedBox(width: 5,),
+                      Text("farmy",style: getBoldStyle(color: Colors.white,fontSize: 36)),
+
+                    ],
+                  ),
                   child
                 ],
               ),
             ),
           ),
-        showIcon?
-         PositionedDirectional(
-              top: 50,
-              start: 10,
-              child: InkWell
-                (
-                  onTap: (){
-                    AppRouter.pop(context);
-                  },
-                  child: const Icon(Icons.arrow_back,color: ColorManager.primaryColor,size: 40,))):
-        const SizedBox(),
 
+          showIcon
+              ? PositionedDirectional(
+                  top: 50,
+                  start: 10,
+                  child: InkWell(
+                      onTap: () {
+                        AppRouter.pop(context);
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: ColorManager.primary,
+                        size: 40,
+                      )))
+              : const SizedBox(),
         ],
       ),
     );

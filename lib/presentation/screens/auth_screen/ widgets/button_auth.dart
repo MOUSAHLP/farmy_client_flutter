@@ -6,9 +6,9 @@ import '../../../resources/style_app.dart';
 class ButtonAuth extends StatelessWidget {
   const ButtonAuth({
     Key? key,
-    this.fillColor = ColorManager.primaryColor,
+    this.fillColor = Colors.white,
     this.isFilled = true,
-    this.labelColor = Colors.white,
+    this.labelColor = ColorManager.primary,
     required this.label,
     this.onTap,
   }) : super(key: key);
@@ -23,20 +23,21 @@ class ButtonAuth extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: MediaQuery.of(context).size.width-250,
-        height: 50,
+        width:
+        249,
+        height:47,
         decoration: BoxDecoration(
             color: isFilled ? fillColor : null,
             borderRadius:const BorderRadiusDirectional.all(
-                 Radius.circular(50),
+                 Radius.circular(12),
                 ),
-            boxShadow: ColorManager.boxShadow),
+           ),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               label,
-              style: getBoldStyle(color: labelColor, fontSize: 18),
+              style: getBoldStyle(color: labelColor, fontSize: 13),
             ),
           ),
         ),

@@ -1,1 +1,5 @@
-{}
+{
+  "new_subscription": "New subscription",
+  "sign_in": "Sign in",
+  "login_guest":"Sign in as a guest"
+}
