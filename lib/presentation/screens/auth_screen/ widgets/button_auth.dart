@@ -8,7 +8,7 @@ class ButtonAuth extends StatelessWidget {
     Key? key,
     this.fillColor = Colors.white,
     this.isFilled = true,
-    this.labelColor = ColorManager.primary,
+    this.labelColor = ColorManager.primaryGreen,
     required this.label,
     this.onTap,
   }) : super(key: key);
@@ -37,7 +37,7 @@ class ButtonAuth extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               label,
-              style: getBoldStyle(color: labelColor, fontSize: 13),
+              style: getBoldStyle(color: labelColor, fontSize: 15),
             ),
           ),
         ),

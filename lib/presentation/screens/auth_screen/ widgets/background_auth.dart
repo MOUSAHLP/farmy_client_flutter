@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
-
 import '../../../resources/assets_manager.dart';
 
 class BackGroundAuth extends StatelessWidget {
@@ -32,15 +31,14 @@ class BackGroundAuth extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-          color: ColorManager.primary.withOpacity(0.65),
+          color: ColorManager.primaryGreen.withOpacity(0.65),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 90,
-                  ),
+                    height: 69,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -69,7 +67,7 @@ class BackGroundAuth extends StatelessWidget {
                       },
                       child: const Icon(
                         Icons.arrow_back,
-                        color: ColorManager.primary,
+                        color: ColorManager.primaryGreen,
                         size: 40,
                       )))
               : const SizedBox(),
