@@ -11,7 +11,7 @@ class AppRouter {
       RouteTransition(
         child: child,
         textDirection: Directionality.of(context),
-        type: routeTransition ?? RouteTransitions.slideWithFade,
+        type: routeTransition ?? RouteTransitions.fade,
       ),
     );
   }
@@ -23,7 +23,7 @@ class AppRouter {
       RouteTransition(
         child: child,
         textDirection: Directionality.of(context),
-        type: routeTransition ?? RouteTransitions.slideWithFade,
+        type: routeTransition ?? RouteTransitions.fade,
       ),
     );
   }
@@ -38,7 +38,7 @@ class AppRouter {
         RouteTransition(
           child: child,
           textDirection: Directionality.of(context),
-          type: routeTransition ?? RouteTransitions.slideWithFade,
+          type: routeTransition ?? RouteTransitions.fade,
         ),
         (Route<dynamic> route) => false);
   }

@@ -1,1 +1,13 @@
-{}
+{
+  "new_subscription": "New subscription",
+  "sign_in": "Sign in",
+  "login_guest":"Sign in as a guest",
+  "phone": "Phone",
+  "password": "Password",
+  "forget_password": "Did you forget your password?",
+  "reset_password": "Reset password",
+  "back": "Back",
+  "reset_link": "A new password reset link will be sent in a text message. Please click on it when you receive it to recover your account.",
+  "done": "Done",
+  "resend": "Resend"
+}
