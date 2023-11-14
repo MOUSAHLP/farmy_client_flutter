@@ -71,5 +71,9 @@ flutter:
         - asset: fonts/FrutigerLTArabic45Light.ttf
         - asset: fonts/FrutigerLTArabic55Roman.ttf
         - asset: fonts/FrutigerLTArabic65Bold.ttf
+    - family: Bahij TheSansArabic
+      fonts:
+        - asset: fonts/Bahij TheSansArabic Bold.ttf
+
 
 

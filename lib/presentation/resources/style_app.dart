@@ -1,21 +1,24 @@
-
 import 'font_app.dart';
 import 'package:flutter/material.dart';
 
-TextStyle? _getTextStyle(double fontSize, FontWeight fontWeight, Color color,) {
+TextStyle? _getTextStyle(
+  double fontSize,
+  FontWeight fontWeight,
+  Color color,
+) {
   return TextStyle(
       fontSize: fontSize,
-      fontFamily:
-          FontConstantEnglish.fontFamily
-         ,
+      fontFamily: FontConstantEnglish.fontFamily,
       color: color,
       fontWeight: fontWeight,
       decoration: TextDecoration.none);
 }
 
 // regular style
-TextStyle? getRegularStyle(
-    {double fontSize = FontSizeApp.s12, required Color color, }) {
+TextStyle? getRegularStyle({
+  double fontSize = FontSizeApp.s12,
+  required Color color,
+}) {
   return _getTextStyle(fontSize, FontWeightApp.regular, color);
 }
 
@@ -38,7 +41,17 @@ TextStyle? getSemiBoldStyle(
 }
 
 // bold style
-TextStyle? getBoldStyle(
-    {double fontSize = FontSizeApp.s12, required Color color,}) {
+TextStyle? getBoldStyle({
+  double fontSize = FontSizeApp.s12,
+  required Color color,
+}) {
   return _getTextStyle(fontSize, FontWeightApp.bold, color);
+}
+
+//morbold
+TextStyle? getMoreBoldStyle({
+  double fontSize = FontSizeApp.s12,
+  required Color color,
+}) {
+  return _getTextStyle(fontSize, FontWeightApp.moreBold, color);
 }
