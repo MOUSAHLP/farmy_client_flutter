@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:hive_flutter/hive_flutter.dart';
 
-
 import 'datastore_keys.dart';
 
 class DataStore {
@@ -15,7 +14,6 @@ class DataStore {
 
   Future<void> init() async {
     await Hive.initFlutter();
-
 
     box = await Hive.openBox(DataStoreKeys.box);
     log("Datastore initialized", name: "$runtimeType");
@@ -42,13 +40,12 @@ class DataStore {
 
   String? get token {
     if (!box.containsKey(DataStoreKeys.token)) return null;
-      return "${box.get(DataStoreKeys.token)}";
+    return "${box.get(DataStoreKeys.token)}";
   }
 
   Future<void> setToken(String value) => box.put(DataStoreKeys.token, value);
 
   void deleteToken() => box.deleteAll({DataStoreKeys.token});
-
 
   /// DYNAMIC Data
   Future<void> setDynamicData<T>(String key, T value) async {
@@ -63,6 +60,6 @@ class DataStore {
     }
     return box.get(key);
   }
-  void deleteDynamicData () => box.deleteAll({DataStoreKeys.post});
 
+  void deleteDynamicData() => box.deleteAll({DataStoreKeys.post});
 }
