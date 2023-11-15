@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,16 +6,17 @@ import '../../../resources/color_manager.dart';
 import '../../../resources/font_app.dart';
 import '../../../resources/style_app.dart';
 
-
 class InputFieldAuth extends StatefulWidget {
   const InputFieldAuth(
-      {
-        this.fillColor,
-        this.fillIconColor=ColorManager.primaryGreen,
+      {this.fillColor,
+      this.prefixIcon,
+      this.hintStyle,
+      this.fillIconColor = ColorManager.primaryGreen,
       this.hintText,
       this.keyboardType,
-      this.textStyle=const TextStyle(color: ColorManager.primaryGreen),
+      this.textStyle = const TextStyle(color: ColorManager.primaryGreen),
       this.suffixIcon,
+      this.width,
       Key? key,
       this.controller,
       this.readOnly = false,
@@ -29,6 +29,7 @@ class InputFieldAuth extends StatefulWidget {
       this.contentPadding = const EdgeInsets.symmetric(horizontal: 4),
       this.height = 56,
       this.initValue,
+      this.color,
       this.withLabel = false,
       this.inputFormatters,
       this.icon,
@@ -40,7 +41,9 @@ class InputFieldAuth extends StatefulWidget {
   final Color? fillColor;
   final Color? fillIconColor;
   final TextStyle? textStyle;
+  final TextStyle? hintStyle;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final TextEditingController? controller;
   final bool readOnly;
   final TextAlign textAlign;
@@ -51,10 +54,12 @@ class InputFieldAuth extends StatefulWidget {
   final int? maxLines;
   final EdgeInsets? contentPadding;
   final double? height;
+  final double? width;
   final String? initValue;
   final bool withLabel;
   final List<TextInputFormatter>? inputFormatters;
   final String? icon;
+  final Color? color;
   final String? Function(String?)? validator;
 
   @override
@@ -62,7 +67,6 @@ class InputFieldAuth extends StatefulWidget {
 }
 
 class _InputFieldAuthState extends State<InputFieldAuth> {
-
   String? validationErrorMessage;
 
   late TextEditingController textEditingController;
@@ -79,7 +83,6 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -87,14 +90,15 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
       children: [
         Container(
           height: widget.height,
-          width: MediaQuery.of(context).size.width-100,
+          width: widget.width ?? MediaQuery.of(context).size.width - 100,
           decoration: BoxDecoration(
-           // boxShadow: ColorManager.boxShadow,
-            border: Border.all(color: ColorManager.primaryGreen,width: 1),
+            // boxShadow: ColorManager.boxShadow,
+            border:
+                Border.all(color: ColorManager.grayForSearchProduct, width: 1),
             borderRadius: const BorderRadiusDirectional.all(
-                 Radius.circular(12)
-                ,),
-            color: Colors.white ,
+              Radius.circular(12),
+            ),
+            color: widget.color ?? Colors.white,
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 0.0),
@@ -103,7 +107,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0.0),
                   child: SvgPicture.asset(
-                    widget.icon??"",
+                    widget.icon ?? "",
                     height: 20,
                     width: 20,
                     // color:widget.fillIconColor ,
@@ -114,7 +118,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
                     initialValue: widget.initValue,
                     keyboardType: widget.keyboardType,
                     onTap: widget.onTab,
-                    style:widget.textStyle,
+                    style: widget.textStyle,
                     controller: widget.controller,
                     readOnly: widget.readOnly,
                     minLines: widget.minLines,
@@ -127,12 +131,10 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
                       return widget.validator!(value);
                     },
                     inputFormatters: widget.inputFormatters,
-
                     decoration: InputDecoration(
-                     fillColor: widget.readOnly ? Colors.grey :  Colors.red,
+                      fillColor: widget.readOnly ? Colors.grey : Colors.red,
                       hintText: widget.withLabel ? null : widget.hintText,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
-
                       label: widget.withLabel
                           ? Text(
                               widget.hintText!,
@@ -141,13 +143,12 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
                               ),
                             )
                           : null,
+                      prefixIcon: widget.prefixIcon,
                       suffixIcon: widget.suffixIcon,
                       contentPadding: widget.contentPadding,
                       labelStyle: getRegularStyle(color: Colors.white),
-                      hintStyle: getBoldStyle(
-                        color: ColorManager.lightGray,
-                        fontSize: 12
-                      ),
+                      hintStyle: widget.hintStyle ??
+                          getBoldStyle(color: ColorManager.black, fontSize: 12),
                       errorStyle: const TextStyle(
                         fontSize: 0,
                         height: 0.1,
