@@ -9,5 +9,15 @@
   "back": "Back",
   "reset_link": "A new password reset link will be sent in a text message. Please click on it when you receive it to recover your account.",
   "done": "Done",
-  "resend": "Resend"
+  "resend": "Resend",
+  "select_new_password": "Select new password ",
+  "new_password": "New password",
+  "confirm_password": "Confirme password",
+  "confirm": "Confirm",
+  "passwordsDoesNotMatch": "Passwords does not match.try again",
+  "account_Confirmation": "Account Confirmation",
+  "verification_code": "The verification code will be sent in a text message to your number\n, Please enter the code to confirm your account",
+  "receive_code": "I did not receive the code:",
+  "resend_code": "Resend the code",
+  "resend_minute": "You cannot resend the code for 1 minute"
 }
