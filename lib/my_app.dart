@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
+import 'package:pharma/bloc/language_bloc/language_bloc.dart';
+import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 import 'data/data_resource/local_resource/data_store.dart';
+import 'presentation/screens/home_screen/home_screen.dart';
 
 
 class MyApp extends StatefulWidget {
@@ -27,21 +30,30 @@ class _MyAppState extends State<MyApp> {
           providers:[
             BlocProvider(
                 create: (BuildContext context) => sl<AuthenticationBloc>()),
+            BlocProvider(
+              create: (BuildContext context) => sl<LanguageBloc>(),
+            ),
           ],
-          child: MaterialApp(
-            title: 'Farmy',
-            locale: Locale(DataStore.instance.lang),
-            supportedLocales: AppLocalizations.supportedLocales,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
+          child: BlocBuilder<LanguageBloc, LanguageState>(
+              builder: (context, state)   {
+                if (true){
+               return   MaterialApp(
+                    title: 'Farmy',
+                    locale: Locale(DataStore.instance.lang),
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
 
-            // home: HomeScreen(),
-            home: const SplashScreen(),
-          ),
+                    // home: HomeScreen(),
+                    home: const SplashScreen(),
+                  );
+
+              }
+          }),
         );
       },
     );

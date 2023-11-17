@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pharma/core/app_router/app_router.dart';
+
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import '../../../resources/assets_manager.dart';
@@ -22,11 +22,13 @@ class BackGroundAuth extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage(ImageManager.auth),
-              fit: BoxFit.cover,
-            )),
+            child: Image.asset(ImageManager.auth,fit: BoxFit.cover,),
+
+            // decoration: const BoxDecoration(
+            //     image: DecorationImage(
+            //   image: AssetImage(ImageManager.auth),
+            //   fit: BoxFit.cover,
+            // )),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -57,20 +59,20 @@ class BackGroundAuth extends StatelessWidget {
             ),
           ),
 
-          showIcon
-              ? PositionedDirectional(
-                  top: 50,
-                  start: 10,
-                  child: InkWell(
-                      onTap: () {
-                        AppRouter.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: ColorManager.primaryGreen,
-                        size: 40,
-                      )))
-              : const SizedBox(),
+          // showIcon
+          //     ? PositionedDirectional(
+          //         top: 50,
+          //         start: 10,
+          //         child: InkWell(
+          //             onTap: () {
+          //               AppRouter.pop(context);
+          //             },
+          //             child: const Icon(
+          //               Icons.arrow_back,
+          //               color: ColorManager.primaryGreen,
+          //               size: 40,
+          //             )))
+          //     : const SizedBox(),
         ],
       ),
     );

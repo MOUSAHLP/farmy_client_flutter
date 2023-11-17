@@ -28,6 +28,7 @@ class InputFieldAuth extends StatefulWidget {
       this.maxLines,
       this.contentPadding = const EdgeInsets.symmetric(horizontal: 4),
       this.height = 56,
+      this.width ,
       this.initValue,
       this.withLabel = false,
       this.inputFormatters,
@@ -51,6 +52,7 @@ class InputFieldAuth extends StatefulWidget {
   final int? maxLines;
   final EdgeInsets? contentPadding;
   final double? height;
+  final double? width;
   final String? initValue;
   final bool withLabel;
   final List<TextInputFormatter>? inputFormatters;
@@ -87,7 +89,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
       children: [
         Container(
           height: widget.height,
-          width: MediaQuery.of(context).size.width-100,
+          width:widget.width ?? 311,
           decoration: BoxDecoration(
            // boxShadow: ColorManager.boxShadow,
             border: Border.all(color: ColorManager.primaryGreen,width: 1),

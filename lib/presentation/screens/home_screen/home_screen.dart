@@ -5,6 +5,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
+import 'package:pharma/presentation/widgets/custom_app_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,7 +13,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      drawer: const CustomAppDrawer(),
+      body: SizedBox(
         height: 1.sh,
         width: 1.sw,
         child: Column(
@@ -108,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 21),
+                    padding: const EdgeInsets.symmetric(horizontal: 21),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Container(

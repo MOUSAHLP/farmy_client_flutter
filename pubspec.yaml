@@ -29,7 +29,7 @@ dependencies:
   shimmer: ^3.0.0
   country_code_picker: ^3.0.0
   sms_autofill: ^2.3.0
-#  rive:
+
 
   #Utils
   intl: any

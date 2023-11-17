@@ -18,5 +18,5 @@ class IconsManager {
 }
 
 class LottieManager {
-  static const String logoSplash = "$lottiePath/farmy_splash_screen.riv";
+  static const String logoSplash = "$lottiePath/splash.gif";
 }
