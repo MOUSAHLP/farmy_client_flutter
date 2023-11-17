@@ -20,7 +20,7 @@ class DataStore {
   }
 
   /// Lang
-  String get lang => box.get(DataStoreKeys.lang, defaultValue: "ar")!;
+  String get lang => box.get(DataStoreKeys.lang, defaultValue: "en")!;
 
   Future<void> setLang(String value) => box.put(DataStoreKeys.lang, value);
 

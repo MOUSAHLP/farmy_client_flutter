@@ -22,4 +22,6 @@ class IconsManager {
   static const String logoApp = "$iconPath/logo_app.svg";
 }
 
-class LottieManager {}
+class LottieManager {
+  static const String logoSplash = "$lottiePath/splash.gif";
+}

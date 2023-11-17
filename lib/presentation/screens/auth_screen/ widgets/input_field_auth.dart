@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,6 +29,7 @@ class InputFieldAuth extends StatefulWidget {
       this.maxLines,
       this.contentPadding = const EdgeInsets.symmetric(horizontal: 4),
       this.height = 56,
+      this.width ,
       this.initValue,
       this.color,
       this.withLabel = false,
@@ -67,6 +69,7 @@ class InputFieldAuth extends StatefulWidget {
 }
 
 class _InputFieldAuthState extends State<InputFieldAuth> {
+
   String? validationErrorMessage;
 
   late TextEditingController textEditingController;
@@ -83,6 +86,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -90,7 +94,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
       children: [
         Container(
           height: widget.height,
-          width: widget.width ?? MediaQuery.of(context).size.width - 100,
+          width:widget.width ?? 311,
           decoration: BoxDecoration(
             // boxShadow: ColorManager.boxShadow,
             border:
@@ -131,10 +135,12 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
                       return widget.validator!(value);
                     },
                     inputFormatters: widget.inputFormatters,
+
                     decoration: InputDecoration(
                       fillColor: widget.readOnly ? Colors.grey : Colors.red,
                       hintText: widget.withLabel ? null : widget.hintText,
                       floatingLabelBehavior: FloatingLabelBehavior.never,
+
                       label: widget.withLabel
                           ? Text(
                               widget.hintText!,

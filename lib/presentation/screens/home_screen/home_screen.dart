@@ -9,6 +9,7 @@ import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_curs
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
 import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
+import 'package:pharma/presentation/widgets/custom_app_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,6 +17,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: SizedBox(
+      drawer: const CustomAppDrawer(),
       body: SizedBox(
         height: 1.sh,
         width: 1.sw,
@@ -108,6 +111,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 13),
+                    padding: const EdgeInsets.symmetric(horizontal: 21),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Container(
