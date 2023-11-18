@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/style_app.dart';
 
@@ -23,8 +24,8 @@ class ButtonAuth extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width:
-        249,
+        width:1.sw-150,
+        // width:249,
         height:47,
         decoration: BoxDecoration(
             color: isFilled ? fillColor : null,

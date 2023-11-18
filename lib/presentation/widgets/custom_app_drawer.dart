@@ -39,7 +39,7 @@ class CustomAppDrawer extends StatelessWidget {
                             height: 142,
                             width: 142,
                             decoration: const BoxDecoration(
-                              color: ColorManager.grayForMessage,
+                              color: ColorManager.lightGray,
                               shape: BoxShape.circle,
                             ),
                             child: ClipRRect(
@@ -49,7 +49,7 @@ class CustomAppDrawer extends StatelessWidget {
                                   IconsManager.logoApp,
                                   width: 50,
                                   height: 50,
-                                  colorFilter: ColorFilter.mode(Color(0xff99B990), BlendMode.srcIn) ,
+                                  colorFilter: const ColorFilter.mode(Color(0xff99B990), BlendMode.srcIn) ,
                                 ))),
                           ),
                           const SizedBox(
@@ -89,7 +89,7 @@ class CustomAppDrawer extends StatelessWidget {
                                               height: 43,
                                               decoration: BoxDecoration(
                                                   color: ColorManager
-                                                      .grayForMessage,
+                                                      .lightGray,
                                                   borderRadius:
                                                       BorderRadius.circular(6)),
                                               child: Row(
@@ -132,8 +132,7 @@ class CustomAppDrawer extends StatelessWidget {
                                             child: Container(
                                               height: 43,
                                               decoration: BoxDecoration(
-                                                  color: ColorManager
-                                                      .grayForMessage,
+                                                  color: ColorManager.lightGray,
                                                   borderRadius:
                                                       BorderRadius.circular(6)),
                                               child: Row(
@@ -263,7 +262,7 @@ class CustomAppDrawer extends StatelessWidget {
     );
   }
 
-  Widget buildElevatedButton(String title, Function fun, {bool isSvg = true}) {
+  Widget buildElevatedButton(String title, Function fun) {
     return Column(
       children: [
         InkWell(
@@ -280,7 +279,7 @@ class CustomAppDrawer extends StatelessWidget {
                 ),
                 const Spacer(),
                 const Icon(Icons.arrow_forward_ios,
-                    color: ColorManager.lightGray, size: 20),
+                    color: ColorManager.grayForMessage, size: 20),
               ],
             ),
           ),
