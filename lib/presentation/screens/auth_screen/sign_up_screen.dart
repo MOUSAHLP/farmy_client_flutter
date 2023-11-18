@@ -29,23 +29,32 @@ class SignUpScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 30,
+              height: 25,
             ),
             Text(AppLocalizations.of(context).new_account,
                 style: getBoldStyle(color: Colors.white, fontSize: 25)),
             const SizedBox(
-              height: 33,
+              height: 30,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              InputFieldAuth(
-                hintText: AppLocalizations.of(context).fName,
-                width: 140,
-              ),
-              InputFieldAuth(
-                hintText: AppLocalizations.of(context).lName,
-                width: 140,
-              )
-            ]),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Expanded(
+                  child: InputFieldAuth(
+                    hintText: AppLocalizations.of(context).fName,
+                  //   width: 1.sw-260,
+                  ),
+                ),
+                const SizedBox(width: 10,),
+                Expanded(
+                  child: InputFieldAuth(
+                    hintText: AppLocalizations.of(context).lName,
+                   // width: 1.sw-260,
+                    // width: 140,
+                  ),
+                )
+              ]),
+            ),
             const SizedBox(
               height: 21,
             ),InputFieldAuth(

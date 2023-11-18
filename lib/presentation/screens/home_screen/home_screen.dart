@@ -17,7 +17,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
       drawer: const CustomAppDrawer(),
       body: SizedBox(
         height: 1.sh,
@@ -111,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 13),
-                    padding: const EdgeInsets.symmetric(horizontal: 21),
+                    // padding: const EdgeInsets.symmetric(horizontal: 21),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Container(

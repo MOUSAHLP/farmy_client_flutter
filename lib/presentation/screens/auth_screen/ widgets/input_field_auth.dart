@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/font_app.dart';
 import '../../../resources/style_app.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class InputFieldAuth extends StatefulWidget {
   const InputFieldAuth(
       {this.fillColor,
@@ -20,6 +20,7 @@ class InputFieldAuth extends StatefulWidget {
       this.width,
       Key? key,
       this.controller,
+      this.borderColor,
       this.readOnly = false,
       this.textAlign = TextAlign.start,
       this.onTab,
@@ -29,7 +30,6 @@ class InputFieldAuth extends StatefulWidget {
       this.maxLines,
       this.contentPadding = const EdgeInsets.symmetric(horizontal: 4),
       this.height = 56,
-      this.width ,
       this.initValue,
       this.color,
       this.withLabel = false,
@@ -42,6 +42,7 @@ class InputFieldAuth extends StatefulWidget {
   final TextInputType? keyboardType;
   final Color? fillColor;
   final Color? fillIconColor;
+  final Color? borderColor;
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
   final Widget? suffixIcon;
@@ -85,8 +86,6 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
       validationErrorMessage = widget.validator!(value);
     });
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -94,11 +93,11 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
       children: [
         Container(
           height: widget.height,
-          width:widget.width ?? 311,
+          width:widget.width ?? 1.sw-100,
           decoration: BoxDecoration(
             // boxShadow: ColorManager.boxShadow,
             border:
-                Border.all(color: ColorManager.grayForSearchProduct, width: 1),
+                Border.all(color: widget.borderColor??Colors.transparent, width: 1),
             borderRadius: const BorderRadiusDirectional.all(
               Radius.circular(12),
             ),
@@ -154,7 +153,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
                       contentPadding: widget.contentPadding,
                       labelStyle: getRegularStyle(color: Colors.white),
                       hintStyle: widget.hintStyle ??
-                          getBoldStyle(color: ColorManager.black, fontSize: 12),
+                          getBoldStyle(color: ColorManager.grayForSearchProduct, fontSize: 12),
                       errorStyle: const TextStyle(
                         fontSize: 0,
                         height: 0.1,
