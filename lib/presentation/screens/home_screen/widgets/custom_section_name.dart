@@ -5,7 +5,9 @@ import 'package:pharma/presentation/resources/style_app.dart';
 
 class CustomSectionName extends StatelessWidget {
   final String sectionName;
-  const CustomSectionName({super.key, required this.sectionName});
+  final Function()? onTap;
+  const CustomSectionName(
+      {super.key, required this.sectionName, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,13 @@ class CustomSectionName extends StatelessWidget {
           style: getMoreBoldStyle(
               color: ColorManager.primaryGreen, fontSize: FontSizeApp.s15),
         ),
-        Text(
-          "رؤية المزيد",
-          style: getMoreBoldStyle(
-              color: ColorManager.grayForMessage, fontSize: FontSizeApp.s13),
+        GestureDetector(
+          onTap: onTap,
+          child: Text(
+            "رؤية المزيد",
+            style: getMoreBoldStyle(
+                color: ColorManager.grayForMessage, fontSize: FontSizeApp.s13),
+          ),
         )
       ],
     );

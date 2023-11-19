@@ -41,25 +41,25 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
             const SizedBox(
               height: 93,
             ),
-            Text(AppLocalizations.of(context).select_new_password,
+            Text(AppLocalizations.of(context)!.select_new_password,
                 style: getBoldStyle(color: Colors.white, fontSize: 29)),
             const SizedBox(
               height: 58,
             ),
             InputFieldAuth(
-              hintText: AppLocalizations.of(context).new_password,
+              hintText: AppLocalizations.of(context)!.new_password,
             ),
             const SizedBox(
               height: 13,
             ),
             InputFieldAuth(
-              hintText: AppLocalizations.of(context).confirm_password,
+              hintText: AppLocalizations.of(context)!.confirm_password,
             ),
             const SizedBox(
               height: 132,
             ),
             ButtonAuth(
-                label: AppLocalizations.of(context).confirm,
+                label: AppLocalizations.of(context)!.confirm,
                 onTap: () {
                 AppRouter.pushReplacement(context, const AccountScreen());
                 }),

@@ -54,7 +54,7 @@ class ALlSectionScreen extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: tabTitles.map((title) {
-                    return CustomSubCategory();
+                    return const CustomSubCategory();
                   }).toList(),
                 ),
               ),

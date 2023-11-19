@@ -62,14 +62,14 @@ class _SignInScreenState extends State<SignInScreen>
                         const SizedBox(
                           height: 93,
                         ),
-                        Text(AppLocalizations.of(context).sign_in,
+                        Text(AppLocalizations.of(context)!.sign_in,
                             style:
                                 getBoldStyle(color: Colors.white, fontSize: 29)),
                         const SizedBox(
                           height: 58,
                         ),
                         InputFieldAuth(
-                            hintText: AppLocalizations.of(context).phone,
+                            hintText: AppLocalizations.of(context)!.phone,
                             suffixIcon: const CountryCodePicker(
                               showCountryOnly: false,
                               flagWidth: 20,
@@ -81,7 +81,7 @@ class _SignInScreenState extends State<SignInScreen>
                           height: 24,
                         ),
                         InputFieldAuth(
-                          hintText: AppLocalizations.of(context).password,
+                          hintText: AppLocalizations.of(context)!.password,
                         ),
                         const SizedBox(
                           height: 31,
@@ -89,7 +89,7 @@ class _SignInScreenState extends State<SignInScreen>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(AppLocalizations.of(context).forget_password,
+                            Text(AppLocalizations.of(context)!.forget_password,
                                 style: getSemiBoldStyle(color: Colors.white)),
                             InkWell(
                               onTap: () {
@@ -98,7 +98,7 @@ class _SignInScreenState extends State<SignInScreen>
                                 );
                               },
                               child: Text(
-                                  AppLocalizations.of(context).reset_password,
+                                  AppLocalizations.of(context)!.reset_password,
                                   style: getSemiBoldStyle(color: Colors.yellow)),
                             ),
                           ],
@@ -107,7 +107,7 @@ class _SignInScreenState extends State<SignInScreen>
                           height: 64,
                         ),
                         ButtonAuth(
-                            label: AppLocalizations.of(context).sign_in,
+                            label: AppLocalizations.of(context)!.sign_in,
                             onTap: () {
                               AppRouter.push(context, const HomeScreen(),);
                             }),
@@ -115,7 +115,7 @@ class _SignInScreenState extends State<SignInScreen>
                           height: 13,
                         ),
                         ButtonAuth(
-                            label: AppLocalizations.of(context).back,
+                            label: AppLocalizations.of(context)!.back,
                             onTap: () {
                               AppRouter.pop(context);
                             }),

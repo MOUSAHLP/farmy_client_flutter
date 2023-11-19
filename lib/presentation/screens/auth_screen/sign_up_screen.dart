@@ -21,6 +21,7 @@ class SignUpScreen extends StatelessWidget {
 
     return Colors.white;
   }
+
   @override
   Widget build(BuildContext context) {
     return BackGroundAuth(
@@ -31,34 +32,39 @@ class SignUpScreen extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            Text(AppLocalizations.of(context).new_account,
+            Text(AppLocalizations.of(context)!.new_account,
                 style: getBoldStyle(color: Colors.white, fontSize: 25)),
             const SizedBox(
               height: 30,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Expanded(
-                  child: InputFieldAuth(
-                    hintText: AppLocalizations.of(context).fName,
-                  //   width: 1.sw-260,
-                  ),
-                ),
-                const SizedBox(width: 10,),
-                Expanded(
-                  child: InputFieldAuth(
-                    hintText: AppLocalizations.of(context).lName,
-                   // width: 1.sw-260,
-                    // width: 140,
-                  ),
-                )
-              ]),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: InputFieldAuth(
+                        hintText: AppLocalizations.of(context)!.fName,
+                        //   width: 1.sw-260,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: InputFieldAuth(
+                        hintText: AppLocalizations.of(context)!.lName,
+                        // width: 1.sw-260,
+                        // width: 140,
+                      ),
+                    )
+                  ]),
             ),
             const SizedBox(
               height: 21,
-            ),InputFieldAuth(
-                hintText: AppLocalizations.of(context).phone,
+            ),
+            InputFieldAuth(
+                hintText: AppLocalizations.of(context)!.phone,
                 suffixIcon: const CountryCodePicker(
                   showCountryOnly: true,
                   flagWidth: 20,
@@ -69,13 +75,13 @@ class SignUpScreen extends StatelessWidget {
               height: 21,
             ),
             InputFieldAuth(
-              hintText: AppLocalizations.of(context).password,
+              hintText: AppLocalizations.of(context)!.password,
             ),
             const SizedBox(
               height: 21,
             ),
             InputFieldAuth(
-              hintText: AppLocalizations.of(context).confirm_password,
+              hintText: AppLocalizations.of(context)!.confirm_password,
             ),
             const SizedBox(
               height: 31,
@@ -84,41 +90,43 @@ class SignUpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Checkbox(
-
                   checkColor: ColorManager.primaryGreen,
-                   fillColor:MaterialStateProperty.resolveWith(getColor),
+                  fillColor: MaterialStateProperty.resolveWith(getColor),
 
                   // value: isChecked,
                   onChanged: (bool? value) {
                     // setState(() {
                     //   isChecked = value!;
                     // });
-                  }, value: true,
+                  },
+                  value: true,
                 ),
                 InkWell(
                   onTap: () {},
                   child: SizedBox(
-                    width: 1.sw-130,
+                    width: 1.sw - 130,
                     height: 50,
-                    child: Text(AppLocalizations.of(context).police,
+                    child: Text(AppLocalizations.of(context)!.police,
                         style: getSemiBoldStyle(color: Colors.white),
-                        maxLines: 2,overflow: TextOverflow.ellipsis),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis),
                   ),
                 ),
               ],
             ),
             const SizedBox(
-              height:31,
+              height: 31,
             ),
             ButtonAuth(
-                label: AppLocalizations.of(context).register, onTap: () {
+                label: AppLocalizations.of(context)!.register,
+                onTap: () {
                   AppRouter.push(context, const HomeScreen());
-            }),
+                }),
             const SizedBox(
               height: 13,
             ),
             ButtonAuth(
-                label: AppLocalizations.of(context).back,
+                label: AppLocalizations.of(context)!.back,
                 onTap: () {
                   AppRouter.pop(context);
                 }),
