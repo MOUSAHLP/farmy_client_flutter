@@ -12,9 +12,16 @@ class CustomBackToPrevios extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: 1.sw,
-      height: 0.12.sw,
+      height: 0.14.sw,
+      decoration:  BoxDecoration(color: Colors.white,  boxShadow: [
+        BoxShadow(
+          color: const Color(0xFF000000).withOpacity(0.18),
+          offset: const Offset(0, 2),
+          blurRadius: 5.0,
+      ),
+      ],),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Row(
@@ -26,15 +33,14 @@ class CustomBackToPrevios extends StatelessWidget {
                   color: ColorManager.grayForMessage,
                   fontSize: FontSizeApp.s15),
             ),
-            Image.asset(
-              ImageManager.goForAllAdress,
-              width: 28,
-              height: 29,
-              color: ColorManager.grayForMessage,
-            )
+            const Icon(Icons.arrow_forward_ios,
+            size: 20,
+              color: ColorManager.grayForMessage,),
+
           ],
         ),
       ),
     );
   }
 }
+

@@ -52,13 +52,13 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                   const SizedBox(
                     height: 93,
                   ),
-                  Text(AppLocalizations.of(context).account_Confirmation,
+                  Text(AppLocalizations.of(context)!.account_Confirmation,
                       style:
                       getBoldStyle(color: Colors.white, fontSize: 29)),
                   const SizedBox(
                     height: 21,
                   ),
-                  Text(AppLocalizations.of(context).verification_code,
+                  Text(AppLocalizations.of(context)!.verification_code,
                       style:
                       getBoldStyle(color: Colors.white, fontSize:14)),
 
@@ -91,7 +91,7 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(AppLocalizations.of(context).receive_code,
+                      Text(AppLocalizations.of(context)!.receive_code,
                           style: getSemiBoldStyle(color: Colors.white)),
                       InkWell(
                         onTap: () {
@@ -100,7 +100,7 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                           );
                         },
                         child: Text(
-                            AppLocalizations.of(context).resend_code,
+                            AppLocalizations.of(context)!.resend_code,
                             style: getSemiBoldStyle(color: Colors.yellow)),
                       ),
                     ],
@@ -109,7 +109,7 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                     height: 64,
                   ),
                   ButtonAuth(
-                      label: AppLocalizations.of(context).done,
+                      label: AppLocalizations.of(context)!.done,
                       onTap: () {
                         context
                             .read<AuthenticationBloc>()
@@ -119,7 +119,7 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                     height: 13,
                   ),
                   ButtonAuth(
-                      label: AppLocalizations.of(context).back,
+                      label: AppLocalizations.of(context)!.back,
                       onTap: () {
                         context
                             .read<AuthenticationBloc>()

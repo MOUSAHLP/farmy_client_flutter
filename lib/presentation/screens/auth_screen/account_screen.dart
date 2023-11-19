@@ -10,6 +10,7 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.dart';
 import 'package:pharma/presentation/screens/auth_screen/sign_in_screen.dart';
 import 'package:pharma/presentation/screens/auth_screen/sign_up_screen.dart';
+import 'package:pharma/presentation/screens/basket_screen/basket_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/widgets/dialogs/will_pop_scope_handler.dart';
 import 'package:pharma/translations.dart';
@@ -83,7 +84,7 @@ class _AccountScreenState extends State<AccountScreen>
                           const SizedBox(
                             height: 34,
                           ),
-                          Text(AppLocalizations.of(context).welcome,
+                          Text(AppLocalizations.of(context)!.welcome,
                               style:
                                   getBoldStyle(color: Colors.white, fontSize: 29)),
                           const SizedBox(
@@ -91,7 +92,7 @@ class _AccountScreenState extends State<AccountScreen>
                           ),
                           ButtonAuth(
                               label:
-                                  AppLocalizations.of(context).new_subscription,
+                                  AppLocalizations.of(context)!.new_subscription,
                           onTap: (){
                             AppRouter.push(context, const SignUpScreen(),);
                           }),
@@ -99,7 +100,7 @@ class _AccountScreenState extends State<AccountScreen>
                             height: 27,
                           ),
                           ButtonAuth(
-                              label: AppLocalizations.of(context).sign_in,
+                              label: AppLocalizations.of(context)!.sign_in,
                               onTap: () {
                                 AppRouter.push(context, const SignInScreen(),);
 
@@ -108,8 +109,8 @@ class _AccountScreenState extends State<AccountScreen>
                             height: 27,
                           ),
                           ButtonAuth(
-                              label: AppLocalizations.of(context).login_guest,  onTap: () {
-                            AppRouter.push(context, const HomeScreen(),);
+                              label: AppLocalizations.of(context)!.login_guest,  onTap: () {
+                            AppRouter.push(context, const BasketScreen(),);
                           }
                           ),
                           const SizedBox(

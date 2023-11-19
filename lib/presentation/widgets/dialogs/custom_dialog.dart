@@ -38,42 +38,42 @@ class CustomDialog extends StatelessWidget {
                     child: content,
                   ),
                 ),
-                PositionedDirectional(
-                  top: -30,
-                  // bottom: 10,
-                  // end:  -20,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: InkWell(
-                        onTap: (){
-                          AppRouter.pop(context);
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: color ?? ColorManager.primaryGreen,
-                          ),
-                          child:  SpinKitPumpingHeart(
-                            itemBuilder: (_, int index) {
-                              return
-                              Icon(
-                                icon ?? Icons.close,
-                                    color: Colors.white,
-                                  );
-                            },
-                          )
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // PositionedDirectional(
+                //   top: -30,
+                //   // bottom: 10,
+                //   // end:  -20,
+                //   child: Container(
+                //     decoration: const BoxDecoration(
+                //       color: Colors.white,
+                //       shape: BoxShape.circle,
+                //     ),
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(4.0),
+                //       child: InkWell(
+                //         onTap: (){
+                //           AppRouter.pop(context);
+                //         },
+                //         child: Container(
+                //           height: 50,
+                //           width: 50,
+                //           decoration: BoxDecoration(
+                //             shape: BoxShape.circle,
+                //             color: color ?? ColorManager.primaryGreen,
+                //           ),
+                //           child:  SpinKitPumpingHeart(
+                //             itemBuilder: (_, int index) {
+                //               return
+                //               Icon(
+                //                 icon ?? Icons.close,
+                //                     color: Colors.white,
+                //                   );
+                //             },
+                //           )
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
 
               ],
             ),

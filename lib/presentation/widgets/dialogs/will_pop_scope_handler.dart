@@ -33,7 +33,7 @@ class _ExitAppDialog extends StatelessWidget {
               vertical: 40,
             ),
             child: Text(
-              AppLocalizations.of(context).sureShutDown,
+              AppLocalizations.of(context)!.sureShutDown,
               style: getBoldStyle(
                 color: ColorManager.primaryGreen,
                 fontSize: FontSizeApp.s14,
@@ -46,8 +46,9 @@ class _ExitAppDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomButton(
-                    label:AppLocalizations.of(context).stay,
+                    label:AppLocalizations.of(context)!.stay,
                     fillColor: ColorManager.primaryGreen,
+
                     onTap: () {
                       AppRouter.pop(context);
                     },
@@ -58,8 +59,9 @@ class _ExitAppDialog extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomButton(
-                    label:AppLocalizations.of(context).close,
-                    fillColor: Colors.white,
+                    label:AppLocalizations.of(context)!.close,
+                    fillColor: Colors.grey,
+                    isFilled: true,
                     labelColor:Colors.white ,
 
                     onTap: () {

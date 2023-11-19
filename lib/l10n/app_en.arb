@@ -23,7 +23,7 @@
   "confimSignOut": "Confirm sign out?",
   "signOut": "Sign out",
   "stay": "Stay",
-  "sureShutDown": "Will be shut down Miamed,\n Are you sure ?",
+  "sureShutDown": "Will be shut down farmy,\n Are you sure ?",
   "error": "An error occurred, please try again later",
   "close": "Close",
   "processing": "Processing",
@@ -39,5 +39,10 @@
   "connect_with_us": "Connect with us",
   "join_our_team": "Join our team",
   "who_are_we": "Who are we",
-  "sign_out": "Sign out"
+  "sign_out": "Sign out",
+  "final_product_appearance": "Final product appearance and price may vary depending on weight!",
+  "total_price_without_delivery": "Total price without delivery",
+  "proceed_to_checkout": "Proceed to checkout",
+  "continue_shopping": "Continue shopping",
+  "basket": "Basket"
 }

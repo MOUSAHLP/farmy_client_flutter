@@ -32,7 +32,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
               vertical: 40,
             ),
             child: Text(
-              AppLocalizations.of(context).confimSignOut,
+              AppLocalizations.of(context)!.confimSignOut,
               style: getBoldStyle(
                 color: ColorManager.primaryGreen,
                 fontSize: FontSizeApp.s14,
@@ -45,7 +45,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomButton(
-                    label:AppLocalizations.of(context).stay,
+                    label:AppLocalizations.of(context)!.stay,
                     fillColor: ColorManager.lightGreen,
                     onTap: () {
                       AppRouter.pop(context);
@@ -57,7 +57,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomButton(
-                    label: AppLocalizations.of(context).exit,
+                    label: AppLocalizations.of(context)!.exit,
                     fillColor: Colors.red,
                     onTap: () {
 

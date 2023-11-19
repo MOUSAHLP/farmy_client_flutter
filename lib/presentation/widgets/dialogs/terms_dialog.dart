@@ -64,7 +64,7 @@
 //             child: Column(
 //               children: [
 //                 Text(
-//                   AppLocalizations.of(context)!.acceptCond,
+//                   AppLocalizations.of(context)!!.acceptCond,
 //                   style: getBoldStyle(
 //                     color: Colors.black,
 //                     fontSize: FontSizeApp.s14,
@@ -107,7 +107,7 @@
 //                                       termsAccepted = value ?? false;
 //                                     });
 //                                   }),
-//                               Expanded(child: Text( AppLocalizations.of(context)!.agreeCond))
+//                               Expanded(child: Text( AppLocalizations.of(context)!!.agreeCond))
 //                             ],
 //                           )
 //                         ]);
@@ -118,7 +118,7 @@
 //                   ),
 //                 ),
 //                 CustomButton(
-//                   label:AppLocalizations.of(context)!.continuee,
+//                   label:AppLocalizations.of(context)!!.continuee,
 //                   fillColor: termsAccepted
 //                       ? ColorManager.primaryColor
 //                       : ColorManager.labelGrey,
@@ -133,7 +133,7 @@
 //                   height: 16,
 //                 ),
 //                 CustomButton(
-//                   label: AppLocalizations.of(context)!.closeApp ,
+//                   label: AppLocalizations.of(context)!!.closeApp ,
 //                   fillColor: ColorManager.darkRed,
 //                   onTap: () {
 //                     SystemNavigator.pop();

@@ -31,7 +31,7 @@ class SignUpScreen extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            Text(AppLocalizations.of(context).new_account,
+            Text(AppLocalizations.of(context)!.new_account,
                 style: getBoldStyle(color: Colors.white, fontSize: 25)),
             const SizedBox(
               height: 30,
@@ -41,14 +41,14 @@ class SignUpScreen extends StatelessWidget {
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Expanded(
                   child: InputFieldAuth(
-                    hintText: AppLocalizations.of(context).fName,
+                    hintText: AppLocalizations.of(context)!.fName,
                   //   width: 1.sw-260,
                   ),
                 ),
                 const SizedBox(width: 10,),
                 Expanded(
                   child: InputFieldAuth(
-                    hintText: AppLocalizations.of(context).lName,
+                    hintText: AppLocalizations.of(context)!.lName,
                    // width: 1.sw-260,
                     // width: 140,
                   ),
@@ -58,7 +58,7 @@ class SignUpScreen extends StatelessWidget {
             const SizedBox(
               height: 21,
             ),InputFieldAuth(
-                hintText: AppLocalizations.of(context).phone,
+                hintText: AppLocalizations.of(context)!.phone,
                 suffixIcon: const CountryCodePicker(
                   showCountryOnly: true,
                   flagWidth: 20,
@@ -69,13 +69,13 @@ class SignUpScreen extends StatelessWidget {
               height: 21,
             ),
             InputFieldAuth(
-              hintText: AppLocalizations.of(context).password,
+              hintText: AppLocalizations.of(context)!.password,
             ),
             const SizedBox(
               height: 21,
             ),
             InputFieldAuth(
-              hintText: AppLocalizations.of(context).confirm_password,
+              hintText: AppLocalizations.of(context)!.confirm_password,
             ),
             const SizedBox(
               height: 31,
@@ -100,7 +100,7 @@ class SignUpScreen extends StatelessWidget {
                   child: SizedBox(
                     width: 1.sw-130,
                     height: 50,
-                    child: Text(AppLocalizations.of(context).police,
+                    child: Text(AppLocalizations.of(context)!.police,
                         style: getSemiBoldStyle(color: Colors.white),
                         maxLines: 2,overflow: TextOverflow.ellipsis),
                   ),
@@ -111,14 +111,14 @@ class SignUpScreen extends StatelessWidget {
               height:31,
             ),
             ButtonAuth(
-                label: AppLocalizations.of(context).register, onTap: () {
+                label: AppLocalizations.of(context)!.register, onTap: () {
                   AppRouter.push(context, const HomeScreen());
             }),
             const SizedBox(
               height: 13,
             ),
             ButtonAuth(
-                label: AppLocalizations.of(context).back,
+                label: AppLocalizations.of(context)!.back,
                 onTap: () {
                   AppRouter.pop(context);
                 }),

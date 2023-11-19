@@ -6,6 +6,7 @@ import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/presentation/screens/basket_screen/basket_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 
@@ -49,9 +50,8 @@ class _MyAppState extends State<MyApp> {
                       GlobalCupertinoLocalizations.delegate,
                       GlobalWidgetsLocalizations.delegate,
                     ],
-
                     // home: HomeScreen(),
-                    home: const SplashScreen(),
+                    home:  SplashScreen(),
                   );
 
               }

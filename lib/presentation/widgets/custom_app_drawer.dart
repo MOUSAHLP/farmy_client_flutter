@@ -73,7 +73,7 @@ class CustomAppDrawer extends StatelessWidget {
                             endIndent: 15,
                           ),
                           buildElevatedButton(
-                              AppLocalizations.of(context).settings, () {
+                              AppLocalizations.of(context)!.settings, () {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -173,7 +173,7 @@ class CustomAppDrawer extends StatelessWidget {
                                         SizedBox(
                                           width:97,
                                           child: CustomButton(
-                                            label:AppLocalizations.of(context).confirm,
+                                            label:AppLocalizations.of(context)!.confirm,
                                             fillColor: ColorManager.primaryGreen,
                                             onTap: () {
                                               sl<LanguageBloc>().add(
@@ -193,23 +193,23 @@ class CustomAppDrawer extends StatelessWidget {
                             );
                           }),
                           buildElevatedButton(
-                              AppLocalizations.of(context).all_invoices, () {
+                              AppLocalizations.of(context)!.all_invoices, () {
                             AppRouter.pop(context);
                           }),
                           buildElevatedButton(
-                              AppLocalizations.of(context).connect_with_us, () {
+                              AppLocalizations.of(context)!.connect_with_us, () {
                             AppRouter.pop(context);
                           }),
                           buildElevatedButton(
-                              AppLocalizations.of(context).join_our_team, () {
+                              AppLocalizations.of(context)!.join_our_team, () {
                             AppRouter.pop(context);
                           }),
                           buildElevatedButton(
-                              AppLocalizations.of(context).who_are_we, () {
+                              AppLocalizations.of(context)!.who_are_we, () {
                             AppRouter.pop(context);
                           }),
                           buildElevatedButton(
-                              AppLocalizations.of(context).sign_out, () {
+                              AppLocalizations.of(context)!.sign_out, () {
                             AppRouter.pop(context);
                           }),
                           const SizedBox(height: 20),
