@@ -57,7 +57,7 @@ class SignUpScreen extends StatelessWidget {
             ),
             const SizedBox(
               height: 21,
-            ),InputFieldAuth(
+            ), InputFieldAuth(
                 hintText: AppLocalizations.of(context)!.phone,
                 suffixIcon: const CountryCodePicker(
                   showCountryOnly: true,
@@ -86,34 +86,37 @@ class SignUpScreen extends StatelessWidget {
                 Checkbox(
 
                   checkColor: ColorManager.primaryGreen,
-                   fillColor:MaterialStateProperty.resolveWith(getColor),
+                  fillColor: MaterialStateProperty.resolveWith(getColor),
 
                   // value: isChecked,
                   onChanged: (bool? value) {
                     // setState(() {
                     //   isChecked = value!;
                     // });
-                  }, value: true,
+                  },
+                  value: true,
                 ),
                 InkWell(
                   onTap: () {},
                   child: SizedBox(
-                    width: 1.sw-130,
+                    width: 1.sw - 130,
                     height: 50,
                     child: Text(AppLocalizations.of(context)!.police,
                         style: getSemiBoldStyle(color: Colors.white),
-                        maxLines: 2,overflow: TextOverflow.ellipsis),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis),
                   ),
                 ),
               ],
             ),
             const SizedBox(
-              height:31,
+              height: 31,
             ),
             ButtonAuth(
-                label: AppLocalizations.of(context)!.register, onTap: () {
+                label: AppLocalizations.of(context)!.register,
+                onTap: () {
                   AppRouter.push(context, const HomeScreen());
-            }),
+                }),
             const SizedBox(
               height: 13,
             ),

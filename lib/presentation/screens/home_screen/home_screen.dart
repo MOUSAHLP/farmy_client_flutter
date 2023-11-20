@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -10,6 +11,8 @@ import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_n
 import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/presentation/widgets/custom_app_drawer.dart';
+
+import '../all_section/all_section_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -130,9 +133,14 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 33, vertical: 13),
-                    child: CustomSectionName(sectionName: "الاقسام"),
+                    child: CustomSectionName(
+                      sectionName: "الاقسام",
+                      onTap: () {
+                        AppRouter.push(context, ALlSectionScreen());
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: 305,
@@ -156,9 +164,12 @@ class HomeScreen extends StatelessWidget {
                   CustomHomeCursel(
                     height: 0.5.sw,
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 33, vertical: 13),
-                    child: CustomSectionName(sectionName: "المنتجات المقترحة"),
+                    child: CustomSectionName(
+                      sectionName: "المنتجات المقترحة",
+                      onTap: () {},
+                    ),
                   ),
                   SizedBox(
                     height: 238,
@@ -179,9 +190,12 @@ class HomeScreen extends StatelessWidget {
                   CustomHomeCursel(
                     height: 0.5.sw,
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 33, vertical: 13),
-                    child: CustomSectionName(sectionName: "الحسومات"),
+                    child: CustomSectionName(
+                      sectionName: "الحسومات",
+                      onTap: () {},
+                    ),
                   ),
                   SizedBox(
                     height: 238,

@@ -12,13 +12,5 @@ class ColorManager {
   static const white = Color(0xffFFFFFF);
   static const grayForSearch = Color(0xffD9D9D9);
   static const grayForSearchProduct = Color(0xff9B9B9B);
-  static const linearGradientPrimary=LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      ColorManager.primaryGreen,
-      ColorManager.softGreen,
-    ],
-  );
-
+  static const greyForUnSleactedItem = Color(0xffD6D3D3);
 }

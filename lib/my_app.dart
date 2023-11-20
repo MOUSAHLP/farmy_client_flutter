@@ -13,7 +13,7 @@ import 'package:pharma/translations.dart';
 import 'data/data_resource/local_resource/data_store.dart';
 import 'presentation/screens/all_section/all_section_screen.dart';
 import 'presentation/screens/home_screen/home_screen.dart';
-
+import 'presentation/screens/main_screen/main_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -36,25 +36,28 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(
               create: (BuildContext context) => sl<LanguageBloc>(),
             ),
+            BlocProvider(
+              create: (BuildContext context) => sl<HomeBloc>(),
+            ),
           ],
           child: BlocBuilder<LanguageBloc, LanguageState>(
-              builder: (context, state)   {
-                if (true){
-               return   MaterialApp(
-                    title: 'Farmy',
-                    locale: Locale(DataStore.instance.lang),
-                    supportedLocales: AppLocalizations.supportedLocales,
-                    localizationsDelegates: const [
-                      AppLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                    ],
-                    // home: HomeScreen(),
-                    home:  SplashScreen(),
-                  );
+              builder: (context, state) {
+            if (true) {
+              return MaterialApp(
+                title: 'Farmy',
+                locale: Locale(DataStore.instance.lang),
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
 
-              }
+                // home: HomeScreen(),
+                home: const MainScreen(),
+              );
+            }
           }),
         );
       },
