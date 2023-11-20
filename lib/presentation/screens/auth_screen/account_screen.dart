@@ -10,6 +10,7 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.dart';
 import 'package:pharma/presentation/screens/auth_screen/sign_in_screen.dart';
 import 'package:pharma/presentation/screens/auth_screen/sign_up_screen.dart';
+import 'package:pharma/presentation/screens/basket_screen/basket_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/widgets/dialogs/will_pop_scope_handler.dart';
 import 'package:pharma/translations.dart';
@@ -109,7 +110,7 @@ class _AccountScreenState extends State<AccountScreen>
                           ),
                           ButtonAuth(
                               label: AppLocalizations.of(context)!.login_guest,  onTap: () {
-                            AppRouter.push(context, const HomeScreen(),);
+                            AppRouter.push(context, const BasketScreen(),);
                           }
                           ),
                           const SizedBox(

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 
-import '../../widgets/custom_back_to_previos.dart';
+import '../../widgets/custom_app_bar_screen.dart';
 import 'widgets/custom_sub_category.dart';
 
 class ALlSectionScreen extends StatelessWidget {
@@ -30,7 +30,7 @@ class ALlSectionScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomAppBar(),
-              const CustomBackToPrevios(sectionName: "جميع الاقسام"),
+              const CustomAppBarScreen(sectionName: "جميع الاقسام"),
               SizedBox(
                 width: 1.sw,
                 child: TabBar(

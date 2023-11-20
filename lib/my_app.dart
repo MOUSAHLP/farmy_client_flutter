@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
-import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/presentation/screens/basket_screen/basket_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 
+import 'bloc/home_bloc/home_bloc.dart';
 import 'data/data_resource/local_resource/data_store.dart';
 import 'presentation/screens/all_product/all_product._screen.dart';
 import 'presentation/screens/all_section/all_section_screen.dart';
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(100, 100),
       builder: (context, ctx) {
         return MultiBlocProvider(
-          providers: [
+          providers:[
             BlocProvider(
                 create: (BuildContext context) => sl<AuthenticationBloc>()),
             BlocProvider(

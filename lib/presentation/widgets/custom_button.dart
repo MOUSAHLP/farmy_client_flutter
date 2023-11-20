@@ -10,10 +10,11 @@ class CustomButton extends StatelessWidget {
     Key? key,
     this.fillColor = ColorManager.primaryGreen,
     this.borderColor,
-    this.isFilled = true,
+    this.isFilled = false,
     this.labelColor = Colors.white,
     required this.label,
     this.onTap,
+
   }) : super(key: key);
   final Color fillColor;
   final bool isFilled;
@@ -21,6 +22,7 @@ class CustomButton extends StatelessWidget {
   final Color? borderColor;
   final String label;
   final Function()? onTap;
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +33,10 @@ class CustomButton extends StatelessWidget {
         width: 1.sw-50,
         height: 47,
         decoration: BoxDecoration(
-         //   color: fillColor,
+           color:isFilled? fillColor:null,
             borderRadius: BorderRadius.circular(12),
           border: Border.all(color:borderColor??Colors.transparent,width: 2),
-            gradient:LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                ColorManager.primaryGreen,
-                ColorManager.softGreen,
-
-
-              ],
-            )
+            gradient:!isFilled?ColorManager.linearGradientPrimary:null
             // boxShadow: isFilled
             //     ?ColorManager.boxShadow
             //     : []
