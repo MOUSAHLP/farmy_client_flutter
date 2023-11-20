@@ -110,7 +110,7 @@ class _AccountScreenState extends State<AccountScreen>
                           ),
                           ButtonAuth(
                               label: AppLocalizations.of(context)!.login_guest,  onTap: () {
-                            AppRouter.push(context, const BasketScreen(),);
+                            AppRouter.push(context, const HomeScreen(),);
                           }
                           ),
                           const SizedBox(

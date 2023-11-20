@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/screens/basket_screen/basket_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -17,12 +18,12 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const HomeScreen(),
+      body: const BasketScreen(),
       bottomNavigationBar: Container(
         height: 70,
         child: BottomNavigationBar(
             showUnselectedLabels: true,
-          
+
             currentIndex: context.read<HomeBloc>().currentIndex,
             selectedItemColor: ColorManager.primaryGreen,
             unselectedItemColor: ColorManager.greyForUnSleactedItem,
