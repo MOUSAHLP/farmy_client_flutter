@@ -11,6 +11,7 @@ import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 
 import 'data/data_resource/local_resource/data_store.dart';
+import 'presentation/screens/all_product/all_product._screen.dart';
 import 'presentation/screens/all_section/all_section_screen.dart';
 import 'presentation/screens/home_screen/home_screen.dart';
 import 'presentation/screens/main_screen/main_screen.dart';
@@ -55,7 +56,7 @@ class _MyAppState extends State<MyApp> {
                 ],
 
                 // home: HomeScreen(),
-                home: const MainScreen(),
+                home: AllLProductScreen(),
               );
             }
           }),
