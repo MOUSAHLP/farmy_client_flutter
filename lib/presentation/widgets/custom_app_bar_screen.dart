@@ -6,9 +6,9 @@ import 'package:pharma/presentation/resources/style_app.dart';
 
 import '../resources/assets_manager.dart';
 
-class CustomBackToPrevios extends StatelessWidget {
+class CustomAppBarScreen extends StatelessWidget {
   final String sectionName;
-  const CustomBackToPrevios({super.key, required this.sectionName});
+  const CustomAppBarScreen({super.key, required this.sectionName});
 
   @override
   Widget build(BuildContext context) {

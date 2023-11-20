@@ -5,7 +5,7 @@ import 'package:pharma/presentation/resources/style_app.dart';
 
 import 'package:flutter/material.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
-import 'package:pharma/presentation/widgets/custom_back_to_previos.dart';
+import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/translations.dart';
 class BasketScreen extends StatelessWidget {
   const BasketScreen({super.key});
@@ -16,7 +16,7 @@ class BasketScreen extends StatelessWidget {
       child: Scaffold(
 backgroundColor: Colors.white,
         body: Column(children: [
-           CustomBackToPrevios(sectionName: AppLocalizations.of(context)!.basket),
+           CustomAppBarScreen(sectionName: AppLocalizations.of(context)!.basket),
           Expanded(child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 37,vertical: 11),
             child: Column(
