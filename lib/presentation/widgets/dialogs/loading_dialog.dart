@@ -63,7 +63,7 @@ class _LoadingDialogBody extends StatelessWidget {
               //   },
               // ),
               Text(
-                AppLocalizations.of(context).processing,
+                AppLocalizations.of(context)!.processing,
                 style: const TextStyle(
                   fontSize: 16,
                   decoration: TextDecoration.none, ////set decoration to .none

@@ -35,7 +35,7 @@ class _ErrorDialogBody extends StatelessWidget {
             ),
             child: Text(
               (message == null || message!.isEmpty)
-                  ? AppLocalizations.of(context).error
+                  ? AppLocalizations.of(context)!.error
                   : message!,
               style: getBoldStyle(
                 color: Colors.black,
@@ -46,7 +46,7 @@ class _ErrorDialogBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: CustomButton(
-              label: AppLocalizations.of(context).close,
+              label: AppLocalizations.of(context)!.close,
               fillColor: Colors.redAccent,
               onTap: () {
                 AppRouter.pop(context);

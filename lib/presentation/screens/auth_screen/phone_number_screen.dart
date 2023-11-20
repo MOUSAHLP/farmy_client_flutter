@@ -48,13 +48,13 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen>
               const SizedBox(
                 height: 93,
               ),
-              Text(AppLocalizations.of(context).reset_password,
+              Text(AppLocalizations.of(context)!.reset_password,
                   style: getBoldStyle(color: Colors.white, fontSize: 29)),
               const SizedBox(
                 height: 58,
               ),
               InputFieldAuth(
-                  hintText: AppLocalizations.of(context).phone,
+                  hintText: AppLocalizations.of(context)!.phone,
                   suffixIcon: const CountryCodePicker(
                     showCountryOnly: true,
                     flagWidth: 20,
@@ -74,7 +74,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen>
                     width: 310,
                     height: 81,
                     child: Text(
-                      AppLocalizations.of(context).reset_link,
+                      AppLocalizations.of(context)!.reset_link,
                       style: getSemiBoldStyle(color: Colors.white, fontSize: 14),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
@@ -85,7 +85,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen>
               const SizedBox(
                 height: 64,
               ),
-              ButtonAuth(label: AppLocalizations.of(context).done, onTap: () {
+              ButtonAuth(label: AppLocalizations.of(context)!.done, onTap: () {
                 context.read<AuthenticationBloc>().add(
                     TapOnPressed(2)
                 );
@@ -94,7 +94,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen>
                 height: 13,
               ),
               ButtonAuth(
-                  label: AppLocalizations.of(context).resend,
+                  label: AppLocalizations.of(context)!.resend,
                   onTap: () {
                   }),
               const SizedBox(
