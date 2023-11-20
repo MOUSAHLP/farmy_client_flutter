@@ -21,7 +21,6 @@ class SignUpScreen extends StatelessWidget {
 
     return Colors.white;
   }
-
   @override
   Widget build(BuildContext context) {
     return BackGroundAuth(
@@ -39,31 +38,26 @@ class SignUpScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: InputFieldAuth(
-                        hintText: AppLocalizations.of(context)!.fName,
-                        //   width: 1.sw-260,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: InputFieldAuth(
-                        hintText: AppLocalizations.of(context)!.lName,
-                        // width: 1.sw-260,
-                        // width: 140,
-                      ),
-                    )
-                  ]),
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Expanded(
+                  child: InputFieldAuth(
+                    hintText: AppLocalizations.of(context)!.fName,
+                  //   width: 1.sw-260,
+                  ),
+                ),
+                const SizedBox(width: 10,),
+                Expanded(
+                  child: InputFieldAuth(
+                    hintText: AppLocalizations.of(context)!.lName,
+                   // width: 1.sw-260,
+                    // width: 140,
+                  ),
+                )
+              ]),
             ),
             const SizedBox(
               height: 21,
-            ),
-            InputFieldAuth(
+            ), InputFieldAuth(
                 hintText: AppLocalizations.of(context)!.phone,
                 suffixIcon: const CountryCodePicker(
                   showCountryOnly: true,
@@ -90,6 +84,7 @@ class SignUpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Checkbox(
+
                   checkColor: ColorManager.primaryGreen,
                   fillColor: MaterialStateProperty.resolveWith(getColor),
 
