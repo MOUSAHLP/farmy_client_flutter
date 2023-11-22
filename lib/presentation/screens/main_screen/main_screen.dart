@@ -2,9 +2,15 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/screens/all_product/all_product_screen.dart';
+import 'package:pharma/presentation/screens/basket_screen/basket_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
+import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
+
+import '../all_section/all_section_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,6 +20,13 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  List<Widget> childern = [
+    const HomeScreen(),
+    const ProductDetailsScreen(),
+    const BasketScreen(),
+    ALlSectionScreen(),
+    AllLProductScreen(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +35,17 @@ class _MainScreenState extends State<MainScreen> {
         height: 70,
         child: BottomNavigationBar(
             showUnselectedLabels: true,
-          
             currentIndex: context.read<HomeBloc>().currentIndex,
             selectedItemColor: ColorManager.primaryGreen,
             unselectedItemColor: ColorManager.greyForUnSleactedItem,
             onTap: (value) {
               context.read<HomeBloc>().currentIndex = value;
-              setState(() {});
+
+              setState(() {
+                if (value != 0) {
+                  AppRouter.push(context, childern[value]);
+                }
+              });
             },
             items: [
               BottomNavigationBarItem(
