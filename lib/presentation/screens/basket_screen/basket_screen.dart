@@ -69,9 +69,7 @@ class BasketScreen extends StatelessWidget {
                         child: CustomButton(
                           label:AppLocalizations.of(context)!.continue_shopping,
                           fillColor: ColorManager.primaryGreen,
-                          isFilled: true,
                           labelColor:Colors.white ,
-
                           onTap: () {
                            // SystemNavigator.pop();
                           },

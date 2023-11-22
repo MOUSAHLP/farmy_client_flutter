@@ -43,6 +43,11 @@ dependencies:
     sdk: flutter
   url_launcher: ^6.1.12
 
+  #map
+  google_places_autocomplete_text_field:
+  google_maps_flutter:
+  geolocator: ^9.0.2
+
   #Notification
   #  firebase_messaging:
   #  flutter_local_notifications: ^14.1.1
