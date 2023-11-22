@@ -10,26 +10,37 @@ class CustomProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional.topEnd,
-      children: [
-        Container(
-          width: 144,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: Container(
-                  height: 144,
-                  color: ColorManager.grayForPlaceholde,
-                  child: const CachedImage(
-                    imageUrl: "",
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF000000).withOpacity(0.18),
+            offset: const Offset(0, 2),
+            blurRadius: 5.0,
+          ),
+        ],
+      ),
+      child: Stack(
+        alignment: AlignmentDirectional.topEnd,
+        children: [
+          SizedBox(
+            width: 163,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: Container(
+                    height: 144,
+                    color: ColorManager.grayForPlaceholde,
+                    child: const CachedImage(
+                      width: 163,
+                      imageUrl: "",
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                child: Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
@@ -73,15 +84,15 @@ class CustomProductCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Text("discount",
-                            style: getRegularStyle(
-                                    color: ColorManager.grayForMessage,
-                                    fontSize: FontSizeApp.s12)!
-                                .copyWith(
-                                    decoration: TextDecoration.lineThrough,
-                                    height: 1)),
+                        // Text("discount",
+                        //     style: getRegularStyle(
+                        //             color: ColorManager.grayForMessage,
+                        //             fontSize: FontSizeApp.s12)!
+                        //         .copyWith(
+                        //             decoration: TextDecoration.lineThrough,
+                        //             height: 1)),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          padding: const EdgeInsets.only(top: 4, bottom: 0),
                           child: Text("adreess",
                               style: getMoreBoldStyle(
                                       color: ColorManager.primaryGreen,
@@ -90,9 +101,9 @@ class CustomProductCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    Container(
+                    const SizedBox(
                       height: 74,
-                      child: const Column(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Padding(
@@ -106,28 +117,28 @@ class CustomProductCard extends StatelessWidget {
                       ),
                     )
                   ],
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        ),
-        ClipRRect(
-          borderRadius: const BorderRadiusDirectional.only(
-              topStart: Radius.circular(6), bottomEnd: Radius.circular(6)),
-          child: Container(
-            color: ColorManager.primaryGreen,
-            height: 18,
-            width: 76,
-            child: Center(
-                child: Text(
-              "الاكثر مبيعا",
-              style: getMoreBoldStyle(
-                      color: ColorManager.white, fontSize: FontSizeApp.s7)!
-                  .copyWith(),
-            )),
-          ),
-        )
-      ],
+          ClipRRect(
+            borderRadius: const BorderRadiusDirectional.only(
+                topStart: Radius.circular(6), bottomEnd: Radius.circular(6)),
+            child: Container(
+              color: ColorManager.primaryGreen,
+              height: 18,
+              width: 76,
+              child: Center(
+                  child: Text(
+                "الاكثر مبيعا",
+                style: getMoreBoldStyle(
+                        color: ColorManager.white, fontSize: FontSizeApp.s7)!
+                    .copyWith(),
+              )),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

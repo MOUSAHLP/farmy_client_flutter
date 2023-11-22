@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(100, 100),
       builder: (context, ctx) {
         return MultiBlocProvider(
-          providers:[
+          providers: [
             BlocProvider(
                 create: (BuildContext context) => sl<AuthenticationBloc>()),
             BlocProvider(
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
                 ],
 
                 // home: HomeScreen(),
-                home:  LocationFavoriteScreen(),
+                home: const MainScreen(),
               );
             }
           }),
