@@ -17,10 +17,10 @@ class CustomAppBar extends StatelessWidget {
       height: 158,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
           colors: <Color>[
-            ColorManager.lightGray,
+            ColorManager.blackGreen,
             ColorManager.primaryGreen,
             ColorManager.darkGreen
           ],
@@ -89,7 +89,7 @@ class CustomAppBar extends StatelessWidget {
               height: 44,
               width: 1.sw - 25,
               color: ColorManager.grayForSearch,
-              borderColor:ColorManager.grayForSearchProduct ,
+              borderColor: ColorManager.grayForSearchProduct,
             )
           ],
         ),
