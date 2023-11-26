@@ -29,7 +29,7 @@ class ALlSectionScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(),
+               CustomAppBar(),
               const CustomAppBarScreen(sectionName: "جميع الاقسام"),
               SizedBox(
                 width: 1.sw,

@@ -136,6 +136,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
                     inputFormatters: widget.inputFormatters,
 
                     decoration: InputDecoration(
+
                       fillColor: widget.readOnly ? Colors.grey : Colors.red,
                       hintText: widget.withLabel ? null : widget.hintText,
                       floatingLabelBehavior: FloatingLabelBehavior.never,

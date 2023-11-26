@@ -24,6 +24,8 @@ class ImageManager {
 
 class IconsManager {
   static const String logoApp = "$iconPath/logo_app.svg";
+  static const String crown = "$iconPath/crown_icon.svg";
+  static const String locationIcon = "$iconPath/location_icon.png";
 }
 
 class LottieManager {
