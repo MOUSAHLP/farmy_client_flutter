@@ -7,6 +7,7 @@ import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/screens/location_screen/location_favorite_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/widegts/card_location.dart';
 import 'package:pharma/presentation/screens/location_screen/select_location_from_map.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
@@ -103,7 +104,9 @@ class LocationScreenBody extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CustomButton(label: AppLocalizations.of(context)!.add_new_favorite_address),
+                    CustomButton(label: AppLocalizations.of(context)!.add_new_favorite_address,onTap: (){
+                      AppRouter.push(context, LocationFavoriteScreen());
+                    }),
                     const SizedBox(height: 16,),
                     CustomButton(label: AppLocalizations.of(context)!.done),
                   ],

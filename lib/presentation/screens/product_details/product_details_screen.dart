@@ -21,7 +21,7 @@ class ProductDetailsScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const CustomAppBar(),
+           CustomAppBar(),
           Expanded(
             child: ListView(
               children: [

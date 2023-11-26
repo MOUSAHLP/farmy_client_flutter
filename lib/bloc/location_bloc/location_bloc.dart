@@ -48,7 +48,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
 setMarker()async{
   await BitmapDescriptor.fromAssetImage(
-    const ImageConfiguration(size: Size(1000, 1000)),
+    const ImageConfiguration(size: Size(1000, 1000),),
     IconsManager.locationIcon,
   ).then((icon) {
     customIcon = icon;

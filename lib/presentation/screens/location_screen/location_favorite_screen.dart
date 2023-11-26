@@ -14,7 +14,7 @@ import '../../../core/app_enum.dart';
 
 class LocationFavoriteScreen extends StatelessWidget {
    LocationFavoriteScreen({super.key});
-  TextEditingController destinationController = TextEditingController();
+ final TextEditingController destinationController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +23,7 @@ class LocationFavoriteScreen extends StatelessWidget {
         body: SingleChildScrollView(
 
           child: Column(children: [
-            CustomAppBarScreen(sectionName: AppLocalizations.of(context)!.delivery_Address),
+            CustomAppBarScreen(sectionName: AppLocalizations.of(context)!.favorite_addresses),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 14,horizontal: 21),
               child: Column(
@@ -71,9 +71,9 @@ class LocationFavoriteScreen extends StatelessWidget {
                   InputFieldAuth(
                     color: ColorManager.grayForm,
                     width: 1.sw,
-                    hintText: "اختر اسم العنوان المفصل لديك     مثال (المنزل)",
+                    hintText: AppLocalizations.of(context)!.choose_favorite_address,
                   ),
-                    SizedBox(
+                    const SizedBox(
                       height: 14,
                     )
                     ,Row(
@@ -85,25 +85,25 @@ class LocationFavoriteScreen extends StatelessWidget {
                   InputFieldAuth(
                     color: ColorManager.grayForm,
                     width: 1.sw,
-                    hintText: "اختر اسم العنوان المفصل لديك     مثال (المنزل)",
+                    hintText:AppLocalizations.of(context)!.neighborhood,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 9,
                   ),
                   InputFieldAuth(
                     color: ColorManager.grayForm,
                     width: 1.sw,
-                    hintText: "اختر اسم العنوان المفصل لديك     مثال (المنزل)",
+                    hintText: AppLocalizations.of(context)!.street,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 9,
                   ),
                   InputFieldAuth(
                     color: ColorManager.grayForm,
                     width: 1.sw,
-                    hintText: "اختر اسم العنوان المفصل لديك     مثال (المنزل)",
+                    hintText: AppLocalizations.of(context)!.build,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 9,
                   ),
                   Row(
@@ -112,20 +112,20 @@ class LocationFavoriteScreen extends StatelessWidget {
                         child: InputFieldAuth(
                           color: ColorManager.grayForm,
                           width: 1.sw,
-                          hintText: "اختر اسم العنوان المفصل لديك     مثال (المنزل)",
+                          hintText:AppLocalizations.of(context)!.entrance_number,
                         ),
                       ),
-                      SizedBox(width: 13,),
+                      const SizedBox(width: 13,),
                       Expanded(
                         child: InputFieldAuth(
                           color: ColorManager.grayForm,
                           width: 1.sw,
-                          hintText: "اختر اسم العنوان المفصل لديك     مثال (المنزل)",
+                          hintText: AppLocalizations.of(context)!.floor,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 9,
                   ),
                   InputFieldAuth(
@@ -134,14 +134,14 @@ class LocationFavoriteScreen extends StatelessWidget {
                     height: 100,
                     color: ColorManager.grayForm,
                     width: 1.sw,
-                    hintText: "اختر اسم العنوان المفصل لديك     مثال (المنزل)",
+                    hintText: AppLocalizations.of(context)!.other_details,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 9,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 62),
-                    child: CustomButton(label: AppLocalizations.of(context)!.done),
+                    child: CustomButton(label: AppLocalizations.of(context)!.adding_the_address),
                   ),
                 ],
               ),

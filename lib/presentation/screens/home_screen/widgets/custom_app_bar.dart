@@ -8,8 +8,8 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
-
+   const CustomAppBar({super.key, this.scaffoldKey,});
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,10 +38,15 @@ class CustomAppBar extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Image.asset(
-                        ImageManager.menuImage,
-                        height: 21,
-                        width: 21,
+                      InkWell(
+                        child: Image.asset(
+                          ImageManager.menuImage,
+                          height: 21,
+                          width: 21,
+                        ),
+                        onTap: (){
+                          scaffoldKey?.currentState?.openDrawer();
+                        },
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 13),

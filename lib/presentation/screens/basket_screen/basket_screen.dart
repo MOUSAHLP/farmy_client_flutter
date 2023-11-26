@@ -44,6 +44,7 @@ class BasketScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                const SizedBox(height: 9,),
                 Text(AppLocalizations.of(context)!.total_price_without_delivery,style: getBoldStyle(
                     color: ColorManager.grayForMessage,fontSize: 14)),
                 Text("200,000 sy",style: getBoldStyle(
@@ -77,7 +78,8 @@ class BasketScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
+                const SizedBox(height: 9,),
               ],
             ),)
           ],
