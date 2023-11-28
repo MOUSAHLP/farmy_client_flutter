@@ -13,32 +13,35 @@ final String details;
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                  Text(
-                    title,
-                    style: getBoldStyle(
-                        color: Colors.black, fontSize: 13),
-                  ),
-                  Text(
-                    details,
-                    style: getBoldStyle(
-                        color: ColorManager.grayForMessage, fontSize: 10),
-                  )
-                ],),
-              ),
-              InkWell(
-                onTap: ontap,
-                child: const Icon(Icons.arrow_forward_ios,
-                  size: 20,
-                  color: ColorManager.grayForMessage,),
-              )
-            ],
+          InkWell(
+            onTap: ontap,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    Text(
+                      title,
+                      style: getBoldStyle(
+                          color: Colors.black, fontSize: 13),
+                    ),
+                    Text(
+                      details,
+                      style: getBoldStyle(
+                          color: ColorManager.grayForMessage, fontSize: 10),
+                    )
+                  ],),
+                ),
+                InkWell(
+                  onTap: ontap,
+                  child: const Icon(Icons.arrow_forward_ios,
+                    size: 20,
+                    color: ColorManager.grayForMessage,),
+                )
+              ],
+            ),
           ),
           const Divider()
         ],
