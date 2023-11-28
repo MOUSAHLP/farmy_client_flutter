@@ -10,15 +10,11 @@ import 'package:pharma/translations.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
+import '../main_screen/main_screen.dart';
+
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
   Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-
     return Colors.white;
   }
   @override
@@ -115,7 +111,7 @@ class SignUpScreen extends StatelessWidget {
             ButtonAuth(
                 label: AppLocalizations.of(context)!.register,
                 onTap: () {
-                  AppRouter.push(context, const HomeScreen());
+                  AppRouter.push(context, const MainScreen());
                 }),
             const SizedBox(
               height: 13,

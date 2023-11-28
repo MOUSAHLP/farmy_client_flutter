@@ -13,7 +13,7 @@ import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.d
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
 import 'package:pharma/presentation/screens/auth_screen/phone_number_screen.dart';
 import 'package:pharma/presentation/screens/auth_screen/reset_password.dart';
-import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
+import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/translations.dart';
 
 import 'otp_confirmation_screen.dart';
@@ -109,7 +109,7 @@ class _SignInScreenState extends State<SignInScreen>
                         ButtonAuth(
                             label: AppLocalizations.of(context)!.sign_in,
                             onTap: () {
-                              AppRouter.push(context, const HomeScreen(),);
+                              AppRouter.push(context, const MainScreen(),);
                             }),
                         const SizedBox(
                           height: 13,

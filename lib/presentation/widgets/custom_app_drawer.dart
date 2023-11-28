@@ -6,6 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_event.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
+import 'package:pharma/presentation/screens/setting_screen/setting_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:pharma/translations.dart';
@@ -74,15 +75,20 @@ class CustomAppDrawer extends StatelessWidget {
                           ),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.settings, () {
+                                AppRouter.push(context, const SettingScreen());
+
+                          }),
+                          buildElevatedButton(
+                              AppLocalizations.of(context)!.all_invoices, () {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   title:
-                                      BlocBuilder<LanguageBloc, LanguageState>(
+                                  BlocBuilder<LanguageBloc, LanguageState>(
                                     builder: (context, state) => Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                       children: [
                                         GestureDetector(
                                             child: Container(
@@ -91,16 +97,16 @@ class CustomAppDrawer extends StatelessWidget {
                                                   color: ColorManager
                                                       .lightGray,
                                                   borderRadius:
-                                                      BorderRadius.circular(6)),
+                                                  BorderRadius.circular(6)),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                MainAxisAlignment
+                                                    .spaceBetween,
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                    const EdgeInsets.all(
+                                                        8.0),
                                                     child: Text("English",
                                                         style: getBoldStyle(
                                                           color: Colors.black,
@@ -110,8 +116,8 @@ class CustomAppDrawer extends StatelessWidget {
                                                   Radio(
                                                     fillColor: MaterialStateColor
                                                         .resolveWith((states) =>
-                                                            ColorManager
-                                                                .primaryGreen),
+                                                    ColorManager
+                                                        .primaryGreen),
                                                     value: "en",
                                                     groupValue: context
                                                         .read<LanguageBloc>()
@@ -134,16 +140,16 @@ class CustomAppDrawer extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                   color: ColorManager.lightGray,
                                                   borderRadius:
-                                                      BorderRadius.circular(6)),
+                                                  BorderRadius.circular(6)),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                MainAxisAlignment
+                                                    .spaceBetween,
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                    const EdgeInsets.all(
+                                                        8.0),
                                                     child: Text("عربي",
                                                         style: getBoldStyle(
                                                           color: Colors.black,
@@ -153,8 +159,8 @@ class CustomAppDrawer extends StatelessWidget {
                                                   Radio(
                                                     fillColor: MaterialStateColor
                                                         .resolveWith((states) =>
-                                                            ColorManager
-                                                                .primaryGreen),
+                                                    ColorManager
+                                                        .primaryGreen),
                                                     value: "ar",
                                                     groupValue: context
                                                         .read<LanguageBloc>()
@@ -191,10 +197,7 @@ class CustomAppDrawer extends StatelessWidget {
                                 );
                               },
                             );
-                          }),
-                          buildElevatedButton(
-                              AppLocalizations.of(context)!.all_invoices, () {
-                            AppRouter.pop(context);
+
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.connect_with_us, () {

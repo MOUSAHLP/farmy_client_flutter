@@ -1,12 +1,13 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
-import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
-
 import 'package:flutter/material.dart';
-import 'package:pharma/presentation/widgets/cached_image.dart';
+import 'package:pharma/presentation/screens/basket_screen/widgets/card_basket.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
+import 'package:pharma/presentation/widgets/custom_button.dart';
+import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:pharma/translations.dart';
+
 class BasketScreen extends StatelessWidget {
   const BasketScreen({super.key});
 
@@ -14,139 +15,75 @@ class BasketScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-backgroundColor: Colors.white,
-        body: Column(children: [
-           CustomAppBarScreen(sectionName: AppLocalizations.of(context)!.basket),
-          Expanded(child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 37,vertical: 11),
-            child: Column(
-              children: [
-                Text(AppLocalizations.of(context)!.final_product_appearance,style: getRegularStyle(color: ColorManager.grayForMessage)),
-             SizedBox(height: 20),
-                Container(
-                  height:115 ,
-                  width: 1.sw,
-
-                  decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF000000).withOpacity(0.18),
-                          offset: const Offset(0, 2),
-                          blurRadius: 4.0,
-                        ),
-                      ],
-                    color: Colors.white
-                        ,borderRadius: BorderRadius.circular(6)
-                      //box-shadow: 0px 2px 4px 0px #0000002E;
-                  ),child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(height: 36,
-                          width: 36,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF000000).withOpacity(0.18),
-                                    offset: const Offset(0, 2),
-                                    blurRadius: 4.0,
-                                  ),
-                                ],
-                                color: Colors.white
-                            ),
-                            child: const Icon(Icons.add,color: ColorManager.primaryGreen),),
-
-                          Container(height: 36,
-                          width: 36,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF000000).withOpacity(0.18),
-                                    offset: const Offset(0, 2),
-                                    blurRadius: 4.0,
-                                  ),
-                                ],
-                                color: Colors.white
-                            ),
-                            child: const Icon(Icons.remove,color: Colors.red),),
-                        ],
-                      ),
-                    ),
-                 const Spacer(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
-                          "فليفلة حمراء",
-                          style: getMoreBoldStyle(
-                              color: ColorManager.black,
-                              fontSize: FontSizeApp.s10)!
-                              .copyWith(height: 1),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Row(
-                          children: [
-                            Text(
-                              "400 غ",
-                              style: getRegularStyle(
-                                  color: ColorManager.grayForMessage,
-                                  fontSize: FontSizeApp.s13)!
-                                  .copyWith(height: 1),
-                            ),
-                            Text(
-                              " / ",
-                              style: getRegularStyle(
-                                  color: ColorManager.grayForMessage,
-                                  fontSize: FontSizeApp.s13)!
-                                  .copyWith(height: 1),
-                            ),
-                            Text(
-                              "15 قطعة",
-                              style: getRegularStyle(
-                                  color: ColorManager.grayForMessage,
-                                  fontSize: FontSizeApp.s10)!
-                                  .copyWith(height: 1),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text("discount",
-                          style: getRegularStyle(
-                              color: ColorManager.grayForMessage,
-                              fontSize: FontSizeApp.s12)!
-                              .copyWith(
-                              decoration: TextDecoration.lineThrough,
-                              height: 1)),
-                    ],),
-const SizedBox(width: 19,),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Container(
-                        height: 115,
-                        color: ColorManager.grayForPlaceholde,
-                        child: const CachedImage(
-                          imageUrl: "",
-                        ),
-                      ),
-                    ),
-                  ],
+        backgroundColor: Colors.white,
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Column(children: [
+              CustomAppBarScreen(sectionName: AppLocalizations.of(context)!.basket),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 11),
+                child: Text(AppLocalizations.of(context)!.final_product_appearance,
+                    style: getRegularStyle(color: ColorManager.grayForMessage)),
+              ),
+              Expanded(
+                child: CustomOverscrollIndicator(
+                  child: ListView.builder(
+                    itemBuilder: (context, index) =>const CardBasket() ,
+                  itemCount:10,),
                 ),
+              )
+            ]),
+            Container(width: 1.sw,
 
-
-                ),
-              ],
+            decoration:  BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(22),topRight:Radius.circular(22)),
+              boxShadow: [ColorManager.shadowGaryUp]
             ),
-          ))
-        ]),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 9,),
+                Text(AppLocalizations.of(context)!.total_price_without_delivery,style: getBoldStyle(
+                    color: ColorManager.grayForMessage,fontSize: 14)),
+                Text("200,000 sy",style: getBoldStyle(
+                    color: ColorManager.primaryGreen,fontSize: 24)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 27,vertical:9 ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomButton(
+                          label:AppLocalizations.of(context)!.proceed_to_checkout,
+                          fillColor: ColorManager.primaryGreen,
+
+                          onTap: () {
+                           // AppRouter.pop(context);
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(
+                        child: CustomButton(
+                          label:AppLocalizations.of(context)!.continue_shopping,
+                          fillColor: ColorManager.primaryGreen,
+                          labelColor:Colors.white ,
+                          onTap: () {
+                           // SystemNavigator.pop();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 9,),
+              ],
+            ),)
+          ],
+        ),
       ),
     );
   }
