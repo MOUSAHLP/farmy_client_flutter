@@ -20,6 +20,8 @@ class ImageManager {
   static const String favoriteIcon = "$imagePath/favorite_icon.png";
   static const String basketIcon = "$imagePath/basket_icon.png";
   static const String profileIcon = "$imagePath/profile_icon.png";
+  static const String dateTimeImage = "$imagePath/date_time.png";
+  static const String farmySmile = "$imagePath/farmy_smile.png";
 }
 
 class IconsManager {

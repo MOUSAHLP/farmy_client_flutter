@@ -77,7 +77,7 @@ class AboutProductAndAmonutSection extends StatelessWidget {
               width: 18,
             ),
             CustomCountWidget(
-              myIcon: Icons.minimize,
+              myIcon: Icons.remove,
               onTap: () {},
             ),
           ],

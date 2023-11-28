@@ -30,7 +30,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
                 const ProductImage(
                     productImage:
-                        "http://dashboard.gochedckin.peaklink.site//storage/hotels/2/header6.jpg"),
+                        "http://dashboard.gocheckin.peaklink.site//storage/hotels/6/header1.jpg"),
                 const AboutProductAndAmonutSection(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
