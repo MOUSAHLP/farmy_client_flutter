@@ -89,5 +89,7 @@
   "month": "Month",
   "year": "Year",
   "change_Number": "Change the Number",
-  "save_Changes": "Save Changes"
+  "save_Changes": "Save Changes",
+  "confirmNumber": "confirmNumber",
+  "notification": "Notifications"
 }

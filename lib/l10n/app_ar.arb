@@ -89,5 +89,7 @@
   "month": "الشهر",
   "year": "السنة",
   "change_Number": "تغيير الرقم",
-  "save_Changes": "حفظ التغييرات"
+  "save_Changes": "حفظ التغييرات",
+  "confirmNumber": "رمز التأكد من الرقم",
+  "notification": "اشعارات"
 }

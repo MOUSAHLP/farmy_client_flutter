@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
+import 'package:pharma/presentation/screens/notification_screen/notification_screen.dart';
 
 class CustomAppBar extends StatelessWidget {
    const CustomAppBar({super.key, this.scaffoldKey,});
@@ -50,10 +52,15 @@ class CustomAppBar extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 13),
-                        child: Image.asset(
-                          ImageManager.notificationImage,
-                          height: 17,
-                          width: 17,
+                        child: InkWell(
+                          onTap: (){
+                            AppRouter.push(context, NotificationScreen());
+                          },
+                          child: Image.asset(
+                            ImageManager.notificationImage,
+                            height: 17,
+                            width: 17,
+                          ),
                         ),
                       ),
                     ],

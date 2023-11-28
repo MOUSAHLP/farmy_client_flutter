@@ -9,6 +9,8 @@ import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/translations.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
+import '../../../core/app_router/app_router.dart';
+
 class PersonalDetailsScreen extends StatelessWidget {
   const PersonalDetailsScreen({super.key});
 
@@ -162,65 +164,70 @@ class PersonalDetailsScreen extends StatelessWidget {
                                                             Material(
                                                               shape: RoundedRectangleBorder(
                                                                 borderRadius: BorderRadius.circular(25.0),
+
                                                               ),
 
-                                                              child: Column(
-                                                                mainAxisAlignment:
-                                                                MainAxisAlignment.spaceAround,
-                                                                children: [
-                                                                  Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                    children: [
-                                                                      Text("رمز التأكد من الرقم",
-                                                                        style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 15),),
-                                                                    ],
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsets.symmetric(vertical: 15),
-                                                                    child: PinFieldAutoFill(
-                                                                      decoration: BoxLooseDecoration(
-                                                                      strokeColorBuilder:  const FixedColorBuilder( ColorManager.grayForm,),
-                                                                        bgColorBuilder:const FixedColorBuilder( ColorManager.grayForm,),
-                                                                        textStyle:
-                                                                        const TextStyle(fontSize: 20, color: ColorManager.primaryGreen),
-                                                                      ),
-                                                                      //   currentCode: textEditingController.text,
-                                                                      codeLength: 6,
-                                                                      onCodeChanged: (String? code) {
-
-                                                                      },
-                                                                    ),
-                                                                  ),
-
-                                                                  SizedBox(
-                                                                    child: Row(
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                  MainAxisAlignment.spaceAround,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.start,
                                                                       children: [
-                                                                        Expanded(
-                                                                          child: CustomButton(
-                                                                            label:AppLocalizations.of(context)!.confirm,
-                                                                            fillColor: ColorManager.primaryGreen,
-                                                                            onTap: () {
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                        const SizedBox(width: 5,),
-                                                                        Expanded(
-                                                                          child: CustomButton(
-                                                                            label:AppLocalizations.of(context)!.back,
-                                                                            fillColor: Colors.white,
-
-                                                                            onTap: () {
-                                                                            },
-                                                                            isFilled: true,
-                                                                            labelColor: ColorManager.primaryGreen,
-                                                                            borderColor:ColorManager.primaryGreen,
-                                                                          ),
-                                                                        ),
+                                                                        Text(AppLocalizations.of(context)!.confirmNumber,
+                                                                          style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 15),),
                                                                       ],
                                                                     ),
-                                                                  ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.symmetric(vertical: 20),
+                                                                      child: PinFieldAutoFill(
+                                                                        decoration: BoxLooseDecoration(
+                                                                        strokeColorBuilder:  const FixedColorBuilder( ColorManager.grayForm,),
+                                                                          bgColorBuilder:const FixedColorBuilder( ColorManager.grayForm,),
+                                                                          textStyle:
+                                                                          const TextStyle(fontSize: 20, color: ColorManager.primaryGreen),
+                                                                        ),
+                                                                        //   currentCode: textEditingController.text,
+                                                                        codeLength: 6,
+                                                                        onCodeChanged: (String? code) {
 
-                                                                ],
+                                                                        },
+                                                                      ),
+                                                                    ),
+
+                                                                    SizedBox(
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child: CustomButton(
+                                                                              label:AppLocalizations.of(context)!.confirm,
+                                                                              fillColor: ColorManager.primaryGreen,
+                                                                              onTap: () {
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(width: 28,),
+                                                                          Expanded(
+                                                                            child: CustomButton(
+                                                                              label:AppLocalizations.of(context)!.back,
+                                                                              fillColor: Colors.white,
+
+                                                                              onTap: () {
+                                                                                AppRouter.pop(context);
+                                                                              },
+                                                                              isFilled: true,
+                                                                              labelColor: ColorManager.primaryGreen,
+                                                                              borderColor:ColorManager.primaryGreen,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
 
@@ -230,13 +237,14 @@ class PersonalDetailsScreen extends StatelessWidget {
                                                     },
                                                   ),
                                                 ),
-                                                const SizedBox(width: 5,),
+                                                const SizedBox(width:28,),
                                                 Expanded(
                                                   child: CustomButton(
                                                     label:AppLocalizations.of(context)!.back,
                                                     fillColor: Colors.white,
 
                                                     onTap: () {
+                                                      AppRouter.pop(context);
                                                     },
                                                     isFilled: true,
                                                     labelColor: ColorManager.primaryGreen,
