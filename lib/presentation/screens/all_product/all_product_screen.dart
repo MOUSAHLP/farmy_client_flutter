@@ -29,7 +29,7 @@ class AllLProductScreen extends StatelessWidget {
               // const CustomBackToPrevios(
               //   sectionName: "فليفلة",
               // ),
-              CustomAppBarScreen(sectionName: "فليفة"),
+              const CustomAppBarScreen(sectionName: "فليفة"),
               SizedBox(
                 width: 1.sw,
                 child: TabBar(

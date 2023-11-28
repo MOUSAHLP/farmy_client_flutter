@@ -7,11 +7,13 @@ import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
 
+import 'package:pharma/presentation/screens/my_evaluation/my_evaluation_screen.dart';
+import 'package:pharma/presentation/screens/rewards_program/rewards_program_screen.dart';
+
 import 'package:pharma/translations.dart';
 
 import 'bloc/home_bloc/home_bloc.dart';
 import 'data/data_resource/local_resource/data_store.dart';
-import 'presentation/screens/main_screen/main_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -53,7 +55,7 @@ class _MyAppState extends State<MyApp> {
                 ],
 
                 // home: HomeScreen(),
-                home: const MainScreen(),
+                home: const RewardsProgramScreen(),
               );
             }
           }),

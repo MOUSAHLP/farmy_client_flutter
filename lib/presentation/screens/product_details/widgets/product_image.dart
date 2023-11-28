@@ -4,7 +4,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
 
 class ProductImage extends StatelessWidget {
- final  String productImage;
+  final String productImage;
   const ProductImage({super.key, required this.productImage});
 
   @override
@@ -38,7 +38,7 @@ class ProductImage extends StatelessWidget {
             child: CachedImage(
                 imageSize: ImageSize.large,
                 imageUrl:
-                    "http://dashboard.gochedckin.peaklink.site//storage/hotels/2/header6.jpg"),
+                    "http://dashboard.gocheckin.peaklink.site//storage/hotels/6/header1.jpg"),
           ),
         ),
         Padding(
