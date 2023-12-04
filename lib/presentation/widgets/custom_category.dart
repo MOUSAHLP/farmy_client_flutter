@@ -23,7 +23,7 @@ class CustomCategory extends StatelessWidget {
               child: CachedImage(
                 imageSize: ImageSize.small,
                 imageUrl:
-                    "http://dashboard.gocheckin.peaklink.site//storage/hotels/6/header1.jpg",
+                    "http://dashboard.gocheckins.peaklink.site//storage/hotels/6/header1.jpg",
               ),
             ),
           ),
@@ -36,7 +36,7 @@ class CustomCategory extends StatelessWidget {
               categoryName,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: getMoreBoldStyle(
+              style: getBoldStyle(
                 color: ColorManager.black,
                 fontSize: FontSizeApp.s13,
               )!

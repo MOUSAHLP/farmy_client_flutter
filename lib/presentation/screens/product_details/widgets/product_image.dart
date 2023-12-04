@@ -38,7 +38,7 @@ class ProductImage extends StatelessWidget {
             child: CachedImage(
                 imageSize: ImageSize.large,
                 imageUrl:
-                    "http://dashboard.gocheckin.peaklink.site//storage/hotels/6/header1.jpg"),
+                    "http://dashboarsd.gocheckin.peaklink.site//storage/hotels/6/header1.jpg"),
           ),
         ),
         Padding(

@@ -187,7 +187,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                                                         strokeColorBuilder:  const FixedColorBuilder( ColorManager.grayForm,),
                                                                           bgColorBuilder:const FixedColorBuilder( ColorManager.grayForm,),
                                                                           textStyle:
-                                                                          const TextStyle(fontSize: 20, color: ColorManager.primaryGreen),
+                                                                           TextStyle(fontSize: 20, color: ColorManager.primaryGreen),
                                                                         ),
                                                                         //   currentCode: textEditingController.text,
                                                                         codeLength: 6,

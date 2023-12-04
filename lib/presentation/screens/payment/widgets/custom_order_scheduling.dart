@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/translations.dart';
 
 class CustomOrderScheduling extends StatelessWidget {
   final String deliverycost;
@@ -44,9 +45,8 @@ class CustomOrderScheduling extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        "asd",
-                        style: getMoreBoldStyle(
-                            color: ColorManager.grayForMessage),
+                        AppLocalizations.of(context)!.order_scheduling,
+                        style: getBoldStyle(color: ColorManager.grayForMessage),
                       ),
                     ),
                     const Icon(
@@ -63,7 +63,7 @@ class CustomOrderScheduling extends StatelessWidget {
         ),
         Text(
           deliverycost,
-          style: getMoreBoldStyle(
+          style: getBoldStyle(
               color: ColorManager.grayForMessage, fontSize: FontSizeApp.s14),
         ),
       ],

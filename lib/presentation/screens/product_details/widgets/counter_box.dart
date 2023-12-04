@@ -12,8 +12,8 @@ class CustomCountWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 50,
-        width: 50,
+        height: 38,
+        width: 38,
         decoration: BoxDecoration(
           color: ColorManager.primaryGreen,
           borderRadius: BorderRadius.circular(6),

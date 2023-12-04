@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/screens/all_product/all_product_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 
 import '../../widgets/custom_app_bar_screen.dart';
@@ -29,7 +31,7 @@ class ALlSectionScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               CustomAppBar(),
+              CustomAppBar(),
               const CustomAppBarScreen(sectionName: "جميع الاقسام"),
               SizedBox(
                 width: 1.sw,
@@ -54,7 +56,11 @@ class ALlSectionScreen extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: tabTitles.map((title) {
-                    return const CustomSubCategory();
+                    return GestureDetector(
+                        onTap: () {
+                          AppRouter.push(context, AllLProductScreen());
+                        },
+                        child: const CustomSubCategory());
                   }).toList(),
                 ),
               ),

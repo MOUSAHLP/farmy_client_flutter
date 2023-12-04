@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 
 import '../../resources/color_manager.dart';
@@ -54,7 +56,7 @@ class AllLProductScreen extends StatelessWidget {
                 child: TabBarView(
                   children: tabTitles.map((title) {
                     return GridView.builder(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       itemCount: 8,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -63,8 +65,14 @@ class AllLProductScreen extends StatelessWidget {
                               mainAxisSpacing: 26,
                               mainAxisExtent: 226),
                       itemBuilder: (context, index) {
-                        return const Center(
-                            child: CustomProductCard(isDisCount: true));
+                        return Center(
+                            child: GestureDetector(
+                                onTap: () {
+                                  AppRouter.push(
+                                      context, const ProductDetailsScreen());
+                                },
+                                child:
+                                    const CustomProductCard(isDisCount: true)));
                       },
                     );
                   }).toList(),

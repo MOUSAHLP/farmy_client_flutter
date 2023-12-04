@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/about_product_and_amount_section.dart';
-import 'package:pharma/presentation/screens/product_details/widgets/counter_box.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/product_image.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/presentation/widgets/custom_app_button.dart';
+import 'package:pharma/translations.dart';
 
 import '../../resources/font_app.dart';
 
@@ -21,7 +20,7 @@ class ProductDetailsScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-           CustomAppBar(),
+          const CustomAppBar(),
           Expanded(
             child: ListView(
               children: [
@@ -30,7 +29,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
                 const ProductImage(
                     productImage:
-                        "http://dashboard.gocheckin.peaklink.site//storage/hotels/6/header1.jpg"),
+                        "http://dashboard.gocheckin.xpeaklink.site//storage/hotels/6/header1.jpg"),
                 const AboutProductAndAmonutSection(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,14 +40,14 @@ class ProductDetailsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "السعر",
-                            style: getMoreBoldStyle(
+                            AppLocalizations.of(context)!.price,
+                            style: getBoldStyle(
                                 color: ColorManager.primaryGreen,
                                 fontSize: FontSizeApp.s15),
                           ),
                           Text(
                             "10.00000 ل س",
-                            style: getMoreBoldStyle(
+                            style: getBoldStyle(
                                 color: ColorManager.primaryGreen,
                                 fontSize: FontSizeApp.s15),
                           ),
@@ -59,7 +58,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Text(
                         "منتجات ذات صلة",
-                        style: getMoreBoldStyle(
+                        style: getBoldStyle(
                             color: ColorManager.black,
                             fontSize: FontSizeApp.s15),
                       ),
@@ -96,7 +95,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: Text(
                         "منتجات مشابهة",
-                        style: getMoreBoldStyle(
+                        style: getBoldStyle(
                             color: ColorManager.black,
                             fontSize: FontSizeApp.s15),
                       ),
@@ -134,8 +133,8 @@ class ProductDetailsScreen extends StatelessWidget {
                     CustomAppButton(
                       ontap: () {},
                       myText: "اضافة الى السلة",
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 74, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 74, vertical: 10),
                     )
                   ],
                 )
@@ -143,7 +142,7 @@ class ProductDetailsScreen extends StatelessWidget {
             ),
           )
         ],
-      ),
+      ),    
     );
   }
 }

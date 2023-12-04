@@ -52,7 +52,7 @@ class CustomPaymentStatusContiner extends StatelessWidget {
             Expanded(
               child: Text(
                 text,
-                style: getMoreBoldStyle(color: ColorManager.grayForMessage),
+                style: getBoldStyle(color: ColorManager.grayForMessage),
               ),
             ),
             BlocBuilder<PaymentBloc, PaymentState>(

@@ -40,18 +40,23 @@ TextStyle? getSemiBoldStyle(
   return _getTextStyle(fontSize, FontWeightApp.semiBold, color);
 }
 
+TextStyle? getUnderBoldStyle(
+    {double fontSize = FontSizeApp.s12, required Color color}) {
+  return _getTextStyle(fontSize, FontWeightApp.underBold, color);
+}
+
 // bold style
 TextStyle? getBoldStyle({
   double fontSize = FontSizeApp.s12,
   required Color color,
 }) {
-  return _getTextStyle(fontSize, FontWeightApp.bold, color);
+  return _getTextStyle(fontSize, FontWeightApp.morebold, color);
 }
 
 //morbold
-TextStyle? getMoreBoldStyle({
-  double fontSize = FontSizeApp.s12,
-  required Color color,
-}) {
-  return _getTextStyle(fontSize, FontWeightApp.moreBold, color);
-}
+// TextStyle? getMoreBoldStyle({
+//   double fontSize = FontSizeApp.s12,
+//   required Color color,
+// }) {
+//   return _getTextStyle(fontSize, FontWeightApp.moreBold, color);
+// }
