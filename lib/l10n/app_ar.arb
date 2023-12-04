@@ -91,5 +91,67 @@
   "change_Number": "تغيير الرقم",
   "save_Changes": "حفظ التغييرات",
   "confirmNumber": "رمز التأكد من الرقم",
-  "notification": "اشعارات"
+  "notification": "اشعارات",
+  "show_more":"رؤية المزيد",
+  "sections":"الاقسام",
+  "suggested_products":"المنتجات المقترحة",
+  "discounts":"الحسومات",
+  "price":"السعر",
+  "related_products":"منتجات ذات صلة",
+  "similar_products":"منتجات مشابهة",
+  "add_to_basket":"اضافة الى السلة",
+  "payment":"الدفع",
+  "cash_payment":"الدفع عند الاستلام",
+  "farmy_wallet":"محفظة فارمي",
+
+  "payment_statment":"قد يختلف شكل المنتج النهائي و السعر حسب الوزن !",
+  "adress":"العنوان",
+  "redeem_points":"استبدال النقاط",
+  
+  "conduction":"التوصيل",
+  "delivery_to":"التوصيل إلى:",
+  "delivery_cost":"كلفة التوصيل:",
+  "hasm_code":"كود حسم ",
+  "cannot_use_both_code_points":"لا يمكنك استخدام الكود الحسم و استبدال النقاط معاً (اختر واحدة فقط)",
+  "reviews":"ملاحظات",
+  "add_notes":"إضافة ملاحظات على طلبك",
+  "invoice":"الفاتورة",
+  "normal_request":"طلب عادي",
+  "urgent_request":"طلب مستعجل",
+  "order_scheduling":"جدولة الطلب",
+
+  "total_amount":"المبلغ الإجمالي",
+  "discount_Code":"كود الحسم",
+  "deliverycharges":"رسوم التوصيل",
+  "tax":"الضريبة",
+  "total":"الإجمالي",
+"delete_account":"حذف الحساب",
+  "sorry_for_delete_account":"يؤسفنا مغادرتك التطبيق !\n إذا كان لديك مشكلة ما..مازلنا نستطيع مساعدتك",
+  "write_in_this_box_optional":"الكتابة في هذا الصندوق اختياري",
+  "please_write_your_phone_and_password":"الرجاء كتابة رقمك وكلمة المرور للتأكيد",
+  "password_with_star":"كلمة المرور **",
+  "confirm_delete":"تأكيد الحذف",
+  "your_Account_Has_Been_Successfully_Deleted":"تم حذف حسابك بنجاح",
+  "order_Number":"رقم الطلب :",
+  "order_Date":"تاريخ الطلب:",
+  "site":"الموقع :",
+  "delivery_Operator_Name":" اسم عامل التوصيل :",
+  "total_price":" إجمالي السعر:",
+  "evaluation":" التقييم : ",
+  "all_Invoices":"جميع الفواتير :",
+  "order Number":"رقم الطلب :",
+  "order_Date":"تاريخ الطلب :",
+  "products_Price":"سعر المنتجات : ",
+  "price_of_Returned_Products":" سعر المنتجات المرتجعة :",
+  "rebates_Value":" قيمة الحسومات: ",
+  "delivery_Price":" سعر التوصيل : ",
+  "total price":" إجمالي السعر : " 
+
+
+
+
+    
+
+ 
+  
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ColorManager {
+class     ColorManager {
   static const primaryGreen = Color(0xff4F8640);
   static const softGreen = Color(0xff305C36);
   static const lightGreen = Color(0xff172F20);
@@ -15,9 +15,6 @@ class ColorManager {
   static const grayForSearchProduct = Color(0xff9B9B9B);
   static const redForFavorite = Color(0xffBF0000);
 
-  static const linearGradientPrimary = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
   static const linearGradientPrimary=LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,

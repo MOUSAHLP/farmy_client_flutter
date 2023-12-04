@@ -55,7 +55,7 @@ class CardBasket extends StatelessWidget {
               children: [
                 Text(
                   "فليفلة حمراء",
-                  style: getMoreBoldStyle(
+                  style: getBoldStyle(
                       color: ColorManager.black,
                       fontSize: FontSizeApp.s10)
                       ?.copyWith(height: 1),

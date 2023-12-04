@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/translations.dart';
 
 class CustomSectionName extends StatelessWidget {
   final String sectionName;
@@ -16,14 +17,14 @@ class CustomSectionName extends StatelessWidget {
       children: [
         Text(
           sectionName,
-          style: getMoreBoldStyle(
+          style: getBoldStyle(
               color: ColorManager.primaryGreen, fontSize: FontSizeApp.s15),
         ),
         GestureDetector(
           onTap: onTap,
           child: Text(
-            "رؤية المزيد",
-            style: getMoreBoldStyle(
+AppLocalizations.of(context)!.show_more,
+            style: getBoldStyle(
                 color: ColorManager.grayForMessage, fontSize: FontSizeApp.s13),
           ),
         )

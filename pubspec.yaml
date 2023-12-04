@@ -81,11 +81,14 @@ flutter:
     - family: FrutigerLTArabic
       fonts:
         - asset: fonts/FrutigerLTArabic45Light.ttf
+          weight: 300
         - asset: fonts/FrutigerLTArabic55Roman.ttf
+          weight: 600
         - asset: fonts/FrutigerLTArabic65Bold.ttf
-    - family: Bahij TheSansArabic
-      fonts:
-        - asset: fonts/Bahij TheSansArabic Bold.ttf
+          weight: 900
+
+        
+
 
 
 

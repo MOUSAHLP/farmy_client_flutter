@@ -61,7 +61,7 @@ class CutomOrderTypeContiner extends StatelessWidget {
                     Expanded(
                       child: Text(
                         text,
-                        style: getMoreBoldStyle(
+                        style: getBoldStyle(
                             color: ColorManager.grayForMessage),
                       ),
                     ),
@@ -88,7 +88,7 @@ class CutomOrderTypeContiner extends StatelessWidget {
         ),
         Text(
           deliverycost,
-          style: getMoreBoldStyle(
+          style: getBoldStyle(
                   color: ColorManager.grayForMessage,
                   fontSize: FontSizeApp.s14)!
               .copyWith(fontWeight: FontWeight.bold),

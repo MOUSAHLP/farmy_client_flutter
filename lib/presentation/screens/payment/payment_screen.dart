@@ -17,6 +17,7 @@ import 'package:pharma/presentation/screens/payment/widgets/custom_order_type_co
 import 'package:pharma/presentation/screens/payment/widgets/custom_payment_status_continer.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/select_location.dart';
+import 'package:pharma/translations.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
@@ -40,14 +41,14 @@ class PaymentBody extends StatelessWidget {
           body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomAppBarScreen(sectionName: "الدفع"),
+          CustomAppBarScreen(
+              sectionName: AppLocalizations.of(context)!.payment),
           Expanded(
             child: ListView(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 21),
-                  child: Text(
-                      "قد يختلف شكل المنتج النهائي والسعر حسب الوزن  ! ",
+                  child: Text(AppLocalizations.of(context)!.payment_statment,
                       style: getRegularStyle(
                           color: ColorManager.grayForMessage,
                           fontSize: FontSizeApp.s16)),
@@ -59,8 +60,8 @@ class PaymentBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "العنوان",
-                        style: getMoreBoldStyle(
+                        AppLocalizations.of(context)!.address,
+                        style: getBoldStyle(
                             color: ColorManager.grayForMessage,
                             fontSize: FontSizeApp.s14),
                       ),
@@ -75,26 +76,30 @@ class PaymentBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "التوصيل",
-                        style: getMoreBoldStyle(
+                        AppLocalizations.of(context)!.conduction,
+                        style: getBoldStyle(
                             color: ColorManager.grayForMessage,
                             fontSize: FontSizeApp.s14),
                       ),
                       const SizedBox(
                         height: 4,
                       ),
-                      const CutomOrderTypeContiner(
-                        deliverycost: "التوصيل",
+                      CutomOrderTypeContiner(
+                        deliverycost:
+                            "${AppLocalizations.of(context)!.delivery_cost}25000",
                         image: ImageManager.dateTimeImage,
-                        text: "عرض حالة الطلب",
+                        text:
+                            "${AppLocalizations.of(context)!.normal_request} (30 دقيقة)",
                         orderState: OrderStates.normalOrder,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CutomOrderTypeContiner(
-                          deliverycost: "adfs",
+                          deliverycost:
+                              "${AppLocalizations.of(context)!.delivery_cost}35000.00",
                           image: ImageManager.dateTimeImage,
-                          text: "عرض  الطلب",
+                          text:
+                              "${AppLocalizations.of(context)!.urgent_request} (15 دقيقة)",
                           orderState: OrderStates.urgentOrder,
                         ),
                       ),
@@ -110,25 +115,25 @@ class PaymentBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "الدفع",
-                        style: getMoreBoldStyle(
+                        AppLocalizations.of(context)!.payment,
+                        style: getBoldStyle(
                             color: ColorManager.grayForMessage,
                             fontSize: FontSizeApp.s14),
                       ),
                       const SizedBox(
                         height: 4,
                       ),
-                      const CustomPaymentStatusContiner(
+                      CustomPaymentStatusContiner(
                         image: ImageManager.farmySmile,
-                        text: "الدفع عند الاستلام",
+                        text: AppLocalizations.of(context)!.cash_payment,
                         paymentState: PaymentStates.cashPayment,
                       ),
                       const SizedBox(
                         height: 12,
                       ),
-                      const CustomPaymentStatusContiner(
+                      CustomPaymentStatusContiner(
                         image: ImageManager.farmySmile,
-                        text: "محفظة فارمي",
+                        text: AppLocalizations.of(context)!.farmy_wallet,
                         paymentState: PaymentStates.farmyWallet,
                       ),
                     ],
@@ -141,28 +146,30 @@ class PaymentBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "كود حسم",
-                        style: getMoreBoldStyle(
+                        AppLocalizations.of(context)!.hasm_code,
+                        style: getBoldStyle(
                             color: ColorManager.primaryGreen,
                             fontSize: FontSizeApp.s14),
                       ),
                       const SizedBox(
                         height: 8,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 18),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
                         child: Row(
                           children: [
                             Expanded(
                                 child: CustomDiscountCodeContiner(
-                              subjectText: "كود حسم",
+                              subjectText:
+                                  AppLocalizations.of(context)!.hasm_code,
                             )),
-                            SizedBox(
+                            const SizedBox(
                               width: 4,
                             ),
                             Expanded(
                                 child: CustomDiscountCodeContiner(
-                              subjectText: "استبدال النقاط",
+                              subjectText:
+                                  AppLocalizations.of(context)!.redeem_points,
                             ))
                           ],
                         ),
@@ -175,8 +182,7 @@ class PaymentBody extends StatelessWidget {
                   children: [
                     Text(
                       "لقد حصلت على حسم 5000 ل.س من مجمل الفاتورة",
-                      style:
-                          getMoreBoldStyle(color: ColorManager.redForFavorite),
+                      style: getBoldStyle(color: ColorManager.redForFavorite),
                     ),
                   ],
                 ),
@@ -186,8 +192,8 @@ class PaymentBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "ملاحظات",
-                        style: getMoreBoldStyle(
+                        AppLocalizations.of(context)!.reviews,
+                        style: getBoldStyle(
                             color: ColorManager.grayForMessage,
                             fontSize: FontSizeApp.s14),
                       ),
@@ -195,10 +201,12 @@ class PaymentBody extends StatelessWidget {
                         height: 4,
                       ),
                       InputFieldAuth(
+                        maxLines: 5,
+                        minLines: 5,
                         height: .30.sw,
                         width: 1.sw,
                         color: ColorManager.lightGray,
-                        hintText: "اضافة ملاحظات على طلبك",
+                        hintText: AppLocalizations.of(context)!.add_notes,
                         hintStyle:
                             getRegularStyle(color: ColorManager.grayForMessage),
                       )
@@ -221,29 +229,47 @@ class PaymentBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 21, vertical: 11),
+                Padding(
+                  padding: const EdgeInsets.only(right: 38, left: 38, top: 15),
+                  child: Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.invoice,
+                        style: getUnderBoldStyle(
+                                color: ColorManager.grayForMessage,
+                                fontSize: FontSizeApp.s14)!
+                            .copyWith(height: 1),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(right: 21, left: 21, bottom: 11),
                   child: Column(
                     children: [
                       CustomBillDetailsRow(
-                        subStatusBill: "المبلغ الاجمالي",
+                        subStatusBill:
+                            AppLocalizations.of(context)!.total_amount,
                         price: "2000",
                       ),
                       CustomBillDetailsRow(
-                        subStatusBill: "كود الحسم ",
+                        subStatusBill: AppLocalizations.of(context)!.hasm_code,
                         price: "2000",
                       ),
                       CustomBillDetailsRow(
-                        subStatusBill: " رسوم التوصيل",
+                        subStatusBill:
+                            AppLocalizations.of(context)!.deliverycharges,
                         price: "2000",
                       ),
                       CustomBillDetailsRow(
-                        subStatusBill: "  الضريبة",
+                        subStatusBill:
+                            AppLocalizations.of(context)!.deliverycharges,
                         price: "2000",
                       ),
                       CustomBillDetailsRow(
                         colorText: ColorManager.primaryGreen,
-                        subStatusBill: " الاجمالي",
+                        subStatusBill: AppLocalizations.of(context)!.total,
                         price: "2000",
                       )
                     ],

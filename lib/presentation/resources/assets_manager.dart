@@ -22,6 +22,8 @@ class ImageManager {
   static const String profileIcon = "$imagePath/profile_icon.png";
   static const String dateTimeImage = "$imagePath/date_time.png";
   static const String farmySmile = "$imagePath/farmy_smile.png";
+  static const String logoAboutApp = "$imagePath/logo.png";
+  static const String flagOfSyria = "$imagePath/flag_of_syria.png";
 }
 
 class IconsManager {

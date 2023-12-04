@@ -17,7 +17,7 @@ class CustomBillDetailsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 17),
+      padding: EdgeInsets.symmetric(horizontal: 17),
       child: Column(
         children: [
           Row(
@@ -25,13 +25,13 @@ class CustomBillDetailsRow extends StatelessWidget {
             children: [
               Text(
                 subStatusBill,
-                style: getMoreBoldStyle(
+                style: getRegularStyle(
                     color: colorText ?? ColorManager.grayForMessage,
                     fontSize: FontSizeApp.s16),
               ),
               Text(
                 price,
-                style: getBoldStyle(
+                style: getUnderBoldStyle(
                     color: colorText ?? ColorManager.grayForMessage,
                     fontSize: FontSizeApp.s14),
               )

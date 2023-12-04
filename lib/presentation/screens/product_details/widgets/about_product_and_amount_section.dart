@@ -10,83 +10,80 @@ class AboutProductAndAmonutSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Text(
-            "فليفلة خضراء",
-            style: getMoreBoldStyle(
-              color: ColorManager.black,
-              fontSize: FontSizeApp.s15,
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text("فليفلة خضراء",
+                        style: getBoldStyle(
+                          color: ColorManager.black,
+                          fontSize: FontSizeApp.s15,
+                        )),
+                    Text("فليفلة رقيقة بديلة",
+                        style: getBoldStyle(
+                          color: ColorManager.grayForMessage,
+                          fontSize: FontSizeApp.s15,
+                        )),
+                  ],
+                ),
+                const Icon(
+                  Icons.favorite,
+                  color: ColorManager.grayForMessage,
+                  size: 28,
+                ),
+              ],
             ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 40),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+          //todo bold 700
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(),
-              Icon(
-                Icons.favorite,
-                color: ColorManager.grayForMessage,
-              )
+              CustomCountWidget(
+                myIcon: Icons.add,
+                onTap: () {},
+              ),
+              const SizedBox(
+                width: 18,
+              ),
+              InnerShadow(
+                shadows: [
+                  Shadow(
+                      color: Colors.black.withOpacity(0.25),
+                      blurRadius: 10,
+                      offset: const Offset(2, 5))
+                ],
+                child: Container(
+                  height: 38,
+                  width: 84,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.white),
+                ),
+              ),
+              const SizedBox(
+                width: 18,
+              ),
+              CustomCountWidget(
+                myIcon: Icons.remove,
+                onTap: () {},
+              ),
             ],
           ),
-        ),
-
-        //todo bold 700
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-          child: Text(
-            "فليفلة رقيقة بديلة",
-            style: getBoldStyle(
-              color: ColorManager.grayForMessage,
-              fontSize: FontSizeApp.s15,
-            ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: Divider(thickness: 1),
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomCountWidget(
-              myIcon: Icons.add,
-              onTap: () {},
-            ),
-            const SizedBox(
-              width: 18,
-            ),
-            InnerShadow(
-              shadows: [
-                Shadow(
-                    color: Colors.black.withOpacity(0.25),
-                    blurRadius: 10,
-                    offset: const Offset(2, 5))
-              ],
-              child: Container(
-                height: 38,
-                width: 84,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: Colors.white),
-              ),
-            ),
-            const SizedBox(
-              width: 18,
-            ),
-            CustomCountWidget(
-              myIcon: Icons.remove,
-              onTap: () {},
-            ),
-          ],
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25),
-          child: Divider(thickness: 1),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

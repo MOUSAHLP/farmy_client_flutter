@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:pharma/presentation/resources/color_manager.dart';
-import '../../../core/app_router/app_router.dart';
-
 
 class CustomDialog extends StatelessWidget {
   const CustomDialog({Key? key, required this.content, this.icon, this.color})
