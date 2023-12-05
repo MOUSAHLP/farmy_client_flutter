@@ -13,8 +13,9 @@ class FontWeightApp {
   static const FontWeight regular = FontWeight.w400;
   static const FontWeight medium = FontWeight.w500;
   static const FontWeight semiBold = FontWeight.w600;
+  static const FontWeight underBold = FontWeight.w700;
   static const FontWeight bold = FontWeight.w800;
-  static const FontWeight moreBold = FontWeight.w800;
+  static const FontWeight morebold = FontWeight.w900;
 }
 
 class FontSizeApp {

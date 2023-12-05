@@ -28,7 +28,7 @@ class CustomDiscountCodeContiner extends StatelessWidget {
           ),
           Text(
             subjectText,
-            style: getMoreBoldStyle(color: ColorManager.grayForMessage),
+            style: getBoldStyle(color: ColorManager.grayForMessage),
           ),
         ],
       ),

@@ -32,6 +32,8 @@ class ImageManager {
   static const String locationFirst = "$imagePath/location_first.png";
   static const String welcome = "$imagePath/welcome.png";
   static const String emoji = "$imagePath/emoji.png";
+  static const String logoAboutApp = "$imagePath/logo.png";
+  static const String flagOfSyria = "$imagePath/flag_of_syria.png";
 }
 
 class IconsManager {

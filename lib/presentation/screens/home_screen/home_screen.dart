@@ -12,11 +12,12 @@ import 'package:pharma/presentation/screens/location_screen/location_screen.dart
 import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/presentation/widgets/custom_app_drawer.dart';
+import 'package:pharma/translations.dart';
 
 import '../all_section/all_section_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-   HomeScreen({super.key, required this.scaffoldKey});
+  const HomeScreen({super.key, required this.scaffoldKey});
   final GlobalKey<ScaffoldState> scaffoldKey;
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class HomeScreen extends StatelessWidget {
           width: 1.sw,
           child: Column(
             children: [
-               CustomAppBar(scaffoldKey: scaffoldKey),
+              CustomAppBar(scaffoldKey: scaffoldKey),
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.zero,
@@ -80,8 +81,8 @@ class HomeScreen extends StatelessWidget {
                                         Text(
                                           "التوصيل الى :",
                                           style: getSemiBoldStyle(
-                                                  color:
-                                                      ColorManager.grayForMessage,
+                                                  color: ColorManager
+                                                      .grayForMessage,
                                                   fontSize: FontSizeApp.s10)!
                                               .copyWith(height: 1),
                                         ),
@@ -97,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                                             "دمشق - الميدان - بناء الادخار ",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
-                                            style: getMoreBoldStyle(
+                                            style: getBoldStyle(
                                                     fontSize: FontSizeApp.s13,
                                                     color: ColorManager
                                                         .primaryGreen)!
@@ -110,14 +111,16 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                               InkWell(
-                                onTap: (){
-                                  AppRouter.push(context, LocationScreen());
+                                onTap: () {
+                                  AppRouter.push(
+                                      context, const LocationScreen());
                                 },
-                                child: const Icon(Icons.arrow_forward_ios,
+                                child: const Icon(
+                                  Icons.arrow_forward_ios,
                                   size: 20,
-                                  color: ColorManager.grayForMessage,),
+                                  color: ColorManager.grayForMessage,
+                                ),
                               ),
-
                             ],
                           ),
                         ),
@@ -137,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                                 horizontal: 22, vertical: 6),
                             child: Text(
                               "asffffffffffffffffffffffffffffasسffffffffffffffffffffffffffffasffffffffffffffffffffffffffffasffffffffffffffffffffffffffffasffffffffffffffffffffffffffff",
-                              style: getMoreBoldStyle(
+                              style: getBoldStyle(
                                 color: ColorManager.grayForMessage,
                               ),
                             ),
@@ -146,9 +149,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 33, vertical: 13),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 33, vertical: 13),
                       child: CustomSectionName(
-                        sectionName: "الاقسام",
+                        sectionName: AppLocalizations.of(context)!.sections,
                         onTap: () {
                           AppRouter.push(context, ALlSectionScreen());
                         },
@@ -168,7 +172,8 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisCount: 2),
                         itemBuilder: (context, index) {
                           return const CustomCategory(
-                            categoryName: "الفواكهالفوالفواكهالفواكهالفواكهالفو",
+                            categoryName:
+                                "الفواكهالفوالفواكهالفواكهالفواكهالفو",
                           );
                         },
                       ),
@@ -177,9 +182,11 @@ class HomeScreen extends StatelessWidget {
                       height: 0.5.sw,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 33, vertical: 13),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 33, vertical: 13),
                       child: CustomSectionName(
-                        sectionName: "المنتجات المقترحة",
+                        sectionName:
+                            AppLocalizations.of(context)!.suggested_products,
                         onTap: () {},
                       ),
                     ),
@@ -193,7 +200,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsetsDirectional.only(
-                                start: index == 0 ? 0 : 15),
+                                bottom: 10, start: index == 0 ? 0 : 15),
                             child: const CustomProductCard(isDisCount: true),
                           );
                         },
@@ -203,9 +210,10 @@ class HomeScreen extends StatelessWidget {
                       height: 0.5.sw,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 33, vertical: 13),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 33, vertical: 13),
                       child: CustomSectionName(
-                        sectionName: "الحسومات",
+                        sectionName: AppLocalizations.of(context)!.discounts,
                         onTap: () {},
                       ),
                     ),
@@ -219,7 +227,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsetsDirectional.only(
-                                start: index == 0 ? 0 : 15),
+                                bottom: 10, start: index == 0 ? 0 : 15),
                             child: const CustomProductCard(isDisCount: true),
                           );
                         },

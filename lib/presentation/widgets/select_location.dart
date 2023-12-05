@@ -4,6 +4,7 @@ import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/translations.dart';
 
 class SelectLocation extends StatelessWidget {
   const SelectLocation({super.key});
@@ -44,7 +45,7 @@ class SelectLocation extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "التوصيل الى :",
+                     AppLocalizations.of(context)!.delivery_to,
                         style: getSemiBoldStyle(
                                 color: ColorManager.grayForMessage,
                                 fontSize: FontSizeApp.s10)!
@@ -62,7 +63,7 @@ class SelectLocation extends StatelessWidget {
                           "دمشق - الميدان - بناء الادخار ",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: getMoreBoldStyle(
+                          style: getBoldStyle(
                                   fontSize: FontSizeApp.s13,
                                   color: ColorManager.primaryGreen)!
                               .copyWith(height: 1),

@@ -13,6 +13,7 @@ class CustomProductCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
+        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(6)),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF000000).withOpacity(0.18),
@@ -50,7 +51,7 @@ class CustomProductCard extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Text(
                             "فليفلة حمراء",
-                            style: getMoreBoldStyle(
+                            style: getBoldStyle(
                                     color: ColorManager.black,
                                     fontSize: FontSizeApp.s10)!
                                 .copyWith(height: 1),
@@ -94,7 +95,7 @@ class CustomProductCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4, bottom: 0),
                           child: Text("adreess",
-                              style: getMoreBoldStyle(
+                              style: getBoldStyle(
                                       color: ColorManager.primaryGreen,
                                       fontSize: FontSizeApp.s15)!
                                   .copyWith(height: 1)),
@@ -131,7 +132,7 @@ class CustomProductCard extends StatelessWidget {
               child: Center(
                   child: Text(
                 "الاكثر مبيعا",
-                style: getMoreBoldStyle(
+                style: getBoldStyle(
                         color: ColorManager.white, fontSize: FontSizeApp.s7)!
                     .copyWith(),
               )),

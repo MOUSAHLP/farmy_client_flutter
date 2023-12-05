@@ -6,8 +6,12 @@ import 'package:pharma/presentation/resources/style_app.dart';
 class CustomDetailsEvaluationsRow extends StatelessWidget {
   final String label;
   final String valueOfLabel;
+  final Color? colorText;
   const CustomDetailsEvaluationsRow(
-      {super.key, required this.label, required this.valueOfLabel});
+      {super.key,
+      required this.label,
+      required this.valueOfLabel,
+      this.colorText});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class CustomDetailsEvaluationsRow extends StatelessWidget {
       children: [
         Text(
           label,
-          style: getMoreBoldStyle(
+          style: getBoldStyle(
               color: ColorManager.grayForMessage, fontSize: FontSizeApp.s13),
         ),
         const SizedBox(
@@ -23,8 +27,9 @@ class CustomDetailsEvaluationsRow extends StatelessWidget {
         ),
         Text(
           valueOfLabel,
-          style: getMoreBoldStyle(
-              color: ColorManager.grayForMessage, fontSize: FontSizeApp.s13),
+          style: getBoldStyle(
+              color: colorText ?? ColorManager.grayForMessage,
+              fontSize: FontSizeApp.s13),
         ),
       ],
     );

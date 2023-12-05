@@ -6,6 +6,7 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/my_evaluation/widgets/custom_details_evaluation_row.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
+import 'package:pharma/translations.dart';
 
 class MyEvaluationScreen extends StatelessWidget {
   const MyEvaluationScreen({super.key});
@@ -16,7 +17,8 @@ class MyEvaluationScreen extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            const CustomAppBarScreen(sectionName: "تقيماتي"),
+            CustomAppBarScreen(
+                sectionName: AppLocalizations.of(context)!.my_Reviews),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 21),
@@ -41,26 +43,30 @@ class MyEvaluationScreen extends StatelessWidget {
                               vertical: 21, horizontal: 15),
                           child: Column(
                             children: [
-                              const CustomDetailsEvaluationsRow(
-                                  label: "رقم الطلب :",
+                              CustomDetailsEvaluationsRow(
+                                  label: AppLocalizations.of(context)!
+                                      .order_Number,
                                   valueOfLabel: "89465874896"),
-                              const CustomDetailsEvaluationsRow(
-                                  label: "تاريخ الطلب :",
+                              CustomDetailsEvaluationsRow(
+                                  label:
+                                      AppLocalizations.of(context)!.order_Date,
                                   valueOfLabel: "11/4/2023"),
-                              const CustomDetailsEvaluationsRow(
-                                  label: "الموقع :",
+                              CustomDetailsEvaluationsRow(
+                                  label: AppLocalizations.of(context)!.site,
                                   valueOfLabel: "كورنيش التجارة"),
-                              const CustomDetailsEvaluationsRow(
-                                  label: "اسم عامل التوصيل :",
+                              CustomDetailsEvaluationsRow(
+                                  label: AppLocalizations.of(context)!
+                                      .delivery_Operator_Name,
                                   valueOfLabel: "ميار جباصيني"),
-                              const CustomDetailsEvaluationsRow(
-                                  label: "اجمالي السعر: ",
+                              CustomDetailsEvaluationsRow(
+                                  label:
+                                      AppLocalizations.of(context)!.total_price,
                                   valueOfLabel: "220.00 ل.س"),
                               Row(
                                 children: [
                                   Text(
-                                    "التقييم:",
-                                    style: getMoreBoldStyle(
+                                    AppLocalizations.of(context)!.evaluation,
+                                    style: getBoldStyle(
                                         color: ColorManager.grayForMessage,
                                         fontSize: FontSizeApp.s13),
                                   ),
