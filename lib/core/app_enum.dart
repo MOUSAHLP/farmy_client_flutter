@@ -23,3 +23,11 @@ enum OrderStates {
 enum PaymentStates { cashPayment, farmyWallet }
 
 const String mapKey="AIzaSyAX8XoECKD0-gnAaah67gR4akbUodB_8Ww";
+
+enum ScreensAuth{
+  signInScreen,
+  phoneNumberScreen,
+  otpConfirmationScreen,
+  resetPasswordScreen
+
+}

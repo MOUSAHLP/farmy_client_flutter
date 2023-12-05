@@ -22,10 +22,21 @@ class ImageManager {
   static const String profileIcon = "$imagePath/profile_icon.png";
   static const String dateTimeImage = "$imagePath/date_time.png";
   static const String farmySmile = "$imagePath/farmy_smile.png";
+  static const String onBoarding1 = "$imagePath/onborading1.png";
+  static const String onBoarding2 = "$imagePath/onborading2.png";
+  static const String onBoarding3 = "$imagePath/onborading3.png";
+  static const String slide1 = "$imagePath/Slide1.png";
+  static const String slide2 = "$imagePath/Slide2.png";
+  static const String slide3 = "$imagePath/Slide3.png";
+  static const String backgroundLocation = "$imagePath/background_location.png";
+  static const String locationFirst = "$imagePath/location_first.png";
+  static const String welcome = "$imagePath/welcome.png";
+  static const String emoji = "$imagePath/emoji.png";
 }
 
 class IconsManager {
   static const String logoApp = "$iconPath/logo_app.svg";
+  static const String logoGreen = "$iconPath/logo_green.svg";
   static const String crown = "$iconPath/crown_icon.svg";
   static const String locationIcon = "$iconPath/location_icon.png";
 }

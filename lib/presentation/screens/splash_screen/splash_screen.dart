@@ -5,6 +5,7 @@ import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
+import 'package:pharma/presentation/screens/onboarding_screen/onboarding_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -12,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 4), () {
-      AppRouter.push(context,  const AccountScreen());
+      AppRouter.push(context,  const OnBoardingScreen());
 
     });
 

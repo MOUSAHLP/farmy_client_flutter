@@ -10,6 +10,8 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../core/app_enum.dart';
+
 class OtpConfirmationScreen extends StatefulWidget {
   const OtpConfirmationScreen({super.key});
 
@@ -39,7 +41,7 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
         return WillPopScope(
           onWillPop: ()async{
             context.read<AuthenticationBloc>().add(
-                TapOnPressed(1)
+                TapOnPressed(ScreensAuth.signInScreen)
             );
             return false;
           },
@@ -96,7 +98,7 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                       InkWell(
                         onTap: () {
                           context.read<AuthenticationBloc>().add(
-                              TapOnPressed(3)
+                              TapOnPressed(ScreensAuth.resetPasswordScreen)
                           );
                         },
                         child: Text(
@@ -113,7 +115,7 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                       onTap: () {
                         context
                             .read<AuthenticationBloc>()
-                            .add(TapOnPressed(3));
+                            .add(TapOnPressed(ScreensAuth.resetPasswordScreen));
                       }),
                   const SizedBox(
                     height: 13,
@@ -123,7 +125,7 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                       onTap: () {
                         context
                             .read<AuthenticationBloc>()
-                            .add(TapOnPressed(1));
+                            .add(TapOnPressed(ScreensAuth.signInScreen));
                       }),
                   const SizedBox(
                     height: 13,

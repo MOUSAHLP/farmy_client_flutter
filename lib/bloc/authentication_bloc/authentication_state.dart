@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 
+import '../../core/app_enum.dart';
+
 
 class AuthenticationState extends Equatable {
-  int indexTap;
-  AuthenticationState({this.indexTap = 0});
+  ScreensAuth indexTap;
+  AuthenticationState({this.indexTap = ScreensAuth.signInScreen});
   AuthenticationState copyWith({
-    int?index}) {
+    ScreensAuth?index}) {
     return AuthenticationState(indexTap: index??indexTap);
   }
   @override

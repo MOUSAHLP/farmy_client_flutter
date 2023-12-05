@@ -16,9 +16,7 @@ class ColorManager {
   static const redForFavorite = Color(0xffBF0000);
 
   static const linearGradientPrimary = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  static const linearGradientPrimary=LinearGradient(
+
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     stops: [0.0172, 0.983],
@@ -46,4 +44,5 @@ class ColorManager {
     spreadRadius: 1.0,
   );
   static const grayForm =Color(0xffE4E4E4);
+  static const yellow =Color(0xffEDCC2F);
 }

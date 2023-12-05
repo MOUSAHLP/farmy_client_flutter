@@ -16,6 +16,7 @@ import 'package:pharma/presentation/screens/auth_screen/reset_password.dart';
 import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../core/app_enum.dart';
 import 'otp_confirmation_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -44,14 +45,14 @@ class _SignInScreenState extends State<SignInScreen>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-      bloc: sl<AuthenticationBloc>()..add(TapOnPressed(0)),
+      bloc: sl<AuthenticationBloc>()..add(TapOnPressed(ScreensAuth.signInScreen)),
       listener: (context, state) {
 
       },
      builder: (context, state)
      {
        return BackGroundAuth(
-            child: state.indexTap == 0
+            child: state.indexTap == ScreensAuth.signInScreen
                 ? WillPopScope(
               onWillPop: ()async{
 
@@ -94,7 +95,7 @@ class _SignInScreenState extends State<SignInScreen>
                             InkWell(
                               onTap: () {
                                 context.read<AuthenticationBloc>().add(
-                                    TapOnPressed(1)
+                                    TapOnPressed(ScreensAuth.phoneNumberScreen)
                                 );
                               },
                               child: Text(
@@ -125,9 +126,9 @@ class _SignInScreenState extends State<SignInScreen>
                       ],
                     ),
                 )
-                : state.indexTap == 1
+                : state.indexTap == ScreensAuth.phoneNumberScreen
                     ? const PhoneNumberScreen()
-                    :state.indexTap == 2?const OtpConfirmationScreen(): const ResetPasswordScreen());
+                    :state.indexTap == ScreensAuth.otpConfirmationScreen?const OtpConfirmationScreen(): const ResetPasswordScreen());
       },
     );
   }
