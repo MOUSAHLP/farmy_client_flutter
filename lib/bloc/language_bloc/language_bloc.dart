@@ -11,6 +11,7 @@ String lang=DataStore.instance.lang;
     on<LanguageEvent>((event, emit) async {
       if (event is NewLanguageChange) {
         DataStore.instance.setLang(event.language);
+        lang=event.language;
         emit(NewLanguage(event.language));
       }
       if (event is SelectLanguage) {

@@ -51,6 +51,13 @@ class DataStore {
   Future<void> setDynamicData<T>(String key, T value) async {
     await box.put(key, value);
   }
+  bool? get isShowOnBoarding {
+    if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
+    return box.get(DataStoreKeys.onBoarding);
+  }
+
+  Future<void> setShowOnBoarding(bool value) =>
+      box.put(DataStoreKeys.onBoarding, value);
 
   dynamic dynamicData<T>(String key) {
     if (!box.containsKey(key)) return null;

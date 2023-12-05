@@ -6,6 +6,10 @@ import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/presentation/screens/location_first_screen/location_first_screen.dart';
+import 'package:pharma/presentation/screens/location_first_screen/welcome_screen.dart';
+import 'package:pharma/presentation/screens/onboarding_screen/onboarding_screen.dart';
+import 'package:pharma/presentation/screens/order_tracking_screen/order_tracking_screen.dart';
 import 'package:pharma/presentation/screens/all_invoices/all_invoices_screen.dart';
 
 import 'package:pharma/presentation/screens/delete_account/delete_account_screen.dart';
@@ -20,6 +24,7 @@ import 'package:pharma/translations.dart';
 import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/location_bloc/location_bloc.dart';
 import 'data/data_resource/local_resource/data_store.dart';
+import 'presentation/screens/main_screen/main_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -33,7 +38,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       minTextAdapt: true,
-      useInheritedMediaQuery: true,
       designSize: const Size(100, 100),
       builder: (context, ctx) {
         return MultiBlocProvider(
@@ -43,6 +47,8 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(
               create: (BuildContext context) => sl<LanguageBloc>(),
             ),
+            BlocProvider(
+                create: (BuildContext context) => sl<OnBoardingBloc>()),
             BlocProvider(
               create: (BuildContext context) => sl<HomeBloc>(),
             ),
@@ -55,15 +61,15 @@ class _MyAppState extends State<MyApp> {
             if (true) {
               return const MaterialApp(
                 title: 'Farmy',
-                //    locale: Locale(DataStore.instance.lang),
-                locale: Locale('en'),
+                locale: Locale(DataStore.instance.lang),
                 supportedLocales: AppLocalizations.supportedLocales,
-                localizationsDelegates: [
+                localizationsDelegates: const [
                   AppLocalizations.delegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                 ],
+
                 home: MyEvaluationScreen(),
                 // home:  NotificationScreen(),
               );

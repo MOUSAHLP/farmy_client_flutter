@@ -15,6 +15,7 @@ class     ColorManager {
   static const grayForSearchProduct = Color(0xff9B9B9B);
   static const redForFavorite = Color(0xffBF0000);
 
+
   static const linearGradientPrimary=LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
@@ -43,4 +44,5 @@ class     ColorManager {
     spreadRadius: 1.0,
   );
   static const grayForm =Color(0xffE4E4E4);
+  static const yellow =Color(0xffEDCC2F);
 }

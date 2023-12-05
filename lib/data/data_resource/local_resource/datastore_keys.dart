@@ -1,6 +1,6 @@
 class DataStoreKeys {
   ///Boxes
-  static const box = "default_box_v0.0.14";
+  static const box = "default_box_v0.0.1";
   ///Keys
   static const lang = "lang";
   static const token = "token";

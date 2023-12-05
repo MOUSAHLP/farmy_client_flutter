@@ -6,6 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_event.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
+import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/setting_screen/setting_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
@@ -80,123 +81,7 @@ class CustomAppDrawer extends StatelessWidget {
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.all_invoices, () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title:
-                                  BlocBuilder<LanguageBloc, LanguageState>(
-                                    builder: (context, state) => Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                      children: [
-                                        GestureDetector(
-                                            child: Container(
-                                              height: 43,
-                                              decoration: BoxDecoration(
-                                                  color: ColorManager
-                                                      .lightGray,
-                                                  borderRadius:
-                                                  BorderRadius.circular(6)),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(
-                                                        8.0),
-                                                    child: Text("English",
-                                                        style: getBoldStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 13,
-                                                        )),
-                                                  ),
-                                                  Radio(
-                                                    fillColor: MaterialStateColor
-                                                        .resolveWith((states) =>
-                                                    ColorManager
-                                                        .primaryGreen),
-                                                    value: "en",
-                                                    groupValue: context
-                                                        .read<LanguageBloc>()
-                                                        .lang,
-                                                    onChanged: (value) {
-                                                      sl<LanguageBloc>().add(
-                                                          SelectLanguage(
-                                                              value??"en"));
 
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            onTap: () {}),
-                                        const SizedBox(height: 15,),
-                                        GestureDetector(
-                                            child: Container(
-                                              height: 43,
-                                              decoration: BoxDecoration(
-                                                  color: ColorManager.lightGray,
-                                                  borderRadius:
-                                                  BorderRadius.circular(6)),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(
-                                                        8.0),
-                                                    child: Text("عربي",
-                                                        style: getBoldStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 13,
-                                                        )),
-                                                  ),
-                                                  Radio(
-                                                    fillColor: MaterialStateColor
-                                                        .resolveWith((states) =>
-                                                    ColorManager
-                                                        .primaryGreen),
-                                                    value: "ar",
-                                                    groupValue: context
-                                                        .read<LanguageBloc>()
-                                                        .lang,
-                                                    onChanged: (value) {
-                                                      sl<LanguageBloc>().add(
-                                                          SelectLanguage(
-                                                              value??"ar"));
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            onTap: () {}),
-                                        const SizedBox(height: 18,),
-                                        SizedBox(
-                                          width:97,
-                                          child: CustomButton(
-                                            label:AppLocalizations.of(context)!.confirm,
-                                            fillColor: ColorManager.primaryGreen,
-                                            onTap: () {
-                                              sl<LanguageBloc>().add(
-                                                  NewLanguageChange(context
-                                                      .read<LanguageBloc>()
-                                                      .lang));
-                                              AppRouter.pop(context);
-                                            },
-                                          ),
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
 
                           }),
                           buildElevatedButton(
@@ -213,7 +98,7 @@ class CustomAppDrawer extends StatelessWidget {
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.sign_out, () {
-                            AppRouter.pop(context);
+                            AppRouter.push(context, AccountScreen());
                           }),
                           const SizedBox(height: 20),
 

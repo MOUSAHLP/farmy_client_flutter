@@ -8,6 +8,7 @@ import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.d
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
 import '../../../bloc/authentication_bloc/authentication_event.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../../core/app_enum.dart';
 import '../../../translations.dart';
 
 class PhoneNumberScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen>
       builder: (context, state) => WillPopScope(
         onWillPop: ()async{
           context.read<AuthenticationBloc>().add(
-              TapOnPressed(0)
+              TapOnPressed(ScreensAuth.signInScreen)
           );
           return false;
         },
@@ -70,14 +71,15 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 310,
-                    height: 81,
-                    child: Text(
-                      AppLocalizations.of(context)!.reset_link,
-                      style: getSemiBoldStyle(color: Colors.white, fontSize: 14),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric( horizontal: 32),
+                      child: Text(
+                        AppLocalizations.of(context)!.reset_link,
+                        style: getSemiBoldStyle(color: Colors.white, fontSize: 14),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 ],
@@ -87,7 +89,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen>
               ),
               ButtonAuth(label: AppLocalizations.of(context)!.done, onTap: () {
                 context.read<AuthenticationBloc>().add(
-                    TapOnPressed(2)
+                    TapOnPressed(ScreensAuth.otpConfirmationScreen)
                 );
               }),
               const SizedBox(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/row_order.dart';
+import 'package:pharma/presentation/screens/order_tracking_screen/order_tracking_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/translations.dart';
 
@@ -76,6 +78,7 @@ class CardOrder extends StatelessWidget {
                         labelColor:Colors.white ,
 
                         onTap: () {
+                          AppRouter.push(context, OrderTrackingScreen());
                           // SystemNavigator.pop();
                         },
                       ),
