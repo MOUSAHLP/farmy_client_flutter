@@ -42,7 +42,7 @@ dependencies:
   package_info_plus: ^4.0.0
   flutter_localizations:
     sdk: flutter
-  url_launcher: ^6.1.12
+  url_launcher: ^6.2.1
 
   #map
   google_places_autocomplete_text_field:

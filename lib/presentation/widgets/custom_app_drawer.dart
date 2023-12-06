@@ -6,6 +6,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_event.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
+import 'package:pharma/presentation/screens/all_invoices/all_invoices_screen.dart';
+import 'package:pharma/presentation/screens/all_section/all_section_screen.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/setting_screen/setting_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
@@ -51,7 +53,8 @@ class CustomAppDrawer extends StatelessWidget {
                                   IconsManager.logoApp,
                                   width: 50,
                                   height: 50,
-                                  colorFilter: const ColorFilter.mode(Color(0xff99B990), BlendMode.srcIn) ,
+                                  colorFilter: const ColorFilter.mode(
+                                      Color(0xff99B990), BlendMode.srcIn),
                                 ))),
                           ),
                           const SizedBox(
@@ -76,16 +79,15 @@ class CustomAppDrawer extends StatelessWidget {
                           ),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.settings, () {
-                                AppRouter.push(context, const SettingScreen());
-
+                            AppRouter.push(context, const SettingScreen());
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.all_invoices, () {
-
-
+                            AppRouter.push(context, const AllInvoicesScreen());
                           }),
                           buildElevatedButton(
-                              AppLocalizations.of(context)!.connect_with_us, () {
+                              AppLocalizations.of(context)!.connect_with_us,
+                              () {
                             AppRouter.pop(context);
                           }),
                           buildElevatedButton(
@@ -98,7 +100,7 @@ class CustomAppDrawer extends StatelessWidget {
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.sign_out, () {
-                            AppRouter.push(context, AccountScreen());
+                            AppRouter.push(context, const AccountScreen());
                           }),
                           const SizedBox(height: 20),
 
