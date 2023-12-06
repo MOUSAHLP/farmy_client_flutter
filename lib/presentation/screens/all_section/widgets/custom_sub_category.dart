@@ -7,7 +7,7 @@ class CustomSubCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       itemCount: 17,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 0,
@@ -15,7 +15,7 @@ class CustomSubCategory extends StatelessWidget {
           mainAxisExtent: 135,
           crossAxisCount: 3),
       itemBuilder: (context, index) {
-        return Container(child: CustomCategory(categoryName: "asd"));
+        return const CustomCategory(categoryName: "قليفلة");
       },
     );
   }

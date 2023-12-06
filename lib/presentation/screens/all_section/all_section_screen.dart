@@ -4,6 +4,7 @@ import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/all_product/all_product_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
+import 'package:pharma/translations.dart';
 
 import '../../widgets/custom_app_bar_screen.dart';
 import 'widgets/custom_sub_category.dart';
@@ -24,47 +25,49 @@ class ALlSectionScreen extends StatelessWidget {
     return DefaultTabController(
       length: tabTitles.length,
       initialIndex: 0,
-      child: Scaffold(
-        body: SizedBox(
-          // height: 420,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomAppBar(),
-              const CustomAppBarScreen(sectionName: "جميع الاقسام"),
-              SizedBox(
-                width: 1.sw,
-                child: TabBar(
-                  onTap: (value) {},
-                  isScrollable: true,
-                  indicatorColor: ColorManager.primaryGreen,
-                  labelColor: ColorManager.primaryGreen,
-                  unselectedLabelColor: ColorManager.grayForMessage,
-                  dividerColor: Colors.transparent,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: tabTitles.map((title) {
-                    return Tab(
-                      text: title,
-                    );
-                  }).toList(),
+      child: SafeArea(
+        child: Scaffold(
+          body: SizedBox(
+            // height: 420,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomAppBarScreen(
+                    sectionName: AppLocalizations.of(context)!.all_section),
+                SizedBox(
+                  width: 1.sw,
+                  child: TabBar(
+                    onTap: (value) {},
+                    isScrollable: true,
+                    indicatorColor: ColorManager.primaryGreen,
+                    labelColor: ColorManager.primaryGreen,
+                    unselectedLabelColor: ColorManager.grayForMessage,
+                    dividerColor: Colors.transparent,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    tabs: tabTitles.map((title) {
+                      return Tab(
+                        text: title,
+                      );
+                    }).toList(),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: tabTitles.map((title) {
-                    return GestureDetector(
-                        onTap: () {
-                          AppRouter.push(context, AllLProductScreen());
-                        },
-                        child: const CustomSubCategory());
-                  }).toList(),
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-            ],
+                Expanded(
+                  child: TabBarView(
+                    children: tabTitles.map((title) {
+                      return GestureDetector(
+                          onTap: () {
+                            AppRouter.push(context, AllLProductScreen());
+                          },
+                          child: const CustomSubCategory());
+                    }).toList(),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

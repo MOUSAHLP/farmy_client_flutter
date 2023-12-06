@@ -8,9 +8,13 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
 import 'package:pharma/presentation/screens/notification_screen/notification_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar extends StatelessWidget {
-   const CustomAppBar({super.key, this.scaffoldKey,});
+  const CustomAppBar({
+    super.key,
+    this.scaffoldKey,
+  });
   final GlobalKey<ScaffoldState>? scaffoldKey;
   @override
   Widget build(BuildContext context) {
@@ -46,14 +50,14 @@ class CustomAppBar extends StatelessWidget {
                           height: 21,
                           width: 21,
                         ),
-                        onTap: (){
+                        onTap: () {
                           scaffoldKey?.currentState?.openDrawer();
                         },
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 13),
                         child: InkWell(
-                          onTap: (){
+                          onTap: () {
                             AppRouter.push(context, NotificationScreen());
                           },
                           child: Image.asset(
@@ -82,10 +86,19 @@ class CustomAppBar extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Image.asset(
-                    ImageManager.contactUs,
-                    height: 20,
-                    width: 20,
+                  GestureDetector(
+                    onTap: () async {
+                      Uri _url = Uri.parse(
+                          "https://wa.me/ ${0936252114}/?text=hello" ?? "");
+                      if (!await launchUrl(_url)) {
+                        throw Exception('Could not launch $_url');
+                      }
+                    },
+                    child: Image.asset(
+                      ImageManager.contactUs,
+                      height: 20,
+                      width: 20,
+                    ),
                   ),
                 ],
               ),
