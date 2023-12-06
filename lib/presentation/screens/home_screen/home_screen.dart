@@ -79,7 +79,8 @@ class HomeScreen extends StatelessWidget {
                                     Row(
                                       children: [
                                         Text(
-                                          "التوصيل الى :",
+                                          AppLocalizations.of(context)!
+                                              .delivery_to,
                                           style: getSemiBoldStyle(
                                                   color: ColorManager
                                                       .grayForMessage,
@@ -139,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 22, vertical: 6),
                             child: Text(
-                              "asffffffffffffffffffffffffffffasسffffffffffffffffffffffffffffasffffffffffffffffffffffffffffasffffffffffffffffffffffffffffasffffffffffffffffffffffffffff",
+                              "خدمة التوصيل متوفرة من الساعة 9 صباحاً حتى الساعة 10 مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً",
                               style: getBoldStyle(
                                 color: ColorManager.grayForMessage,
                               ),
@@ -149,8 +150,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 33, vertical: 13),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 33, vertical: 13),
                       child: CustomSectionName(
                         sectionName: AppLocalizations.of(context)!.sections,
                         onTap: () {
@@ -172,8 +173,7 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisCount: 2),
                         itemBuilder: (context, index) {
                           return const CustomCategory(
-                            categoryName:
-                                "الفواكهالفوالفواكهالفواكهالفواكهالفو",
+                            categoryName: "الخضار و الأعشاب",
                           );
                         },
                       ),

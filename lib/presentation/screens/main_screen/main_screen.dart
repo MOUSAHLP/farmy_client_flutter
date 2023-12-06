@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
@@ -10,9 +9,9 @@ import 'package:pharma/presentation/screens/basket_screen/basket_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/order_screen/order_screen.dart';
 import 'package:pharma/presentation/widgets/dialogs/will_pop_scope_handler.dart';
+import 'package:pharma/translations.dart';
 
 import '../my_account_screen/my_account_screen.dart';
-
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -22,29 +21,28 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Widget> children = [
     Container(),
-     AllLProductScreen(),
+    AllLProductScreen(),
     const BasketScreen(),
     const OrderScreen(),
-    MyAccountScreen(),
+    const MyAccountScreen(),
   ];
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          if (scaffoldKey.currentState?.isDrawerOpen == true) {
-            scaffoldKey.currentState?.closeDrawer();
-          } else {
-              WillPopScopeHandler.handle(context);
-          }
-          return false;
-        },
+      onWillPop: () async {
+        if (scaffoldKey.currentState?.isDrawerOpen == true) {
+          scaffoldKey.currentState?.closeDrawer();
+        } else {
+          WillPopScopeHandler.handle(context);
+        }
+        return false;
+      },
       child: Scaffold(
-        body:  HomeScreen(scaffoldKey: scaffoldKey),
+        body: HomeScreen(scaffoldKey: scaffoldKey),
         bottomNavigationBar: SizedBox(
           height: 70,
           child: BottomNavigationBar(
@@ -67,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
                           ? ColorManager.primaryGreen
                           : ColorManager.greyForUnSleactedItem,
                     ),
-                    label: "المتجر"),
+                    label: AppLocalizations.of(context)!.store),
                 BottomNavigationBarItem(
                     icon: Image.asset(
                       ImageManager.favoriteIcon,
@@ -75,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
                           ? ColorManager.primaryGreen
                           : ColorManager.greyForUnSleactedItem,
                     ),
-                    label: "المفضلة"),
+                    label: AppLocalizations.of(context)!.favorite),
                 BottomNavigationBarItem(
                     icon: Image.asset(
                       ImageManager.basketIcon,
@@ -83,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                           ? ColorManager.primaryGreen
                           : ColorManager.greyForUnSleactedItem,
                     ),
-                    label: "السلة"),
+                    label: AppLocalizations.of(context)!.basket),
                 BottomNavigationBarItem(
                     icon: Image.asset(
                       ImageManager.homeIcon,
@@ -91,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                           ? ColorManager.primaryGreen
                           : ColorManager.greyForUnSleactedItem,
                     ),
-                    label: "طلباتي"),
+                    label: AppLocalizations.of(context)!.my_order),
                 BottomNavigationBarItem(
                     icon: Image.asset(
                       ImageManager.profileIcon,
@@ -99,7 +97,7 @@ class _MainScreenState extends State<MainScreen> {
                           ? ColorManager.primaryGreen
                           : ColorManager.greyForUnSleactedItem,
                     ),
-                    label: "حسابي"),
+                    label: AppLocalizations.of(context)!.my_Account),
               ]),
         ),
       ),

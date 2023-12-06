@@ -48,12 +48,14 @@ class PersonalDetailsScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 20),
-                     Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-
                       children: [
-                        Text(AppLocalizations.of(context)!.birthday,
-                          style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 14),)
+                        Text(
+                          AppLocalizations.of(context)!.birthday,
+                          style: getBoldStyle(
+                              color: ColorManager.grayForMessage, fontSize: 14),
+                        )
                       ],
                     ),
                     const SizedBox(height: 15),
@@ -89,10 +91,15 @@ class PersonalDetailsScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 15),
-                     Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [ Text(AppLocalizations.of(context)!.phone,
-                        style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 14),)],
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.phone,
+                          style: getBoldStyle(
+                              color: ColorManager.grayForMessage, fontSize: 14),
+                        )
+                      ],
                     ),
                     const SizedBox(height: 15),
                     InputFieldAuth(
@@ -112,171 +119,209 @@ class PersonalDetailsScreen extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          CustomButton(label: AppLocalizations.of(context)!.change_Number,
-                          onTap: (){
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title:
-                                  Material(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                    ),
-                                    color: Colors.transparent,
-                                  child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Text(AppLocalizations.of(context)!.change_Number,
-                                              style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 15),),
-                                          ],
+                          CustomButton(
+                              label:
+                                  AppLocalizations.of(context)!.change_Number,
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Material(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25.0),
                                         ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: 27),
-                                            child: InputFieldAuth(
-                                                color: ColorManager.grayForm,
-                                                width: 1.sw,
-                                                hintText: AppLocalizations.of(context)!.phone,
-                                                suffixIcon: const CountryCodePicker(
-                                                  showCountryOnly: true,
-                                                  flagWidth: 20,
-                                                  enabled: false,
-                                                  initialSelection: 'SY',
-                                                )),
-                                          ),
-                                          SizedBox(
-                                            child: Row(
+                                        color: Colors.transparent,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
                                               children: [
-                                                Expanded(
-                                                  child: CustomButton(
-                                                    label:AppLocalizations.of(context)!.confirm,
-                                                    fillColor: ColorManager.primaryGreen,
-                                                    onTap: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext context) {
-                                                          return AlertDialog(
-                                                            title:
-                                                            Material(
-                                                              shape: RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.circular(25.0),
-
-                                                              ),
-
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.symmetric(vertical: 10),
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                  MainAxisAlignment.spaceAround,
-                                                                  children: [
-                                                                    Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.start,
-                                                                      children: [
-                                                                        Text(AppLocalizations.of(context)!.confirmNumber,
-                                                                          style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 15),),
-                                                                      ],
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets.symmetric(vertical: 20),
-                                                                      child: PinFieldAutoFill(
-                                                                        decoration: BoxLooseDecoration(
-                                                                        strokeColorBuilder:  const FixedColorBuilder( ColorManager.grayForm,),
-                                                                          bgColorBuilder:const FixedColorBuilder( ColorManager.grayForm,),
-                                                                          textStyle:
-                                                                           TextStyle(fontSize: 20, color: ColorManager.primaryGreen),
-                                                                        ),
-                                                                        //   currentCode: textEditingController.text,
-                                                                        codeLength: 6,
-                                                                        onCodeChanged: (String? code) {
-
-                                                                        },
-                                                                      ),
-                                                                    ),
-
-                                                                    SizedBox(
-                                                                      child: Row(
-                                                                        children: [
-                                                                          Expanded(
-                                                                            child: CustomButton(
-                                                                              label:AppLocalizations.of(context)!.confirm,
-                                                                              fillColor: ColorManager.primaryGreen,
-                                                                              onTap: () {
-                                                                              },
-                                                                            ),
-                                                                          ),
-                                                                          const SizedBox(width: 28,),
-                                                                          Expanded(
-                                                                            child: CustomButton(
-                                                                              label:AppLocalizations.of(context)!.back,
-                                                                              fillColor: Colors.white,
-
-                                                                              onTap: () {
-                                                                                AppRouter.pop(context);
-                                                                              },
-                                                                              isFilled: true,
-                                                                              labelColor: ColorManager.primaryGreen,
-                                                                              borderColor:ColorManager.primaryGreen,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                                const SizedBox(width:28,),
-                                                Expanded(
-                                                  child: CustomButton(
-                                                    label:AppLocalizations.of(context)!.back,
-                                                    fillColor: Colors.white,
-
-                                                    onTap: () {
-                                                      AppRouter.pop(context);
-                                                    },
-                                                    isFilled: true,
-                                                    labelColor: ColorManager.primaryGreen,
-                                                    borderColor:ColorManager.primaryGreen,
-                                                  ),
+                                                Text(
+                                                  AppLocalizations.of(context)!
+                                                      .change_Number,
+                                                  style: getBoldStyle(
+                                                      color: ColorManager
+                                                          .grayForMessage,
+                                                      fontSize: 15),
                                                 ),
                                               ],
                                             ),
-                                          ),
-
-                                        ],
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 27),
+                                              child: InputFieldAuth(
+                                                  color: ColorManager.grayForm,
+                                                  width: 1.sw,
+                                                  hintText: AppLocalizations.of(
+                                                          context)!
+                                                      .phone,
+                                                  suffixIcon:
+                                                      const CountryCodePicker(
+                                                    showCountryOnly: true,
+                                                    flagWidth: 20,
+                                                    enabled: false,
+                                                    initialSelection: 'SY',
+                                                  )),
+                                            ),
+                                            SizedBox(
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: CustomButton(
+                                                      label:
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .confirm,
+                                                      fillColor: ColorManager
+                                                          .primaryGreen,
+                                                      onTap: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return AlertDialog(
+                                                              title: Material(
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              25.0),
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical:
+                                                                          10),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(
+                                                                            AppLocalizations.of(context)!.confirmNumber,
+                                                                            style:
+                                                                                getBoldStyle(color: ColorManager.grayForMessage, fontSize: 15),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                            vertical:
+                                                                                20),
+                                                                        child:
+                                                                            PinFieldAutoFill(
+                                                                          decoration:
+                                                                              BoxLooseDecoration(
+                                                                            strokeColorBuilder:
+                                                                                const FixedColorBuilder(
+                                                                              ColorManager.grayForm,
+                                                                            ),
+                                                                            bgColorBuilder:
+                                                                                const FixedColorBuilder(
+                                                                              ColorManager.grayForm,
+                                                                            ),
+                                                                            textStyle:
+                                                                                const TextStyle(fontSize: 20, color: ColorManager.primaryGreen),
+                                                                          ),
+                                                                          //   currentCode: textEditingController.text,
+                                                                          codeLength:
+                                                                              6,
+                                                                          onCodeChanged:
+                                                                              (String? code) {},
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Expanded(
+                                                                              child: CustomButton(
+                                                                                label: AppLocalizations.of(context)!.confirm,
+                                                                                fillColor: ColorManager.primaryGreen,
+                                                                                onTap: () {},
+                                                                              ),
+                                                                            ),
+                                                                            const SizedBox(
+                                                                              width: 28,
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: CustomButton(
+                                                                                label: AppLocalizations.of(context)!.back,
+                                                                                fillColor: Colors.white,
+                                                                                onTap: () {
+                                                                                  AppRouter.pop(context);
+                                                                                },
+                                                                                isFilled: true,
+                                                                                labelColor: ColorManager.primaryGreen,
+                                                                                borderColor: ColorManager.primaryGreen,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 28,
+                                                  ),
+                                                  Expanded(
+                                                    child: CustomButton(
+                                                      label:
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .back,
+                                                      fillColor: Colors.white,
+                                                      onTap: () {
+                                                        AppRouter.pop(context);
+                                                      },
+                                                      isFilled: true,
+                                                      labelColor: ColorManager
+                                                          .primaryGreen,
+                                                      borderColor: ColorManager
+                                                          .primaryGreen,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                ),
-
+                                    );
+                                  },
                                 );
-                              },
-                            );
-                          }),
+                              }),
                           const SizedBox(
                             height: 16,
                           ),
                           CustomButton(
-                            label: AppLocalizations.of(context)!
-                                .save_Changes,
+                            label: AppLocalizations.of(context)!.save_Changes,
                             onTap: () {},
                             fillColor: Colors.white,
                             borderColor: ColorManager.primaryGreen,
                             labelColor: ColorManager.primaryGreen,
                             isFilled: true,
                           ),
-
-
                         ],
                       ),
                     )
