@@ -17,6 +17,7 @@ import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/translations.dart';
 
 import '../../../core/app_enum.dart';
+import '../location_first_screen/location_first_screen.dart';
 import 'otp_confirmation_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -110,7 +111,7 @@ class _SignInScreenState extends State<SignInScreen>
                         ButtonAuth(
                             label: AppLocalizations.of(context)!.sign_in,
                             onTap: () {
-                              AppRouter.push(context, const MainScreen(),);
+                              AppRouter.push(context, const LocationFirstScreen(),);
                             }),
                         const SizedBox(
                           height: 13,
