@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
                   GlobalWidgetsLocalizations.delegate,
                 ],
 
-                home: const JoinOurTeamScreen(),
+                home: const SplashScreen(),
                 // home:  NotificationScreen(),
               );
             }

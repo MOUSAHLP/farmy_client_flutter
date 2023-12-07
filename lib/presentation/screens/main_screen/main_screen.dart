@@ -6,6 +6,7 @@ import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/all_product/all_product_screen.dart';
 import 'package:pharma/presentation/screens/basket_screen/basket_screen.dart';
+import 'package:pharma/presentation/screens/favorite/favorite_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/order_screen/order_screen.dart';
 import 'package:pharma/presentation/widgets/dialogs/will_pop_scope_handler.dart';
@@ -25,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> children = [
     Container(),
-    AllLProductScreen(),
+    FavoriteScreen(),
     const BasketScreen(),
     const OrderScreen(),
     const MyAccountScreen(),

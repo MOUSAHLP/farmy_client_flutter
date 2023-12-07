@@ -9,6 +9,7 @@ import 'package:pharma/presentation/screens/delete_account/delete_account_screen
 import 'package:pharma/presentation/screens/electronic_payment_screen/electronic_payment_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/location_screen.dart';
 import 'package:pharma/presentation/screens/my_account_screen/widgets/card_my_account.dart';
+import 'package:pharma/presentation/screens/my_evaluation/my_evaluation_screen.dart';
 import 'package:pharma/presentation/screens/personal_details_screen/personal_details_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/translations.dart';
@@ -102,7 +103,9 @@ class MyAccountScreen extends StatelessWidget {
                     CardMyAccount(
                         title: AppLocalizations.of(context)!.my_Reviews,
                         details: AppLocalizations.of(context)!.all_Reviews,
-                        ontap: () {}),
+                        ontap: () {
+                          AppRouter.push(context, const MyEvaluationScreen());
+                        }),
                     CardMyAccount(
                         title: AppLocalizations.of(context)!.about_the_App,
                         details: AppLocalizations.of(context)!.about_the_App,
