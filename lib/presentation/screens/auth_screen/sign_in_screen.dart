@@ -84,6 +84,8 @@ class _SignInScreenState extends State<SignInScreen>
                         ),
                         InputFieldAuth(
                           hintText: AppLocalizations.of(context)!.password,
+                        ),    InputFieldAuth(
+                          hintText: AppLocalizations.of(context)!.password,
                         ),
                         const SizedBox(
                           height: 31,

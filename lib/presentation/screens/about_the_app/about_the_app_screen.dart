@@ -6,8 +6,8 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 
-class AboutTheApp extends StatelessWidget {
-  const AboutTheApp({super.key});
+class AboutTheAppcreen extends StatelessWidget {
+  const AboutTheAppcreen({super.key});
 
   @override
   Widget build(BuildContext context) {

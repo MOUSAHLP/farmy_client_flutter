@@ -123,6 +123,8 @@
   "please_choose_delivery_location": "الرجاء اختيار موقع التوصيل\nلتجربة أفضل",
   "select_delivery_location": "اختيار موقع التوصيل",
   "skip_stage_now": "تخطي المرحلة حاليا",
+
+  "notification": "اشعارات",
   "show_more":"رؤية المزيد",
   "sections":"الاقسام",
   "suggested_products":"المنتجات المقترحة",
@@ -163,8 +165,8 @@
   "password_with_star":"كلمة المرور **",
   "confirm_delete":"تأكيد الحذف",
   "your_Account_Has_Been_Successfully_Deleted":"تم حذف حسابك بنجاح",
-  "order_Number":"رقم الطلب :",
-  "order_Date":"تاريخ الطلب:",
+  "order_Number_With_dote":"رقم الطلب :",
+  "order_Date":" تاريخ الطلب:",
   "site":"الموقع :",
   "delivery_Operator_Name":" اسم عامل التوصيل :",
   "total_price":" إجمالي السعر:",
@@ -176,12 +178,18 @@
   "price_of_Returned_Products":" سعر المنتجات المرتجعة :",
   "rebates_Value":" قيمة الحسومات: ",
   "delivery_Price":" سعر التوصيل : ",
-  "total price":" إجمالي السعر : "
-
-
-
-
-
+  "total price":" إجمالي السعر : ",
+  "about_the_App":"حول التطبيق",
+  "store":"متجر",
+  "favorite":"المفضلة",
+  "basket":"السلة",
+  "my_Requests":"طلباتي",
+  "my_Account":"حسابي",
+  "delivery_to":"التوصيل الى",
+  "all_section":"جميع الاقسام",
+  "previous_Password":"كلمة المرور السابقة",
+  "forgot_Password_Without_question_mark":"نسيت كلمة السر",
+  "join_Our_Team_Statment":"إذا كنت تريد الانضمام لفريق فارمي, الرجاء تعبئة \nالمعلومات أدناه, وسنتواصل معك في أقرب وقت"
 
 
 
