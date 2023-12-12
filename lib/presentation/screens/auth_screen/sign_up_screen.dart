@@ -5,7 +5,6 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/background_auth.dart';
-import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/translations.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/style_app.dart';

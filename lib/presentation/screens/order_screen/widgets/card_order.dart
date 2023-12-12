@@ -78,7 +78,7 @@ class CardOrder extends StatelessWidget {
                         labelColor:Colors.white ,
 
                         onTap: () {
-                          AppRouter.push(context, OrderTrackingScreen());
+                          AppRouter.push(context, const OrderTrackingScreen());
                           // SystemNavigator.pop();
                         },
                       ),

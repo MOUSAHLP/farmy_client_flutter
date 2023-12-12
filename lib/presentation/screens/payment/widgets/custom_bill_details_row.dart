@@ -17,7 +17,7 @@ class CustomBillDetailsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 17),
+      padding: const EdgeInsets.symmetric(horizontal: 17),
       child: Column(
         children: [
           Row(

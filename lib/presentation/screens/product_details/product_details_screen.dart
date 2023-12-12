@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
-import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/about_product_and_amount_section.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/product_image.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
@@ -116,7 +115,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                     color: ColorManager.grayForPlaceholde,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Color(0xff0000002E),
+                                        color: Color(0xff0000002e),
                                         offset: Offset(0, 2),
                                         blurRadius: 4,
                                         spreadRadius: 0,

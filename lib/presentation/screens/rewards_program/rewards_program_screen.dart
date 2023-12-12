@@ -33,7 +33,7 @@ class RewardsProgramScreen extends StatelessWidget {
                 Container(
                   width: 1.sw,
                   height: 99,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: ColorManager.primaryGreen,
                     borderRadius: BorderRadiusDirectional.only(
                         bottomStart: Radius.circular(100),

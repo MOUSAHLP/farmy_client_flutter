@@ -19,7 +19,7 @@ class BackGroundAuth extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Image.asset(ImageManager.auth,fit: BoxFit.cover,),

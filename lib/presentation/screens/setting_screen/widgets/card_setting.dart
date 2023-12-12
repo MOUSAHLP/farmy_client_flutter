@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
@@ -26,7 +25,7 @@ final String title;
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(title,style: getBoldStyle(color: Colors.black,fontSize: 14),),
-              Icon(Icons.arrow_forward_ios,
+              const Icon(Icons.arrow_forward_ios,
                 size: 20,
                 color: ColorManager.grayForMessage,),
 

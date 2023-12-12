@@ -184,7 +184,21 @@
   "all_section":"جميع الاقسام",
   "previous_Password":"كلمة المرور السابقة",
   "forgot_Password_Without_question_mark":"نسيت كلمة السر",
-  "join_Our_Team_Statment":"إذا كنت تريد الانضمام لفريق فارمي, الرجاء تعبئة \nالمعلومات أدناه, وسنتواصل معك في أقرب وقت"
+  "join_Our_Team_Statment":"إذا كنت تريد الانضمام لفريق فارمي, الرجاء تعبئة \nالمعلومات أدناه, وسنتواصل معك في أقرب وقت",
+  "full_name":"الاسم الكامل",
+  "contact_Number":"رقم التواصل",
+  "choose_The_Right_job_For_You":"اختار  العمل المناسب لك",
+  "leave_message_to_contact":"اترك لنا رسالتك هنا وسيتم التواصل معك تبعاً لطلبك\n في أقرب وقت.",
+  "email_with_at":"الايميل @ ....",
+  "write_message_notes_question_here":"اكتب رسالتك, ملاحظاتك, أو استفسارك هنا ...",
+  "sent":"ارسال",
+  "you_can_connect_directly":".ويمكنك التواصل مع قسم خدمة العملاء مباشرة",
+  "on_the_next_number":"على الرقم التالي",
+  "or_via_whatsup":"أو عبر تطبيق Whatsapp",
+  "contact_us":"تواصل معنا"
+
+  
+  
 
 
 
