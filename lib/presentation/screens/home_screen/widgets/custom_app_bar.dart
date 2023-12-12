@@ -58,7 +58,7 @@ class CustomAppBar extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 13),
                         child: InkWell(
                           onTap: () {
-                            AppRouter.push(context, NotificationScreen());
+                            AppRouter.push(context, const NotificationScreen());
                           },
                           child: Image.asset(
                             ImageManager.notificationImage,
@@ -88,10 +88,10 @@ class CustomAppBar extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      Uri _url = Uri.parse(
-                          "https://wa.me/ ${0936252114}/?text=hello" ?? "");
-                      if (!await launchUrl(_url)) {
-                        throw Exception('Could not launch $_url');
+                      Uri url = Uri.parse(
+                          "https://wa.me/ ${0936252114}/?text=hello");
+                      if (!await launchUrl(url)) {
+                        throw Exception('Could not launch $url');
                       }
                     },
                     child: Image.asset(

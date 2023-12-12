@@ -120,7 +120,7 @@ class LocationFirstScreen extends StatelessWidget {
                                         .select_delivery_location,
                                     onTap: () {
                                       AppRouter.push(
-                                          context, SelectLocationFromMap());
+                                          context, const SelectLocationFromMap());
                                     }),
                                 const SizedBox(
                                   height: 16,

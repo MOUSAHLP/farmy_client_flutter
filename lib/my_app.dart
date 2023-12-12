@@ -6,18 +6,14 @@ import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
-import 'package:pharma/presentation/screens/change_password/change_password_screen.dart';
-import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
-import 'package:pharma/presentation/screens/join_our_team/join_our_team_screen.dart';
+
 import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
-import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 
 import 'package:pharma/translations.dart';
 
 import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/location_bloc/location_bloc.dart';
 import 'bloc/onboarding_bloc/onboarding_bloc.dart';
-import 'data/data_resource/local_resource/data_store.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -52,18 +48,18 @@ class _MyAppState extends State<MyApp> {
           child: BlocBuilder<LanguageBloc, LanguageState>(
               builder: (context, state) {
             if (true) {
-              return MaterialApp(
+              return const MaterialApp(
                 title: 'Farmy',
-                locale: Locale(DataStore.instance.lang),
+                locale: Locale("en"),
                 supportedLocales: AppLocalizations.supportedLocales,
-                localizationsDelegates: const [
+                localizationsDelegates: [
                   AppLocalizations.delegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                 ],
 
-                home: const SplashScreen(),
+                home: MainScreen(),
                 // home:  NotificationScreen(),
               );
             }

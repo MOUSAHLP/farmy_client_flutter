@@ -5,7 +5,6 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
-import '../resources/assets_manager.dart';
 
 class CustomAppBarScreen extends StatelessWidget {
   final String sectionName;

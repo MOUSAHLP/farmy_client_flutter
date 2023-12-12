@@ -5,7 +5,9 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
+import 'package:pharma/presentation/screens/join_our_team/widgets/custom_select_job_dialog.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
+import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/translations.dart';
 
 class JoinOurTeamScreen extends StatelessWidget {
@@ -33,16 +35,19 @@ class JoinOurTeamScreen extends StatelessWidget {
                               color: ColorManager.grayForMessage,
                               fontSize: FontSizeApp.s15),
                         ),
-                        Container(
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                offset: const Offset(0, 2),
-                                blurRadius: 4,
-                                color: ColorManager.black.withOpacity(0.18))
-                          ]),
-                          child: InputFieldAuth(
-                            width: 1.sw,
-                            hintText: AppLocalizations.of(context)!.password,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: Container(
+                            decoration: BoxDecoration(boxShadow: [
+                              BoxShadow(
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 4,
+                                  color: ColorManager.black.withOpacity(0.18))
+                            ]),
+                            child: InputFieldAuth(
+                              width: 1.sw,
+                              hintText: AppLocalizations.of(context)!.full_name,
+                            ),
                           ),
                         ),
                         Container(
@@ -54,33 +59,78 @@ class JoinOurTeamScreen extends StatelessWidget {
                           ]),
                           child: InputFieldAuth(
                             width: 1.sw,
-                            hintText: AppLocalizations.of(context)!.password,
+                            hintText:
+                                AppLocalizations.of(context)!.contact_Number,
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                offset: const Offset(0, 2),
-                                blurRadius: 4,
-                                color: ColorManager.black.withOpacity(0.18))
-                          ]),
-                          child: InputFieldAuth(
-                            width: 1.sw,
-                            hintText: AppLocalizations.of(context)!.password,
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: ColorManager.primaryGreen,
-                                    borderRadius: BorderRadius.circular(4)),
-                                height: 22,
-                                width: 22,
-                                child:
-                                    Image.asset(ImageManager.listOfTypeJoinUs),
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext dialogcontext) {
+                                return const CustomSelectJobDialog();
+                              },
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: Container(
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    offset: const Offset(0, 2),
+                                    blurRadius: 4,
+                                    color: ColorManager.black.withOpacity(0.18))
+                              ]),
+                              child: InputFieldAuth(
+                                width: 1.sw,
+                                hintText: AppLocalizations.of(context)!
+                                    .choose_The_Right_job_For_You,
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext dialogcontext) {
+                                        return const CustomSelectJobDialog();
+                                      },
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: ColorManager.primaryGreen,
+                                          borderRadius:
+                                              BorderRadius.circular(4)),
+                                      height: 22,
+                                      width: 22,
+                                      child: Image.asset(
+                                          ImageManager.listOfTypeJoinUs),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 222,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 72),
+                                child: CustomButton(
+                                  onTap: () {
+    
+                                  },
+                                  label: AppLocalizations.of(context)!.register,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),

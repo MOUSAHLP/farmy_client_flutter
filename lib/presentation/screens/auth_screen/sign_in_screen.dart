@@ -45,27 +45,24 @@ class _SignInScreenState extends State<SignInScreen>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-      bloc: sl<AuthenticationBloc>()..add(TapOnPressed(ScreensAuth.signInScreen)),
-      listener: (context, state) {
-
-      },
-     builder: (context, state)
-     {
-       return BackGroundAuth(
+      bloc: sl<AuthenticationBloc>()
+        ..add(TapOnPressed(ScreensAuth.signInScreen)),
+      listener: (context, state) {},
+      builder: (context, state) {
+        return BackGroundAuth(
             child: state.indexTap == ScreensAuth.signInScreen
                 ? WillPopScope(
-              onWillPop: ()async{
-
-                return true;
-              },
-                  child: Column(
+                    onWillPop: () async {
+                      return true;
+                    },
+                    child: Column(
                       children: [
                         const SizedBox(
                           height: 93,
                         ),
                         Text(AppLocalizations.of(context)!.sign_in,
-                            style:
-                                getBoldStyle(color: Colors.white, fontSize: 29)),
+                            style: getBoldStyle(
+                                color: Colors.white, fontSize: 29)),
                         const SizedBox(
                           height: 58,
                         ),
@@ -83,8 +80,6 @@ class _SignInScreenState extends State<SignInScreen>
                         ),
                         InputFieldAuth(
                           hintText: AppLocalizations.of(context)!.password,
-                        ),    InputFieldAuth(
-                          hintText: AppLocalizations.of(context)!.password,
                         ),
                         const SizedBox(
                           height: 31,
@@ -97,12 +92,13 @@ class _SignInScreenState extends State<SignInScreen>
                             InkWell(
                               onTap: () {
                                 context.read<AuthenticationBloc>().add(
-                                    TapOnPressed(ScreensAuth.phoneNumberScreen)
-                                );
+                                    TapOnPressed(
+                                        ScreensAuth.phoneNumberScreen));
                               },
                               child: Text(
                                   AppLocalizations.of(context)!.reset_password,
-                                  style: getSemiBoldStyle(color: Colors.yellow)),
+                                  style:
+                                      getSemiBoldStyle(color: Colors.yellow)),
                             ),
                           ],
                         ),
@@ -112,7 +108,10 @@ class _SignInScreenState extends State<SignInScreen>
                         ButtonAuth(
                             label: AppLocalizations.of(context)!.sign_in,
                             onTap: () {
-                              AppRouter.push(context, const MainScreen(),);
+                              AppRouter.push(
+                                context,
+                                const MainScreen(),
+                              );
                             }),
                         const SizedBox(
                           height: 13,
@@ -127,10 +126,12 @@ class _SignInScreenState extends State<SignInScreen>
                         )
                       ],
                     ),
-                )
+                  )
                 : state.indexTap == ScreensAuth.phoneNumberScreen
                     ? const PhoneNumberScreen()
-                    :state.indexTap == ScreensAuth.otpConfirmationScreen?const OtpConfirmationScreen(): const ResetPasswordScreen());
+                    : state.indexTap == ScreensAuth.otpConfirmationScreen
+                        ? const OtpConfirmationScreen()
+                        : const ResetPasswordScreen());
       },
     );
   }
