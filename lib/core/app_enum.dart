@@ -10,7 +10,7 @@ enum AuthenticationScreenStates {
 
 enum DataType { api, cache }
 
-enum ScreenState { loading, success, error }
+enum ScreenState { initialized,loading, success, error }
 
 enum ScreenStates { loading, error, success }
 final navigatorKey = GlobalKey<NavigatorState>();

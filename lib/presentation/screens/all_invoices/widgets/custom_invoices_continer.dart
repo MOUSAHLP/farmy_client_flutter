@@ -21,7 +21,7 @@ class CustomInvoicesContiner extends StatelessWidget {
           ),
         ]),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           child: Column(
             children: [
               CustomInvoicesRow(

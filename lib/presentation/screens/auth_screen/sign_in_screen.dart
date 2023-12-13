@@ -111,7 +111,7 @@ class _SignInScreenState extends State<SignInScreen>
                         ButtonAuth(
                             label: AppLocalizations.of(context)!.sign_in,
                             onTap: () {
-                              AppRouter.push(context, const LocationFirstScreen(),);
+                              AppRouter.push(context, const MainScreen(),);
                             }),
                         const SizedBox(
                           height: 13,

@@ -28,13 +28,13 @@ class ChangePasswordScreen extends StatelessWidget {
                             AppLocalizations.of(context)!.previous_Password,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 42),
+                        padding: const EdgeInsets.only(top: 42),
                         child: CustomLabelWithPassField(
                           labelName: AppLocalizations.of(context)!.new_password,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 14),
+                        padding: const EdgeInsets.only(top: 14),
                         child: CustomLabelWithPassField(
                           labelName:
                               AppLocalizations.of(context)!.confirm_password,

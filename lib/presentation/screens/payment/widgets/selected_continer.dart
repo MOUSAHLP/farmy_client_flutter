@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
-import 'package:pharma/presentation/resources/color_manager.dart';
 
 // ignore: must_be_immutable
 class SlectedContiner extends StatelessWidget {

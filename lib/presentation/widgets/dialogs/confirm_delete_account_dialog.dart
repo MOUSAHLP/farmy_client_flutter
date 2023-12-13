@@ -21,7 +21,7 @@ class ConfirmDeleteAccountDialog {
 
 class _ConfirmDeleteAccountDialogBody extends StatelessWidget {
   final String message;
-  const _ConfirmDeleteAccountDialogBody({super.key, required this.message});
+  const _ConfirmDeleteAccountDialogBody({required this.message});
 
   @override
   Widget build(BuildContext context) {

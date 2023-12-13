@@ -186,7 +186,6 @@ class LanguageSelection extends StatelessWidget {
                       fillColor: Colors.white,
                       labelColor: ColorManager.primaryGreen,
                       onTap: () {
-                        print("object");
                         context.read<OnBoardingBloc>().add(ChangeIndex(
                             context.read<OnBoardingBloc>().currentPage + 2));
                       },
