@@ -7,6 +7,7 @@ import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/data/repos/categories_repo.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/all_product/all_product_screen.dart';
 import 'package:pharma/translations.dart';
@@ -86,8 +87,14 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                                 child: TabBar(
                                   controller: _tabController,
                                   onTap: (value) {
-
-                                    
+                                    if (value != 0) {
+                                      context.read<CategoriesBloc>().add(
+                                          GetSubCategoryEvent(
+                                              categoryId: state
+                                                  .categoriesList[
+                                                      _tabController.index]
+                                                  .id));
+                                    }
                                   },
                                   isScrollable: true,
                                   indicatorColor: ColorManager.primaryGreen,
@@ -114,7 +121,6 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                                     return GestureDetector(
                                         onTap: () {},
                                         child: CustomSubCategory(
-
                                             tabController: _tabController,
                                             categoriesList: state.categoriesList
                                                         .indexOf(title) ==
