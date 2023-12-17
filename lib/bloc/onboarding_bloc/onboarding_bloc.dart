@@ -25,12 +25,13 @@ class OnBoardingBloc extends Bloc<OnBoardingEvent, OnBoardingState> {
       if(event is ChangeIndex){
 
         currentPage=event.index;
-
-        pageController.animateToPage(
-          currentPage,
+        if(event.index!=slides.length) {
+          pageController.animateToPage(
+            event.index,
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
         );
+        }
         emit(ChangeIndexSuccess());
       }
     });

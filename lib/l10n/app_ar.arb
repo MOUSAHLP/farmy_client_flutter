@@ -91,6 +91,7 @@
   "change_Number": "تغيير الرقم",
   "save_Changes": "حفظ التغييرات",
   "confirmNumber": "رمز التأكد من الرقم",
+  "notification": "اشعارات",
   "skip": "تخطي",
   "next": "متابعة",
   "onBoarding1": "احصل على تجربة تسوق\nلا مثيل لها على الإطلاق!",
@@ -122,6 +123,7 @@
   "please_choose_delivery_location": "الرجاء اختيار موقع التوصيل\nلتجربة أفضل",
   "select_delivery_location": "اختيار موقع التوصيل",
   "skip_stage_now": "تخطي المرحلة حاليا",
+
   "notification": "اشعارات",
   "show_more":"رؤية المزيد",
   "sections":"الاقسام",
@@ -134,9 +136,11 @@
   "payment":"الدفع",
   "cash_payment":"الدفع عند الاستلام",
   "farmy_wallet":"محفظة فارمي",
+
   "payment_statment":"قد يختلف شكل المنتج النهائي و السعر حسب الوزن !",
   "adress":"العنوان",
   "redeem_points":"استبدال النقاط",
+
   "conduction":"التوصيل",
   "delivery_to":"التوصيل إلى:",
   "delivery_cost":"كلفة التوصيل:",
@@ -148,6 +152,7 @@
   "normal_request":"طلب عادي",
   "urgent_request":"طلب مستعجل",
   "order_scheduling":"جدولة الطلب",
+
   "total_amount":"المبلغ الإجمالي",
   "discount_Code":"كود الحسم",
   "deliverycharges":"رسوم التوصيل",
@@ -195,11 +200,13 @@
   "you_can_connect_directly":".ويمكنك التواصل مع قسم خدمة العملاء مباشرة",
   "on_the_next_number":"على الرقم التالي",
   "or_via_whatsup":"أو عبر تطبيق Whatsapp",
-  "contact_us":"تواصل معنا"
+  "contact_us":"تواصل معنا",
+  "passwordFieldIsRequired": "حقل كلمة المرور مطلوب",
+  "passwordShouldBeEightCharacter": "كلمة المرور يجب ان تتكون من 3 محارف على الأقل",
+  "pleaseConfirmYourPassword": "الرجاء تأكيد كلمة السر",
 
-  
-  
-
-
-
+  "emailFieldIsRequired": "حقل الأيميل مطلوب",
+  "emailIsNotValid": "هذا ليس عنوان بريد إلكتروني صالح",
+  "phoneFieldIsRequired": "حقل رقم الهاتف مطلوب",
+  "wrongPhoneNumber": "رقم الهاتف خاطئ, مثال ********9 "
 }
