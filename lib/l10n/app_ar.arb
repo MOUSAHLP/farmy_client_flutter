@@ -200,11 +200,13 @@
   "you_can_connect_directly":".ويمكنك التواصل مع قسم خدمة العملاء مباشرة",
   "on_the_next_number":"على الرقم التالي",
   "or_via_whatsup":"أو عبر تطبيق Whatsapp",
-  "contact_us":"تواصل معنا"
+  "contact_us":"تواصل معنا",
+  "passwordFieldIsRequired": "حقل كلمة المرور مطلوب",
+  "passwordShouldBeEightCharacter": "كلمة المرور يجب ان تتكون من 3 محارف على الأقل",
+  "pleaseConfirmYourPassword": "الرجاء تأكيد كلمة السر",
 
-  
-  
-
-
-
+  "emailFieldIsRequired": "حقل الأيميل مطلوب",
+  "emailIsNotValid": "هذا ليس عنوان بريد إلكتروني صالح",
+  "phoneFieldIsRequired": "حقل رقم الهاتف مطلوب",
+  "wrongPhoneNumber": "رقم الهاتف خاطئ, مثال ********9 "
 }

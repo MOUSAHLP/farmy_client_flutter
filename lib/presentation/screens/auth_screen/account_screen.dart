@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pharma/bloc/authentication_bloc/authentication_state.dart';
-import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.dart';
-import 'package:pharma/presentation/screens/auth_screen/sign_in_screen.dart';
+import 'package:pharma/presentation/screens/auth_screen/auth_screen.dart';
 import 'package:pharma/presentation/screens/auth_screen/sign_up_screen.dart';
 import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/presentation/widgets/dialogs/will_pop_scope_handler.dart';
 import 'package:pharma/translations.dart';
+
+import '../../../bloc/authentication_bloc/authentication_event.dart';
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../../core/services/services_locator.dart';
+
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -38,20 +41,11 @@ class _AccountScreenState extends State<AccountScreen>
     _animation =
         Tween<double>(begin: MediaQuery.of(context).size.height/5, end: 0)
             .animate(_animationController);
-
     _animationController.forward();
   }
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-        listener: (context, state) {
-        }
-        ,
-        // buildWhen: (current, previous) {
-        //   return false;
-        // },
-        builder: (context, state) =>
-            WillPopScope(
+    return WillPopScope(
               onWillPop: () => WillPopScopeHandler.handle(context),
          child: Scaffold(
           body: Stack(
@@ -101,7 +95,7 @@ class _AccountScreenState extends State<AccountScreen>
                           ButtonAuth(
                               label: AppLocalizations.of(context)!.sign_in,
                               onTap: () {
-                                AppRouter.push(context, const SignInScreen(),);
+                                AppRouter.push(context, const AuthScreen(),);
 
                               }),
                           const SizedBox(
@@ -109,6 +103,7 @@ class _AccountScreenState extends State<AccountScreen>
                           ),
                           ButtonAuth(
                               label: AppLocalizations.of(context)!.login_guest,  onTap: () {
+                            sl<AuthenticationBloc>().add(LoggedGuest());
                             AppRouter.push(context, const MainScreen(),);
                           }
                           ),
@@ -156,8 +151,8 @@ class _AccountScreenState extends State<AccountScreen>
             ],
           ),
       ),
-       ),
-    );
+       )
+    ;
   }
 
   @override

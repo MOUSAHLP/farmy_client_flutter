@@ -9,20 +9,37 @@ import 'package:sms_autofill/sms_autofill.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.dart';
 import 'package:pharma/translations.dart';
-
 import '../../../core/app_enum.dart';
+import '../../../core/services/services_locator.dart';
 
-class OtpConfirmationScreen extends StatefulWidget {
-  const OtpConfirmationScreen({super.key});
+class OtpConfirmationScreen extends StatelessWidget {
+  const OtpConfirmationScreen({super.key,});
 
   @override
-  State<OtpConfirmationScreen> createState() => _OtpConfirmationScreenState();
+  Widget build(BuildContext context) {
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+        listener: (context, state) {
+          if (state.confirmOtp) {
+            context
+                .read<AuthenticationBloc>()
+                .add(TapOnPressed(ScreensAuth.resetPasswordScreen));
+          }
+          },
+        child: const OtpConfirmationBody());
+  }
+}
+class OtpConfirmationBody extends StatefulWidget {
+  const OtpConfirmationBody({super.key});
+
+  @override
+  State<OtpConfirmationBody> createState() => _OtpConfirmationBodyState();
 }
 
-class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
+class _OtpConfirmationBodyState extends State<OtpConfirmationBody>
     with TickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animation;
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   initState() {
@@ -35,12 +52,10 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
   int index = 0;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      builder: (context, state)
-      {
-        return WillPopScope(
+    return
+         WillPopScope(
           onWillPop: ()async{
-            context.read<AuthenticationBloc>().add(
+           sl<AuthenticationBloc>().add(
                 TapOnPressed(ScreensAuth.signInScreen)
             );
             return false;
@@ -63,6 +78,12 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                   Text(AppLocalizations.of(context)!.verification_code,
                       style:
                       getBoldStyle(color: Colors.white, fontSize:14)),
+                  Text(context
+                      .read<AuthenticationBloc>()
+                      .otpVerifyResponse
+                      !.code.toString(),
+                      style:
+                      getBoldStyle(color: Colors.white, fontSize:14)),
 
                   const SizedBox(
                     height: 58,
@@ -80,42 +101,54 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
                         // colorBuilder:
                         // const FixedColorBuilder(ColorManager.primaryGreen),
                       ),
-                 //   currentCode: textEditingController.text,
+                      currentCode: textEditingController.text,
                       codeLength: 6,
                       onCodeChanged: (String? code) {
+                        if (code != null) {
+                          textEditingController.text = code;
+                          if (code.length == 6) {
+                             sl<AuthenticationBloc>().add(
+                                ConfirmOtp(code: textEditingController.text,phone: "888888"));
 
+                          }
+                        }
                       },
                     ),
                   ),
                   const SizedBox(
                     height: 24,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(AppLocalizations.of(context)!.receive_code,
-                          style: getSemiBoldStyle(color: Colors.white)),
-                      InkWell(
-                        onTap: () {
-                          context.read<AuthenticationBloc>().add(
-                              TapOnPressed(ScreensAuth.resetPasswordScreen)
-                          );
-                        },
-                        child: Text(
-                            AppLocalizations.of(context)!.resend_code,
-                            style: getSemiBoldStyle(color: Colors.yellow)),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     Text(AppLocalizations.of(context)!.receive_code,
+                  //         style: getSemiBoldStyle(color: Colors.white)),
+                  //     InkWell(
+                  //       onTap: () {
+                  //         context.read<AuthenticationBloc>().add(
+                  //             TapOnPressed(ScreensAuth.resetPasswordScreen)
+                  //         );
+                  //       },
+                  //       child: Text(
+                  //           AppLocalizations.of(context)!.resend_code,
+                  //           style: getSemiBoldStyle(color: Colors.yellow)),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(
                     height: 64,
                   ),
                   ButtonAuth(
                       label: AppLocalizations.of(context)!.done,
                       onTap: () {
-                        context
-                            .read<AuthenticationBloc>()
-                            .add(TapOnPressed(ScreensAuth.resetPasswordScreen));
+                        if (textEditingController.text.length == 6) {
+                       sl<AuthenticationBloc>().add(
+                              ConfirmOtp(code: textEditingController.text,phone: "888888"));
+
+                        } else {
+                          //toast(AppLocalizations.of(context)!.enterAllField);
+                        }
+
                       }),
                   const SizedBox(
                     height: 13,
@@ -135,7 +168,5 @@ class _OtpConfirmationScreenState extends State<OtpConfirmationScreen>
             ),
           ),
         );
-      },
-    );
   }
 }

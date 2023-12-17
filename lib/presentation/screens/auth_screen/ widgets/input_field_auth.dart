@@ -184,7 +184,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
             child: Text(
               widget.errorMessage ?? validationErrorMessage ?? '',
               style: getBoldStyle(
-                color: Colors.red,
+                color: ColorManager.yellow,
                 fontSize: FontSizeApp.s12,
               )!
                   .copyWith(height: 1),

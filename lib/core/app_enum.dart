@@ -5,7 +5,8 @@ enum AuthenticationScreenStates {
   authenticationAuthenticated,
   authenticationUnauthenticated,
   authenticationInitialized,
-  authenticationEnd
+  authenticationEnd,
+  authenticationGuest
 }
 
 enum DataType { api, cache }

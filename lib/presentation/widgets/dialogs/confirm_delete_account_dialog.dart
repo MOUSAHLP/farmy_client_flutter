@@ -4,7 +4,7 @@ import 'package:pharma/core/app_router/dialog_transition_builder.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
-import 'package:pharma/presentation/screens/auth_screen/sign_in_screen.dart';
+import 'package:pharma/presentation/screens/auth_screen/auth_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/presentation/widgets/dialogs/custom_dialog.dart';
 import 'package:pharma/translations.dart';
@@ -46,7 +46,7 @@ class _ConfirmDeleteAccountDialogBody extends StatelessWidget {
             child: CustomButton(
               label: AppLocalizations.of(context)!.exit,
               onTap: () {
-                AppRouter.pushAndRemoveAllStack(context, const SignInScreen());
+                AppRouter.pushAndRemoveAllStack(context, const AuthScreen());
               },
             ),
           ),

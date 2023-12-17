@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
 import 'package:pharma/presentation/screens/all_invoices/all_invoices_screen.dart';
-import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/contact_us/contact_us_screen.dart';
 import 'package:pharma/presentation/screens/join_our_team/join_our_team_screen.dart';
 import 'package:pharma/presentation/screens/setting_screen/setting_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:pharma/translations.dart';
+import '../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../core/app_router/app_router.dart';
+import '../../core/services/services_locator.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/style_app.dart';
+import 'dialogs/logout_confirmation_dialog.dart';
 
 class CustomAppDrawer extends StatelessWidget {
   const CustomAppDrawer({super.key});
@@ -56,15 +57,23 @@ class CustomAppDrawer extends StatelessWidget {
                           const SizedBox(
                             height: 24,
                           ),
-                          Text(
-                            "qmar",
+                          sl<AuthenticationBloc>().loggedIn?   Text(
+                            "${
+                                context
+                                    .read<AuthenticationBloc>()
+                                    .loginResponse!
+                                    .firstName
+                            } ${context
+                                .read<AuthenticationBloc>()
+                                .loginResponse!
+                                .lastName}",
                             style: getMediumStyle(
                               color: Colors.black,
                               fontSize: 18,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                          ),
+                          ):const SizedBox(),
                           const SizedBox(
                             height: 21,
                           ),
@@ -96,7 +105,7 @@ class CustomAppDrawer extends StatelessWidget {
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.sign_out, () {
-                            AppRouter.push(context, const AccountScreen());
+                            LogoutConfirmationDialog.handle(context);
                           }),
                           const SizedBox(height: 20),
 

@@ -37,6 +37,8 @@ class ImageManager {
   static const String listOfTypeJoinUs = "$imagePath/list_type_join_us.png";
   static const String whatsUpLogo = "$imagePath/whats_up.png";
   static const String contactLogo = "$imagePath/contact_logo.png";
+  static const String select = "$imagePath/select.png";
+  static const String select2 = "$imagePath/select2.png";
 }
 
 class IconsManager {
@@ -44,6 +46,7 @@ class IconsManager {
   static const String logoGreen = "$iconPath/logo_green.svg";
   static const String crown = "$iconPath/crown_icon.svg";
   static const String locationIcon = "$iconPath/location_icon.png";
+  static const String locationIconApp = "$iconPath/location_icon_app.png";
 }
 
 class LottieManager {
