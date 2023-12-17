@@ -56,7 +56,7 @@ class BaseApiClient {
           log(response.data.toString());
         }
         if (isToken) {
-          DataStore.instance.setToken(response.headers['Authorization']!.first);
+          // DataStore.instance.setToken(response.headers['Authorization']!.first);
         }
         return right(converter(response.data));
       } else {

@@ -10,6 +10,7 @@ class SlideItem extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
+
     switch (index) {
       case 0:
         return const LanguageSelection();

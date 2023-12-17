@@ -2,7 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import '../../../bloc/authentication_bloc/authentication_event.dart';
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/app_router/dialog_transition_builder.dart';
+import '../../../core/services/services_locator.dart';
 import '../../../translations.dart';
 import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
@@ -60,7 +63,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
                     label: AppLocalizations.of(context)!.exit,
                     fillColor: Colors.red,
                     onTap: () {
-
+                      sl<AuthenticationBloc>().add(LoggedOut());
                       AppRouter.pushAndRemoveAllStack(context, const AccountScreen());
                     },
                   ),
