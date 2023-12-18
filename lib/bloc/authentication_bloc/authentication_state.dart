@@ -10,7 +10,7 @@ class AuthenticationState extends Equatable {
   final bool sentOtp;
 
   final  bool resetPassword;
-  final  bool signIn;
+  final  bool signUp;
   final bool confirmOtp;
   final bool changePasswordSuccess;
   final  String selectGender;
@@ -26,7 +26,7 @@ class AuthenticationState extends Equatable {
     this.sentOtp = false,
     this.confirmOtp = false,
     this.resetPassword = false,
-    this.signIn = false,
+    this.signUp = false,
     this.changePasswordSuccess = false,
     this.selectGender = '',
   });
@@ -39,7 +39,7 @@ class AuthenticationState extends Equatable {
     bool? sendOtp,
     bool? confirmOtp,
     bool? resetPassword,
-    bool? signIn,
+    bool? signUp,
     bool? isSuccess,
     bool? loggedIn,
     String? selectGender
@@ -55,7 +55,7 @@ class AuthenticationState extends Equatable {
       sentOtp: sendOtp ?? false,
       confirmOtp: confirmOtp ?? false,
       resetPassword: resetPassword ?? false,
-      signIn: signIn ?? this.signIn,
+      signUp: signUp ?? this.signUp,
       selectGender: selectGender ?? '',
     );
   }
@@ -71,7 +71,7 @@ class AuthenticationState extends Equatable {
     sentOtp,
     confirmOtp,
     resetPassword,
-    signIn,
+    signUp,
     selectGender
   ];
 }

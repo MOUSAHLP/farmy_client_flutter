@@ -7,6 +7,7 @@ import '../../models/login_response.dart';
 import '../../models/otp_verify_response.dart';
 import '../../models/params/forget_password_params.dart';
 import '../../models/params/otp_confirm_params.dart';
+import '../../models/params/sign_up_params.dart';
 import 'authentication_event.dart';
 import 'authentication_state.dart';
 
@@ -17,6 +18,7 @@ class AuthenticationBloc
   OtpVerifyResponse? otpVerifyResponse;
   bool loggedIn = true;
   OtpConfirmParams otpConfirmParams = OtpConfirmParams();
+  SignUpParams signUpParams = SignUpParams();
   AuthenticationBloc(
       this.userRepository,
   ) : super( AuthenticationState()) {
@@ -63,9 +65,10 @@ class AuthenticationBloc
         response.fold((l) {
           emit(state.copyWith(
               error: l,
-              signIn: true
+              signUp: true
           ));
         }, (r) async {
+          loggedIn = true;
           loginResponse = r;
           DataStore.instance.setUserInfo(loginResponse!);
           DataStore.instance.setToken(loginResponse!.token??"");
@@ -138,6 +141,22 @@ class AuthenticationBloc
           emit(state.copyWith(error: l));
         }, (r) {
           emit(state.copyWith(isSuccess: true));
+        });
+      }
+      if (event is SignUp) {
+        emit(state.copyWith(
+          isLoading: true,
+        ));
+        var response = await userRepository.signUp(signUpParams);
+        response.fold((l) {
+          emit(state.copyWith(error: l));
+        }, (r) {
+
+          // FirebaseNotificationsHandler().refreshFcmToken().then((value) async {
+          //   userRepository.saveFCMToken(value);
+          // });
+          emit(state.copyWith(
+             signUp: true));
         });
       }
     });

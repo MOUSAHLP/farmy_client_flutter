@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import ' widgets/button_auth.dart';
 import ' widgets/input_field_auth.dart';
 import '../../../bloc/authentication_bloc/authentication_event.dart';
@@ -16,18 +17,18 @@ import '../../resources/assets_manager.dart';
 import '../../resources/style_app.dart';
 import '../../widgets/password_input_field_auth.dart';
 import '../location_first_screen/location_first_screen.dart';
-import '../main_screen/main_screen.dart';
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state.authenticationScreen ==
               AuthenticationScreenStates.authenticationAuthenticated) {
+
             AppRouter.push(context, const LocationFirstScreen());
           }
+
         },
 
         child: SignInBody());

@@ -7,17 +7,13 @@ import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
-
 import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/presentation/screens/onboarding_screen/onboarding_screen.dart';
-
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
-
 import 'bloc/authentication_bloc/authentication_event.dart';
 import 'bloc/authentication_bloc/authentication_state.dart';
 import 'bloc/home_bloc/home_bloc.dart';
-import 'bloc/location_bloc/location_bloc.dart';
 import 'bloc/onboarding_bloc/onboarding_bloc.dart';
 import 'core/app_enum.dart';
 import 'data/data_resource/local_resource/data_store.dart';
@@ -47,9 +43,6 @@ class _MyAppState extends State<MyApp> {
                 create: (BuildContext context) => sl<OnBoardingBloc>()),
             BlocProvider(
               create: (BuildContext context) => sl<HomeBloc>(),
-            ),
-            BlocProvider(
-              create: (BuildContext context) => sl<LocationBloc>(),
             ),
           ],
           child: GestureDetector(

@@ -11,6 +11,7 @@ import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/app_validators.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../translations.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 import '../../widgets/password_input_field_auth.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -42,6 +43,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state.changePasswordSuccess) {
+
             AppRouter.pushReplacement(context, const AccountScreen());
           }
         },

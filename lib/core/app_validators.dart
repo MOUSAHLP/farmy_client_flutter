@@ -4,7 +4,18 @@ import 'package:pharma/core/utils/app_regex.dart';
 import '../translations.dart';
 
 class AppValidators {
-
+  static String? validateFirstNameFields(BuildContext context, String? name) {
+    if (name == null || name.isEmpty) {
+      return AppLocalizations.of(context)!.fNameFieldIsRequired;
+    }
+    return null;
+  }
+  static String? validateLastNameFields(BuildContext context, String? name) {
+    if (name == null || name.isEmpty) {
+      return AppLocalizations.of(context)!.lNameFieldIsRequired;
+    }
+    return null;
+  }
 
   static String? validatePasswordFields(
       BuildContext context, String? password) {

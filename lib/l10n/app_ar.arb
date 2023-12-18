@@ -208,5 +208,8 @@
   "emailFieldIsRequired": "حقل الأيميل مطلوب",
   "emailIsNotValid": "هذا ليس عنوان بريد إلكتروني صالح",
   "phoneFieldIsRequired": "حقل رقم الهاتف مطلوب",
-  "wrongPhoneNumber": "رقم الهاتف خاطئ, مثال ********9 "
+  "wrongPhoneNumber": "رقم الهاتف خاطئ, مثال ********9 ",
+
+  "fNameFieldIsRequired": "حقل الأسم مطلوب",
+  "lNameFieldIsRequired": "حقل الشهرة مطلوب"
 }

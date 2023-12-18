@@ -14,6 +14,7 @@ import '../../core/services/services_locator.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/style_app.dart';
+import '../screens/auth_screen/account_screen.dart';
 import 'dialogs/logout_confirmation_dialog.dart';
 
 class CustomAppDrawer extends StatelessWidget {
@@ -103,9 +104,12 @@ class CustomAppDrawer extends StatelessWidget {
                               AppLocalizations.of(context)!.who_are_we, () {
                             AppRouter.pop(context);
                           }),
-                          buildElevatedButton(
+                          sl<AuthenticationBloc>().loggedIn?  buildElevatedButton(
                               AppLocalizations.of(context)!.sign_out, () {
                             LogoutConfirmationDialog.handle(context);
+                          }):buildElevatedButton(
+                              AppLocalizations.of(context)!.sign_in, () {
+                            AppRouter.push(context, const AccountScreen());
                           }),
                           const SizedBox(height: 20),
 

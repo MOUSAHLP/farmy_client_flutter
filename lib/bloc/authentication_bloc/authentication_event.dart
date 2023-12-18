@@ -33,3 +33,4 @@ class ForgetPassword extends AuthenticationEvent {
   ForgetPassword({required this.password, required this.repeatPassword})
       : super([password, repeatPassword]);
 }
+class SignUp extends AuthenticationEvent {}
