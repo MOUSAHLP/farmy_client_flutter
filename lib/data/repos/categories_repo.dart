@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:pharma/core/utils/api_const.dart';
-import 'package:pharma/models/parms/categories_respoonse.dart';
-import 'package:pharma/models/parms/category_by_id_response.dart';
+import 'package:pharma/models/categories_respoonse.dart';
+import 'package:pharma/models/category_by_id_response.dart';
 
 import '../data_resource/remote_resource/api_handler/base_api_client.dart';
 
 class CategoriesRepo {
-  Future<Either<String, List<CategoriesResponse>>> getAllPlan() {
+  Future<Either<String, List<CategoriesResponse>>> getALLCategories() {
     return BaseApiClient.get<List<CategoriesResponse>>(
         url: ApiConst.getAllCategoties,
         converter: (e) {

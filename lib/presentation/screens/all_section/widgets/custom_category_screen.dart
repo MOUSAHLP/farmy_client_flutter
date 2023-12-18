@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:pharma/models/parms/categories_respoonse.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
+import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/presentation/widgets/custom_category.dart';
 
-class CustomSubCategory extends StatelessWidget {
+class CustomCategoryScreen extends StatelessWidget {
   final List<CategoriesResponse>? categoriesList;
-  final CategoriesResponse? categories;
   final TabController tabController;
-  const CustomSubCategory(
-      {super.key,
-      this.categoriesList,
-      this.categories,
-      required this.tabController});
+
+  const CustomCategoryScreen(
+      {super.key, required this.categoriesList, required this.tabController});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +24,10 @@ class CustomSubCategory extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
             onTap: () {
+              if (index != 0) {
+                context.read<CategoriesBloc>().add(
+                    GetSubCategoryEvent(categoryId: categoriesList![index].id));
+              }
               tabController.animateTo(index);
             },
             child: CustomCategory(categoryName: categoriesList![index].name!));

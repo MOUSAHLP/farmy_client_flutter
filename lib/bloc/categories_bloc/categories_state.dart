@@ -3,23 +3,31 @@ part of 'categories_bloc.dart';
 class CategoriesState extends Equatable {
   final ScreenState screenState;
   List<CategoriesResponse> categoriesList = [];
-  CategoryByIdResponse? categoryByIdResponse;
+  List<SubCategoryResponse>? subCategoryList;
+  bool? isCategoryLoading;
 
   CategoriesState(
       {this.screenState = ScreenState.initialized,
       this.categoriesList = const [],
-      this.categoryByIdResponse});
+      this.subCategoryList,
+      this.isCategoryLoading});
   CategoriesState copyWith(
       {List<CategoriesResponse>? categoriesList,
       ScreenState? screenState,
-      CategoryByIdResponse? categoryByIdResponse}) {
+      List<SubCategoryResponse>? subCategoryList,
+      bool? isCategoryLoading}) {
     return CategoriesState(
         screenState: screenState ?? this.screenState,
         categoriesList: categoriesList ?? this.categoriesList,
-        categoryByIdResponse:
-            categoryByIdResponse ?? this.categoryByIdResponse);
+        subCategoryList: subCategoryList ?? this.subCategoryList,
+        isCategoryLoading: isCategoryLoading ?? false);
   }
 
   @override
-  List<Object?> get props => [categoriesList, categoryByIdResponse];
+  List<Object?> get props => [
+        identityHashCode(this),
+        categoriesList,
+        subCategoryList,
+        isCategoryLoading
+      ];
 }

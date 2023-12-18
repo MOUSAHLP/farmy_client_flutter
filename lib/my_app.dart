@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
             ),
           ],
           child: GestureDetector(
-            onTap: (){
+            onTap: () {
               final FocusScopeNode currentFocus = FocusScope.of(context);
               if (!currentFocus.hasPrimaryFocus &&
                   currentFocus.focusedChild != null) {
@@ -65,46 +65,44 @@ class _MyAppState extends State<MyApp> {
                 builder: (context, state) {
               if (true) {
                 return MaterialApp(
-                  title: 'Farmy',
-                  locale: Locale(DataStore.instance.lang),
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-
-                  home: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-                    listener: (context, state) {
-
-                    },
-                    bloc: sl<AuthenticationBloc>()..add(AppStarted()),
-                    builder: (context, state) {
-                      switch (state.authenticationScreen) {
-                        case AuthenticationScreenStates
-                            .authenticationAuthenticated:
-                          {
-                            return const MainScreen();
-                          }
-                        case AuthenticationScreenStates
-                            .authenticationUnauthenticated:
-                          {
-                            return const OnBoardingScreen();
-                          }
-                        case AuthenticationScreenStates.authenticationLoggedOut:
-                          {
-                            return const AccountScreen();
-                          }
-                        default:
-                          {
-                            return const SplashScreen();
-                          }
-                      }
-                    },
-                  )
-                  // home:  NotificationScreen(),
-                );
+                    title: 'Farmy',
+                    locale: Locale(DataStore.instance.lang),
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
+                    home: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                      listener: (context, state) {},
+                      bloc: sl<AuthenticationBloc>()..add(AppStarted()),
+                      builder: (context, state) {
+                        switch (state.authenticationScreen) {
+                          case AuthenticationScreenStates
+                                .authenticationAuthenticated:
+                            {
+                              return const MainScreen();
+                            }
+                          case AuthenticationScreenStates
+                                .authenticationUnauthenticated:
+                            {
+                              return const OnBoardingScreen();
+                            }
+                          case AuthenticationScreenStates
+                                .authenticationLoggedOut:
+                            {
+                              return const AccountScreen();
+                            }
+                          default:
+                            {
+                              return const SplashScreen();
+                            }
+                        }
+                      },
+                    )
+                    // home:  NotificationScreen(),
+                    );
               }
             }),
           ),
