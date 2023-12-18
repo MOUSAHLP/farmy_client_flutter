@@ -11,6 +11,7 @@ import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.d
 import 'package:pharma/translations.dart';
 import '../../../core/app_enum.dart';
 import '../../../core/services/services_locator.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 
 class OtpConfirmationScreen extends StatelessWidget {
   const OtpConfirmationScreen({super.key,});
@@ -20,6 +21,7 @@ class OtpConfirmationScreen extends StatelessWidget {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state.confirmOtp) {
+            LoadingDialog().closeDialog(context);
             context
                 .read<AuthenticationBloc>()
                 .add(TapOnPressed(ScreensAuth.resetPasswordScreen));

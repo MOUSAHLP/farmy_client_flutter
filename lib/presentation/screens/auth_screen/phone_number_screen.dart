@@ -13,6 +13,7 @@ import '../../../core/app_validators.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../translations.dart';
 import '../../resources/assets_manager.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 
 class PhoneNumberScreen extends StatelessWidget {
   const PhoneNumberScreen({super.key,});
@@ -23,6 +24,7 @@ class PhoneNumberScreen extends StatelessWidget {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state.sentOtp) {
+            LoadingDialog().closeDialog(context);
             sl<AuthenticationBloc>().add(
                 TapOnPressed(ScreensAuth.otpConfirmationScreen)
             );

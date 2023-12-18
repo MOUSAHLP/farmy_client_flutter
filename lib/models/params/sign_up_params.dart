@@ -4,6 +4,7 @@ class SignUpParams {
   String? phone;
   String? email;
   String? password;
+  String? confirmPassword;
 
 
   SignUpParams({
@@ -12,14 +13,16 @@ class SignUpParams {
     this.phone,
     this.email,
     this.password,
-   
+    this.confirmPassword,
+
   });
 
   Map<String, dynamic> toJson() => {
         "first_name": fName,
         "last_name": lName,
         "phone": phone,
-        "email": email,
+
         "password": password,
+    "password_confirmation": confirmPassword,
       };
 }

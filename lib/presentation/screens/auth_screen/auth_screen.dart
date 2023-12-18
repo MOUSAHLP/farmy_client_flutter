@@ -41,17 +41,8 @@ class _AuthScreenState extends State<AuthScreen>
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-        listener: (context, state) {
-          if (state.isLoading) {
-            LoadingDialog().openDialog(context);
-          } else {
-            LoadingDialog().closeDialog(context);
-          }
-          if (state.error != null) {
-            ErrorDialog.openDialog(context, state.error);
-          }
-        },
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+
       bloc: sl<AuthenticationBloc>()..add(TapOnPressed(ScreensAuth.signInScreen)),
      builder: (context, state)
      {

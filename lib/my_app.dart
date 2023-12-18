@@ -48,9 +48,6 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(
               create: (BuildContext context) => sl<HomeBloc>(),
             ),
-            BlocProvider(
-              create: (BuildContext context) => sl<LocationBloc>(),
-            ),
           ],
           child: GestureDetector(
             onTap: (){

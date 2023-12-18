@@ -206,5 +206,7 @@
   "emailFieldIsRequired": "E-mail Field Is Required",
   "emailIsNotValid": "This E-mail is not a Valid Email.",
   "phoneFieldIsRequired":  "Your Phone Field Is Required",
-  "wrongPhoneNumber": "Wrong Phone Number, ex 9******** "
+  "wrongPhoneNumber": "Wrong Phone Number, ex 9******** ",
+  "fNameFieldIsRequired": "First Name Field Is Required.",
+  "lNameFieldIsRequired": "Last Name Field Is Required."
 }
