@@ -24,7 +24,7 @@ class PhoneNumberScreen extends StatelessWidget {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state.sentOtp) {
-            LoadingDialog().closeDialog(context);
+
             sl<AuthenticationBloc>().add(
                 TapOnPressed(ScreensAuth.otpConfirmationScreen)
             );

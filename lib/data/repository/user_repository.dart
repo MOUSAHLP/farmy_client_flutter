@@ -72,8 +72,7 @@ class UserRepository {
   }
   Future<Either<String, String>> signUp(
       SignUpParams? signUpParams) async {
-    print("signUpParams!.toJson()");
-    print(signUpParams!.toJson());
+
     return BaseApiClient.post<String>(
         url: ApiConst.signUp,
 

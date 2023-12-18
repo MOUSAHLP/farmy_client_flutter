@@ -56,11 +56,10 @@ class _AccountScreenState extends State<AccountScreen>
              if (state.isLoading) {
                LoadingDialog().openDialog(context);
              }
-             // else {
-             //   LoadingDialog().closeDialog(context);
-             // }
-             if (state.error != null) {
+             else {
                LoadingDialog().closeDialog(context);
+             }
+             if (state.error != null) {
                ErrorDialog.openDialog(context, state.error);
              }
            },
@@ -107,7 +106,7 @@ class _AccountScreenState extends State<AccountScreen>
                                 label:
                                     AppLocalizations.of(context)!.new_subscription,
                             onTap: (){
-                              AppRouter.push(context, SignUpScreen(),);
+                              AppRouter.push(context, const SignUpScreen(),);
                             }),
                             const SizedBox(
                               height: 27,

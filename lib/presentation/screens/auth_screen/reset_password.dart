@@ -43,7 +43,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state.changePasswordSuccess) {
-            LoadingDialog().closeDialog(context);
+
             AppRouter.pushReplacement(context, const AccountScreen());
           }
         },

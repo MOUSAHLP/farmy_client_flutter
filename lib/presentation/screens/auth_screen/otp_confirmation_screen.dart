@@ -21,7 +21,7 @@ class OtpConfirmationScreen extends StatelessWidget {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if (state.confirmOtp) {
-            LoadingDialog().closeDialog(context);
+
             context
                 .read<AuthenticationBloc>()
                 .add(TapOnPressed(ScreensAuth.resetPasswordScreen));

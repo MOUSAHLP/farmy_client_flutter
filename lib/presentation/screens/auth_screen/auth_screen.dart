@@ -5,15 +5,11 @@ import 'package:pharma/bloc/authentication_bloc/authentication_event.dart';
 import 'package:pharma/bloc/authentication_bloc/authentication_state.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/core/services/services_locator.dart';
-
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/background_auth.dart';
 import 'package:pharma/presentation/screens/auth_screen/phone_number_screen.dart';
 import 'package:pharma/presentation/screens/auth_screen/reset_password.dart';
 import 'package:pharma/presentation/screens/auth_screen/sign_in_screen.dart';
 import '../../../core/app_enum.dart';
-import '../../widgets/dialogs/error_dialog.dart';
-import '../../widgets/dialogs/loading_dialog.dart';
-
 import 'otp_confirmation_screen.dart';
 
 class AuthScreen extends StatefulWidget {
