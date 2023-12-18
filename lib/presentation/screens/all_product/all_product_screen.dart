@@ -1,28 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/models/sub_category_response.dart';
 import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_app_bar_screen.dart';
 
-class AllLProductScreen extends StatelessWidget {
-  final List<String> tabTitles = [
-    "خضارو وفواكه ومكسرات",
-    "مكسرات",
-    "فواكه",
-    "فواكه",
-    "فواكه",
-    "فواكه"
-  ];
-  AllLProductScreen({super.key});
+class AllLProductScreen extends StatefulWidget {
+  final List<SubCategoryResponse>? subCategoryList;
+  int index;
+  AllLProductScreen(
+      {super.key, required this.subCategoryList, required this.index});
+
+  @override
+  State<AllLProductScreen> createState() => _AllLProductScreenState();
+}
+
+class _AllLProductScreenState extends State<AllLProductScreen>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
+  @override
+  void initState() {
+    _tabController =
+        TabController(length: widget.subCategoryList!.length, vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: tabTitles.length,
-      initialIndex: 0,
+      length: widget.subCategoryList!.length,
+      initialIndex: widget.index,
       child: SafeArea(
         child: Scaffold(
           body: Column(
@@ -31,20 +41,26 @@ class AllLProductScreen extends StatelessWidget {
               // const CustomBackToPrevios(
               //   sectionName: "فليفلة",
               // ),
-              const CustomAppBarScreen(sectionName: "فليفة"),
+              CustomAppBarScreen(
+                  sectionName:
+                      widget.subCategoryList![widget.index].subCategoryName!),
               SizedBox(
                 width: 1.sw,
                 child: TabBar(
-                  onTap: (value) {},
+                  onTap: (value) {
+                    setState(() {
+                      widget.index = value;
+                    });
+                  },
                   isScrollable: true,
                   indicatorColor: ColorManager.primaryGreen,
                   labelColor: ColorManager.primaryGreen,
                   unselectedLabelColor: ColorManager.grayForMessage,
                   dividerColor: Colors.transparent,
                   indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: tabTitles.map((title) {
+                  tabs: widget.subCategoryList!.map((title) {
                     return Tab(
-                      text: title,
+                      text: title.subCategoryName,
                     );
                   }).toList(),
                 ),
@@ -54,7 +70,7 @@ class AllLProductScreen extends StatelessWidget {
               ),
               Expanded(
                 child: TabBarView(
-                  children: tabTitles.map((title) {
+                  children: widget.subCategoryList!.map((title) {
                     return GridView.builder(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       itemCount: 8,

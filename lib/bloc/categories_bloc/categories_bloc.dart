@@ -2,9 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repos/categories_repo.dart';
-import 'package:pharma/models/parms/category_by_id_response.dart';
+import 'package:pharma/models/category_by_id_response.dart';
+import 'package:pharma/models/sub_category_response.dart';
 
-import '../../models/parms/categories_respoonse.dart';
+import '../../models/categories_respoonse.dart';
 
 part 'categories_event.dart';
 part 'categories_state.dart';
@@ -16,7 +17,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       if (event is GetCaegoriesEvent) {
         emit(state.copyWith(screenState: ScreenState.loading));
 
-        (await categoriesRepo.getAllPlan()).fold(
+        (await categoriesRepo.getALLCategories()).fold(
             (l) => emit(state.copyWith(screenState: ScreenState.error)), (r) {
           List<CategoriesResponse> mutableCategories = List.from(r);
           mutableCategories.insert(
@@ -28,12 +29,13 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         });
       }
       if (event is GetSubCategoryEvent) {
-        emit(state.copyWith(screenState: ScreenState.loading));
+        emit(state.copyWith(isCategoryLoading: true));
 
         (await categoriesRepo.getCategoyById(event.categoryId)).fold(
             (l) => emit(state.copyWith(screenState: ScreenState.error)), (r) {
           emit(state.copyWith(
-              screenState: ScreenState.success, categoryByIdResponse: r));
+              screenState: ScreenState.success,
+              subCategoryList: r.subCategoryList));
         });
       }
     });
