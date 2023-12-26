@@ -7,6 +7,7 @@ class ProductsBySubCategoryIdResponse {
   String? sellerName;
   String? discount;
   String? discountStatus;
+  String? discountValue;
   String? image;
   ProductsBySubCategoryIdResponse(
       {this.id,
@@ -15,6 +16,7 @@ class ProductsBySubCategoryIdResponse {
       this.quantity,
       this.availabilityOfProduct,
       this.discountStatus,
+      this.discountValue,
       this.image,
       this.sellerName,
       this.discount});
@@ -24,7 +26,10 @@ class ProductsBySubCategoryIdResponse {
             id: json["id"],
             availabilityOfProduct: json["availability"],
             discountStatus: json["discount_status"],
-            discount: json["discount"],
+            discount: json["discount_status"] != 0
+                ? getDiscountedPrice(json["price"], json["discount"])
+                : json["discount"],
+            discountValue: json["discount"],
             nameOfProduct: json["name"],
             price: json["price"],
             quantity: json["quantity"],
@@ -32,11 +37,22 @@ class ProductsBySubCategoryIdResponse {
             sellerName: json["seller"] == null ? null : json["seller"]["name"])
         : ProductsBySubCategoryIdResponse();
   }
+
+  static String getDiscountedPrice(String price, String discount) {
+    int originalPrice = int.parse(price);
+    int discountPrcie = int.parse(discount);
+
+    int percantge = (((discountPrcie * 100) / originalPrice)).round();
+
+    return percantge.toString();
+
+  }
+
   static List<ProductsBySubCategoryIdResponse> listFromJson(
       List<dynamic>? json) {
     return json == null
         ? []
-        : json  
+        : json
             .map((value) => ProductsBySubCategoryIdResponse.fromJson(value))
             .toList();
   }

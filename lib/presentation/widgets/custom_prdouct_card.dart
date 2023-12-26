@@ -123,7 +123,7 @@ class CustomProductCard extends StatelessWidget {
                           isDisCount!
                               ? Row(
                                   children: [
-                                    Text(productInfo.discount!,
+                                    Text(productInfo.discountValue!,
                                         style: getRegularStyle(
                                                 color:
                                                     ColorManager.grayForMessage,
