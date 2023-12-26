@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -57,7 +58,6 @@ class _AllLProductBodynState extends State<AllProductBody>
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsBloc, ProductsState>(
       builder: (context, state) {
-        log(state.toString());
         return DefaultTabController(
           length: widget.subCategoryList!.length,
           initialIndex: widget.index,
@@ -112,7 +112,7 @@ class _AllLProductBodynState extends State<AllProductBody>
                                                 // childAspectRatio: 144 / 233,
                                                 crossAxisCount: 2,
                                                 mainAxisSpacing: 26,
-                                                mainAxisExtent: 226),
+                                                mainAxisExtent: 227),
                                         itemBuilder: (context, index) {
                                           return Center(
                                               child: GestureDetector(
@@ -136,13 +136,13 @@ class _AllLProductBodynState extends State<AllProductBody>
                                                           : false,
                                                       productInfo: state
                                                           .productsList[index],
-                                                      isDisCount: state
+                                                      isDisCount: (state
                                                                   .productsList[
                                                                       index]
-                                                                  .discount !=
-                                                              null
-                                                          ? true
-                                                          : false)));
+                                                                  .discountStatus ==
+                                                              "0")
+                                                          ? false
+                                                          : true)));
                                         },
                                       )
                                     : CustomNoData(

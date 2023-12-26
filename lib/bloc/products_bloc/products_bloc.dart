@@ -19,9 +19,16 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
           if (l != "cancel") {
             emit(state.copyWith(screenState: ScreenState.error));
           }
-        },
-            (r) => emit(state.copyWith(
-                screenState: ScreenState.success, productsList: r)));
+        }, (r) {
+          List<ProductsBySubCategoryIdResponse> mutableProducts = List.from(r);
+          mutableProducts.removeWhere(
+            (element) {
+              return element.id == null;
+            },
+          );
+          emit(state.copyWith(
+              screenState: ScreenState.success, productsList: mutableProducts));
+        });
       }
     });
   }

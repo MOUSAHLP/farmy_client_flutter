@@ -40,143 +40,138 @@ class CustomProductCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(6),
-                  child: Stack(
-                    alignment: AlignmentDirectional.bottomStart,
-                    children: [
-                      Container(
-                        height: 144,
-                        color: ColorManager.grayForPlaceholde,
-                        child: CachedImage(
-                          width: 163,
-                          imageUrl: productInfo.image,
-                        ),
-                      ),
-                      isSellerFound == true
-                          ? ClipRRect(
-                              borderRadius: const BorderRadiusDirectional.only(
-                                  topStart: Radius.circular(6),
-                                  bottomEnd: Radius.circular(6)),
-                              child: Container(
-                                color: ColorManager.primaryGreen,
-                                height: 18,
-                                width: 76,
-                                child: Center(
-                                    child: Text(
-                                  "${productInfo.sellerName}",
-                                  style: getBoldStyle(
-                                          color: ColorManager.white,
-                                          fontSize: FontSizeApp.s7)!
-                                      .copyWith(),
-                                )),
-                              ),
-                            )
-                          : const SizedBox()
-                    ],
+                  child: Container(
+                    height: 144,
+                    color: ColorManager.grayForPlaceholde,
+                    child: CachedImage(
+                      width: 163,
+                      imageUrl: productInfo.image,
+                    ),
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: productInfo.nameOfProduct != null
-                              ? Text(
-                                  productInfo.nameOfProduct!,
-                                  style: getBoldStyle(
-                                          color: ColorManager.black,
-                                          fontSize: FontSizeApp.s10)!
-                                      .copyWith(height: 1),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 4),
+                            child: Column(
+                              children: [
+                                productInfo.nameOfProduct != null
+                                    ? Text(
+                                        productInfo.nameOfProduct!,
+                                        style: getBoldStyle(
+                                                color: ColorManager.black,
+                                                fontSize: FontSizeApp.s10)!
+                                            .copyWith(height: 1),
+                                      )
+                                    : const SizedBox(),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                productInfo.sellerName != null
+                                    ? Text(
+                                        "(${productInfo.sellerName!})",
+                                        style: getBoldStyle(
+                                                color:
+                                                    ColorManager.primaryGreen,
+                                                fontSize: FontSizeApp.s10)!
+                                            .copyWith(height: 1),
+                                      )
+                                    : const SizedBox(),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 4),
+                            child: Row(
+                              children: [
+                                //todo wazn
+                                // Row(
+                                //   children: [
+                                //     Text(
+                                //       "400 غ",
+                                //       style: getRegularStyle(
+                                //               color: ColorManager.grayForMessage,
+                                //               fontSize: FontSizeApp.s13)!
+                                //           .copyWith(height: 1),
+                                //     ),
+                                //     Text(
+                                //       " / ",
+                                //       style: getRegularStyle(
+                                //               color: ColorManager.grayForMessage,
+                                //               fontSize: FontSizeApp.s13)!
+                                //           .copyWith(height: 1),
+                                //     ),
+                                //   ],
+                                // ),
+                                if (productInfo.quantity != null)
+                                  Text(
+                                    "${productInfo.quantity} قطعة",
+                                    style: getRegularStyle(
+                                            color: ColorManager.grayForMessage,
+                                            fontSize: FontSizeApp.s10)!
+                                        .copyWith(height: 1),
+                                  ),
+                              ],
+                            ),
+                          ),
+                          isDisCount!
+                              ? Row(
+                                  children: [
+                                    Text(productInfo.discount!,
+                                        style: getRegularStyle(
+                                                color:
+                                                    ColorManager.grayForMessage,
+                                                fontSize: FontSizeApp.s12)!
+                                            .copyWith(
+                                                decoration:
+                                                    TextDecoration.lineThrough,
+                                                height: 1)),
+                                    const SizedBox(
+                                      width: 1,
+                                    ),
+                                    Text("ل.س",
+                                        style: getRegularStyle(
+                                                color:
+                                                    ColorManager.grayForMessage,
+                                                fontSize: FontSizeApp.s7)!
+                                            .copyWith(
+                                                decoration:
+                                                    TextDecoration.lineThrough,
+                                                height: 1)),
+                                  ],
                                 )
                               : const SizedBox(),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 4),
-                          child: Row(
-                            children: [
-                              //todo wazn
-                              // Row(
-                              //   children: [
-                              //     Text(
-                              //       "400 غ",
-                              //       style: getRegularStyle(
-                              //               color: ColorManager.grayForMessage,
-                              //               fontSize: FontSizeApp.s13)!
-                              //           .copyWith(height: 1),
-                              //     ),
-                              //     Text(
-                              //       " / ",
-                              //       style: getRegularStyle(
-                              //               color: ColorManager.grayForMessage,
-                              //               fontSize: FontSizeApp.s13)!
-                              //           .copyWith(height: 1),
-                              //     ),
-                              //   ],
-                              // ),
-                              if (productInfo.quantity != null)
-                                Text(
-                                  "${productInfo.quantity} قطعة",
-                                  style: getRegularStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: FontSizeApp.s10)!
-                                      .copyWith(height: 1),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4, bottom: 0),
+                            child: Row(
+                              children: [
+                                if (productInfo.price != null)
+                                  Text(productInfo.price!,
+                                      style: getBoldStyle(
+                                              color: ColorManager.primaryGreen,
+                                              fontSize: FontSizeApp.s15)!
+                                          .copyWith(height: 1)),
+                                const SizedBox(
+                                  width: 1,
                                 ),
-                            ],
-                          ),
-                        ),
-                        isDisCount!
-                            ? Row(
-                                children: [
-                                  Text(productInfo.discount!,
-                                      style: getRegularStyle(
-                                              color:
-                                                  ColorManager.grayForMessage,
-                                              fontSize: FontSizeApp.s12)!
-                                          .copyWith(
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                              height: 1)),
-                                  const SizedBox(
-                                    width: 1,
-                                  ),
+                                //todo caruncy
+                                if (productInfo.price != null)
                                   Text("ل.س",
-                                      style: getRegularStyle(
-                                              color:
-                                                  ColorManager.grayForMessage,
-                                              fontSize: FontSizeApp.s7)!
-                                          .copyWith(
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                              height: 1)),
-                                ],
-                              )
-                            : const SizedBox(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4, bottom: 0),
-                          child: Row(
-                            children: [
-                              if (productInfo.price != null)
-                                Text(productInfo.price!,
-                                    style: getBoldStyle(
-                                            color: ColorManager.primaryGreen,
-                                            fontSize: FontSizeApp.s15)!
-                                        .copyWith(height: 1)),
-                              const SizedBox(
-                                width: 1,
-                              ),
-                              //todo caruncy
-                              if (productInfo.price != null)
-                                Text("ل.س",
-                                    style: getBoldStyle(
-                                            color: ColorManager.primaryGreen,
-                                            fontSize: FontSizeApp.s10)!
-                                        .copyWith(height: 1))
-                            ],
-                          ),
-                        )
-                      ],
+                                      style: getBoldStyle(
+                                              color: ColorManager.primaryGreen,
+                                              fontSize: FontSizeApp.s10)!
+                                          .copyWith(height: 1))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 74,
@@ -198,7 +193,7 @@ class CustomProductCard extends StatelessWidget {
               ],
             ),
           ),
-          isDisCount!
+          isDisCount == true
               ? ClipRRect(
                   borderRadius: const BorderRadiusDirectional.only(
                       topStart: Radius.circular(6),
