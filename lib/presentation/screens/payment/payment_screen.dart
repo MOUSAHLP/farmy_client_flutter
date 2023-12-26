@@ -155,11 +155,12 @@ class PaymentBody extends StatelessWidget {
                         height: 8,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: Row(
                           children: [
                             Expanded(
                                 child: CustomDiscountCodeContiner(
+                              imageUrl: ImageManager.codeDiscount,
                               subjectText:
                                   AppLocalizations.of(context)!.hasm_code,
                             )),
@@ -168,6 +169,8 @@ class PaymentBody extends StatelessWidget {
                             ),
                             Expanded(
                                 child: CustomDiscountCodeContiner(
+                              isReplacePoint: true,
+                              imageUrl: ImageManager.replacePoint,
                               subjectText:
                                   AppLocalizations.of(context)!.redeem_points,
                             ))
@@ -210,6 +213,38 @@ class PaymentBody extends StatelessWidget {
                         hintStyle:
                             getRegularStyle(color: ColorManager.grayForMessage),
                       )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 21),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.requiredChange,
+                        style: getBoldStyle(
+                            color: ColorManager.primaryGreen,
+                            fontSize: FontSizeApp.s14),
+                      ),
+                      // SizedBox(
+                      //   width: 1.sw,
+                      //   child: GridView.builder(
+                      //     physics: const NeverScrollableScrollPhysics(),
+                      //     gridDelegate:
+                      //         const SliverGridDelegateWithFixedCrossAxisCount(
+                      //             crossAxisSpacing: 0,
+                      //             mainAxisSpacing: 0,
+                      //             mainAxisExtent: 30,
+                      //             crossAxisCount: 3),
+                      //     itemBuilder: (context, index) {
+                      //       return Container(
+                      //         width: 82,
+                      //         color: Colors.amber,
+                      //       );
+                      //     },
+                      //   ),
+                      // )
                     ],
                   ),
                 ),

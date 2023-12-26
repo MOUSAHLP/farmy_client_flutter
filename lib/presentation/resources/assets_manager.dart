@@ -39,6 +39,10 @@ class ImageManager {
   static const String contactLogo = "$imagePath/contact_logo.png";
   static const String select = "$imagePath/select.png";
   static const String select2 = "$imagePath/select2.png";
+  static const String replacePoint = "$imagePath/replace_ponits.png";
+  static const String codeDiscount = "$imagePath/code_discount.png";
+  static const String pointCircle = "$imagePath/circle_with_point.png";
+  
 }
 
 class IconsManager {

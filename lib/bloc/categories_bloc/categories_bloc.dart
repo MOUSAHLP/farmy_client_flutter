@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pharma/core/app_enum.dart';
-import 'package:pharma/data/repos/categories_repo.dart';
+import 'package:pharma/data/repository/categories_repo.dart';
 import 'package:pharma/models/category_by_id_response.dart';
 import 'package:pharma/models/sub_category_response.dart';
 

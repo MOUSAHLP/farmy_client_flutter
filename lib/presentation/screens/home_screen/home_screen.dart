@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -162,6 +163,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       height: 305,
                       child: GridView.builder(
+                        shrinkWrap: true,
                         padding: const EdgeInsets.symmetric(horizontal: 19),
                         itemCount: 19,
                         scrollDirection: Axis.horizontal,
@@ -199,10 +201,18 @@ class HomeScreen extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: EdgeInsetsDirectional.only(
-                                bottom: 10, start: index == 0 ? 0 : 15),
-                            child: const CustomProductCard(isDisCount: true),
-                          );
+                              padding: EdgeInsetsDirectional.only(
+                                  bottom: 10, start: index == 0 ? 0 : 15),
+                              child: CustomProductCard(
+                                  isSellerFound: false,
+                                  isDisCount: false,
+                                  productInfo: ProductsBySubCategoryIdResponse(
+                                      availabilityOfProduct: "",
+                                      discount: "",
+                                      nameOfProduct: "",
+                                      price: "",
+                                      quantity: "",
+                                      sellerName: "")));
                         },
                       ),
                     ),
@@ -228,7 +238,16 @@ class HomeScreen extends StatelessWidget {
                           return Padding(
                             padding: EdgeInsetsDirectional.only(
                                 bottom: 10, start: index == 0 ? 0 : 15),
-                            child: const CustomProductCard(isDisCount: true),
+                            child: CustomProductCard(
+                                isSellerFound: false,
+                                isDisCount: false,
+                                productInfo: ProductsBySubCategoryIdResponse(
+                                    availabilityOfProduct: "",
+                                    discount: "",
+                                    nameOfProduct: "",
+                                    price: "",
+                                    quantity: "",
+                                    sellerName: "")),
                           );
                         },
                       ),

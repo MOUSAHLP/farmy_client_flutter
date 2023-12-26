@@ -1,5 +1,6 @@
 class ApiConst {
-  static const String baseUrl = "https://control.farmy.peaklink.site/public/api";
+  static const String baseUrl =
+      "https://control.farmy.peaklink.site/public/api";
 
   ///Auth
   static const String login = "/auth/login";
@@ -13,8 +14,9 @@ class ApiConst {
   ///Categories
   static const String getAllCategoties = "/categories";
   static String getSubCategories(int id) => "/categories/$id";
-  static String getProductBySubCategoryId(int id) => "/sub_categories/$id";
-
+//product
+  static String getProductBySubCategoryId = "/products";
+  static String getProductDetailsById(int id) => "/products/$id";
 
   ///Address
   static const String getUserAddresses = "/user_addresses";

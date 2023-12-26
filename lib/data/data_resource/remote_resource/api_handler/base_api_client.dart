@@ -149,7 +149,7 @@ class BaseApiClient {
       }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.cancel) {
-        return left('Cancel');
+        return left('cancel');
       }
       Map dioError = DioErrorsHandler.onError(e);
       if (kDebugMode) {

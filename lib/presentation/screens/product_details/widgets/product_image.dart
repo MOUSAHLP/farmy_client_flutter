@@ -35,10 +35,13 @@ class ProductImage extends StatelessWidget {
               topLeft: Radius.circular(28),
               topRight: Radius.circular(28),
             ),
-            child: CachedImage(
-                imageSize: ImageSize.large,
-                imageUrl:
-                    "http://dashboarsd.gocheckin.peaklink.site//storage/hotels/6/header1.jpg"),
+            child: Padding(
+              padding: EdgeInsets.all(48),
+              child: CachedImage(
+                  imageSize: ImageSize.small,
+                  imageUrl:
+                      "http://dashboarsd.gocheckin.peaklink.site//storage/hotels/6/header1.jpg"),
+            ),
           ),
         ),
         Padding(
