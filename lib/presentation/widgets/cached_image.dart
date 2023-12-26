@@ -63,7 +63,7 @@ class CachedImage extends StatelessWidget {
               ),
             );
           case LoadState.completed:
-            return state.completedWidget; 
+            return state.completedWidget;
           case LoadState.failed:
             return Padding(
               padding: const EdgeInsets.all(24.0),

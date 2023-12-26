@@ -60,6 +60,7 @@ class CustomProductCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 4),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 productInfo.nameOfProduct != null
                                     ? Text(

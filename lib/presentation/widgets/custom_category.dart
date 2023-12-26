@@ -16,12 +16,11 @@ class CustomCategory extends StatelessWidget {
         Container(
           height: 97,
           width: 97,
-          decoration: const BoxDecoration(shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+              color: ColorManager.white, shape: BoxShape.circle),
           child: const ClipOval(
             child: CachedImage(
-              imageSize: ImageSize.small,
-              imageUrl:
-                  "http://dashboard.gocheckins.peaklink.site//storage/hotels/6/header1.jpg",
+              imageUrl: "",
             ),
           ),
         ),
