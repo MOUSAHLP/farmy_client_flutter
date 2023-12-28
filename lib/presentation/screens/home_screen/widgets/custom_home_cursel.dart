@@ -8,6 +8,7 @@ import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomHomeCursel extends StatefulWidget {
+  final bool? isLoadingState;
   final List<BannersResponse>? bannerList;
   final double height;
   final double? verticalPadding;
@@ -15,6 +16,7 @@ class CustomHomeCursel extends StatefulWidget {
   const CustomHomeCursel({
     Key? key,
     required this.height,
+    this.isLoadingState,
     this.bannerList = const [],
     this.verticalPadding,
   }) : super(key: key);
@@ -44,15 +46,16 @@ class _CustomHomeCurselState extends State<CustomHomeCursel> {
           },
         ),
         items: List.generate(
-          widget.bannerList!.length,
+          widget.isLoadingState == true ? 2 : widget.bannerList!.length,
           (index) {
             return Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: 13, vertical: widget.verticalPadding ?? 30),
               child: GestureDetector(
                 onTap: () async {
-                  Uri url =
-                      Uri.parse(widget.bannerList![index].bannerLink ?? "");
+                  Uri url = Uri.parse(widget.isLoadingState == true
+                      ? ""
+                      : widget.bannerList![index].bannerLink ?? "");
                   if (!await launchUrl(url)) {
                     throw Exception('Could not launch $url');
                   }
@@ -68,7 +71,9 @@ class _CustomHomeCurselState extends State<CustomHomeCursel> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: CachedImage(
-                            imageUrl: widget.bannerList![index].bannerLink,
+                            imageUrl: widget.isLoadingState == true
+                                ? ""
+                                : widget.bannerList![index].bannerLink,
                             imageSize: ImageSize.large,
                           ),
                         ),

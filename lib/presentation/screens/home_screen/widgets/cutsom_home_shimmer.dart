@@ -94,6 +94,7 @@ class CustomHomeShimmer extends StatelessWidget {
                 baseColor: ColorManager.grayForPlaceholde,
                 highlightColor: const Color(0xFFe2e4e9),
                 child: CustomHomeCursel(
+                  isLoadingState: true,
                   verticalPadding: 0,
                   height: 0.5.sw,
                 ),
@@ -133,6 +134,7 @@ class CustomHomeShimmer extends StatelessWidget {
                 baseColor: ColorManager.grayForPlaceholde,
                 highlightColor: const Color(0xFFe2e4e9),
                 child: CustomHomeCursel(
+                  isLoadingState: true,
                   verticalPadding: 0,
                   height: 0.5.sw,
                 ),
