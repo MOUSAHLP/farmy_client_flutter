@@ -214,5 +214,6 @@
   "lNameFieldIsRequired": "حقل الشهرة مطلوب",
   "requiredChange":"الفكة المطلوبة (اختياري)",
   "discount":"حسم",
-  "thereIsNoProduct":"عذرا لا يوجد أي منتجات تنتمي لهذه الفئة حاليا"
+  "thereIsNoProduct":"عذرا لا يوجد أي منتجات تنتمي لهذه الفئة حاليا",
+  "curruncy":"ل.س"
 }

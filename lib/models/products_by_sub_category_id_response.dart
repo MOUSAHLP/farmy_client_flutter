@@ -9,7 +9,7 @@ class ProductsBySubCategoryIdResponse {
   String? discountStatus;
   String? discountValue;
   String? image;
-  ProductsBySubCategoryIdResponse(
+    ProductsBySubCategoryIdResponse(
       {this.id,
       this.nameOfProduct,
       this.price,
@@ -45,7 +45,6 @@ class ProductsBySubCategoryIdResponse {
     int percantge = (((discountPrcie * 100) / originalPrice)).round();
 
     return percantge.toString();
-
   }
 
   static List<ProductsBySubCategoryIdResponse> listFromJson(

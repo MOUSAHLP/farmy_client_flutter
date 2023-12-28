@@ -16,5 +16,6 @@ class ProductdetailsState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [screenState, productDetailsResponse];
+  List<Object?> get props =>
+      [identityHashCode(this), screenState, productDetailsResponse];
 }

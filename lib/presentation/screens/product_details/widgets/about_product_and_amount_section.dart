@@ -6,7 +6,10 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/counter_box.dart';
 
 class AboutProductAndAmonutSection extends StatelessWidget {
-  const AboutProductAndAmonutSection({super.key});
+  final String productName;
+  final String productDesc;
+  const AboutProductAndAmonutSection(
+      {super.key, required this.productName, required this.productDesc});
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +23,12 @@ class AboutProductAndAmonutSection extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Text("فليفلة خضراء",
+                  Text(productName,
                       style: getBoldStyle(
                         color: ColorManager.black,
                         fontSize: FontSizeApp.s15,
                       )),
-                  Text("فليفلة رقيقة بديلة",
+                  Text(productDesc,
                       style: getBoldStyle(
                         color: ColorManager.grayForMessage,
                         fontSize: FontSizeApp.s15,
@@ -40,9 +43,17 @@ class AboutProductAndAmonutSection extends StatelessWidget {
             ],
           ),
         ),
-
-        //todo bold 700
-
+        //todo attr product
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(productDesc,
+                style: getBoldStyle(
+                  color: ColorManager.grayForMessage,
+                  fontSize: FontSizeApp.s15,
+                )),
+          ],
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

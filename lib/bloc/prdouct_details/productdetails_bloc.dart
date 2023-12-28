@@ -11,11 +11,11 @@ class ProductdetailsBloc
     extends Bloc<ProductdetailsEvent, ProductdetailsState> {
   ProductRepo productRepo;
   ProductdetailsBloc({required this.productRepo})
-      : super(const ProductdetailsState(screenState: ScreenState.initialized)) {
+      : super(const ProductdetailsState()) {
     on<ProductdetailsEvent>((event, emit) async {
       if (event is GetProductDetailsById) {
         emit(state.copyWith(screenState: ScreenState.loading));
-        (await productRepo.getCategoyById(event.id)).fold(
+        (await productRepo.getProductDetailsById(event.id)).fold(
             (l) => emit(state.copyWith(screenState: ScreenState.error)),
             (r) => emit(state.copyWith(
                 productDetailsResponse: r, screenState: ScreenState.success)));

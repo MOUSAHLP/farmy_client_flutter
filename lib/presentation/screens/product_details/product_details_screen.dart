@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
+import 'package:pharma/core/app_enum.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -11,6 +16,7 @@ import 'package:pharma/presentation/screens/product_details/widgets/product_imag
 import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_button.dart';
+import 'package:pharma/presentation/widgets/custom_loading.dart';
 import 'package:pharma/translations.dart';
 
 import '../../resources/font_app.dart';
@@ -35,138 +41,230 @@ class ProductDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
-      builder: (context, state) {
-        return SafeArea(
-          child: Scaffold(
+    return SafeArea(
+      child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
+        builder: (context, state) {
+          return Scaffold(
             body: Column(
               children: [
                 const CustomAppBarScreen(sectionName: "تفاصيل فليفة"),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const ProductImage(
-                          productImage:
-                              "http://dashboard.gocheckin.xpeaklink.site//storage/hotels/6/header1.jpg"),
-                      const AboutProductAndAmonutSection(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 45),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                state.screenState == ScreenState.loading
+                    ? const CustomLoading()
+                    : state.screenState == ScreenState.success
+                        ? Expanded(
+                            child: ListView(
                               children: [
-                                Text(
-                                  AppLocalizations.of(context)!.price,
-                                  style: getBoldStyle(
-                                      color: ColorManager.primaryGreen,
-                                      fontSize: FontSizeApp.s15),
+                                const SizedBox(
+                                  height: 20,
                                 ),
-                                Text(
-                                  "10.00000 ل س",
-                                  style: getBoldStyle(
-                                      color: ColorManager.primaryGreen,
-                                      fontSize: FontSizeApp.s15),
-                                ),
+                                ProductImage(
+                                    productImage: state.productDetailsResponse!
+                                                .image !=
+                                            null
+                                        ? state.productDetailsResponse!.image!
+                                        : ""),
+                                AboutProductAndAmonutSection(
+                                    productDesc: state.productDetailsResponse!
+                                                .nameOfProduct !=
+                                            null
+                                        ? state.productDetailsResponse!
+                                            .nameOfProduct!
+                                        : "",
+                                    productName: state.productDetailsResponse!
+                                                .description !=
+                                            null
+                                        ? state.productDetailsResponse!
+                                            .description!
+                                        : ""),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 45),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(context)!.price,
+                                            style: getBoldStyle(
+                                                color:
+                                                    ColorManager.primaryGreen,
+                                                fontSize: FontSizeApp.s15),
+                                          ),
+                                          state.productDetailsResponse!.price !=
+                                                  null
+                                              ? Text(
+                                                  "${state.productDetailsResponse!.price!} ${AppLocalizations.of(context)!.curruncy}",
+                                                  style: getBoldStyle(
+                                                      color: ColorManager
+                                                          .primaryGreen,
+                                                      fontSize:
+                                                          FontSizeApp.s15),
+                                                )
+                                              : const SizedBox(),
+                                        ],
+                                      ),
+                                    ),
+                                    state.productDetailsResponse!
+                                            .relatedProducts!.isNotEmpty
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 25),
+                                            child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .related_products,
+                                              style: getBoldStyle(
+                                                  color: ColorManager.black,
+                                                  fontSize: FontSizeApp.s15),
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                    state.productDetailsResponse!
+                                            .relatedProducts!.isNotEmpty
+                                        ? SizedBox(
+                                            height: 115,
+                                            width: 1.sw,
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: state
+                                                  .productDetailsResponse!
+                                                  .relatedProducts!
+                                                  .length,
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      AppRouter.pushReplacement(
+                                                          context,
+                                                          ProductDetailsScreen(
+                                                              id: state
+                                                                  .productDetailsResponse!
+                                                                  .relatedProducts![
+                                                                      index]
+                                                                  .id));
+                                                    },
+                                                    child: Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                              color: ColorManager
+                                                                  .grayForPlaceholde,
+                                                              boxShadow: [
+                                                            BoxShadow(
+                                                              color: Color(
+                                                                  0xff0000002E),
+                                                              offset:
+                                                                  Offset(0, 2),
+                                                              blurRadius: 4,
+                                                              spreadRadius: 0,
+                                                            ),
+                                                          ]),
+                                                      height: 115,
+                                                      width: 115,
+                                                      child: CachedImage(
+                                                          imageUrl: state
+                                                              .productDetailsResponse!
+                                                              .relatedProducts![
+                                                                  index]
+                                                              .image),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                    state.productDetailsResponse!
+                                            .similarProducts!.isNotEmpty
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 25),
+                                            child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .similar_products,
+                                              style: getBoldStyle(
+                                                  color: ColorManager.black,
+                                                  fontSize: FontSizeApp.s15),
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                    state.productDetailsResponse!
+                                            .similarProducts!.isNotEmpty
+                                        ? SizedBox(
+                                            height: 115,
+                                            width: 1.sw,
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: state
+                                                  .productDetailsResponse!
+                                                  .similarProducts!
+                                                  .length,
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      AppRouter.pushReplacement(
+                                                          context,
+                                                          ProductDetailsScreen(
+                                                              id: state
+                                                                  .productDetailsResponse!
+                                                                  .similarProducts![
+                                                                      index]
+                                                                  .id));
+                                                    },
+                                                    child: Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                              color: ColorManager
+                                                                  .grayForPlaceholde,
+                                                              boxShadow: [
+                                                            BoxShadow(
+                                                              color: Color(
+                                                                  0xff0000002e),
+                                                              offset:
+                                                                  Offset(0, 2),
+                                                              blurRadius: 4,
+                                                              spreadRadius: 0,
+                                                            ),
+                                                          ]),
+                                                      height: 115,
+                                                      width: 115,
+                                                      child: CachedImage(
+                                                          imageUrl: state
+                                                              .productDetailsResponse!
+                                                              .similarProducts![
+                                                                  index]
+                                                              .image),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                    CustomAppButton(
+                                      ontap: () {},
+                                      myText: AppLocalizations.of(context)!
+                                          .add_to_basket,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 74, vertical: 10),
+                                    )
+                                  ],
+                                )
                               ],
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: Text(
-                              AppLocalizations.of(context)!.related_products,
-                              style: getBoldStyle(
-                                  color: ColorManager.black,
-                                  fontSize: FontSizeApp.s15),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 115,
-                            width: 1.sw,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 5,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                        color: ColorManager.grayForPlaceholde,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Color(0xff0000002E),
-                                            offset: Offset(0, 2),
-                                            blurRadius: 4,
-                                            spreadRadius: 0,
-                                          ),
-                                        ]),
-                                    height: 115,
-                                    width: 115,
-                                    child: const CachedImage(imageUrl: ""),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: Text(
-                              AppLocalizations.of(context)!.similar_products,
-                              style: getBoldStyle(
-                                  color: ColorManager.black,
-                                  fontSize: FontSizeApp.s15),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 115,
-                            width: 1.sw,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 5,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                        color: ColorManager.grayForPlaceholde,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Color(0xff0000002e),
-                                            offset: Offset(0, 2),
-                                            blurRadius: 4,
-                                            spreadRadius: 0,
-                                          ),
-                                        ]),
-                                    height: 115,
-                                    width: 115,
-                                    child: const CachedImage(
-                                        imageUrl:
-                                            "http://dashboard.gocheckin.peaklink.site//storage/hotels/2/header6.jpg"),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          CustomAppButton(
-                            ontap: () {},
-                            myText: AppLocalizations.of(context)!.add_to_basket,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 74, vertical: 10),
                           )
-                        ],
-                      )
-                    ],
-                  ),
-                )
+                        : const SizedBox()
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

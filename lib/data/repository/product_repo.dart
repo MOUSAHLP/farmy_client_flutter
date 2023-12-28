@@ -4,7 +4,7 @@ import 'package:pharma/data/data_resource/remote_resource/api_handler/base_api_c
 import 'package:pharma/models/product_details_response.dart';
 
 class ProductRepo {
-  Future<Either<String, ProductDetailsResponse>> getCategoyById(int id) {
+  Future<Either<String, ProductDetailsResponse>> getProductDetailsById(int id) {
     return BaseApiClient.get<ProductDetailsResponse>(
         url: ApiConst.getProductDetailsById(id),
         converter: (e) {

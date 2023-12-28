@@ -27,7 +27,7 @@ class ProductDetailsResponse {
     this.similarProducts,
   });
   factory ProductDetailsResponse.fromJson(Map<String, dynamic> json) {
-    return json["availability"] == 1
+    return json["availability"] == "1"
         ? ProductDetailsResponse(
             description: json["description"],
             nameOfProduct: json["name"],

@@ -44,7 +44,8 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(
                 create: (BuildContext context) => sl<OnBoardingBloc>()),
             BlocProvider(
-              create: (BuildContext context) => sl<HomeBloc>(),
+              create: (BuildContext context) =>
+                  sl<HomeBloc>()..add(GetHomeData()),
             ),
           ],
           child: GestureDetector(

@@ -26,6 +26,7 @@ class CategoriesState extends Equatable {
   @override
   List<Object?> get props => [
         identityHashCode(this),
+        screenState,
         categoriesList,
         subCategoryList,
         isCategoryLoading

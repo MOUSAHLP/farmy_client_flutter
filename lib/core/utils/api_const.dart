@@ -18,6 +18,9 @@ class ApiConst {
   static String getProductBySubCategoryId = "/products";
   static String getProductDetailsById(int id) => "/products/$id";
 
+  //home
+  static String getHomeDate = "/home-page";
+
   ///Address
   static const String getUserAddresses = "/user_addresses";
   static const String addUserAddresses = "/user_addresses";

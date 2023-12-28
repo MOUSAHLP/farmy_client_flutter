@@ -211,6 +211,7 @@
   "lNameFieldIsRequired": "Last Name Field Is Required.",
   "requiredChange":"Required Change (optional)",
     "discount":"Discount",
-    "thereIsNoProduct":"Sorry, there are no products that belong to this category at the moment"
+    "thereIsNoProduct":"Sorry, there are no products that belong to this category at the moment",
+      "curruncy":"SYP"
 
 }

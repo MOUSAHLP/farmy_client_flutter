@@ -136,7 +136,7 @@ class CustomProductCard extends StatelessWidget {
                                     const SizedBox(
                                       width: 1,
                                     ),
-                                    Text("ل.س",
+                                    Text(AppLocalizations.of(context)!.curruncy,
                                         style: getRegularStyle(
                                                 color:
                                                     ColorManager.grayForMessage,
@@ -163,7 +163,7 @@ class CustomProductCard extends StatelessWidget {
                                 ),
                                 //todo caruncy
                                 if (productInfo.price != null)
-                                  Text("ل.س",
+                                  Text(AppLocalizations.of(context)!.curruncy,
                                       style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
                                               fontSize: FontSizeApp.s10)!

@@ -8,7 +8,7 @@ class CategoriesResponse {
     return CategoriesResponse(
         id: json["id"],
         imageUrl: json["image"] ?? "",
-        name: json["name"] ?? "");
+        name: json["name"] );
   }
   static List<CategoriesResponse> listFromJson(List<dynamic>? json) {
     return json == null
