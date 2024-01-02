@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
+import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
 import 'package:pharma/models/attribute_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -78,7 +82,10 @@ class AboutProductAndAmonutSection extends StatelessWidget {
           children: [
             CustomCountWidget(
               myIcon: Icons.add,
-              onTap: () {},
+              onTap: () {
+                context.read<ProductdetailsBloc>().add(AddQuntityToOrder(
+                    context.read<ProductdetailsBloc>().state.quntity!));
+              },
             ),
             const SizedBox(
               width: 18,
@@ -96,6 +103,17 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
                     color: Colors.white),
+                child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
+                  builder: (context, state) {
+                    return Center(
+                        child: Text(
+                      state.quntity.toString(),
+                      style: getUnderBoldStyle(
+                          color: ColorManager.primaryGreen,
+                          fontSize: FontSizeApp.s24),
+                    ));
+                  },
+                ),
               ),
             ),
             const SizedBox(
@@ -103,7 +121,10 @@ class AboutProductAndAmonutSection extends StatelessWidget {
             ),
             CustomCountWidget(
               myIcon: Icons.remove,
-              onTap: () {},
+              onTap: () {
+                context.read<ProductdetailsBloc>().add(RemoveQuntityToOrder(
+                    context.read<ProductdetailsBloc>().state.quntity!));
+              },
             ),
           ],
         ),
