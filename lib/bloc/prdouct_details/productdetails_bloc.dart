@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/product_repo.dart';
+import 'package:pharma/models/params/complete_payment_parms.dart';
 import 'package:pharma/models/product_details_response.dart';
 
 part 'productdetails_event.dart';
@@ -20,6 +22,7 @@ class ProductdetailsBloc
             (r) => emit(state.copyWith(
                 productDetailsResponse: r, screenState: ScreenState.success)));
       }
+     
     });
   }
 }

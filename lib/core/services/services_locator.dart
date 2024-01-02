@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
+import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
@@ -43,5 +44,9 @@ class ServicesLocator {
     sl.registerSingleton<ProductRepo>(ProductRepo());
     sl.registerFactory(
         () => ProductdetailsBloc(productRepo: sl<ProductRepo>()));
+
+    //basket
+
+    sl.registerLazySingleton(() => BasketBloc());
   }
 }

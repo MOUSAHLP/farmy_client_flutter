@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
+import 'package:pharma/models/attribute_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -8,8 +9,12 @@ import 'package:pharma/presentation/screens/product_details/widgets/counter_box.
 class AboutProductAndAmonutSection extends StatelessWidget {
   final String productName;
   final String productDesc;
+  final List<AttrbiuteResponse> attributeList;
   const AboutProductAndAmonutSection(
-      {super.key, required this.productName, required this.productDesc});
+      {super.key,
+      required this.productName,
+      required this.productDesc,
+      required this.attributeList});
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +52,20 @@ class AboutProductAndAmonutSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(productDesc,
-                style: getBoldStyle(
-                  color: ColorManager.grayForMessage,
-                  fontSize: FontSizeApp.s15,
-                )),
+            attributeList.isNotEmpty
+                ? Text(attributeList[0].value,
+                    style: getBoldStyle(
+                      color: ColorManager.grayForMessage,
+                      fontSize: FontSizeApp.s15,
+                    ))
+                : const SizedBox(),
+            attributeList.length > 1
+                ? Text(" / ${attributeList[1].value}",
+                    style: getBoldStyle(
+                      color: ColorManager.grayForMessage,
+                      fontSize: FontSizeApp.s15,
+                    ))
+                : const SizedBox(),
           ],
         ),
         Row(

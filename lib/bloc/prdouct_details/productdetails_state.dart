@@ -3,12 +3,14 @@ part of 'productdetails_bloc.dart';
 class ProductdetailsState extends Equatable {
   final ScreenState? screenState;
   final ProductDetailsResponse? productDetailsResponse;
+  final AddToBasketState? addToBasketState;
 
-  const ProductdetailsState({this.screenState, this.productDetailsResponse});
+  const ProductdetailsState({this.screenState, this.productDetailsResponse,this.addToBasketState});
 
   ProductdetailsState copyWith(
       {ScreenState? screenState,
-      ProductDetailsResponse? productDetailsResponse}) {
+      ProductDetailsResponse? productDetailsResponse,
+      AddToBasketState? addToBasketState}) {
     return ProductdetailsState(
         screenState: screenState ?? this.screenState,
         productDetailsResponse:
