@@ -21,6 +21,9 @@ class ApiConst {
   //home
   static String getHomeDate = "/home-page";
 
+  //payment-process
+  static String getPaymentDetails = "/payment-process";
+
   ///Address
   static const String getUserAddresses = "/user_addresses";
   static const String addUserAddresses = "/user_addresses";
