@@ -26,19 +26,24 @@ class AboutProductAndAmonutSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                children: [
-                  Text(productName,
-                      style: getBoldStyle(
-                        color: ColorManager.black,
-                        fontSize: FontSizeApp.s15,
-                      )),
-                  Text(productDesc,
-                      style: getBoldStyle(
-                        color: ColorManager.grayForMessage,
-                        fontSize: FontSizeApp.s15,
-                      )),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(productName,
+                        style: getBoldStyle(
+                          color: ColorManager.black,
+                          fontSize: FontSizeApp.s15,
+                        )),
+                    Text(productDesc,
+                        maxLines: 5,
+                        overflow: TextOverflow.ellipsis,
+                        style: getBoldStyle(
+                          color: ColorManager.grayForMessage,
+                          fontSize: FontSizeApp.s15,
+                        )),
+                  ],
+                ),
               ),
               const Icon(
                 Icons.favorite,

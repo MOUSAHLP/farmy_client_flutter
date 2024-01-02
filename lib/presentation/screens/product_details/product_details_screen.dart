@@ -82,16 +82,16 @@ class ProductDetailsBody extends StatelessWidget {
                                           .productDetailsResponse!
                                           .attributeList!,
                                       productDesc: state.productDetailsResponse!
-                                                  .nameOfProduct !=
-                                              null
-                                          ? state.productDetailsResponse!
-                                              .nameOfProduct!
-                                          : "",
-                                      productName: state.productDetailsResponse!
                                                   .description !=
                                               null
                                           ? state.productDetailsResponse!
                                               .description!
+                                          : "",
+                                      productName: state.productDetailsResponse!
+                                                  .nameOfProduct !=
+                                              null
+                                          ? state.productDetailsResponse!
+                                              .nameOfProduct!
                                           : ""),
                                   Column(
                                     crossAxisAlignment:
