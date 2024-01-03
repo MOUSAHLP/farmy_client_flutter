@@ -12,4 +12,14 @@ class GetProductDetailsById extends ProductdetailsEvent {
   const GetProductDetailsById({required this.id});
 }
 
+class AddQuntityToOrder extends ProductdetailsEvent {
+  final int quntity;
 
+  const AddQuntityToOrder(this.quntity);
+}
+
+class RemoveQuntityToOrder extends ProductdetailsEvent {
+  final int quntity;
+
+  const RemoveQuntityToOrder(this.quntity);
+}

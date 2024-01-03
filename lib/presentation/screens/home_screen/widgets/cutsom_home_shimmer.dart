@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
-import 'package:pharma/presentation/resources/assets_manager.dart';
+
 import 'package:pharma/presentation/resources/color_manager.dart';
-import 'package:pharma/presentation/resources/font_app.dart';
-import 'package:pharma/presentation/resources/style_app.dart';
+
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_cursel.dart';
 import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
-import 'package:pharma/translations.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomHomeShimmer extends StatelessWidget {

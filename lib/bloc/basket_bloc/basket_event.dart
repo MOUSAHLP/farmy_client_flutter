@@ -9,8 +9,11 @@ class BasketEvent extends Equatable {
 }
 
 class AddToBasket extends BasketEvent {
-  final CompletePaymentParms completePaymentParms;
+  final ProductDetailsResponse product;
   const AddToBasket({
-    required this.completePaymentParms,
+    required this.product,
   });
+}
+class PaymentProcess extends BasketEvent{
+
 }

@@ -10,6 +10,9 @@ import 'package:pharma/presentation/screens/basket_screen/widgets/card_basket.da
 import 'package:pharma/presentation/screens/payment/payment_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
+import 'package:pharma/presentation/widgets/custom_no_dataa.dart';
+import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
+import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:pharma/translations.dart';
 
@@ -20,7 +23,16 @@ class BasketScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<BasketBloc, BasketState>(
       listener: (context, state) {
-
+        if (state.screenState == ScreenState.loading) {
+          LoadingDialog().openDialog(context);
+        }
+        if (state.screenState == ScreenState.success) {
+          AppRouter.push(context, const PaymentScreen());
+        }
+        if (state.screenState == ScreenState.error) {
+          LoadingDialog().closeDialog(context);
+          ErrorDialog.openDialog(context, state.errorMessage);
+        }
       },
       builder: (context, state) {
         return SafeArea(
@@ -32,85 +44,96 @@ class BasketScreen extends StatelessWidget {
                 Column(children: [
                   CustomAppBarScreen(
                       sectionName: AppLocalizations.of(context)!.basket),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 37, vertical: 11),
-                    child: Text(
-                        AppLocalizations.of(context)!.final_product_appearance,
-                        style: getRegularStyle(
-                            color: ColorManager.grayForMessage)),
-                  ),
+                  state.prductList!.isEmpty
+                      ? CustomNoData(
+                          noDataStatment:
+                              AppLocalizations.of(context)!.sorryBasketIsEmpty)
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 37, vertical: 11),
+                          child: Text(
+                              AppLocalizations.of(context)!
+                                  .final_product_appearance,
+                              style: getRegularStyle(
+                                  color: ColorManager.grayForMessage)),
+                        ),
                   Expanded(
                     child: CustomOverscrollIndicator(
                       child: ListView.builder(
-                        itemBuilder: (context, index) => const CardBasket(),
-                        itemCount: 30,
+                        itemBuilder: (context, index) => CardBasket(
+                            productAddedToBasketDetails:
+                                state.prductList![index]),
+                        itemCount: state.prductList!.length,
                       ),
                     ),
                   )
                 ]),
-                Container(
-                  width: 1.sw,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(22),
-                          topRight: Radius.circular(22)),
-                      boxShadow: [ColorManager.shadowGaryUp]),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(
-                        height: 9,
-                      ),
-                      Text(
-                          AppLocalizations.of(context)!
-                              .total_price_without_delivery,
-                          style: getBoldStyle(
-                              color: ColorManager.grayForMessage,
-                              fontSize: 14)),
-                      Text("200,000 sy",
-                          style: getBoldStyle(
-                              color: ColorManager.primaryGreen, fontSize: 24)),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 27, vertical: 9),
-                        child: Row(
+                state.prductList!.isEmpty
+                    ? const SizedBox()
+                    : Container(
+                        width: 1.sw,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(22),
+                                topRight: Radius.circular(22)),
+                            boxShadow: [ColorManager.shadowGaryUp]),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Expanded(
-                              child: CustomButton(
-                                label: AppLocalizations.of(context)!
-                                    .proceed_to_checkout,
-                                fillColor: ColorManager.primaryGreen,
-                                onTap: () {
-                                  AppRouter.push(
-                                      context, const PaymentScreen());
-                                },
+                            const SizedBox(
+                              height: 9,
+                            ),
+                            Text(
+                                AppLocalizations.of(context)!
+                                    .total_price_without_delivery,
+                                style: getBoldStyle(
+                                    color: ColorManager.grayForMessage,
+                                    fontSize: 14)),
+                            Text("200,000 sy",
+                                style: getBoldStyle(
+                                    color: ColorManager.primaryGreen,
+                                    fontSize: 24)),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 27, vertical: 9),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomButton(
+                                      label: AppLocalizations.of(context)!
+                                          .proceed_to_checkout,
+                                      fillColor: ColorManager.primaryGreen,
+                                      onTap: () {
+                                        context
+                                            .read<BasketBloc>()
+                                            .add(PaymentProcess());
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Expanded(
+                                    child: CustomButton(
+                                      label: AppLocalizations.of(context)!
+                                          .continue_shopping,
+                                      fillColor: ColorManager.primaryGreen,
+                                      labelColor: Colors.white,
+                                      onTap: () {
+                                        // SystemNavigator.pop();
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             const SizedBox(
-                              width: 16,
-                            ),
-                            Expanded(
-                              child: CustomButton(
-                                label: AppLocalizations.of(context)!
-                                    .continue_shopping,
-                                fillColor: ColorManager.primaryGreen,
-                                labelColor: Colors.white,
-                                onTap: () {
-                                  // SystemNavigator.pop();
-                                },
-                              ),
+                              height: 9,
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 9,
-                      ),
-                    ],
-                  ),
-                )
+                      )
               ],
             ),
           ),

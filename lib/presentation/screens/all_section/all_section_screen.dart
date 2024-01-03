@@ -1,15 +1,11 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
-import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
-import 'package:pharma/data/repository/categories_repo.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
-import 'package:pharma/presentation/screens/all_product/all_product_screen.dart';
 import 'package:pharma/presentation/screens/all_section/widgets/custom_category_screen.dart';
 import 'package:pharma/presentation/screens/all_section/widgets/custom_sub_category_screen.dart';
 import 'package:pharma/presentation/widgets/custom_category_shimmer.dart';

@@ -3,14 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
+import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
-import 'package:pharma/presentation/screens/join_our_team/join_our_team_screen.dart';
 import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/presentation/screens/onboarding_screen/onboarding_screen.dart';
-import 'package:pharma/presentation/screens/payment/payment_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 import 'bloc/authentication_bloc/authentication_event.dart';
@@ -46,6 +45,9 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(
               create: (BuildContext context) =>
                   sl<HomeBloc>()..add(GetHomeData()),
+            ),
+            BlocProvider(
+              create: (BuildContext context) => sl<BasketBloc>(),
             ),
           ],
           child: GestureDetector(

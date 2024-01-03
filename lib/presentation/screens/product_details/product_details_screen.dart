@@ -1,16 +1,16 @@
-import 'dart:developer';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
-import 'package:pharma/models/params/complete_payment_parms.dart';
+import 'package:pharma/models/product_details_response.dart';
+import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/about_product_and_amount_section.dart';
@@ -275,14 +275,31 @@ class ProductDetailsBody extends StatelessWidget {
                                           : const SizedBox(),
                                       CustomAppButton(
                                         ontap: () {
-                                          context.read<BasketBloc>().add(
-                                              AddToBasket(
-                                                  completePaymentParms:
-                                                      CompletePaymentParms(
-                                                          productId: state
+                                          context.read<BasketBloc>().add(AddToBasket(
+                                              product: ProductDetailsResponse(
+                                                  nameOfProduct: state
                                                               .productDetailsResponse!
-                                                              .id!,
-                                                          quntity: "5")));
+                                                              .nameOfProduct ==
+                                                          null
+                                                      ? ""
+                                                      : state
+                                                          .productDetailsResponse!
+                                                          .nameOfProduct!,
+                                                  sellerName:
+                                                      state.productDetailsResponse!.sellerName == null
+                                                          ? ""
+                                                          : state
+                                                              .productDetailsResponse!
+                                                              .sellerName!,
+                                                  isDiscount: state
+                                                              .productDetailsResponse!
+                                                              .discountValue ==
+                                                          "0"
+                                                      ? false || state.productDetailsResponse!.discountValue != null
+                                                      : true,
+                                                  attributeList: state.productDetailsResponse!.attributeList,
+                                                  id: state.productDetailsResponse!.id!,
+                                                  quantity: state.quntity.toString())));
                                         },
                                         myText: AppLocalizations.of(context)!
                                             .add_to_basket,

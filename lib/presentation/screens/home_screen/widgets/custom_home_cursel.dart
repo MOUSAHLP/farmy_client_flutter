@@ -64,9 +64,7 @@ class _CustomHomeCurselState extends State<CustomHomeCursel> {
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
                       color: ColorManager.grayForPlaceholde,
-                      // height: 0.35.sw,
                       width: 1.sw,
-
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),

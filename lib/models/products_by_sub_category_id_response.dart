@@ -6,15 +6,18 @@ class ProductsBySubCategoryIdResponse {
   String? availabilityOfProduct;
   String? sellerName;
   String? discount;
+
   String? discountStatus;
   String? discountValue;
   String? image;
-    ProductsBySubCategoryIdResponse(
+  String? quntity;
+  ProductsBySubCategoryIdResponse(
       {this.id,
       this.nameOfProduct,
       this.price,
       this.quantity,
       this.availabilityOfProduct,
+      this.quntity,
       this.discountStatus,
       this.discountValue,
       this.image,
