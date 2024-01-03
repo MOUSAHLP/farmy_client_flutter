@@ -1,9 +1,9 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
+
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/product_repo.dart';
-import 'package:pharma/models/params/complete_payment_parms.dart';
 import 'package:pharma/models/product_details_response.dart';
 
 part 'productdetails_event.dart';
@@ -12,6 +12,7 @@ part 'productdetails_state.dart';
 class ProductdetailsBloc
     extends Bloc<ProductdetailsEvent, ProductdetailsState> {
   ProductRepo productRepo;
+  int quntity = 1;
   ProductdetailsBloc({required this.productRepo})
       : super(const ProductdetailsState()) {
     on<ProductdetailsEvent>((event, emit) async {
@@ -22,7 +23,17 @@ class ProductdetailsBloc
             (r) => emit(state.copyWith(
                 productDetailsResponse: r, screenState: ScreenState.success)));
       }
-     
+      if (event is AddQuntityToOrder) {
+        quntity = event.quntity;
+        ++quntity;
+        emit(state.copyWith(quntity: quntity));
+      }
+      if (event is RemoveQuntityToOrder) {
+        quntity = event.quntity;
+        --quntity;
+        if (quntity < 1) quntity = 1;
+        emit(state.copyWith(quntity: quntity));
+      }
     });
   }
 }
