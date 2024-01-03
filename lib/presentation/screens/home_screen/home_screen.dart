@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/location_bloc/location_bloc.dart';
+import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
@@ -92,21 +95,23 @@ class HomeScreen extends StatelessWidget {
                                     const SizedBox(
                                       height: 4,
                                     ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "دمشق - الميدان - بناء الادخار ",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: getBoldStyle(
-                                                    fontSize: FontSizeApp.s13,
-                                                    color: ColorManager
-                                                        .primaryGreen)!
-                                                .copyWith(height: 1),
+                                    BlocBuilder<LocationBloc,LocationState>(
+                                      builder:(context, state) => Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                             context.read<LocationBloc>().addressCurrent.floor??"noo",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: getBoldStyle(
+                                                      fontSize: FontSizeApp.s13,
+                                                      color: ColorManager
+                                                          .primaryGreen)!
+                                                  .copyWith(height: 1),
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

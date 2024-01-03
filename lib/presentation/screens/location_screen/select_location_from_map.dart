@@ -77,7 +77,7 @@ class SelectLocationFromMapBody extends StatelessWidget {
                       zoomControlsEnabled: false,
                       mapType: MapType.normal,
                       markers: {
-                        context.read<LocationBloc>().markerLocation !,
+                        context.read<LocationBloc>().markerLocation!,
                       },
                       initialCameraPosition: CameraPosition(
                         target: LatLng(state.latitude, state.longitude),
@@ -113,7 +113,9 @@ class SelectLocationFromMapBody extends StatelessWidget {
                         right: 50,
                         left: 50,
                         child: Center(
-                          child: CustomButton(label:AppLocalizations.of(context)!.locating),
+                          child: CustomButton(label:AppLocalizations.of(context)!.locating,onTap: (){
+
+                          }),
                         ))
                   ],
                 ),

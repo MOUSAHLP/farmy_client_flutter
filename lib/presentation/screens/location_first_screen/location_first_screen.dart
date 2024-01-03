@@ -190,8 +190,8 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                                             padding: const EdgeInsets.symmetric(vertical: 15.0),
                                             child: InkWell(
                                               onTap: (){
-                                                AppRouter.push(context,
-                                                    const LocationSecondScreen());
+                                                // AppRouter.push(context,
+                                                //     const LocationSecondScreen());
                                               },
                                               child: Text("فقط عند استخدام التطبيق",
                                                   style: getBoldStyle(
@@ -200,8 +200,8 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                                           ),
                                           InkWell(
                                             onTap: (){
-                                              AppRouter.push(context,
-                                                  const LocationSecondScreen());
+                                              // AppRouter.push(context,
+                                              //     const LocationSecondScreen());
                                             },
                                             child: Text("هذه المرة فقط",
                                                 style: getBoldStyle(

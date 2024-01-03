@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 
 import '../../core/app_enum.dart';
+import '../../models/params/add_address_params.dart';
 import 'location_first_event.dart';
 import 'location_first_state.dart';
 
@@ -13,7 +14,7 @@ class LocationFirstBloc extends Bloc<LocationFirstEvent, LocationFirstState> {
   BitmapDescriptor? customIcon;
   GoogleMapController? mapController;
   Marker? markerLocation;
-  TextEditingController destinationController = TextEditingController();
+
   LocationFirstBloc() : super(LocationFirstState()) {
     on<LocationFirstEvent>((event, emit) async {
       if (event is CurrentLocation) {

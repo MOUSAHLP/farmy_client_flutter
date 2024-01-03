@@ -5,6 +5,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 
 import '../../core/app_enum.dart';
+import '../../data/repository/user_address_repository.dart';
+import '../../models/params/add_address_params.dart';
+import '../../models/user_address_response.dart';
 import 'location_event.dart';
 import 'location_state.dart';
 
@@ -13,7 +16,10 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   BitmapDescriptor? customIcon;
   GoogleMapController? mapController;
   Marker? markerLocation;
-  TextEditingController destinationController = TextEditingController();
+  List<UserAddressModel> userAddressList=[];
+
+  final AddAddressParams address =  AddAddressParams();
+  UserAddressModel addressCurrent=UserAddressModel();
   LocationBloc() : super(LocationState()) {
     on<LocationEvent>((event, emit) async {
       if (event is CurrentLocation) {
@@ -30,7 +36,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           ));
         }
       }
-
       if (event is ChangeLocationMarker) {
         markerLocation = Marker(
           icon: customIcon!,
@@ -44,7 +49,55 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           longitude: event.latLan.longitude,
         ));
       }
+      if(event is GetUserAddress){
+        emit(state.copyWith(screenStates: ScreenStates.loading));
+        final response = await UserAddressRepository.getUserAddress();
+        response.fold((l) {
+          if (l != 'Cancel') {
+            emit(state.copyWith(screenStates: ScreenStates.error));
+          }
+        }, (r) {
+          userAddressList=r;
+          emit(state.copyWith(screenStates: ScreenStates.success,userAddressList: r));
+        });
+      }
+      if (event is SearchByKeyword) {
+        emit(state.copyWith(screenStates: ScreenStates.success,userAddressList:refreshShowingTasks(event.keyword)));
+      }
+      if(event is AddUserAddress){
+        emit(state.copyWith(isLoading: true));
+       address.latitude=state.latitude;
+       address.longitude=state.longitude;
+        final response =
+        await UserAddressRepository.addUserAddress(event.address);
+        response.fold((l) {
+          if (l != 'Cancel') {
+            emit(state.copyWith(error: l));
+          }
+        }, (r) {
+          addressCurrent=r;
+          emit(state.copyWith(success: true));
+        });
+      }
+      if(event is SelectLatLon){
+        emit(state.copyWith(
+          latitude: event.lat,
+          longitude: event.lon,
+        ));
+      }
     });
+  }
+  List<UserAddressModel> refreshShowingTasks(String? keyword, {int? selectedDayIndex}) {
+    List<UserAddressModel> dayTasks = [...userAddressList];
+    dayTasks.removeWhere((task) {
+      if (keyword != null &&
+          !(task.name!
+              .toLowerCase()
+              .contains(keyword.toLowerCase()))) return true;
+      return false;
+    });
+
+    return dayTasks;
   }
 setMarker()async{
   await BitmapDescriptor.fromAssetImage(

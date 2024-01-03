@@ -20,7 +20,7 @@ class ServicesLocator {
     sl.registerLazySingleton(
       () => HomeBloc(),
     );
-    sl.registerFactory(() => LocationBloc());
+    sl.registerLazySingleton(() => LocationBloc());
     sl.registerFactory(() => LocationFirstBloc());
     sl.registerFactory<PaymentBloc>(() => PaymentBloc());
     sl.registerLazySingleton(() => OnBoardingBloc());
