@@ -37,25 +37,31 @@ class CustomDiscountCodeContiner extends StatelessWidget {
           const SizedBox(
             width: 8,
           ),
-          Text(
-            subjectText,
-            style: getBoldStyle(
-                    color: ColorManager.grayForMessage,
-                    fontSize: FontSizeApp.s10)!
-                .copyWith(height: 1),
+          Expanded(
+            child: Text(
+              subjectText,
+              style: getBoldStyle(
+                      color: ColorManager.grayForMessage,
+                      fontSize: FontSizeApp.s10)!
+                  .copyWith(height: 1),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           isReplacePoint == true
               ? Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 13,
                   ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: ColorManager.primaryGreen,
-                        borderRadius: BorderRadius.circular(4)),
-                    height: 22,
-                    width: 22,
-                    child: Image.asset(ImageManager.listOfTypeJoinUs),
+                  child: Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: ColorManager.primaryGreen,
+                          borderRadius: BorderRadius.circular(4)),
+                      height: 22,
+                      width: 22,
+                      child: Image.asset(ImageManager.listOfTypeJoinUs),
+                    ),
                   ))
               : const SizedBox(),
         ],

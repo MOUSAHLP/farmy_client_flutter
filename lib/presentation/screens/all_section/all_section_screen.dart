@@ -100,6 +100,7 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                                   SizedBox(
                                     width: 1.sw,
                                     child: TabBar(
+                                      
                                       controller: _tabController,
                                       onTap: (value) {
                                         if (value == 0) {

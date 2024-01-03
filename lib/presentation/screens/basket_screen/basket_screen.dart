@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
@@ -23,14 +25,16 @@ class BasketScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<BasketBloc, BasketState>(
       listener: (context, state) {
+        log(state.toString());
         if (state.screenState == ScreenState.loading) {
           LoadingDialog().openDialog(context);
+        } else {
+          LoadingDialog().closeDialog(context);
         }
         if (state.screenState == ScreenState.success) {
           AppRouter.push(context, const PaymentScreen());
         }
         if (state.screenState == ScreenState.error) {
-          LoadingDialog().closeDialog(context);
           ErrorDialog.openDialog(context, state.errorMessage);
         }
       },
