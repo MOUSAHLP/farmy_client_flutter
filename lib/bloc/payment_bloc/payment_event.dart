@@ -16,3 +16,6 @@ class ChoosePaymentStatusEvent extends PaymentEvent {
   final PaymentStates paymentState;
   const ChoosePaymentStatusEvent({required this.paymentState});
 }
+class GetPaymentDetailsEvent extends PaymentEvent{
+
+}

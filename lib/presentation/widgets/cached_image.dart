@@ -49,24 +49,32 @@ class CachedImage extends StatelessWidget {
       loadStateChanged: (ExtendedImageState state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return ExtendedImage(
-              image: AssetImage(
-                fallbackPlaceHolder ?? getPlaceHolderSize(),
+            return Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: ExtendedImage(
+                image: AssetImage(
+                  fallbackPlaceHolder ?? getPlaceHolderSize(),
+                ),
+                clearMemoryCacheWhenDispose: true,
+                fit: imageSize == ImageSize.small
+                    ? BoxFit.contain
+                    : BoxFit.cover,
+                color: color,
               ),
-              clearMemoryCacheWhenDispose: true,
-              fit: imageSize == ImageSize.small ? BoxFit.contain : BoxFit.cover,
-              color: color,
             );
           case LoadState.completed:
             return state.completedWidget;
           case LoadState.failed:
-            return ExtendedImage(
-              image: AssetImage(
-                fallbackPlaceHolder ?? getPlaceHolderSize(),
+            return Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: ExtendedImage(
+                image: AssetImage(
+                  fallbackPlaceHolder ?? getPlaceHolderSize(),
+                ),
+                clearMemoryCacheWhenDispose: true,
+                fit: BoxFit.contain,
+                color: color,
               ),
-              clearMemoryCacheWhenDispose: true,
-              fit: BoxFit.contain,
-              color: color,
             );
         }
       },
@@ -78,9 +86,9 @@ class CachedImage extends StatelessWidget {
       case ImageSize.large:
         return ImageManager.placeholderLogo;
       case ImageSize.mid:
-        return ImageManager.categoryPlaceHolder;
+        return ImageManager.placeholderLogo;
       case ImageSize.small:
-        return ImageManager.categoryPlaceHolder;
+        return ImageManager.placeholderLogo;
     }
   }
 }

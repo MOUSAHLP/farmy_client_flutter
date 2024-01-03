@@ -53,6 +53,8 @@ TextStyle? getBoldStyle({
   return _getTextStyle(fontSize, FontWeightApp.morebold, color);
 }
 
+
+
 //morbold
 // TextStyle? getMoreBoldStyle({
 //   double fontSize = FontSizeApp.s12,

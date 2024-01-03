@@ -1,18 +1,15 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
-import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
-import 'package:pharma/data/repos/categories_repo.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
-import 'package:pharma/presentation/screens/all_product/all_product_screen.dart';
 import 'package:pharma/presentation/screens/all_section/widgets/custom_category_screen.dart';
 import 'package:pharma/presentation/screens/all_section/widgets/custom_sub_category_screen.dart';
 import 'package:pharma/presentation/widgets/custom_category_shimmer.dart';
+import 'package:pharma/presentation/widgets/custom_no_dataa.dart';
 import 'package:pharma/translations.dart';
 
 import '../../widgets/custom_app_bar_screen.dart';
@@ -91,7 +88,8 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                         ? state.categoriesList.isEmpty
                             ?
                             //there is no data
-                            Text("these is no category")
+                            const CustomNoData(
+                                noDataStatment: "there is no data")
                             : Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,6 +100,7 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                                   SizedBox(
                                     width: 1.sw,
                                     child: TabBar(
+                                      
                                       controller: _tabController,
                                       onTap: (value) {
                                         if (value == 0) {

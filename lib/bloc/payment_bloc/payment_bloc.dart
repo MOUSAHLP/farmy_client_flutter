@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pharma/models/attribute_response.dart';
 
 import '../../core/app_enum.dart';
 
