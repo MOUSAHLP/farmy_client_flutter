@@ -30,15 +30,18 @@ class ProductImage extends StatelessWidget {
               ),
             ],
           ),
-          child: const ClipRRect(
-            borderRadius: BorderRadius.only(
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(28),
               topRight: Radius.circular(28),
             ),
-            child: CachedImage(
-                imageSize: ImageSize.large,
-                imageUrl:
-                    "http://dashboarsd.gocheckin.peaklink.site//storage/hotels/6/header1.jpg"),
+            child: Padding(
+              padding: const EdgeInsets.all(0),
+              child: CachedImage(
+                  fit: BoxFit.cover,
+                  imageSize: ImageSize.large,
+                  imageUrl: productImage),
+            ),
           ),
         ),
         Padding(

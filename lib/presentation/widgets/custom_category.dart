@@ -6,7 +6,13 @@ import 'package:pharma/presentation/widgets/cached_image.dart';
 
 class CustomCategory extends StatelessWidget {
   final String categoryName;
-  const CustomCategory({super.key, required this.categoryName});
+  final String? categoryImage;
+  final double? textHieght;
+  const CustomCategory(
+      {super.key,
+      required this.categoryName,
+      this.textHieght,
+      this.categoryImage});
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +22,19 @@ class CustomCategory extends StatelessWidget {
         Container(
           height: 97,
           width: 97,
-          decoration: const BoxDecoration(shape: BoxShape.circle),
-          child: const ClipOval(
+          decoration: const BoxDecoration(
+              color: ColorManager.white, shape: BoxShape.circle),
+          child: ClipOval(
             child: CachedImage(
-              imageSize: ImageSize.small,
-              imageUrl:
-                  "http://dashboard.gocheckins.peaklink.site//storage/hotels/6/header1.jpg",
+              imageUrl: categoryImage,
             ),
           ),
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: textHieght ?? 10,
         ),
         SizedBox(
-          height: 24,
+          height: textHieght ?? 24,
           child: Text(
             categoryName,
             maxLines: 2,

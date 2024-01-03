@@ -32,3 +32,7 @@ enum ScreensAuth{
   resetPasswordScreen
 
 }
+enum  AddToBasketState{
+successAddedToBasket
+
+}

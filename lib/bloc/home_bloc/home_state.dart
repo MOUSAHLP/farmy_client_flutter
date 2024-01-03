@@ -1,10 +1,16 @@
 part of 'home_bloc.dart';
 
-sealed class HomeState extends Equatable {
-  const HomeState();
-  
-  @override
-  List<Object> get props => [];
-}
+class HomeState extends Equatable {
+  final ScreenState? screenState;
+  final HomeResponse? homeData;
+  const HomeState({this.screenState = ScreenState.loading, this.homeData});
 
-final class HomeInitial extends HomeState {}
+  HomeState copyWith({ScreenState? screenState, HomeResponse? homeData}) {
+    return HomeState(
+        screenState: screenState ?? this.screenState,
+        homeData: homeData ?? this.homeData);
+  }
+
+  @override
+  List<Object?> get props => [screenState, homeData];
+}

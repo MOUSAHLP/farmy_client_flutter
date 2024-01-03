@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/models/product_details_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
 
 class CardBasket extends StatelessWidget {
-  const CardBasket({super.key});
+  final ProductDetailsResponse productAddedToBasketDetails;
+  const CardBasket({super.key, required this.productAddedToBasketDetails});
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding: const EdgeInsets.symmetric(vertical: 11,horizontal: 37),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 37),
       child: Container(
         height: 115,
         width: 1.sw,
-        decoration: BoxDecoration(boxShadow: [
-         ColorManager.shadowGaryDown
-        ], color: Colors.white, borderRadius: BorderRadius.circular(6)
-        ),
+        decoration: BoxDecoration(
+            boxShadow: [ColorManager.shadowGaryDown],
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -33,8 +35,8 @@ class CardBasket extends StatelessWidget {
                     decoration: BoxDecoration(boxShadow: [
                       ColorManager.shadowGaryDown,
                     ], color: Colors.white),
-                    child: const Icon(Icons.add,
-                        color: ColorManager.primaryGreen),
+                    child:
+                        const Icon(Icons.add, color: ColorManager.primaryGreen),
                   ),
                   Container(
                     height: 36,
@@ -42,8 +44,7 @@ class CardBasket extends StatelessWidget {
                     decoration: BoxDecoration(boxShadow: [
                       ColorManager.shadowGaryDown,
                     ], color: Colors.white),
-                    child:
-                    const Icon(Icons.remove, color: Colors.red),
+                    child: const Icon(Icons.remove, color: Colors.red),
                   ),
                 ],
               ),
@@ -54,35 +55,34 @@ class CardBasket extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "فليفلة حمراء",
+                  productAddedToBasketDetails.nameOfProduct!,
                   style: getBoldStyle(
-                      color: ColorManager.black,
-                      fontSize: FontSizeApp.s10)
+                          color: ColorManager.black, fontSize: FontSizeApp.s10)
                       ?.copyWith(height: 1),
                 ),
                 Padding(
-                  padding:  const EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     children: [
                       Text(
                         "400 غ",
                         style: getRegularStyle(
-                            color: ColorManager.grayForMessage,
-                            fontSize: FontSizeApp.s13)!
+                                color: ColorManager.grayForMessage,
+                                fontSize: FontSizeApp.s13)!
                             .copyWith(height: 1),
                       ),
                       Text(
                         " / ",
                         style: getRegularStyle(
-                            color: ColorManager.grayForMessage,
-                            fontSize: FontSizeApp.s13)!
+                                color: ColorManager.grayForMessage,
+                                fontSize: FontSizeApp.s13)!
                             .copyWith(height: 1),
                       ),
                       Text(
                         "15 قطعة",
                         style: getRegularStyle(
-                            color: ColorManager.grayForMessage,
-                            fontSize: FontSizeApp.s10)!
+                                color: ColorManager.grayForMessage,
+                                fontSize: FontSizeApp.s10)!
                             .copyWith(height: 1),
                       ),
                     ],
@@ -90,10 +90,9 @@ class CardBasket extends StatelessWidget {
                 ),
                 Text(" 50.000 sy",
                     style: getBoldStyle(
-                        color: ColorManager.primaryGreen,
-                        fontSize: FontSizeApp.s12)!
-                        .copyWith(
-                        height: 1)),
+                            color: ColorManager.primaryGreen,
+                            fontSize: FontSizeApp.s12)!
+                        .copyWith(height: 1)),
               ],
             ),
             const SizedBox(

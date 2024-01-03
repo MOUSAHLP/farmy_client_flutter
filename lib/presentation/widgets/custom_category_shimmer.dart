@@ -9,8 +9,8 @@ class CustomCategoryShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-                  baseColor: ColorManager.grayForPlaceholde,
-                highlightColor: const Color(0xFFe2e4e9),
+      baseColor: ColorManager.grayForPlaceholde,
+      highlightColor: const Color(0xFFe2e4e9),
       child: GridView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         itemCount: 6,
@@ -20,8 +20,7 @@ class CustomCategoryShimmer extends StatelessWidget {
             mainAxisExtent: 135,
             crossAxisCount: 3),
         itemBuilder: (context, index) {
-          return GestureDetector(
-              onTap: () {}, child: const CustomCategory(categoryName: ""));
+          return const CustomCategory(categoryName: "");
         },
       ),
     );

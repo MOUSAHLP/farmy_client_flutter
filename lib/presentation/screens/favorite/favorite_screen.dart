@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
@@ -67,10 +68,17 @@ class FavoriteScreen extends StatelessWidget {
                             child: GestureDetector(
                                 onTap: () {
                                   AppRouter.push(
-                                      context, const ProductDetailsScreen());
+                                      context,
+                                      const ProductDetailsScreen(
+                                        id: 1,
+                                      ));
                                 },
-                                child:
-                                    const CustomProductCard(isDisCount: true)));
+                                child: CustomProductCard(
+                                  isSellerFound: false,
+                                  isDisCount: true,
+                                  productInfo:
+                                      ProductsBySubCategoryIdResponse(),
+                                )));
                       },
                     );
                   }).toList(),
