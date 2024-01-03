@@ -97,12 +97,19 @@ class PaymentBody extends StatelessWidget {
                           for (var item
                               in paymentProcessResponse.deleveryMethodList!)
                             CutomOrderTypeContiner(
+                              delveryField: item,
+                              isSelected: state.deleveryMethodChossenList
+                                  .any((element) => element.id == item.id),
+                              onTap: () {
+                                context.read<PaymentBloc>().add(
+                                    ToogleDeleveryMethod(
+                                        deleveryMethodData: item));
+                              },
                               deliverycost:
                                   "${AppLocalizations.of(context)!.delivery_cost}  ${item.deleveyPrice}",
                               image: ImageManager.dateTimeImage,
                               text:
                                   "${item.deleveryName} (${item.deleveytime})",
-                              orderState: OrderStates.normalOrder,
                             ),
                         ],
                       ),

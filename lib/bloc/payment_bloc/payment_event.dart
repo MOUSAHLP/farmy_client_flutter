@@ -33,3 +33,10 @@ class RemoveFromChossenList extends PaymentEvent {
     this.attrbiuteData,
   });
 }
+
+class ToogleDeleveryMethod extends PaymentEvent {
+  final DeleveryMethodResponse? deleveryMethodData;
+  const ToogleDeleveryMethod({
+    this.deleveryMethodData,
+  });
+}

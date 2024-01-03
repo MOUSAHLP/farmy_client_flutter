@@ -66,14 +66,13 @@ class _CustomHomeCurselState extends State<CustomHomeCursel> {
                       color: ColorManager.grayForPlaceholde,
                       width: 1.sw,
                       child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: CachedImage(
-                            imageUrl: widget.isLoadingState == true
-                                ? ""
-                                : widget.bannerList![index].bannerLink,
-                            imageSize: ImageSize.large,
-                          ),
+                        child: CachedImage(
+                          width: 1.sw,
+                          imageUrl: widget.isLoadingState == true
+                              ? ""
+                              : widget.bannerList![index].image,
+                          fit: BoxFit.cover,
+                          imageSize: ImageSize.small,
                         ),
                       ),
                     )),
