@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +7,8 @@ import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/models/attribute_response.dart';
+import 'package:pharma/models/payment_process_response.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -17,24 +21,25 @@ import 'package:pharma/presentation/screens/payment/widgets/custom_order_schedul
 import 'package:pharma/presentation/screens/payment/widgets/custom_order_type_continer.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_payment_status_continer.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
-import 'package:pharma/presentation/widgets/custom_loading.dart';
 import 'package:pharma/presentation/widgets/select_location.dart';
 import 'package:pharma/translations.dart';
 
 class PaymentScreen extends StatelessWidget {
-  const PaymentScreen({super.key});
+  final PaymentProcessResponse paymentProcessResponse;
+  const PaymentScreen({super.key, required this.paymentProcessResponse});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<PaymentBloc>(),
-      child: const PaymentBody(),
+      child: PaymentBody(paymentProcessResponse: paymentProcessResponse),
     );
   }
 }
 
 class PaymentBody extends StatelessWidget {
-  const PaymentBody({super.key});
+  final PaymentProcessResponse paymentProcessResponse;
+  const PaymentBody({super.key, required this.paymentProcessResponse});
 
   @override
   Widget build(BuildContext context) {
@@ -254,19 +259,51 @@ class PaymentBody extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 35),
                       child: Column(
                         children: [
-                          CustomNoteOnTheOrder(
-                            noteText: 'عدم رن  الجرس',
-                          ),
-                          CustomNoteOnTheOrder(
-                            noteText: 'الاتصال بي عند الوصول',
-                          ),
-                          CustomNoteOnTheOrder(
-                            noteText: "التواصل عند  عدم توفر منتج ما",
-                          )
+                          for (int i = 0;
+                              i <
+                                  paymentProcessResponse
+                                      .deleveryAttributesList!.length;
+                              i++)
+                            CustomNoteOnTheOrder(
+                              onTab: () {
+                                log(i.toString());
+                                if (context
+                                    .read<PaymentBloc>()
+                                    .state
+                                    .attrbiuteChossenList
+                                    .any((element) =>
+                                        element.id ==
+                                        paymentProcessResponse
+                                            .deleveryAttributesList![i].id)) {
+                                  context.read<PaymentBloc>().add(
+                                      RemoveFromChossenList(
+                                          attrbiuteData: paymentProcessResponse
+                                              .deleveryAttributesList![i]));
+                                } else {
+                                  context.read<PaymentBloc>().add(
+                                      AddToChossenAttrbiuteList(
+                                          attrbiuteData: paymentProcessResponse
+                                              .deleveryAttributesList![i]));
+                                }
+                              },
+                              isSelected: context
+                                      .read<PaymentBloc>()
+                                      .state
+                                      .attrbiuteChossenList
+                                      .any((element) =>
+                                          element.id ==
+                                          paymentProcessResponse
+                                              .deleveryAttributesList![i].id)
+                                  ? true
+                                  : false,
+                              noteText: paymentProcessResponse
+                                  .deleveryAttributesList![i]
+                                  .nameDeleveryAttribute!,
+                            ),
                         ],
                       ),
                     ),
