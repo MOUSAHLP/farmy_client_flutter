@@ -94,28 +94,16 @@ class PaymentBody extends StatelessWidget {
                           const SizedBox(
                             height: 4,
                           ),
-                          CutomOrderTypeContiner(
-                            deliverycost:
-                                "${AppLocalizations.of(context)!.delivery_cost}25000",
-                            image: ImageManager.dateTimeImage,
-                            text:
-                                "${AppLocalizations.of(context)!.normal_request} (30 دقيقة)",
-                            orderState: OrderStates.normalOrder,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: CutomOrderTypeContiner(
+                          for (var item
+                              in paymentProcessResponse.deleveryMethodList!)
+                            CutomOrderTypeContiner(
                               deliverycost:
-                                  "${AppLocalizations.of(context)!.delivery_cost}35000.00",
+                                  "${AppLocalizations.of(context)!.delivery_cost}  ${item.deleveyPrice}",
                               image: ImageManager.dateTimeImage,
                               text:
-                                  "${AppLocalizations.of(context)!.urgent_request} (15 دقيقة)",
-                              orderState: OrderStates.urgentOrder,
+                                  "${item.deleveryName} (${item.deleveytime})",
+                              orderState: OrderStates.normalOrder,
                             ),
-                          ),
-                          const CustomOrderScheduling(
-                              deliverycost: "كلفة التوصيل 25.000 ل.س",
-                              image: ImageManager.dateTimeImage)
                         ],
                       ),
                     ),

@@ -14,9 +14,11 @@ class CutomOrderTypeContiner extends StatelessWidget {
   final String image;
   final String text;
   final String deliverycost;
+  final Function() onTap;
   const CutomOrderTypeContiner(
       {super.key,
       required this.orderState,
+      required th
       required this.deliverycost,
       required this.image,
       required this.text});
@@ -60,8 +62,7 @@ class CutomOrderTypeContiner extends StatelessWidget {
                     Expanded(
                       child: Text(
                         text,
-                        style: getBoldStyle(
-                            color: ColorManager.grayForMessage),
+                        style: getBoldStyle(color: ColorManager.grayForMessage),
                       ),
                     ),
                     BlocBuilder<PaymentBloc, PaymentState>(

@@ -15,6 +15,7 @@ class DeleveryMethodResponse {
     return DeleveryMethodResponse(
         id: json["id"],
         deleveryName: json["name"],
+        deleveytime: json["time"],
         deleveyPrice: json["price"]);
   }
 
