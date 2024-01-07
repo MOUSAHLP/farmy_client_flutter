@@ -15,18 +15,20 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   double? latitudeCurrent, longitudeCurrent;
   BitmapDescriptor? customIcon;
   GoogleMapController? mapController;
-  Marker? markerLocation;
+  Marker markerLocation=const Marker(
+    markerId: MarkerId(""),
+    draggable: true,
+  );
   List<UserAddressModel> userAddressList=[];
-
   final AddAddressParams address =  AddAddressParams();
   UserAddressModel addressCurrent=UserAddressModel();
-  LocationBloc() : super(LocationState()) {
+  LocationBloc() : super(LocationState(addressCurrent:UserAddressModel())) {
     on<LocationEvent>((event, emit) async {
       if (event is CurrentLocation) {
         emit(state.copyWith(screenStates: ScreenStates.loading));
         await getPosition();
         if (latitudeCurrent == null) {
-          emit(ExitLocation());
+          emit(ExitLocation(addressCurrent: UserAddressModel()));
         } else {
           setMarker();
           emit(state.copyWith(
@@ -76,7 +78,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           }
         }, (r) {
           addressCurrent=r;
-          emit(state.copyWith(success: true));
+          emit(state.copyWith(success: true,addressCurrent: addressCurrent));
         });
       }
       if(event is SelectLatLon){
@@ -84,6 +86,25 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           latitude: event.lat,
           longitude: event.lon,
         ));
+      }
+      if(event is SelectAddressDelivery) {
+          addressCurrent=event.userAddress;
+          emit(state.copyWith(
+           addressCurrent: event.userAddress
+          ));
+        }
+      if(event is DeleteUserAddress){
+        emit(state.copyWith(isLoadingDelete: true));
+        final response = await UserAddressRepository.deleteAddress(event.id);
+        response.fold((l) {
+          if (l != 'Cancel') {
+            emit(state.copyWith(errorDelete: l));
+          }
+        }, (r) {
+          add(GetUserAddress());
+          emit(state.copyWith(successDelete: true));
+        });
+
       }
     });
   }

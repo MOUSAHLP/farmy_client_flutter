@@ -18,25 +18,11 @@ class SelectLocationFromMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: BlocProvider<LocationBloc>(
-        create: (BuildContext context) =>
-            sl<LocationBloc>()..add(CurrentLocation()),
-        child: const SelectLocationFromMapBody(),
-      ),
-    );
-  }
-}
-
-class SelectLocationFromMapBody extends StatelessWidget {
-  const SelectLocationFromMapBody({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           BlocConsumer<LocationBloc, LocationState>(
+            bloc:sl<LocationBloc>()..add(CurrentLocation()) ,
             listener: (context, state) {
               if (state is ExitLocation) {
                 AppRouter.pop(context);
@@ -67,7 +53,7 @@ class SelectLocationFromMapBody extends StatelessWidget {
               }
               if (state.screenStates == ScreenStates.error) {
                 return const Center(
-                  child: Text("eeeeeeeeeee"),
+                  child: Text("error"),
                 );
               }
               return SafeArea(
@@ -77,7 +63,7 @@ class SelectLocationFromMapBody extends StatelessWidget {
                       zoomControlsEnabled: false,
                       mapType: MapType.normal,
                       markers: {
-                        context.read<LocationBloc>().markerLocation!,
+                        context.read<LocationBloc>().markerLocation,
                       },
                       initialCameraPosition: CameraPosition(
                         target: LatLng(state.latitude, state.longitude),
@@ -114,7 +100,7 @@ class SelectLocationFromMapBody extends StatelessWidget {
                         left: 50,
                         child: Center(
                           child: CustomButton(label:AppLocalizations.of(context)!.locating,onTap: (){
-
+AppRouter.pop(context);
                           }),
                         ))
                   ],

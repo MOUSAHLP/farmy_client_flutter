@@ -27,4 +27,5 @@ class ApiConst {
   ///Address
   static const String getUserAddresses = "/user_addresses";
   static const String addUserAddresses = "/user_addresses";
+  static  String deleteUserAddresses(int id) => "/user_addresses/$id";
 }

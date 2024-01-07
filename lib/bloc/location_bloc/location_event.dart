@@ -1,6 +1,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../models/params/add_address_params.dart';
+import '../../models/user_address_response.dart';
 
 abstract class LocationEvent {
   LocationEvent([List props = const []]) : super();
@@ -30,4 +31,12 @@ class SelectLatLon extends LocationEvent {
     required this.lat,
     required this.lon,
   });
+}
+class SelectAddressDelivery extends LocationEvent{
+  UserAddressModel userAddress;
+  SelectAddressDelivery({required this.userAddress});
+}
+class DeleteUserAddress extends LocationEvent{
+  int id;
+  DeleteUserAddress({required this.id});
 }

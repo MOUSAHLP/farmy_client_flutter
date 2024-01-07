@@ -185,7 +185,7 @@ class AddLocationScreen extends StatelessWidget {
                           label:
                               AppLocalizations.of(context)!.adding_the_address,
                           onTap: () {
-                            sl
+                            context.read
                                 <LocationBloc>()
                                 .add(AddUserAddress(address: address));
                           }),

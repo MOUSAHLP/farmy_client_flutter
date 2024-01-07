@@ -8,13 +8,15 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/location_screen/add_location_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/widegts/card_location.dart';
-import 'package:pharma/presentation/screens/location_screen/select_location_from_map.dart';
 import 'package:pharma/presentation/screens/location_screen/widegts/search_address.dart';
+import 'package:pharma/presentation/screens/location_screen/widegts/shimmer_card.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/translations.dart';
 import '../../../core/app_enum.dart';
 import '../../../core/services/services_locator.dart';
+import '../../widgets/dialogs/error_dialog.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 import '../../widgets/over_scroll_indicator.dart';
 class LocationScreen extends StatelessWidget {
   const LocationScreen({super.key});
@@ -24,9 +26,18 @@ class LocationScreen extends StatelessWidget {
     return SafeArea(
       child: BlocConsumer<LocationBloc,LocationState>(
         listener: (context, state) {
+          if (state.isLoadingDelete) {
+            LoadingDialog().openDialog(context);
+          } else {
+            LoadingDialog().closeDialog(context);
+          }
+          if (state.errorDelete != '') {
+            ErrorDialog.openDialog(context, state.error);
+          }
+
         },
         bloc: sl<LocationBloc>()..add(GetUserAddress()),
-        builder: (BuildContext context, state) { return LocationScreenBody(); },
+        builder: (BuildContext context, state) { return const LocationScreenBody(); },
 
       ),
     );
@@ -76,21 +87,27 @@ class LocationScreenBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                BlocBuilder<LocationBloc, LocationState>(
+                Expanded(
+                  child: BlocBuilder<LocationBloc, LocationState>(
             builder: (context, state){
               if(state.screenStates == ScreenStates.loading)
               {
-                return const CircularProgressIndicator();
+                  return const ShimmerCard();
               }
               if(state.screenStates == ScreenStates.error)
               {
-                return  Text("errr");
+                  return  const Text("error");
               }
-              return Expanded(child: CustomOverscrollIndicator(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) => CardLocation(userAddressModel: state.userAddressList[index]),
-                    itemCount:state.userAddressList.length,),
-                  ));}
+              return CustomOverscrollIndicator(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) => Row(
+                          children: [
+                            CardLocation(userAddressModel: state.userAddressList[index]),
+                          ],
+                        ),
+                      itemCount:state.userAddressList.length,),
+                    );}
+                  ),
                 )
               ]),
               Padding(

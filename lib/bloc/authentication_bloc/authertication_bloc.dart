@@ -25,7 +25,7 @@ class AuthenticationBloc
     on<AuthenticationEvent>((event, emit) async {
       if (event is AppStarted) {
         final bool hasToken = await userRepository.hasToken();
-        await Future.delayed(const Duration(seconds: 1)).then((value) {
+        await Future.delayed(const Duration(seconds:3)).then((value) {
           if (hasToken) {
             loggedIn = true;
             loginResponse = DataStore.instance.userInfo;

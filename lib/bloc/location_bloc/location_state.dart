@@ -9,11 +9,14 @@ class LocationState extends Equatable {
   bool isLoading;
   String error;
   final bool success;
-
   final double latitude;
   final double longitude;
 
+  bool isLoadingDelete;
+  String errorDelete;
+  bool successDelete;
   List<UserAddressModel> userAddressList;
+  UserAddressModel addressCurrent ;
 
   LocationState({
     this.screenStates = ScreenStates.loading,
@@ -23,6 +26,10 @@ class LocationState extends Equatable {
     this.latitude = 0,
     this.longitude = 0.0,
     this.userAddressList = const [],
+    required this.addressCurrent,
+    this.isLoadingDelete=false,
+    this.errorDelete='',
+    this.successDelete=false,
   });
 
   LocationState copyWith({
@@ -33,15 +40,23 @@ class LocationState extends Equatable {
     double? latitude,
     double? longitude,
     List<UserAddressModel>? userAddressList,
+    UserAddressModel? addressCurrent,
+    bool? isLoadingDelete,
+    String? errorDelete,
+    bool? successDelete,
   }) {
     return LocationState(
       screenStates: screenStates ?? this.screenStates,
       isLoading: isLoading ?? false,
       success: success ?? false,
-      error: error ?? this.error,
+      error: error ?? '',
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       userAddressList: userAddressList ?? this.userAddressList,
+        addressCurrent:addressCurrent??this.addressCurrent,
+      isLoadingDelete: isLoadingDelete??false,
+      errorDelete: errorDelete??'',
+      successDelete: successDelete??false,
     );
   }
 
@@ -55,7 +70,13 @@ class LocationState extends Equatable {
         latitude,
         longitude,
         userAddressList,
+    addressCurrent,
+    isLoadingDelete,
+    errorDelete,
+    successDelete
       ];
 }
 
-class ExitLocation extends LocationState {}
+class ExitLocation extends LocationState {
+  ExitLocation({required super.addressCurrent});
+}
