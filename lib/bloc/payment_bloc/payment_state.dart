@@ -6,20 +6,24 @@ class PaymentState extends Equatable {
   final PaymentStates? paymentState;
   final List<DeleveryAttributesResponse> attrbiuteChossenList;
   final List<DeleveryMethodResponse> deleveryMethodChossenList;
+  final String? deleveryCost;
 
   const PaymentState(
       {this.screenState,
       this.orderState,
+      this.deleveryCost="0",
       this.paymentState,
       this.deleveryMethodChossenList = const [],
       this.attrbiuteChossenList = const []});
   PaymentState copyWith(
       {ScreenStates? screenState,
       OrderStates? orderState,
+      String? deleveryCost,
       List<DeleveryMethodResponse>? deleveryMethodChossenList,
       PaymentStates? paymentState,
       List<DeleveryAttributesResponse>? attrbiuteChossenList}) {
     return PaymentState(
+        deleveryCost: deleveryCost ?? this.deleveryCost,
         deleveryMethodChossenList:
             deleveryMethodChossenList ?? this.deleveryMethodChossenList,
         attrbiuteChossenList: attrbiuteChossenList ?? this.attrbiuteChossenList,
@@ -33,6 +37,7 @@ class PaymentState extends Equatable {
         screenState,
         orderState,
         paymentState,
+        deleveryCost,
         attrbiuteChossenList,
         deleveryMethodChossenList
       ];

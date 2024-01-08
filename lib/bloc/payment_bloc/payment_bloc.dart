@@ -47,7 +47,8 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
             mutableChossenDeleveryMethodList.add(event.deleveryMethodData!);
           }
           emit(state.copyWith(
-              deleveryMethodChossenList: mutableChossenDeleveryMethodList));
+              deleveryMethodChossenList: mutableChossenDeleveryMethodList,
+              deleveryCost: event.deleveryMethodData!.deleveyPrice));
         }
       },
     );

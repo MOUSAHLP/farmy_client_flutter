@@ -7,6 +7,7 @@ import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/models/attribute_response.dart';
 import 'package:pharma/models/payment_process_response.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
@@ -323,30 +324,51 @@ class PaymentBody extends StatelessWidget {
                       child: Column(
                         children: [
                           CustomBillDetailsRow(
-                            subStatusBill:
-                                AppLocalizations.of(context)!.total_amount,
-                            price: "2000",
-                          ),
+                              subStatusBill:
+                                  AppLocalizations.of(context)!.total_amount,
+                              price: paymentProcessResponse
+                                          .invociesResponse!.total !=
+                                      null
+                                  ? paymentProcessResponse
+                                      .invociesResponse!.total
+                                      .toString()
+                                  : AppVAlueConst.defalutInvoiceValue),
                           CustomBillDetailsRow(
                             subStatusBill:
                                 AppLocalizations.of(context)!.hasm_code,
-                            price: "2000",
+                            price: paymentProcessResponse
+                                        .invociesResponse!.coponValue !=
+                                    null
+                                ? paymentProcessResponse
+                                    .invociesResponse!.coponValue
+                                    .toString()
+                                : AppVAlueConst.defalutInvoiceValue,
                           ),
                           CustomBillDetailsRow(
                             subStatusBill:
                                 AppLocalizations.of(context)!.deliverycharges,
-                            price: "2000",
+                            price: state.deleveryCost ?? 0.toString(),
                           ),
                           CustomBillDetailsRow(
-                            subStatusBill:
-                                AppLocalizations.of(context)!.deliverycharges,
-                            price: "2000",
-                          ),
+                              subStatusBill: AppLocalizations.of(context)!.tax,
+                              price: paymentProcessResponse
+                                          .invociesResponse!.tax !=
+                                      null
+                                  ? paymentProcessResponse.invociesResponse!.tax
+                                      .toString()
+                                  : AppVAlueConst.defalutInvoiceValue),
                           CustomBillDetailsRow(
-                            colorText: ColorManager.primaryGreen,
-                            subStatusBill: AppLocalizations.of(context)!.total,
-                            price: "2000",
-                          )
+                              colorText: ColorManager.primaryGreen,
+                              subStatusBill:
+                                  AppLocalizations.of(context)!.total,
+                              price: paymentProcessResponse
+                                          .invociesResponse!.total !=
+                                      null
+                                  ? paymentProcessResponse
+                                          .invociesResponse!.total
+                                          .toString() +
+                                      state.deleveryCost!
+                                  : AppVAlueConst.defalutInvoiceValue)
                         ],
                       ),
                     )
