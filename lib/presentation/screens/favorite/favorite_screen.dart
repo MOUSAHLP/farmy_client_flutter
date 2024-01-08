@@ -30,7 +30,8 @@ class FavoriteScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomAppBarScreen(
-                  sectionName: AppLocalizations.of(context)!.favorite),
+                  sectionName: AppLocalizations.of(context)!.favorite,
+                  isComeBack: false),
               SizedBox(
                 width: 1.sw,
                 child: TabBar(

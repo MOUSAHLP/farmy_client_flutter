@@ -51,6 +51,7 @@ class BasketScreen extends StatelessWidget {
               children: [
                 Column(children: [
                   CustomAppBarScreen(
+                      isComeBack: false,
                       sectionName: AppLocalizations.of(context)!.basket),
                   state.prductList!.isEmpty
                       ? CustomNoData(
