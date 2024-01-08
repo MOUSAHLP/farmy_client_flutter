@@ -216,5 +216,6 @@
   "discount":"حسم",
   "thereIsNoProduct":"عذرا لا يوجد أي منتجات تنتمي لهذه الفئة حاليا",
   "curruncy":"ل.س",
-  "sorryBasketIsEmpty":"عذرا السلة فارغة"
+  "sorryBasketIsEmpty":"عذرا السلة فارغة",
+  "try_again": "إعادة المحاولة"
 }

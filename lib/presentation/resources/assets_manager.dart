@@ -47,6 +47,7 @@ class ImageManager {
 class IconsManager {
   static const String logoApp = "$iconPath/logo_app.svg";
   static const String logoGreen = "$iconPath/logo_green.svg";
+  static const String errorIcon = "$iconPath/error_icon.svg";
   static const String crown = "$iconPath/crown_icon.svg";
   static const String locationIcon = "$iconPath/location_icon.png";
   static const String locationIconApp = "$iconPath/location_icon_app.png";

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/authentication_bloc/authentication_state.dart';
@@ -26,8 +25,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
   late Animation<double> animation;
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController repeatPasswordController =
-  TextEditingController();
+      TextEditingController();
   final _formState = GlobalKey<FormState>();
+
   @override
   initState() {
     super.initState();
@@ -40,13 +40,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
-        listener: (context, state) {
-          if (state.changePasswordSuccess) {
-
-            AppRouter.pushReplacement(context, const AccountScreen());
-          }
-        },
-child:  FadeTransition(
+      listener: (context, state) {
+        if (state.changePasswordSuccess) {
+          AppRouter.pushReplacement(context, const AccountScreen());
+        }
+      },
+      child: FadeTransition(
         opacity: animation,
         child: Form(
           key: _formState,
@@ -61,24 +60,21 @@ child:  FadeTransition(
                 height: 58,
               ),
               PasswordInputFieldAuth(
-                controller:passwordController ,
-                hintText: AppLocalizations.of(context)!.new_password,
+                  controller: passwordController,
+                  hintText: AppLocalizations.of(context)!.new_password,
                   validator: (value) {
-                    return AppValidators.validatePasswordFields(
-                        context, value);
-                  }
-              ),
+                    return AppValidators.validatePasswordFields(context, value);
+                  }),
               const SizedBox(
                 height: 13,
               ),
               PasswordInputFieldAuth(
-                controller: repeatPasswordController,
-                hintText: AppLocalizations.of(context)!.confirm_password,
+                  controller: repeatPasswordController,
+                  hintText: AppLocalizations.of(context)!.confirm_password,
                   validator: (value) {
                     return AppValidators.validateRepeatPasswordFields(
                         context, passwordController.text, value);
-                  }
-              ),
+                  }),
               const SizedBox(
                 height: 132,
               ),

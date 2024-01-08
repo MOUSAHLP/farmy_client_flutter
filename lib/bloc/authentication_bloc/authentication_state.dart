@@ -13,7 +13,7 @@ class AuthenticationState extends Equatable {
   final  bool signUp;
   final bool confirmOtp;
   final bool changePasswordSuccess;
-  final  String selectGender;
+  final  bool isReSend;
 
 
    AuthenticationState({
@@ -28,7 +28,7 @@ class AuthenticationState extends Equatable {
     this.resetPassword = false,
     this.signUp = false,
     this.changePasswordSuccess = false,
-    this.selectGender = '',
+    this.isReSend = false,
   });
 
   AuthenticationState copyWith({
@@ -42,7 +42,7 @@ class AuthenticationState extends Equatable {
     bool? signUp,
     bool? isSuccess,
     bool? loggedIn,
-    String? selectGender
+    bool? isReSend
 
   }) {
     return AuthenticationState(
@@ -56,7 +56,7 @@ class AuthenticationState extends Equatable {
       confirmOtp: confirmOtp ?? false,
       resetPassword: resetPassword ?? false,
       signUp: signUp ?? this.signUp,
-      selectGender: selectGender ?? '',
+      isReSend: isReSend ?? false,
     );
   }
 
@@ -72,6 +72,6 @@ class AuthenticationState extends Equatable {
     confirmOtp,
     resetPassword,
     signUp,
-    selectGender
+    isReSend
   ];
 }

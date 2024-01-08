@@ -159,6 +159,19 @@ class AuthenticationBloc
              signUp: true));
         });
       }
+      if(event is ReSendCode){
+      emit(state.copyWith(isReSend: true));
+        final response =
+        await userRepository.signUpPhoneNumber(event.phone);
+        response.fold((l) {
+          emit(state.copyWith(
+            error: l,
+          ));
+        }, (r) {
+          otpVerifyResponse = r;
+          emit(state.copyWith(sendOtp: true));
+        });
+      }
     });
   }
 }

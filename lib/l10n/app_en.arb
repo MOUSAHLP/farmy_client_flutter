@@ -213,6 +213,7 @@
     "discount":"Discount",
     "thereIsNoProduct":"Sorry, there are no products that belong to this category at the moment",
       "curruncy":"SYP",
-        "sorryBasketIsEmpty":"Sorry, currently the basket is empty"
+        "sorryBasketIsEmpty":"Sorry, currently the basket is empty",
+  "try_again": "Try again"
 
 }
