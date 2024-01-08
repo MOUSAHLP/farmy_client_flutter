@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
 
@@ -25,7 +26,7 @@ class ProductImage extends StatelessWidget {
               BoxShadow(
                 spreadRadius: 0,
                 blurRadius: 5,
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.grey.withOpacity(0.5),
                 offset: const Offset(0, -3),
               ),
             ],
@@ -63,9 +64,13 @@ class ProductImage extends StatelessWidget {
                         offset: const Offset(3, 3),
                       )
                     ]),
-                child: const Center(
-                  child: Icon(
-                    Icons.close,
+                child: Center(
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(Icons.close),
                     color: ColorManager.primaryGreen,
                   ),
                 ),

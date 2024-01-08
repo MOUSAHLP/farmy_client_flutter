@@ -60,16 +60,12 @@ class ProductDetailsBody extends StatelessWidget {
             return Scaffold(
               body: Column(
                 children: [
-                  const CustomAppBarScreen(sectionName: "تفاصيل فليفة"),
                   state.screenState == ScreenState.loading
                       ? const CustomLoading()
                       : state.screenState == ScreenState.success
                           ? Expanded(
                               child: ListView(
                                 children: [
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
                                   ProductImage(
                                       productImage: state
                                                   .productDetailsResponse!
