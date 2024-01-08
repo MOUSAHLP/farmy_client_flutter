@@ -123,7 +123,8 @@ class MyAccountScreen extends StatelessWidget {
               ),
             ),
             CustomAppBarScreen(
-                sectionName: AppLocalizations.of(context)!.my_Account),
+                sectionName: AppLocalizations.of(context)!.my_Account,
+                isComeBack: false),
           ],
         ),
       ),

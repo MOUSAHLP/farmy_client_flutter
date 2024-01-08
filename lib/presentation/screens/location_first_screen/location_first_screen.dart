@@ -151,18 +151,24 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                                 ? Container(
                                     // height: 50,
                                     width: 1.sw,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow:[ ColorManager.shadowGaryDown]
-                              ),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          ColorManager.shadowGaryDown
+                                        ]),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 28.0,horizontal: 8),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 28.0, horizontal: 8),
                                       child: Column(
                                         children: [
-                                          const Icon(Icons.location_on,color: Colors.blue,),
-                                           const Padding(
-                                            padding: EdgeInsets.symmetric(vertical: 10),
+                                          const Icon(
+                                            Icons.location_on,
+                                            color: Colors.blue,
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10),
                                             child: Text(
                                                 "السماح لفارمي باستخدام موقع جهازك"),
                                           ),
@@ -187,19 +193,21 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                                             ],
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: 15.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 15.0),
                                             child: InkWell(
-                                              onTap: (){
+                                              onTap: () {
                                                 AppRouter.push(context,
                                                     const LocationSecondScreen());
                                               },
-                                              child: Text("فقط عند استخدام التطبيق",
+                                              child: Text(
+                                                  "فقط عند استخدام التطبيق",
                                                   style: getBoldStyle(
                                                       color: Colors.black)),
                                             ),
                                           ),
                                           InkWell(
-                                            onTap: (){
+                                            onTap: () {
                                               AppRouter.push(context,
                                                   const LocationSecondScreen());
                                             },
@@ -208,11 +216,12 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                                                     color: Colors.black)),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: 15.0),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 15.0),
                                             child: InkWell(
-                                              onTap: (){
-                                                AppRouter.push(context,
-                                                    const MainScreen());
+                                              onTap: () {
+                                                AppRouter.push(
+                                                    context, const MainScreen());
                                               },
                                               child: Text("عدم السماح",
                                                   style: getBoldStyle(
@@ -226,43 +235,48 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                                 : const SizedBox(),
                             isImageShrunk
                                 ? const SizedBox(
-                                    height:0,
+                                    height: 0,
                                   )
                                 : const SizedBox(
                                     height: 180,
                                   ),
-                            isImageShrunk?const SizedBox(): Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CustomButton(
-                                      label: AppLocalizations.of(context)!
-                                          .select_delivery_location,
-                                      onTap: () {
-                                        setState(() {
-                                          isImageShrunk = true;
-                                          _controller.forward();
-                                        });
-                                        // Add your navigation logic here
-                                      }),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  CustomButton(
-                                    label: AppLocalizations.of(context)!
-                                        .skip_stage_now,
-                                    isFilled: true,
-                                    labelColor: ColorManager.primaryGreen,
-                                    fillColor: Colors.white,
-                                    borderColor: ColorManager.primaryGreen,
-                                    onTap: () {
-                                      AppRouter.push(context, const MainScreen());
-                                    },
-                                  ),
-                                ],
-                              ),
-                            )
+                            isImageShrunk
+                                ? const SizedBox()
+                                : Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        CustomButton(
+                                            label: AppLocalizations.of(context)!
+                                                .select_delivery_location,
+                                            onTap: () {
+                                              setState(() {
+                                                isImageShrunk = true;
+                                                _controller.forward();
+                                              });
+                                              // Add your navigation logic here
+                                            }),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        CustomButton(
+                                          label: AppLocalizations.of(context)!
+                                              .skip_stage_now,
+                                          isFilled: true,
+                                          labelColor: ColorManager.primaryGreen,
+                                          fillColor: Colors.white,
+                                          borderColor:
+                                              ColorManager.primaryGreen,
+                                          onTap: () {
+                                            AppRouter.push(
+                                                context, const MainScreen());
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  )
                           ],
                         ),
                       ),

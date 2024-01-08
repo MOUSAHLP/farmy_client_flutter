@@ -50,7 +50,7 @@ class _CustomHomeCurselState extends State<CustomHomeCursel> {
           (index) {
             return Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: 13, vertical: widget.verticalPadding ?? 30),
+                  horizontal: 13, vertical: widget.verticalPadding ?? 25),
               child: GestureDetector(
                 onTap: () async {
                   Uri url = Uri.parse(widget.isLoadingState == true

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/card_order.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
@@ -17,12 +16,15 @@ class OrderScreen extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           children: [
             Column(children: [
-              CustomAppBarScreen(sectionName: AppLocalizations.of(context)!.my_order),
+              CustomAppBarScreen(
+                  isComeBack: false,
+                  sectionName: AppLocalizations.of(context)!.my_order),
               Expanded(
                 child: CustomOverscrollIndicator(
                   child: ListView.builder(
-                    itemBuilder: (context, index) =>const CardOrder() ,
-                  itemCount:10,),
+                    itemBuilder: (context, index) => const CardOrder(),
+                    itemCount: 10,
+                  ),
                 ),
               )
             ]),

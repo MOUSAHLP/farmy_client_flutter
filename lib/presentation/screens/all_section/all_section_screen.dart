@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
+import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/all_section/widgets/custom_category_screen.dart';
 import 'package:pharma/presentation/screens/all_section/widgets/custom_sub_category_screen.dart';
@@ -15,19 +16,26 @@ import 'package:pharma/translations.dart';
 import '../../widgets/custom_app_bar_screen.dart';
 
 class ALlSectionScreen extends StatelessWidget {
-  const ALlSectionScreen({super.key});
+  final int index;
+  final int tabControllerLength;
+  const ALlSectionScreen(
+      {super.key, required this.index, required this.tabControllerLength});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<CategoriesBloc>()..add(GetCaegoriesEvent()),
-      child: ALlSectionScreenBody(),
+      create: (context) => sl<CategoriesBloc>(),
+      child: ALlSectionScreenBody(
+          index: index, tabControllerLength: tabControllerLength),
     );
   }
 }
 
 class ALlSectionScreenBody extends StatefulWidget {
-  ALlSectionScreenBody({super.key});
+  final int index;
+  final int tabControllerLength;
+  ALlSectionScreenBody(
+      {super.key, required this.index, required this.tabControllerLength});
 
   @override
   State<ALlSectionScreenBody> createState() => _ALlSectionScreenBodyState();
@@ -44,9 +52,23 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
     "فواكه"
   ];
   late TabController _tabController;
+  List<CategoriesResponse> categoriesList = [];
   @override
   void initState() {
-    _tabController = TabController(length: 1, vsync: this);
+    categoriesList =
+        List.from(context.read<HomeBloc>().state.homeData!.homeCategoriesList!);
+    categoriesList.insert(0, CategoriesResponse(id: 0, name: "All Products"));
+    _tabController =
+        TabController(length: widget.tabControllerLength, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      print(widget.index);
+      if (widget.index != 0) {
+        print(widget.index);
+        context.read<CategoriesBloc>().add(
+            GetSubCategoryEvent(categoryId: categoriesList[widget.index].id));
+        _tabController.animateTo(widget.index);
+      }
+    });
     super.initState();
   }
 
@@ -61,107 +83,84 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
     return BlocConsumer<CategoriesBloc, CategoriesState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if (_tabController.length != state.categoriesList.length) {
-          _tabController.dispose();
-          _tabController =
-              TabController(length: state.categoriesList.length, vsync: this);
-        }
-
         return SafeArea(
           child: Scaffold(
             body: SizedBox(
                 // height: 420,
-                child: state.screenState == ScreenState.loading
-                    ? Column(
+                child: context
+                        .read<HomeBloc>()
+                        .state
+                        .homeData!
+                        .homeCategoriesList!
+                        .isEmpty
+                    ?
+
+                    //there is no data
+                    const CustomNoData(noDataStatment: "there is no data")
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomAppBarScreen(
                               sectionName:
                                   AppLocalizations.of(context)!.all_section),
-                          const Expanded(
-                              child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CustomCategoryShimmer(),
-                          )),
+                          SizedBox(
+                            width: 1.sw,
+                            child: TabBar(
+                              controller: _tabController,
+                              onTap: (value) {
+                                if (value == 0) {
+                                  context
+                                      .read<CategoriesBloc>()
+                                      .add(GetCaegoriesEvent());
+                                } else {
+                                  context.read<CategoriesBloc>().add(
+                                      GetSubCategoryEvent(
+                                          categoryId: categoriesList[
+                                                  _tabController.index]
+                                              .id));
+                                }
+                              },
+                              isScrollable: true,
+                              indicatorColor: ColorManager.primaryGreen,
+                              labelColor: ColorManager.primaryGreen,
+                              unselectedLabelColor: ColorManager.grayForMessage,
+                              dividerColor: Colors.transparent,
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              tabs: categoriesList.map((categoryList) {
+                                return Tab(
+                                  text: categoryList.name,
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Expanded(
+                            child: IndexedStack(
+
+                              
+                              index: _tabController.index,
+                              children: categoriesList.map((title) {
+                                return _tabController.index == 0
+                                    ? CustomCategoryScreen(
+                                        categoriesList: categoriesList,
+                                        tabController: _tabController)
+                                    : state.isCategoryLoading == true
+                                        ? const CustomCategoryShimmer()
+                                        : CustomSubCategoryScreen(
+                                            subCategoriesList:
+                                                _tabController.index != 0
+                                                    ? state.subCategoryList
+                                                    : [],
+                                            tabController: _tabController,
+                                          );
+                              }).toList(),
+                            ),
+                          ),
                         ],
-                      )
-                    : state.screenState == ScreenState.success
-                        ? state.categoriesList.isEmpty
-                            ?
-                            //there is no data
-                            const CustomNoData(
-                                noDataStatment: "there is no data")
-                            : Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CustomAppBarScreen(
-                                      sectionName: AppLocalizations.of(context)!
-                                          .all_section),
-                                  SizedBox(
-                                    width: 1.sw,
-                                    child: TabBar(
-                                      
-                                      controller: _tabController,
-                                      onTap: (value) {
-                                        if (value == 0) {
-                                          context
-                                              .read<CategoriesBloc>()
-                                              .add(GetCaegoriesEvent());
-                                        } else {
-                                          context.read<CategoriesBloc>().add(
-                                              GetSubCategoryEvent(
-                                                  categoryId: state
-                                                      .categoriesList[
-                                                          _tabController.index]
-                                                      .id));
-                                        }
-                                      },
-                                      isScrollable: true,
-                                      indicatorColor: ColorManager.primaryGreen,
-                                      labelColor: ColorManager.primaryGreen,
-                                      unselectedLabelColor:
-                                          ColorManager.grayForMessage,
-                                      dividerColor: Colors.transparent,
-                                      indicatorSize: TabBarIndicatorSize.tab,
-                                      tabs: state.categoriesList
-                                          .map((categoryList) {
-                                        return Tab(
-                                          text: categoryList.name,
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Expanded(
-                                    child: TabBarView(
-                                      controller: _tabController,
-                                      children:
-                                          state.categoriesList.map((title) {
-                                        return _tabController.index == 0
-                                            ? CustomCategoryScreen(
-                                                categoriesList:
-                                                    state.categoriesList,
-                                                tabController: _tabController)
-                                            : state.isCategoryLoading == true
-                                                ? const CustomCategoryShimmer()
-                                                : CustomSubCategoryScreen(
-                                                    subCategoriesList:
-                                                        _tabController.index !=
-                                                                0
-                                                            ? state
-                                                                .subCategoryList
-                                                            : [],
-                                                    tabController:
-                                                        _tabController,
-                                                  );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ],
-                              )
-                        : const SizedBox()),
+                      )),
           ),
         );
       },

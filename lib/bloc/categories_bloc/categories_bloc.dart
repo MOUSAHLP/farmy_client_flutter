@@ -14,18 +14,9 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   CategoriesBloc({required this.categoriesRepo}) : super(CategoriesState()) {
     on<CategoriesEvent>((event, emit) async {
       if (event is GetCaegoriesEvent) {
-        emit(state.copyWith(screenState: ScreenState.loading));
-
-        (await categoriesRepo.getALLCategories()).fold(
-            (l) => emit(state.copyWith(screenState: ScreenState.error)), (r) {
-          List<CategoriesResponse> mutableCategories = List.from(r);
-          mutableCategories.insert(
-              0, CategoriesResponse(id: 0, name: "All Products"));
-
-          emit(state.copyWith(
-              screenState: ScreenState.success,
-              categoriesList: mutableCategories));
-        });
+        emit(state.copyWith(
+          screenState: ScreenState.success,
+        ));
       }
       if (event is GetSubCategoryEvent) {
         emit(state.copyWith(isCategoryLoading: true));

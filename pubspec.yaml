@@ -59,6 +59,7 @@ dependencies:
   flutter_inner_shadow: ^0.0.1
   flutter_rating_bar: ^4.0.1
   linear_progress_bar: ^1.1.0
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_test:

@@ -10,7 +10,7 @@ class CategoriesState extends Equatable {
       {this.screenState = ScreenState.initialized,
       this.categoriesList = const [],
       this.subCategoryList,
-      this.isCategoryLoading});
+      this.isCategoryLoading = true});
   CategoriesState copyWith(
       {List<CategoriesResponse>? categoriesList,
       ScreenState? screenState,
