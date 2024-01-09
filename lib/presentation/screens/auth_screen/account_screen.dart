@@ -38,7 +38,7 @@ class _AccountScreenState extends State<AccountScreen>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1500),
     );
 
     _animation =
@@ -122,7 +122,7 @@ class _AccountScreenState extends State<AccountScreen>
                             ),
                             ButtonAuth(
                                 label: AppLocalizations.of(context)!.login_guest,  onTap: () {
-                              sl<AuthenticationBloc>().add(LoggedGuest());
+                              context.read<AuthenticationBloc>().add(LoggedGuest());
                               AppRouter.push(context, const MainScreen(),);
                             }
                             ),

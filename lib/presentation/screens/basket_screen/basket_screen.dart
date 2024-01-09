@@ -18,131 +18,144 @@ import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../../core/services/services_locator.dart';
+import '../guest_screen/guest_screen.dart';
+
 class BasketScreen extends StatelessWidget {
   const BasketScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BasketBloc, BasketState>(
-      listener: (context, state) {
-        log(state.toString());
-        if (state.screenState == ScreenState.loading) {
-          LoadingDialog().openDialog(context);
-        } else {
-          LoadingDialog().closeDialog(context);
-        }
-        if (state.screenState == ScreenState.success) {
-          AppRouter.push(context, const PaymentScreen());
-        }
-        if (state.screenState == ScreenState.error) {
-          ErrorDialog.openDialog(context, state.errorMessage);
-        }
-      },
-      builder: (context, state) {
-        return SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.white,
-            body: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Column(children: [
-                  CustomAppBarScreen(
-                      sectionName: AppLocalizations.of(context)!.basket),
-                  state.prductList!.isEmpty
-                      ? CustomNoData(
-                          noDataStatment:
-                              AppLocalizations.of(context)!.sorryBasketIsEmpty)
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 37, vertical: 11),
-                          child: Text(
-                              AppLocalizations.of(context)!
-                                  .final_product_appearance,
-                              style: getRegularStyle(
-                                  color: ColorManager.grayForMessage)),
-                        ),
-                  Expanded(
-                    child: CustomOverscrollIndicator(
-                      child: ListView.builder(
-                        itemBuilder: (context, index) => CardBasket(
-                            productAddedToBasketDetails:
-                                state.prductList![index]),
-                        itemCount: state.prductList!.length,
-                      ),
-                    ),
-                  )
-                ]),
-                state.prductList!.isEmpty
-                    ? const SizedBox()
-                    : Container(
-                        width: 1.sw,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(22),
-                                topRight: Radius.circular(22)),
-                            boxShadow: [ColorManager.shadowGaryUp]),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const SizedBox(
-                              height: 9,
-                            ),
-                            Text(
-                                AppLocalizations.of(context)!
-                                    .total_price_without_delivery,
-                                style: getBoldStyle(
-                                    color: ColorManager.grayForMessage,
-                                    fontSize: 14)),
-                            Text("200,000 sy",
-                                style: getBoldStyle(
-                                    color: ColorManager.primaryGreen,
-                                    fontSize: 24)),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 27, vertical: 9),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomButton(
-                                      label: AppLocalizations.of(context)!
-                                          .proceed_to_checkout,
-                                      fillColor: ColorManager.primaryGreen,
-                                      onTap: () {
-                                        context
-                                            .read<BasketBloc>()
-                                            .add(PaymentProcess());
-                                      },
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  Expanded(
-                                    child: CustomButton(
-                                      label: AppLocalizations.of(context)!
-                                          .continue_shopping,
-                                      fillColor: ColorManager.primaryGreen,
-                                      labelColor: Colors.white,
-                                      onTap: () {
-                                        // SystemNavigator.pop();
-                                      },
-                                    ),
-                                  ),
-                                ],
+    return SafeArea(
+
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            CustomAppBarScreen(
+                sectionName: AppLocalizations.of(context)!.basket),
+            sl<AuthenticationBloc>().loggedIn?  Expanded(
+              child: BlocConsumer<BasketBloc, BasketState>(
+                listener: (context, state) {
+                  log(state.toString());
+                  if (state.screenState == ScreenState.loading) {
+                    LoadingDialog().openDialog(context);
+                  } else {
+                    LoadingDialog().closeDialog(context);
+                  }
+                  if (state.screenState == ScreenState.success) {
+                    AppRouter.push(context, const PaymentScreen());
+                  }
+                  if (state.screenState == ScreenState.error) {
+                    ErrorDialog.openDialog(context, state.errorMessage);
+                  }
+                },
+                builder: (context, state) {
+                  return
+                     Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Column(children: [
+                          state.prductList!.isEmpty
+                              ? CustomNoData(
+                                  noDataStatment:
+                                      AppLocalizations.of(context)!.sorryBasketIsEmpty)
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 37, vertical: 11),
+                                  child: Text(
+                                      AppLocalizations.of(context)!
+                                          .final_product_appearance,
+                                      style: getRegularStyle(
+                                          color: ColorManager.grayForMessage)),
+                                ),
+                          Expanded(
+                            child: CustomOverscrollIndicator(
+                              child: ListView.builder(
+                                itemBuilder: (context, index) => CardBasket(
+                                    productAddedToBasketDetails:
+                                        state.prductList![index]),
+                                itemCount: state.prductList!.length,
                               ),
                             ),
-                            const SizedBox(
-                              height: 9,
-                            ),
-                          ],
-                        ),
-                      )
-              ],
-            ),
-          ),
-        );
-      },
+                          )
+                        ]),
+                        state.prductList!.isEmpty
+                            ? const SizedBox()
+                            : Container(
+                                width: 1.sw,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(22),
+                                        topRight: Radius.circular(22)),
+                                    boxShadow: [ColorManager.shadowGaryUp]),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const SizedBox(
+                                      height: 9,
+                                    ),
+                                    Text(
+                                        AppLocalizations.of(context)!
+                                            .total_price_without_delivery,
+                                        style: getBoldStyle(
+                                            color: ColorManager.grayForMessage,
+                                            fontSize: 14)),
+                                    Text("200,000 sy",
+                                        style: getBoldStyle(
+                                            color: ColorManager.primaryGreen,
+                                            fontSize: 24)),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 27, vertical: 9),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: CustomButton(
+                                              label: AppLocalizations.of(context)!
+                                                  .proceed_to_checkout,
+                                              fillColor: ColorManager.primaryGreen,
+                                              onTap: () {
+                                                context
+                                                    .read<BasketBloc>()
+                                                    .add(PaymentProcess());
+                                              },
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 16,
+                                          ),
+                                          Expanded(
+                                            child: CustomButton(
+                                              label: AppLocalizations.of(context)!
+                                                  .continue_shopping,
+                                              fillColor: ColorManager.primaryGreen,
+                                              labelColor: Colors.white,
+                                              onTap: () {
+                                                // SystemNavigator.pop();
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 9,
+                                    ),
+                                  ],
+                                ),
+                              )
+                      ],
+                    )
+                  ;
+                },
+              ),
+            ):Expanded(child: GuestScreen()),
+          ],
+        ),
+      ),
     );
   }
 }

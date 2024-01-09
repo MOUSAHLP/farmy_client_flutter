@@ -23,9 +23,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
-          if (state.authenticationScreen ==
-              AuthenticationScreenStates.authenticationAuthenticated) {
-
+          if (state.login) {
             AppRouter.push(context, const LocationFirstScreen());
           }
 
@@ -68,7 +66,7 @@ class SignInBody extends StatelessWidget {
                   ),
                 keyboardType: TextInputType.phone,
                 controller: phoneController,
-                  hintText: AppLocalizations.of(context)!.phone,
+                  hintText: AppLocalizations.of(context)!.hint_phone,
                 validator: (value) {
                   return AppValidators.validatePhoneFields(
                       context, phoneController.text);

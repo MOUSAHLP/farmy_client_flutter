@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_places_autocomplete_text_field/google_places_autocomplete_text_field.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_event.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
-import 'package:pharma/presentation/screens/location_screen/location_favorite_screen.dart';
+import 'package:pharma/presentation/screens/location_screen/add_location_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/widegts/card_location.dart';
-import 'package:pharma/presentation/screens/location_screen/select_location_from_map.dart';
+import 'package:pharma/presentation/screens/location_screen/widegts/search_address.dart';
+import 'package:pharma/presentation/screens/location_screen/widegts/shimmer_card.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/translations.dart';
 import '../../../core/app_enum.dart';
 import '../../../core/services/services_locator.dart';
+import '../../widgets/dialogs/error_dialog.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 import '../../widgets/over_scroll_indicator.dart';
 class LocationScreen extends StatelessWidget {
   const LocationScreen({super.key});
@@ -22,10 +24,21 @@ class LocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: BlocProvider<LocationBloc>(
-        create: (BuildContext context) =>
-        sl<LocationBloc>()..add(Init()),
-        child:  const LocationScreenBody(),
+      child: BlocConsumer<LocationBloc,LocationState>(
+        listener: (context, state) {
+          if (state.isLoadingDelete) {
+            LoadingDialog().openDialog(context);
+          } else {
+            LoadingDialog().closeDialog(context);
+          }
+          if (state.errorDelete != '') {
+            ErrorDialog.openDialog(context, state.error);
+          }
+
+        },
+        bloc: sl<LocationBloc>()..add(GetUserAddress()),
+        builder: (BuildContext context, state) { return const LocationScreenBody(); },
+
       ),
     );
   }
@@ -38,8 +51,7 @@ class LocationScreenBody extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: BlocBuilder<LocationBloc, LocationState>(
-          builder: (context, state) => Stack(
+        body: Stack(
             alignment: Alignment.bottomCenter,
             children: [
               Column(children: [
@@ -55,27 +67,10 @@ class LocationScreenBody extends StatelessWidget {
                           Text(AppLocalizations.of(context)!.choose_the_Address,style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 14),),
                         ],
                       ),
-                      GooglePlacesAutoCompleteTextFormField(
-                        textEditingController: context.read<LocationBloc>().destinationController,
-                        googleAPIKey: mapKey,
-                        debounceTime: 400,
-                        countries: const ["sy"],
-                        isLatLngRequired: true,
-                        getPlaceDetailWithLatLng: (prediction) {
-                          context.read<LocationBloc>(). destinationController.text=prediction.description!;
-                        },
-                        itmClick: (prediction) {
-                          context.read<LocationBloc>().    destinationController.text = prediction.description!;
-                          context.read<LocationBloc>().      destinationController.selection = TextSelection.fromPosition(TextPosition(offset: prediction.description!.length));
-                        },decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)!.please_select_the_desired_delivery_address,
-                          hintStyle: getRegularStyle(color: ColorManager.grayForSearchProduct,fontSize: 14),
-                      ),
-                        style: getRegularStyle(color: Colors.black),
-                      ),
+                      const SearchAddress(),
                       InkWell(
                         onTap: (){
-                          AppRouter.push(context, const SelectLocationFromMap());
+                          AppRouter.push(context,  AddLocationScreen());
                         },
                         child: Row(
                           children: [
@@ -92,12 +87,28 @@ class LocationScreenBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(child: CustomOverscrollIndicator(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) =>const CardLocation(),
-                  itemCount: 5,),
-                ))
-
+                Expanded(
+                  child: BlocBuilder<LocationBloc, LocationState>(
+            builder: (context, state){
+              if(state.screenStates == ScreenStates.loading)
+              {
+                  return const ShimmerCard();
+              }
+              if(state.screenStates == ScreenStates.error)
+              {
+                  return  const Text("error");
+              }
+              return CustomOverscrollIndicator(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) => Row(
+                          children: [
+                            CardLocation(userAddressModel: state.userAddressList[index]),
+                          ],
+                        ),
+                      itemCount:state.userAddressList.length,),
+                    );}
+                  ),
+                )
               ]),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 72,vertical: 20),
@@ -105,7 +116,7 @@ class LocationScreenBody extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     CustomButton(label: AppLocalizations.of(context)!.add_new_favorite_address,onTap: (){
-                      AppRouter.push(context, LocationFavoriteScreen());
+                      AppRouter.push(context, AddLocationScreen());
                     }),
                     const SizedBox(height: 16,),
                     CustomButton(label: AppLocalizations.of(context)!.done),
@@ -114,7 +125,6 @@ class LocationScreenBody extends StatelessWidget {
               )
             ],
           ),
-        ),
       ),
     );
   }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
@@ -9,10 +8,11 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: 1.sw,
-    height: 1.sh,
-    color: ColorManager.primaryGreen,
-child: Image.asset(LottieManager.logoSplash),
+    return Container(
+      width: 1.sw,
+      height: 1.sh,
+      color: ColorManager.primaryGreen,
+      child: Image.asset(LottieManager.logoSplash),
     );
   }
 }

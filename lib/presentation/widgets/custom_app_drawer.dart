@@ -109,7 +109,7 @@ class CustomAppDrawer extends StatelessWidget {
                             LogoutConfirmationDialog.handle(context);
                           }):buildElevatedButton(
                               AppLocalizations.of(context)!.sign_in, () {
-                            AppRouter.push(context, const AccountScreen());
+                            AppRouter.pushReplacement(context, const AccountScreen());
                           }),
                           const SizedBox(height: 20),
 

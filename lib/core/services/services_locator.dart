@@ -12,9 +12,7 @@ import 'package:pharma/data/repository/basket_repo.dart';
 import 'package:pharma/data/repository/categories_repo.dart';
 import 'package:pharma/data/repository/home_repo.dart';
 import 'package:pharma/data/repository/product_repo.dart';
-
 import '../../bloc/location_bloc/location_bloc.dart';
-import '../../bloc/location_first_bloc/location_first_bloc.dart';
 import '../../data/repository/user_repository.dart';
 
 final sl = GetIt.instance;
@@ -29,8 +27,8 @@ class ServicesLocator {
     sl.registerLazySingleton(
       () => HomeBloc(homeRepo: sl<HomeRepo>()),
     );
-    sl.registerFactory(() => LocationBloc());
-    sl.registerFactory(() => LocationFirstBloc());
+    sl.registerLazySingleton(() => LocationBloc());
+
     sl.registerFactory<PaymentBloc>(() => PaymentBloc());
     sl.registerLazySingleton(() => OnBoardingBloc());
     sl.registerSingleton<CategoriesRepo>(CategoriesRepo());

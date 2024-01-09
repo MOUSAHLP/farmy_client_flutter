@@ -34,3 +34,7 @@ class ForgetPassword extends AuthenticationEvent {
       : super([password, repeatPassword]);
 }
 class SignUp extends AuthenticationEvent {}
+class ReSendCode extends AuthenticationEvent {
+  String phone;
+  ReSendCode({required this.phone});
+}

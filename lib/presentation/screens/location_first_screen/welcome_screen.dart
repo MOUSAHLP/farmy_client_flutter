@@ -16,7 +16,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds:2), () {
-      AppRouter.push(context,  const MainScreen());
+      AppRouter.pushReplacement(context,  const MainScreen());
     });
 
     return Scaffold(
