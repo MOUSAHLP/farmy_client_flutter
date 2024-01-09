@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharma/core/utils/formatter.dart';
+import 'package:intl/intl.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';

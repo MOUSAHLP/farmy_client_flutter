@@ -95,7 +95,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
       children: [
         Container(
           height: widget.height,
-          width: widget.width ?? 1.sw - 100,
+          width:  (widget.width ?? 1.sw - 100).clamp(0.0, double.infinity),
           decoration: BoxDecoration(
             // boxShadow: ColorManager.boxShadow,
             border: Border.all(

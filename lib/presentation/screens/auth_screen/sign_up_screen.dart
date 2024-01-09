@@ -89,7 +89,7 @@ class SignUpBody extends StatelessWidget {
               const SizedBox(
                 height: 21,
               ), InputFieldAuth(
-                  hintText: AppLocalizations.of(context)!.phone,
+                  hintText: "+963 000000000",
                   keyboardType: TextInputType.phone,
                   suffixIcon: Image.asset(
                     ImageManager.flagOfSyria,

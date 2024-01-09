@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pharma/bloc/location_first_bloc/location_first_bloc.dart';
-import 'package:pharma/bloc/location_first_bloc/location_first_event.dart';
+import 'package:pharma/bloc/location_bloc/location_bloc.dart';
+import 'package:pharma/bloc/location_bloc/location_state.dart';
+
 import 'package:pharma/presentation/screens/location_first_screen/welcome_screen.dart';
-import '../../../bloc/location_first_bloc/location_first_state.dart';
+
+import '../../../bloc/location_bloc/location_event.dart';
 import '../../../core/app_enum.dart';
 import '../../../core/app_router/app_router.dart';
 import '../../../core/services/services_locator.dart';
@@ -19,12 +21,8 @@ class LocationSecondScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: BlocProvider<LocationFirstBloc>(
-        create: (BuildContext context) =>
-            sl<LocationFirstBloc>()..add(CurrentLocation()),
-        child: const SelectLocationFromMapBody(),
-      ),
+    return const SafeArea(
+      child: SelectLocationFromMapBody(),
     );
   }
 }
@@ -37,7 +35,8 @@ class SelectLocationFromMapBody extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          BlocConsumer<LocationFirstBloc, LocationFirstState>(
+          BlocConsumer<LocationBloc, LocationState>(
+            bloc:sl<LocationBloc>()..add(CurrentLocation()) ,
             listener: (context, state) {
               if (state is ExitLocation) {
                 AppRouter.pop(context);
@@ -78,21 +77,21 @@ class SelectLocationFromMapBody extends StatelessWidget {
                       zoomControlsEnabled: false,
                       mapType: MapType.normal,
                       markers: {
-                        context.read<LocationFirstBloc>().markerLocation !,
+                        context.read<LocationBloc>().markerLocation ,
                       },
                       initialCameraPosition: CameraPosition(
                         target: LatLng(state.latitude, state.longitude),
                         zoom: 18,
                       ),
                       onMapCreated: (GoogleMapController controller) {
-                        context.read<LocationFirstBloc>().mapController = controller;
+                        context.read<LocationBloc>().mapController = controller;
                         LatLng location = LatLng(state.latitude, state.longitude);
                         controller.animateCamera(
                             CameraUpdate.newLatLngZoom(location, 14));
                       },
                       onTap: (LatLng tappedLocation) {
                         context
-                            .read<LocationFirstBloc>()
+                            .read<LocationBloc>()
                             .add(ChangeLocationMarker(tappedLocation));
                       },
                     ),

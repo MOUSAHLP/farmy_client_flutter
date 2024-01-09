@@ -9,6 +9,8 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
+import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
+import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_servies.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_cursel.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/cutsom_home_shimmer.dart';
@@ -19,6 +21,8 @@ import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/presentation/widgets/custom_app_drawer.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../../core/services/services_locator.dart';
 import '../all_section/all_section_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -57,133 +61,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               child: ListView(
                                 padding: EdgeInsets.zero,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 13, vertical: 13),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: const Border(
-                                            left: BorderSide(
-                                                color: ColorManager
-                                                    .grayForMessage),
-                                            right: BorderSide(
-                                                color: ColorManager
-                                                    .grayForMessage),
-                                            top: BorderSide(
-                                                color: ColorManager
-                                                    .grayForMessage), // White border at the top
-                                            bottom: BorderSide(
-                                                color: ColorManager
-                                                    .grayForMessage), // White border at the bottom
-                                          )),
-                                      width: 1.sw,
-                                      height: 61,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 21),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              ImageManager.location,
-                                              height: 30,
-                                              width: 30,
-                                            ),
-                                            const SizedBox(
-                                              width: 5,
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        AppLocalizations.of(
-                                                                context)!
-                                                            .delivery_to,
-                                                        style: getSemiBoldStyle(
-                                                                color: ColorManager
-                                                                    .grayForMessage,
-                                                                fontSize:
-                                                                    FontSizeApp
-                                                                        .s10)!
-                                                            .copyWith(
-                                                                height: 1),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 4,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "دمشق - الميدان - بناء الادخار ",
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: getBoldStyle(
-                                                                  fontSize:
-                                                                      FontSizeApp
-                                                                          .s13,
-                                                                  color: ColorManager
-                                                                      .primaryGreen)!
-                                                              .copyWith(
-                                                                  height: 1),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                AppRouter.push(context,
-                                                    const LocationScreen());
-                                              },
-                                              child: const Icon(
-                                                Icons.arrow_forward_ios,
-                                                size: 20,
-                                                color:
-                                                    ColorManager.grayForMessage,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 13),
-                                    // padding: const EdgeInsets.symmetric(horizontal: 21),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Container(
-                                        width: 1.sw,
-                                        height: 61,
-                                        color: ColorManager.lightGray,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 22, vertical: 6),
-                                          child: Text(
-                                            "خدمة التوصيل متوفرة من الساعة 9 صباحاً حتى الساعة 10 مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً",
-                                            style: getBoldStyle(
-                                              color:
-                                                  ColorManager.grayForMessage,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  sl<AuthenticationBloc>().loggedIn?const CustomDeliveryAddress():const SizedBox(),
+                                  const CustomDeliveryService(),
                                   state.homeData!.homeCategoriesList!.isNotEmpty
                                       ? Padding(
                                           padding: const EdgeInsets.symmetric(

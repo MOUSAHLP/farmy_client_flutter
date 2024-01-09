@@ -6,6 +6,7 @@ import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
+import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
@@ -41,6 +42,9 @@ class _MyAppState extends State<MyApp> {
               create: (BuildContext context) => sl<LanguageBloc>(),
             ),
             BlocProvider(
+              create: (BuildContext context) => sl<LocationBloc>(),
+            ),
+            BlocProvider(
                 create: (BuildContext context) => sl<OnBoardingBloc>()),
             BlocProvider(
               create: (BuildContext context) =>
@@ -64,7 +68,8 @@ class _MyAppState extends State<MyApp> {
               if (true) {
                 return MaterialApp(
                     title: 'Farmy',
-                    locale: Locale(DataStore.instance.lang),
+                    locale: Locale("en"),
+                    // locale: Locale(DataStore.instance.lang),
                     supportedLocales: AppLocalizations.supportedLocales,
                     localizationsDelegates: const [
                       AppLocalizations.delegate,
@@ -72,8 +77,8 @@ class _MyAppState extends State<MyApp> {
                       GlobalCupertinoLocalizations.delegate,
                       GlobalWidgetsLocalizations.delegate,
                     ],
-                    home: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-                      listener: (context, state) {},
+                    home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+
                       bloc: sl<AuthenticationBloc>()..add(AppStarted()),
                       builder: (context, state) {
                         switch (state.authenticationScreen) {

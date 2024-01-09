@@ -25,7 +25,7 @@ class AuthenticationBloc
     on<AuthenticationEvent>((event, emit) async {
       if (event is AppStarted) {
         final bool hasToken = await userRepository.hasToken();
-        await Future.delayed(const Duration(seconds: 1)).then((value) {
+        await Future.delayed(const Duration(seconds:3)).then((value) {
           if (hasToken) {
             loggedIn = true;
             loginResponse = DataStore.instance.userInfo;
@@ -48,8 +48,8 @@ class AuthenticationBloc
       }
       if (event is LoggedGuest) {
         loggedIn = false;
-        emit(state.copyWith(
-            authenticationScreenStates:AuthenticationScreenStates.authenticationGuest));
+        // emit(state.copyWith(
+        //     authenticationScreenStates:AuthenticationScreenStates.authenticationGuest));
 
       }
       if (event is TapOnPressed) {
@@ -80,6 +80,7 @@ class AuthenticationBloc
           emit(state.copyWith(
               authenticationScreenStates:
               AuthenticationScreenStates.authenticationAuthenticated,
+              login:true
           ));
         });
       }
@@ -157,6 +158,19 @@ class AuthenticationBloc
           // });
           emit(state.copyWith(
              signUp: true));
+        });
+      }
+      if(event is ReSendCode){
+      emit(state.copyWith(isReSend: true));
+        final response =
+        await userRepository.signUpPhoneNumber(event.phone);
+        response.fold((l) {
+          emit(state.copyWith(
+            error: l,
+          ));
+        }, (r) {
+          otpVerifyResponse = r;
+          emit(state.copyWith(sendOtp: true));
         });
       }
     });

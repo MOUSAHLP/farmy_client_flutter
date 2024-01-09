@@ -35,9 +35,14 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
 
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
   }
-
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
+    print("lllllllllllocatio first");
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -291,9 +296,5 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
     );
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+
 }

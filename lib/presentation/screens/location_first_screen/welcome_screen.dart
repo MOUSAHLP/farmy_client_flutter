@@ -12,42 +12,28 @@ import '../../../core/app_router/app_router.dart';
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2), () {
-      AppRouter.push(context, const MainScreen());
+    Future.delayed(const Duration(seconds:2), () {
+      AppRouter.pushReplacement(context,  const MainScreen());
     });
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SizedBox(
-          width: 1.sw,
+           width: 1.sw,
           height: 1.sh,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30,),
               SvgPicture.asset(IconsManager.logoGreen),
-              Text(
-                "فارمي",
-                style: getRegularStyle(
-                    color: ColorManager.primaryGreen, fontSize: 30),
-              ),
-              Text(
-                AppLocalizations.of(context)!.welcome,
-                style: getBoldStyle(
-                    color: ColorManager.primaryGreen, fontSize: 30),
-              ),
+              Text("فارمي",style: getRegularStyle(color: ColorManager.primaryGreen,fontSize: 30),),
+              Text(AppLocalizations.of(context)!.welcome,style: getBoldStyle(color: ColorManager.primaryGreen,fontSize: 30),),
               Image.asset(ImageManager.emoji),
-              Expanded(
-                  child: Image.asset(
-                ImageManager.welcome,
-                fit: BoxFit.fill,
-                width: 1.sw,
-              ))
+              Expanded(child: Image.asset(ImageManager.welcome,fit: BoxFit.fill,width: 1.sw,))
             ],
           ),
         ),
