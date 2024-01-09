@@ -48,8 +48,8 @@ class AuthenticationBloc
       }
       if (event is LoggedGuest) {
         loggedIn = false;
-        emit(state.copyWith(
-            authenticationScreenStates:AuthenticationScreenStates.authenticationGuest));
+        // emit(state.copyWith(
+        //     authenticationScreenStates:AuthenticationScreenStates.authenticationGuest));
 
       }
       if (event is TapOnPressed) {

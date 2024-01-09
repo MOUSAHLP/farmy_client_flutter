@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 
 import 'package:pharma/presentation/screens/change_password/widgets/custom_label_with_pass_field.dart';
+import 'package:pharma/presentation/screens/guest_screen/guest_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/translations.dart';
+
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../../core/services/services_locator.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
@@ -18,7 +22,7 @@ class ChangePasswordScreen extends StatelessWidget {
             CustomAppBarScreen(
                 sectionName: AppLocalizations.of(context)!.change_Password),
             Expanded(
-              child: SingleChildScrollView(
+              child:  sl<AuthenticationBloc>().loggedIn?SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 19),
                   child: Column(
@@ -72,7 +76,7 @@ class ChangePasswordScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+              ):GuestScreen(),
             ),
           ],
         ),

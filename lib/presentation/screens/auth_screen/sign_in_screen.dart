@@ -68,7 +68,7 @@ class SignInBody extends StatelessWidget {
                   ),
                 keyboardType: TextInputType.phone,
                 controller: phoneController,
-                  hintText: AppLocalizations.of(context)!.phone,
+                  hintText: AppLocalizations.of(context)!.hint_phone,
                 validator: (value) {
                   return AppValidators.validatePhoneFields(
                       context, phoneController.text);

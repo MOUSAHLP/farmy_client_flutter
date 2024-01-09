@@ -21,7 +21,9 @@ import 'package:pharma/presentation/widgets/custom_app_button.dart';
 import 'package:pharma/presentation/widgets/custom_loading.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../resources/font_app.dart';
+import '../../widgets/dialogs/error_dialog.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final int? id;
@@ -275,7 +277,8 @@ class ProductDetailsBody extends StatelessWidget {
                                           : const SizedBox(),
                                       CustomAppButton(
                                         ontap: () {
-                                          context.read<BasketBloc>().add(AddToBasket(
+                                         if(sl<AuthenticationBloc>().loggedIn) {
+                                           context.read<BasketBloc>().add(AddToBasket(
                                               product: ProductDetailsResponse(
                                                   nameOfProduct: state
                                                               .productDetailsResponse!
@@ -300,6 +303,10 @@ class ProductDetailsBody extends StatelessWidget {
                                                   attributeList: state.productDetailsResponse!.attributeList,
                                                   id: state.productDetailsResponse!.id!,
                                                   quantity: state.quntity.toString())));
+                                         }
+                                         else{
+                                           ErrorDialog.openDialog(context,AppLocalizations.of(context)!.no_add_basket);
+                                         }
                                         },
                                         myText: AppLocalizations.of(context)!
                                             .add_to_basket,
