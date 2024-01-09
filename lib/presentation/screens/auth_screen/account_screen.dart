@@ -45,7 +45,6 @@ class _AccountScreenState extends State<AccountScreen>
         Tween<double>(begin: MediaQuery.of(context).size.height/5, end: 0)
             .animate(_animationController);
     _animationController.forward();
-    _animation.addStatusListener(_animationStatusListener);
   }
   @override
   Widget build(BuildContext context) {
@@ -178,15 +177,7 @@ class _AccountScreenState extends State<AccountScreen>
 
   @override
   void dispose() {
-    _animation.removeStatusListener(_animationStatusListener); // أضف هذا السطر لإزالة الاستماع إلى حالة ال Animation
-
     _animationController.dispose();
     super.dispose();
   }
-  void _animationStatusListener(AnimationStatus status) {
-    if (status == AnimationStatus.dismissed || status == AnimationStatus.completed) {
-      _animationController.dispose(); // قم بالتخلص من ال AnimationController عند اكتمال ال Animation
-    }
-  }
-
 }

@@ -80,6 +80,7 @@ class AuthenticationBloc
           emit(state.copyWith(
               authenticationScreenStates:
               AuthenticationScreenStates.authenticationAuthenticated,
+              login:true
           ));
         });
       }

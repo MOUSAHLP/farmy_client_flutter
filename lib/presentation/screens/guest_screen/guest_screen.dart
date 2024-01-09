@@ -20,7 +20,9 @@ class GuestScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Lottie.asset(LottieManager.iconLogIn,),
-        Text(AppLocalizations.of(context)!.please_sign_in,style: getBoldStyle(color: ColorManager.redForFavorite)),
+        Text(AppLocalizations.of(context)!.sign_now_or_create,
+            style: getBoldStyle(color: ColorManager.redForFavorite),
+        textAlign: TextAlign.center),
         const SizedBox(height: 10,),
         MaterialButton(
           minWidth: 200,

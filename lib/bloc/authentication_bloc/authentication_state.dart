@@ -8,6 +8,7 @@ class AuthenticationState extends Equatable {
   final String? error;
   final bool isLoading;
   final bool sentOtp;
+  final bool login;
 
   final  bool resetPassword;
   final  bool signUp;
@@ -22,6 +23,7 @@ class AuthenticationState extends Equatable {
         AuthenticationScreenStates.authenticationInitialized,
     this.error,
     this.isLoading = false,
+    this.login = false,
 
     this.sentOtp = false,
     this.confirmOtp = false,
@@ -37,6 +39,7 @@ class AuthenticationState extends Equatable {
     ScreensAuth?index,
     bool? isLoading,
     bool? sendOtp,
+    bool? login,
     bool? confirmOtp,
     bool? resetPassword,
     bool? signUp,
@@ -53,6 +56,7 @@ class AuthenticationState extends Equatable {
       indexTap: index??indexTap,
       changePasswordSuccess: isSuccess ?? false,
       sentOtp: sendOtp ?? false,
+      login: login ?? false,
       confirmOtp: confirmOtp ?? false,
       resetPassword: resetPassword ?? false,
       signUp: signUp ?? this.signUp,
@@ -72,6 +76,7 @@ class AuthenticationState extends Equatable {
     confirmOtp,
     resetPassword,
     signUp,
-    isReSend
+    isReSend,
+    login
   ];
 }

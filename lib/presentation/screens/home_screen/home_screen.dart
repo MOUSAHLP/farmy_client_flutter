@@ -13,6 +13,7 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
+import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_servies.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_cursel.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/cutsom_home_shimmer.dart';
@@ -22,6 +23,8 @@ import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/presentation/widgets/custom_app_drawer.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../../core/services/services_locator.dart';
 import '../all_section/all_section_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -55,31 +58,8 @@ class HomeScreen extends StatelessWidget {
                               child: ListView(
                                 padding: EdgeInsets.zero,
                                 children: [
-                                  CustomDeliveryAddress(),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 13),
-                                    // padding: const EdgeInsets.symmetric(horizontal: 21),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Container(
-                                        width: 1.sw,
-                                        height: 61,
-                                        color: ColorManager.lightGray,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 22, vertical: 6),
-                                          child: Text(
-                                            "خدمة التوصيل متوفرة من الساعة 9 صباحاً حتى الساعة 10 مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً",
-                                            style: getBoldStyle(
-                                              color:
-                                                  ColorManager.grayForMessage,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  sl<AuthenticationBloc>().loggedIn?const CustomDeliveryAddress():const SizedBox(),
+                                  const CustomDeliveryService(),
                                   state.homeData!.homeCategoriesList!.isNotEmpty
                                       ? Padding(
                                           padding: const EdgeInsets.symmetric(

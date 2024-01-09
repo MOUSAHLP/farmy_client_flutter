@@ -23,9 +23,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
-          if (state.authenticationScreen ==
-              AuthenticationScreenStates.authenticationAuthenticated) {
-
+          if (state.login) {
             AppRouter.push(context, const LocationFirstScreen());
           }
 
