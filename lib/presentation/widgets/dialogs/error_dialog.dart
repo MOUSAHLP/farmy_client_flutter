@@ -28,6 +28,7 @@ class _ErrorDialogBody extends StatelessWidget {
     return CustomDialog(
       content: Column(
         children: [
+          
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 8.0,

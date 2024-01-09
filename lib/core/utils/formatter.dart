@@ -74,4 +74,7 @@ mixin Formatter {
     }
     return false;
   }
+  static String formatPrice(int price) {   final formatter = NumberFormat('#,###.##', 'en_US');
+   return formatter.format(price); 
+   }
 }
