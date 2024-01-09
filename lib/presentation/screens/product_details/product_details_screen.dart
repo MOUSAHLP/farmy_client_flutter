@@ -9,6 +9,7 @@ import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/product_details_response.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
@@ -62,16 +63,12 @@ class ProductDetailsBody extends StatelessWidget {
             return Scaffold(
               body: Column(
                 children: [
-                  const CustomAppBarScreen(sectionName: "تفاصيل فليفة"),
                   state.screenState == ScreenState.loading
                       ? const CustomLoading()
                       : state.screenState == ScreenState.success
                           ? Expanded(
                               child: ListView(
                                 children: [
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
                                   ProductImage(
                                       productImage: state
                                                   .productDetailsResponse!
@@ -118,7 +115,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                         .price !=
                                                     null
                                                 ? Text(
-                                                    "${state.productDetailsResponse!.price!} ${AppLocalizations.of(context)!.curruncy}",
+                                                    "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse!.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
                                                     style: getBoldStyle(
                                                         color: ColorManager
                                                             .primaryGreen,

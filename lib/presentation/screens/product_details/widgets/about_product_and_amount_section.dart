@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
 import 'package:pharma/models/attribute_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
@@ -28,7 +27,7 @@ class AboutProductAndAmonutSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Column(
@@ -39,20 +38,31 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                           color: ColorManager.black,
                           fontSize: FontSizeApp.s15,
                         )),
-                    Text(productDesc,
-                        maxLines: 5,
-                        overflow: TextOverflow.ellipsis,
-                        style: getBoldStyle(
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: HtmlWidget(
+                            productDesc,
+
+                            //  Text(productDesc,
+                            //       maxLines: 5,
+                            //       overflow: TextOverflow.ellipsis,
+                            //       style: getBoldStyle(
+                            //         color: ColorManager.grayForMessage,
+                            //         fontSize: FontSizeApp.s15,
+                            //       )),
+                          ),
+                        ),
+                        const Icon(
+                          Icons.favorite,
                           color: ColorManager.grayForMessage,
-                          fontSize: FontSizeApp.s15,
-                        )),
+                          size: 28,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              ),
-              const Icon(
-                Icons.favorite,
-                color: ColorManager.grayForMessage,
-                size: 28,
               ),
             ],
           ),

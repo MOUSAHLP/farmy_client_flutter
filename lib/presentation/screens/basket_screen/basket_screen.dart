@@ -27,6 +27,7 @@ class BasketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return SafeArea(
 
       child: Scaffold(
@@ -45,7 +46,11 @@ class BasketScreen extends StatelessWidget {
                     LoadingDialog().closeDialog(context);
                   }
                   if (state.screenState == ScreenState.success) {
-                    AppRouter.push(context, const PaymentScreen());
+                      AppRouter.push(
+              context,
+              PaymentScreen(
+                paymentProcessResponse: state.paymentProcessResponse!,
+              ));
                   }
                   if (state.screenState == ScreenState.error) {
                     ErrorDialog.openDialog(context, state.errorMessage);

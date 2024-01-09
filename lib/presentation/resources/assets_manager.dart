@@ -56,4 +56,5 @@ class IconsManager {
 class LottieManager {
   static const String logoSplash = "$lottiePath/splash.gif";
   static const String iconLogIn = "$lottiePath/logIn.json";
+  static const String completePayment = "$lottiePath/complete_payment.json";
 }

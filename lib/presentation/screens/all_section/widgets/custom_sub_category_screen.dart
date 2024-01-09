@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/models/sub_category_response.dart';
@@ -18,12 +17,11 @@ class CustomSubCategoryScreen extends StatefulWidget {
       _CustomSubCategoryScreenState();
 }
 
-class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen>
-{
+class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return widget.subCategoriesList!.isEmpty
-        ? const CustomNoData(noDataStatment: "there is no data")
+        ? const Center(child: CustomNoData(noDataStatment: "there is no data"))
         : GridView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             itemCount: widget.subCategoriesList!.length,
@@ -33,7 +31,7 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen>
                 mainAxisExtent: 135,
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
-              return GestureDetector( 
+              return GestureDetector(
                   onTap: () {
                     AppRouter.push(
                         context,
@@ -48,6 +46,4 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen>
             },
           );
   }
-
-
 }

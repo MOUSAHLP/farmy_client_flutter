@@ -53,15 +53,13 @@ class CustomDiscountCodeContiner extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                     horizontal: 13,
                   ),
-                  child: Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: ColorManager.primaryGreen,
-                          borderRadius: BorderRadius.circular(4)),
-                      height: 22,
-                      width: 22,
-                      child: Image.asset(ImageManager.listOfTypeJoinUs),
-                    ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: ColorManager.primaryGreen,
+                        borderRadius: BorderRadius.circular(4)),
+                    height: 22,
+                    width: 22,
+                    child: Image.asset(ImageManager.listOfTypeJoinUs),
                   ))
               : const SizedBox(),
         ],

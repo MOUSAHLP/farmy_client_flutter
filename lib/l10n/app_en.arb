@@ -217,5 +217,12 @@
   "no_add_basket": "Cannot add to cart. Please sign in ",
   "please_sign_in": "Please sign in",
   "welcome_to": "Welcome to Farmy",
-  "sign_now_or_create": "Sign now or create a new account to have a more enjoyable and faster shopping experience :)"
+  "sign_now_or_create": "Sign now or create a new account to have a more enjoyable and faster shopping experience :)",
+  "requiredChange":"Required Change (optional)",
+    "discount":"Discount",
+    "thereIsNoProduct":"Sorry, there are no products that belong to this category at the moment",
+      "curruncy":"SYP",
+        "sorryBasketIsEmpty":"Sorry, currently the basket is empty",
+          "orderSuccesfulyComplete":"The order has been completed successfully, you can proceed with your order from my order list"
+
 }

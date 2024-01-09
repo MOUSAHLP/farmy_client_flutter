@@ -21,15 +21,16 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
+  static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  int index = 0;
   List<Widget> children = [
-    Container(),
+    HomeScreen(scaffoldKey: scaffoldKey),
     FavoriteScreen(),
     const BasketScreen(),
     const OrderScreen(),
     const MyAccountScreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -42,19 +43,18 @@ class _MainScreenState extends State<MainScreen> {
         return false;
       },
       child: Scaffold(
-        body: HomeScreen(scaffoldKey: scaffoldKey),
+        body: children[context.read<HomeBloc>().currentIndex],
         bottomNavigationBar: SizedBox(
           height: 70,
           child: BottomNavigationBar(
+            
               showUnselectedLabels: true,
               currentIndex: context.read<HomeBloc>().currentIndex,
               selectedItemColor: ColorManager.primaryGreen,
               unselectedItemColor: ColorManager.greyForUnSleactedItem,
               onTap: (value) {
                 setState(() {
-                  if (value != 0) {
-                    AppRouter.push(context, children[value]);
-                  }
+                  context.read<HomeBloc>().currentIndex = value;
                 });
               },
               items: [

@@ -50,7 +50,7 @@ class _CustomHomeCurselState extends State<CustomHomeCursel> {
           (index) {
             return Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: 13, vertical: widget.verticalPadding ?? 30),
+                  horizontal: 13, vertical: widget.verticalPadding ?? 25),
               child: GestureDetector(
                 onTap: () async {
                   Uri url = Uri.parse(widget.isLoadingState == true
@@ -66,14 +66,13 @@ class _CustomHomeCurselState extends State<CustomHomeCursel> {
                       color: ColorManager.grayForPlaceholde,
                       width: 1.sw,
                       child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: CachedImage(
-                            imageUrl: widget.isLoadingState == true
-                                ? ""
-                                : widget.bannerList![index].bannerLink,
-                            imageSize: ImageSize.large,
-                          ),
+                        child: CachedImage(
+                          width: 1.sw,
+                          imageUrl: widget.isLoadingState == true
+                              ? ""
+                              : widget.bannerList![index].image,
+                          fit: BoxFit.cover,
+                          imageSize: ImageSize.small,
                         ),
                       ),
                     )),

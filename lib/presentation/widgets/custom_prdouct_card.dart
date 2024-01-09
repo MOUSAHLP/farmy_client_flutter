@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
@@ -6,8 +7,6 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/translations.dart';
-
-import '../../core/utils/formatter.dart';
 
 class CustomProductCard extends StatelessWidget {
   final bool? isDisCount;
@@ -156,7 +155,9 @@ class CustomProductCard extends StatelessWidget {
                             child: Row(
                               children: [
                                 if (productInfo.price != null)
-                                  Text(Formatter.formatPrice(double.parse(productInfo.price!)),
+                                  Text(
+                                      Formatter.formatPrice(
+                                          int.tryParse(productInfo.price!)!),
                                       style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
                                               fontSize: FontSizeApp.s15)!
@@ -221,6 +222,4 @@ class CustomProductCard extends StatelessWidget {
       ),
     );
   }
-
-
 }

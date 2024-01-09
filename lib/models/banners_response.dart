@@ -2,16 +2,21 @@
 class BannersResponse {
   int id;
   String? type;
+  String? image;
   String? bannerLink;
   BannersResponse({
     required this.id,
     this.type,
+    this.image,
     this.bannerLink,
   });
 
   factory BannersResponse.fromJson(Map<String, dynamic> json) {
     return BannersResponse(
-        id: json["id"], bannerLink: json["link"], type: json["type"]);
+        id: json["id"],
+        bannerLink: json["link"],
+        type: json["type"],
+        image: json["image"]);
   }
   static List<BannersResponse> listFromJson(List<dynamic>? json) {
     return json == null
