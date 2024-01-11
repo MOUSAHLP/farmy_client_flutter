@@ -68,8 +68,7 @@ class _MyAppState extends State<MyApp> {
               if (true) {
                 return MaterialApp(
                     title: 'Farmy',
-                    locale: Locale("en"),
-                    // locale: Locale(DataStore.instance.lang),
+                    locale: Locale(DataStore.instance.lang),
                     supportedLocales: AppLocalizations.supportedLocales,
                     localizationsDelegates: const [
                       AppLocalizations.delegate,
@@ -78,7 +77,6 @@ class _MyAppState extends State<MyApp> {
                       GlobalWidgetsLocalizations.delegate,
                     ],
                     home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-
                       bloc: sl<AuthenticationBloc>()..add(AppStarted()),
                       builder: (context, state) {
                         switch (state.authenticationScreen) {
