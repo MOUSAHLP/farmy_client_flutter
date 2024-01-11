@@ -277,6 +277,14 @@ class ProductDetailsBody extends StatelessWidget {
                                          if(sl<AuthenticationBloc>().loggedIn) {
                                            context.read<BasketBloc>().add(AddToBasket(
                                               product: ProductDetailsResponse(
+                                                price: state
+                                                    .productDetailsResponse!
+                                                    .price ==
+                                                    null
+                                                    ? ""
+                                                    : state
+                                                    .productDetailsResponse!
+                                                    .price!,
                                                   nameOfProduct: state
                                                               .productDetailsResponse!
                                                               .nameOfProduct ==
