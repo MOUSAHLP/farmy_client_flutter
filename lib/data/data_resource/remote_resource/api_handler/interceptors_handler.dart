@@ -8,7 +8,7 @@ class ClientInterceptor extends Interceptor {
 //      "Accept-Language": DataStore.instance.lang,
       // "Content-Type": Headers.jsonContentType,
       // "Content-Type":"text/html",
-      "Authorization":  'Bearer ${DataStore.instance.token ?? ''}',
+      "Authorization": 'Bearer ${DataStore.instance.token ?? ''}',
       // "Authorization":  'Bearer ${DataStore.instance.token ?? ''}',
       // "Accept": Headers.jsonContentType,
       "Accept": '*/*',

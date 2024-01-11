@@ -56,7 +56,7 @@ class BaseApiClient {
           log(response.data.toString());
         }
         if (isToken) {
-          DataStore.instance.setToken(response.headers['Authorization']!.first);
+          // DataStore.instance.setToken(response.headers['Authorization']!.first);
         }
         return right(converter(response.data));
       } else {
@@ -149,7 +149,7 @@ class BaseApiClient {
       }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.cancel) {
-        return left('Cancel');
+        return left('cancel');
       }
       Map dioError = DioErrorsHandler.onError(e);
       if (kDebugMode) {
@@ -164,10 +164,10 @@ class BaseApiClient {
     }
   }
 
-  static Future delete(
+  static Future<Either<String, T>> delete<T>(
       {required String url,
-      Map<String, dynamic>? queryParameters,
-      required Function(dynamic) converter}) async {
+        Map<String, dynamic>? queryParameters,
+        required Function(dynamic) converter}) async {
     try {
       var response = await client.delete(
         url,
@@ -181,20 +181,31 @@ class BaseApiClient {
       );
       if (response.statusCode! >= 200 || response.statusCode! <= 205) {
         if (kDebugMode) {
-          print(response.data);
+          log(response.data.toString());
+          print(response);
         }
-        return converter(response.data);
+        return right(converter(response.data));
+      }
+      else {
+        return left(response.data['message']);
       }
     } on DioException catch (e) {
-      Map dioError = DioErrorsHandler.onError(e);
-      // toast(dioError['message']);
-      if (kDebugMode) {
-        print(dioError);
+      if (e.type == DioExceptionType.cancel) {
+        return left('Cancel');
       }
-    } catch (e) {
+      Map dioError = DioErrorsHandler.onError(e);
       if (kDebugMode) {
         print(e);
       }
+        return left(dioError['message']);
+
+    } catch (e) {
+
+      if (kDebugMode) {
+        print(e);
+      }
+      return left("");
     }
   }
+
 }
