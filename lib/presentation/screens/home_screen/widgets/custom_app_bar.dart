@@ -88,8 +88,8 @@ class CustomAppBar extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      Uri url = Uri.parse(
-                          "https://wa.me/ ${0936252114}/?text=hello");
+                      Uri url =
+                          Uri.parse("https://wa.me/ ${0936252114}/?text=hello");
                       if (!await launchUrl(url)) {
                         throw Exception('Could not launch $url');
                       }

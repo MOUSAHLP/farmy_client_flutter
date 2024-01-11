@@ -91,6 +91,10 @@ class _ConfirmPaymentOrderDialogBodyState
                 ),
                 Expanded(
                   child: CustomButton(
+                    borderColor: ColorManager.primaryGreen,
+                    labelColor: ColorManager.primaryGreen,
+                    isFilled: true,
+                    fillColor: ColorManager.white,
                     label: AppLocalizations.of(context)!.exit,
                     onTap: () {},
                   ),

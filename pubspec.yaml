@@ -52,7 +52,7 @@ dependencies:
   #Notification
   #  firebase_messaging:
   #  flutter_local_notifications: ^14.1.1
-  #  firebase_core: ^2.15.1
+  #  flutter pub add firebase_core: ^2.15.1
 
 
   cupertino_icons: ^1.0.2
@@ -61,6 +61,9 @@ dependencies:
   linear_progress_bar: ^1.1.0
   flutter_widget_from_html: ^0.14.11
   checkmark: ^0.0.2+1
+  firebase_messaging: ^14.7.10
+  flutter_local_notifications: ^16.3.0
+  firebase_core: ^2.24.2
   
 
 dev_dependencies:
