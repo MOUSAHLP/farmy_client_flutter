@@ -44,7 +44,7 @@ class SelectLocationFromMap extends StatelessWidget {
                       ),
                       const SizedBox(height: 40),
                       Text(
-                        "جاري تحديد موقعك ......",
+                        AppLocalizations.of(context)!.locating_your_position,
                         style: getBoldStyle(color: ColorManager.primaryGreen, fontSize: 16),
                       )
                     ],

@@ -21,18 +21,19 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   int index = 0;
-  List<Widget> children = [
-    HomeScreen(scaffoldKey: scaffoldKey),
-    FavoriteScreen(),
-    const BasketScreen(),
-    const OrderScreen(),
-    const MyAccountScreen(),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> children = [
+      HomeScreen(scaffoldKey: scaffoldKey),
+      FavoriteScreen(),
+      const BasketScreen(),
+      const OrderScreen(),
+      const MyAccountScreen(),
+    ];
     return WillPopScope(
       onWillPop: () async {
         if (scaffoldKey.currentState?.isDrawerOpen == true) {

@@ -15,6 +15,7 @@ import '../../resources/color_manager.dart';
 import '../../resources/style_app.dart';
 import '../../widgets/custom_app_bar_screen.dart';
 import '../../widgets/custom_button.dart';
+import '../location_screen/add_location_screen.dart';
 
 class LocationSecondScreen extends StatelessWidget {
   const LocationSecondScreen({super.key});
@@ -58,7 +59,7 @@ class SelectLocationFromMapBody extends StatelessWidget {
                       ),
                       const SizedBox(height: 40),
                       Text(
-                        "جاري تحديد موقعك ......",
+                        AppLocalizations.of(context)!.locating_your_position,
                         style: getBoldStyle(color: ColorManager.primaryGreen, fontSize: 16),
                       )
                     ],
@@ -114,7 +115,7 @@ class SelectLocationFromMapBody extends StatelessWidget {
                         left: 50,
                         child: Center(
                           child: CustomButton(label:AppLocalizations.of(context)!.confirm,onTap: (){
-                       AppRouter.push(context, const WelcomeScreen());
+                       AppRouter.push(context, AddLocationScreen(isFirst: true,));
                           }),
                         ))
                   ],

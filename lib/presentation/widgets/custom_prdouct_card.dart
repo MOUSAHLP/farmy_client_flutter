@@ -157,7 +157,7 @@ class CustomProductCard extends StatelessWidget {
                                 if (productInfo.price != null)
                                   Text(
                                       Formatter.formatPrice(
-                                          int.tryParse(productInfo.price!)!),
+                                          int.tryParse(productInfo.price!)??0),
                                       style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
                                               fontSize: FontSizeApp.s15)!

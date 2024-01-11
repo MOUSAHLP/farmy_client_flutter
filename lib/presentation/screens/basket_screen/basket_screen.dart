@@ -57,6 +57,8 @@ class BasketScreen extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
+                  print("state.prductList");
+                  print(state.prductList);
                   return
                      Stack(
                       alignment: Alignment.bottomCenter,

@@ -20,8 +20,8 @@ import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
 
 class AddLocationScreen extends StatelessWidget {
-  AddLocationScreen({super.key});
-
+  AddLocationScreen({super.key,this.isFirst=false});
+bool isFirst;
   @override
   Widget build(BuildContext context) {
 
@@ -65,7 +65,7 @@ class AddLocationScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    InkWell(
+                    isFirst?SizedBox():  InkWell(
                       onTap: () {
                         AppRouter.push(context, const SelectLocationFromMap());
                       },
@@ -91,7 +91,7 @@ class AddLocationScreen extends StatelessWidget {
                       color: ColorManager.grayForm,
                       width: 1.sw,
                       hintText:
-                          AppLocalizations.of(context)!.choose_favorite_address,
+                          AppLocalizations.of(context)!.area,
                       onChange: (value) {
                         address.name = value;
                       },

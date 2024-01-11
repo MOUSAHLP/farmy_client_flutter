@@ -128,6 +128,10 @@ class CustomDeliveryAddress extends StatelessWidget {
     );
   }
   String getAddress(UserAddressModel userAddressModel) {
+    print("getAddress");
+    print(userAddressModel);
+    print(userAddressModel.toString());
+    print(userAddressModel.toJson());
     final name = userAddressModel.name;
     final area = userAddressModel.area;
     final street = userAddressModel.street;
