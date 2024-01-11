@@ -222,5 +222,7 @@
   "thereIsNoProduct":"عذرا لا يوجد أي منتجات تنتمي لهذه الفئة حاليا",
   "curruncy":"ل.س",
   "sorryBasketIsEmpty":"عذرا السلة فارغة",
-  "orderSuccesfulyComplete":"تمت الطلبية بنجاح يمكنك متابعة طلبك من قائمة طلباتي"
+  "orderSuccesfulyComplete":"تمت الطلبية بنجاح يمكنك متابعة طلبك من قائمة طلباتي",
+  "locating_your_position": "جاري تحديد موقعك ......",
+  "area": "المنطقة"
 }

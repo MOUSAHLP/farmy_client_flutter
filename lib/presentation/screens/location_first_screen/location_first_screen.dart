@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/presentation/screens/location_first_screen/welcome_screen.dart';
 import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import '../../../translations.dart';
 import '../../resources/assets_manager.dart';
@@ -63,7 +64,7 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                             getRegularStyle(color: Colors.white, fontSize: 16),
                       ),
                       onTap: () {
-                        AppRouter.push(context, const MainScreen());
+                        AppRouter.push(context, const WelcomeScreen());
                       },
                     ),
                     Row(
@@ -85,12 +86,12 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                     ),
                     InkWell(
                       onTap: () {
-                        AppRouter.push(context, const MainScreen());
+
                       },
                       child: const Icon(
                         Icons.arrow_forward_ios,
                         size: 20,
-                        color: Colors.white,
+                        color: Colors.transparent,
                       ),
                     ),
                   ],
@@ -226,7 +227,7 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                                             child: InkWell(
                                               onTap: () {
                                                 AppRouter.push(
-                                                    context, const MainScreen());
+                                                    context, const WelcomeScreen());
                                               },
                                               child: Text("عدم السماح",
                                                   style: getBoldStyle(
@@ -276,7 +277,7 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                                               ColorManager.primaryGreen,
                                           onTap: () {
                                             AppRouter.push(
-                                                context, const MainScreen());
+                                                context, const WelcomeScreen());
                                           },
                                         ),
                                       ],

@@ -8,7 +8,7 @@ class ProductDetailsResponse {
   String? nameOfProduct;
   String? price;
   String? quantity;
-  List<AttrbiuteResponse>? attributeList;
+  List<AttrbiuteResponse> attributeList;
   String? availabilityOfProduct;
   String? sellerName;
   String? discountStatus;
@@ -24,7 +24,7 @@ class ProductDetailsResponse {
     this.nameOfProduct,
     this.price,
     this.quantity,
-    this.attributeList,
+    this.attributeList=const[],
     this.availabilityOfProduct,
     this.sellerName,
     this.discountStatus,

@@ -6,6 +6,9 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
 
+import '../../../../core/utils/formatter.dart';
+import '../../../../translations.dart';
+
 class CardBasket extends StatelessWidget {
   final ProductDetailsResponse productAddedToBasketDetails;
   const CardBasket({super.key, required this.productAddedToBasketDetails});
@@ -39,6 +42,12 @@ class CardBasket extends StatelessWidget {
                         const Icon(Icons.add, color: ColorManager.primaryGreen),
                   ),
                   Container(
+                    height: 30,
+                    width: 30,
+                    child:
+                         Center(child: Text(productAddedToBasketDetails.quantity??"",style: getRegularStyle(color: Colors.black),)),
+                  ),
+                  Container(
                     height: 36,
                     width: 36,
                     decoration: BoxDecoration(boxShadow: [
@@ -55,44 +64,55 @@ class CardBasket extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  productAddedToBasketDetails.nameOfProduct!,
+                  productAddedToBasketDetails.nameOfProduct??"",
                   style: getBoldStyle(
                           color: ColorManager.black, fontSize: FontSizeApp.s10)
                       ?.copyWith(height: 1),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
+                  child:   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "400 غ",
-                        style: getRegularStyle(
-                                color: ColorManager.grayForMessage,
-                                fontSize: FontSizeApp.s13)!
-                            .copyWith(height: 1),
-                      ),
-                      Text(
-                        " / ",
-                        style: getRegularStyle(
-                                color: ColorManager.grayForMessage,
-                                fontSize: FontSizeApp.s13)!
-                            .copyWith(height: 1),
-                      ),
-                      Text(
-                        "15 قطعة",
-                        style: getRegularStyle(
-                                color: ColorManager.grayForMessage,
-                                fontSize: FontSizeApp.s10)!
-                            .copyWith(height: 1),
-                      ),
+                      productAddedToBasketDetails.attributeList.isNotEmpty
+                          ? Text(productAddedToBasketDetails.attributeList[0].value,
+                          style: getBoldStyle(
+                            color: ColorManager.grayForMessage,
+                            fontSize: FontSizeApp.s15,
+                          ))
+                          : const SizedBox(),
+                      productAddedToBasketDetails.attributeList.length > 1
+                          ? Text(" / ${productAddedToBasketDetails.attributeList[1].value}",
+                          style: getBoldStyle(
+                            color: ColorManager.grayForMessage,
+                            fontSize: FontSizeApp.s15,
+                          ))
+                          : const SizedBox(),
                     ],
-                  ),
+                  )
                 ),
-                Text(" 50.000 sy",
-                    style: getBoldStyle(
-                            color: ColorManager.primaryGreen,
-                            fontSize: FontSizeApp.s12)!
-                        .copyWith(height: 1)),
+                Row(
+                  children: [
+
+                      Text(
+                          Formatter.formatPrice(
+                              int.tryParse(productAddedToBasketDetails.price.toString())??0),
+                          style: getBoldStyle(
+                              color: ColorManager.primaryGreen,
+                              fontSize: FontSizeApp.s15)!
+                              .copyWith(height: 1)),
+                    const SizedBox(
+                      width: 1,
+                    ),
+                    //todo caruncy
+                    if (productAddedToBasketDetails.price != null)
+                      Text(AppLocalizations.of(context)!.curruncy,
+                          style: getBoldStyle(
+                              color: ColorManager.primaryGreen,
+                              fontSize: FontSizeApp.s10)!
+                              .copyWith(height: 1))
+                  ],
+                ),
               ],
             ),
             const SizedBox(
