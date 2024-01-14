@@ -38,3 +38,7 @@ class ReSendCode extends AuthenticationEvent {
   String phone;
   ReSendCode({required this.phone});
 }
+class ChangeCheckPolice extends AuthenticationEvent{
+  bool isCheck;
+  ChangeCheckPolice(this.isCheck);
+}

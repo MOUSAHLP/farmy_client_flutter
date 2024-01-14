@@ -53,9 +53,9 @@ class AppValidators {
     if (phone == null || phone.isEmpty) {
       return AppLocalizations.of(context)!.phoneFieldIsRequired;
     }
-    // if (!AppRegexp.phoneRegexp.hasMatch(phone)) {
-    //   return AppLocalizations.of(context)!.wrongPhoneNumber;
-    // }
+    if (!AppRegexp.phoneRegexp.hasMatch(phone)) {
+      return AppLocalizations.of(context)!.wrongPhoneNumber;
+    }
     return null;
   }
 }

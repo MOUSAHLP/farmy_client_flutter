@@ -1,5 +1,5 @@
 {
-  "new_subscription": "اشتراك جديد",
+  "new_subscription": "انشاء حساب",
   "sign_in": "تسجيل دخول",
   "login_guest": "الدخول كضيف",
   "phone": "الرقم",
@@ -212,7 +212,7 @@
   "curruncy": "ل.س",
   "sorryBasketIsEmpty": "عذرا السلة فارغة",
   "try_again": "إعادة المحاولة",
-  "hint_phone": "+963 00000000",
+  "hint_phone": "9xxxxxxxx",
   "no_add_basket": "لا يمكن اضافة الى السلة الرجاء تسجيل الدخول",
   "please_sign_in": "الرجاء تسجيل الدخول ",
   "welcome_to": "أهلاً بك في فارمي",
@@ -224,5 +224,6 @@
   "sorryBasketIsEmpty":"عذرا السلة فارغة",
   "orderSuccesfulyComplete":"تمت الطلبية بنجاح يمكنك متابعة طلبك من قائمة طلباتي",
   "locating_your_position": "جاري تحديد موقعك ......",
-  "area": "المنطقة"
+  "area": "المنطقة",
+  "approve": "يرجى الموافقة على الشروط و الاحكام "
 }

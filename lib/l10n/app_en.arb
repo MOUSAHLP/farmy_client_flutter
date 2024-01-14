@@ -1,7 +1,7 @@
 {
-  "new_subscription": "New subscription",
+  "new_subscription": "Sign up",
   "sign_in": "Sign in",
-  "login_guest": "Sign in as a guest",
+  "login_guest": "Continue as a guest",
   "phone": "Phone",
   "password": "Password",
   "forget_password": "Did you forget your password?",
@@ -213,7 +213,7 @@
   "curruncy": "SYP",
   "sorryBasketIsEmpty": "Sorry, currently the basket is empty",
   "try_again": "Try again",
-  "hint_phone": "+963 000000000",
+  "hint_phone": "9xxxxxxxx",
   "no_add_basket": "Cannot add to cart. Please sign in ",
   "please_sign_in": "Please sign in",
   "welcome_to": "Welcome to Farmy",
@@ -225,5 +225,6 @@
   "sorryBasketIsEmpty": "Sorry, currently the basket is empty",
   "orderSuccesfulyComplete": "The order has been completed successfully, you can proceed with your order from my order list",
   "locating_your_position": "Locating your position ......",
-  "area": "Area"
+  "area": "Area",
+  "approve": "Please approve the terms and conditions."
 }
