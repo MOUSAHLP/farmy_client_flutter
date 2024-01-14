@@ -225,5 +225,8 @@
   "sorryBasketIsEmpty": "Sorry, currently the basket is empty",
   "orderSuccesfulyComplete": "The order has been completed successfully, you can proceed with your order from my order list",
   "locating_your_position": "Locating your position ......",
-  "area": "Area"
+  "area": "Area",
+    "searchForProduct":"Search Products",
+    "thereIsNoSubCategory":"There is No Sub category Now!",
+        "thereIsNoCategory":"There is No Category Now!"
 }

@@ -14,7 +14,6 @@ import 'package:pharma/presentation/widgets/dialogs/will_pop_scope_handler.dart'
 import 'package:pharma/translations.dart';
 import '../../../bloc/authentication_bloc/authentication_event.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
-import '../../../core/services/services_locator.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
 

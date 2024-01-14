@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,13 +10,11 @@ import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/product_details_response.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/about_product_and_amount_section.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/product_image.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
-import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_button.dart';
 import 'package:pharma/presentation/widgets/custom_loading.dart';
 import 'package:pharma/translations.dart';
@@ -79,7 +76,7 @@ class ProductDetailsBody extends StatelessWidget {
                                   AboutProductAndAmonutSection(
                                       attributeList: state
                                           .productDetailsResponse!
-                                          .attributeList!,
+                                          .attributeList,
                                       productDesc: state.productDetailsResponse!
                                                   .description !=
                                               null

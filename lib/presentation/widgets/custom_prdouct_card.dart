@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/core/utils/formatter.dart';
-import 'package:intl/intl.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -157,7 +158,8 @@ class CustomProductCard extends StatelessWidget {
                                 if (productInfo.price != null)
                                   Text(
                                       Formatter.formatPrice(
-                                          int.tryParse(productInfo.price!)??0),
+                                          int.tryParse(productInfo.price!) ??
+                                              0),
                                       style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
                                               fontSize: FontSizeApp.s15)!
@@ -178,17 +180,33 @@ class CustomProductCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 74,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 12),
-                            child: Icon(
-                              Icons.favorite_border_outlined,
-                              size: 24,
-                            ),
+                          BlocBuilder<FavoriteBloc, FavoriteState>(
+                            builder: (context, state) {
+                              return GestureDetector(
+                                onTap: () {
+                                  context.read<FavoriteBloc>().add(
+                                      ToggleFavorite(
+                                          isFavorite: !state.isFavorite!));
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 12),
+                                  child: Icon(
+                                    color: state.isFavorite == true
+                                        ? Colors.red
+                                        : Colors.black,
+                                    state.isFavorite == true
+                                        ? Icons.favorite
+                                        : Icons.favorite_border_outlined,
+                                    size: 24,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),

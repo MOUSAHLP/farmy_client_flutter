@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/categories_repo.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';

@@ -7,7 +7,6 @@ import '../../../core/app_router/app_router.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/style_app.dart';
-import '../auth_screen/ widgets/button_auth.dart';
 
 class GuestScreen extends StatelessWidget {
   const GuestScreen({super.key});
@@ -35,6 +34,6 @@ class GuestScreen extends StatelessWidget {
 
           },child: Text(AppLocalizations.of(context)!.sign_in , style: getBoldStyle(color: Colors.white),),)
       ],
-    );;
+    );
   }
 }

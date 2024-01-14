@@ -124,8 +124,8 @@
   "select_delivery_location": "اختيار موقع التوصيل",
   "skip_stage_now": "تخطي المرحلة حاليا",
   "notification": "اشعارات",
-  "show_more": "رؤية المزيد",
-  "sections": "الاقسام",
+  "show_more": "رؤية الكل",
+  "sections": "الأقسام",
   "suggested_products": "المنتجات المقترحة",
   "discounts": "الحسومات",
   "price": "السعر",
@@ -181,7 +181,7 @@
   "basket": "السلة",
   "my_Requests": "طلباتي",
   "my_Account": "حسابي",
-  "delivery_to": "التوصيل الى",
+  "delivery_to": " التوصيل الى :",
   "all_section": "جميع الاقسام",
   "previous_Password": "كلمة المرور السابقة",
   "forgot_Password_Without_question_mark": "نسيت كلمة السر",
@@ -224,5 +224,8 @@
   "sorryBasketIsEmpty":"عذرا السلة فارغة",
   "orderSuccesfulyComplete":"تمت الطلبية بنجاح يمكنك متابعة طلبك من قائمة طلباتي",
   "locating_your_position": "جاري تحديد موقعك ......",
-  "area": "المنطقة"
+  "area": "المنطقة",
+  "searchForProduct":"البحث عن المنتجات",
+  "thereIsNoSubCategory":"عذرا لا يوجد أي فئات فرعية تنتمي لهذه الفئة حاليا",
+      "thereIsNoCategory":"عذرا لا يوجد أي فئات  حاليا"
 }

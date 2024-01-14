@@ -78,10 +78,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           }
         }, (r) {
           addressCurrent=r;
-          print("rrrrrrrrrrrrrrrrrrrrrrrr");
-          print(r);
-          print("================addressCurrent");
-          print(addressCurrent);
+    
           emit(state.copyWith(success: true,addressCurrent: r));
         });
       }

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:pharma/models/attribute_response.dart';
 import 'package:pharma/models/delevery_attributes_response.dart';
 import 'package:pharma/models/delivery_response.dart';
 

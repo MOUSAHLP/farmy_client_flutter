@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import ' widgets/button_auth.dart';
 import ' widgets/input_field_auth.dart';
 import '../../../bloc/authentication_bloc/authentication_event.dart';

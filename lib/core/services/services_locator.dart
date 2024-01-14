@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
+import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/onboarding_bloc/onboarding_bloc.dart';
@@ -47,5 +48,7 @@ class ServicesLocator {
     //basket
     sl.registerSingleton<BasketRepo>(BasketRepo());
     sl.registerLazySingleton(() => BasketBloc(basketRepo: sl<BasketRepo>()));
+    // favorite
+    sl.registerLazySingleton(() => FavoriteBloc());
   }
 }

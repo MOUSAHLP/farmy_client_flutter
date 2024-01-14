@@ -75,9 +75,11 @@ class FirebaseNotificationsHandler {
       if (kDebugMode) {
         print('OpenedApp');
       }
-      newMessage = message;
+      // newMessage = message;
+      print(message.notification!.body);
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+      print('notification ${notification}');
       if (notification != null) {
         flutterLocalNotificationsPlugin
             .show(
@@ -88,7 +90,7 @@ class FirebaseNotificationsHandler {
                   android: AndroidNotificationDetails(
                     channel.id,
                     channel.name,
-                    icon: android!.smallIcon,
+                    // icon: android!.smallIcon,
                     showWhen: true,
 
 //                    color: ColorManager.primaryColor,
@@ -96,6 +98,7 @@ class FirebaseNotificationsHandler {
                 ))
             .catchError((onError) {
           if (kDebugMode) {
+            print("hello");
             print(onError);
           }
         });
@@ -131,62 +134,61 @@ class FirebaseNotificationsHandler {
       sound: true,
     );
 
-      _firebaseMessaging.getToken().then((token) {
-        if (kDebugMode) print('FCM Token: $token');
-        // _registerToken(token!);
-      });
+    _firebaseMessaging.getToken().then((token) {
+      if (kDebugMode) print('FCM Token: $token');
+      // _registerToken(token!);
+    });
 
-      // _firebaseMessaging.onTokenRefresh.listen(_registerToken);
-    }
-
-    // void _registerToken(String token) {
-    //   if (_requestToken) {
-    //     _requestToken = false;
-    //     ApiClient client = PaprikaApiClient();
-    //     NotificationsApi api = NotificationsApi(client);
-    //     api
-    //         .apiServicesAppNotificationsRegisterFirebaseNotificationsPost(
-    //             token: token)
-    //         .then((_) {
-    //       _requestToken = true;
-    //     }).catchError((error) {
-    //       _requestToken = true;
-    //     });
-    //   }
-    // }
-
-    // void processMessage(RemoteMessage? model) {
-    //   if (model == null) return;
-    //   final data = model.data["Model"];
-    //   int type;
-    //   try {
-    //     type = int.parse(model.data['NotificationName'] as String);
-    //   } catch (e) {
-    //     return;
-    //   }
-
-    //   switch (type) {
-    //     case NotificationType.reservationApprovedInt:
-    //       Get.to(ReservationsScreen());
-    //       break;
-
-    //     case NotificationType.newRestaurantAddedInt:
-    //       final int? restId =
-    //       (json.decode(data as String))["RestaurantId"] as int?;
-    //       if (restId != null && restId > 0) {
-    //         navigationController.toRestaurantScreen(restaurantId: restId);
-    //       }
-    //       break;
-    //   }
-    // }
-
-    Future<dynamic> _onNotificationDialogClick(NotificationResponse? message) {
-      if (newMessage != null) {
-        // processMessage(newMessage);
-        return Future<dynamic>.value();
-      } else {
-        return Future<dynamic>.value();
-      }
-    }
+    // _firebaseMessaging.onTokenRefresh.listen(_registerToken);
   }
 
+  // void _registerToken(String token) {
+  //   if (_requestToken) {
+  //     _requestToken = false;
+  //     ApiClient client = PaprikaApiClient();
+  //     NotificationsApi api = NotificationsApi(client);
+  //     api
+  //         .apiServicesAppNotificationsRegisterFirebaseNotificationsPost(
+  //             token: token)
+  //         .then((_) {
+  //       _requestToken = true;
+  //     }).catchError((error) {
+  //       _requestToken = true;
+  //     });
+  //   }
+  // }
+
+  // void processMessage(RemoteMessage? model) {
+  //   if (model == null) return;
+  //   final data = model.data["Model"];
+  //   int type;
+  //   try {
+  //     type = int.parse(model.data['NotificationName'] as String);
+  //   } catch (e) {
+  //     return;
+  //   }
+
+  //   switch (type) {
+  //     case NotificationType.reservationApprovedInt:
+  //       Get.to(ReservationsScreen());
+  //       break;
+
+  //     case NotificationType.newRestaurantAddedInt:
+  //       final int? restId =
+  //       (json.decode(data as String))["RestaurantId"] as int?;
+  //       if (restId != null && restId > 0) {
+  //         navigationController.toRestaurantScreen(restaurantId: restId);
+  //       }
+  //       break;
+  //   }
+  // }
+
+  Future<dynamic> _onNotificationDialogClick(NotificationResponse? message) {
+    if (newMessage != null) {
+      // processMessage(newMessage);
+      return Future<dynamic>.value();
+    } else {
+      return Future<dynamic>.value();
+    }
+  }
+}
