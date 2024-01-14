@@ -58,12 +58,13 @@ class SignInBody extends StatelessWidget {
                 height: 58,
               ),
               InputFieldAuth(
-                  suffixIcon: Image.asset(
+                  icon: Image.asset(
                     ImageManager.flagOfSyria,
                     height: 20,
                     width: 20,
                   ),
                 keyboardType: TextInputType.phone,
+                isPhone: true,
                 controller: phoneController,
                   hintText: AppLocalizations.of(context)!.hint_phone,
                 validator: (value) {

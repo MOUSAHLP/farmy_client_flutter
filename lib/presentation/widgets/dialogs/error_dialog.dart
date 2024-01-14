@@ -36,7 +36,8 @@ class _ErrorDialogBody extends StatelessWidget {
           const SizedBox(height: 10,),
           SvgPicture.asset(IconsManager.errorIcon),
           Padding(
-            padding: const EdgeInsets.symmetric(
+            padding:
+            EdgeInsets.symmetric(
               horizontal: 8.0,
               vertical: 10,
             ),
@@ -53,7 +54,7 @@ class _ErrorDialogBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: CustomButton(
-              label: AppLocalizations.of(context)!.try_again,
+              label: AppLocalizations.of(context)!.back,
               fillColor: ColorManager.redForFavorite,
               onTap: () {
                 AppRouter.pop(context);

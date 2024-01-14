@@ -9,7 +9,7 @@ class AuthenticationState extends Equatable {
   final bool isLoading;
   final bool sentOtp;
   final bool login;
-
+  bool isCheckPolicy ;
   final  bool resetPassword;
   final  bool signUp;
   final bool confirmOtp;
@@ -24,6 +24,7 @@ class AuthenticationState extends Equatable {
     this.error,
     this.isLoading = false,
     this.login = false,
+    this.isCheckPolicy = false,
 
     this.sentOtp = false,
     this.confirmOtp = false,
@@ -45,7 +46,8 @@ class AuthenticationState extends Equatable {
     bool? signUp,
     bool? isSuccess,
     bool? loggedIn,
-    bool? isReSend
+    bool? isReSend,
+    bool? isCheckPolicy
 
   }) {
     return AuthenticationState(
@@ -61,6 +63,7 @@ class AuthenticationState extends Equatable {
       resetPassword: resetPassword ?? false,
       signUp: signUp ?? this.signUp,
       isReSend: isReSend ?? false,
+      isCheckPolicy: isCheckPolicy ?? false,
     );
   }
 
@@ -77,6 +80,7 @@ class AuthenticationState extends Equatable {
     resetPassword,
     signUp,
     isReSend,
-    login
+    login,
+    isCheckPolicy
   ];
 }

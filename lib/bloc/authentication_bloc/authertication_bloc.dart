@@ -17,6 +17,7 @@ class AuthenticationBloc
   LoginResponse? loginResponse;
   OtpVerifyResponse? otpVerifyResponse;
   bool loggedIn = true;
+  bool isCheckPolicy = false;
   OtpConfirmParams otpConfirmParams = OtpConfirmParams();
   SignUpParams signUpParams = SignUpParams();
   AuthenticationBloc(
@@ -172,6 +173,11 @@ class AuthenticationBloc
           otpVerifyResponse = r;
           emit(state.copyWith(sendOtp: true));
         });
+      }
+      if(event is ChangeCheckPolice){
+        emit(state.copyWith(
+          isCheckPolicy:event.isCheck,
+        ));
       }
     });
   }
