@@ -41,7 +41,7 @@ class CardBasket extends StatelessWidget {
                     child:
                         const Icon(Icons.add, color: ColorManager.primaryGreen),
                   ),
-                  Container(
+                  SizedBox(
                     height: 30,
                     width: 30,
                     child:

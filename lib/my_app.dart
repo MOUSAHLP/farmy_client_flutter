@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
+import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
@@ -53,6 +54,9 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(
               create: (BuildContext context) => sl<BasketBloc>(),
             ),
+            BlocProvider(
+              create: (BuildContext context) => sl<FavoriteBloc>(),
+            ),
           ],
           child: GestureDetector(
             onTap: () {
@@ -68,8 +72,7 @@ class _MyAppState extends State<MyApp> {
               if (true) {
                 return MaterialApp(
                     title: 'Farmy',
-                    locale: Locale("en"),
-                    // locale: Locale(DataStore.instance.lang),
+                    locale: Locale(DataStore.instance.lang),
                     supportedLocales: AppLocalizations.supportedLocales,
                     localizationsDelegates: const [
                       AppLocalizations.delegate,
@@ -78,7 +81,6 @@ class _MyAppState extends State<MyApp> {
                       GlobalWidgetsLocalizations.delegate,
                     ],
                     home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-
                       bloc: sl<AuthenticationBloc>()..add(AppStarted()),
                       builder: (context, state) {
                         switch (state.authenticationScreen) {

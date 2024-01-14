@@ -76,7 +76,7 @@ class ChangePasswordScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              ):GuestScreen(),
+              ):const GuestScreen(),
             ),
           ],
         ),

@@ -8,6 +8,7 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
 import 'package:pharma/presentation/screens/notification_screen/notification_screen.dart';
+import 'package:pharma/translations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -71,25 +72,25 @@ class CustomAppBar extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(
-                        "فارمي",
-                        style: getBoldStyle(
-                            color: Colors.white, fontSize: FontSizeApp.s24),
-                      ),
-                      const SizedBox(
-                        width: 6,
-                      ),
                       SvgPicture.asset(
                         IconsManager.logoApp,
                         height: 31,
                         width: 31,
                       ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        "فارمي",
+                        style: getBoldStyle(
+                            color: Colors.white, fontSize: FontSizeApp.s24),
+                      ),
                     ],
                   ),
                   GestureDetector(
                     onTap: () async {
-                      Uri url = Uri.parse(
-                          "https://wa.me/ ${0936252114}/?text=hello");
+                      Uri url =
+                          Uri.parse("https://wa.me/ ${0936252114}/?text=hello");
                       if (!await launchUrl(url)) {
                         throw Exception('Could not launch $url');
                       }
@@ -106,7 +107,7 @@ class CustomAppBar extends StatelessWidget {
             InputFieldAuth(
               maxLines: 2,
               textStyle: getBoldStyle(color: ColorManager.grayForSearchProduct),
-              hintText: "البحث عن منتجات",
+              hintText: AppLocalizations.of(context)!.searchForProduct,
               hintStyle: getBoldStyle(
                   color: ColorManager.grayForSearchProduct,
                   fontSize: FontSizeApp.s14),

@@ -102,11 +102,12 @@ class _AllLProductBodynState extends State<AllProductBody>
                                 ? state.productsList.isNotEmpty
                                     ? GridView.builder(
                                         padding: const EdgeInsets.symmetric(
-                                            vertical: 10),
+                                            horizontal: 20, vertical: 10),
                                         itemCount: state.productsList.length,
                                         gridDelegate:
                                             const SliverGridDelegateWithFixedCrossAxisCount(
                                                 // childAspectRatio: 144 / 233,
+
                                                 crossAxisCount: 2,
                                                 mainAxisSpacing: 26,
                                                 mainAxisExtent: 227),

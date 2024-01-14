@@ -226,6 +226,9 @@
   "orderSuccesfulyComplete": "The order has been completed successfully, you can proceed with your order from my order list",
   "locating_your_position": "Locating your position ......",
   "area": "Area",
+    "searchForProduct":"Search Products",
+    "thereIsNoSubCategory":"There is No Sub category Now!",
+        "thereIsNoCategory":"There is No Category Now!"
   "approve": "Please approve the terms and conditions.",
   "validatePasswordMsg2" : "Use 8 characters with  at least \n one uppercase ,one lowercase letter \n one number and one symbol"
 }

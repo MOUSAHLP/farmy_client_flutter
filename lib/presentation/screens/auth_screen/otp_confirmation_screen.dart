@@ -13,7 +13,6 @@ import 'package:pharma/presentation/screens/auth_screen/%20widgets/button_auth.d
 import 'package:pharma/translations.dart';
 import '../../../core/app_enum.dart';
 import '../../../core/services/services_locator.dart';
-import '../../widgets/dialogs/loading_dialog.dart';
 
 class OtpConfirmationScreen extends StatelessWidget {
   const OtpConfirmationScreen({super.key,});
@@ -176,7 +175,7 @@ class _OtpConfirmationBodyState extends State<OtpConfirmationBody>
                               ):const SizedBox(),
                             ],
                           ),
-                         !showTimer? Text(AppLocalizations.of(context)!.resend_minute, style: getSemiBoldStyle(color: Colors.white)):SizedBox(),
+                         !showTimer? Text(AppLocalizations.of(context)!.resend_minute, style: getSemiBoldStyle(color: Colors.white)):const SizedBox(),
                          !showTimer? Text('$_hours:${_minutes.toString().padLeft(2, '0')}:${_seconds.toString().padLeft(2, '0')}', style: getSemiBoldStyle(color: Colors.white)):SizedBox(),
                        ],
                      ),

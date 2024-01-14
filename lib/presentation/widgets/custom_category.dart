@@ -26,8 +26,12 @@ class CustomCategory extends StatelessWidget {
           Container(
             height: 97,
             width: 97,
-            decoration: const BoxDecoration(
-                color: ColorManager.white, shape: BoxShape.circle),
+            decoration: const BoxDecoration(boxShadow: [
+              BoxShadow(
+                  blurRadius: 2,
+                  offset: Offset(0, -3),
+                  color: ColorManager.grayForPlaceholde)
+            ], color: ColorManager.grayForPlaceholde, shape: BoxShape.circle),
             child: ClipOval(
               child: CachedImage(
                 imageUrl: categoryImage,

@@ -4,6 +4,7 @@ import 'package:pharma/models/sub_category_response.dart';
 import 'package:pharma/presentation/screens/all_product/all_product_screen.dart';
 import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/presentation/widgets/custom_no_dataa.dart';
+import 'package:pharma/translations.dart';
 
 class CustomSubCategoryScreen extends StatefulWidget {
   final List<SubCategoryResponse>? subCategoriesList;
@@ -21,7 +22,10 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return widget.subCategoriesList!.isEmpty
-        ? const Center(child: CustomNoData(noDataStatment: "there is no data"))
+        ? Center(
+            child: CustomNoData(
+                noDataStatment:
+                    AppLocalizations.of(context)!.thereIsNoSubCategory))
         : GridView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             itemCount: widget.subCategoriesList!.length,

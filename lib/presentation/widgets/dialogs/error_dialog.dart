@@ -33,7 +33,7 @@ class _ErrorDialogBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           SvgPicture.asset(IconsManager.errorIcon),
           Padding(
             padding:

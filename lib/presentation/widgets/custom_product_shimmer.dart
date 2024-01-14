@@ -10,13 +10,14 @@ class CustomProductShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       itemCount: 4,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           // childAspectRatio: 144 / 233,
           crossAxisCount: 2,
+          crossAxisSpacing: 10,
           mainAxisSpacing: 26,
-          mainAxisExtent: 226),
+          mainAxisExtent: 227),
       itemBuilder: (context, index) {
         return Center(
             child: Shimmer.fromColors(

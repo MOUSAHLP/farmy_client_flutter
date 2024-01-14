@@ -21,8 +21,11 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       if (event is GetSubCategoryEvent) {
         emit(state.copyWith(isCategoryLoading: true));
 
-        (await categoriesRepo.getCategoyById(event.categoryId)).fold(
-            (l) => emit(state.copyWith(screenState: ScreenState.error)), (r) {
+        (await categoriesRepo.getSubCategoryById(event.categoryId)).fold((l) {
+          if (l != "cancel") {
+            emit(state.copyWith(screenState: ScreenState.error));
+          }
+        }, (r) {
           emit(state.copyWith(
               screenState: ScreenState.success,
               subCategoryList: r.subCategoryList));

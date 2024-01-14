@@ -16,8 +16,11 @@ class CategoriesRepo {
         });
   }
 
-  Future<Either<String, CategoryByIdResponse>> getCategoyById(int id) {
+  Future<Either<String, CategoryByIdResponse>> getSubCategoryById(int id) {
+    BaseApiClient.getTargetCancelToken.cancel("cancel");
+    BaseApiClient.getTargetCancelToken = CancelToken();
     return BaseApiClient.get<CategoryByIdResponse>(
+        cancelToken: BaseApiClient.getTargetCancelToken,
         url: ApiConst.getSubCategories(id),
         converter: (e) {
           return CategoryByIdResponse.fromJson(e["data"]);
@@ -25,7 +28,7 @@ class CategoriesRepo {
   }
 
   Future<Either<String, List<ProductsBySubCategoryIdResponse>>>
-        getProductsBySubCategoriesId(int id) {
+      getProductsBySubCategoriesId(int id) {
     BaseApiClient.getTargetCancelToken.cancel("cancel");
     BaseApiClient.getTargetCancelToken = CancelToken();
     return BaseApiClient.get<List<ProductsBySubCategoryIdResponse>>(

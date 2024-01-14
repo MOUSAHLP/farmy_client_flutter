@@ -22,7 +22,7 @@ class CardOrder extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(6)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: Column(
             children: [
               RowOrder(
@@ -40,28 +40,31 @@ class CardOrder extends StatelessWidget {
               Row(
                 children: [
                   Text(AppLocalizations.of(context)!.total_Price_with_Delivery,
-                      style: getBoldStyle(color: Colors.black, fontSize: 11)),
+                      style:
+                          getUnderBoldStyle(color: Colors.black, fontSize: 11)),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 2),
                     child: Text(":",
-                        style: getBoldStyle(color: Colors.black, fontSize: 11)),
+                        style: getUnderBoldStyle(
+                            color: Colors.black, fontSize: 11)),
                   ),
                   Expanded(
                     child: Text(" 225.000 ل.س",
                         style: getBoldStyle(
-                            color: ColorManager.primaryGreen, fontSize: 15),maxLines: 2,overflow: TextOverflow.ellipsis),
+                            color: ColorManager.primaryGreen, fontSize: 15),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis),
                   ),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical:8 ),
+                padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
                   children: [
                     Expanded(
                       child: CustomButton(
-                        label:AppLocalizations.of(context)!.show_Order,
+                        label: AppLocalizations.of(context)!.show_Order,
                         fillColor: ColorManager.primaryGreen,
-
                         onTap: () {
                           // AppRouter.pop(context);
                         },
@@ -72,18 +75,15 @@ class CardOrder extends StatelessWidget {
                     ),
                     Expanded(
                       child: CustomButton(
-                        label:AppLocalizations.of(context)!.track_Order,
+                        label: AppLocalizations.of(context)!.track_Order,
                         fillColor: ColorManager.primaryGreen,
-
-                        labelColor:Colors.white ,
-
+                        labelColor: Colors.white,
                         onTap: () {
                           AppRouter.push(context, const OrderTrackingScreen());
                           // SystemNavigator.pop();
                         },
                       ),
                     ),
-
                   ],
                 ),
               )
