@@ -43,7 +43,6 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
   }
   @override
   Widget build(BuildContext context) {
-    print("lllllllllllocatio first");
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -120,171 +119,175 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                     height: 1.sh,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: 33,
-                            ),
-                            Text(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(
+                            height: 33,
+                          ),
+                          FittedBox(
+                            child: Text(
                               AppLocalizations.of(context)!.welcome_to_Farmy,
                               style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: 26),
                             ),
-                            Text(
+                          ),
+                          FittedBox(
+                            child: Text(
                               AppLocalizations.of(context)!
                                   .please_choose_delivery_location,
                               style: getRegularStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: isImageShrunk ? 16 : 22),
                             ),
-                            AnimatedBuilder(
-                              animation: _animation,
-                              builder: (context, child) {
-                                return Transform.translate(
-                                  offset: Offset(0.0, -10.0 * _animation.value),
-                                  child: Image.asset(
-                                    ImageManager.locationFirst,
-                                    width: isImageShrunk ? 80 : 145,
-                                    height: isImageShrunk ? 80 : 161,
-                                  ),
-                                );
-                              },
-                            ),
-                            isImageShrunk
-                                ? Container(
-                                    // height: 50,
-                                    width: 1.sw,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: [
-                                          ColorManager.shadowGaryDown
-                                        ]),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 28.0, horizontal: 8),
-                                      child: Column(
-                                        children: [
-                                          const Icon(
-                                            Icons.location_on,
-                                            color: Colors.blue,
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10),
-                                            child: Text(
-                                                "السماح لفارمي باستخدام موقع جهازك"),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Image.asset(
-                                                      ImageManager.select),
-                                                  const Text("تقريبي")
-                                                ],
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Image.asset(
-                                                      ImageManager.select2),
-                                                  const Text("دقيق")
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 15.0),
-                                            child: InkWell(
-                                              onTap: () {
-                                                AppRouter.push(context,
-                                                    const LocationSecondScreen());
-                                              },
-                                              child: Text(
-                                                  "فقط عند استخدام التطبيق",
-                                                  style: getBoldStyle(
-                                                      color: Colors.black)),
+                          ),
+                          AnimatedBuilder(
+                            animation: _animation,
+                            builder: (context, child) {
+                              return Transform.translate(
+                                offset: Offset(0.0, -10.0 * _animation.value),
+                                child: Image.asset(
+                                  ImageManager.locationFirst,
+                                  width: isImageShrunk ? 80 : 145,
+                                  height: isImageShrunk ? 80 : 1.sh/5,
+                                ),
+                              );
+                            },
+                          ),
+                          isImageShrunk
+                              ? Container(
+                                  // height: 50,
+                                  width: 1.sw,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        ColorManager.shadowGaryDown
+                                      ]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 28.0, horizontal: 8),
+                                    child: Column(
+                                      children: [
+                                        const Icon(
+                                          Icons.location_on,
+                                          color: Colors.blue,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          child: Text(
+                                              "السماح لفارمي باستخدام موقع جهازك"),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Image.asset(
+                                                    ImageManager.select),
+                                                const Text("تقريبي")
+                                              ],
                                             ),
-                                          ),
-                                          InkWell(
+                                            Column(
+                                              children: [
+                                                Image.asset(
+                                                    ImageManager.select2),
+                                                const Text("دقيق")
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 15.0),
+                                          child: InkWell(
                                             onTap: () {
                                               AppRouter.push(context,
                                                   const LocationSecondScreen());
                                             },
-                                            child: Text("هذه المرة فقط",
+                                            child: Text(
+                                                "فقط عند استخدام التطبيق",
                                                 style: getBoldStyle(
                                                     color: Colors.black)),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 15.0),
-                                            child: InkWell(
-                                              onTap: () {
-                                                AppRouter.push(
-                                                    context, const WelcomeScreen());
-                                              },
-                                              child: Text("عدم السماح",
-                                                  style: getBoldStyle(
-                                                      color: Colors.black)),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox(),
-                            isImageShrunk
-                                ? const SizedBox(
-                                    height: 0,
-                                  )
-                                : const SizedBox(
-                                    height: 180,
-                                  ),
-                            isImageShrunk
-                                ? const SizedBox()
-                                : Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        CustomButton(
-                                            label: AppLocalizations.of(context)!
-                                                .select_delivery_location,
-                                            onTap: () {
-                                              setState(() {
-                                                isImageShrunk = true;
-                                                _controller.forward();
-                                              });
-                                              // Add your navigation logic here
-                                            }),
-                                        const SizedBox(
-                                          height: 16,
                                         ),
-                                        CustomButton(
-                                          label: AppLocalizations.of(context)!
-                                              .skip_stage_now,
-                                          isFilled: true,
-                                          labelColor: ColorManager.primaryGreen,
-                                          fillColor: Colors.white,
-                                          borderColor:
-                                              ColorManager.primaryGreen,
+                                        InkWell(
                                           onTap: () {
-                                            AppRouter.push(
-                                                context, const WelcomeScreen());
+                                            AppRouter.push(context,
+                                                const LocationSecondScreen());
                                           },
+                                          child: Text("هذه المرة فقط",
+                                              style: getBoldStyle(
+                                                  color: Colors.black)),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 15.0),
+                                          child: InkWell(
+                                            onTap: () {
+                                              AppRouter.push(
+                                                  context, const WelcomeScreen());
+                                            },
+                                            child: Text("عدم السماح",
+                                                style: getBoldStyle(
+                                                    color: Colors.black)),
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  )
-                          ],
-                        ),
+                                  ),
+                                )
+                              : const SizedBox(),
+                          SizedBox(height: 1.sh/5,),
+                          // isImageShrunk
+                          //     ? const SizedBox(
+                          //         height: 0,
+                          //       )
+                          //     : const Spacer(),
+                          isImageShrunk
+                              ? const SizedBox()
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 20),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CustomButton(
+                                          label: AppLocalizations.of(context)!
+                                              .select_delivery_location,
+                                          onTap: () {
+                                            AppRouter.push(context,
+                                                const LocationSecondScreen());
+                                            // setState(() {
+                                            //   isImageShrunk = true;
+                                            //   _controller.forward();
+                                            // });
+                                            // Add your navigation logic here
+                                          }),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      CustomButton(
+                                        label: AppLocalizations.of(context)!
+                                            .skip_stage_now,
+                                        isFilled: true,
+                                        labelColor: ColorManager.primaryGreen,
+                                        fillColor: Colors.white,
+                                        borderColor:
+                                            ColorManager.primaryGreen,
+                                        onTap: () {
+                                          AppRouter.push(
+                                              context, const WelcomeScreen());
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                )
+                        ],
                       ),
                     ),
                   )

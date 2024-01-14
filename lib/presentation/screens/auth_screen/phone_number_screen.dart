@@ -85,7 +85,8 @@ class _PhoneNumberBodyState extends State<PhoneNumberBody>
                   keyboardType: TextInputType.phone,
                   controller: phoneController,
                     hintText: AppLocalizations.of(context)!.phone,
-                    suffixIcon: Image.asset(
+                    isPhone: true,
+                    icon: Image.asset(
                       ImageManager.flagOfSyria,
                       height: 20,
                       width: 20,
@@ -120,7 +121,7 @@ class _PhoneNumberBodyState extends State<PhoneNumberBody>
                 const SizedBox(
                   height: 64,
                 ),
-                ButtonAuth(label: AppLocalizations.of(context)!.done, onTap: () {
+                ButtonAuth(label: AppLocalizations.of(context)!.sent, onTap: () {
                   if (_formKey.currentState!.validate()) {
                       sl<AuthenticationBloc>().add(RequestOtp(
                           phoneNumber: phoneController.text));
