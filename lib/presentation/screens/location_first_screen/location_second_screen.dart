@@ -4,7 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
 
-import 'package:pharma/presentation/screens/location_first_screen/welcome_screen.dart';
 
 import '../../../bloc/location_bloc/location_event.dart';
 import '../../../core/app_enum.dart';

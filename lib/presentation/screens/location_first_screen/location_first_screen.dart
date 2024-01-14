@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/screens/location_first_screen/welcome_screen.dart';
-import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import '../../../translations.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
@@ -43,7 +42,6 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
   }
   @override
   Widget build(BuildContext context) {
-    print("lllllllllllocatio first");
     return Scaffold(
       body: SafeArea(
         child: Column(

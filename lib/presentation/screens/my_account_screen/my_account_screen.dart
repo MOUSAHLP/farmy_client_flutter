@@ -128,7 +128,7 @@ class MyAccountScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              ):GuestScreen(),
+              ):const GuestScreen(),
             ),
 
           ],

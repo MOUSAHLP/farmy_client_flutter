@@ -35,64 +35,67 @@ class FavoriteScreen extends StatelessWidget {
             children: [
               CustomAppBarScreen(
                   sectionName: AppLocalizations.of(context)!.favorite),
-              sl<AuthenticationBloc>().loggedIn?  Expanded(child: Column(
-                children: [SizedBox(
-                  width: 1.sw,
-                  child: TabBar(
-                    onTap: (value) {},
-                    isScrollable: true,
-                    indicatorColor: ColorManager.primaryGreen,
-                    labelColor: ColorManager.primaryGreen,
-                    unselectedLabelColor: ColorManager.grayForMessage,
-                    dividerColor: Colors.transparent,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    tabs: tabTitles.map((title) {
-                      return Tab(
-                        text: title,
-                      );
-                    }).toList(),
-                  ),
-                ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      children: tabTitles.map((title) {
-                        return GridView.builder(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          itemCount: 8,
-                          gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            // childAspectRatio: 144 / 233,
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 26,
-                              mainAxisExtent: 226),
-                          itemBuilder: (context, index) {
-                            return Center(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    AppRouter.push(
-                                        context,
-                                        const ProductDetailsScreen(
-                                          id: 1,
-                                        ));
-                                  },
-
-                                  child: CustomProductCard(
-                                    isSellerFound: false,
-                                    isDisCount: true,
-                                    productInfo:
-                                        ProductsBySubCategoryIdResponse(),
-                                  )
-                                ));
-                          },
-                        );
-                      }).toList(),
-                    ),
-                  ),],
-              )):Expanded(child: GuestScreen()),
-
+              sl<AuthenticationBloc>().loggedIn
+                  ? Expanded(
+                      child: Column(
+                      children: [
+                        SizedBox(
+                          width: 1.sw,
+                          child: TabBar(
+                            onTap: (value) {},
+                            isScrollable: true,
+                            indicatorColor: ColorManager.primaryGreen,
+                            labelColor: ColorManager.primaryGreen,
+                            unselectedLabelColor: ColorManager.grayForMessage,
+                            dividerColor: Colors.transparent,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            tabs: tabTitles.map((title) {
+                              return Tab(
+                                text: title,
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            children: tabTitles.map((title) {
+                              return GridView.builder(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                itemCount: 8,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        // childAspectRatio: 144 / 233,
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 26,
+                                        mainAxisExtent: 226),
+                                itemBuilder: (context, index) {
+                                  return Center(
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            AppRouter.push(
+                                                context,
+                                                const ProductDetailsScreen(
+                                                  id: 1,
+                                                ));
+                                          },
+                                          child: CustomProductCard(
+                                            isSellerFound: false,
+                                            isDisCount: true,
+                                            productInfo:
+                                                ProductsBySubCategoryIdResponse(),
+                                          )));
+                                },
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ))
+                  : const Expanded(child: GuestScreen()),
             ],
           ),
         ),

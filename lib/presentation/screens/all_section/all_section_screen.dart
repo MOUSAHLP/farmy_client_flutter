@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
-import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
@@ -43,14 +42,6 @@ class ALlSectionScreenBody extends StatefulWidget {
 
 class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
     with TickerProviderStateMixin {
-  List<String> tabTitles = [
-    "خضارو وفواكه ومكسرات",
-    "مكسرات",
-    "فواكه",
-    "فواكه",
-    "فواكه",
-    "فواكه"
-  ];
   late TabController _tabController;
   List<CategoriesResponse> categoriesList = [];
   @override
@@ -61,9 +52,7 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
     _tabController =
         TabController(length: widget.tabControllerLength, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      print(widget.index);
       if (widget.index != 0) {
-        print(widget.index);
         context.read<CategoriesBloc>().add(
             GetSubCategoryEvent(categoryId: categoriesList[widget.index].id));
         _tabController.animateTo(widget.index);
@@ -96,7 +85,9 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                     ?
 
                     //there is no data
-                    const CustomNoData(noDataStatment: "there is no data")
+                    CustomNoData(
+                        noDataStatment:
+                            AppLocalizations.of(context)!.thereIsNoCategory)
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,8 +130,6 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                           ),
                           Expanded(
                             child: IndexedStack(
-
-                              
                               index: _tabController.index,
                               children: categoriesList.map((title) {
                                 return _tabController.index == 0

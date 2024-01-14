@@ -24,7 +24,7 @@ class ConfirmPaymentOrderDialog {
 
 class _ConfirmPaymentOrderDialogBody extends StatefulWidget {
   final String message;
-  const _ConfirmPaymentOrderDialogBody({super.key, required this.message});
+  const _ConfirmPaymentOrderDialogBody({required this.message});
 
   @override
   State<_ConfirmPaymentOrderDialogBody> createState() =>

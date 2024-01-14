@@ -14,7 +14,6 @@ import 'package:pharma/translations.dart';
 import '../../../bloc/location_bloc/location_bloc.dart';
 import '../../../bloc/location_bloc/location_event.dart';
 import '../../../bloc/location_bloc/location_state.dart';
-import '../../../core/services/services_locator.dart';
 import '../../../models/params/add_address_params.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
@@ -37,7 +36,7 @@ bool isFirst;
             ErrorDialog.openDialog(context, state.error);
           }
           if (state.success) {
-            AppRouter.push(context, MainScreen());
+            AppRouter.push(context, const MainScreen());
           }
         },
         builder: (context, state) {
@@ -65,7 +64,7 @@ bool isFirst;
                         ),
                       ],
                     ),
-                    isFirst?SizedBox():  InkWell(
+                    isFirst?const SizedBox():  InkWell(
                       onTap: () {
                         AppRouter.push(context, const SelectLocationFromMap());
                       },

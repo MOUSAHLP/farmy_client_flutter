@@ -37,8 +37,7 @@ class UserAddressRepository{
   }
 
   static Future<Either<String, String>> deleteAddress( int id) {
-    print("DeletE.toJson()");
-    print(id);
+   
     return BaseApiClient.delete<String>(
       url: ApiConst.deleteUserAddresses(id),
       converter: (e) {
