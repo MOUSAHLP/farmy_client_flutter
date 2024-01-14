@@ -171,7 +171,7 @@ class SignUpScreen extends StatelessWidget {
                               context.read<AuthenticationBloc>().add(SignUp());
                             }}
                             else{
-                              ErrorDialog.openDialog(context,"يرجى الموافقة على الشروط و الاحكام");
+                              ErrorDialog.openDialog(context,AppLocalizations.of(context)!.approve);
                             }
                           }),
                       const SizedBox(

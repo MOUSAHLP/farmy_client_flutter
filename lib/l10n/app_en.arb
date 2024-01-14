@@ -4,7 +4,7 @@
   "login_guest": "Continue as a guest",
   "phone": "Phone",
   "password": "Password",
-  "forget_password": "Did you forget your password?",
+  "forget_password": "Did you forgot your password?",
   "reset_password": "Reset password",
   "back": "Back",
   "reset_link": "A new password reset link will be sent in a text message. Please click on it when you receive it to recover your account.",
@@ -226,5 +226,6 @@
   "orderSuccesfulyComplete": "The order has been completed successfully, you can proceed with your order from my order list",
   "locating_your_position": "Locating your position ......",
   "area": "Area",
-  "approve": "Please approve the terms and conditions."
+  "approve": "Please approve the terms and conditions.",
+  "validatePasswordMsg2" : "Use 8 characters with  at least \n one uppercase ,one lowercase letter \n one number and one symbol"
 }

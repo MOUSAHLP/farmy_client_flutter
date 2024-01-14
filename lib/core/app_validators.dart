@@ -22,7 +22,10 @@ class AppValidators {
     if (password == null || password.isEmpty) {
       return AppLocalizations.of(context)!.passwordFieldIsRequired;
     }
-    if (password.length < 3) {
+    if(!AppRegexp.passwordRegex.hasMatch(password)) {
+      return AppLocalizations.of(context)!.validatePasswordMsg2;
+    }
+    if (password.length < 7) {
       return AppLocalizations.of(context)!.passwordShouldBeEightCharacter;
     }
     return null;
@@ -53,6 +56,7 @@ class AppValidators {
     if (phone == null || phone.isEmpty) {
       return AppLocalizations.of(context)!.phoneFieldIsRequired;
     }
+
     if (!AppRegexp.phoneRegexp.hasMatch(phone)) {
       return AppLocalizations.of(context)!.wrongPhoneNumber;
     }
