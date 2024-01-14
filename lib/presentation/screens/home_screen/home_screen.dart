@@ -4,17 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
-import 'package:pharma/presentation/resources/assets_manager.dart';
-import 'package:pharma/presentation/resources/color_manager.dart';
-import 'package:pharma/presentation/resources/font_app.dart';
-import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/core/utils/app_value_const.dart';
+
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_servies.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_cursel.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/cutsom_home_shimmer.dart';
-import 'package:pharma/presentation/screens/location_screen/location_screen.dart';
 import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
 import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
@@ -61,79 +58,99 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               child: ListView(
                                 padding: EdgeInsets.zero,
                                 children: [
-                                  sl<AuthenticationBloc>().loggedIn?const CustomDeliveryAddress():const SizedBox(),
+                                  sl<AuthenticationBloc>().loggedIn
+                                      ? const CustomDeliveryAddress()
+                                      : const SizedBox(),
                                   const CustomDeliveryService(),
                                   state.homeData!.homeCategoriesList!.isNotEmpty
                                       ? Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 33, vertical: 13),
-                                          child: CustomSectionName(
-                                            sectionName:
-                                                AppLocalizations.of(context)!
-                                                    .sections,
-                                            onTap: () {
-                                              AppRouter.push(
-                                                  context,
-                                                  ALlSectionScreen(
-                                                    index: 0,
-                                                    tabControllerLength: state
-                                                            .homeData!
-                                                            .homeCategoriesList!
-                                                            .length +
-                                                        1,
-                                                  ));
-                                            },
-                                          ),
-                                        )
-                                      : const SizedBox(),
-                                  state.homeData!.homeCategoriesList!.isNotEmpty
-                                      ? SizedBox(
-                                          height: 300,
-                                          child: GridView.builder(
-                                            shrinkWrap: true,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 19),
-                                            itemCount: state.homeData!
-                                                .homeCategoriesList!.length,
-                                            scrollDirection: Axis.horizontal,
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisSpacing: 23,
-                                                    mainAxisSpacing: 15,
-                                                    mainAxisExtent: 97,
-                                                    crossAxisCount: 2),
-                                            itemBuilder: (context, index) {
-                                              return CustomCategory(
-                                                onTap: () {
-                                                  AppRouter.push(
-                                                      context,
-                                                      ALlSectionScreen(
-                                                        index: index + 1,
-                                                        tabControllerLength: state
-                                                                .homeData!
-                                                                .homeCategoriesList!
-                                                                .length +
-                                                            1,
-                                                      ));
-                                                },
-                                                categoryImage: state
-                                                    .homeData!
-                                                    .homeCategoriesList![index]
-                                                    .imageUrl,
-                                                categoryName: state
-                                                            .homeData!
-                                                            .homeCategoriesList![
-                                                                index]
-                                                            .name !=
-                                                        null
-                                                    ? state
-                                                        .homeData!
-                                                        .homeCategoriesList![
-                                                            index]
-                                                        .name!
-                                                    : "",
-                                              );
-                                            },
+                                              vertical: AppVAlueConst
+                                                  .homeVerticalPadding),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 33,
+                                                        vertical: 0),
+                                                child: CustomSectionName(
+                                                  sectionName:
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .sections,
+                                                  onTap: () {
+                                                    AppRouter.push(
+                                                        context,
+                                                        ALlSectionScreen(
+                                                          index: 0,
+                                                          tabControllerLength: state
+                                                                  .homeData!
+                                                                  .homeCategoriesList!
+                                                                  .length +
+                                                              1,
+                                                        ));
+                                                  },
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 300,
+                                                child: GridView.builder(
+                                                  shrinkWrap: true,
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 19),
+                                                  itemCount: state
+                                                      .homeData!
+                                                      .homeCategoriesList!
+                                                      .length,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  gridDelegate:
+                                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                                          crossAxisSpacing: 23,
+                                                          mainAxisSpacing: 15,
+                                                          mainAxisExtent: 97,
+                                                          crossAxisCount: 2),
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return CustomCategory(
+                                                      onTap: () {
+                                                        AppRouter.push(
+                                                            context,
+                                                            ALlSectionScreen(
+                                                              index: index + 1,
+                                                              tabControllerLength: state
+                                                                      .homeData!
+                                                                      .homeCategoriesList!
+                                                                      .length +
+                                                                  1,
+                                                            ));
+                                                      },
+                                                      categoryImage: state
+                                                          .homeData!
+                                                          .homeCategoriesList![
+                                                              index]
+                                                          .imageUrl,
+                                                      categoryName: state
+                                                                  .homeData!
+                                                                  .homeCategoriesList![
+                                                                      index]
+                                                                  .name !=
+                                                              null
+                                                          ? state
+                                                              .homeData!
+                                                              .homeCategoriesList![
+                                                                  index]
+                                                              .name!
+                                                          : "",
+                                                    );
+                                                  },
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         )
                                       : const SizedBox(),
@@ -145,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                   .homeSuggestedProductsList!
                                                   .isNotEmpty
                                               ? 0
-                                              : 10,
+                                              : 0,
                                           bannerList: state.homeData!
                                               .homeBannerListTopSection,
                                           height: 164,
@@ -154,15 +171,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   state.homeData!.homeSuggestedProductsList!
                                           .isNotEmpty
                                       ? Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 16, bottom: 20),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: AppVAlueConst
+                                                  .homeVerticalPadding),
                                           child: Column(
                                             children: [
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 33,
-                                                        vertical: 13),
+                                                        vertical: 0),
                                                 child: CustomSectionName(
                                                   sectionName:
                                                       AppLocalizations.of(
@@ -172,11 +190,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: 238,
+                                                height: 254,
                                                 width: 1.sw,
                                                 child: ListView.builder(
                                                   padding: const EdgeInsets
                                                       .symmetric(
+                                                      vertical: 13,
                                                       horizontal: 15),
                                                   itemCount: state
                                                       .homeData!
@@ -201,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                       child: Padding(
                                                           padding:
                                                               EdgeInsetsDirectional.only(
-                                                                  bottom: 10,
+                                                                  bottom: 0,
                                                                   start:
                                                                       index == 0
                                                                           ? 0
@@ -248,72 +267,87 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                           .isNotEmpty
                                       ? Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 33, vertical: 13),
-                                          child: CustomSectionName(
-                                            sectionName:
-                                                AppLocalizations.of(context)!
-                                                    .discounts,
-                                            onTap: () {},
-                                          ),
-                                        )
-                                      : const SizedBox(),
-                                  state.homeData!.homeDiscountedProductsList!
-                                          .isNotEmpty
-                                      ? SizedBox(
-                                          height: 238,
-                                          width: 1.sw,
-                                          child: ListView.builder(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
-                                            itemCount: state
-                                                .homeData!
-                                                .homeDiscountedProductsList!
-                                                .length,
-                                            scrollDirection: Axis.horizontal,
-                                            itemBuilder: (context, index) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  AppRouter.push(
-                                                      context,
-                                                      ProductDetailsScreen(
-                                                        id: state
-                                                            .homeData!
-                                                            .homeDiscountedProductsList![
-                                                                index]
-                                                            .id,
-                                                      ));
-                                                },
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .only(
-                                                          bottom: 10,
-                                                          start: index == 0
-                                                              ? 0
-                                                              : 15),
-                                                  child: CustomProductCard(
-                                                      isSellerFound: state
-                                                                  .homeData!
-                                                                  .homeDiscountedProductsList![
-                                                                      index]
-                                                                  .sellerName !=
-                                                              null
-                                                          ? true
-                                                          : false,
-                                                      isDisCount: state
-                                                                  .homeData!
-                                                                  .homeDiscountedProductsList![
-                                                                      index]
-                                                                  .discountStatus ==
-                                                              "1"
-                                                          ? true
-                                                          : false,
-                                                      productInfo: state
-                                                              .homeData!
-                                                              .homeDiscountedProductsList![
-                                                          index]),
+                                              vertical: AppVAlueConst
+                                                  .homeVerticalPadding),
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 33,
+                                                        vertical: 0),
+                                                child: CustomSectionName(
+                                                  sectionName:
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .discounts,
+                                                  onTap: () {},
                                                 ),
-                                              );
-                                            },
+                                              ),
+                                              SizedBox(
+                                                height: 254,
+                                                width: 1.sw,
+                                                child: ListView.builder(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 13,
+                                                      horizontal: 15),
+                                                  itemCount: state
+                                                      .homeData!
+                                                      .homeDiscountedProductsList!
+                                                      .length,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        AppRouter.push(
+                                                            context,
+                                                            ProductDetailsScreen(
+                                                              id: state
+                                                                  .homeData!
+                                                                  .homeDiscountedProductsList![
+                                                                      index]
+                                                                  .id,
+                                                            ));
+                                                      },
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .only(
+                                                                    bottom: 0,
+                                                                    start: index ==
+                                                                            0
+                                                                        ? 0
+                                                                        : 15),
+                                                        child: CustomProductCard(
+                                                            isSellerFound: state
+                                                                        .homeData!
+                                                                        .homeDiscountedProductsList![
+                                                                            index]
+                                                                        .sellerName !=
+                                                                    null
+                                                                ? true
+                                                                : false,
+                                                            isDisCount: state
+                                                                        .homeData!
+                                                                        .homeDiscountedProductsList![
+                                                                            index]
+                                                                        .discountStatus ==
+                                                                    "1"
+                                                                ? true
+                                                                : false,
+                                                            productInfo: state
+                                                                    .homeData!
+                                                                    .homeDiscountedProductsList![
+                                                                index]),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         )
                                       : const SizedBox(),
