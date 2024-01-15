@@ -110,7 +110,7 @@ class _AllLProductBodynState extends State<AllProductBody>
 
                                                 crossAxisCount: 2,
                                                 mainAxisSpacing: 26,
-                                                mainAxisExtent: 227),
+                                                mainAxisExtent: 232),
                                         itemBuilder: (context, index) {
                                           return Center(
                                               child: GestureDetector(
