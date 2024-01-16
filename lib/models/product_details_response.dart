@@ -7,7 +7,7 @@ class ProductDetailsResponse {
   int? id;
   String? nameOfProduct;
   String? price;
-  String? quantity;
+  int? quantity;
   List<AttrbiuteResponse> attributeList;
   String? availabilityOfProduct;
   String? sellerName;
@@ -39,7 +39,9 @@ class ProductDetailsResponse {
     return json["availability"] == "1"
         ? ProductDetailsResponse(
             id: json["id"],
-            description: json["description"],
+        quantity: json["quantity"] != null ? int.parse(json["quantity"]) : null,
+
+        description: json["description"],
             discountStatus: json["discount_status"],
             discountValue: json["discount_status"] != 0
                 ? getDiscountedPrice(json["price"], json["discount"])

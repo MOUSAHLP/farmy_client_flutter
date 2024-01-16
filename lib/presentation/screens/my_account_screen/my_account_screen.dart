@@ -29,7 +29,7 @@ class MyAccountScreen extends StatelessWidget {
         child: Column(
           children: [
             CustomAppBarScreen(
-                sectionName: AppLocalizations.of(context)!.my_Account),
+                sectionName: AppLocalizations.of(context)!.my_Account,isComeBack: false),
             Expanded(
               child: sl<AuthenticationBloc>().loggedIn? SingleChildScrollView(
                 child: Padding(

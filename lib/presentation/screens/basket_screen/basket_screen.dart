@@ -57,104 +57,100 @@ class BasketScreen extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-
                   return
-                     Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        Column(children: [
-                          state.prductList!.isEmpty
-                              ? CustomNoData(
-                                  noDataStatment:
-                                      AppLocalizations.of(context)!.sorryBasketIsEmpty)
-                              : Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 37, vertical: 11),
-                                  child: Text(
-                                      AppLocalizations.of(context)!
-                                          .final_product_appearance,
-                                      style: getRegularStyle(
-                                          color: ColorManager.grayForMessage)),
-                                ),
-                          Expanded(
-                            child: CustomOverscrollIndicator(
-                              child: ListView.builder(
-                                itemBuilder: (context, index) => CardBasket(
-                                    productAddedToBasketDetails:
-                                        state.prductList![index]),
-                                itemCount: state.prductList!.length,
-                              ),
-                            ),
-                          )
-                        ]),
-                        state.prductList!.isEmpty
-                            ? const SizedBox()
-                            : Container(
-                                width: 1.sw,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(22),
-                                        topRight: Radius.circular(22)),
-                                    boxShadow: [ColorManager.shadowGaryUp]),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const SizedBox(
-                                      height: 9,
-                                    ),
-                                    Text(
-                                        AppLocalizations.of(context)!
-                                            .total_price_without_delivery,
-                                        style: getBoldStyle(
-                                            color: ColorManager.grayForMessage,
-                                            fontSize: 14)),
-                                    Text("200,000 sy",
-                                        style: getBoldStyle(
-                                            color: ColorManager.primaryGreen,
-                                            fontSize: 24)),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 27, vertical: 9),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: CustomButton(
-                                              label: AppLocalizations.of(context)!
-                                                  .proceed_to_checkout,
-                                              fillColor: ColorManager.primaryGreen,
-                                              onTap: () {
-                                                context
-                                                    .read<BasketBloc>()
-                                                    .add(PaymentProcess());
-                                              },
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 16,
-                                          ),
-                                          Expanded(
-                                            child: CustomButton(
-                                              label: AppLocalizations.of(context)!
-                                                  .continue_shopping,
-                                              fillColor: ColorManager.primaryGreen,
-                                              labelColor: Colors.white,
-                                              onTap: () {
-                                                // SystemNavigator.pop();
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 9,
-                                    ),
-                                  ],
-                                ),
-                              )
-                      ],
-                    )
+                     Column(
+                       mainAxisAlignment: MainAxisAlignment.end,children: [
+                       state.prductList!.isEmpty
+                           ? CustomNoData(
+                               noDataStatment:
+                                   AppLocalizations.of(context)!.sorryBasketIsEmpty)
+                           : Padding(
+                               padding: const EdgeInsets.symmetric(
+                                   horizontal: 37, vertical: 11),
+                               child: Text(
+                                   AppLocalizations.of(context)!
+                                       .final_product_appearance,
+                                   style: getRegularStyle(
+                                       color: ColorManager.grayForMessage)),
+                             ),
+                       Expanded(
+                         child: CustomOverscrollIndicator(
+                           child: ListView.builder(
+                             itemBuilder: (context, index) => CardBasket(
+                                 productAddedToBasketDetails:
+                                     state.prductList![index]),
+                             itemCount: state.prductList!.length,
+                           ),
+                         ),
+                       ),
+                       state.prductList!.isEmpty
+                           ? const SizedBox()
+                           : Container(
+                         width: 1.sw,
+                         decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: const BorderRadius.only(
+                                 topLeft: Radius.circular(22),
+                                 topRight: Radius.circular(22)),
+                             boxShadow: [ColorManager.shadowGaryUp]),
+                         child: Column(
+                           mainAxisSize: MainAxisSize.min,
+                           children: [
+                             const SizedBox(
+                               height: 9,
+                             ),
+                             Text(
+                                 AppLocalizations.of(context)!
+                                     .total_price_without_delivery,
+                                 style: getBoldStyle(
+                                     color: ColorManager.grayForMessage,
+                                     fontSize: 14)),
+                             Text(context.read<BasketBloc>().finalPrice().toString(),
+                                 style: getBoldStyle(
+                                     color: ColorManager.primaryGreen,
+                                     fontSize: 24)),
+                             Padding(
+                               padding: const EdgeInsets.symmetric(
+                                   horizontal: 27, vertical: 9),
+                               child: Row(
+                                 children: [
+                                   Expanded(
+                                     child: CustomButton(
+                                       label: AppLocalizations.of(context)!
+                                           .proceed_to_checkout,
+                                       fillColor: ColorManager.primaryGreen,
+                                       onTap: () {
+                                         context
+                                             .read<BasketBloc>()
+                                             .add(PaymentProcess());
+                                       },
+                                     ),
+                                   ),
+                                   const SizedBox(
+                                     width: 16,
+                                   ),
+                                   Expanded(
+                                     child: CustomButton(
+                                       label: AppLocalizations.of(context)!
+                                           .continue_shopping,
+                                       fillColor: ColorManager.primaryGreen,
+                                       labelColor: Colors.white,
+                                       onTap: () {
+                                         // SystemNavigator.pop();
+                                       },
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                             ),
+                             const SizedBox(
+                               height: 9,
+                             ),
+                           ],
+                         ),
+                       )
+                     ],
+                     )
                   ;
                 },
               ),
