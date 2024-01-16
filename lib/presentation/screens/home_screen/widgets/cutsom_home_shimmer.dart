@@ -79,7 +79,7 @@ class CustomHomeShimmer extends StatelessWidget {
                       return Shimmer.fromColors(
                         baseColor: ColorManager.grayForPlaceholde,
                         highlightColor: const Color(0xFFe2e4e9),
-                        child: const CustomCategory(
+                        child:  CustomCategory(
                           textHieght: 0,
                           categoryName: "",
                         ),

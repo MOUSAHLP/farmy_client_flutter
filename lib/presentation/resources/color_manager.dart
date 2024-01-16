@@ -45,4 +45,5 @@ class     ColorManager {
   );
   static const grayForm =Color(0xffE4E4E4);
   static const yellow =Color(0xffEDCC2F);
+
 }
