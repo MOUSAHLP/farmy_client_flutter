@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import '../../../bloc/location_bloc/location_bloc.dart';
 import '../../../bloc/location_bloc/location_event.dart';
 import '../../../bloc/location_bloc/location_state.dart';
@@ -30,31 +31,31 @@ class SelectLocationFromMap extends StatelessWidget {
             },
             builder: (context, state) {
               if (state.screenStates == ScreenStates.loading) {
-                return Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      CustomAppBarScreen(
-                          sectionName:
-                          AppLocalizations.of(context)!.delivery_Address),
-                      const SizedBox(height: 60),
-                      const LinearProgressIndicator(
-                        backgroundColor: ColorManager.primaryGreen,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                      const SizedBox(height: 40),
-                      Text(
-                        AppLocalizations.of(context)!.locating_your_position,
-                        style: getBoldStyle(color: ColorManager.primaryGreen, fontSize: 16),
-                      )
-                    ],
+                return SafeArea(
+                  child: Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        CustomAppBarScreen(
+                            sectionName:
+                            AppLocalizations.of(context)!.delivery_Address),
+                        const SizedBox(height: 60),
+                        const LinearProgressIndicator(
+                          backgroundColor: ColorManager.primaryGreen,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                        const SizedBox(height: 40),
+                        Text(
+                          AppLocalizations.of(context)!.locating_your_position,
+                          style: getBoldStyle(color: ColorManager.primaryGreen, fontSize: 16),
+                        )
+                      ],
+                    ),
                   ),
                 );
               }
               if (state.screenStates == ScreenStates.error) {
-                return const Center(
-                  child: Text("error"),
-                );
+                return  CustomErrorScreen(onTap: (){},);
               }
               return SafeArea(
                 child: Stack(

@@ -152,7 +152,7 @@ class _PasswordInputFieldAuthState extends State<PasswordInputFieldAuth> {
             child: Text(
               widget.errorMessage ?? validationErrorMessage ?? '',
               style: getBoldStyle(
-                color: ColorManager.yellow,
+                color: ColorManager.redForFavorite,
               ),
             ),
           ),

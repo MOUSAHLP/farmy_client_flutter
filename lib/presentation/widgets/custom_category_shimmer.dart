@@ -20,7 +20,7 @@ class CustomCategoryShimmer extends StatelessWidget {
             mainAxisExtent: 135,
             crossAxisCount: 3),
         itemBuilder: (context, index) {
-          return const CustomCategory(categoryName: "");
+          return  CustomCategory(categoryName: "");
         },
       ),
     );

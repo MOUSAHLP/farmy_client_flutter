@@ -105,7 +105,7 @@ class _AccountScreenState extends State<AccountScreen>
                                 label:
                                     AppLocalizations.of(context)!.new_subscription,
                             onTap: (){
-                              AppRouter.push(context, const SignUpScreen(),);
+                              AppRouter.push(context,  SignUpScreen(),);
                             }),
                             const SizedBox(
                               height: 27,

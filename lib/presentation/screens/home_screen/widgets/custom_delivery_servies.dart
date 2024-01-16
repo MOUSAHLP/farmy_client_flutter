@@ -67,7 +67,7 @@ class CustomDeliveryService extends StatelessWidget {
                     ColorManager.grayForMessage,
                   ),
                 ),
-                CustomButton(label: AppLocalizations.of(context)!.sign_in,widht: 1.sw/2,
+                CustomButton(label: AppLocalizations.of(context)!.sign_in,width: 1.sw/2,
                 onTap: (){
                   AppRouter.push(context, const AccountScreen());
                 }),

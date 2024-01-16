@@ -10,6 +10,8 @@ class ApiConst {
   static const String changePassword = "/auth/change-password";
 
   static const String signUp = "/users";
+  static const String updateProfile = "";
+  static const String profile = "";
 
   ///Categories
   static const String getAllCategoties = "/categories";
@@ -28,4 +30,7 @@ static String createOrders = "/orders";
   static const String getUserAddresses = "/user_addresses";
   static const String addUserAddresses = "/user_addresses";
   static  String deleteUserAddresses(int id) => "/user_addresses/$id";
+
+  ///my_order
+  static const String getMyOrder = "/orders";
 }

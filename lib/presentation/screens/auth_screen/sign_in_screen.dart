@@ -16,6 +16,8 @@ import '../../resources/assets_manager.dart';
 import '../../resources/style_app.dart';
 import '../../widgets/password_input_field_auth.dart';
 import '../location_first_screen/location_first_screen.dart';
+
+
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
   @override
@@ -58,12 +60,13 @@ class SignInBody extends StatelessWidget {
                 height: 58,
               ),
               InputFieldAuth(
-                  suffixIcon: Image.asset(
+                  icon: Image.asset(
                     ImageManager.flagOfSyria,
                     height: 20,
                     width: 20,
                   ),
                 keyboardType: TextInputType.phone,
+                isPhone: true,
                 controller: phoneController,
                   hintText: AppLocalizations.of(context)!.hint_phone,
                 validator: (value) {

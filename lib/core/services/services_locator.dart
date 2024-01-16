@@ -15,6 +15,8 @@ import 'package:pharma/data/repository/home_repo.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/data/repository/product_repo.dart';
 import '../../bloc/location_bloc/location_bloc.dart';
+import '../../bloc/my_order_bloc/my_order_bloc.dart';
+import '../../bloc/profile_bloc/pofile_bloc.dart';
 import '../../data/repository/user_repository.dart';
 
 final sl = GetIt.instance;
@@ -43,15 +45,22 @@ class ServicesLocator {
     sl.registerFactory(
         () => ProductsBloc(categoriesRepo: sl<CategoriesRepo>()));
 
-    // product
+    /// product
     sl.registerSingleton<ProductRepo>(ProductRepo());
     sl.registerFactory(
         () => ProductdetailsBloc(productRepo: sl<ProductRepo>()));
 
-    //basket
+    ///basket
     sl.registerSingleton<BasketRepo>(BasketRepo());
     sl.registerLazySingleton(() => BasketBloc(basketRepo: sl<BasketRepo>()));
-    // favorite
+
+    /// favorite
     sl.registerLazySingleton(() => FavoriteBloc());
+
+    ///profile
+    sl.registerFactory(() => ProfileBloc());
+
+    ///my order
+    sl.registerFactory(() => MyOrderBloc());
   }
 }

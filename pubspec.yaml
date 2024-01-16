@@ -43,6 +43,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   url_launcher: ^6.2.1
+  image_picker:
 
   #map
   google_places_autocomplete_text_field:

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -9,13 +11,31 @@ class CustomCategory extends StatelessWidget {
   final String? categoryImage;
   final Function()? onTap;
   final double? textHieght;
-  const CustomCategory(
+   CustomCategory(
       {super.key,
       required this.categoryName,
       this.textHieght,
       this.onTap,
       this.categoryImage});
+  final List<Color> colorOptions = [
+    const Color(0xFFC05E47),
+    const Color(0xFFCA2928),
+    const Color(0xFF578A4A),
+    const Color(0xFFE3B341),
+    const Color(0xFFC48572),
+    const Color(0xFFA12120),
+    const Color(0xFFE97759),
+    const Color(0xFF023DB9),
+    const Color(0xFFFFFFFF),
 
+  ];
+  Color getChartColor() {
+      Random random = Random();
+      int index=random.nextInt(colorOptions.length);
+      Color select=colorOptions[index];
+      colorOptions.removeAt(index);
+      return select;
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,7 +46,9 @@ class CustomCategory extends StatelessWidget {
           Container(
             height: 97,
             width: 97,
-            decoration: const BoxDecoration(boxShadow: [
+            decoration:  BoxDecoration(
+                border: Border.all(color: getChartColor(),width: 2),
+                boxShadow: [
               BoxShadow(
                   blurRadius: 2,
                   offset: Offset(0, -3),
