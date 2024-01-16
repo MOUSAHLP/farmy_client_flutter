@@ -39,6 +39,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         }
       }
       if (event is ChangeLocationMarker) {
+        address.latitude= event.latLan.latitude;
+      address.longitude=event.latLan.longitude;
         markerLocation = Marker(
           icon: customIcon!,
           markerId: MarkerId(event.latLan.latitude.toString()),
@@ -68,8 +70,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       }
       if(event is AddUserAddress){
         emit(state.copyWith(isLoading: true));
-       address.latitude=state.latitude;
-       address.longitude=state.longitude;
+       // address.latitude=state.latitude;
+       // address.longitude=state.longitude;
         final response =
         await UserAddressRepository.addUserAddress(event.address);
         response.fold((l) {
@@ -78,7 +80,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           }
         }, (r) {
           addressCurrent=r;
-    
           emit(state.copyWith(success: true,addressCurrent: r));
         });
       }

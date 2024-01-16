@@ -27,14 +27,14 @@ class AddAddressParams extends Equatable {
 
   Map<String, dynamic> toJson() => {
          "name": name,
-        "latitude": "111" ,
-         "longitude": "111" ,
+        "latitude": latitude ,
+         "longitude": longitude ,
         "street": street,
         "building": building,
         "building_number": buildingNumber,
         "floor": floor,
         "address": address,
-        "area": "المزة",
+        "area": area,
       };
   factory AddAddressParams.fromGetHistoryParams(AddAddressParams params) =>
       AddAddressParams(

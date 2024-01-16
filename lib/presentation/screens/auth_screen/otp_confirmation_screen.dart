@@ -176,7 +176,7 @@ class _OtpConfirmationBodyState extends State<OtpConfirmationBody>
                             ],
                           ),
                          !showTimer? Text(AppLocalizations.of(context)!.resend_minute, style: getSemiBoldStyle(color: Colors.white)):const SizedBox(),
-                         !showTimer? Text('$_hours:${_minutes.toString().padLeft(2, '0')}:${_seconds.toString().padLeft(2, '0')}', style: getSemiBoldStyle(color: Colors.white)):SizedBox(),
+                         !showTimer? Text('$_hours:${_minutes.toString().padLeft(2, '0')}:${_seconds.toString().padLeft(2, '0')}', style: getSemiBoldStyle(color: Colors.white)):const SizedBox(),
                        ],
                      ),
 

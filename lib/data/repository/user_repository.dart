@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:pharma/models/profile_model.dart';
 import '../../core/utils/api_const.dart';
 import '../../models/login_response.dart';
 import '../../models/otp_verify_response.dart';
@@ -81,4 +82,31 @@ class UserRepository {
           return e['data']['name'];
         });
   }
+  static Future<Either<String, ProfileModel>> editProfile(
+      ProfileModel? profileModel) async {
+    String? imageFileName = profileModel?.avatar != null
+        ? profileModel?.avatar?.split('/').last
+        : '';
+    return BaseApiClient.post<ProfileModel>(
+        url: ApiConst.updateProfile,
+        formData: FormData.fromMap({
+          "name": profileModel?.name,
+          "email": profileModel?.email,
+          "phone": profileModel?.phone,
+          if (profileModel?.avatar != null && profileModel!.avatar!.isNotEmpty)
+            "avatar": await MultipartFile.fromFile(profileModel.avatar ?? "",
+                filename: imageFileName),
+        }),
+        converter: (e) {
+          return ProfileModel.fromJson(e['data']);
+        });
+  }
+  static Future<Either<String, ProfileModel>> getProfile() {
+    return BaseApiClient.get<ProfileModel>(
+        url: ApiConst.profile,
+        converter: (e) {
+          return ProfileModel.fromJson(e['data']);
+        });
+  }
+
 }

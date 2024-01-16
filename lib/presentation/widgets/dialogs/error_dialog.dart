@@ -37,7 +37,7 @@ class _ErrorDialogBody extends StatelessWidget {
           SvgPicture.asset(IconsManager.errorIcon),
           Padding(
             padding:
-            EdgeInsets.symmetric(
+            const EdgeInsets.symmetric(
               horizontal: 8.0,
               vertical: 10,
             ),

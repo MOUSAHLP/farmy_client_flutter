@@ -51,80 +51,81 @@ class LocationScreenBody extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Column(children: [
-                CustomAppBarScreen(sectionName: AppLocalizations.of(context)!.delivery_Address),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 14,horizontal: 21),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+        body: Column(
+            mainAxisAlignment:MainAxisAlignment.end,children: [
+          CustomAppBarScreen(sectionName: AppLocalizations.of(context)!.delivery_Address),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14,horizontal: 21),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(AppLocalizations.of(context)!.choose_the_Address,style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 14),),
+                  ],
+                ),
+                const SearchAddress(),
+                InkWell(
+                  onTap: (){
+                    AppRouter.push(context,  AddLocationScreen());
+                  },
+                  child: Row(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(AppLocalizations.of(context)!.choose_the_Address,style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 14),),
-                        ],
-                      ),
-                      const SearchAddress(),
-                      InkWell(
-                        onTap: (){
-                          AppRouter.push(context,  AddLocationScreen());
-                        },
-                        child: Row(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.location_on_rounded,color: ColorManager.primaryGreen,),
-                            ),
-
-                            Text(AppLocalizations.of(context)!.map_to_choose_location,style: getRegularStyle(color: ColorManager.primaryGreen,fontSize: 14),)
-                          ],
-                        ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.location_on_rounded,color: ColorManager.primaryGreen,),
                       ),
 
+                      Text(AppLocalizations.of(context)!.map_to_choose_location,style: getRegularStyle(color: ColorManager.primaryGreen,fontSize: 14),)
                     ],
                   ),
                 ),
-                Expanded(
-                  child: BlocBuilder<LocationBloc, LocationState>(
-            builder: (context, state){
-              if(state.screenStates == ScreenStates.loading)
-              {
-                  return const ShimmerCard();
-              }
-              if(state.screenStates == ScreenStates.error)
-              {
-                  return  const Text("error");
-              }
-              return CustomOverscrollIndicator(
-                      child: ListView.builder(
-                        itemBuilder: (context, index) => Row(
-                          children: [
-                            CardLocation(userAddressModel: state.userAddressList[index]),
-                          ],
-                        ),
-                      itemCount:state.userAddressList.length,),
-                    );}
-                  ),
-                )
-              ]),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 72,vertical: 20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CustomButton(label: AppLocalizations.of(context)!.add_new_favorite_address,onTap: (){
-                      AppRouter.push(context, AddLocationScreen());
-                    }),
-                    const SizedBox(height: 16,),
-                    CustomButton(label: AppLocalizations.of(context)!.done),
-                  ],
-                ),
-              )
-            ],
+
+              ],
+            ),
           ),
+          Expanded(
+            child: BlocBuilder<LocationBloc, LocationState>(
+            builder: (context, state){
+        if(state.screenStates == ScreenStates.loading)
+        {
+            return const ShimmerCard();
+        }
+        if(state.screenStates == ScreenStates.error)
+        {
+            return  const Text("error");
+        }
+        return CustomOverscrollIndicator(
+                child: ListView.builder(
+                  itemBuilder: (context, index) => Row(
+                    children: [
+                      CardLocation(userAddressModel: state.userAddressList[index]),
+                    ],
+                  ),
+                itemCount:state.userAddressList.length,),
+              );}
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 72,vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomButton(
+                    label: AppLocalizations.of(context)!.add_new_favorite_address,onTap: (){
+                  AppRouter.push(context, AddLocationScreen());
+                },
+                fillColor: Colors.white,
+                isFilled: true,
+                borderColor: ColorManager.primaryGreen,
+                labelColor:ColorManager.primaryGreen, ),
+                const SizedBox(height: 16,),
+                CustomButton(label: AppLocalizations.of(context)!.done),
+              ],
+            ),
+          )
+        ]),
       ),
     );
   }

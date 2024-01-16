@@ -8,15 +8,16 @@ class RowOrder extends StatelessWidget {
   final String details;
   @override
   Widget build(BuildContext context) {
+    if(details=='') return const SizedBox();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title,
-            style: getUnderBoldStyle(color: Colors.black, fontSize: 11)),
+            style: getBoldStyle(color: Colors.black, fontSize: 11)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2),
           child: Text(":",
-              style: getUnderBoldStyle(color: Colors.black, fontSize: 11)),
+              style: getBoldStyle(color: Colors.black, fontSize: 11)),
         ),
         Expanded(
             child: Text(details,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/models/my_order_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/row_order.dart';
@@ -8,9 +9,12 @@ import 'package:pharma/presentation/screens/order_tracking_screen/order_tracking
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/translations.dart';
 
-class CardOrder extends StatelessWidget {
-  const CardOrder({super.key});
+import '../../../../core/get_address.dart';
+import '../../order_details_screen/order_details_screen.dart';
 
+class CardOrder extends StatelessWidget {
+  const CardOrder({super.key,required this.myOrder});
+final  MyOrderResponse myOrder;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,36 +31,36 @@ class CardOrder extends StatelessWidget {
             children: [
               RowOrder(
                   title: AppLocalizations.of(context)!.order_Number,
-                  details: "111"),
+                  details: myOrder.orderNumber??""),
               RowOrder(
                   title: AppLocalizations.of(context)!.address,
-                  details: "دمشق - كزرنيش التجارة - بناء 24"),
+                  details: getAddress(myOrder.userAddress!)),
               RowOrder(
                   title: AppLocalizations.of(context)!.delivery_Type,
-                  details: "التوصيل الآن"),
+                  details:myOrder.deliveryMethod?.name??"" ),
               RowOrder(
                   title: AppLocalizations.of(context)!.expected_Time,
-                  details: "30 دقيقة"),
-              Row(
+                  details: "qmar 30 دقيقة"),
+              myOrder.total != null? Row(
                 children: [
                   Text(AppLocalizations.of(context)!.total_Price_with_Delivery,
                       style:
-                          getUnderBoldStyle(color: Colors.black, fontSize: 11)),
+                          getBoldStyle(color: Colors.black, fontSize: 11)),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 2),
                     child: Text(":",
-                        style: getUnderBoldStyle(
+                        style: getBoldStyle(
                             color: Colors.black, fontSize: 11)),
                   ),
                   Expanded(
-                    child: Text(" 225.000 ل.س",
+                    child: Text(myOrder.total??"",
                         style: getBoldStyle(
                             color: ColorManager.primaryGreen, fontSize: 15),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis),
                   ),
                 ],
-              ),
+              ):const SizedBox(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
@@ -66,7 +70,7 @@ class CardOrder extends StatelessWidget {
                         label: AppLocalizations.of(context)!.show_Order,
                         fillColor: ColorManager.primaryGreen,
                         onTap: () {
-                          // AppRouter.pop(context);
+                         AppRouter.push(context, OrderDetailsScreen(orderDetailsList:myOrder.orderDetailsList??[],));
                         },
                       ),
                     ),
@@ -76,6 +80,20 @@ class CardOrder extends StatelessWidget {
                     Expanded(
                       child: CustomButton(
                         label: AppLocalizations.of(context)!.track_Order,
+                        fillColor: ColorManager.primaryGreen,
+                        labelColor: Colors.white,
+                        onTap: () {
+                          AppRouter.push(context, const OrderTrackingScreen());
+                          // SystemNavigator.pop();
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: CustomButton(
+                        label: AppLocalizations.of(context)!.edit_Orders,
                         fillColor: ColorManager.primaryGreen,
                         labelColor: Colors.white,
                         onTap: () {
