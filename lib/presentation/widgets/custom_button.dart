@@ -12,7 +12,7 @@ class CustomButton extends StatelessWidget {
     this.isFilled = false,
     this.labelColor = Colors.white,
     this.height,
-    this.widht,
+    this.width,
     required this.label,
     this.onTap,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
   final Color labelColor;
   final Color? borderColor;
   final double? height;
-  final double? widht;
+  final double? width;
   final String label;
   final Function()? onTap;
 
@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: widht ?? 1.sw - 50,
+        width: width ?? 1.sw - 50,
         height: height ?? 47,
         decoration: BoxDecoration(
             color: isFilled ? fillColor : null,
@@ -38,17 +38,17 @@ class CustomButton extends StatelessWidget {
             border:
                 Border.all(color: borderColor ?? Colors.transparent, width: 2),
             gradient: !isFilled ? ColorManager.linearGradientPrimary : null
-            // boxShadow: isFilled
-            //     ?ColorManager.boxShadow
-            //     : []
+
             ),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(
-              label,
-              style: getBoldStyle(
-                color: labelColor,
+            child: FittedBox(
+              child: Text(
+                label,
+                style: getBoldStyle(
+                  color: labelColor,
+                ),
               ),
             ),
           ),

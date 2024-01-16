@@ -40,7 +40,15 @@ class _MainScreenState extends State<MainScreen> {
         if (scaffoldKey.currentState?.isDrawerOpen == true) {
           scaffoldKey.currentState?.closeDrawer();
         } else {
-          WillPopScopeHandler.handle(context);
+          if (context.read<HomeBloc>().currentIndex == 0) {
+            WillPopScopeHandler.handle(context);
+          } else {
+            setState(() {
+
+            });
+            context.read<HomeBloc>().currentIndex = 0;
+
+          }
         }
         return false;
       },

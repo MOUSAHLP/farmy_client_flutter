@@ -4,6 +4,12 @@ import 'package:pharma/core/utils/app_regex.dart';
 import '../translations.dart';
 
 class AppValidators {
+  static String? validateNameFields(BuildContext context, String? name) {//todo
+    if (name == null || name.isEmpty) {
+      return "الحقل مطلوب";
+    }
+    return null;
+  }
   static String? validateFirstNameFields(BuildContext context, String? name) {
     if (name == null || name.isEmpty) {
       return AppLocalizations.of(context)!.fNameFieldIsRequired;
