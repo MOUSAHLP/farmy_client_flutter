@@ -30,7 +30,7 @@ class CustomBillDetailsRow extends StatelessWidget {
                     fontSize: FontSizeApp.s16),
               ),
               Text(
-                price,
+                price.toString(),
                 style: getUnderBoldStyle(
                     color: colorText ?? ColorManager.grayForMessage,
                     fontSize: FontSizeApp.s14),

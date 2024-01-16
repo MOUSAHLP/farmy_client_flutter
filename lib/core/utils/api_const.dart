@@ -25,7 +25,7 @@ class ApiConst {
 
   //payment-process
   static String getPaymentDetails = "/payment-process";
-
+static String createOrders = "/orders";
   ///Address
   static const String getUserAddresses = "/user_addresses";
   static const String addUserAddresses = "/user_addresses";

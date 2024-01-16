@@ -15,7 +15,10 @@ class OrderEvent extends PaymentEvent {
 
 class ChoosePaymentStatusEvent extends PaymentEvent {
   final PaymentStates paymentState;
-  const ChoosePaymentStatusEvent({required this.paymentState});
+
+  const ChoosePaymentStatusEvent({
+    required this.paymentState,
+  });
 }
 
 class GetPaymentDetailsEvent extends PaymentEvent {}
@@ -25,6 +28,13 @@ class AddToChossenAttrbiuteList extends PaymentEvent {
   const AddToChossenAttrbiuteList({
     this.attrbiuteData,
   });
+}
+
+class GetInvoicesDetails extends PaymentEvent {
+  final InvoicesParms invoicesParms;
+  final List<ProductDetailsResponse>? prductList;
+  const GetInvoicesDetails(
+      {required this.invoicesParms, required this.prductList});
 }
 
 class RemoveFromChossenList extends PaymentEvent {
@@ -38,5 +48,14 @@ class ToogleDeleveryMethod extends PaymentEvent {
   final DeleveryMethodResponse? deleveryMethodData;
   const ToogleDeleveryMethod({
     this.deleveryMethodData,
+  });
+}
+
+class CreateOrder extends PaymentEvent {
+  final InvoicesParms invoicesParms;
+  final List<ProductDetailsResponse> prductList;
+  const CreateOrder({
+    required this.invoicesParms,
+    required this.prductList,
   });
 }

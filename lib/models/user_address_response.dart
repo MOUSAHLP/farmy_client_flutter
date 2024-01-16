@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class UserAddressModel  {
+class UserAddressModel {
   UserAddressModel({
     this.id,
     this.name,
@@ -10,11 +10,13 @@ class UserAddressModel  {
     this.street,
     this.building,
     this.buildingNumber,
+    this.isFavorite,
     this.floor,
   });
 
   int? id;
   String? name;
+  String? adress;
   String? latitude;
   String? longitude;
   String? area;
@@ -22,10 +24,13 @@ class UserAddressModel  {
   String? building;
   String? buildingNumber;
   String? floor;
+  String? isFavorite;
 
   UserAddressModel.fromJson(dynamic json) {
     id = json['id'];
+    isFavorite = json["is_favourite"];
     name = json['name'];
+    adress = json["address"];
     latitude = json['latitude'];
     longitude = json['longitude'];
     area = json['area'];
@@ -36,16 +41,16 @@ class UserAddressModel  {
   }
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "latitude": latitude,
-    "longitude": longitude,
-    "area": area,
-    "street": street,
-    "building": building,
-    "buildingNumber": buildingNumber,
-    "floor": floor,
-  };
+        "id": id,
+        "name": name,
+        "latitude": latitude,
+        "longitude": longitude,
+        "area": area,
+        "street": street,
+        "building": building,
+        "buildingNumber": buildingNumber,
+        "floor": floor,
+      };
 
   static List<UserAddressModel> listFromJson(List<dynamic>? json) {
     return json == null

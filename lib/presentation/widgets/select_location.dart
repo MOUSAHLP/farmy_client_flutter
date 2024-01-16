@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/models/user_address_response.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -7,7 +8,8 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/translations.dart';
 
 class SelectLocation extends StatelessWidget {
-  const SelectLocation({super.key});
+final UserAddressModel favoriteuserAddress;
+  const SelectLocation({super.key, required this.favoriteuserAddress});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class SelectLocation extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                     AppLocalizations.of(context)!.delivery_to,
+                        AppLocalizations.of(context)!.delivery_to,
                         style: getSemiBoldStyle(
                                 color: ColorManager.grayForMessage,
                                 fontSize: FontSizeApp.s10)!
@@ -60,7 +62,7 @@ class SelectLocation extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          "دمشق - الميدان - بناء الادخار ",
+                          getAddress(favoriteuserAddress),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: getBoldStyle(
@@ -86,3 +88,18 @@ class SelectLocation extends StatelessWidget {
     );
   }
 }
+  String getAddress(UserAddressModel userAddressModel) {
+    final name = userAddressModel.name;
+    final area = userAddressModel.area;
+    final street = userAddressModel.street;
+    final building = userAddressModel.building;
+    final floor = userAddressModel.floor;
+
+    final namePart = name != null ? "$name - " : "";
+    final areaPart = area != null ? "$area - " : "";
+    final streetPart = street != null ? "$street - " : "";
+    final buildingPart = building != null ? "$building - " : "";
+    final floorPart = floor != null ? "$floor " : "";
+
+    return "$namePart$areaPart$streetPart$buildingPart$floorPart".trimRight();
+  }

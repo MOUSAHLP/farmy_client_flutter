@@ -3,7 +3,7 @@ class DeleveryMethodResponse {
   int? id;
   String? deleveryName;
   String? deleveytime;
-  String? deleveyPrice;
+  int? deleveyPrice;
   DeleveryMethodResponse({
     this.id,
     this.deleveryName,
@@ -16,7 +16,7 @@ class DeleveryMethodResponse {
         id: json["id"],
         deleveryName: json["name"],
         deleveytime: json["time"],
-        deleveyPrice: json["price"]);
+        deleveyPrice: json["total_price"]);
   }
 
   static List<DeleveryMethodResponse> listFromJson(List<dynamic>? json) {

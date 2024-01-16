@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/models/delivery_response.dart';
+import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -11,7 +13,9 @@ import '../../../../bloc/payment_bloc/payment_bloc.dart';
 
 class CutomOrderTypeContiner extends StatelessWidget {
   final bool isSelected;
+  final bool isChossenLocation;
   final DeleveryMethodResponse delveryField;
+  final int userAddressid;
   final String image;
   final String text;
   final String deliverycost;
@@ -19,6 +23,8 @@ class CutomOrderTypeContiner extends StatelessWidget {
   const CutomOrderTypeContiner(
       {super.key,
       required this.isSelected,
+      required this.userAddressid,
+      required this.isChossenLocation,
       required this.delveryField,
       required this.onTap,
       required this.deliverycost,
@@ -66,9 +72,25 @@ class CutomOrderTypeContiner extends StatelessWidget {
                     BlocBuilder<PaymentBloc, PaymentState>(
                       builder: (context, state) {
                         return SlectedContiner(
-                          onPreased: () {    context.read<PaymentBloc>().add(
+                          onPreased: () {
+                            if (!isSelected) {
+                              if (isChossenLocation) {
+                                context.read<PaymentBloc>().add(
                                     ToogleDeleveryMethod(
-                                        deleveryMethodData: delveryField));},
+                                        deleveryMethodData: delveryField));
+
+                                context.read<PaymentBloc>().add(
+                                    GetInvoicesDetails(
+                                        invoicesParms: InvoicesParms(
+                                            deliveryMethodId: delveryField.id!,
+                                            userAddressid: userAddressid),
+                                        prductList: context
+                                            .read<BasketBloc>()
+                                            .state
+                                            .prductList));
+                              }
+                            }
+                          },
                           color: isSelected
                               ? ColorManager.primaryGreen
                               : ColorManager.greyForUnSleactedItem,
@@ -82,13 +104,21 @@ class CutomOrderTypeContiner extends StatelessWidget {
         const SizedBox(
           height: 4,
         ),
-        Text(
-          deliverycost,
-          style: getBoldStyle(
-                  color: ColorManager.grayForMessage,
-                  fontSize: FontSizeApp.s14)!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
+        isChossenLocation
+            ? Text(
+                deliverycost,
+                style: getBoldStyle(
+                        color: ColorManager.grayForMessage,
+                        fontSize: FontSizeApp.s14)!
+                    .copyWith(fontWeight: FontWeight.bold),
+              )
+            : Text(
+                "please chosse you location",
+                style: getBoldStyle(
+                        color: ColorManager.redForFavorite,
+                        fontSize: FontSizeApp.s14)!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
       ],
     );
   }

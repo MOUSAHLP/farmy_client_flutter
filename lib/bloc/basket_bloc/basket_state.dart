@@ -17,20 +17,24 @@ class BasketState extends Equatable {
       {List<ProductDetailsResponse>? prductList,
       AddToBasketState? addToBasketState,
       ScreenState? screenState,
-        String? errorMessage,
+      String? errorMessage,
       PaymentProcessResponse? paymentProcessResponse}) {
     return BasketState(
-      errorMessage: errorMessage??"",
+        errorMessage: errorMessage ?? "",
         paymentProcessResponse:
             paymentProcessResponse ?? this.paymentProcessResponse,
         addToBasketState: addToBasketState ?? addToBasketState,
         prductList: prductList ?? this.prductList,
-        screenState: screenState ?? this.screenState);
+        screenState: screenState ?? ScreenState.initialized);
   }
 
   @override
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         identityHashCode(this),
-        prductList, addToBasketState, screenState, paymentProcessResponse,errorMessage];
+        prductList,
+        addToBasketState,
+        screenState,
+        paymentProcessResponse,
+        errorMessage
+      ];
 }
