@@ -1,7 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:extended_image/extended_image.dart';
+import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/delevery_attributes_response.dart';
 import 'package:pharma/models/delivery_response.dart';
+import 'package:pharma/models/params/Invoices_params.dart';
+import 'package:pharma/models/params/payment_process_parms.dart';
+import 'package:pharma/models/payment_process_response.dart';
+import 'package:pharma/models/product_details_response.dart';
 
 import '../../core/app_enum.dart';
 
@@ -9,9 +15,10 @@ part 'payment_event.dart';
 part 'payment_state.dart';
 
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
-  PaymentBloc() : super(const PaymentState()) {
+  PaymentRepo paymentRepo;
+  PaymentBloc({required this.paymentRepo}) : super(const PaymentState()) {
     on<PaymentEvent>(
-      (event, emit) {
+      (event, emit) async {
         if (event is OrderEvent) {
           emit(state.copyWith(orderState: event.orderStates));
         }
@@ -22,7 +29,6 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           List<DeleveryAttributesResponse> mutableChossenAttrbiuteList =
               List.from(state.attrbiuteChossenList);
           mutableChossenAttrbiuteList.add(event.attrbiuteData!);
-          print(mutableChossenAttrbiuteList.length);
           emit(state.copyWith(
               attrbiuteChossenList: mutableChossenAttrbiuteList));
         }
@@ -43,11 +49,42 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
                 (element) => element.id == event.deleveryMethodData!.id);
           } else {
             mutableChossenDeleveryMethodList = [];
-            mutableChossenDeleveryMethodList.add(event.deleveryMethodData!);
+            mutableChossenDeleveryMethodList.add(
+              event.deleveryMethodData!,
+            );
           }
           emit(state.copyWith(
               deleveryMethodChossenList: mutableChossenDeleveryMethodList,
               deleveryCost: event.deleveryMethodData!.deleveyPrice));
+        }
+        if (event is GetInvoicesDetails) {
+          emit(state.copyWith(screenState: ScreenStates.loading));
+          PaymentProcessParms paymentProcessParms =
+              PaymentProcessParms(prodictInBasketList: event.prductList!);
+          (await paymentRepo.getInvoiceDetails(
+                  paymentProcessParms, event.invoicesParms))
+              .fold(
+                  (l) => emit(state.copyWith(screenState: ScreenStates.error)),
+                  (r) => emit(state.copyWith(
+                      screenState: ScreenStates.success,
+                      paymentProcessResponse: r)));
+        }
+        if (event is CreateOrder) {
+          emit(state.copyWith(
+              completePaymentStates: CompletePaymentStates.loading));
+          PaymentProcessParms paymentProcessParms =
+              PaymentProcessParms(prodictInBasketList: event.prductList);
+          (await paymentRepo.createOrder(
+            paymentProcessParms,
+            event.invoicesParms,
+            state.attrbiuteChossenList,
+          ))
+              .fold(
+                  (l) => emit(state.copyWith(
+                      completePaymentStates: CompletePaymentStates.error,
+                      errorMessage: l)),
+                  (r) => emit(state.copyWith(
+                      completePaymentStates: CompletePaymentStates.complete)));
         }
       },
     );

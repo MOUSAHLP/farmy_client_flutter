@@ -44,8 +44,11 @@ class CardBasket extends StatelessWidget {
                   SizedBox(
                     height: 30,
                     width: 30,
-                    child:
-                         Center(child: Text(productAddedToBasketDetails.quantity??"",style: getRegularStyle(color: Colors.black),)),
+                    child: Center(
+                        child: Text(
+                      productAddedToBasketDetails.quantity ?? "",
+                      style: getRegularStyle(color: Colors.black),
+                    )),
                   ),
                   Container(
                     height: 36,
@@ -64,43 +67,42 @@ class CardBasket extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  productAddedToBasketDetails.nameOfProduct??"",
+                  productAddedToBasketDetails.nameOfProduct ?? "",
                   style: getBoldStyle(
                           color: ColorManager.black, fontSize: FontSizeApp.s10)
                       ?.copyWith(height: 1),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child:   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      productAddedToBasketDetails.attributeList.isNotEmpty
-                          ? Text(productAddedToBasketDetails.attributeList[0].value,
-                          style: getBoldStyle(
-                            color: ColorManager.grayForMessage,
-                            fontSize: FontSizeApp.s15,
-                          ))
-                          : const SizedBox(),
-                      productAddedToBasketDetails.attributeList.length > 1
-                          ? Text(" / ${productAddedToBasketDetails.attributeList[1].value}",
-                          style: getBoldStyle(
-                            color: ColorManager.grayForMessage,
-                            fontSize: FontSizeApp.s15,
-                          ))
-                          : const SizedBox(),
-                    ],
-                  )
-                ),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        productAddedToBasketDetails.attributeList.isNotEmpty
+                            ? Text(
+                                productAddedToBasketDetails
+                                    .attributeList[0].value,
+                                style: getBoldStyle(
+                                  color: ColorManager.grayForMessage,
+                                  fontSize: FontSizeApp.s15,
+                                ))
+                            : const SizedBox(),
+                        productAddedToBasketDetails.attributeList.length > 1
+                            ? Text(
+                                " / ${productAddedToBasketDetails.attributeList[1].value}",
+                                style: getBoldStyle(
+                                  color: ColorManager.grayForMessage,
+                                  fontSize: FontSizeApp.s15,
+                                ))
+                            : const SizedBox(),
+                      ],
+                    )),
                 Row(
                   children: [
-
-                      Text(
-                          Formatter.formatPrice(
-                              int.tryParse(productAddedToBasketDetails.price.toString())??0),
-                          style: getBoldStyle(
-                              color: ColorManager.primaryGreen,
-                              fontSize: FontSizeApp.s15)!
-                              .copyWith(height: 1)),
+                    Text(productAddedToBasketDetails.price.toString(),
+                        style: getBoldStyle(
+                                color: ColorManager.primaryGreen,
+                                fontSize: FontSizeApp.s15)!
+                            .copyWith(height: 1)),
                     const SizedBox(
                       width: 1,
                     ),
@@ -108,8 +110,8 @@ class CardBasket extends StatelessWidget {
                     if (productAddedToBasketDetails.price != null)
                       Text(AppLocalizations.of(context)!.curruncy,
                           style: getBoldStyle(
-                              color: ColorManager.primaryGreen,
-                              fontSize: FontSizeApp.s10)!
+                                  color: ColorManager.primaryGreen,
+                                  fontSize: FontSizeApp.s10)!
                               .copyWith(height: 1))
                   ],
                 ),

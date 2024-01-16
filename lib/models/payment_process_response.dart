@@ -2,14 +2,15 @@
 import 'package:pharma/models/delevery_attributes_response.dart';
 import 'package:pharma/models/delivery_response.dart';
 import 'package:pharma/models/invocies_response.dart';
+import 'package:pharma/models/user_address_response.dart';
 
 class PaymentProcessResponse {
-  String? userAdress;
   InvociesResponse? invociesResponse;
   List<DeleveryMethodResponse>? deleveryMethodList;
   List<DeleveryAttributesResponse>? deleveryAttributesList;
+  List<UserAddressModel>? userAdressList;
   PaymentProcessResponse({
-    this.userAdress,
+    this.userAdressList,
     this.invociesResponse,
     this.deleveryMethodList,
     this.deleveryAttributesList,
@@ -17,7 +18,7 @@ class PaymentProcessResponse {
 
   factory PaymentProcessResponse.fromJson(Map<String, dynamic> json) {
     return PaymentProcessResponse(
-        userAdress: json["user_address"],
+        userAdressList: UserAddressModel.listFromJson(json["user_address"]),
         invociesResponse: InvociesResponse.formJson(json["invoice"]),
         deleveryMethodList:
             DeleveryMethodResponse.listFromJson(json["delivery_methods"]),

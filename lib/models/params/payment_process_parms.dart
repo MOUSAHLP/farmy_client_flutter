@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:pharma/models/delevery_attributes_response.dart';
+import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/product_details_response.dart';
 
 class PaymentProcessParms {
@@ -11,5 +13,38 @@ class PaymentProcessParms {
     return {
       "products": ProductDetailsResponse.toJsonCardList(prodictInBasketList)
     };
+  }
+
+  Map<String, dynamic> toJsonWithParms(InvoicesParms invoicesParms) {
+    return {
+      "user_address_id": invoicesParms.userAddressid,
+      "delivery_method_id": invoicesParms.deliveryMethodId,
+      "products": ProductDetailsResponse.toJsonCardList(prodictInBasketList)
+    };
+  }
+
+  Map<String, dynamic> createOrdertoJsonWithParms(InvoicesParms invoicesParms,
+      List<DeleveryAttributesResponse>? deleveryAttributesList,List<ProductDetailsResponse> prodictInBasketList) {
+    return {
+      "user_address_id": invoicesParms.userAddressid,
+      "delivery_method_id": invoicesParms.deliveryMethodId,
+      "products": ProductDetailsResponse.toJsonCardList(prodictInBasketList),
+      "delivery_attributes": toJsonCardList(deleveryAttributesList),
+      "payment_method_id": 1,
+    };
+  }
+
+  static Map<String, dynamic> toJsonCard(
+      DeleveryAttributesResponse deleveryAttributesList) {
+    return {
+      "delivery_attribute_id": deleveryAttributesList.id,
+    };
+  }
+
+  static List<Map<String, dynamic>> toJsonCardList(
+      List<DeleveryAttributesResponse>? deleveryAttributesList) {
+    return deleveryAttributesList == null
+        ? []
+        : deleveryAttributesList.map((value) => toJsonCard(value)).toList();
   }
 }

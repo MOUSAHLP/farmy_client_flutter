@@ -37,7 +37,7 @@ class CustomTotalPrice extends StatelessWidget {
           Text(title,
               style: getBoldStyle(
                   color: ColorManager.grayForMessage, fontSize: 14)),
-          Text(totoalPrice,
+          Text(totoalPrice.toString(),
               style:
                   getBoldStyle(color: ColorManager.primaryGreen, fontSize: 24)),
           Padding(

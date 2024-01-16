@@ -24,7 +24,7 @@ class ProductDetailsResponse {
     this.nameOfProduct,
     this.price,
     this.quantity,
-    this.attributeList=const[],
+    this.attributeList = const [],
     this.availabilityOfProduct,
     this.sellerName,
     this.discountStatus,
@@ -67,7 +67,7 @@ class ProductDetailsResponse {
   static Map<String, dynamic> toJsonCard(
       ProductDetailsResponse productDetailsResponse) {
     return {
-      "id": productDetailsResponse.id,
+      "product_id": productDetailsResponse.id,
       "quantity": productDetailsResponse.quantity
     };
   }
@@ -76,7 +76,9 @@ class ProductDetailsResponse {
       List<ProductDetailsResponse>? basketList) {
     return basketList == null
         ? []
-        : basketList.map((value) => ProductDetailsResponse.toJsonCard(value)).toList();
+        : basketList
+            .map((value) => ProductDetailsResponse.toJsonCard(value))
+            .toList();
   }
 
   static String getDiscountedPrice(String price, String discount) {

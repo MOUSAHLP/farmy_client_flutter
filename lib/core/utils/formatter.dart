@@ -21,10 +21,11 @@ mixin Formatter {
         DateFormat.yMd(Localizations.localeOf(context).languageCode);
     return dateFormat.format(date.toLocal());
   }
+
   static String? formatHourOnlyAddThreeHours(
-      BuildContext context,
-      DateTime? date,
-      ) {
+    BuildContext context,
+    DateTime? date,
+  ) {
     if (date == null) return null;
 
     final DateTime updatedDate = date.add(const Duration(hours: 3));
@@ -62,19 +63,25 @@ mixin Formatter {
   static DateTime combineDateTime(DateTime date, TimeOfDay time) {
     return DateTime(date.year, date.month, date.day, time.hour, time.minute);
   }
- static String formatTimeOfDay(TimeOfDay timeOfDay) {
+
+  static String formatTimeOfDay(TimeOfDay timeOfDay) {
     final now = DateTime.now();
-    final dateTime = DateTime(now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+    final dateTime = DateTime(
+        now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
     final formatter = DateFormat('h:mm', 'en_US');
     return formatter.format(dateTime);
   }
-  static bool isCurrentDate(DateTime date){
-    if(!date.isBefore(DateTime.now().subtract(const Duration(days: 1))) && !date.isAfter(DateTime.now())){
+
+  static bool isCurrentDate(DateTime date) {
+    if (!date.isBefore(DateTime.now().subtract(const Duration(days: 1))) &&
+        !date.isAfter(DateTime.now())) {
       return true;
     }
     return false;
   }
-  static String formatPrice(int price) {   final formatter = NumberFormat('#,###.##', 'en_US');
-   return formatter.format(price); 
-   }
+
+  static String formatPrice(int price) {
+    final formatter = NumberFormat('#,###.##', 'en_US');
+    return formatter.format(price);
+  }
 }

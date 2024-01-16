@@ -5,6 +5,7 @@ import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/screens/order_tracking_screen/order_tracking_screen.dart';
 
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/presentation/widgets/dialogs/custom_dialog.dart';
@@ -82,7 +83,8 @@ class _ConfirmPaymentOrderDialogBodyState
                     label: AppLocalizations.of(context)!.order_Tracking,
                     fillColor: ColorManager.lightGreen,
                     onTap: () {
-                      AppRouter.pop(context);
+                      AppRouter.pushReplacement(
+                          context, const OrderTrackingScreen());
                     },
                   ),
                 ),
