@@ -30,5 +30,7 @@ class BasketState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [prductList, addToBasketState, screenState, paymentProcessResponse,errorMessage];
+      [
+        identityHashCode(this),
+        prductList, addToBasketState, screenState, paymentProcessResponse,errorMessage];
 }

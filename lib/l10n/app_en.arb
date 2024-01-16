@@ -226,5 +226,6 @@
   "validatePasswordMsg2" : "Use 8 characters with  at least \n one uppercase ,one lowercase letter \n one number and one symbol",
   "edit": "Edit",
   "no_order": "There are not orders",
-  "order_details": "Order details"
+  "order_details": "Order details",
+  "delete_product": "The product will be removed from the basket"
 }
