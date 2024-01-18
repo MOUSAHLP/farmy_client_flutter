@@ -54,41 +54,25 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
                 screenState: ScreenState.success, paymentProcessResponse: r)));
       }
       if(event is AddCount){
-        bool isIdExists =
-        mutableProducts.any((storedModel) => storedModel.id == event.id);
+
         int index1 = mutableProducts.indexWhere((element) => element.id == event.id);
-     //   if (isIdExists && mutableProducts[index1].quantity != 0) {
-        //  if (countsProducts(event.id) == 1) {
 
             mutableProducts[index1].quantity = mutableProducts[index1].quantity!+ 1;
 
-         // }
-          // else {
-          //   if (mutableProducts[index1].quantity != 0) {
-          //     mutableProducts[index1].quantity = mutableProducts[index1].quantity! + 1;
-          //   }
-          // }
-      //  }
         emit(state.copyWith(
             prductList: mutableProducts,
            ));
       }
       if(event is MinusCount) {
-        bool isIdExists =
-        mutableProducts.any((storedModel) => storedModel.id == event.id);
+
         int index1 = mutableProducts.indexWhere((element) =>
         element.id == event.id);
-        //   if (isIdExists && mutableProducts[index1].quantity != 0) {
-        // if (countsProducts(event.id) ==1) {
-        //  mutableProducts[index1].quantity = mutableProducts[index1].quantity!- 1;
 
-        //   } else {
         if (mutableProducts[index1].quantity != 1) {
         mutableProducts[index1].quantity =
             mutableProducts[index1].quantity! - 1;
          }
-        //}
-        //  }
+
         emit(state.copyWith(
           prductList: mutableProducts,
         ));
