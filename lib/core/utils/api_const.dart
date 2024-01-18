@@ -25,11 +25,14 @@ class ApiConst {
 
   //payment-process
   static String getPaymentDetails = "/payment-process";
-static String createOrders = "/orders";
+  static String createOrders = "/orders";
+
   ///Address
   static const String getUserAddresses = "/user_addresses";
   static const String addUserAddresses = "/user_addresses";
-  static  String deleteUserAddresses(int id) => "/user_addresses/$id";
+  static String deleteUserAddresses(int id) => "/user_addresses/$id";
+  static String makeAdressFavorite(int id) =>
+      "/user_addresses/set-favourite/$id";
 
   ///my_order
   static const String getMyOrder = "/orders";

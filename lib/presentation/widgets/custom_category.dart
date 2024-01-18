@@ -11,7 +11,7 @@ class CustomCategory extends StatelessWidget {
   final String? categoryImage;
   final Function()? onTap;
   final double? textHieght;
-   CustomCategory(
+  CustomCategory(
       {super.key,
       required this.categoryName,
       this.textHieght,
@@ -27,15 +27,15 @@ class CustomCategory extends StatelessWidget {
     const Color(0xFFE97759),
     const Color(0xFF023DB9),
     const Color(0xFFFFFFFF),
-
   ];
   Color getChartColor() {
-      Random random = Random();
-      int index=random.nextInt(colorOptions.length);
-      Color select=colorOptions[index];
-      colorOptions.removeAt(index);
-      return select;
+    Random random = Random();
+    int index = random.nextInt(colorOptions.length);
+    Color select = colorOptions[index];
+    colorOptions.removeAt(index);
+    return select;
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -46,14 +46,16 @@ class CustomCategory extends StatelessWidget {
           Container(
             height: 97,
             width: 97,
-            decoration:  BoxDecoration(
-                border: Border.all(color: getChartColor(),width: 2),
+            decoration: const BoxDecoration(
+                // border: Border.all(color: getChartColor(), width: 2),
                 boxShadow: [
-              BoxShadow(
-                  blurRadius: 2,
-                  offset: Offset(0, -3),
-                  color: ColorManager.grayForPlaceholde)
-            ], color: ColorManager.grayForPlaceholde, shape: BoxShape.circle),
+                  BoxShadow(
+                      blurRadius: 2,
+                      offset: Offset(0, -3),
+                      color: ColorManager.grayForPlaceholde)
+                ],
+                color: ColorManager.grayForPlaceholde,
+                shape: BoxShape.circle),
             child: ClipOval(
               child: CachedImage(
                 imageUrl: categoryImage,

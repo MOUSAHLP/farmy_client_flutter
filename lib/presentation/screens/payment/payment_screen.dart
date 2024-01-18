@@ -14,6 +14,7 @@ import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/payment_process_response.dart';
+import 'package:pharma/models/user_address_response.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -62,7 +63,15 @@ class PaymentBody extends StatelessWidget {
           }
           if (state.screenState == ScreenStates.success) {
             LoadingDialog().closeDialog(context);
-            paymentProcessResponse = state.paymentProcessResponse!;
+
+            paymentProcessResponse.invociesResponse!.deliveryValue =
+                state.paymentProcessResponse!.invociesResponse!.deliveryValue;
+            paymentProcessResponse.invociesResponse!.subTotal =
+                state.paymentProcessResponse!.invociesResponse!.subTotal;
+            paymentProcessResponse.invociesResponse!.tax =
+                state.paymentProcessResponse!.invociesResponse!.tax;
+            paymentProcessResponse.invociesResponse!.total =
+                state.paymentProcessResponse!.invociesResponse!.total;
           }
           if (state.screenState == ScreenStates.error) {
             LoadingDialog().closeDialog(context);
@@ -137,7 +146,8 @@ class PaymentBody extends StatelessWidget {
                                       builder: (context, state) {
                                         return SelectLocation(
                                             favoriteuserAddress:
-                                                state.addressCurrent);
+                                                paymentProcessResponse
+                                                    .userAdressList![0]);
                                       },
                                     ),
                                   ),
@@ -193,11 +203,11 @@ class PaymentBody extends StatelessWidget {
                                                     invoicesParms: InvoicesParms(
                                                         deliveryMethodId:
                                                             item.id!,
-                                                        userAddressid:
-                                                            paymentProcessResponse
-                                                                .userAdressList![
-                                                                    0]
-                                                                .id!),
+                                                        userAddressid: context
+                                                            .read<
+                                                                LocationBloc>()
+                                                            .addressCurrent
+                                                            .id!),
                                                     prductList: context
                                                         .read<BasketBloc>()
                                                         .state
@@ -206,10 +216,10 @@ class PaymentBody extends StatelessWidget {
                                         }
                                       },
                                       deliverycost:
-                                          "${AppLocalizations.of(context)!.delivery_cost}  ${item.deleveyPrice}",
+                                          "${AppLocalizations.of(context)!.delivery_cost}  ${paymentProcessResponse.invociesResponse!.deliveryValue}",
                                       image: ImageManager.dateTimeImage,
                                       text:
-                                          "${item.deleveryName} (${item.deleveytime})",
+                                          "${item.deleveryName} (${paymentProcessResponse.invociesResponse!.deliveryValue})",
                                     ),
                                 ],
                               ),
@@ -470,7 +480,11 @@ class PaymentBody extends StatelessWidget {
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .deliverycharges,
-                                    price: (state.deleveryCost ?? 0).toString(),
+                                    price: (paymentProcessResponse
+                                                .invociesResponse!
+                                                .deliveryValue ??
+                                            0)
+                                        .toString(),
                                   ),
                                   CustomBillDetailsRow(
                                       subStatusBill:
@@ -522,8 +536,11 @@ class PaymentBody extends StatelessWidget {
                                   state.deleveryMethodChossenList.isNotEmpty
                                       ? state.deleveryMethodChossenList[0].id!
                                       : 0,
-                              userAddressid: paymentProcessResponse
-                                  .userAdressList![0].id!),
+                              userAddressid: context
+                                  .read<LocationBloc>()
+                                  .state
+                                  .addressCurrent
+                                  .id!),
                         ));
                   },
                   onCompleteShopping: () {
