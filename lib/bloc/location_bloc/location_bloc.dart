@@ -21,7 +21,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   );
   List<UserAddressModel> userAddressList = [];
   final AddAddressParams address = AddAddressParams();
-  UserAddressModel addressCurrent = UserAddressModel();
+  // UserAddressModel addressCurrent = UserAddressModel();
   LocationBloc() : super(LocationState(addressCurrent: UserAddressModel())) {
     on<LocationEvent>((event, emit) async {
       if (event is CurrentLocation) {
@@ -82,7 +82,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
             emit(state.copyWith(error: l));
           }
         }, (r) {
-          addressCurrent = r;
+          // addressCurrent = r;
           emit(state.copyWith(success: true, addressCurrent: r));
         });
       }
@@ -93,7 +93,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         ));
       }
       if (event is SelectAddressDelivery) {
-        addressCurrent = event.userAddress;
+        // addressCurrent = event.userAddress;
         emit(state.copyWith(isLoadingDelete: true));
         (await UserAddressRepository.makeAdressFavorite(event.userAddress.id!))
             .fold(
