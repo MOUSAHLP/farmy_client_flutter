@@ -40,7 +40,7 @@ final  MyOrderResponse myOrder;
                   details:myOrder.deliveryMethod?.name??"" ),
               RowOrder(
                   title: AppLocalizations.of(context)!.expected_Time,
-                  details: "qmar 30 دقيقة"),
+                  details: " 30 دقيقة"),
               myOrder.total != null? Row(
                 children: [
                   Text(AppLocalizations.of(context)!.total_Price_with_Delivery,
