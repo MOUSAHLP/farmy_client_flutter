@@ -8,22 +8,26 @@ abstract class LocationEvent {
 }
 
 class CurrentLocation extends LocationEvent {}
+
 class Init extends LocationEvent {}
 
 class ChangeLocationMarker extends LocationEvent {
   LatLng latLan;
   ChangeLocationMarker(this.latLan);
 }
-class GetUserAddress extends LocationEvent{}
+
+class GetUserAddress extends LocationEvent {}
 
 class SearchByKeyword extends LocationEvent {
   String? keyword;
   SearchByKeyword({this.keyword});
 }
+
 class AddUserAddress extends LocationEvent {
   AddAddressParams address;
   AddUserAddress({required this.address});
 }
+
 class SelectLatLon extends LocationEvent {
   double lat;
   double lon;
@@ -32,11 +36,13 @@ class SelectLatLon extends LocationEvent {
     required this.lon,
   });
 }
-class SelectAddressDelivery extends LocationEvent{
+
+class SelectAddressDelivery extends LocationEvent {
   UserAddressModel userAddress;
   SelectAddressDelivery({required this.userAddress});
 }
-class DeleteUserAddress extends LocationEvent{
+
+class DeleteUserAddress extends LocationEvent {
   int id;
   DeleteUserAddress({required this.id});
 }

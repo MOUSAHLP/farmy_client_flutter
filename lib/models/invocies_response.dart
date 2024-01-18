@@ -15,7 +15,7 @@ class InvociesResponse {
     return InvociesResponse(
         subTotal: json["subtotal"],
         coponValue: json["coupon_value"],
-        deliveryValue: json["delivery_value"],
+        deliveryValue: json["delivery_price"],
         tax: json["tax"],
         total: json["total"]);
   }
