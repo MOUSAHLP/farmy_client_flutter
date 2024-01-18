@@ -14,12 +14,13 @@ import '../../../widgets/custom_button.dart';
 
 class CardBasket extends StatelessWidget {
   final ProductDetailsResponse productAddedToBasketDetails;
+
   const CardBasket({super.key, required this.productAddedToBasketDetails});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BasketBloc, BasketState>(
-      builder: (context, state) =>  Padding(
+      builder: (context, state) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 37),
         child: Container(
           height: 115,
@@ -32,81 +33,89 @@ class CardBasket extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     InkWell(
-
                       child: Container(
                         height: 36,
                         width: 36,
                         decoration: BoxDecoration(boxShadow: [
                           ColorManager.shadowGaryDown,
                         ], color: Colors.white),
-                        child:
-                            const Icon(Icons.add, color: ColorManager.primaryGreen),
+                        child: const Icon(Icons.add,
+                            color: ColorManager.primaryGreen),
                       ),
-                      onTap: (){
-                        context.read<BasketBloc>().add(
-                            AddCount(
-                                productAddedToBasketDetails.id?? 0));
+                      onTap: () {
+                        context
+                            .read<BasketBloc>()
+                            .add(AddCount(productAddedToBasketDetails.id ?? 0));
                       },
                     ),
                     SizedBox(
                       height: 30,
                       width: 30,
-                      child:
-                           Center(child: Text(context.read<BasketBloc>().countsProducts(productAddedToBasketDetails.id??0).toString(),style: getRegularStyle(color: Colors.black),)),
+                      child: Center(
+                          child: Text(
+                        context
+                            .read<BasketBloc>()
+                            .countsProducts(productAddedToBasketDetails.id ?? 0)
+                            .toString(),
+                        style: getRegularStyle(color: Colors.black),
+                      )),
                     ),
                     InkWell(
-                      onTap: (){
-                        if(context.read<BasketBloc>().countsProducts(productAddedToBasketDetails.id??0)==1){
+                      onTap: () {
+                        if (context.read<BasketBloc>().countsProducts(
+                                productAddedToBasketDetails.id ?? 0) ==
+                            1) {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: Material(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.circular(25.0),
+                                    borderRadius: BorderRadius.circular(25.0),
                                   ),
                                   color: Colors.transparent,
                                   child: Column(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: [
                                           Text(
-                                           AppLocalizations.of(context)!.delete_product,
+                                            AppLocalizations.of(context)!
+                                                .delete_product,
                                             style: getBoldStyle(
-                                                color: ColorManager
-                                                    .grayForMessage,
+                                                color:
+                                                    ColorManager.grayForMessage,
                                                 fontSize: 15),
                                           ),
                                         ],
                                       ),
-
                                       SizedBox(
                                         child: Row(
                                           children: [
                                             Expanded(
                                               child: CustomButton(
-                                                label:
-                                                AppLocalizations.of(
-                                                    context)!
+                                                label: AppLocalizations.of(
+                                                        context)!
                                                     .confirm,
-                                                fillColor: ColorManager
-                                                    .primaryGreen,
+                                                fillColor:
+                                                    ColorManager.primaryGreen,
                                                 onTap: () {
-                                                  context.read<BasketBloc>().add(
-                                                      DeleteProduct(
-                                                          productAddedToBasketDetails.id?? 0));
-                                                  AppRouter.pop(
-                                                      context);
+                                                  context
+                                                      .read<BasketBloc>()
+                                                      .add(DeleteProduct(
+                                                          productAddedToBasketDetails
+                                                                  .id ??
+                                                              0));
+                                                  AppRouter.pop(context);
                                                 },
                                               ),
                                             ),
@@ -115,20 +124,18 @@ class CardBasket extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: CustomButton(
-                                                label:
-                                                AppLocalizations.of(
-                                                    context)!
+                                                label: AppLocalizations.of(
+                                                        context)!
                                                     .back,
                                                 fillColor: Colors.white,
                                                 onTap: () {
-                                                  AppRouter.pop(
-                                                      context);
+                                                  AppRouter.pop(context);
                                                 },
                                                 isFilled: true,
-                                                labelColor: ColorManager
-                                                    .primaryGreen,
-                                                borderColor: ColorManager
-                                                    .primaryGreen,
+                                                labelColor:
+                                                    ColorManager.primaryGreen,
+                                                borderColor:
+                                                    ColorManager.primaryGreen,
                                               ),
                                             ),
                                           ],
@@ -140,11 +147,9 @@ class CardBasket extends StatelessWidget {
                               );
                             },
                           );
-
-                        }else {
+                        } else {
                           context.read<BasketBloc>().add(
-                            MinusCount(
-                                productAddedToBasketDetails.id?? 0));
+                              MinusCount(productAddedToBasketDetails.id ?? 0));
                         }
                       },
                       child: Container(
@@ -159,61 +164,117 @@ class CardBasket extends StatelessWidget {
                   ],
                 ),
               ),
-              const Spacer(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    productAddedToBasketDetails.nameOfProduct??"",
-                    style: getBoldStyle(
-                            color: ColorManager.black, fontSize: FontSizeApp.s10)
-                        ?.copyWith(height: 1),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child:   Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        productAddedToBasketDetails.attributeList.isNotEmpty
-                            ? Text(productAddedToBasketDetails.attributeList[0].value,
+              // const Spacer(),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    productAddedToBasketDetails.nameOfProduct != null
+                        ? Text(
+                            productAddedToBasketDetails.nameOfProduct ?? "",
                             style: getBoldStyle(
-                              color: ColorManager.grayForMessage,
-                              fontSize: FontSizeApp.s15,
-                            ))
-                            : const SizedBox(),
-                        productAddedToBasketDetails.attributeList.length > 1
-                            ? Text(" / ${productAddedToBasketDetails.attributeList[1].value}",
+                                    color: ColorManager.black,
+                                    fontSize: FontSizeApp.s10)
+                                ?.copyWith(
+                              height: 2,
+                              overflow: TextOverflow.fade,
+                            ),
+                            maxLines: 1,
+                          )
+                        : const SizedBox(),
+                    productAddedToBasketDetails.sellerName != null
+                        ? Text(
+                      "( ${productAddedToBasketDetails.sellerName} )" ,
                             style: getBoldStyle(
-                              color: ColorManager.grayForMessage,
-                              fontSize: FontSizeApp.s15,
-                            ))
-                            : const SizedBox(),
-                      ],
-                    )
-                  ),
-                  Row(
-                    children: [
-                        Text(
-                            Formatter.formatPrice(
-                                int.tryParse(context.read<BasketBloc>().productPrice(productAddedToBasketDetails.id??0).toString())??0),
-                          style: getBoldStyle(
-                                color: ColorManager.primaryGreen,
-                                fontSize: FontSizeApp.s15)!
-                                .copyWith(height: 1)),
-                      const SizedBox(
-                        width: 1,
-                      ),
-                      //todo caruncy
-                      if (productAddedToBasketDetails.price != null)
-                        Text(AppLocalizations.of(context)!.curruncy,
-                            style: getBoldStyle(
-                                color: ColorManager.primaryGreen,
-                                fontSize: FontSizeApp.s10)!
-                                .copyWith(height: 1))
-                    ],
-                  ),
-                ],
+                              color: ColorManager.primaryGreen,
+                              fontSize: FontSizeApp.s10,
+                            )?.copyWith(
+                              height: 2,
+                              overflow: TextOverflow.fade,
+                            ),
+                            maxLines: 1,
+                          )
+                        : const SizedBox(),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: FittedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              productAddedToBasketDetails
+                                      .attributeList.isNotEmpty
+                                  ? Text(
+                                      productAddedToBasketDetails
+                                          .attributeList[0].value,
+                                      style: getRegularStyle(
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s15,
+                                      )!
+                                          .copyWith(height: 1),
+                                    )
+                                  : const SizedBox(),
+                              productAddedToBasketDetails.attributeList.length >
+                                      1
+                                  ? Text(
+                                      " / ${productAddedToBasketDetails.attributeList[1].value}",
+                                      style: getRegularStyle(
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s15,
+                                      )!
+                                          .copyWith(height: 1))
+                                  : const SizedBox(),
+                            ],
+                          ),
+                        )),
+                    productAddedToBasketDetails.discountValue != null
+                        ? Text(
+                            productAddedToBasketDetails.discountValue ?? '',
+                            style: getRegularStyle(
+                                    color: ColorManager.grayForMessage,
+                                    fontSize: FontSizeApp.s12)!
+                                .copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    overflow: TextOverflow.fade,
+                                    height: 1),
+                            maxLines: 1,
+                          )
+                        : const SizedBox(),
+                    productAddedToBasketDetails.price != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                Formatter.formatPrice(int.tryParse(context
+                                        .read<BasketBloc>()
+                                        .productPrice(
+                                            productAddedToBasketDetails.id ?? 0)
+                                        .toString()) ??
+                                    0),
+                                style: getBoldStyle(
+                                        color: ColorManager.primaryGreen,
+                                        fontSize: FontSizeApp.s15)!
+                                    .copyWith(
+                                  height: 1,
+                                  overflow: TextOverflow.fade,
+                                ),
+                                maxLines: 1,
+                              ),
+                              const SizedBox(
+                                width: 1,
+                              ),
+                              //todo caruncy
+                              if (productAddedToBasketDetails.price != null)
+                                Text(AppLocalizations.of(context)!.curruncy,
+                                    style: getBoldStyle(
+                                            color: ColorManager.primaryGreen,
+                                            fontSize: FontSizeApp.s10)!
+                                        .copyWith(height: 1))
+                            ],
+                          )
+                        : const SizedBox(),
+                  ],
+                ),
               ),
               const SizedBox(
                 width: 19,
@@ -224,8 +285,8 @@ class CardBasket extends StatelessWidget {
                   height: 115,
                   width: 115,
                   color: ColorManager.grayForPlaceholde,
-                  child:  CachedImage(
-                    imageUrl:productAddedToBasketDetails.image,
+                  child: CachedImage(
+                    imageUrl: productAddedToBasketDetails.image,
                   ),
                 ),
               ),

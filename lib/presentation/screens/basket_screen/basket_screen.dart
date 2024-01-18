@@ -35,7 +35,7 @@ class BasketScreen extends StatelessWidget {
         body: Column(
           children: [
             CustomAppBarScreen(
-                sectionName: AppLocalizations.of(context)!.basket),
+                sectionName: AppLocalizations.of(context)!.basket,isComeBack: false),
             sl<AuthenticationBloc>().loggedIn?  Expanded(
               child: BlocConsumer<BasketBloc, BasketState>(
                 listener: (context, state) {

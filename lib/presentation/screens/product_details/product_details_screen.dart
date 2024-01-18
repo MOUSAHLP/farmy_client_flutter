@@ -273,7 +273,8 @@ class ProductDetailsBody extends StatelessWidget {
                                         ontap: () {
                                          if(sl<AuthenticationBloc>().loggedIn) {
                                            context.read<BasketBloc>().add(AddToBasket(
-                                              product: ProductDetailsResponse(
+                                              product:
+                                              ProductDetailsResponse(
                                                 image: state.productDetailsResponse?.image??"",
                                                 price: state
                                                     .productDetailsResponse!
@@ -305,7 +306,9 @@ class ProductDetailsBody extends StatelessWidget {
                                                       : true,
                                                   attributeList: state.productDetailsResponse!.attributeList,
                                                   id: state.productDetailsResponse!.id!,
-                                                  quantity: state.quntity)));
+                                                  quantity: state.quntity,
+                                              discountValue: state.productDetailsResponse!.discountValue)
+                                           ));
                                          }
                                          else{
                                            ErrorDialog.openDialog(context,AppLocalizations.of(context)!.no_add_basket);
