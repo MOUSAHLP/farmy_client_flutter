@@ -30,7 +30,10 @@ class CustomCategoryScreen extends StatelessWidget {
               }
               tabController.animateTo(index);
             },
-            child: CustomCategory(categoryName: categoriesList![index].name!));
+            child: CustomCategory(
+              categoryName: categoriesList![index].name!,
+              categoryImage: categoriesList![index].imageUrl ?? "",
+            ));
       },
     );
   }

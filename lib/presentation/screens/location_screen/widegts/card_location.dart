@@ -36,7 +36,7 @@ class CardLocation extends StatelessWidget {
                 onTap: ()
                 {
                   context.read<LocationBloc>().add(SelectAddressDelivery(userAddress:userAddressModel ));
-                  AppRouter.pop(context);
+         
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

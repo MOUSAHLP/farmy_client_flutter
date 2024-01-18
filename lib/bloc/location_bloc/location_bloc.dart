@@ -15,14 +15,14 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   double? latitudeCurrent, longitudeCurrent;
   BitmapDescriptor? customIcon;
   GoogleMapController? mapController;
-  Marker markerLocation=const Marker(
+  Marker markerLocation = const Marker(
     markerId: MarkerId(""),
     draggable: true,
   );
-  List<UserAddressModel> userAddressList=[];
-  final AddAddressParams address =  AddAddressParams();
-  UserAddressModel addressCurrent=UserAddressModel();
-  LocationBloc() : super(LocationState(addressCurrent:UserAddressModel())) {
+  List<UserAddressModel> userAddressList = [];
+  final AddAddressParams address = AddAddressParams();
+  UserAddressModel addressCurrent = UserAddressModel();
+  LocationBloc() : super(LocationState(addressCurrent: UserAddressModel())) {
     on<LocationEvent>((event, emit) async {
       if (event is CurrentLocation) {
         emit(state.copyWith(screenStates: ScreenStates.loading));
@@ -39,8 +39,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         }
       }
       if (event is ChangeLocationMarker) {
-        address.latitude= event.latLan.latitude;
-      address.longitude=event.latLan.longitude;
+        address.latitude = event.latLan.latitude;
+        address.longitude = event.latLan.longitude;
         markerLocation = Marker(
           icon: customIcon!,
           markerId: MarkerId(event.latLan.latitude.toString()),
@@ -53,7 +53,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           longitude: event.latLan.longitude,
         ));
       }
-      if(event is GetUserAddress){
+      if (event is GetUserAddress) {
         emit(state.copyWith(screenStates: ScreenStates.loading));
         final response = await UserAddressRepository.getUserAddress();
         response.fold((l) {
@@ -61,41 +61,47 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
             emit(state.copyWith(screenStates: ScreenStates.error));
           }
         }, (r) {
-          userAddressList=r;
-          emit(state.copyWith(screenStates: ScreenStates.success,userAddressList: r));
+          userAddressList = r;
+          emit(state.copyWith(
+              screenStates: ScreenStates.success, userAddressList: r));
         });
       }
       if (event is SearchByKeyword) {
-        emit(state.copyWith(screenStates: ScreenStates.success,userAddressList:refreshShowingTasks(event.keyword)));
+        emit(state.copyWith(
+            screenStates: ScreenStates.success,
+            userAddressList: refreshShowingTasks(event.keyword)));
       }
-      if(event is AddUserAddress){
+      if (event is AddUserAddress) {
         emit(state.copyWith(isLoading: true));
-       // address.latitude=state.latitude;
-       // address.longitude=state.longitude;
+        // address.latitude=state.latitude;
+        // address.longitude=state.longitude;
         final response =
-        await UserAddressRepository.addUserAddress(event.address);
+            await UserAddressRepository.addUserAddress(event.address);
         response.fold((l) {
           if (l != 'Cancel') {
             emit(state.copyWith(error: l));
           }
         }, (r) {
-          addressCurrent=r;
-          emit(state.copyWith(success: true,addressCurrent: r));
+          addressCurrent = r;
+          emit(state.copyWith(success: true, addressCurrent: r));
         });
       }
-      if(event is SelectLatLon){
+      if (event is SelectLatLon) {
         emit(state.copyWith(
           latitude: event.lat,
           longitude: event.lon,
         ));
       }
-      if(event is SelectAddressDelivery) {
-          addressCurrent=event.userAddress;
-          emit(state.copyWith(
-           addressCurrent: event.userAddress
-          ));
-        }
-      if(event is DeleteUserAddress){
+      if (event is SelectAddressDelivery) {
+        addressCurrent = event.userAddress;
+        emit(state.copyWith(isLoadingDelete: true));
+        (await UserAddressRepository.makeAdressFavorite(event.userAddress.id!))
+            .fold(
+                (l) => emit(state.copyWith(errorDelete: l)),
+                (r) => emit(state.copyWith(
+                    successDelete: true, addressCurrent: event.userAddress)));
+      }
+      if (event is DeleteUserAddress) {
         emit(state.copyWith(isLoadingDelete: true));
         final response = await UserAddressRepository.deleteAddress(event.id);
         response.fold((l) {
@@ -106,36 +112,38 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           add(GetUserAddress());
           emit(state.copyWith(successDelete: true));
         });
-
       }
     });
   }
-  List<UserAddressModel> refreshShowingTasks(String? keyword, {int? selectedDayIndex}) {
+  List<UserAddressModel> refreshShowingTasks(String? keyword,
+      {int? selectedDayIndex}) {
     List<UserAddressModel> dayTasks = [...userAddressList];
     dayTasks.removeWhere((task) {
       if (keyword != null &&
-          !(task.name!
-              .toLowerCase()
-              .contains(keyword.toLowerCase()))) return true;
+          !(task.name!.toLowerCase().contains(keyword.toLowerCase())))
+        return true;
       return false;
     });
 
     return dayTasks;
   }
-setMarker()async{
-  await BitmapDescriptor.fromAssetImage(
-    const ImageConfiguration(size: Size(1000, 1000),),
-    IconsManager.locationIcon,
-  ).then((icon) {
-    customIcon = icon;
-  });
-  markerLocation = Marker(
-    icon: customIcon!,
-    markerId: MarkerId(latitudeCurrent.toString()),
-    position: LatLng(latitudeCurrent ?? 0, longitudeCurrent ?? 0),
-    draggable: true,
-  );
-}
+
+  setMarker() async {
+    await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(
+        size: Size(1000, 1000),
+      ),
+      IconsManager.locationIcon,
+    ).then((icon) {
+      customIcon = icon;
+    });
+    markerLocation = Marker(
+      icon: customIcon!,
+      markerId: MarkerId(latitudeCurrent.toString()),
+      position: LatLng(latitudeCurrent ?? 0, longitudeCurrent ?? 0),
+      draggable: true,
+    );
+  }
 
   Future<void> getPosition() async {
     await determinePosition().then((value) {

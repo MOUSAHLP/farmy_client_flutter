@@ -15,7 +15,8 @@ import '../../../../models/user_address_response.dart';
 import '../../../resources/assets_manager.dart';
 
 class CustomDeliveryAddress extends StatelessWidget {
-  const CustomDeliveryAddress({super.key});
+  final UserAddressModel? userAddressModel;
+  const CustomDeliveryAddress({super.key, required this.userAddressModel});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +78,7 @@ class CustomDeliveryAddress extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                getAddress(state.addressCurrent),
+                                getAddress(userAddressModel!),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: getBoldStyle(

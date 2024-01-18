@@ -2,6 +2,7 @@
 import 'package:pharma/models/banners_response.dart';
 import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
+import 'package:pharma/models/user_address_response.dart';
 
 class HomeResponse {
   List<CategoriesResponse>? homeCategoriesList;
@@ -9,8 +10,10 @@ class HomeResponse {
   List<ProductsBySubCategoryIdResponse>? homeDiscountedProductsList;
   List<BannersResponse>? homeBannerListTopSection;
   List<BannersResponse>? homeBannerListBottomSection;
+  UserAddressModel? userAddressModel;
   HomeResponse(
       {this.homeCategoriesList,
+      this.userAddressModel,
       this.homeSuggestedProductsList,
       this.homeDiscountedProductsList,
       this.homeBannerListTopSection,
@@ -18,6 +21,9 @@ class HomeResponse {
 
   factory HomeResponse.fromJson(Map<String, dynamic> json) {
     return HomeResponse(
+      userAddressModel: json["favourite_address"] != null
+          ? UserAddressModel.fromJson(json["favourite_address"])
+          : UserAddressModel(),
       homeCategoriesList: json["categories"] == null
           ? []
           : List<CategoriesResponse>.from(
