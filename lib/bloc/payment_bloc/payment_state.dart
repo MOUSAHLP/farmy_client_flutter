@@ -33,23 +33,23 @@ class PaymentState extends Equatable {
       List<DeleveryAttributesResponse>? attrbiuteChossenList,
       bool? isCompletePayment}) {
     return PaymentState(
-      completePaymentStates:
-          completePaymentStates ?? CompletePaymentStates.initialized,
-      paymentProcessResponse:
-          paymentProcessResponse ?? this.paymentProcessResponse,
-      deleveryCost: deleveryCost ?? this.deleveryCost,
-      deleveryMethodChossenList:
-          deleveryMethodChossenList ?? this.deleveryMethodChossenList,
-      attrbiuteChossenList: attrbiuteChossenList ?? this.attrbiuteChossenList,
-      screenState: screenState ?? ScreenStates.initialized,
-      orderState: orderState ?? this.orderState,
-      paymentState: paymentState ?? this.paymentState,
-      errorMessage: errorMessage??""
-    );
+        completePaymentStates:
+            completePaymentStates ?? CompletePaymentStates.initialized,
+        paymentProcessResponse:
+            paymentProcessResponse ?? this.paymentProcessResponse,
+        deleveryCost: deleveryCost ?? this.deleveryCost,
+        deleveryMethodChossenList:
+            deleveryMethodChossenList ?? this.deleveryMethodChossenList,
+        attrbiuteChossenList: attrbiuteChossenList ?? this.attrbiuteChossenList,
+        screenState: screenState ?? ScreenStates.initialized,
+        orderState: orderState ?? this.orderState,
+        paymentState: paymentState ?? this.paymentState,
+        errorMessage: errorMessage ?? "");
   }
 
   @override
   List<Object?> get props => [
+        identityHashCode(this),
         screenState,
         orderState,
         paymentState,

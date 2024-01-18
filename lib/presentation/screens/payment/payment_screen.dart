@@ -41,16 +41,19 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(paymentProcessResponse.deleveryMethodList!.length);
     return BlocProvider(
-      create: (context) => sl<PaymentBloc>(),
-      child: PaymentBody(paymentProcessResponse: paymentProcessResponse),
+      create: (context) => sl<PaymentBloc>()
+        ..add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse)),
+      child: PaymentBody(),
     );
   }
 }
 
 class PaymentBody extends StatelessWidget {
-  PaymentProcessResponse paymentProcessResponse;
-  PaymentBody({super.key, required this.paymentProcessResponse});
+  PaymentBody({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +66,6 @@ class PaymentBody extends StatelessWidget {
           }
           if (state.screenState == ScreenStates.success) {
             LoadingDialog().closeDialog(context);
-
-            paymentProcessResponse.invociesResponse!.deliveryValue =
-                state.paymentProcessResponse!.invociesResponse!.deliveryValue;
-            paymentProcessResponse.invociesResponse!.subTotal =
-                state.paymentProcessResponse!.invociesResponse!.subTotal;
-            paymentProcessResponse.invociesResponse!.tax =
-                state.paymentProcessResponse!.invociesResponse!.tax;
-            paymentProcessResponse.invociesResponse!.total =
-                state.paymentProcessResponse!.invociesResponse!.total;
           }
           if (state.screenState == ScreenStates.error) {
             LoadingDialog().closeDialog(context);
@@ -92,13 +86,8 @@ class PaymentBody extends StatelessWidget {
           }
         },
         child: BlocBuilder<PaymentBloc, PaymentState>(
-          // buildWhen: (previous, current) {
-          //   if (previous.screenState != current.screenState) {
-          //     return true;
-          //   }
-          //   return false;
-          // },
           builder: (context, state) {
+            log("state" + state.toString());
             return Scaffold(
                 body: Stack(
               alignment: Alignment.bottomCenter,
@@ -146,8 +135,7 @@ class PaymentBody extends StatelessWidget {
                                       builder: (context, state) {
                                         return SelectLocation(
                                             favoriteuserAddress:
-                                                paymentProcessResponse
-                                                    .userAdressList![0]);
+                                                state.addressCurrent);
                                       },
                                     ),
                                   ),
@@ -169,57 +157,62 @@ class PaymentBody extends StatelessWidget {
                                   const SizedBox(
                                     height: 4,
                                   ),
-                                  for (var item in paymentProcessResponse
+                                  for (var item in state.paymentProcessResponse!
                                       .deleveryMethodList!)
-                                    CutomOrderTypeContiner(
-                                      isChossenLocation: context
-                                              .read<LocationBloc>()
-                                              .state
-                                              .addressCurrent
-                                              .latitude !=
-                                          null,
-                                      userAddressid: paymentProcessResponse
-                                          .userAdressList![0].id!,
-                                      delveryField: item,
-                                      isSelected: state
-                                          .deleveryMethodChossenList
-                                          .any((element) =>
-                                              element.id == item.id),
-                                      onTap: () {
-                                        if (!state.deleveryMethodChossenList
-                                            .any((element) =>
-                                                element.id == item.id)) {
-                                          if (context
+                                    BlocBuilder<LocationBloc, LocationState>(
+                                      builder: (context, loctionstate) {
+                                        return CutomOrderTypeContiner(
+                                          isChossenLocation: context
                                                   .read<LocationBloc>()
                                                   .state
                                                   .addressCurrent
                                                   .latitude !=
-                                              null) {
-                                            context.read<PaymentBloc>().add(
-                                                ToogleDeleveryMethod(
-                                                    deleveryMethodData: item));
-                                            context.read<PaymentBloc>().add(
-                                                GetInvoicesDetails(
-                                                    invoicesParms: InvoicesParms(
-                                                        deliveryMethodId:
-                                                            item.id!,
-                                                        userAddressid: context
-                                                            .read<
-                                                                LocationBloc>()
-                                                            .addressCurrent
-                                                            .id!),
-                                                    prductList: context
-                                                        .read<BasketBloc>()
-                                                        .state
-                                                        .prductList));
-                                          }
-                                        }
+                                              null,
+                                          userAddressid:
+                                              loctionstate.addressCurrent.id ??
+                                                  0,
+                                          delveryField: item,
+                                          isSelected: state
+                                              .deleveryMethodChossenList
+                                              .any((element) =>
+                                                  element.id == item.id),
+                                          onTap: () {
+                                            if (!state.deleveryMethodChossenList
+                                                .any((element) =>
+                                                    element.id == item.id)) {
+                                              if (context
+                                                      .read<LocationBloc>()
+                                                      .state
+                                                      .addressCurrent
+                                                      .latitude !=
+                                                  null) {
+                                                context.read<PaymentBloc>().add(
+                                                    ToogleDeleveryMethod(
+                                                        deleveryMethodData:
+                                                            item));
+                                                context.read<PaymentBloc>().add(
+                                                    GetInvoicesDetails(
+                                                        invoicesParms: InvoicesParms(
+                                                            deliveryMethodId:
+                                                                item.id!,
+                                                            userAddressid:
+                                                                loctionstate
+                                                                    .addressCurrent
+                                                                    .id!),
+                                                        prductList: context
+                                                            .read<BasketBloc>()
+                                                            .state
+                                                            .prductList));
+                                              }
+                                            }
+                                          },
+                                          deliverycost:
+                                              "${AppLocalizations.of(context)!.delivery_cost}  ${state.paymentProcessResponse!.invociesResponse!.deliveryValue}",
+                                          image: ImageManager.dateTimeImage,
+                                          text:
+                                              "${item.deleveryName} (${state.paymentProcessResponse!.invociesResponse!.deliveryValue})",
+                                        );
                                       },
-                                      deliverycost:
-                                          "${AppLocalizations.of(context)!.delivery_cost}  ${paymentProcessResponse.invociesResponse!.deliveryValue}",
-                                      image: ImageManager.dateTimeImage,
-                                      text:
-                                          "${item.deleveryName} (${paymentProcessResponse.invociesResponse!.deliveryValue})",
                                     ),
                                 ],
                               ),
@@ -385,7 +378,7 @@ class PaymentBody extends StatelessWidget {
                                 children: [
                                   for (int i = 0;
                                       i <
-                                          paymentProcessResponse
+                                          state.paymentProcessResponse!
                                               .deleveryAttributesList!.length;
                                       i++)
                                     CustomNoteOnTheOrder(
@@ -396,22 +389,21 @@ class PaymentBody extends StatelessWidget {
                                             .attrbiuteChossenList
                                             .any((element) =>
                                                 element.id ==
-                                                paymentProcessResponse
+                                                state
+                                                    .paymentProcessResponse!
                                                     .deleveryAttributesList![i]
                                                     .id)) {
                                           context.read<PaymentBloc>().add(
                                               RemoveFromChossenList(
-                                                  attrbiuteData:
-                                                      paymentProcessResponse
-                                                              .deleveryAttributesList![
-                                                          i]));
+                                                  attrbiuteData: state
+                                                      .paymentProcessResponse!
+                                                      .deleveryAttributesList![i]));
                                         } else {
                                           context.read<PaymentBloc>().add(
                                               AddToChossenAttrbiuteList(
-                                                  attrbiuteData:
-                                                      paymentProcessResponse
-                                                              .deleveryAttributesList![
-                                                          i]));
+                                                  attrbiuteData: state
+                                                      .paymentProcessResponse!
+                                                      .deleveryAttributesList![i]));
                                         }
                                       },
                                       isSelected: context
@@ -420,13 +412,15 @@ class PaymentBody extends StatelessWidget {
                                               .attrbiuteChossenList
                                               .any((element) =>
                                                   element.id ==
-                                                  paymentProcessResponse
+                                                  state
+                                                      .paymentProcessResponse!
                                                       .deleveryAttributesList![
                                                           i]
                                                       .id)
                                           ? true
                                           : false,
-                                      noteText: paymentProcessResponse
+                                      noteText: state
+                                          .paymentProcessResponse!
                                           .deleveryAttributesList![i]
                                           .nameDeleveryAttribute!,
                                     ),
@@ -457,30 +451,33 @@ class PaymentBody extends StatelessWidget {
                                       subStatusBill:
                                           AppLocalizations.of(context)!
                                               .total_amount,
-                                      price: paymentProcessResponse
+                                      price: state.paymentProcessResponse!
                                                   .invociesResponse!.subTotal !=
                                               null
-                                          ? Formatter.formatPrice(
-                                              paymentProcessResponse
-                                                  .invociesResponse!.subTotal!)
+                                          ? Formatter.formatPrice(state
+                                              .paymentProcessResponse!
+                                              .invociesResponse!
+                                              .subTotal!)
                                           : AppVAlueConst.defalutInvoiceValue
                                               .toString()),
                                   CustomBillDetailsRow(
                                     subStatusBill:
                                         AppLocalizations.of(context)!.hasm_code,
-                                    price: paymentProcessResponse
+                                    price: state.paymentProcessResponse!
                                                 .invociesResponse!.coponValue !=
                                             null
-                                        ? Formatter.formatPrice(
-                                            paymentProcessResponse
-                                                .invociesResponse!.coponValue!)
+                                        ? Formatter.formatPrice(state
+                                            .paymentProcessResponse!
+                                            .invociesResponse!
+                                            .coponValue!)
                                         : AppVAlueConst.defalutInvoiceValue
                                             .toString(),
                                   ),
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .deliverycharges,
-                                    price: (paymentProcessResponse
+                                    price: (state
+                                                .paymentProcessResponse!
                                                 .invociesResponse!
                                                 .deliveryValue ??
                                             0)
@@ -489,24 +486,26 @@ class PaymentBody extends StatelessWidget {
                                   CustomBillDetailsRow(
                                       subStatusBill:
                                           AppLocalizations.of(context)!.tax,
-                                      price: paymentProcessResponse
+                                      price: state.paymentProcessResponse!
                                                   .invociesResponse!.tax !=
                                               null
-                                          ? Formatter.formatPrice(
-                                              paymentProcessResponse
-                                                  .invociesResponse!.tax!)
+                                          ? Formatter.formatPrice(state
+                                              .paymentProcessResponse!
+                                              .invociesResponse!
+                                              .tax!)
                                           : AppVAlueConst.defalutInvoiceValue
                                               .toString()),
                                   CustomBillDetailsRow(
                                       colorText: ColorManager.primaryGreen,
                                       subStatusBill:
                                           AppLocalizations.of(context)!.total,
-                                      price: paymentProcessResponse
+                                      price: state.paymentProcessResponse!
                                                   .invociesResponse!.total !=
                                               null
-                                          ? Formatter.formatPrice(
-                                              paymentProcessResponse
-                                                  .invociesResponse!.total!)
+                                          ? Formatter.formatPrice(state
+                                              .paymentProcessResponse!
+                                              .invociesResponse!
+                                              .total!)
                                           : AppVAlueConst.defalutInvoiceValue
                                               .toString())
                                 ],
@@ -523,9 +522,10 @@ class PaymentBody extends StatelessWidget {
                       .total_price
                       .replaceAll(":", ""),
                   totoalPrice:
-                      paymentProcessResponse.invociesResponse!.total != null
-                          ? Formatter.formatPrice(
-                              paymentProcessResponse.invociesResponse!.total!)
+                      state.paymentProcessResponse!.invociesResponse!.total !=
+                              null
+                          ? Formatter.formatPrice(state
+                              .paymentProcessResponse!.invociesResponse!.total!)
                           : AppVAlueConst.defalutInvoiceValue.toString(),
                   onCompletePayment: () {
                     context.read<PaymentBloc>().add(CreateOrder(

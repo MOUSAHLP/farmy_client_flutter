@@ -4,6 +4,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/delevery_attributes_response.dart';
 import 'package:pharma/models/delivery_response.dart';
+import 'package:pharma/models/invocies_response.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/params/payment_process_parms.dart';
 import 'package:pharma/models/payment_process_response.dart';
@@ -16,7 +17,13 @@ part 'payment_state.dart';
 
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   PaymentRepo paymentRepo;
-  PaymentBloc({required this.paymentRepo}) : super(const PaymentState()) {
+  PaymentBloc({required this.paymentRepo})
+      : super(PaymentState(
+            paymentProcessResponse: PaymentProcessResponse(
+                deleveryAttributesList: [],
+                deleveryMethodList: [],
+                invociesResponse: InvociesResponse(),
+                userAdressList: []))) {
     on<PaymentEvent>(
       (event, emit) async {
         if (event is OrderEvent) {
@@ -85,6 +92,10 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
                       errorMessage: l)),
                   (r) => emit(state.copyWith(
                       completePaymentStates: CompletePaymentStates.complete)));
+        }
+        if (event is GetInitializeInvoice) {
+          print(event.initializeInvoice.deleveryAttributesList!.length);
+          emit(state.copyWith(paymentProcessResponse: event.initializeInvoice));
         }
       },
     );

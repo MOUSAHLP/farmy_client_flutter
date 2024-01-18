@@ -59,3 +59,11 @@ class CreateOrder extends PaymentEvent {
     required this.prductList,
   });
 }
+
+class GetInitializeInvoice extends PaymentEvent {
+ final   PaymentProcessResponse initializeInvoice;
+  const  GetInitializeInvoice({
+    required this.initializeInvoice,
+  });
+  
+}
