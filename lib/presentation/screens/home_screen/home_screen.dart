@@ -42,28 +42,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         } else {}
         return true;
       },
-      child: BlocListener<LocationBloc, LocationState>(
+      child: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
-          if (state.successDelete == true) {
-            context.read<HomeBloc>().state.homeData!.userAddressModel =
-                state.addressCurrent;
-
-            // context.read<HomeBloc>().state.homeData!.userAddressModel!.area =
-            //     state.addressCurrent.area;
-            // context
-            //     .read<HomeBloc>()
-            //     .state
-            //     .homeData!
-            //     .userAddressModel!
-            //     .building = state.addressCurrent.building;
-            // context
-            //     .read<HomeBloc>()
-            //     .state
-            //     .homeData!
-            //     .userAddressModel!
-            //     .buildingNumber = state.addressCurrent.buildingNumber;
-            // context.read<HomeBloc>().state.homeData!.userAddressModel!.floor =
-            //     state.addressCurrent.floor;
+          if (state.screenState == ScreenState.success) {
+            context.read<LocationBloc>().state.addressCurrent =
+                state.homeData!.userAddressModel!;
           }
         },
         child: BlocBuilder<HomeBloc, HomeState>(
@@ -85,9 +68,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   padding: EdgeInsets.zero,
                                   children: [
                                     sl<AuthenticationBloc>().loggedIn
-                                        ? CustomDeliveryAddress(
-                                            userAddressModel: state
-                                                .homeData!.userAddressModel)
+                                        ? BlocBuilder<LocationBloc,
+                                            LocationState>(
+                                            builder: (context, state) {
+                                              return CustomDeliveryAddress(
+                                                  userAddressModel:
+                                                      state.addressCurrent);
+                                            },
+                                          )
                                         : const SizedBox(),
                                     const CustomDeliveryService(),
                                     state.homeData!.homeCategoriesList!
