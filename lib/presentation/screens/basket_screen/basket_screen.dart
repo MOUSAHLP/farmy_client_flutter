@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ import 'package:pharma/translations.dart';
 
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
+import '../../resources/font_app.dart';
 import '../guest_screen/guest_screen.dart';
 
 class BasketScreen extends StatelessWidget {
@@ -105,10 +107,24 @@ class BasketScreen extends StatelessWidget {
                                  style: getBoldStyle(
                                      color: ColorManager.grayForMessage,
                                      fontSize: 14)),
-                             Text(context.read<BasketBloc>().finalPrice().toString(),
-                                 style: getBoldStyle(
-                                     color: ColorManager.primaryGreen,
-                                     fontSize: 24)),
+                             Row(
+
+                               mainAxisAlignment: MainAxisAlignment.center,
+
+                               children: [
+                                 Text( Formatter.formatPrice((context.read<BasketBloc>().finalPrice())),
+                                     style: getBoldStyle(
+                                         color: ColorManager.primaryGreen,
+                                         fontSize: 24)),
+                                 const SizedBox(width: 2,),
+                                 Text(AppLocalizations.of(context)!.curruncy,
+                                     style: getBoldStyle(
+                                         color: ColorManager.primaryGreen,
+                                         fontSize: 15)!
+                                         .copyWith(height: 1))
+                               ],
+
+                             ),
                              Padding(
                                padding: const EdgeInsets.symmetric(
                                    horizontal: 27, vertical: 9),
