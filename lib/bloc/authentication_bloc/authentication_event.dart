@@ -1,6 +1,7 @@
 
 
 import '../../core/app_enum.dart';
+import '../../models/params/delete_account_params.dart';
 import '../../models/params/login_params.dart';
 
 abstract class AuthenticationEvent {
@@ -41,4 +42,8 @@ class ReSendCode extends AuthenticationEvent {
 class ChangeCheckPolice extends AuthenticationEvent{
   bool isCheck;
   ChangeCheckPolice(this.isCheck);
+}
+class DeleteAccount extends AuthenticationEvent{
+  DeleteAccountParams deleteAccountParams;
+  DeleteAccount({required this.deleteAccountParams});
 }

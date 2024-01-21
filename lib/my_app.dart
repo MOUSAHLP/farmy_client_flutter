@@ -74,6 +74,7 @@ class _MyAppState extends State<MyApp> {
                     title: 'Farmy',
                     locale: Locale(DataStore.instance.lang),
                     supportedLocales: AppLocalizations.supportedLocales,
+
                     localizationsDelegates: const [
                       AppLocalizations.delegate,
                       GlobalMaterialLocalizations.delegate,

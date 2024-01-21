@@ -4,6 +4,7 @@ import 'package:pharma/models/profile_model.dart';
 import '../../core/utils/api_const.dart';
 import '../../models/login_response.dart';
 import '../../models/otp_verify_response.dart';
+import '../../models/params/delete_account_params.dart';
 import '../../models/params/forget_password_params.dart';
 import '../../models/params/login_params.dart';
 import '../../models/params/otp_confirm_params.dart';
@@ -71,6 +72,14 @@ class UserRepository {
           return true;
         });
   }
+  Future<Either<String, bool>> deleteAccount(DeleteAccountParams deleteAccountParams) async {
+    return BaseApiClient.post<bool>(
+        url: ApiConst.deleteAccount,
+        formData: deleteAccountParams.toJson(),
+        converter: (e) {
+          return true;
+        });
+  }
   Future<Either<String, String>> signUp(
       SignUpParams? signUpParams) async {
 
@@ -83,20 +92,13 @@ class UserRepository {
         });
   }
   static Future<Either<String, ProfileModel>> editProfile(
-      ProfileModel? profileModel) async {
-    String? imageFileName = profileModel?.avatar != null
-        ? profileModel?.avatar?.split('/').last
-        : '';
+      ProfileModel profileModel) async {
+    print(profileModel.toJson());
+    print( FormData.fromMap(profileModel.toJson()));
+
     return BaseApiClient.post<ProfileModel>(
         url: ApiConst.updateProfile,
-        formData: FormData.fromMap({
-          "name": profileModel?.name,
-          "email": profileModel?.email,
-          "phone": profileModel?.phone,
-          if (profileModel?.avatar != null && profileModel!.avatar!.isNotEmpty)
-            "avatar": await MultipartFile.fromFile(profileModel.avatar ?? "",
-                filename: imageFileName),
-        }),
+        formData: FormData.fromMap(profileModel.toJson()),
         converter: (e) {
           return ProfileModel.fromJson(e['data']);
         });

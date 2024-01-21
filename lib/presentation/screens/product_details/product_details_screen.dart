@@ -68,25 +68,25 @@ class ProductDetailsBody extends StatelessWidget {
                                 children: [
                                   ProductImage(
                                       productImage: state
-                                                  .productDetailsResponse!
+                                                  .productDetailsResponse
                                                   .image !=
                                               null
-                                          ? state.productDetailsResponse!.image!
+                                          ? state.productDetailsResponse.image!
                                           : ""),
                                   AboutProductAndAmonutSection(
                                       attributeList: state
-                                          .productDetailsResponse!
+                                          .productDetailsResponse
                                           .attributeList,
-                                      productDesc: state.productDetailsResponse!
+                                      productDesc: state.productDetailsResponse
                                                   .description !=
                                               null
-                                          ? state.productDetailsResponse!
+                                          ? state.productDetailsResponse
                                               .description!
                                           : "",
-                                      productName: state.productDetailsResponse!
+                                      productName: state.productDetailsResponse
                                                   .nameOfProduct !=
                                               null
-                                          ? state.productDetailsResponse!
+                                          ? state.productDetailsResponse
                                               .nameOfProduct!
                                           : ""),
                                   Column(
@@ -108,11 +108,11 @@ class ProductDetailsBody extends StatelessWidget {
                                                       ColorManager.primaryGreen,
                                                   fontSize: FontSizeApp.s15),
                                             ),
-                                            state.productDetailsResponse!
+                                            state.productDetailsResponse
                                                         .price !=
                                                     null
                                                 ? Text(
-                                                    "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse!.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
+                                                    "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
                                                     style: getBoldStyle(
                                                         color: ColorManager
                                                             .primaryGreen,
@@ -123,7 +123,7 @@ class ProductDetailsBody extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      state.productDetailsResponse!
+                                      state.productDetailsResponse
                                               .relatedProducts!.isNotEmpty
                                           ? Padding(
                                               padding:
@@ -138,7 +138,7 @@ class ProductDetailsBody extends StatelessWidget {
                                               ),
                                             )
                                           : const SizedBox(),
-                                      state.productDetailsResponse!
+                                      state.productDetailsResponse
                                               .relatedProducts!.isNotEmpty
                                           ? SizedBox(
                                               height: 115,
@@ -147,7 +147,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                 scrollDirection:
                                                     Axis.horizontal,
                                                 itemCount: state
-                                                    .productDetailsResponse!
+                                                    .productDetailsResponse
                                                     .relatedProducts!
                                                     .length,
                                                 itemBuilder: (context, index) {
@@ -161,7 +161,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                             context,
                                                             ProductDetailsScreen(
                                                                 id: state
-                                                                    .productDetailsResponse!
+                                                                    .productDetailsResponse
                                                                     .relatedProducts![
                                                                         index]
                                                                     .id));
@@ -185,7 +185,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                         width: 115,
                                                         child: CachedImage(
                                                             imageUrl: state
-                                                                .productDetailsResponse!
+                                                                .productDetailsResponse
                                                                 .relatedProducts![
                                                                     index]
                                                                 .image),
@@ -196,7 +196,7 @@ class ProductDetailsBody extends StatelessWidget {
                                               ),
                                             )
                                           : const SizedBox(),
-                                      state.productDetailsResponse!
+                                      state.productDetailsResponse
                                               .similarProducts!.isNotEmpty
                                           ? Padding(
                                               padding:
@@ -211,7 +211,7 @@ class ProductDetailsBody extends StatelessWidget {
                                               ),
                                             )
                                           : const SizedBox(),
-                                      state.productDetailsResponse!
+                                      state.productDetailsResponse
                                               .similarProducts!.isNotEmpty
                                           ? SizedBox(
                                               height: 115,
@@ -220,7 +220,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                 scrollDirection:
                                                     Axis.horizontal,
                                                 itemCount: state
-                                                    .productDetailsResponse!
+                                                    .productDetailsResponse
                                                     .similarProducts!
                                                     .length,
                                                 itemBuilder: (context, index) {
@@ -234,7 +234,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                             context,
                                                             ProductDetailsScreen(
                                                                 id: state
-                                                                    .productDetailsResponse!
+                                                                    .productDetailsResponse
                                                                     .similarProducts![
                                                                         index]
                                                                     .id));
@@ -258,7 +258,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                         width: 115,
                                                         child: CachedImage(
                                                             imageUrl: state
-                                                                .productDetailsResponse!
+                                                                .productDetailsResponse
                                                                 .similarProducts![
                                                                     index]
                                                                 .image),
@@ -275,39 +275,39 @@ class ProductDetailsBody extends StatelessWidget {
                                            context.read<BasketBloc>().add(AddToBasket(
                                               product:
                                               ProductDetailsResponse(
-                                                image: state.productDetailsResponse?.image??"",
+                                                image: state.productDetailsResponse.image??"",
                                                 price: state
-                                                    .productDetailsResponse!
+                                                    .productDetailsResponse
                                                     .price ==
                                                     null
                                                     ? ""
                                                     : state
-                                                    .productDetailsResponse!
+                                                    .productDetailsResponse
                                                     .price!,
                                                   nameOfProduct: state
-                                                              .productDetailsResponse!
+                                                              .productDetailsResponse
                                                               .nameOfProduct ==
                                                           null
                                                       ? ""
                                                       : state
-                                                          .productDetailsResponse!
+                                                          .productDetailsResponse
                                                           .nameOfProduct!,
                                                   sellerName:
-                                                      state.productDetailsResponse!.sellerName == null
+                                                      state.productDetailsResponse.sellerName == null
                                                           ? ""
                                                           : state
-                                                              .productDetailsResponse!
+                                                              .productDetailsResponse
                                                               .sellerName!,
                                                   isDiscount: state
-                                                              .productDetailsResponse!
+                                                              .productDetailsResponse
                                                               .discountValue ==
                                                           "0"
-                                                      ? false || state.productDetailsResponse!.discountValue != null
+                                                      ? false || state.productDetailsResponse.discountValue != null
                                                       : true,
-                                                  attributeList: state.productDetailsResponse!.attributeList,
-                                                  id: state.productDetailsResponse!.id!,
+                                                  attributeList: state.productDetailsResponse.attributeList,
+                                                  id: state.productDetailsResponse.id!,
                                                   quantity: state.quntity,
-                                              discountValue: state.productDetailsResponse!.discountValue)
+                                              discountValue: state.productDetailsResponse.discountValue)
                                            ));
                                          }
                                          else{

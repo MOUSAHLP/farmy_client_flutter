@@ -183,9 +183,9 @@ class CardBasket extends StatelessWidget {
                             maxLines: 1,
                           )
                         : const SizedBox(),
-                    productAddedToBasketDetails.sellerName != null
+                    productAddedToBasketDetails.sellerName != null ||productAddedToBasketDetails.sellerName!=""
                         ? Text(
-                      "( ${productAddedToBasketDetails.sellerName} )" ,
+                      "( ${productAddedToBasketDetails.sellerName.toString()} )" ,
                             style: getBoldStyle(
                               color: ColorManager.primaryGreen,
                               fontSize: FontSizeApp.s10,
@@ -196,37 +196,36 @@ class CardBasket extends StatelessWidget {
                             maxLines: 1,
                           )
                         : const SizedBox(),
-                    Padding(
+                    productAddedToBasketDetails
+                        .attributeList.isNotEmpty?    Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: FittedBox(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              productAddedToBasketDetails
-                                      .attributeList.isNotEmpty
-                                  ? Text(
-                                      productAddedToBasketDetails
-                                          .attributeList[0].value,
-                                      style: getRegularStyle(
-                                        color: ColorManager.grayForMessage,
-                                        fontSize: FontSizeApp.s15,
-                                      )!
-                                          .copyWith(height: 1),
-                                    )
-                                  : const SizedBox(),
-                              productAddedToBasketDetails.attributeList.length >
-                                      1
-                                  ? Text(
-                                      " / ${productAddedToBasketDetails.attributeList[1].value}",
-                                      style: getRegularStyle(
-                                        color: ColorManager.grayForMessage,
-                                        fontSize: FontSizeApp.s15,
-                                      )!
-                                          .copyWith(height: 1))
-                                  : const SizedBox(),
-                            ],
-                          ),
-                        )),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            productAddedToBasketDetails
+                                    .attributeList.isNotEmpty
+                                ? Text(
+                                    productAddedToBasketDetails
+                                        .attributeList[0].value,
+                                    style: getRegularStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s15,
+                                    )!
+                                        .copyWith(height: 1),
+                                  )
+                                : const SizedBox(),
+                            productAddedToBasketDetails.attributeList.length >
+                                    1
+                                ? Text(
+                                    " / ${productAddedToBasketDetails.attributeList[1].value}",
+                                    style: getRegularStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s15,
+                                    )!
+                                        .copyWith(height: 1))
+                                : const SizedBox(),
+                          ],
+                        )):const SizedBox(),
                     productAddedToBasketDetails.discountValue != null
                         ? Text(
                             productAddedToBasketDetails.discountValue ?? '',

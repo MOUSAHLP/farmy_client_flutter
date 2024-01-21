@@ -97,6 +97,24 @@ class AuthenticationBloc
               AuthenticationScreenStates.authenticationLoggedOut));
         });
       }
+      if (event is DeleteAccount) {
+        emit(state.copyWith(
+           isLoading: true));
+        final response =
+        await userRepository.deleteAccount(event.deleteAccountParams);
+        response.fold((l) {
+          emit(state.copyWith(
+            error: l,
+          ));
+        }, (r) {
+          userRepository.deleteToken();
+          DataStore.instance.deleteUserInfo();
+          emit(state.copyWith(
+              authenticationScreenStates:
+              AuthenticationScreenStates.authenticationLoggedOut,isDeleteAccount: true));
+        });
+
+      }
       if (event is RequestOtp) {
         emit(state.copyWith(
           isLoading: true,

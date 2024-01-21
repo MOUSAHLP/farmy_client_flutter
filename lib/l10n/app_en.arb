@@ -227,5 +227,6 @@
   "edit": "Edit",
   "no_order": "There are not orders",
   "order_details": "Order details",
-  "delete_product": "The product will be removed from the basket"
+  "delete_product": "The product will be removed from the basket",
+  "email_option": "Email option"
 }

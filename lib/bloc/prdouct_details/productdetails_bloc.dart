@@ -14,7 +14,7 @@ class ProductdetailsBloc
   ProductRepo productRepo;
   int quntity = 1;
   ProductdetailsBloc({required this.productRepo})
-      : super(const ProductdetailsState()) {
+      : super( ProductdetailsState(productDetailsResponse: ProductDetailsResponse())) {
     on<ProductdetailsEvent>((event, emit) async {
       if (event is GetProductDetailsById) {
         emit(state.copyWith(screenState: ScreenState.loading));
