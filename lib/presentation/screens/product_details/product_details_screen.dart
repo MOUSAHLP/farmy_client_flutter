@@ -170,7 +170,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                         decoration:
                                                             const BoxDecoration(
                                                                 color: ColorManager
-                                                                    .grayForPlaceholde,
+                                                                    .grayForPlaceholder,
                                                                 boxShadow: [
                                                               BoxShadow(
                                                                 color: Color(
@@ -243,7 +243,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                         decoration:
                                                             const BoxDecoration(
                                                                 color: ColorManager
-                                                                    .grayForPlaceholde,
+                                                                    .grayForPlaceholder,
                                                                 boxShadow: [
                                                               BoxShadow(
                                                                 color: Color(

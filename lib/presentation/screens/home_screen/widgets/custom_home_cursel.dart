@@ -63,7 +63,7 @@ class _CustomHomeCurselState extends State<CustomHomeCursel> {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
-                      color: ColorManager.grayForPlaceholde,
+                      color: ColorManager.grayForPlaceholder,
                       width: 1.sw,
                       child: Center(
                         child: CachedImage(

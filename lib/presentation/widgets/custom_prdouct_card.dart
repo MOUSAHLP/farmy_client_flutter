@@ -45,7 +45,7 @@ class CustomProductCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                   child: Container(
                     height: 144,
-                    color: ColorManager.grayForPlaceholde,
+                    color: ColorManager.grayForPlaceholder,
                     child: CachedImage(
                       width: 163,
                       imageUrl: productInfo.image,

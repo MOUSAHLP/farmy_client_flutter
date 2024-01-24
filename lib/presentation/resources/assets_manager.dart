@@ -42,6 +42,7 @@ class ImageManager {
   static const String replacePoint = "$imagePath/replace_ponits.png";
   static const String codeDiscount = "$imagePath/code_discount.png";
   static const String pointCircle = "$imagePath/circle_with_point.png";
+  static const String logoGuest = "$imagePath/logo_guest.png";
 }
 
 class IconsManager {

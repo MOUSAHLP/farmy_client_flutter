@@ -43,6 +43,7 @@ class OnBoardingScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return onBoardingBloc.slides[index];
                     },
+
                   ),
                   Container(
                     width: 1.sw,

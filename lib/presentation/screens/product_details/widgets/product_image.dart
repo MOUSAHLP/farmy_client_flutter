@@ -16,7 +16,7 @@ class ProductImage extends StatelessWidget {
           width: 1.sw,
           height: 0.75.sw,
           decoration: BoxDecoration(
-            color: ColorManager.grayForPlaceholde,
+            color: ColorManager.grayForPlaceholder,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(28),
               topRight: Radius.circular(28),

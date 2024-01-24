@@ -9,7 +9,7 @@ class CustomCategoryShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: ColorManager.grayForPlaceholde,
+      baseColor: ColorManager.grayForPlaceholder,
       highlightColor: const Color(0xFFe2e4e9),
       child: GridView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 10),

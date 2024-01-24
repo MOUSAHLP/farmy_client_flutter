@@ -37,4 +37,8 @@ class ApiConst {
 
   ///my_order
   static const String getMyOrder = "/orders";
+
+  ///notification
+  static const String getNotifications = "/orders";
+
 }

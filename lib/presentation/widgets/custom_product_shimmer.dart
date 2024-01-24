@@ -21,7 +21,7 @@ class CustomProductShimmer extends StatelessWidget {
       itemBuilder: (context, index) {
         return Center(
             child: Shimmer.fromColors(
-          baseColor: ColorManager.grayForPlaceholde,
+          baseColor: ColorManager.grayForPlaceholder,
           highlightColor: const Color(0xFFe2e4e9),
           child: CustomProductCard(
               isSellerFound: false,

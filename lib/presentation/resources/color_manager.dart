@@ -8,7 +8,7 @@ class     ColorManager {
   static const grayForMessage = Color(0xff727272);
   static const blackGreen = Color(0xff172F20);
   static const lightGray = Color(0xffE4E4E4);
-  static const grayForPlaceholde = Color(0xffF4F4F4);
+  static const grayForPlaceholder = Color(0xffF4F4F4);
   static const black = Color(0xff1E1E1E);
   static const white = Color(0xffFFFFFF);
   static const grayForSearch = Color(0xffD9D9D9);
@@ -26,7 +26,8 @@ class     ColorManager {
     ],
     transform: GradientRotation(177.96),
   );
-  static const greyForUnSleactedItem = Color(0xffD6D3D3);
+
+  static const greyForUnSelectedItem = Color(0xffD6D3D3);
   //box-shadow: 0px 0px 4px 0px #0000001A;
   static   BoxShadow shadowGaryDown =  BoxShadow(
     color: const Color(0xFF000000).withOpacity(0.18),

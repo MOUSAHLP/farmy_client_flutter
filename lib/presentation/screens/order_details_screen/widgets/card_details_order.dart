@@ -85,7 +85,7 @@ class CardDetailsOrder extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
               child: Container(
                 height: 115,
-                color: ColorManager.grayForPlaceholde,
+                color: ColorManager.grayForPlaceholder,
                 child:  CachedImage(
                   imageUrl: productAddedToBasketDetails.product?.image,
                 ),

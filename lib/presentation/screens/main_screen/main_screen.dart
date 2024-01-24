@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
                             ImageManager.homeIcon,
                             color: context.read<HomeBloc>().currentIndex == 0
                                 ? ColorManager.primaryGreen
-                                : ColorManager.greyForUnSleactedItem,
+                                : ColorManager.greyForUnSelectedItem,
                           ),
                           Text(
                             AppLocalizations.of(context)!.store,
@@ -94,7 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                                 color:
                                     context.read<HomeBloc>().currentIndex == 0
                                         ? ColorManager.primaryGreen
-                                        : ColorManager.greyForUnSleactedItem,
+                                        : ColorManager.greyForUnSelectedItem,
                                 fontSize: FontSizeApp.s12),
                           )
                         ],
@@ -115,7 +115,7 @@ class _MainScreenState extends State<MainScreen> {
                             ImageManager.favoriteIcon,
                             color: context.read<HomeBloc>().currentIndex == 1
                                 ? ColorManager.primaryGreen
-                                : ColorManager.greyForUnSleactedItem,
+                                : ColorManager.greyForUnSelectedItem,
                           ),
                           Text(
                             AppLocalizations.of(context)!.favorite,
@@ -123,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
                                 color:
                                     context.read<HomeBloc>().currentIndex == 1
                                         ? ColorManager.primaryGreen
-                                        : ColorManager.greyForUnSleactedItem,
+                                        : ColorManager.greyForUnSelectedItem,
                                 fontSize: FontSizeApp.s12),
                           )
                         ],
@@ -144,7 +144,7 @@ class _MainScreenState extends State<MainScreen> {
                             width: 25,
                             color: context.read<HomeBloc>().currentIndex == 2
                                 ? ColorManager.primaryGreen
-                                : ColorManager.greyForUnSleactedItem,
+                                : ColorManager.greyForUnSelectedItem,
                           ),
                           Text(
                             AppLocalizations.of(context)!.basket,
@@ -152,7 +152,7 @@ class _MainScreenState extends State<MainScreen> {
                                 color:
                                     context.read<HomeBloc>().currentIndex == 2
                                         ? ColorManager.primaryGreen
-                                        : ColorManager.greyForUnSleactedItem,
+                                        : ColorManager.greyForUnSelectedItem,
                                 fontSize: FontSizeApp.s12),
                           )
                         ],
@@ -171,7 +171,7 @@ class _MainScreenState extends State<MainScreen> {
                             ImageManager.homeIcon,
                             color: context.read<HomeBloc>().currentIndex == 3
                                 ? ColorManager.primaryGreen
-                                : ColorManager.greyForUnSleactedItem,
+                                : ColorManager.greyForUnSelectedItem,
                           ),
                           Text(
                             AppLocalizations.of(context)!.my_order,
@@ -179,7 +179,7 @@ class _MainScreenState extends State<MainScreen> {
                                 color:
                                     context.read<HomeBloc>().currentIndex == 3
                                         ? ColorManager.primaryGreen
-                                        : ColorManager.greyForUnSleactedItem,
+                                        : ColorManager.greyForUnSelectedItem,
                                 fontSize: FontSizeApp.s12),
                           )
                         ],
@@ -194,11 +194,17 @@ class _MainScreenState extends State<MainScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            ImageManager.profileIcon,
-                            color: context.read<HomeBloc>().currentIndex == 4
-                                ? ColorManager.primaryGreen
-                                : ColorManager.greyForUnSleactedItem,
+                          Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              Image.asset(
+                                ImageManager.profileIcon,
+                                color: context.read<HomeBloc>().currentIndex == 4
+                                    ? ColorManager.primaryGreen
+                                    : ColorManager.greyForUnSelectedItem,
+                              ),
+                              const Icon(Icons.error,color: Colors.red,size: 18,)
+                            ],
                           ),
                           Text(
                             AppLocalizations.of(context)!.my_Account,
@@ -206,7 +212,7 @@ class _MainScreenState extends State<MainScreen> {
                                 color:
                                     context.read<HomeBloc>().currentIndex == 4
                                         ? ColorManager.primaryGreen
-                                        : ColorManager.greyForUnSleactedItem,
+                                        : ColorManager.greyForUnSelectedItem,
                                 fontSize: FontSizeApp.s12),
                           )
                         ],

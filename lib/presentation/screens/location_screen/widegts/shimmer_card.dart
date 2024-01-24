@@ -14,7 +14,7 @@ class ShimmerCard extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Shimmer.fromColors(
-          baseColor: ColorManager.grayForPlaceholde,
+          baseColor: ColorManager.grayForPlaceholder,
           highlightColor: const Color(0xFFe2e4e9),
           child: Container(
             decoration: BoxDecoration(

@@ -283,7 +283,7 @@ class CardBasket extends StatelessWidget {
                 child: Container(
                   height: 115,
                   width: 115,
-                  color: ColorManager.grayForPlaceholde,
+                  color: ColorManager.grayForPlaceholder,
                   child: CachedImage(
                     imageUrl: productAddedToBasketDetails.image,
                   ),

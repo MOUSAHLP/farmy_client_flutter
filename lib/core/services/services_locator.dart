@@ -16,6 +16,7 @@ import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/data/repository/product_repo.dart';
 import '../../bloc/location_bloc/location_bloc.dart';
 import '../../bloc/my_order_bloc/my_order_bloc.dart';
+import '../../bloc/notification_bloc/notification_bloc.dart';
 import '../../bloc/profile_bloc/pofile_bloc.dart';
 import '../../data/repository/user_repository.dart';
 
@@ -62,5 +63,7 @@ class ServicesLocator {
 
     ///my order
     sl.registerFactory(() => MyOrderBloc());
+
+    sl.registerFactory(() => NotificationBloc());
   }
 }
