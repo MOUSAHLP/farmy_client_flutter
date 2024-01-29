@@ -13,6 +13,8 @@ import 'package:pharma/presentation/screens/order_screen/order_screen.dart';
 import 'package:pharma/presentation/widgets/dialogs/will_pop_scope_handler.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../../core/services/services_locator.dart';
 import '../my_account_screen/my_account_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -203,7 +205,7 @@ class _MainScreenState extends State<MainScreen> {
                                     ? ColorManager.primaryGreen
                                     : ColorManager.greyForUnSelectedItem,
                               ),
-                              const Icon(Icons.error,color: Colors.red,size: 18,)
+                              sl<AuthenticationBloc>().loggedIn?SizedBox():const Icon(Icons.error,color: Colors.red,size: 18,)
                             ],
                           ),
                           Text(
