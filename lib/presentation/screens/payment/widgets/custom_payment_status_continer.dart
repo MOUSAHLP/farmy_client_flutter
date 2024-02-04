@@ -64,7 +64,7 @@ class CustomPaymentStatusContiner extends StatelessWidget {
                   },
                   color: state.paymentState == paymentState
                       ? ColorManager.primaryGreen
-                      : ColorManager.greyForUnSleactedItem,
+                      : ColorManager.greyForUnSelectedItem,
                 );
               },
             ),

@@ -19,4 +19,8 @@ class ProfileFieldsValidationFailed extends ProfileState {
   ProfileFieldsValidationFailed({this.validationError});
 }
 class ImageSuccess extends ProfileState{}
+class EditBirthDayState extends ProfileState{
+
+  EditBirthDayState();
+}
 

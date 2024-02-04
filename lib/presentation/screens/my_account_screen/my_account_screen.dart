@@ -17,6 +17,7 @@ import 'package:pharma/translations.dart';
 
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../data/data_resource/local_resource/data_store.dart';
 
 class MyAccountScreen extends StatelessWidget {
   const MyAccountScreen({super.key});
@@ -43,7 +44,7 @@ class MyAccountScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "مرحبا قمر",
+   "${ DataStore.instance.userInfo?.firstName}",
                             style: getBoldStyle(
                                 color: ColorManager.primaryGreen, fontSize: 15),
                           )
@@ -123,7 +124,7 @@ class MyAccountScreen extends StatelessWidget {
                           title: AppLocalizations.of(context)!.delete_account,
                           details: AppLocalizations.of(context)!.delete_account,
                           ontap: () {
-                            AppRouter.push(context, const DeleteAccountScreen());
+                            AppRouter.push(context,  DeleteAccountScreen());
                           }),
                     ],
                   ),

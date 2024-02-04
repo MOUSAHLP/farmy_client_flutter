@@ -227,5 +227,10 @@
   "edit": "Edit",
   "no_order": "There are not orders",
   "order_details": "Order details",
-  "delete_product": "The product will be removed from the basket"
+  "delete_product": "The product will be removed from the basket",
+  "email_option": "Email option",
+  "offers_Notifications": "Offers Notifications",
+  "app_Notifications": "App Notifications",
+  "sign_Up_Now": "Sign Up Now",
+  "try_load": "Try load page"
 }

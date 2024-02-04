@@ -2,13 +2,13 @@ part of 'productdetails_bloc.dart';
 
 class ProductdetailsState extends Equatable {
   final ScreenState? screenState;
-  final ProductDetailsResponse? productDetailsResponse;
+  final ProductDetailsResponse productDetailsResponse;
   final AddToBasketState? addToBasketState;
   final int? quntity;
 
   const ProductdetailsState(
       {this.screenState,
-      this.productDetailsResponse,
+     required this.productDetailsResponse,
       this.addToBasketState,
       this.quntity = 1});
 

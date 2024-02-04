@@ -23,7 +23,7 @@ class CustomHomeShimmer extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 13, vertical: 13),
                 child: Shimmer.fromColors(
-                  baseColor: ColorManager.grayForPlaceholde,
+                  baseColor: ColorManager.grayForPlaceholder,
                   highlightColor: const Color(0xFFe2e4e9),
                   child: Container(
                     decoration: BoxDecoration(
@@ -47,7 +47,7 @@ class CustomHomeShimmer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 13),
                 child: Shimmer.fromColors(
-                  baseColor: ColorManager.grayForPlaceholde,
+                  baseColor: ColorManager.grayForPlaceholder,
                   highlightColor: const Color(0xFFe2e4e9),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -77,7 +77,7 @@ class CustomHomeShimmer extends StatelessWidget {
                             crossAxisCount: 2),
                     itemBuilder: (context, index) {
                       return Shimmer.fromColors(
-                        baseColor: ColorManager.grayForPlaceholde,
+                        baseColor: ColorManager.grayForPlaceholder,
                         highlightColor: const Color(0xFFe2e4e9),
                         child:  CustomCategory(
                           textHieght: 0,
@@ -89,7 +89,7 @@ class CustomHomeShimmer extends StatelessWidget {
                 ),
               ),
               Shimmer.fromColors(
-                baseColor: ColorManager.grayForPlaceholde,
+                baseColor: ColorManager.grayForPlaceholder,
                 highlightColor: const Color(0xFFe2e4e9),
                 child: CustomHomeCursel(
                   isLoadingState: true,
@@ -111,25 +111,38 @@ class CustomHomeShimmer extends StatelessWidget {
                           padding: EdgeInsetsDirectional.only(
                               bottom: 10, start: index == 0 ? 0 : 15),
                           child: Shimmer.fromColors(
-                            baseColor: ColorManager.grayForPlaceholde,
+                            baseColor: ColorManager.grayForPlaceholder,
                             highlightColor: const Color(0xFFe2e4e9),
-                            child: CustomProductCard(
-                                isSellerFound: false,
-                                isDisCount: false,
-                                productInfo: ProductsBySubCategoryIdResponse(
-                                    availabilityOfProduct: "",
-                                    discount: "",
-                                    nameOfProduct: "",
-                                    price: "",
-                                    quantity: "",
-                                    sellerName: "")),
-                          ));
+                            child: Container(
+                            width: 163,
+                            decoration: BoxDecoration(
+                            color: Colors.white,
+                      borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(6)),
+                      boxShadow: [
+                      BoxShadow(
+                      color: const Color(0xFF000000).withOpacity(0.18),
+                      offset: const Offset(0, 2),
+                      blurRadius: 5.0,
+                      ),
+                      ],
+                      ),
+                            // CustomProductCard(
+                            //     isSellerFound: false,
+                            //     isDisCount: false,
+                            //     productInfo: ProductsBySubCategoryIdResponse(
+                            //         availabilityOfProduct: "",
+                            //         discount: "",
+                            //         nameOfProduct: "",
+                            //         price: "",
+                            //         quantity: "",
+                            //         sellerName: "")),
+                          )));
                     },
                   ),
                 ),
               ),
               Shimmer.fromColors(
-                baseColor: ColorManager.grayForPlaceholde,
+                baseColor: ColorManager.grayForPlaceholder,
                 highlightColor: const Color(0xFFe2e4e9),
                 child: CustomHomeCursel(
                   isLoadingState: true,
@@ -152,19 +165,32 @@ class CustomHomeShimmer extends StatelessWidget {
                           padding: EdgeInsetsDirectional.only(
                               bottom: 10, start: index == 0 ? 0 : 15),
                           child: Shimmer.fromColors(
-                            baseColor: ColorManager.grayForPlaceholde,
-                            highlightColor: const Color(0xFFe2e4e9),
-                            child: CustomProductCard(
-                                isSellerFound: false,
-                                isDisCount: false,
-                                productInfo: ProductsBySubCategoryIdResponse(
-                                    availabilityOfProduct: "",
-                                    discount: "",
-                                    nameOfProduct: "",
-                                    price: "",
-                                    quantity: "",
-                                    sellerName: "")),
-                          ));
+                              baseColor: ColorManager.grayForPlaceholder,
+                              highlightColor: const Color(0xFFe2e4e9),
+                              child: Container(
+                                width: 163,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(6)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF000000).withOpacity(0.18),
+                                      offset: const Offset(0, 2),
+                                      blurRadius: 5.0,
+                                    ),
+                                  ],
+                                ),
+                                // CustomProductCard(
+                                //     isSellerFound: false,
+                                //     isDisCount: false,
+                                //     productInfo: ProductsBySubCategoryIdResponse(
+                                //         availabilityOfProduct: "",
+                                //         discount: "",
+                                //         nameOfProduct: "",
+                                //         price: "",
+                                //         quantity: "",
+                                //         sellerName: "")),
+                              )));
                     },
                   ),
                 ),

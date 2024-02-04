@@ -46,15 +46,15 @@ class CustomCategory extends StatelessWidget {
           Container(
             height: 97,
             width: 97,
-            decoration: const BoxDecoration(
-                // border: Border.all(color: getChartColor(), width: 2),
-                boxShadow: [
+            decoration:  BoxDecoration(
+                border: Border.all(color: getChartColor(), width: 2),
+                boxShadow: const [
                   BoxShadow(
                       blurRadius: 2,
                       offset: Offset(0, -3),
-                      color: ColorManager.grayForPlaceholde)
+                      color: ColorManager.grayForPlaceholder)
                 ],
-                color: ColorManager.grayForPlaceholde,
+                color: ColorManager.grayForPlaceholder,
                 shape: BoxShape.circle),
             child: ClipOval(
               child: CachedImage(

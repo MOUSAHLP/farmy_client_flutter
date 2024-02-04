@@ -93,7 +93,7 @@ class CutomOrderTypeContiner extends StatelessWidget {
                           },
                           color: isSelected
                               ? ColorManager.primaryGreen
-                              : ColorManager.greyForUnSleactedItem,
+                              : ColorManager.greyForUnSelectedItem,
                         );
                       },
                     ),

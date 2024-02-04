@@ -14,3 +14,7 @@ class IsEditingEvent extends ProfileEvent {
 class UpdateProfile extends ProfileEvent {}
 
 class GetImageGallery extends ProfileEvent {}
+class EditBirthDay extends ProfileEvent{
+  DateTime? birthDay;
+  EditBirthDay({this.birthDay});
+}
