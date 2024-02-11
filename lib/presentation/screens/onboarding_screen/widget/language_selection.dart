@@ -15,14 +15,12 @@ import 'package:pharma/translations.dart';
 import '../../../../bloc/onboarding_bloc/onboarding_state.dart';
 
 class LanguageSelection extends StatelessWidget {
-  const LanguageSelection({
-    super.key,
-  });
+  const LanguageSelection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  BlocBuilder<OnBoardingBloc, OnBoardingState>(
-      builder:(context, state) =>  Stack(
+    return BlocBuilder<OnBoardingBloc, OnBoardingState>(
+      builder: (context, state) => Stack(
         children: [
           Container(
             height: 1.sh,
@@ -32,11 +30,8 @@ class LanguageSelection extends StatelessWidget {
             ),
             child: Center(
               child: Column(
-
                 children: [
-                  const SizedBox(
-                    height: 50,
-                  ),
+                  const SizedBox(height: 50),
                   Image.asset(
                     ImageManager.onBoarding1,
                     fit: BoxFit.fill,
@@ -66,9 +61,7 @@ class LanguageSelection extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Text(
                       "اختر اللغة",
                       style: getBoldStyle(color: Colors.white, fontSize: 16),
@@ -92,7 +85,8 @@ class LanguageSelection extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 6),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 6),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -108,12 +102,14 @@ class LanguageSelection extends StatelessWidget {
                                       child: Container(
                                         height: 35,
                                         decoration: BoxDecoration(
-                                          color:
-                                              context.read<LanguageBloc>().lang ==
-                                                      "en"
-                                                  ? ColorManager.primaryGreen
-                                                  : Colors.white,
-                                          borderRadius: BorderRadius.circular(10),
+                                          color: context
+                                                      .read<LanguageBloc>()
+                                                      .lang ==
+                                                  "en"
+                                              ? ColorManager.primaryGreen
+                                              : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         child: Center(
                                           child: Text(
@@ -132,9 +128,7 @@ class LanguageSelection extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 6,
-                                  ),
+                                  const SizedBox(width: 6),
                                   Expanded(
                                     child: GestureDetector(
                                       onTap: () {
@@ -148,12 +142,14 @@ class LanguageSelection extends StatelessWidget {
                                       child: Container(
                                         height: 35,
                                         decoration: BoxDecoration(
-                                          color:
-                                              context.read<LanguageBloc>().lang ==
-                                                      "ar"
-                                                  ? ColorManager.primaryGreen
-                                                  : Colors.white,
-                                          borderRadius: BorderRadius.circular(10),
+                                          color: context
+                                                      .read<LanguageBloc>()
+                                                      .lang ==
+                                                  "ar"
+                                              ? ColorManager.primaryGreen
+                                              : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         child: Center(
                                           child: Text(
@@ -179,9 +175,7 @@ class LanguageSelection extends StatelessWidget {
                         );
                       },
                     ),
-                    const SizedBox(
-                      height: 47,
-                    ),
+                    const SizedBox(height: 47),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 60),
                       child: CustomButton(
@@ -194,9 +188,7 @@ class LanguageSelection extends StatelessWidget {
                         },
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),

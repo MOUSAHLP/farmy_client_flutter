@@ -47,10 +47,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
         }
       },
       child: WillPopScope(
-        onWillPop: ()async{
-          sl<AuthenticationBloc>().add(
-              TapOnPressed(ScreensAuth.phoneNumberScreen)
-          );
+        onWillPop: () async {
+          sl<AuthenticationBloc>()
+              .add(TapOnPressed(ScreensAuth.phoneNumberScreen));
           return false;
         },
         child: FadeTransition(
@@ -71,7 +70,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                     controller: passwordController,
                     hintText: AppLocalizations.of(context)!.new_password,
                     validator: (value) {
-                      return AppValidators.validatePasswordFields(context, value);
+                      return AppValidators.validatePasswordFields(
+                          context, value);
                     }),
                 const SizedBox(
                   height: 13,
@@ -95,9 +95,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                             repeatPassword: repeatPasswordController.text));
                       }
                     }),
-                const SizedBox(
-                  height: 13,
-                ),
+                const SizedBox(height: 13),
                 ButtonAuth(
                     label: AppLocalizations.of(context)!.back,
                     onTap: () {

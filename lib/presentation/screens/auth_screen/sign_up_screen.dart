@@ -15,13 +15,16 @@ import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/app_validators.dart';
 import '../../resources/assets_manager.dart';
 import '../../widgets/password_input_field_auth.dart';
+
 class SignUpScreen extends StatelessWidget {
-   SignUpScreen({super.key});
+  SignUpScreen({super.key});
+
   Color getColor(Set<MaterialState> states) {
     return Colors.white;
   }
 
   final _formState = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationBloc, AuthenticationState>(
@@ -30,8 +33,7 @@ class SignUpScreen extends StatelessWidget {
             AppRouter.pop(context);
           }
         },
-        builder:(context, state) =>
-            BackGroundAuth(
+        builder: (context, state) => BackGroundAuth(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Form(
@@ -42,46 +44,60 @@ class SignUpScreen extends StatelessWidget {
                         height: 25,
                       ),
                       Text(AppLocalizations.of(context)!.new_account,
-                          style: getBoldStyle(color: Colors.white, fontSize: 25)),
+                          style:
+                              getBoldStyle(color: Colors.white, fontSize: 25)),
                       const SizedBox(
                         height: 30,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                          Expanded(
-                            child: InputFieldAuth(
-                                hintText: AppLocalizations.of(context)!.fName,
-                                onChange: (value) {
-                                  context.read<AuthenticationBloc>().signUpParams.fName =
-                                      value;
-                                },
-                                validator: (value) {
-                                  return AppValidators.validateFirstNameFields(context, value);
-                                }
-                              //   width: 1.sw-260,
-                            ),
-                          ),
-                          const SizedBox(width: 10,),
-                          Expanded(
-                            child: InputFieldAuth(
-                                hintText: AppLocalizations.of(context)!.lName,
-                                onChange: (value) {
-                                  context.read<AuthenticationBloc>().signUpParams.lName =
-                                      value;
-                                },
-                                validator: (value) {
-                                  return AppValidators.validateLastNameFields(context, value);
-                                }
-                              // width: 1.sw-260,
-                              // width: 140,
-                            ),
-                          )
-                        ]),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: InputFieldAuth(
+                                    hintText:
+                                        AppLocalizations.of(context)!.fName,
+                                    onChange: (value) {
+                                      context
+                                          .read<AuthenticationBloc>()
+                                          .signUpParams
+                                          .fName = value;
+                                    },
+                                    validator: (value) {
+                                      return AppValidators
+                                          .validateFirstNameFields(
+                                              context, value);
+                                    }
+                                    //   width: 1.sw-260,
+                                    ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: InputFieldAuth(
+                                    hintText:
+                                        AppLocalizations.of(context)!.lName,
+                                    onChange: (value) {
+                                      context
+                                          .read<AuthenticationBloc>()
+                                          .signUpParams
+                                          .lName = value;
+                                    },
+                                    validator: (value) {
+                                      return AppValidators
+                                          .validateLastNameFields(
+                                              context, value);
+                                    }
+                                    // width: 1.sw-260,
+                                    // width: 140,
+                                    ),
+                              )
+                            ]),
                       ),
                       const SizedBox(
                         height: 21,
-                      ), InputFieldAuth(
+                      ),
+                      InputFieldAuth(
                           hintText: AppLocalizations.of(context)!.hint_phone,
                           keyboardType: TextInputType.phone,
                           isPhone: true,
@@ -91,8 +107,10 @@ class SignUpScreen extends StatelessWidget {
                             width: 20,
                           ),
                           onChange: (value) {
-                            context.read<AuthenticationBloc>().signUpParams.phone =
-                                value;
+                            context
+                                .read<AuthenticationBloc>()
+                                .signUpParams
+                                .phone = value;
                           },
                           validator: (value) {
                             return AppValidators.validatePhoneFields(
@@ -104,29 +122,36 @@ class SignUpScreen extends StatelessWidget {
                       PasswordInputFieldAuth(
                           hintText: AppLocalizations.of(context)!.password,
                           onChange: (value) {
-                            context.read<AuthenticationBloc>().signUpParams.password =
-                                value;
+                            context
+                                .read<AuthenticationBloc>()
+                                .signUpParams
+                                .password = value;
                           },
                           validator: (value) {
-                            return AppValidators.validatePasswordFields(context, value);
-                          }
-                      ),
+                            return AppValidators.validatePasswordFields(
+                                context, value);
+                          }),
                       const SizedBox(
                         height: 21,
                       ),
                       PasswordInputFieldAuth(
-                          hintText: AppLocalizations.of(context)!.confirm_password,
+                          hintText:
+                              AppLocalizations.of(context)!.confirm_password,
                           onChange: (value) {
-                            context.read<AuthenticationBloc>().signUpParams.confirmPassword =
-                                value;
+                            context
+                                .read<AuthenticationBloc>()
+                                .signUpParams
+                                .confirmPassword = value;
                           },
                           validator: (value) {
                             return AppValidators.validateRepeatPasswordFields(
                                 context,
-                                context.read<AuthenticationBloc>().signUpParams.password,
+                                context
+                                    .read<AuthenticationBloc>()
+                                    .signUpParams
+                                    .password,
                                 value);
-                          }
-                      ),
+                          }),
                       const SizedBox(
                         height: 31,
                       ),
@@ -134,13 +159,15 @@ class SignUpScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Checkbox(
-
                             checkColor: ColorManager.primaryGreen,
-                            fillColor: MaterialStateProperty.resolveWith(getColor),
+                            fillColor:
+                                MaterialStateProperty.resolveWith(getColor),
 
                             // value: isChecked,
                             onChanged: (bool? value) {
-                              context.read<AuthenticationBloc>().add(ChangeCheckPolice(value!));
+                              context
+                                  .read<AuthenticationBloc>()
+                                  .add(ChangeCheckPolice(value!));
                               // setState(() {
                               //   isChecked = value!;
                               // });
@@ -166,12 +193,15 @@ class SignUpScreen extends StatelessWidget {
                       ButtonAuth(
                           label: AppLocalizations.of(context)!.register,
                           onTap: () {
-                            if(state.isCheckPolicy){
-                            if (_formState.currentState!.validate()) {
-                              context.read<AuthenticationBloc>().add(SignUp());
-                            }}
-                            else{
-                              ErrorDialog.openDialog(context,AppLocalizations.of(context)!.approve);
+                            if (state.isCheckPolicy) {
+                              if (_formState.currentState!.validate()) {
+                                context
+                                    .read<AuthenticationBloc>()
+                                    .add(SignUp());
+                              }
+                            } else {
+                              ErrorDialog.openDialog(context,
+                                  AppLocalizations.of(context)!.approve);
                             }
                           }),
                       const SizedBox(
@@ -192,4 +222,3 @@ class SignUpScreen extends StatelessWidget {
             ));
   }
 }
-

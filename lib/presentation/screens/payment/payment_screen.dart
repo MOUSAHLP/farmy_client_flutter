@@ -458,7 +458,7 @@ class PaymentBody extends StatelessWidget {
                                               .paymentProcessResponse!
                                               .invociesResponse!
                                               .subTotal!)
-                                          : AppVAlueConst.defalutInvoiceValue
+                                          : AppValueConst.defalutInvoiceValue
                                               .toString()),
                                   CustomBillDetailsRow(
                                     subStatusBill:
@@ -470,7 +470,7 @@ class PaymentBody extends StatelessWidget {
                                             .paymentProcessResponse!
                                             .invociesResponse!
                                             .coponValue!)
-                                        : AppVAlueConst.defalutInvoiceValue
+                                        : AppValueConst.defalutInvoiceValue
                                             .toString(),
                                   ),
                                   CustomBillDetailsRow(
@@ -493,7 +493,7 @@ class PaymentBody extends StatelessWidget {
                                               .paymentProcessResponse!
                                               .invociesResponse!
                                               .tax!)
-                                          : AppVAlueConst.defalutInvoiceValue
+                                          : AppValueConst.defalutInvoiceValue
                                               .toString()),
                                   CustomBillDetailsRow(
                                       colorText: ColorManager.primaryGreen,
@@ -506,7 +506,7 @@ class PaymentBody extends StatelessWidget {
                                               .paymentProcessResponse!
                                               .invociesResponse!
                                               .total!)
-                                          : AppVAlueConst.defalutInvoiceValue
+                                          : AppValueConst.defalutInvoiceValue
                                               .toString())
                                 ],
                               ),
@@ -526,7 +526,7 @@ class PaymentBody extends StatelessWidget {
                               null
                           ? Formatter.formatPrice(state
                               .paymentProcessResponse!.invociesResponse!.total!)
-                          : AppVAlueConst.defalutInvoiceValue.toString(),
+                          : AppValueConst.defalutInvoiceValue.toString(),
                   onCompletePayment: () {
                     context.read<PaymentBloc>().add(CreateOrder(
                           prductList:

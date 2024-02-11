@@ -33,7 +33,8 @@ class ServicesLocator {
       () => HomeBloc(homeRepo: sl<HomeRepo>()),
     );
     sl.registerLazySingleton(() => LocationBloc());
-// payment
+
+    // payment
     sl.registerSingleton<PaymentRepo>(PaymentRepo());
     sl.registerFactory<PaymentBloc>(
         () => PaymentBloc(paymentRepo: sl<PaymentRepo>()));

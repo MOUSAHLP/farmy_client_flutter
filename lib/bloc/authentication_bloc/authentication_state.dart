@@ -9,16 +9,16 @@ class AuthenticationState extends Equatable {
   final bool isLoading;
   final bool sentOtp;
   final bool login;
-  bool isCheckPolicy ;
-  final  bool resetPassword;
-  final  bool signUp;
+  bool isCheckPolicy;
+
+  final bool resetPassword;
+  final bool signUp;
   final bool confirmOtp;
   final bool changePasswordSuccess;
-  final  bool isReSend;
-  final  bool isDeleteAccount;
+  final bool isReSend;
+  final bool isDeleteAccount;
 
-
-   AuthenticationState({
+  AuthenticationState({
     this.indexTap = ScreensAuth.signInScreen,
     this.authenticationScreen =
         AuthenticationScreenStates.authenticationInitialized,
@@ -26,7 +26,6 @@ class AuthenticationState extends Equatable {
     this.isLoading = false,
     this.login = false,
     this.isCheckPolicy = false,
-
     this.sentOtp = false,
     this.confirmOtp = false,
     this.resetPassword = false,
@@ -36,29 +35,26 @@ class AuthenticationState extends Equatable {
     this.isDeleteAccount = false,
   });
 
-  AuthenticationState copyWith({
-    AuthenticationScreenStates? authenticationScreenStates,
-    String? error,
-    ScreensAuth?index,
-    bool? isLoading,
-    bool? sendOtp,
-    bool? login,
-    bool? confirmOtp,
-    bool? resetPassword,
-    bool? signUp,
-    bool? isSuccess,
-    bool? loggedIn,
-    bool? isReSend,
-    bool? isDeleteAccount,
-    bool? isCheckPolicy
-
-  }) {
+  AuthenticationState copyWith(
+      {AuthenticationScreenStates? authenticationScreenStates,
+      String? error,
+      ScreensAuth? index,
+      bool? isLoading,
+      bool? sendOtp,
+      bool? login,
+      bool? confirmOtp,
+      bool? resetPassword,
+      bool? signUp,
+      bool? isSuccess,
+      bool? loggedIn,
+      bool? isReSend,
+      bool? isDeleteAccount,
+      bool? isCheckPolicy}) {
     return AuthenticationState(
-      authenticationScreen:
-      authenticationScreenStates ??authenticationScreen,
+      authenticationScreen: authenticationScreenStates ?? authenticationScreen,
       error: error,
       isLoading: isLoading ?? false,
-      indexTap: index??indexTap,
+      indexTap: index ?? indexTap,
       changePasswordSuccess: isSuccess ?? false,
       sentOtp: sendOtp ?? false,
       login: login ?? false,
@@ -73,19 +69,19 @@ class AuthenticationState extends Equatable {
 
   @override
   List<Object> get props => [
-    identityHashCode(this),
-    authenticationScreen,
-    indexTap,
-    error ?? '',
-    isLoading,
-    changePasswordSuccess,
-    sentOtp,
-    confirmOtp,
-    resetPassword,
-    signUp,
-    isReSend,
-    isDeleteAccount,
-    login,
-    isCheckPolicy
-  ];
+        identityHashCode(this),
+        authenticationScreen,
+        indexTap,
+        error ?? '',
+        isLoading,
+        changePasswordSuccess,
+        sentOtp,
+        confirmOtp,
+        resetPassword,
+        signUp,
+        isReSend,
+        isDeleteAccount,
+        login,
+        isCheckPolicy
+      ];
 }

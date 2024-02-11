@@ -20,6 +20,7 @@ import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/onboarding_bloc/onboarding_bloc.dart';
 import 'core/app_enum.dart';
 import 'data/data_resource/local_resource/data_store.dart';
+import 'presentation/screens/onboarding_screen/onboarding_view.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -93,7 +94,7 @@ class _MyAppState extends State<MyApp> {
                           case AuthenticationScreenStates
                                 .authenticationUnauthenticated:
                             {
-                              return const OnBoardingScreen();
+                              return const OnBoardingView();
                             }
                           case AuthenticationScreenStates
                                 .authenticationLoggedOut:

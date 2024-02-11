@@ -18,21 +18,21 @@ class AuthScreen extends StatefulWidget {
   State<AuthScreen> createState() => _AuthScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen>
-    with TickerProviderStateMixin {
+class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-
-      bloc: sl<AuthenticationBloc>()..add(TapOnPressed(ScreensAuth.signInScreen)),
-     builder: (context, state)
-     {
-       return BackGroundAuth(
+      bloc: sl<AuthenticationBloc>()
+        ..add(TapOnPressed(ScreensAuth.signInScreen)),
+      builder: (context, state) {
+        return BackGroundAuth(
             child: state.indexTap == ScreensAuth.signInScreen
                 ? const SignInScreen()
                 : state.indexTap == ScreensAuth.phoneNumberScreen
                     ? const PhoneNumberScreen()
-                    :state.indexTap == ScreensAuth.otpConfirmationScreen?const OtpConfirmationScreen(): const ResetPasswordScreen());
+                    : state.indexTap == ScreensAuth.otpConfirmationScreen
+                        ? const OtpConfirmationScreen()
+                        : const ResetPasswordScreen());
       },
     );
   }

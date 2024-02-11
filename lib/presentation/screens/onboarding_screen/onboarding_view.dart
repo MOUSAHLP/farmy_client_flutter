@@ -13,12 +13,36 @@ import '../../../bloc/onboarding_bloc/onboarding_bloc.dart';
 import '../../../bloc/onboarding_bloc/onboarding_event.dart';
 import '../../../bloc/onboarding_bloc/onboarding_state.dart';
 import '../../widgets/over_scroll_indicator.dart';
+import 'onboarding_body.dart';
+import 'widget/language_selection.dart';
 
-class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({super.key});
+class OnBoardingView extends StatelessWidget {
+  const OnBoardingView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<BoardingBody> boardBody = [
+      BoardingBody(
+          image: ImageManager.onBoarding1,
+          imageSlide: ImageManager.slide1,
+          text: ""),
+      BoardingBody(
+        image: ImageManager.onBoarding1,
+        imageSlide: ImageManager.slide1,
+        text: AppLocalizations.of(context)!.onBoarding1,
+      ),
+      BoardingBody(
+        image: ImageManager.onBoarding2,
+        imageSlide: ImageManager.slide2,
+        text: AppLocalizations.of(context)!.onBoarding2,
+      ),
+      BoardingBody(
+        image: ImageManager.onBoarding3,
+        imageSlide: ImageManager.slide3,
+        text: AppLocalizations.of(context)!.onBoarding3,
+      ),
+    ];
+
     final onBoardingBloc = BlocProvider.of<OnBoardingBloc>(context);
 
     return BlocConsumer<OnBoardingBloc, OnBoardingState>(
@@ -33,16 +57,24 @@ class OnBoardingScreen extends StatelessWidget {
             child: Scaffold(
               body: Stack(
                 children: [
-                  PageView.builder(
-                    controller: onBoardingBloc.pageController,
-                    onPageChanged: (index) {
-                      onBoardingBloc.add(ChangeIndex(index));
-                    },
-                    itemCount: onBoardingBloc.slides.length,
-                    itemBuilder: (context, index) {
-                      return onBoardingBloc.slides[index];
-                    },
+                  OnBoardingViewBody(
+                    index: onBoardingBloc.currentPage,
+                    boardingBody: boardBody[onBoardingBloc.currentPage],
                   ),
+                  // PageView.builder(
+                  //   controller: onBoardingBloc.pageController,
+                  //   // physics: NeverScrollableScrollPhysics(),
+                  //   onPageChanged: (index) {
+                  //     onBoardingBloc.add(ChangeIndex(index));
+                  //   },
+                  //   itemCount: onBoardingBloc.boardBody.length,
+                  //   itemBuilder: (context, index) {
+                  //     return OnBoardingViewBody(
+                  //       index: index,
+                  //       boardingBody: onBoardingBloc.boardBody[index],
+                  //     );
+                  //   },
+                  // ),
                   Container(
                     width: 1.sw,
                     color: ColorManager.primaryGreen,

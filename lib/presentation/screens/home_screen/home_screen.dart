@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             .isNotEmpty
                             ? Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: AppVAlueConst
+                              vertical: AppValueConst
                                   .homeVerticalPadding),
                           child: Column(
                             crossAxisAlignment:
@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             .isNotEmpty
                             ? Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: AppVAlueConst
+                              vertical: AppValueConst
                                   .homeVerticalPadding),
                           child: Column(
                             children: [
@@ -286,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             .isNotEmpty
                             ? Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: AppVAlueConst
+                              vertical: AppValueConst
                                   .homeVerticalPadding),
                           child: Column(
                             children: [

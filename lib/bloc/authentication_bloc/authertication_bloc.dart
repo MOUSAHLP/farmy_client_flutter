@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/app_enum.dart';
 import '../../data/data_resource/local_resource/data_store.dart';
@@ -20,43 +19,51 @@ class AuthenticationBloc
   bool isCheckPolicy = false;
   OtpConfirmParams otpConfirmParams = OtpConfirmParams();
   SignUpParams signUpParams = SignUpParams();
+
   AuthenticationBloc(
-      this.userRepository,
-  ) : super( AuthenticationState()) {
+    this.userRepository,
+  ) : super(AuthenticationState()) {
     on<AuthenticationEvent>((event, emit) async {
       if (event is AppStarted) {
         final bool hasToken = await userRepository.hasToken();
-        await Future.delayed(const Duration(seconds:3)).then((value) {
+        await Future.delayed(const Duration(seconds: 3)).then((value) {
+          /// he logged in -> go to home page
           if (hasToken) {
             loggedIn = true;
             loginResponse = DataStore.instance.userInfo;
             emit(state.copyWith(
                 authenticationScreenStates:
-                AuthenticationScreenStates.authenticationAuthenticated));
-          } else {
+                    AuthenticationScreenStates.authenticationAuthenticated));
+          }
+
+          /// he did not login -> go {as guest or see if he logged out or start from start}
+          else {
+            /// want to enter as a guest
             if (loggedIn == false) {
               emit(state.copyWith(
-                  authenticationScreenStates:AuthenticationScreenStates.authenticationGuest));
-            } else {
-            emit(state.copyWith(
-                authenticationScreenStates:
-                DataStore.instance.isShowOnborading == true
-                    ? AuthenticationScreenStates.authenticationLoggedOut
-                    : AuthenticationScreenStates
-                    .authenticationUnauthenticated));
-          }}
+                  authenticationScreenStates:
+                      AuthenticationScreenStates.authenticationGuest));
+            }
+
+            /// want to enter { from on boarding or to login if he already logged out }
+            else {
+              emit(state.copyWith(
+                  authenticationScreenStates:
+                      DataStore.instance.isShowOnBoarding == true
+                          ? AuthenticationScreenStates.authenticationLoggedOut
+                          : AuthenticationScreenStates
+                              .authenticationUnauthenticated));
+            }
+          }
         });
       }
       if (event is LoggedGuest) {
         loggedIn = false;
         // emit(state.copyWith(
         //     authenticationScreenStates:AuthenticationScreenStates.authenticationGuest));
-
       }
       if (event is TapOnPressed) {
-        emit(state.copyWith(
-            index: event.index,
-           ));
+        emit(state.copyWith(index: event.index));
       }
       if (event is Login) {
         emit(state.copyWith(isLoading: true));
@@ -64,15 +71,12 @@ class AuthenticationBloc
           loginParams: event.loginParams,
         );
         response.fold((l) {
-          emit(state.copyWith(
-              error: l,
-              signUp: true
-          ));
+          emit(state.copyWith(error: l, signUp: true));
         }, (r) async {
           loggedIn = true;
           loginResponse = r;
           DataStore.instance.setUserInfo(loginResponse!);
-          DataStore.instance.setToken(loginResponse!.token??"");
+          DataStore.instance.setToken(loginResponse!.token ?? "");
 
           // FirebaseNotificationsHandler().refreshFcmToken().then((value) async {
           //   userRepository.saveFCMToken(value);
@@ -80,60 +84,50 @@ class AuthenticationBloc
           // });
           emit(state.copyWith(
               authenticationScreenStates:
-              AuthenticationScreenStates.authenticationAuthenticated,
-              login:true
-          ));
+                  AuthenticationScreenStates.authenticationAuthenticated,
+              login: true));
         });
       }
       if (event is LoggedOut) {
         emit(state.copyWith(
             authenticationScreenStates:
-            AuthenticationScreenStates.authenticationInitialized));
+                AuthenticationScreenStates.authenticationInitialized));
         await userRepository.logout().then((value) {
           userRepository.deleteToken();
           DataStore.instance.deleteUserInfo();
           emit(state.copyWith(
               authenticationScreenStates:
-              AuthenticationScreenStates.authenticationLoggedOut));
+                  AuthenticationScreenStates.authenticationLoggedOut));
         });
       }
       if (event is DeleteAccount) {
-        emit(state.copyWith(
-           isLoading: true));
+        emit(state.copyWith(isLoading: true));
         final response =
-        await userRepository.deleteAccount(event.deleteAccountParams);
+            await userRepository.deleteAccount(event.deleteAccountParams);
         response.fold((l) {
-          emit(state.copyWith(
-            error: l,
-          ));
+          emit(state.copyWith(error: l));
         }, (r) {
           userRepository.deleteToken();
           DataStore.instance.deleteUserInfo();
           emit(state.copyWith(
               authenticationScreenStates:
-              AuthenticationScreenStates.authenticationLoggedOut,isDeleteAccount: true));
+                  AuthenticationScreenStates.authenticationLoggedOut,
+              isDeleteAccount: true));
         });
-
       }
       if (event is RequestOtp) {
-        emit(state.copyWith(
-          isLoading: true,
-        ));
+        emit(state.copyWith(isLoading: true));
         final response =
-        await userRepository.signUpPhoneNumber(event.phoneNumber);
+            await userRepository.signUpPhoneNumber(event.phoneNumber);
         response.fold((l) {
-          emit(state.copyWith(
-            error: l,
-          ));
+          emit(state.copyWith(error: l));
         }, (r) {
           otpVerifyResponse = r;
           emit(state.copyWith(sendOtp: true));
         });
       }
       if (event is ConfirmOtp) {
-        emit(state.copyWith(
-          isLoading: true,
-        ));
+        emit(state.copyWith(isLoading: true));
 
         otpConfirmParams.phone = otpVerifyResponse?.phone;
 
@@ -147,16 +141,14 @@ class AuthenticationBloc
         });
       }
       if (event is ForgetPassword) {
-        emit(state.copyWith(
-          isLoading: true,
-        ));
+        emit(state.copyWith(isLoading: true));
         ForgetPasswordParams forgetPasswordParams = ForgetPasswordParams(
           phone: otpVerifyResponse?.phone,
           newPassword: event.password,
           newPasswordConfirm: event.repeatPassword,
         );
         var response =
-        await userRepository.forgetPassword(forgetPasswordParams);
+            await userRepository.forgetPassword(forgetPasswordParams);
         response.fold((l) {
           emit(state.copyWith(error: l));
         }, (r) {
@@ -164,38 +156,29 @@ class AuthenticationBloc
         });
       }
       if (event is SignUp) {
-        emit(state.copyWith(
-          isLoading: true,
-        ));
+        emit(state.copyWith(isLoading: true));
         var response = await userRepository.signUp(signUpParams);
         response.fold((l) {
           emit(state.copyWith(error: l));
         }, (r) {
-
           // FirebaseNotificationsHandler().refreshFcmToken().then((value) async {
           //   userRepository.saveFCMToken(value);
           // });
-          emit(state.copyWith(
-             signUp: true));
+          emit(state.copyWith(signUp: true));
         });
       }
-      if(event is ReSendCode){
-      emit(state.copyWith(isReSend: true));
-        final response =
-        await userRepository.signUpPhoneNumber(event.phone);
+      if (event is ReSendCode) {
+        emit(state.copyWith(isReSend: true));
+        final response = await userRepository.signUpPhoneNumber(event.phone);
         response.fold((l) {
-          emit(state.copyWith(
-            error: l,
-          ));
+          emit(state.copyWith(error: l));
         }, (r) {
           otpVerifyResponse = r;
           emit(state.copyWith(sendOtp: true));
         });
       }
-      if(event is ChangeCheckPolice){
-        emit(state.copyWith(
-          isCheckPolicy:event.isCheck,
-        ));
+      if (event is ChangeCheckPolice) {
+        emit(state.copyWith(isCheckPolicy: event.isCheck));
       }
     });
   }

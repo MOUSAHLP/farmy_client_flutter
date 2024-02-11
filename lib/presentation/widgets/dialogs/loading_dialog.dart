@@ -58,9 +58,7 @@ class _LoadingDialogBody extends StatelessWidget {
                       width: 89, height: 107);
                 },
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5),
               Text(
                 AppLocalizations.of(context)!.processing,
                 style: const TextStyle(

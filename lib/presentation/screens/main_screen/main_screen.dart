@@ -45,11 +45,8 @@ class _MainScreenState extends State<MainScreen> {
           if (context.read<HomeBloc>().currentIndex == 0) {
             WillPopScopeHandler.handle(context);
           } else {
-            setState(() {
-
-            });
+            setState(() {});
             context.read<HomeBloc>().currentIndex = 0;
-
           }
         }
         return false;
@@ -201,11 +198,18 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               Image.asset(
                                 ImageManager.profileIcon,
-                                color: context.read<HomeBloc>().currentIndex == 4
-                                    ? ColorManager.primaryGreen
-                                    : ColorManager.greyForUnSelectedItem,
+                                color:
+                                    context.read<HomeBloc>().currentIndex == 4
+                                        ? ColorManager.primaryGreen
+                                        : ColorManager.greyForUnSelectedItem,
                               ),
-                              sl<AuthenticationBloc>().loggedIn?SizedBox():const Icon(Icons.error,color: Colors.red,size: 18,)
+                              sl<AuthenticationBloc>().loggedIn
+                                  ? SizedBox()
+                                  : const Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                      size: 18,
+                                    )
                             ],
                           ),
                           Text(

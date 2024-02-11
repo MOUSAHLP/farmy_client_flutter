@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 
@@ -18,6 +18,7 @@ class WillPopScopeHandler {
     return false;
   }
 }
+
 class _ExitAppDialog extends StatelessWidget {
   const _ExitAppDialog({Key? key}) : super(key: key);
 
@@ -28,10 +29,7 @@ class _ExitAppDialog extends StatelessWidget {
       content: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 40,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 40),
             child: Text(
               AppLocalizations.of(context)!.sureShutDown,
               style: getBoldStyle(
@@ -46,24 +44,20 @@ class _ExitAppDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomButton(
-                    label:AppLocalizations.of(context)!.stay,
+                    label: AppLocalizations.of(context)!.stay,
                     fillColor: ColorManager.primaryGreen,
-
                     onTap: () {
                       AppRouter.pop(context);
                     },
                   ),
                 ),
-                const SizedBox(
-                  width: 16,
-                ),
+                const SizedBox(width: 16),
                 Expanded(
                   child: CustomButton(
-                    label:AppLocalizations.of(context)!.close,
+                    label: AppLocalizations.of(context)!.close,
                     fillColor: Colors.grey,
                     isFilled: true,
-                    labelColor:Colors.white ,
-
+                    labelColor: Colors.white,
                     onTap: () {
                       SystemNavigator.pop();
                     },

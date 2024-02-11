@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,9 +8,9 @@ import '../resources/style_app.dart';
 class PasswordInputFieldAuth extends StatefulWidget {
   const PasswordInputFieldAuth({
     this.fillColor,
-    this.fillIconColor=ColorManager.primaryGreen,
+    this.fillIconColor = ColorManager.primaryGreen,
     this.hintText,
-    this.textStyle=const TextStyle(color: ColorManager.primaryGreen),
+    this.textStyle = const TextStyle(color: ColorManager.primaryGreen),
     Key? key,
     this.controller,
     this.errorMessage,
@@ -36,9 +35,9 @@ class PasswordInputFieldAuth extends StatefulWidget {
   final bool withLabel;
   final String? icon;
   final String? Function(String?)? validator;
+
   @override
-  State<PasswordInputFieldAuth> createState() =>
-      _PasswordInputFieldAuthState();
+  State<PasswordInputFieldAuth> createState() => _PasswordInputFieldAuthState();
 }
 
 class _PasswordInputFieldAuthState extends State<PasswordInputFieldAuth> {
@@ -64,11 +63,10 @@ class _PasswordInputFieldAuthState extends State<PasswordInputFieldAuth> {
       children: [
         Container(
           height: widget.height,
-          width:  1.sw - 100,
+          width: 1.sw - 100,
           decoration: BoxDecoration(
             // boxShadow: ColorManager.boxShadow,
-            border: Border.all(
-                color: Colors.transparent, width: 1),
+            border: Border.all(color: Colors.transparent, width: 1),
             borderRadius: const BorderRadiusDirectional.all(
               Radius.circular(12),
             ),
@@ -80,8 +78,8 @@ class _PasswordInputFieldAuthState extends State<PasswordInputFieldAuth> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                  child:  SvgPicture.asset(
-                    widget.icon??"",
+                  child: SvgPicture.asset(
+                    widget.icon ?? "",
                     height: 20,
                     width: 20,
                     // color:widget.fillIconColor ,

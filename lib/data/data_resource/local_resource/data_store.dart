@@ -18,7 +18,6 @@ class DataStore {
     Hive.registerAdapter(LoginResponseAdapter());
     box = await Hive.openBox(DataStoreKeys.box);
 
-
     log("Datastore initialized", name: "$runtimeType");
   }
 
@@ -49,20 +48,29 @@ class DataStore {
   Future<void> setToken(String value) => box.put(DataStoreKeys.token, value);
 
   void deleteToken() => box.deleteAll({DataStoreKeys.token});
-  bool? get isShowOnborading {
-    if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
-    return box.get(DataStoreKeys.onBoarding);
-  }
 
-  Future<void> setShowOnborading(bool value) =>
-      box.put(DataStoreKeys.onBoarding, value);
+  // bool? get isShowOnborading {
+  //   if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
+  //   return box.get(DataStoreKeys.onBoarding);
+  // }
+  //
+  // Future<void> setShowOnborading(bool value) =>
+  //     box.put(DataStoreKeys.onBoarding, value);
+
   /// DYNAMIC Data
   Future<void> setDynamicData<T>(String key, T value) async {
     await box.put(key, value);
   }
+
+  // bool? get isShowOnBoarding {
+  //   if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
+  //   return box.get(DataStoreKeys.onBoarding);
+  // }
+
   bool? get isShowOnBoarding {
-    if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
-    return box.get(DataStoreKeys.onBoarding);
+    // if (!box.containsKey(DataStoreKeys.onBoarding))
+      return false;
+    // return box.get(DataStoreKeys.onBoarding);
   }
 
   Future<void> setShowOnBoarding(bool value) =>

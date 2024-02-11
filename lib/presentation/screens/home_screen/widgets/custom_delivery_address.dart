@@ -22,7 +22,7 @@ class CustomDeliveryAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: 13, vertical: AppVAlueConst.homeVerticalPadding),
+          horizontal: 13, vertical: AppValueConst.homeVerticalPadding),
       child: InkWell(
         onTap: () {
           AppRouter.push(context, const LocationScreen());

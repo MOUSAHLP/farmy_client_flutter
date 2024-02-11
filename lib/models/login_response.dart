@@ -2,6 +2,7 @@
 import 'package:hive_flutter/adapters.dart';
 
 part 'login_response.g.dart';
+
 @HiveType(typeId: 1)
 class LoginResponse {
   @HiveField(0)
@@ -23,19 +24,16 @@ class LoginResponse {
   @HiveField(8)
   dynamic status;
 
-
-
-
   LoginResponse({
     required this.id,
     required this.firstName,
     required this.lastName,
     required this.phone,
-     this.status,
-     this.address,
-     this.token,
-     this.email,
-     this.roleId,
+    this.status,
+    this.address,
+    this.token,
+    this.email,
+    this.roleId,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
@@ -43,13 +41,11 @@ class LoginResponse {
         firstName: json['user']["first_name"],
         lastName: json['user']["last_name"],
         phone: json['user']["phone"],
-    status: json['user']["status"],
-    address: json['user']["address"],
-    email: json['user']["email"],
-    roleId: json['user']["role_id"],
-    token: json['token'],
-
-
+        status: json['user']["status"],
+        address: json['user']["address"],
+        email: json['user']["email"],
+        roleId: json['user']["role_id"],
+        token: json['token'],
       );
 
   Map<String, dynamic> toJson() => {
