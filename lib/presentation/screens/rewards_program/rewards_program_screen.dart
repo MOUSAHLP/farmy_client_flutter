@@ -1,66 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:linear_progress_bar/linear_progress_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma/bloc/rewards_bloc1/rewards_bloc.dart';
+import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/resources/font_app.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
+import 'package:pharma/presentation/screens/rewards_program/rewards_activity_screen.dart';
+import 'package:pharma/presentation/screens/rewards_program/rewards_points_history_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 
 class RewardsProgramScreen extends StatelessWidget {
-  const RewardsProgramScreen({super.key});
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
+  const RewardsProgramScreen({
+    super.key,
+    required this.scaffoldKey,
+  });
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            const CustomAppBarScreen(sectionName: "برنامج المكافئات"),
-            Container(
-              height: 181,
-              width: 1.sw,
-              decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 2),
-                      blurRadius: 4,
-                      color: const Color(0xFF000000).withOpacity(0.18),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(6),
-                  border:
-                      Border.all(width: 3, color: ColorManager.primaryGreen)),
-              child: Column(children: [
-                Container(
-                  width: 1.sw,
-                  height: 99,
-                  decoration: const BoxDecoration(
-                    color: ColorManager.primaryGreen,
-                    borderRadius: BorderRadiusDirectional.only(
-                        bottomStart: Radius.circular(100),
-                        bottomEnd: Radius.circular(100)),
+    return BlocProvider<RewardsBloc>(
+      create: (BuildContext context) => sl<RewardsBloc>(),
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
+            children: [
+              CustomAppBar(scaffoldKey: scaffoldKey),
+              const CustomAppBarScreen(
+                  sectionName: "برنامج المكافئات \"مرحبا\""),
+              Expanded(
+                child: DefaultTabController(
+                  length: 3,
+                  child: Scaffold(
+                    backgroundColor: ColorManager.white,
+                    appBar: AppBar(
+                      shadowColor: ColorManager.grayForMessage,
+                      toolbarHeight: 0,
+                      automaticallyImplyLeading: false,
+                      bottom: TabBar(
+                        labelPadding: EdgeInsets.zero,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicatorColor: ColorManager.primaryGreen,
+                        unselectedLabelColor: ColorManager.grayForMessage,
+                        labelColor: ColorManager.primaryGreen,
+                        labelStyle: getBoldStyle(
+                            color: ColorManager.grayForMessage,
+                            fontSize: FontSizeApp.s14),
+                        tabs: const [
+                          Tab(
+                            child: Text("النقاط و الرتبة"),
+                          ),
+                          Tab(
+                            child: Text("الأنشطة و العروض"),
+                          ),
+                          Tab(
+                            child: Text("تاريخ النقاط"),
+                          ),
+                        ],
+                      ),
+                    ),
+                    body: const TabBarView(
+                      children: [
+                        Icon(Icons.directions_transit),
+                        RewardsactivityScreen(),
+                        RewardsPointsHistoryScreen(),
+                      ],
+                    ),
                   ),
-                )
-              ]),
-            ),
-            SizedBox(
-              height: 24,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 46),
-                child: LinearProgressBar(
-                  maxSteps: 100,
-                  progressType: LinearProgressBar.progressTypeLinear,
-                  currentStep: 50,
-                  progressColor: ColorManager.primaryGreen,
-                  backgroundColor: ColorManager.grayForMessage,
-                  dotsAxis: Axis.horizontal, // OR Axis.vertical
-                  dotsActiveSize: 10,
-                  dotsInactiveSize: 10,
-                  dotsSpacing: const EdgeInsets.only(
-                      right: 10), // also can use any EdgeInsets.
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

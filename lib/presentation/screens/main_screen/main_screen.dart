@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
       FavoriteScreen(),
       const BasketScreen(),
       const OrderScreen(),
-      const MyAccountScreen(),
+      MyAccountScreen(scaffoldKey: scaffoldKey),
     ];
     return WillPopScope(
       onWillPop: () async {
