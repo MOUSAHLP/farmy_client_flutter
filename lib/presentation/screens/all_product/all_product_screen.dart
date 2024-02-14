@@ -18,6 +18,7 @@ import '../../widgets/custom_app_bar_screen.dart';
 class AllProductScreen extends StatelessWidget {
   final List<SubCategoryResponse>? subCategoryList;
   int index;
+
   AllProductScreen(
       {super.key, required this.subCategoryList, required this.index});
 
@@ -34,16 +35,18 @@ class AllProductScreen extends StatelessWidget {
 class AllProductBody extends StatefulWidget {
   final List<SubCategoryResponse>? subCategoryList;
   int index;
+
   AllProductBody(
       {super.key, required this.subCategoryList, required this.index});
 
   @override
-  State<AllProductBody> createState() => _AllLProductBodynState();
+  State<AllProductBody> createState() => _AllLProductBodyState();
 }
 
-class _AllLProductBodynState extends State<AllProductBody>
+class _AllLProductBodyState extends State<AllProductBody>
     with TickerProviderStateMixin {
   late TabController _tabController;
+
   @override
   void initState() {
     _tabController =
@@ -90,9 +93,7 @@ class _AllLProductBodynState extends State<AllProductBody>
                       }).toList(),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   Expanded(
                     child: IndexedStack(
                       children: widget.subCategoryList!.map((title) {
@@ -107,7 +108,6 @@ class _AllLProductBodynState extends State<AllProductBody>
                                         gridDelegate:
                                             const SliverGridDelegateWithFixedCrossAxisCount(
                                                 // childAspectRatio: 144 / 233,
-
                                                 crossAxisCount: 2,
                                                 mainAxisSpacing: 26,
                                                 mainAxisExtent: 232),

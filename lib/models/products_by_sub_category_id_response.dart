@@ -11,6 +11,7 @@ class ProductsBySubCategoryIdResponse {
   String? discountValue;
   String? image;
   String? quntity;
+
   ProductsBySubCategoryIdResponse(
       {this.id,
       this.nameOfProduct,
@@ -23,6 +24,7 @@ class ProductsBySubCategoryIdResponse {
       this.image,
       this.sellerName,
       this.discount});
+
   factory ProductsBySubCategoryIdResponse.fromJson(Map<String, dynamic> json) {
     return json["availability"] == "1"
         ? ProductsBySubCategoryIdResponse(
@@ -57,5 +59,9 @@ class ProductsBySubCategoryIdResponse {
         : json
             .map((value) => ProductsBySubCategoryIdResponse.fromJson(value))
             .toList();
+  }
+
+  factory ProductsBySubCategoryIdResponse.init() {
+    return ProductsBySubCategoryIdResponse(discountValue: "");
   }
 }

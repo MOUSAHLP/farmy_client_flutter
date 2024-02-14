@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       minTextAdapt: true,
-      designSize: const Size(100, 100),
+      designSize: const Size(430, 930),
       builder: (context, ctx) {
         return MultiBlocProvider(
           providers: [
@@ -56,7 +56,8 @@ class _MyAppState extends State<MyApp> {
               create: (BuildContext context) => sl<BasketBloc>(),
             ),
             BlocProvider(
-              create: (BuildContext context) => sl<FavoriteBloc>(),
+              create: (BuildContext context) =>
+                  sl<FavoriteBloc>()..add(const GetFavorites()),
             ),
           ],
           child: GestureDetector(
@@ -75,7 +76,6 @@ class _MyAppState extends State<MyApp> {
                     title: 'Farmy',
                     locale: Locale(DataStore.instance.lang),
                     supportedLocales: AppLocalizations.supportedLocales,
-
                     localizationsDelegates: const [
                       AppLocalizations.delegate,
                       GlobalMaterialLocalizations.delegate,

@@ -7,13 +7,14 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
-class CustomNoteOnTheOrder extends StatelessWidget {
-  final String noteText;
+class CustomChangeOnTheOrder extends StatelessWidget {
+  final String changeText;
   final bool isSelected;
   final Function() onTab;
-  const CustomNoteOnTheOrder(
+
+  const CustomChangeOnTheOrder(
       {super.key,
-      required this.noteText,
+      required this.changeText,
       required this.onTab,
       required this.isSelected});
 
@@ -25,7 +26,9 @@ class CustomNoteOnTheOrder extends StatelessWidget {
         builder: (context, state) {
           log(state.toString());
           return Row(
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(width: 9),
               Container(
                 height: 17,
                 width: 17,
@@ -35,11 +38,9 @@ class CustomNoteOnTheOrder extends StatelessWidget {
                         ? ColorManager.primaryGreen
                         : ColorManager.grayForSearch),
               ),
-              const SizedBox(
-                width: 9,
-              ),
+              const SizedBox(width: 9),
               Text(
-                noteText,
+                changeText,
                 style: getRegularStyle(
                     color: ColorManager.grayForMessage,
                     fontSize: FontSizeApp.s14),

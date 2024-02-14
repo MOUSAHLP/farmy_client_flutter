@@ -7,7 +7,7 @@ import 'package:pharma/models/user_address_response.dart';
 class PaymentProcessResponse {
   InvociesResponse? invociesResponse;
   List<DeleveryMethodResponse>? deleveryMethodList;
-  List<DeleveryAttributesResponse>? deleveryAttributesList;
+  List<DeliveryAttributesResponse>? deleveryAttributesList;
   List<UserAddressModel>? userAdressList;
   PaymentProcessResponse({
     this.userAdressList,
@@ -22,7 +22,7 @@ class PaymentProcessResponse {
         invociesResponse: InvociesResponse.formJson(json["invoice"]),
         deleveryMethodList:
             DeleveryMethodResponse.listFromJson(json["delivery_methods"]),
-        deleveryAttributesList: DeleveryAttributesResponse.listFromJson(
+        deleveryAttributesList: DeliveryAttributesResponse.listFromJson(
             json["delivery_attributes"]));
   }
 }

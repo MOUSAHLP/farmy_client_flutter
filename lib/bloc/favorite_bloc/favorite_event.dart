@@ -9,5 +9,12 @@ class FavoriteEvent extends Equatable {
 
 class ToggleFavorite extends FavoriteEvent {
   final bool isFavorite;
- const ToggleFavorite({required this.isFavorite});
+
+  const ToggleFavorite({required this.isFavorite});
+}
+
+class GetFavorites extends FavoriteEvent {
+  // final bool isFavorite;
+
+  const GetFavorites();
 }

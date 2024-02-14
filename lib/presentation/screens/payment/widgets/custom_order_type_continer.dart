@@ -20,6 +20,7 @@ class CutomOrderTypeContiner extends StatelessWidget {
   final String text;
   final String deliverycost;
   final Function() onTap;
+
   const CutomOrderTypeContiner(
       {super.key,
       required this.isSelected,
@@ -60,9 +61,7 @@ class CutomOrderTypeContiner extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 30,
-                    ),
+                    const SizedBox(width: 30),
                     Expanded(
                       child: Text(
                         text,
@@ -81,10 +80,10 @@ class CutomOrderTypeContiner extends StatelessWidget {
 
                                 context.read<PaymentBloc>().add(
                                     GetInvoicesDetails(
-                                        invoicesParms: InvoicesParms(
+                                        invoicesParmas: InvoicesParms(
                                             deliveryMethodId: delveryField.id!,
                                             userAddressid: userAddressid),
-                                        prductList: context
+                                        productList: context
                                             .read<BasketBloc>()
                                             .state
                                             .prductList));
@@ -101,16 +100,13 @@ class CutomOrderTypeContiner extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(
-          height: 4,
-        ),
+        const SizedBox(height: 4),
         isChossenLocation
             ? Text(
                 deliverycost,
                 style: getBoldStyle(
-                        color: ColorManager.grayForMessage,
-                        fontSize: FontSizeApp.s14)!
-                    .copyWith(fontWeight: FontWeight.bold),
+                    color: ColorManager.grayForMessage,
+                    fontSize: FontSizeApp.s14),
               )
             : Text(
                 "please chosse you location",
@@ -119,6 +115,7 @@ class CutomOrderTypeContiner extends StatelessWidget {
                         fontSize: FontSizeApp.s14)!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
+        const SizedBox(height: 15),
       ],
     );
   }

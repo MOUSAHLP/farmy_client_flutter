@@ -11,28 +11,28 @@ import '../../widgets/custom_button.dart';
 class GuestScreen extends StatelessWidget {
   const GuestScreen({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(ImageManager.logoGuest),
-        const SizedBox(height: 44,),
+        const SizedBox(height: 44),
         SizedBox(
-          width: 1.sw-100,
+          width: 1.sw - 100,
           child: Text(AppLocalizations.of(context)!.sign_now_or_create,
               style: getBoldStyle(color: ColorManager.grayForMessage),
-          textAlign: TextAlign.center),
+              textAlign: TextAlign.center),
         ),
-        const SizedBox(height: 37,),
+        const SizedBox(height: 37),
         CustomButton(
-            width: 1.sw-100,label:AppLocalizations.of(context)!.sign_Up_Now, onTap: () {
-          AppRouter.push(context, const AccountScreen());
-        }),
-        const SizedBox(height: 10,),
-
+            width: 1.sw - 100,
+            label: AppLocalizations.of(context)!.sign_Up_Now,
+            onTap: () {
+              AppRouter.push(context, const AccountScreen());
+            }),
+        const SizedBox(height: 10),
       ],
     );
   }

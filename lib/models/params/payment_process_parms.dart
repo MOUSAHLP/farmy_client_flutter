@@ -24,7 +24,7 @@ class PaymentProcessParms {
   }
 
   Map<String, dynamic> createOrdertoJsonWithParms(InvoicesParms invoicesParms,
-      List<DeleveryAttributesResponse>? deleveryAttributesList,List<ProductDetailsResponse> prodictInBasketList) {
+      List<DeliveryAttributesResponse>? deleveryAttributesList,List<ProductDetailsResponse> prodictInBasketList) {
     return {
       "user_address_id": invoicesParms.userAddressid,
       "delivery_method_id": invoicesParms.deliveryMethodId,
@@ -35,14 +35,14 @@ class PaymentProcessParms {
   }
 
   static Map<String, dynamic> toJsonCard(
-      DeleveryAttributesResponse deleveryAttributesList) {
+      DeliveryAttributesResponse deleveryAttributesList) {
     return {
       "delivery_attribute_id": deleveryAttributesList.id,
     };
   }
 
   static List<Map<String, dynamic>> toJsonCardList(
-      List<DeleveryAttributesResponse>? deleveryAttributesList) {
+      List<DeliveryAttributesResponse>? deleveryAttributesList) {
     return deleveryAttributesList == null
         ? []
         : deleveryAttributesList.map((value) => toJsonCard(value)).toList();

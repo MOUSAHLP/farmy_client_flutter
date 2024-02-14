@@ -11,6 +11,7 @@ import 'package:pharma/translations.dart';
 
 import '../../../../core/get_address.dart';
 import '../../order_details_screen/order_details_screen.dart';
+import '../../rate_order/rate_order_screen.dart';
 
 class CardOrder extends StatelessWidget {
   const CardOrder({super.key,required this.myOrder});
@@ -97,7 +98,7 @@ final  MyOrderResponse myOrder;
                         fillColor: ColorManager.primaryGreen,
                         labelColor: Colors.white,
                         onTap: () {
-                          AppRouter.push(context, const OrderTrackingScreen());
+                          AppRouter.push(context, const RateOrderScreen());
                           // SystemNavigator.pop();
                         },
                       ),
