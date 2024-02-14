@@ -32,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     List<Widget> children = [
       HomeScreen(scaffoldKey: scaffoldKey),
-      FavoriteScreen(),
+       AllFavoritesScreen(),
       const BasketScreen(),
       const OrderScreen(),
       const MyAccountScreen(),

@@ -33,7 +33,7 @@ class ALlSectionScreen extends StatelessWidget {
 class ALlSectionScreenBody extends StatefulWidget {
   final int index;
   final int tabControllerLength;
-  ALlSectionScreenBody(
+  const ALlSectionScreenBody(
       {super.key, required this.index, required this.tabControllerLength});
 
   @override
@@ -83,7 +83,6 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                         .homeCategoriesList!
                         .isEmpty
                     ?
-
                     //there is no data
                     CustomNoData(
                         noDataStatment:

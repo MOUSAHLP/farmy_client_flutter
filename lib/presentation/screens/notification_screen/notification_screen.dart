@@ -24,6 +24,7 @@ class NotificationScreen extends StatelessWidget {
         create: (context) => sl<NotificationBloc>());
   }
 }
+
 class NotificationScreenBody extends StatefulWidget {
   const NotificationScreenBody({super.key});
 
@@ -31,13 +32,15 @@ class NotificationScreenBody extends StatefulWidget {
   State<NotificationScreenBody> createState() => _NotificationScreenBodyState();
 }
 
-class _NotificationScreenBodyState extends State<NotificationScreenBody>     with TickerProviderStateMixin{
+class _NotificationScreenBodyState extends State<NotificationScreenBody>
+    with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
     context.read<NotificationBloc>().tabController =
         TabController(length: 2, vsync: this, initialIndex: 0);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,66 +51,75 @@ class _NotificationScreenBodyState extends State<NotificationScreenBody>     wit
             CustomAppBarScreen(
                 sectionName: AppLocalizations.of(context)!.notification),
             Expanded(
-              child:
-              sl<AuthenticationBloc>().loggedIn?
-              Column(
-                children: [
-                  const SizedBox(height: 1,),
-                  Container(
-                    height: 50,
-                    width: 1.sw,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        ColorManager.shadowGaryDown,
-                      ],
-                    color: Colors.white,
-                    ),
-                    child: TabBar(
-                      controller: context.read<NotificationBloc>().tabController,
-                      tabs: [
-                        Tab(
-                          child: FittedBox(child: Text(AppLocalizations.of(context)!.offers_Notifications)),
+              child: sl<AuthenticationBloc>().loggedIn
+                  ? Column(
+                      children: [
+                        const SizedBox(
+                          height: 1,
                         ),
-                        Tab(
-                          child: FittedBox(child: Text(AppLocalizations.of(context)!.app_Notifications)),
-                        ),
-
-                      ],
-                      unselectedLabelColor:ColorManager.grayForMessage,
-                      labelColor: ColorManager.primaryGreen,
-                      onTap: (v) {
-                        context.read<NotificationBloc>().add(TapOnPressedNotification(v));
-                      },
-                      labelStyle: getBoldStyle(color: ColorManager.grayForMessage,
-                        fontSize: 14
-                      ),
-                      indicatorPadding: const EdgeInsets.only(bottom: 10.0,left: 30,right: 30),
-                      indicator: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: ColorManager.primaryGreen,
-                            width: 2.0,
+                        Container(
+                          height: 50,
+                          width: 1.sw,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              ColorManager.shadowGaryDown,
+                            ],
+                            color: Colors.white,
                           ),
-
+                          child: TabBar(
+                            controller:
+                                context.read<NotificationBloc>().tabController,
+                            tabs: [
+                              Tab(
+                                child: FittedBox(
+                                    child: Text(AppLocalizations.of(context)!
+                                        .offers_Notifications)),
+                              ),
+                              Tab(
+                                child: FittedBox(
+                                    child: Text(AppLocalizations.of(context)!
+                                        .app_Notifications)),
+                              ),
+                            ],
+                            unselectedLabelColor: ColorManager.grayForMessage,
+                            labelColor: ColorManager.primaryGreen,
+                            onTap: (v) {
+                              context
+                                  .read<NotificationBloc>()
+                                  .add(TapOnPressedNotification(v));
+                            },
+                            labelStyle: getBoldStyle(
+                                color: ColorManager.grayForMessage,
+                                fontSize: 14),
+                            indicatorPadding: const EdgeInsets.only(
+                                bottom: 10.0, left: 30, right: 30),
+                            indicator: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: ColorManager.primaryGreen,
+                                  width: 2.0,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  const Divider(),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 28),
-                      child: ListView.builder(itemBuilder: (context, index) =>  const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: CardNotification(),
-                      ),itemCount: 5,),
-                    ),
-                  )
-                ],
-              )
-                  :const GuestScreen(),
+                        const Divider(),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 28),
+                            child: ListView.builder(
+                              itemBuilder: (context, index) => const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: CardNotification(),
+                              ),
+                              itemCount: 5,
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  : const GuestScreen(),
             ),
-
           ],
         ),
       ),

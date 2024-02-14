@@ -10,6 +10,7 @@ class PaymentEvent extends Equatable {
 
 class OrderEvent extends PaymentEvent {
   final OrderStates orderStates;
+
   const OrderEvent({required this.orderStates});
 }
 
@@ -24,28 +25,52 @@ class ChoosePaymentStatusEvent extends PaymentEvent {
 class GetPaymentDetailsEvent extends PaymentEvent {}
 
 class AddToChossenAttrbiuteList extends PaymentEvent {
-  final DeleveryAttributesResponse? attrbiuteData;
+  final DeliveryAttributesResponse? attrbiuteData;
+
   const AddToChossenAttrbiuteList({
     this.attrbiuteData,
   });
 }
 
 class GetInvoicesDetails extends PaymentEvent {
-  final InvoicesParms invoicesParms;
-  final List<ProductDetailsResponse>? prductList;
+  final InvoicesParms invoicesParmas;
+  final List<ProductDetailsResponse>? productList;
+
   const GetInvoicesDetails(
-      {required this.invoicesParms, required this.prductList});
+      {required this.invoicesParmas, required this.productList});
 }
 
 class RemoveFromChossenList extends PaymentEvent {
-  final DeleveryAttributesResponse? attrbiuteData;
+  final DeliveryAttributesResponse? attributeData;
+
   const RemoveFromChossenList({
-    this.attrbiuteData,
+    this.attributeData,
   });
 }
 
+
+class AddChangeAttributeList extends PaymentEvent {
+  /// todo : change DeliveryAttributesResponse to changeResponse
+  final DeliveryAttributesResponse? attributeData;
+
+  const AddChangeAttributeList({
+    this.attributeData,
+  });
+}
+
+class RemoveChangeAttributeList extends PaymentEvent {
+  /// todo : change DeliveryAttributesResponse to changeResponse
+  final DeliveryAttributesResponse? attributeData;
+
+  const RemoveChangeAttributeList({
+    this.attributeData,
+  });
+}
+
+
 class ToogleDeleveryMethod extends PaymentEvent {
   final DeleveryMethodResponse? deleveryMethodData;
+
   const ToogleDeleveryMethod({
     this.deleveryMethodData,
   });
@@ -54,6 +79,7 @@ class ToogleDeleveryMethod extends PaymentEvent {
 class CreateOrder extends PaymentEvent {
   final InvoicesParms invoicesParms;
   final List<ProductDetailsResponse> prductList;
+
   const CreateOrder({
     required this.invoicesParms,
     required this.prductList,
@@ -61,9 +87,9 @@ class CreateOrder extends PaymentEvent {
 }
 
 class GetInitializeInvoice extends PaymentEvent {
- final   PaymentProcessResponse initializeInvoice;
-  const  GetInitializeInvoice({
+  final PaymentProcessResponse initializeInvoice;
+
+  const GetInitializeInvoice({
     required this.initializeInvoice,
   });
-  
 }

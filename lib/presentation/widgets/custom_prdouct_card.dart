@@ -13,6 +13,7 @@ class CustomProductCard extends StatelessWidget {
   final bool? isDisCount;
   final bool? isSellerFound;
   final ProductsBySubCategoryIdResponse productInfo;
+
   const CustomProductCard(
       {super.key,
       required this.isDisCount,
@@ -143,7 +144,7 @@ class CustomProductCard extends StatelessWidget {
                                         style: getRegularStyle(
                                                 color:
                                                     ColorManager.grayForMessage,
-                                                fontSize: FontSizeApp.s7)!
+                                                fontSize: FontSizeApp.s13)!
                                             .copyWith(
                                                 decoration:
                                                     TextDecoration.lineThrough,
@@ -163,15 +164,13 @@ class CustomProductCard extends StatelessWidget {
                                               color: ColorManager.primaryGreen,
                                               fontSize: FontSizeApp.s15)!
                                           .copyWith(height: 1)),
-                                const SizedBox(
-                                  width: 1,
-                                ),
+                                const SizedBox(width: 1),
                                 //todo caruncy
                                 if (productInfo.price != null)
                                   Text(AppLocalizations.of(context)!.curruncy,
                                       style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
-                                              fontSize: FontSizeApp.s10)!
+                                              fontSize: FontSizeApp.s13)!
                                           .copyWith(height: 1))
                               ],
                             ),
@@ -193,7 +192,7 @@ class CustomProductCard extends StatelessWidget {
                                           isFavorite: !state.isFavorite!));
                                 },
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 12),
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
                                   child: Icon(
                                     color: state.isFavorite == true
                                         ? Colors.red
@@ -201,7 +200,7 @@ class CustomProductCard extends StatelessWidget {
                                     state.isFavorite == true
                                         ? Icons.favorite
                                         : Icons.favorite_border_outlined,
-                                    size: 24,
+                                    size: 26,
                                   ),
                                 ),
                               );

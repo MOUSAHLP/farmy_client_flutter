@@ -13,10 +13,12 @@ import 'package:pharma/models/product_details_response.dart';
 import '../../core/app_enum.dart';
 
 part 'payment_event.dart';
+
 part 'payment_state.dart';
 
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   PaymentRepo paymentRepo;
+
   PaymentBloc({required this.paymentRepo})
       : super(PaymentState(
             paymentProcessResponse: PaymentProcessResponse(
@@ -33,20 +35,39 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           emit(state.copyWith(paymentState: event.paymentState));
         }
         if (event is AddToChossenAttrbiuteList) {
-          List<DeleveryAttributesResponse> mutableChossenAttrbiuteList =
+          List<DeliveryAttributesResponse> mutableChossenAttrbiuteList =
               List.from(state.attrbiuteChossenList);
           mutableChossenAttrbiuteList.add(event.attrbiuteData!);
           emit(state.copyWith(
               attrbiuteChossenList: mutableChossenAttrbiuteList));
         }
         if (event is RemoveFromChossenList) {
-          List<DeleveryAttributesResponse> mutableChossenAttrbiuteList =
+          List<DeliveryAttributesResponse> mutableChossenAttrbiuteList =
               List.from(state.attrbiuteChossenList);
           mutableChossenAttrbiuteList
-              .removeWhere((element) => element.id == event.attrbiuteData!.id);
+              .removeWhere((element) => element.id == event.attributeData!.id);
           emit(state.copyWith(
               attrbiuteChossenList: mutableChossenAttrbiuteList));
         }
+
+        if (event is AddChangeAttributeList) {
+          /// todo : change DeliveryAttributesResponse to changeResponse
+          List<DeliveryAttributesResponse> mutableChangeList =
+              List.from(state.attrbiuteChossenList);
+          mutableChangeList.add(event.attributeData!);
+          emit(state.copyWith(
+              attrbiuteChossenList: mutableChangeList));
+        }
+        if (event is RemoveChangeAttributeList) {
+          /// todo : change DeliveryAttributesResponse to changeResponse
+          List<DeliveryAttributesResponse> mutableChangeList =
+              List.from(state.attrbiuteChossenList);
+          mutableChangeList
+              .removeWhere((element) => element.id == event.attributeData!.id);
+          emit(state.copyWith(
+              attrbiuteChossenList: mutableChangeList));
+        }
+
         if (event is ToogleDeleveryMethod) {
           List<DeleveryMethodResponse> mutableChossenDeleveryMethodList =
               List.from(state.deleveryMethodChossenList);
@@ -67,9 +88,9 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         if (event is GetInvoicesDetails) {
           emit(state.copyWith(screenState: ScreenStates.loading));
           PaymentProcessParms paymentProcessParms =
-              PaymentProcessParms(prodictInBasketList: event.prductList!);
+              PaymentProcessParms(prodictInBasketList: event.productList!);
           (await paymentRepo.getInvoiceDetails(
-                  paymentProcessParms, event.invoicesParms))
+                  paymentProcessParms, event.invoicesParmas))
               .fold(
                   (l) => emit(state.copyWith(screenState: ScreenStates.error)),
                   (r) => emit(state.copyWith(

@@ -68,9 +68,8 @@ class DataStore {
   // }
 
   bool? get isShowOnBoarding {
-    // if (!box.containsKey(DataStoreKeys.onBoarding))
-      return false;
-    // return box.get(DataStoreKeys.onBoarding);
+    if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
+    return box.get(DataStoreKeys.onBoarding);
   }
 
   Future<void> setShowOnBoarding(bool value) =>

@@ -23,7 +23,7 @@ class PaymentRepo {
   Future<Either<String, String>> createOrder(
     PaymentProcessParms paymentProcessParms,
     InvoicesParms invoicesParms,
-    List<DeleveryAttributesResponse>? deleveryAttributesList,
+    List<DeliveryAttributesResponse>? deleveryAttributesList,
   ) {
     return BaseApiClient.post<String>(
         formData: paymentProcessParms.createOrdertoJsonWithParms(invoicesParms,

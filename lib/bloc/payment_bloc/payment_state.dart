@@ -5,7 +5,7 @@ class PaymentState extends Equatable {
   final OrderStates? orderState;
   final PaymentStates? paymentState;
   final PaymentProcessResponse? paymentProcessResponse;
-  final List<DeleveryAttributesResponse> attrbiuteChossenList;
+  final List<DeliveryAttributesResponse> attrbiuteChossenList;
   final List<DeleveryMethodResponse> deleveryMethodChossenList;
   final int? deleveryCost;
   final CompletePaymentStates? completePaymentStates;
@@ -30,7 +30,7 @@ class PaymentState extends Equatable {
       String? errorMessage,
       List<DeleveryMethodResponse>? deleveryMethodChossenList,
       PaymentStates? paymentState,
-      List<DeleveryAttributesResponse>? attrbiuteChossenList,
+      List<DeliveryAttributesResponse>? attrbiuteChossenList,
       bool? isCompletePayment}) {
     return PaymentState(
         completePaymentStates:

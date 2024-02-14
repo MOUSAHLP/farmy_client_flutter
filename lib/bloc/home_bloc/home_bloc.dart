@@ -5,11 +5,13 @@ import 'package:pharma/data/repository/home_repo.dart';
 import 'package:pharma/models/home_response.dart';
 
 part 'home_event.dart';
+
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   int currentIndex = 0;
   HomeRepo homeRepo;
+
   HomeBloc({required this.homeRepo}) : super(const HomeState()) {
     on<HomeEvent>((event, emit) async {
       if (event is GetHomeData) {

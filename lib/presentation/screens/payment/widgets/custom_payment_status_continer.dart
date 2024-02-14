@@ -11,6 +11,7 @@ class CustomPaymentStatusContiner extends StatelessWidget {
   final PaymentStates paymentState;
   final String image;
   final String text;
+
   const CustomPaymentStatusContiner(
       {super.key,
       required this.paymentState,
@@ -35,40 +36,36 @@ class CustomPaymentStatusContiner extends StatelessWidget {
             )),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 19),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Row(
-              children: [
-                Image.asset(
-                  image,
-                  height: 34,
-                  width: 34,
-                ),
-              ],
-            ),
-            const SizedBox(
-              width: 30,
-            ),
-            Expanded(
-              child: Text(
-                text,
-                style: getBoldStyle(color: ColorManager.grayForMessage),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset(image, height: 34, width: 34),
+                ],
               ),
-            ),
-            BlocBuilder<PaymentBloc, PaymentState>(
-              builder: (context, state) {
-                return SlectedContiner(
-                  onPreased: () {
-                    context.read<PaymentBloc>().add(
-                        ChoosePaymentStatusEvent(paymentState: paymentState));
-                  },
-                  color: state.paymentState == paymentState
-                      ? ColorManager.primaryGreen
-                      : ColorManager.greyForUnSelectedItem,
-                );
-              },
-            ),
-          ]),
+              const SizedBox(width: 30),
+              Expanded(
+                child: Text(
+                  text,
+                  style: getBoldStyle(color: ColorManager.grayForMessage),
+                ),
+              ),
+              BlocBuilder<PaymentBloc, PaymentState>(
+                builder: (context, state) {
+                  return SlectedContiner(
+                    onPreased: () {
+                      context.read<PaymentBloc>().add(
+                          ChoosePaymentStatusEvent(paymentState: paymentState));
+                    },
+                    color: state.paymentState == paymentState
+                        ? ColorManager.primaryGreen
+                        : ColorManager.greyForUnSelectedItem,
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
