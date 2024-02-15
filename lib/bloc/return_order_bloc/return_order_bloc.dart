@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/app_enum.dart';
-import 'rate_event.dart';
-import 'rate_state.dart';
+import 'return_order_event.dart';
+import 'return_order_state.dart';
 
-class RateBloc extends Bloc<RateEvent, RateState> {
+class ReturnOrderBloc extends Bloc<ReturnOrderEvent, ReturnOrderState> {
   // CategoriesRepo categoriesRepo;
-  RateBloc(/*{required this.categoriesRepo}*/)
-      : super(const RateState(screenState: ScreenState.initialized)) {
-    on<RateEvent>((event, emit) async {
-      if (event is SubmitRate) {
+  ReturnOrderBloc(/*{required this.categoriesRepo}*/)
+      : super(const ReturnOrderState(screenState: ScreenState.initialized)) {
+    on<ReturnOrderEvent>((event, emit) async {
+      if (event is SubmitReturnOrder) {
         emit(state.copyWith(screenState: ScreenState.loading));
         // (await categoriesRepo.getProductsBySubCategoriesId(event.rate)).fold((l) {
         //   if (l != "cancel") {

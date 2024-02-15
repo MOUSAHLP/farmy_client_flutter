@@ -84,19 +84,25 @@ class CardBasket extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .delete_product,
-                                            style: getBoldStyle(
-                                                color:
-                                                    ColorManager.grayForMessage,
-                                                fontSize: 15),
-                                          ),
-                                        ],
+                                      IntrinsicWidth(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                AppLocalizations.of(context)!
+                                                    .delete_product,
+                                                maxLines: 2,
+                                                textAlign: TextAlign.center,
+                                                style: getBoldStyle(
+                                                    color: ColorManager
+                                                        .grayForMessage,
+                                                    fontSize: 15),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       SizedBox(
                                         child: Row(
@@ -183,9 +189,10 @@ class CardBasket extends StatelessWidget {
                             maxLines: 1,
                           )
                         : const SizedBox(),
-                    productAddedToBasketDetails.sellerName != null ||productAddedToBasketDetails.sellerName!=""
+                    productAddedToBasketDetails.sellerName != null ||
+                            productAddedToBasketDetails.sellerName != ""
                         ? Text(
-                      "( ${productAddedToBasketDetails.sellerName.toString()} )" ,
+                            "( ${productAddedToBasketDetails.sellerName.toString()} )",
                             style: getBoldStyle(
                               color: ColorManager.primaryGreen,
                               fontSize: FontSizeApp.s10,
@@ -196,36 +203,38 @@ class CardBasket extends StatelessWidget {
                             maxLines: 1,
                           )
                         : const SizedBox(),
-                    productAddedToBasketDetails
-                        .attributeList.isNotEmpty?    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            productAddedToBasketDetails
-                                    .attributeList.isNotEmpty
-                                ? Text(
-                                    productAddedToBasketDetails
-                                        .attributeList[0].value,
-                                    style: getRegularStyle(
-                                      color: ColorManager.grayForMessage,
-                                      fontSize: FontSizeApp.s15,
-                                    )!
-                                        .copyWith(height: 1),
-                                  )
-                                : const SizedBox(),
-                            productAddedToBasketDetails.attributeList.length >
-                                    1
-                                ? Text(
-                                    " / ${productAddedToBasketDetails.attributeList[1].value}",
-                                    style: getRegularStyle(
-                                      color: ColorManager.grayForMessage,
-                                      fontSize: FontSizeApp.s15,
-                                    )!
-                                        .copyWith(height: 1))
-                                : const SizedBox(),
-                          ],
-                        )):const SizedBox(),
+                    productAddedToBasketDetails.attributeList.isNotEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                productAddedToBasketDetails
+                                        .attributeList.isNotEmpty
+                                    ? Text(
+                                        productAddedToBasketDetails
+                                            .attributeList[0].value,
+                                        style: getRegularStyle(
+                                          color: ColorManager.grayForMessage,
+                                          fontSize: FontSizeApp.s15,
+                                        )!
+                                            .copyWith(height: 1),
+                                      )
+                                    : const SizedBox(),
+                                productAddedToBasketDetails
+                                            .attributeList.length >
+                                        1
+                                    ? Text(
+                                        " / ${productAddedToBasketDetails.attributeList[1].value}",
+                                        style: getRegularStyle(
+                                          color: ColorManager.grayForMessage,
+                                          fontSize: FontSizeApp.s15,
+                                        )!
+                                            .copyWith(height: 1))
+                                    : const SizedBox(),
+                              ],
+                            ))
+                        : const SizedBox(),
                     productAddedToBasketDetails.discountValue != null
                         ? Text(
                             productAddedToBasketDetails.discountValue ?? '',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 import 'package:pharma/presentation/screens/order_details_screen/widgets/card_details_order.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
@@ -17,6 +18,7 @@ class OrderDetailsScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
+            CustomAppBar(),
             CustomAppBarScreen(
                 sectionName: AppLocalizations.of(context)!.order_details),
             Expanded(

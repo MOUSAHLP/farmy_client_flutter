@@ -18,6 +18,7 @@ import '../../../core/app_validators.dart';
 import '../../../models/params/add_address_params.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
+import '../home_screen/home_screen.dart';
 
 class AddLocationScreen extends StatelessWidget {
   AddLocationScreen({super.key, this.isFirst = false});
@@ -40,7 +41,7 @@ class AddLocationScreen extends StatelessWidget {
           ErrorDialog.openDialog(context, state.error);
         }
         if (state.success) {
-          AppRouter.push(context, const MainScreen());
+          AppRouter.push(context, const HomeScreen());
         }
       }, builder: (context, state) {
         AddAddressParams address = context.read<LocationBloc>().address;
@@ -202,12 +203,12 @@ class AddLocationScreen extends StatelessWidget {
                         height: 9,
                       ),
                       InputFieldAuth(
-                        minLines: 5,
-                        maxLines: 5,
-                        height: 100,
-                        color: ColorManager.grayForm,
-                        width: 1.sw,
-                        hintText:"name",
+                          minLines: 5,
+                          maxLines: 5,
+                          height: 100,
+                          color: ColorManager.grayForm,
+                          width: 1.sw,
+                          hintText: "name",
                           onChange: (value) {
                             address.name = value;
                           },
@@ -215,7 +216,6 @@ class AddLocationScreen extends StatelessWidget {
                             return AppValidators.validateNameFields(
                                 context, value);
                           }),
-
                       const SizedBox(
                         height: 9,
                       ),

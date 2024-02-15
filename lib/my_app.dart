@@ -10,6 +10,7 @@ import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
+import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
@@ -88,7 +89,7 @@ class _MyAppState extends State<MyApp> {
                           case AuthenticationScreenStates
                                 .authenticationAuthenticated:
                             {
-                              return const MainScreen();
+                              return const HomeScreen();
                             }
                           case AuthenticationScreenStates
                                 .authenticationUnauthenticated:

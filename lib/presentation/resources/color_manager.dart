@@ -14,6 +14,12 @@ class ColorManager {
   static const grayForSearch = Color(0xffD9D9D9);
   static const grayForSearchProduct = Color(0xff9B9B9B);
   static const redForFavorite = Color(0xffBF0000);
+  static const lightRed = Color(0x5cbf0000);
+  static BoxShadow shadowRedDown = BoxShadow(
+    color: ColorManager.lightRed.withOpacity(0.1),
+    offset: const Offset(0, 2),
+    blurRadius: 4.0,
+  );
 
 // crown color
   static const bronze = Color(0xffE7A17B);
