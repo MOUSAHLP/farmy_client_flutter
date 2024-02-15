@@ -16,6 +16,7 @@ import '../../../bloc/authentication_bloc/authentication_event.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
+import '../home_screen/home_screen.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -130,7 +131,7 @@ class _AccountScreenState extends State<AccountScreen>
                                     .add(LoggedGuest());
                                 AppRouter.push(
                                   context,
-                                  const MainScreen(),
+                                  const HomeScreen(),
                                 );
                               }),
                           const SizedBox(

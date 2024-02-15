@@ -7,15 +7,16 @@ import 'package:pharma/presentation/resources/style_app.dart';
 
 class CustomAppBarScreen extends StatelessWidget {
   final String sectionName;
-  final bool isComeBack;
+  final bool? isComeBack;
+
   const CustomAppBarScreen(
-      {super.key, required this.sectionName,  this.isComeBack=true});
+      {super.key, required this.sectionName, this.isComeBack = true});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 1.sw,
-      height: 47,
+      height: 50.h,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [

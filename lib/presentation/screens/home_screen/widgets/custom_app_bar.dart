@@ -12,16 +12,15 @@ import 'package:pharma/translations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    super.key,
-    this.scaffoldKey,
-  });
+  const CustomAppBar({super.key, this.scaffoldKey});
+
   final GlobalKey<ScaffoldState>? scaffoldKey;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 1.sw,
-      height: 158,
+      height: 165.h,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -43,62 +42,75 @@ class CustomAppBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      InkWell(
-                        child: Image.asset(
-                          ImageManager.menuImage,
-                          height: 21,
-                          width: 21,
-                        ),
-                        onTap: () {
-                          scaffoldKey?.currentState?.openDrawer();
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 13),
-                        child: InkWell(
-                          onTap: () {
-                            AppRouter.push(context, const NotificationScreen());
-                          },
+                  Expanded(
+                    flex: 3,
+                    child: Row(
+                      children: [
+                        InkWell(
                           child: Image.asset(
-                            ImageManager.notificationImage,
-                            height: 17,
-                            width: 17,
+                            ImageManager.menuImage,
+                            height: 21,
+                            width: 21,
+                          ),
+                          onTap: () {
+                            scaffoldKey?.currentState?.openDrawer();
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 13),
+                          child: InkWell(
+                            onTap: () {
+                              AppRouter.push(
+                                  context, const NotificationScreen());
+                            },
+                            child: Image.asset(
+                              ImageManager.notificationImage,
+                              height: 17,
+                              width: 17,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        IconsManager.logoApp,
-                        height: 31,
-                        width: 31,
-                      ),
-                      const SizedBox(
-                        width: 6,
-                      ),
-                      Text(
-                        "فارمي",
-                        style: getBoldStyle(
-                            color: Colors.white, fontSize: FontSizeApp.s24),
-                      ),
-                    ],
+                  Expanded(
+                    flex: 4,
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          IconsManager.logoApp,
+                          height: 31,
+                          width: 31,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          "فارمي",
+                          style: getBoldStyle(
+                              color: Colors.white, fontSize: FontSizeApp.s24),
+                        ),
+                      ],
+                    ),
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      Uri url =
-                          Uri.parse("https://wa.me/ ${0936252114}/?text=hello");
-                      if (!await launchUrl(url)) {
-                        throw Exception('Could not launch $url');
-                      }
-                    },
-                    child: Image.asset(
-                      ImageManager.contactUs,
-                      height: 20,
-                      width: 20,
+                  Expanded(
+                    flex: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            Uri url = Uri.parse(
+                                "https://wa.me/ ${0936252114}/?text=hello");
+                            if (!await launchUrl(url)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
+                          child: Image.asset(
+                            ImageManager.contactUs,
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

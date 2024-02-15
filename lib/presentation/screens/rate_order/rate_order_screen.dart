@@ -95,7 +95,11 @@ class RateOrderScreen extends StatelessWidget {
                       );
                     }),
                     25.verticalSpace,
-                    SvgPicture.asset(IconsManager.close),
+                    InkWell(
+                        onTap: () => Navigator.pop(context),
+                        customBorder: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100)),
+                        child: SvgPicture.asset(IconsManager.close)),
                   ],
                 ),
               ),

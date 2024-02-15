@@ -12,10 +12,13 @@ import 'package:pharma/translations.dart';
 import '../../../../core/get_address.dart';
 import '../../order_details_screen/order_details_screen.dart';
 import '../../rate_order/rate_order_screen.dart';
+import '../return_order/return_order_screen.dart';
 
 class CardOrder extends StatelessWidget {
-  const CardOrder({super.key,required this.myOrder});
-final  MyOrderResponse myOrder;
+  const CardOrder({super.key, required this.myOrder});
+
+  final MyOrderResponse myOrder;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,36 +35,41 @@ final  MyOrderResponse myOrder;
             children: [
               RowOrder(
                   title: AppLocalizations.of(context)!.order_Number,
-                  details: myOrder.orderNumber??""),
+                  details: myOrder.orderNumber ?? ""),
               RowOrder(
                   title: AppLocalizations.of(context)!.address,
                   details: getAddress(myOrder.userAddress!)),
               RowOrder(
                   title: AppLocalizations.of(context)!.delivery_Type,
-                  details:myOrder.deliveryMethod?.name??"" ),
+                  details: myOrder.deliveryMethod?.name ?? ""),
               RowOrder(
                   title: AppLocalizations.of(context)!.expected_Time,
                   details: " 30 دقيقة"),
-              myOrder.total != null? Row(
-                children: [
-                  Text(AppLocalizations.of(context)!.total_Price_with_Delivery,
-                      style:
-                          getBoldStyle(color: Colors.black, fontSize: 11)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    child: Text(":",
-                        style: getBoldStyle(
-                            color: Colors.black, fontSize: 11)),
-                  ),
-                  Expanded(
-                    child: Text(myOrder.total??"",
-                        style: getBoldStyle(
-                            color: ColorManager.primaryGreen, fontSize: 15),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis),
-                  ),
-                ],
-              ):const SizedBox(),
+              myOrder.total != null
+                  ? Row(
+                      children: [
+                        Text(
+                            AppLocalizations.of(context)!
+                                .total_Price_with_Delivery,
+                            style: getBoldStyle(
+                                color: Colors.black, fontSize: 11)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: Text(":",
+                              style: getBoldStyle(
+                                  color: Colors.black, fontSize: 11)),
+                        ),
+                        Expanded(
+                          child: Text(myOrder.total ?? "",
+                              style: getBoldStyle(
+                                  color: ColorManager.primaryGreen,
+                                  fontSize: 15),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                      ],
+                    )
+                  : const SizedBox(),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
@@ -71,13 +79,17 @@ final  MyOrderResponse myOrder;
                         label: AppLocalizations.of(context)!.show_Order,
                         fillColor: ColorManager.primaryGreen,
                         onTap: () {
-                         AppRouter.push(context, OrderDetailsScreen(orderDetailsList:myOrder.orderDetailsList??[],));
+                          // AppRouter.push(context, OrderDetailsScreen(orderDetailsList:myOrder.orderDetailsList??[],));
+                          AppRouter.push(
+                              context,
+                              ReturnOrderScreen(
+                                orderDetailsList:
+                                    myOrder.orderDetailsList ?? [],
+                              ));
                         },
                       ),
                     ),
-                    const SizedBox(
-                      width: 16,
-                    ),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: CustomButton(
                         label: AppLocalizations.of(context)!.track_Order,

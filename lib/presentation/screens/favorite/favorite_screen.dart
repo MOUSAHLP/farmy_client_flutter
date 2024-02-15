@@ -18,6 +18,7 @@ import '../../../core/services/services_locator.dart';
 import '../../../models/categories_respoonse.dart';
 import '../../widgets/custom_no_dataa.dart';
 import '../../widgets/custom_product_shimmer.dart';
+import '../base_screen/base_screen.dart';
 
 class AllFavoritesScreen extends StatelessWidget {
   const AllFavoritesScreen({super.key});
@@ -63,59 +64,59 @@ class _FavoriteScreenState extends State<FavoriteScreen>
         return DefaultTabController(
           length: tabTitles.length,
           initialIndex: 0,
-          child: SafeArea(
-            child: Scaffold(
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CustomAppBarScreen(
-                      sectionName: AppLocalizations.of(context)!.favorite),
-                  sl<AuthenticationBloc>().loggedIn
-                      ? Expanded(
-                          child: Column(
-                          children: [
-                            SizedBox(
-                              width: 1.sw,
-                              child: TabBar(
-                                controller: _tabController,
-                                onTap: (value) {},
-                                isScrollable: true,
-                                indicatorColor: ColorManager.primaryGreen,
-                                labelColor: ColorManager.primaryGreen,
-                                unselectedLabelColor:
-                                    ColorManager.grayForMessage,
-                                dividerColor: Colors.transparent,
-                                indicatorSize: TabBarIndicatorSize.tab,
-                                tabs: tabTitles.map((title) {
-                                  return Tab(text: title.name);
-                                }).toList(),
-                              ),
+          child: BaseScreenScaffold(
+            appbarTitle: AppLocalizations.of(context)!.favorite,
+            isComeBack: false,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // CustomAppBarScreen(
+                //     sectionName: AppLocalizations.of(context)!.favorite),
+                sl<AuthenticationBloc>().loggedIn
+                    ? Expanded(
+                        child: Column(
+                        children: [
+                          SizedBox(
+                            width: 1.sw,
+                            child: TabBar(
+                              controller: _tabController,
+                              onTap: (value) {},
+                              isScrollable: true,
+                              indicatorColor: ColorManager.primaryGreen,
+                              labelColor: ColorManager.primaryGreen,
+                              unselectedLabelColor:
+                                  ColorManager.grayForMessage,
+                              dividerColor: Colors.transparent,
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              tabs: tabTitles.map((title) {
+                                return Tab(text: title.name);
+                              }).toList(),
                             ),
-                            const SizedBox(height: 10),
-                            Expanded(
-                              child: TabBarView(
-                                controller: _tabController,
-                                children: tabTitles.map((title) {
-                                  return state.screenState ==
-                                          ScreenState.loading
-                                      ? const CustomProductShimmer()
-                                      : state.screenState == ScreenState.success
-                                          ? state.favoritesList.isNotEmpty
-                                              ? buildGridView(state)
-                                              : CustomNoData(
-                                                  noDataStatment:
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .thereIsNoProduct)
-                                          : const SizedBox();
-                                }).toList(),
-                              ),
+                          ),
+                          const SizedBox(height: 10),
+                          Expanded(
+                            child: TabBarView(
+                              controller: _tabController,
+                              children: tabTitles.map((title) {
+                                return state.screenState ==
+                                        ScreenState.loading
+                                    ? const CustomProductShimmer()
+                                    : state.screenState == ScreenState.success
+                                        ? state.favoritesList.isNotEmpty
+                                            ? buildGridView(state)
+                                            : CustomNoData(
+                                                noDataStatment:
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .thereIsNoProduct)
+                                        : const SizedBox();
+                              }).toList(),
                             ),
-                          ],
-                        ))
-                      : const Expanded(child: GuestScreen()),
-                ],
-              ),
+                          ),
+                        ],
+                      ))
+                    : const Expanded(child: GuestScreen()),
+              ],
             ),
           ),
         );

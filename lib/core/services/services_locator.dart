@@ -65,8 +65,10 @@ class ServicesLocator {
 
     ///my order
     sl.registerFactory(() => MyOrderBloc());
-
+    ///notification
     sl.registerFactory(() => NotificationBloc());
+
+    /// rate
     sl.registerFactory(() => RateBloc());
   }
 }

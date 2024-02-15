@@ -232,5 +232,7 @@
   "offers_Notifications": "Offers Notifications",
   "app_Notifications": "App Notifications",
   "sign_Up_Now": "Sign Up Now",
-  "try_load": "Try load page"
+  "try_load": "Try load page",
+  "cart": "Cart",
+  "delete_your_order": "Delete the order you want to return to have it removed from the invoice"
 }
