@@ -11,7 +11,6 @@ import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
-import 'package:pharma/presentation/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 import 'bloc/authentication_bloc/authentication_event.dart';
@@ -34,7 +33,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       minTextAdapt: true,
-      designSize: const Size(430, 930),
+      designSize: MediaQuery.of(context).size,
       builder: (context, ctx) {
         return MultiBlocProvider(
           providers: [

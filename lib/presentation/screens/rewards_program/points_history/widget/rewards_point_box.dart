@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
-import 'package:pharma/presentation/screens/rewards_program/widget/points_widget/rewards_point_point.dart';
-import 'package:pharma/presentation/screens/rewards_program/widget/points_widget/rewards_point_row.dart';
+import 'package:pharma/presentation/screens/rewards_program/points_history/widget/rewards_point_point.dart';
+import 'package:pharma/presentation/screens/rewards_program/points_history/widget/rewards_point_row.dart';
 
 class RewardsPointBox extends StatelessWidget {
   final String point;

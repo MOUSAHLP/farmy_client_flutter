@@ -9,7 +9,7 @@ class CustomAppBarScreen extends StatelessWidget {
   final String sectionName;
   final bool isComeBack;
   const CustomAppBarScreen(
-      {super.key, required this.sectionName,  this.isComeBack=true});
+      {super.key, required this.sectionName, this.isComeBack = true});
 
   @override
   Widget build(BuildContext context) {
