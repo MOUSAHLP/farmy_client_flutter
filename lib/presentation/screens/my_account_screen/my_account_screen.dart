@@ -12,6 +12,7 @@ import 'package:pharma/presentation/screens/location_screen/location_screen.dart
 import 'package:pharma/presentation/screens/my_account_screen/widgets/card_my_account.dart';
 import 'package:pharma/presentation/screens/my_evaluation/my_evaluation_screen.dart';
 import 'package:pharma/presentation/screens/personal_details_screen/personal_details_screen.dart';
+import 'package:pharma/presentation/screens/rewards_program/rewards_program_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/translations.dart';
 
@@ -27,8 +28,8 @@ class MyAccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreenScaffold(
       backgroundColor: Colors.white,
-        appbarTitle: AppLocalizations.of(context)!.my_Account,
-        isComeBack: false,
+      appbarTitle: AppLocalizations.of(context)!.my_Account,
+      isComeBack: false,
       body: Column(
         children: [
           // CustomAppBarScreen(

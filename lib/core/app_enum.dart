@@ -36,3 +36,8 @@ enum ScreensAuth {
 }
 
 enum AddToBasketState { successAddedToBasket }
+
+// Rewards Screen Enum
+enum RewardsPointsStateEnum { usedPoints, endedpoints, earnedPoints }
+
+enum RewardsActivityStateEnum { activity, offers }

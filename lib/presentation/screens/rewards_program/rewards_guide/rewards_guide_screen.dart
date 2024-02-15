@@ -3,29 +3,23 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
-import 'package:pharma/presentation/screens/rewards_program/activity/rewards_activity_screen.dart';
-import 'package:pharma/presentation/screens/rewards_program/points_history/rewards_points_history_screen.dart';
-import 'package:pharma/presentation/screens/rewards_program/rank/rewards_rank_screen.dart';
+import 'package:pharma/presentation/screens/rewards_program/rewards_guide/widget/rewards_guide_widget.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 
-class RewardsProgramScreen extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
+class RewardsGuideScreen extends StatelessWidget {
+  const RewardsGuideScreen({super.key});
 
-  const RewardsProgramScreen({
-    super.key,
-    required this.scaffoldKey,
-  });
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
-            CustomAppBar(scaffoldKey: scaffoldKey),
+            // CustomAppBar(scaffoldKey: scaffoldKey),
             const CustomAppBarScreen(sectionName: "برنامج المكافئات \"مرحبا\""),
             Expanded(
               child: DefaultTabController(
-                length: 3,
+                length: 2,
                 child: Scaffold(
                   backgroundColor: ColorManager.white,
                   appBar: AppBar(
@@ -44,22 +38,18 @@ class RewardsProgramScreen extends StatelessWidget {
                           fontSize: FontSizeApp.s14),
                       tabs: const [
                         Tab(
-                          child: Text("النقاط و الرتبة"),
+                          child: Text("دليل المكافئات"),
                         ),
                         Tab(
-                          child: Text("الأنشطة و العروض"),
-                        ),
-                        Tab(
-                          child: Text("تاريخ النقاط"),
+                          child: Text("مستويات العضوية و مزاياها"),
                         ),
                       ],
                     ),
                   ),
                   body: const TabBarView(
                     children: [
-                      RewardsRankScreen(),
-                      RewardsactivityScreen(),
-                      RewardsPointsHistoryScreen(),
+                      RewardsGuideWidget(),
+                      Icon(Icons.vaccines),
                     ],
                   ),
                 ),

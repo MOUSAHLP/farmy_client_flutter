@@ -15,6 +15,19 @@ class ColorManager {
   static const grayForSearchProduct = Color(0xff9B9B9B);
   static const redForFavorite = Color(0xffBF0000);
   static const lightRed = Color(0x5cbf0000);
+  static BoxShadow shadowRedDown = BoxShadow(
+    color: ColorManager.lightRed.withOpacity(0.1),
+    offset: const Offset(0, 2),
+    blurRadius: 4.0,
+  );
+
+// crown color
+  static const bronze = Color(0xffE7A17B);
+  static const silver = Color(0xff737373);
+  static const gold = Color(0xffEAA441);
+  static const platinium = Color(0xff6DA7CA);
+  static const vip = Color(0xffE5A2DA);
+  static const vipPlus = Color(0xff8DB6E2);
 
   static const linearGradientPrimary = LinearGradient(
     begin: Alignment.centerLeft,
@@ -28,25 +41,33 @@ class ColorManager {
   );
 
   static const greyForUnSelectedItem = Color(0xffD6D3D3);
-
   //box-shadow: 0px 0px 4px 0px #0000001A;
   static BoxShadow shadowGaryDown = BoxShadow(
     color: const Color(0xFF000000).withOpacity(0.18),
     offset: const Offset(0, 2),
     blurRadius: 4.0,
   );
-  static BoxShadow shadowRedDown = BoxShadow(
-    color: ColorManager.lightRed.withOpacity(0.1),
-    offset: const Offset(0, 2),
-    blurRadius: 4.0,
-  );
+
+  static BoxShadow shadowGaryDownInner = BoxShadow(
+      color: const Color(0xFF000000).withOpacity(0.18),
+      offset: const Offset(0, 2),
+      blurRadius: 4.0,
+      blurStyle: BlurStyle.inner);
+
   static BoxShadow shadowGaryDownSoft = BoxShadow(
-    color: const Color(0xFF000000).withOpacity(0.18),
-    // Adjust the opacity as needed
-    offset: const Offset(0, 3),
-    // Adjust the vertical offset
+    color: const Color(0xFF000000)
+        .withOpacity(0.18), // Adjust the opacity as needed
+    offset: const Offset(0, 3), // Adjust the vertical offset
     blurRadius: 4.0,
   );
+
+  static BoxShadow shadowGaryDownSoftOuter = BoxShadow(
+      color: const Color(0xFF000000)
+          .withOpacity(0.18), // Adjust the opacity as needed
+      offset: const Offset(0, 3), // Adjust the vertical offset
+      blurRadius: 4.0,
+      blurStyle: BlurStyle.outer);
+
   static BoxShadow shadowGaryUp = BoxShadow(
     color: const Color(0xFF000000).withOpacity(0.18),
     offset: const Offset(0, -3),

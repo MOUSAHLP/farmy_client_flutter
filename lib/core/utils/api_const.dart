@@ -41,4 +41,6 @@ class ApiConst {
   ///notification
   static const String getNotifications = "/orders";
 
+  /// Rewards Screen
+  static const String getAllRewards = "/rewards";
 }

@@ -12,27 +12,27 @@
 // import 'package:pharma/presentation/screens/order_screen/order_screen.dart';
 // import 'package:pharma/presentation/widgets/dialogs/will_pop_scope_handler.dart';
 // import 'package:pharma/translations.dart';
-//
+
 // import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 // import '../../../core/services/services_locator.dart';
 // import '../my_account_screen/my_account_screen.dart';
-//
+
 // class MainScreen extends StatefulWidget {
 //   const MainScreen({super.key});
-//
+
 //   @override
 //   State<MainScreen> createState() => _MainScreenState();
 // }
-//
+
 // class _MainScreenState extends State<MainScreen> {
 //   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 //   int index = 0;
-//
+
 //   @override
 //   Widget build(BuildContext context) {
 //     List<Widget> children = [
 //       HomeScreen(scaffoldKey: scaffoldKey),
-//       const AllFavoritesScreen(),
+//        AllFavoritesScreen(),
 //       const BasketScreen(),
 //       const OrderScreen(),
 //       const MyAccountScreen(),
