@@ -7,7 +7,6 @@ import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/guest_screen/guest_screen.dart';
 import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
-import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/translations.dart';
 
@@ -84,8 +83,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                               isScrollable: true,
                               indicatorColor: ColorManager.primaryGreen,
                               labelColor: ColorManager.primaryGreen,
-                              unselectedLabelColor:
-                                  ColorManager.grayForMessage,
+                              unselectedLabelColor: ColorManager.grayForMessage,
                               dividerColor: Colors.transparent,
                               indicatorSize: TabBarIndicatorSize.tab,
                               tabs: tabTitles.map((title) {
@@ -98,8 +96,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                             child: TabBarView(
                               controller: _tabController,
                               children: tabTitles.map((title) {
-                                return state.screenState ==
-                                        ScreenState.loading
+                                return state.screenState == ScreenState.loading
                                     ? const CustomProductShimmer()
                                     : state.screenState == ScreenState.success
                                         ? state.favoritesList.isNotEmpty

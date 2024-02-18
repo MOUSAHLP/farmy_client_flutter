@@ -3,6 +3,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/rewards_program/points_history/widget/rewards_point_point.dart';
 import 'package:pharma/presentation/screens/rewards_program/points_history/widget/rewards_point_row.dart';
+import 'package:pharma/translations.dart';
 
 class RewardsPointBox extends StatelessWidget {
   final String point;
@@ -32,12 +33,12 @@ class RewardsPointBox extends StatelessWidget {
               child: Column(
                 children: [
                   RewardsPointRow(
-                    text: "تاريخ الاستعمال :",
+                    text: AppLocalizations.of(context)!.date_of_use,
                     date: date,
                   ),
                   if (expiredDate != null)
                     RewardsPointRow(
-                      text: "تاريخ انتهاء صلاحية :",
+                      text: AppLocalizations.of(context)!.date_of_use,
                       date: expiredDate!,
                       expired: true,
                     ),

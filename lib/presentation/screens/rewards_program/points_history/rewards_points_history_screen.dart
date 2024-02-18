@@ -8,6 +8,7 @@ import 'package:pharma/presentation/screens/rewards_program/points_history/widge
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_row.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/translations.dart';
 
 class RewardsPointsHistoryScreen extends StatelessWidget {
   const RewardsPointsHistoryScreen({super.key});
@@ -23,8 +24,7 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                 children: [
                   RewardsFilterRow(rewardsFilterBoxArray: [
                     Expanded(
-                        child: InkWell(
-                            splashColor: Colors.transparent,
+                        child: GestureDetector(
                             onTap: () {
                               context.read<RewardsPointsBloc>().add(
                                   ChangeTabPointsRewardsEvent(
@@ -32,14 +32,13 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                                           RewardsPointsStateEnum.usedPoints));
                             },
                             child: RewardsFilterBox(
-                                text: "النقاط المستعملة",
+                                text: AppLocalizations.of(context)!.used_points,
                                 isActive: context
                                         .read<RewardsPointsBloc>()
                                         .currentScreen ==
                                     RewardsPointsStateEnum.usedPoints))),
                     Expanded(
-                        child: InkWell(
-                            splashColor: Colors.transparent,
+                        child: GestureDetector(
                             onTap: () {
                               context.read<RewardsPointsBloc>().add(
                                   ChangeTabPointsRewardsEvent(
@@ -47,14 +46,14 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                                           RewardsPointsStateEnum.endedpoints));
                             },
                             child: RewardsFilterBox(
-                                text: "النقاط المنتهية",
+                                text:
+                                    AppLocalizations.of(context)!.ended_points,
                                 isActive: context
                                         .read<RewardsPointsBloc>()
                                         .currentScreen ==
                                     RewardsPointsStateEnum.endedpoints))),
                     Expanded(
-                        child: InkWell(
-                            splashColor: Colors.transparent,
+                        child: GestureDetector(
                             onTap: () {
                               context.read<RewardsPointsBloc>().add(
                                   ChangeTabPointsRewardsEvent(
@@ -62,7 +61,8 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                                           RewardsPointsStateEnum.earnedPoints));
                             },
                             child: RewardsFilterBox(
-                                text: "النقاط المكتسبة",
+                                text:
+                                    AppLocalizations.of(context)!.earned_points,
                                 isActive: context
                                         .read<RewardsPointsBloc>()
                                         .currentScreen ==

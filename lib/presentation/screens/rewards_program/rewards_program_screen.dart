@@ -6,6 +6,7 @@ import 'package:pharma/presentation/screens/base_screen/base_screen.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/rewards_activity_screen.dart';
 import 'package:pharma/presentation/screens/rewards_program/points_history/rewards_points_history_screen.dart';
 import 'package:pharma/presentation/screens/rewards_program/rank/rewards_rank_screen.dart';
+import 'package:pharma/translations.dart';
 
 class RewardsProgramScreen extends StatelessWidget {
   const RewardsProgramScreen({
@@ -14,14 +15,14 @@ class RewardsProgramScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreenScaffold(
-      appbarTitle: "برنامج المكافئات \"مرحبا\"",
+      appbarTitle: AppLocalizations.of(context)!.rewards_Program,
       isComeBack: true,
       body: Scaffold(
         body: Column(
           children: [
             Expanded(
               child: DefaultTabController(
-                initialIndex: 2,
+                initialIndex: 1,
                 length: 3,
                 child: Scaffold(
                   backgroundColor: ColorManager.white,
@@ -39,15 +40,18 @@ class RewardsProgramScreen extends StatelessWidget {
                       labelStyle: getBoldStyle(
                           color: ColorManager.grayForMessage,
                           fontSize: FontSizeApp.s14),
-                      tabs: const [
+                      tabs: [
                         Tab(
-                          child: Text("النقاط و الرتبة"),
+                          child: Text(
+                              AppLocalizations.of(context)!.points_and_rank),
                         ),
                         Tab(
-                          child: Text("الأنشطة و العروض"),
+                          child: Text(AppLocalizations.of(context)!
+                              .activities_and_offers),
                         ),
                         Tab(
-                          child: Text("تاريخ النقاط"),
+                          child: Text(
+                              AppLocalizations.of(context)!.points_history),
                         ),
                       ],
                     ),

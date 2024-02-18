@@ -3,6 +3,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
+import 'package:pharma/translations.dart';
 
 class RewardsPointPoint extends StatelessWidget {
   final String point;
@@ -35,7 +36,7 @@ class RewardsPointPoint extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Text(
-              "نقطة",
+              AppLocalizations.of(context)!.point,
               style: getBoldStyle(
                   color: expired
                       ? ColorManager.redForFavorite

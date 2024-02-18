@@ -3,6 +3,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
+import 'package:pharma/translations.dart';
 
 class RewardsGuideNote extends StatelessWidget {
   final String expiration;
@@ -17,7 +18,7 @@ class RewardsGuideNote extends StatelessWidget {
               horizontal: PaddingApp.p5, vertical: PaddingApp.p8),
           alignment: AlignmentDirectional.centerStart,
           child: Text(
-            "ملاحظة:",
+            AppLocalizations.of(context)!.note,
             style: getRegularStyle(
                 color: ColorManager.redForFavorite, fontSize: FontSizeApp.s14),
           ),
@@ -31,7 +32,10 @@ class RewardsGuideNote extends StatelessWidget {
             borderRadius: BorderRadius.circular(RadiusApp.r5),
           ),
           child: Text(
-            "تنتهي صلاحية جميع النقاط خلال مدة $expiration من تاريخ الحصول عليها و سيكون من غير الممكن استبدال النقاط بعد انتهاء مدة صلاحيتها.",
+            AppLocalizations.of(context)!.all_points_expire_in_period +
+                expiration +
+                AppLocalizations.of(context)!
+                    .all_points_will_expire_after_period,
             style: getRegularStyle(
               color: ColorManager.grayForMessage,
               fontSize: FontSizeApp.s14,

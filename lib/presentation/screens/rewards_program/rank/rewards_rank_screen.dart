@@ -15,6 +15,7 @@ import 'package:pharma/presentation/screens/rewards_program/rank/widget/points_e
 import 'package:pharma/presentation/screens/rewards_program/rank/widget/your_points_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/rank/widget/your_rank.dart';
 import 'package:pharma/presentation/screens/rewards_program/rewards_guide/rewards_guide_screen.dart';
+import 'package:pharma/translations.dart';
 
 class RewardsRankScreen extends StatelessWidget {
   const RewardsRankScreen({super.key});
@@ -78,7 +79,7 @@ class RewardsRankScreen extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                "دليل المكافئات",
+                                AppLocalizations.of(context)!.rewards_guide,
                                 style: getBoldStyle(
                                     color: ColorManager.primaryGreen,
                                     fontSize: FontSizeApp.s14),

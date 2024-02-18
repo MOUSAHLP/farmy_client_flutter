@@ -5,6 +5,7 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/rewards_program/rank/widget/oval_shape.dart';
+import 'package:pharma/translations.dart';
 
 class YourPointsBox extends StatelessWidget {
   final String points;
@@ -30,7 +31,7 @@ class YourPointsBox extends StatelessWidget {
                     height: 10.h,
                   ),
                   Text(
-                    "النقاط",
+                    AppLocalizations.of(context)!.points,
                     style: getRegularStyle(
                         color: ColorManager.white, fontSize: FontSizeApp.s18),
                   ),
@@ -51,7 +52,7 @@ class YourPointsBox extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "قيمة النقاط بالليرة السورية",
+                  AppLocalizations.of(context)!.value_in_syrian_pounds,
                   style: getRegularStyle(
                       color: ColorManager.primaryGreen,
                       fontSize: FontSizeApp.s18),

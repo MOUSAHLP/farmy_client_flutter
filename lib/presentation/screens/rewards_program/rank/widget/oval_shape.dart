@@ -27,9 +27,9 @@ class CurvePainter extends CustomPainter {
 
     var path = Path();
 
-    path.moveTo(0, size.height * 0.6);
+    path.moveTo(0, size.height * 0.8);
     path.quadraticBezierTo(
-        size.width / 2, size.height * 1.7, size.width, size.height * 0.6);
+        size.width / 2, size.height * 1.6, size.width, size.height * 0.8);
     path.lineTo(size.width, 0);
     path.lineTo(0, 0);
 

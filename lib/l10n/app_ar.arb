@@ -78,7 +78,7 @@
   "edit_Addresses": "إضافة وتعديل وحذف عناوين التوصيل",
   "electronic_Payment": "الدفع الإلكتروني",
   "payment_Methods": "محفظة فارمي / أساليب الدفع الإلكترونية المتوفرة",
-  "rewards_Program": "برنامج المكافآت 'مرحبًا",
+  "rewards_Program": "برنامج المكافئات \"مرحبا\"",
   "redeem_Points_for_Discounts": "استبدال النقاط للحصول على حسومات",
   "my_Reviews": "تقييماتي",
   "all_Reviews": "جميع تقييماتي",
@@ -233,5 +233,43 @@
   "sign_Up_Now": "تسجيل الان",
   "try_load": "إعادة تحميل الصفحة",
   "cart": "السلة",
-  "delete_your_order": "إحذف طلبك الذي تريد ارجاعه ليتم حذفه من الفاتورة"
+  "delete_your_order": "إحذف طلبك الذي تريد ارجاعه ليتم حذفه من الفاتورة",
+  "points_and_rank":"النقاط و الرتبة",
+  "activities_and_offers": "الأنشطة و العروض",
+  "points_history": "تاريخ النقاط",
+  "used_points": "النقاط المستعملة",
+  "ended_points":  "النقاط المنتهية",
+  "earned_points": "النقاط المكتسبة",
+  "date_of_use": "تاريخ الاستعمال :",
+  "expiry_date": "تاريخ انتهاء صلاحية :",
+  "point":"نقطة",
+  "points":"نقاط",
+  "activities":"الأنشطة",
+  "offers":"العروض",
+  "prize":"الجائزة",
+  "copy_code":  "يمكنك نسخ الكود بالضغط عليه",
+  "use_only_once": "يستعمل لمرة واحدة فقط",
+  "code_validity": "صلاحية الكود :",
+  "code_copied":"تم نسخ الكود",
+  "your_rank": "رتبتك الان",
+  "bronze":"برونزي",
+  "silver":"فضي",
+  "gold":"ذهبي",
+  "platinium":"بلاتينيوم",
+  "vip":"VIP",
+  "vip_plus":"VIP Plus",
+  "sp_remaining_to_get_the_next_level": " ليرة سورية متبقية للحصول على المستوى التالي",
+  "value_in_syrian_pounds":"قيمة النقاط بالليرة السورية",
+  "points_expire_in":"تنتهي صلاحية النقاط خلال",
+  "rewards_guide":"دليل المكافئات",
+  "levels_and_benefits":"مستويات العضوية و مزاياها",
+  "note":"ملاحظة:",
+  "all_points_expire_in_period":"تنتهي صلاحية جميع النقاط خلال مدة",
+  "all_points_will_expire_after_period": " من تاريخ الحصول عليها و سيكون من غير الممكن استبدال النقاط بعد انتهاء مدة صلاحيتها."
+
+
+
+
+
+  
 }
