@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/models/product_details_response.dart';
+import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -11,6 +13,7 @@ import '../../../../core/app_router/app_router.dart';
 import '../../../../core/utils/formatter.dart';
 import '../../../../translations.dart';
 import '../../../widgets/custom_button.dart';
+import '../../../widgets/dialogs/confirm_delete_product_dialog.dart';
 
 class CardBasket extends StatelessWidget {
   final ProductDetailsResponse productAddedToBasketDetails;
@@ -33,142 +36,8 @@ class CardBasket extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      child: Container(
-                        height: 36,
-                        width: 36,
-                        decoration: BoxDecoration(boxShadow: [
-                          ColorManager.shadowGaryDown,
-                        ], color: Colors.white),
-                        child: const Icon(Icons.add,
-                            color: ColorManager.primaryGreen),
-                      ),
-                      onTap: () {
-                        context
-                            .read<BasketBloc>()
-                            .add(AddCount(productAddedToBasketDetails.id ?? 0));
-                      },
-                    ),
-                    SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: Center(
-                          child: Text(
-                        context
-                            .read<BasketBloc>()
-                            .countsProducts(productAddedToBasketDetails.id ?? 0)
-                            .toString(),
-                        style: getRegularStyle(color: Colors.black),
-                      )),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        if (context.read<BasketBloc>().countsProducts(
-                                productAddedToBasketDetails.id ?? 0) ==
-                            1) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Material(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                  ),
-                                  color: Colors.transparent,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      IntrinsicWidth(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .delete_product,
-                                                maxLines: 2,
-                                                textAlign: TextAlign.center,
-                                                style: getBoldStyle(
-                                                    color: ColorManager
-                                                        .grayForMessage,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: CustomButton(
-                                                label: AppLocalizations.of(
-                                                        context)!
-                                                    .confirm,
-                                                fillColor:
-                                                    ColorManager.primaryGreen,
-                                                onTap: () {
-                                                  context
-                                                      .read<BasketBloc>()
-                                                      .add(DeleteProduct(
-                                                          productAddedToBasketDetails
-                                                                  .id ??
-                                                              0));
-                                                  AppRouter.pop(context);
-                                                },
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 28,
-                                            ),
-                                            Expanded(
-                                              child: CustomButton(
-                                                label: AppLocalizations.of(
-                                                        context)!
-                                                    .back,
-                                                fillColor: Colors.white,
-                                                onTap: () {
-                                                  AppRouter.pop(context);
-                                                },
-                                                isFilled: true,
-                                                labelColor:
-                                                    ColorManager.primaryGreen,
-                                                borderColor:
-                                                    ColorManager.primaryGreen,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          context.read<BasketBloc>().add(
-                              MinusCount(productAddedToBasketDetails.id ?? 0));
-                        }
-                      },
-                      child: Container(
-                        height: 36,
-                        width: 36,
-                        decoration: BoxDecoration(boxShadow: [
-                          ColorManager.shadowGaryDown,
-                        ], color: Colors.white),
-                        child: const Icon(Icons.remove, color: Colors.red),
-                      ),
-                    ),
-                  ],
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 5),
+                child: buildCounterWidget(context),
               ),
               // const Spacer(),
               Expanded(
@@ -268,9 +137,7 @@ class CardBasket extends StatelessWidget {
                                 ),
                                 maxLines: 1,
                               ),
-                              const SizedBox(
-                                width: 1,
-                              ),
+                              const SizedBox(width: 1),
                               //todo caruncy
                               if (productAddedToBasketDetails.price != null)
                                 Text(AppLocalizations.of(context)!.curruncy,
@@ -284,9 +151,7 @@ class CardBasket extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                width: 19,
-              ),
+              const SizedBox(width: 19),
               ClipRRect(
                 borderRadius: BorderRadius.circular(6),
                 child: Container(
@@ -302,6 +167,83 @@ class CardBasket extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Column buildCounterWidget(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        10.verticalSpace,
+        Expanded(
+          flex: 3,
+          child: InkWell(
+            child: Container(
+              width: 30.h,
+              decoration: BoxDecoration(boxShadow: [
+                ColorManager.shadowGaryDown,
+              ], color: Colors.white),
+              child: Padding(
+                  padding: EdgeInsets.all(6.w),
+                  child: SvgPicture.asset(IconsManager.add)),
+            ),
+            onTap: () {
+              context
+                  .read<BasketBloc>()
+                  .add(AddCount(productAddedToBasketDetails.id ?? 0));
+            },
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: SizedBox(
+            height: 30,
+            width: 30,
+            child: Center(
+                child: Text(
+              context
+                  .read<BasketBloc>()
+                  .countsProducts(productAddedToBasketDetails.id ?? 0)
+                  .toString(),
+              style: getRegularStyle(color: Colors.black, fontSize: 15.sp),
+            )),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: InkWell(
+            child: Container(
+              width: 30.h,
+              decoration: BoxDecoration(boxShadow: [
+                ColorManager.shadowGaryDown,
+              ], color: Colors.white),
+              child: Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: SvgPicture.asset(IconsManager.remove)),
+            ),
+            onTap: () {
+              if (context
+                      .read<BasketBloc>()
+                      .countsProducts(productAddedToBasketDetails.id ?? 0) ==
+                  1) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ConfirmDeleteProductDialog(
+                        productAddedToBasketDetails:
+                            productAddedToBasketDetails);
+                  },
+                );
+              } else {
+                context
+                    .read<BasketBloc>()
+                    .add(MinusCount(productAddedToBasketDetails.id ?? 0));
+              }
+            },
+          ),
+        ),
+        10.verticalSpace,
+      ],
     );
   }
 }

@@ -10,23 +10,28 @@ class BasketEvent extends Equatable {
 
 class AddToBasket extends BasketEvent {
   final ProductDetailsResponse product;
+
   const AddToBasket({
     required this.product,
   });
 }
-class PaymentProcess extends BasketEvent{
 
-}
-class AddCount extends BasketEvent{
+class PaymentProcess extends BasketEvent {}
+
+class AddCount extends BasketEvent {
   int id;
+
   AddCount(this.id);
 }
-class MinusCount extends BasketEvent{
+
+class MinusCount extends BasketEvent {
   int id;
+
   MinusCount(this.id);
 }
-class DeleteProduct extends BasketEvent{
+
+class DeleteProduct extends BasketEvent {
   int id;
+
   DeleteProduct(this.id);
 }
-

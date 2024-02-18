@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -67,16 +66,14 @@ class ProductDetailsBody extends StatelessWidget {
                               child: ListView(
                                 children: [
                                   ProductImage(
-                                      productImage: state
-                                                  .productDetailsResponse
+                                      productImage: state.productDetailsResponse
                                                   .image !=
                                               null
                                           ? state.productDetailsResponse.image!
                                           : ""),
                                   AboutProductAndAmonutSection(
                                       attributeList: state
-                                          .productDetailsResponse
-                                          .attributeList,
+                                          .productDetailsResponse.attributeList,
                                       productDesc: state.productDetailsResponse
                                                   .description !=
                                               null
@@ -271,48 +268,17 @@ class ProductDetailsBody extends StatelessWidget {
                                           : const SizedBox(),
                                       CustomAppButton(
                                         ontap: () {
-                                         if(sl<AuthenticationBloc>().loggedIn) {
-                                           context.read<BasketBloc>().add(AddToBasket(
-                                              product:
-                                              ProductDetailsResponse(
-                                                image: state.productDetailsResponse.image??"",
-                                                price: state
-                                                    .productDetailsResponse
-                                                    .price ==
-                                                    null
-                                                    ? ""
-                                                    : state
-                                                    .productDetailsResponse
-                                                    .price!,
-                                                  nameOfProduct: state
-                                                              .productDetailsResponse
-                                                              .nameOfProduct ==
-                                                          null
-                                                      ? ""
-                                                      : state
-                                                          .productDetailsResponse
-                                                          .nameOfProduct!,
-                                                  sellerName:
-                                                      state.productDetailsResponse.sellerName == null
-                                                          ? ""
-                                                          : state
-                                                              .productDetailsResponse
-                                                              .sellerName!,
-                                                  isDiscount: state
-                                                              .productDetailsResponse
-                                                              .discountValue ==
-                                                          "0"
-                                                      ? false || state.productDetailsResponse.discountValue != null
-                                                      : true,
-                                                  attributeList: state.productDetailsResponse.attributeList,
-                                                  id: state.productDetailsResponse.id!,
-                                                  quantity: state.quntity,
-                                              discountValue: state.productDetailsResponse.discountValue)
-                                           ));
-                                         }
-                                         else{
-                                           ErrorDialog.openDialog(context,AppLocalizations.of(context)!.no_add_basket);
-                                         }
+                                          if (sl<AuthenticationBloc>()
+                                              .loggedIn) {
+                                            context
+                                                .read<BasketBloc>()
+                                                .add(buildAddToBasket(state));
+                                          } else {
+                                            ErrorDialog.openDialog(
+                                                context,
+                                                AppLocalizations.of(context)!
+                                                    .no_add_basket);
+                                          }
                                         },
                                         myText: AppLocalizations.of(context)!
                                             .add_to_basket,
@@ -332,5 +298,27 @@ class ProductDetailsBody extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  AddToBasket buildAddToBasket(ProductdetailsState state) {
+    return AddToBasket(
+        product: ProductDetailsResponse(
+            image: state.productDetailsResponse.image ?? "",
+            price: state.productDetailsResponse.price == null
+                ? ""
+                : state.productDetailsResponse.price!,
+            nameOfProduct: state.productDetailsResponse.nameOfProduct == null
+                ? ""
+                : state.productDetailsResponse.nameOfProduct!,
+            sellerName: state.productDetailsResponse.sellerName == null
+                ? ""
+                : state.productDetailsResponse.sellerName!,
+            isDiscount: state.productDetailsResponse.discountValue == "0"
+                ? false || state.productDetailsResponse.discountValue != null
+                : true,
+            attributeList: state.productDetailsResponse.attributeList,
+            id: state.productDetailsResponse.id!,
+            quantity: state.quntity,
+            discountValue: state.productDetailsResponse.discountValue));
   }
 }

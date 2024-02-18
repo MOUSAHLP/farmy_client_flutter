@@ -17,6 +17,7 @@ class BaseScreenScaffold extends StatelessWidget {
       this.floatingActionButton,
       this.drawer,
       this.isComeBack,
+      this.withNavigator = true,
       super.key});
 
   final Widget body;
@@ -25,6 +26,7 @@ class BaseScreenScaffold extends StatelessWidget {
   final Function? onTapBack;
   final Color? backgroundColor;
   final bool? isComeBack;
+  final bool withNavigator;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final Widget? floatingActionButton;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -44,7 +46,7 @@ class BaseScreenScaffold extends StatelessWidget {
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButton: floatingActionButton,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(appbarTitle != null ? 200.h : 140.h),
+          preferredSize: Size.fromHeight(appbarTitle != null ? 200.h : 150.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -65,7 +67,7 @@ class BaseScreenScaffold extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 60),
                 child: body, //children[context.read<HomeBloc>().currentIndex],
               ),
-              const BottomBar(),
+              if (withNavigator) const BottomBar(),
             ],
           ),
         ),
