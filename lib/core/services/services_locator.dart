@@ -71,5 +71,10 @@ class ServicesLocator {
 
     ///notification
     sl.registerFactory(() => NotificationBloc());
+
+    /// Rewards
+    sl.registerFactory(() => RewardsActivityBloc());
+    sl.registerFactory(() => RewardsPointsBloc());
+    sl.registerFactory(() => RewardsRankBloc());
   }
 }

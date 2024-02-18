@@ -39,7 +39,7 @@ class BaseScreenScaffold extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        key: key,
+        key: scaffoldKey,
         backgroundColor: backgroundColor,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButton: floatingActionButton,

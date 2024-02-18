@@ -121,7 +121,10 @@ class MyAccountScreen extends StatelessWidget {
                                   AppLocalizations.of(context)!.rewards_Program,
                               details: AppLocalizations.of(context)!
                                   .redeem_Points_for_Discounts,
-                              ontap: () {}),
+                              ontap: () {
+                                AppRouter.push(
+                                    context, const RewardsProgramScreen());
+                              }),
                           CardMyAccount(
                               title: AppLocalizations.of(context)!.my_Reviews,
                               details:

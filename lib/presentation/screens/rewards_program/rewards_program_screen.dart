@@ -2,29 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
-import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
+import 'package:pharma/presentation/screens/base_screen/base_screen.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/rewards_activity_screen.dart';
 import 'package:pharma/presentation/screens/rewards_program/points_history/rewards_points_history_screen.dart';
 import 'package:pharma/presentation/screens/rewards_program/rank/rewards_rank_screen.dart';
-import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 
 class RewardsProgramScreen extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
   const RewardsProgramScreen({
     super.key,
-    required this.scaffoldKey,
   });
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return BaseScreenScaffold(
+      appbarTitle: "برنامج المكافئات \"مرحبا\"",
+      isComeBack: true,
+      body: Scaffold(
         body: Column(
           children: [
-            CustomAppBar(scaffoldKey: scaffoldKey),
-            const CustomAppBarScreen(sectionName: "برنامج المكافئات \"مرحبا\""),
             Expanded(
               child: DefaultTabController(
+                initialIndex: 2,
                 length: 3,
                 child: Scaffold(
                   backgroundColor: ColorManager.white,

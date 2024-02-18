@@ -56,24 +56,25 @@ class RewardsRankScreen extends StatelessWidget {
                           height: 25.h,
                         ),
                         const PointsExpireInWidget(expireInText: "90 يوم"),
-                        Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: PaddingApp.p30,
-                              vertical: PaddingApp.p18),
-                          padding: const EdgeInsets.all(PaddingApp.p10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(RadiusApp.r12),
-                            border: Border.all(
-                              color: ColorManager.primaryGreen,
-                              width: 2,
+                        GestureDetector(
+                          onTap: () {
+                            AppRouter.push(context, const RewardsGuideScreen(),
+                                routeTransition: RouteTransitions.fade);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: PaddingApp.p30,
+                                vertical: PaddingApp.p18),
+                            padding: const EdgeInsets.all(PaddingApp.p10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(RadiusApp.r12),
+                              border: Border.all(
+                                color: ColorManager.primaryGreen,
+                                width: 2,
+                              ),
                             ),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              AppRouter.push(context, RewardsGuideScreen(),
-                                  routeTransition: RouteTransitions.fade);
-                            },
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
