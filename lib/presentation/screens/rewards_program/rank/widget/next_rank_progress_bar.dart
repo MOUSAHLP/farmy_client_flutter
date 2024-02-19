@@ -6,6 +6,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
+import 'package:pharma/translations.dart';
 
 class NextRankProgressBar extends StatelessWidget {
   const NextRankProgressBar({super.key});
@@ -48,7 +49,9 @@ class NextRankProgressBar extends StatelessWidget {
           ),
         ),
         Text(
-          "100,000 ليرة سورية متبقية للحصول على الرتبة الذهبية",
+          "100,000" +
+              AppLocalizations.of(context)!.sp_remaining_to_get_the_next_level +
+              " الرتبة الذهبية",
           style: getRegularStyle(
               color: ColorManager.grayForMessage, fontSize: FontSizeApp.s13),
         ),

@@ -15,6 +15,7 @@ import 'package:pharma/presentation/screens/rewards_program/rank/widget/points_e
 import 'package:pharma/presentation/screens/rewards_program/rank/widget/your_points_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/rank/widget/your_rank.dart';
 import 'package:pharma/presentation/screens/rewards_program/rewards_guide/rewards_guide_screen.dart';
+import 'package:pharma/translations.dart';
 
 class RewardsRankScreen extends StatelessWidget {
   const RewardsRankScreen({super.key});
@@ -56,28 +57,29 @@ class RewardsRankScreen extends StatelessWidget {
                           height: 25.h,
                         ),
                         const PointsExpireInWidget(expireInText: "90 يوم"),
-                        Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: PaddingApp.p30,
-                              vertical: PaddingApp.p18),
-                          padding: const EdgeInsets.all(PaddingApp.p10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(RadiusApp.r12),
-                            border: Border.all(
-                              color: ColorManager.primaryGreen,
-                              width: 2,
+                        GestureDetector(
+                          onTap: () {
+                            AppRouter.push(context, const RewardsGuideScreen(),
+                                routeTransition: RouteTransitions.fade);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: PaddingApp.p30,
+                                vertical: PaddingApp.p18),
+                            padding: const EdgeInsets.all(PaddingApp.p10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(RadiusApp.r12),
+                              border: Border.all(
+                                color: ColorManager.primaryGreen,
+                                width: 2,
+                              ),
                             ),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              AppRouter.push(context, RewardsGuideScreen(),
-                                  routeTransition: RouteTransitions.fade);
-                            },
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                "دليل المكافئات",
+                                AppLocalizations.of(context)!.rewards_guide,
                                 style: getBoldStyle(
                                     color: ColorManager.primaryGreen,
                                     fontSize: FontSizeApp.s14),

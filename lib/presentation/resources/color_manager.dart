@@ -13,6 +13,7 @@ class ColorManager {
   static const white = Color(0xffFFFFFF);
   static const grayForSearch = Color(0xffD9D9D9);
   static const grayForSearchProduct = Color(0xff9B9B9B);
+  static const redForTicket = Color(0xffE2343B);
   static const redForFavorite = Color(0xffBF0000);
   static const lightRed = Color(0x5cbf0000);
   static BoxShadow shadowRedDown = BoxShadow(

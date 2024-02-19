@@ -44,6 +44,9 @@ class ImageManager {
   static const String pointCircle = "$imagePath/circle_with_point.png";
   static const String logoGuest = "$imagePath/logo_guest.png";
   static const String rate = "$imagePath/rate.png";
+  static const String ticket = "$imagePath/ticket.png";
+  static const String discount = "$imagePath/discount.png";
+  static const String share = "$imagePath/share.png";
 }
 
 class IconsManager {
@@ -54,6 +57,7 @@ class IconsManager {
   static const String close = "$iconPath/close.svg";
   static const String add = "$iconPath/add.svg";
   static const String remove = "$iconPath/remove.svg";
+  static const String share = "$iconPath/share.svg";
   static const String locationIcon = "$iconPath/location_icon.png";
   static const String locationIconApp = "$iconPath/location_icon_app.png";
 }

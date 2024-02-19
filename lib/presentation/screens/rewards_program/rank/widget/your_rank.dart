@@ -6,6 +6,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
+import 'package:pharma/translations.dart';
 
 class YourRank extends StatelessWidget {
   const YourRank({super.key});
@@ -41,7 +42,7 @@ class YourRank extends StatelessWidget {
                     blurStyle: BlurStyle.inner),
               ]),
           child: Text(
-            "رتبتك الان",
+            AppLocalizations.of(context)!.your_rank,
             style: getUnderBoldStyle(
                 color: ColorManager.grayForMessage, fontSize: FontSizeApp.s14),
           ),

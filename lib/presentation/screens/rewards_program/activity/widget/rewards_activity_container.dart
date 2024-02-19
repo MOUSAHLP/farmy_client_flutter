@@ -3,6 +3,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
+import 'package:pharma/translations.dart';
 
 class RewardsActivityContainer extends StatelessWidget {
   final String taskTitle;
@@ -17,8 +18,7 @@ class RewardsActivityContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-          horizontal: PaddingApp.p16, vertical: PaddingApp.p10),
+      margin: const EdgeInsets.symmetric(vertical: PaddingApp.p10),
       padding: const EdgeInsets.all(PaddingApp.p10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(RadiusApp.r8),
@@ -37,7 +37,7 @@ class RewardsActivityContainer extends StatelessWidget {
           height: 10,
         ),
         Text(
-          "الجائزة:",
+          AppLocalizations.of(context)!.prize,
           style: getBoldStyle(
               color: ColorManager.primaryGreen, fontSize: FontSizeApp.s14),
         ),

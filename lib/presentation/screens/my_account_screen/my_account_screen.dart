@@ -13,7 +13,6 @@ import 'package:pharma/presentation/screens/my_account_screen/widgets/card_my_ac
 import 'package:pharma/presentation/screens/my_evaluation/my_evaluation_screen.dart';
 import 'package:pharma/presentation/screens/personal_details_screen/personal_details_screen.dart';
 import 'package:pharma/presentation/screens/rewards_program/rewards_program_screen.dart';
-import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/translations.dart';
 
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
@@ -121,7 +120,10 @@ class MyAccountScreen extends StatelessWidget {
                                   AppLocalizations.of(context)!.rewards_Program,
                               details: AppLocalizations.of(context)!
                                   .redeem_Points_for_Discounts,
-                              ontap: () {}),
+                              ontap: () {
+                                AppRouter.push(
+                                    context, const RewardsProgramScreen());
+                              }),
                           CardMyAccount(
                               title: AppLocalizations.of(context)!.my_Reviews,
                               details:

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pharma/presentation/resources/color_manager.dart';
-import 'package:pharma/presentation/resources/font_app.dart';
-import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/rewards_program/rewards_guide/widget/rewards_guide_explain.dart';
+import 'package:pharma/presentation/screens/rewards_program/rewards_guide/widget/rewards_guide_note.dart';
 
 class RewardsGuideWidget extends StatelessWidget {
   const RewardsGuideWidget({super.key});
@@ -12,27 +10,26 @@ class RewardsGuideWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: const [
+      children: [
         Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: PaddingApp.p18, vertical: PaddingApp.p10),
+            padding: const EdgeInsets.symmetric(
+                horizontal: PaddingApp.p20, vertical: PaddingApp.p10),
             child: Column(
               children: [
-                RewardsGuideExplain(
+                const RewardsGuideExplain(
                   title: "برنامج مكافآت العملاء “مرحبا”",
                   explain:
                       "تم تصميم برنامج المكافآت ”مرحباً“ لعملائنا الدائمين تقديراً و امتناناً لكونهم جزءاً أصيلاً من عائلة فارمي و جزءاً لا يتجزأ من قصة نجاحنا التي لم تكن لتكتب لولا عملائنا المميزين بمجرد تحميل التطبيق و التسجيل به ستبدأ رحلتك مع النقاط الفورية و الهدايا القيّمة.",
                 ),
-                RewardsGuideExplain(
-                  title: "برنامج مكافآت العملاء “مرحبا”",
+                const RewardsGuideExplain(
+                  title: "كيف يمكنني استبدال النقاط ؟",
                   explain:
-                      "تم تصميم برنامج المكافآت ”مرحباً“ لعملائنا الدائمين تقديراً و امتناناً لكونهم جزءاً أصيلاً من عائلة فارمي و جزءاً لا يتجزأ من قصة نجاحنا التي لم تكن لتكتب لولا عملائنا المميزين بمجرد تحميل التطبيق و التسجيل به ستبدأ رحلتك مع النقاط الفورية و الهدايا القيّمة.",
+                      "في مرحلة تسديد قيمة الطلب، سيمكنك بكل سهولة اختيار ”استبدال نقاط“ و اختيار عدد النقاط التي ترغب باستبدالها و سيظهر لك تلقائياً قيمة الحسم المكافئ للنقاط المستبدلة. من الممكن أن تتغير قيمة النقاط المستبدلة من وقت لآخر وفقاً لمتغيرات السوق. بشكل عام و في الوقت الحالي فإن عملية استبدال النقاط ستخولك الحصول على الحسومات التالية:",
                 ),
-                RewardsGuideExplain(
-                  title: "برنامج مكافآت العملاء “مرحبا”",
-                  explain:
-                      "تم تصميم برنامج المكافآت ”مرحباً“ لعملائنا الدائمين تقديراً و امتناناً لكونهم جزءاً أصيلاً من عائلة فارمي و جزءاً لا يتجزأ من قصة نجاحنا التي لم تكن لتكتب لولا عملائنا المميزين بمجرد تحميل التطبيق و التسجيل به ستبدأ رحلتك مع النقاط الفورية و الهدايا القيّمة.",
+                SizedBox(
+                  height: 10.h,
                 ),
+                const RewardsGuideNote(expiration: "/ 90 / يوماً"),
               ],
             ))
       ],

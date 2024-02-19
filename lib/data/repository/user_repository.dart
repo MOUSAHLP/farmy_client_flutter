@@ -17,7 +17,7 @@ class UserRepository {
       {LoginParams? loginParams}) async {
     return BaseApiClient.post<LoginResponse>(
         url: ApiConst.login,
-        formData:loginParams?.toJson(),
+        formData: loginParams?.toJson(),
         converter: (e) {
           return LoginResponse.fromJson(e['data']);
         });
@@ -39,13 +39,14 @@ class UserRepository {
       String phoneNumber) async {
     return BaseApiClient.post<OtpVerifyResponse>(
         url: ApiConst.generateOtp,
-        formData:  {
+        formData: {
           "phone": phoneNumber,
         },
         converter: (e) {
           return OtpVerifyResponse.fromJson(e['data']);
         });
   }
+
   Future<Either<String, bool>> confirmOtp(
       OtpConfirmParams? otpConfirmParams) async {
     return BaseApiClient.post<bool>(
@@ -55,6 +56,7 @@ class UserRepository {
           return true;
         });
   }
+
   Future<Either<String, bool>> forgetPassword(
       ForgetPasswordParams forgetPasswordParams) async {
     return BaseApiClient.post<bool>(
@@ -72,7 +74,9 @@ class UserRepository {
           return true;
         });
   }
-  Future<Either<String, bool>> deleteAccount(DeleteAccountParams deleteAccountParams) async {
+
+  Future<Either<String, bool>> deleteAccount(
+      DeleteAccountParams deleteAccountParams) async {
     return BaseApiClient.post<bool>(
         url: ApiConst.deleteAccount,
         formData: deleteAccountParams.toJson(),
@@ -80,21 +84,20 @@ class UserRepository {
           return true;
         });
   }
-  Future<Either<String, String>> signUp(
-      SignUpParams? signUpParams) async {
 
+  Future<Either<String, String>> signUp(SignUpParams? signUpParams) async {
     return BaseApiClient.post<String>(
         url: ApiConst.signUp,
-
         formData: FormData.fromMap(signUpParams!.toJson()),
         converter: (e) {
           return e['data']['name'];
         });
   }
+
   static Future<Either<String, ProfileModel>> editProfile(
       ProfileModel profileModel) async {
     print(profileModel.toJson());
-    print( FormData.fromMap(profileModel.toJson()));
+    print(FormData.fromMap(profileModel.toJson()));
 
     return BaseApiClient.post<ProfileModel>(
         url: ApiConst.updateProfile,
@@ -103,6 +106,7 @@ class UserRepository {
           return ProfileModel.fromJson(e['data']);
         });
   }
+
   static Future<Either<String, ProfileModel>> getProfile() {
     return BaseApiClient.get<ProfileModel>(
         url: ApiConst.profile,
@@ -110,5 +114,4 @@ class UserRepository {
           return ProfileModel.fromJson(e['data']);
         });
   }
-
 }
