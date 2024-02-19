@@ -4,6 +4,7 @@ class DataStoreKeys {
   ///Keys
   static const lang = "lang";
   static const token = "token";
+  static const version = "version";
   static const onBoarding = "onBoarding";
   static const userInfo = "userInfo";
 
