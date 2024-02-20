@@ -60,7 +60,7 @@ class CardOrder extends StatelessWidget {
                                   color: Colors.black, fontSize: 11)),
                         ),
                         Expanded(
-                          child: Text(myOrder.total ?? "",
+                          child: Text("${myOrder.total ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
                               style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: 15),
@@ -80,12 +80,12 @@ class CardOrder extends StatelessWidget {
                         fillColor: ColorManager.primaryGreen,
                         onTap: () {
                           // AppRouter.push(context, OrderDetailsScreen(orderDetailsList:myOrder.orderDetailsList??[],));
-                          AppRouter.push(
-                              context,
-                              ReturnOrderScreen(
-                                orderDetailsList:
-                                    myOrder.orderDetailsList ?? [],
-                              ));
+                          // AppRouter.push(
+                          //     context,
+                          //     ReturnOrderScreen(
+                          //       orderDetailsList:
+                          //           myOrder.orderDetailsList ?? [],
+                          //     ));
                         },
                       ),
                     ),
