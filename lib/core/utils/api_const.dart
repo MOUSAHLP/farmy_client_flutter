@@ -39,7 +39,7 @@ class ApiConst {
   static const String getMyOrder = "/orders";
 
   ///notification
-  static const String getNotifications = "/orders";
+  static const String getNotifications = "/";
 
   /// Rewards Screen
   static const String getAllRewards = "/rewards";

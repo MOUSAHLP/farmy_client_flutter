@@ -133,7 +133,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody>
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: SizedBox(
-            height: 10.h,
+            height: 80.h,
             width: 1.sw,
             child: Text(
               widget.boardingBody.text ?? "",
