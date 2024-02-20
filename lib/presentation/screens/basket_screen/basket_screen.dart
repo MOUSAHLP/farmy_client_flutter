@@ -68,18 +68,29 @@ class BasketScreen extends StatelessWidget {
                         children: [
                           state.prductList!.isEmpty
                               ? CustomNoData(
-                                  noDataStatment:
-                                      AppLocalizations.of(context)!
-                                          .sorryBasketIsEmpty)
-                              : Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 37, vertical: 11),
-                                  child: Text(
-                                      AppLocalizations.of(context)!
-                                          .final_product_appearance,
-                                      style: getRegularStyle(
-                                          color:
-                                              ColorManager.grayForMessage)),
+                                  noDataStatment: AppLocalizations.of(context)!
+                                      .sorryBasketIsEmpty)
+                              : IntrinsicWidth(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15.w, 5.h, 10.w, 0),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            AppLocalizations.of(context)!
+                                                .final_product_appearance,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: getSemiBoldStyle(
+                                                color:
+                                                    ColorManager.grayForMessage,
+                                                fontSize: 15.sp),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                           Expanded(
                             child: CustomOverscrollIndicator(
@@ -124,8 +135,8 @@ class BasketScreen extends StatelessWidget {
                                                   .read<BasketBloc>()
                                                   .finalPrice())),
                                               style: getBoldStyle(
-                                                  color: ColorManager
-                                                      .primaryGreen,
+                                                  color:
+                                                      ColorManager.primaryGreen,
                                                   fontSize: 24)),
                                           const SizedBox(
                                             width: 2,

@@ -41,19 +41,22 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     on<BasketEvent>((event, emit) async {
       if (event is AddToBasket) {
         mutableProducts = List.from(state.prductList!);
-        // for (var i in mutableProducts) {
-        //   if (i.id == event.product.id) {
-        //     print("ghina");
-        //     i.quantity = (event.product.quantity ?? 0) + (i.quantity ?? 0);
-        //     emit(state.copyWith(
-        //         prductList: mutableProducts,
-        //         addToBasketState: AddToBasketState.successAddedToBasket));
-        //   }
-        // }
-        mutableProducts.add(event.product);
-        emit(state.copyWith(
-            prductList: mutableProducts,
-            addToBasketState: AddToBasketState.successAddedToBasket));
+        bool contain = false;
+        for (var i in mutableProducts) {
+          if (i.id == event.product.id) {
+            contain = true;
+            i.quantity = (event.product.quantity ?? 0) + (i.quantity ?? 0);
+            emit(state.copyWith(
+                prductList: mutableProducts,
+                addToBasketState: AddToBasketState.successAddedToBasket));
+          }
+        }
+        if (!contain) {
+          mutableProducts.add(event.product);
+          emit(state.copyWith(
+              prductList: mutableProducts,
+              addToBasketState: AddToBasketState.successAddedToBasket));
+        }
       }
       if (event is PaymentProcess) {
         emit(state.copyWith(screenState: ScreenState.loading));

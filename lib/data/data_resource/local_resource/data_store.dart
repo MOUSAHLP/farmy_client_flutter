@@ -49,6 +49,14 @@ class DataStore {
 
   void deleteToken() => box.deleteAll({DataStoreKeys.token});
 
+  String? get getVersion {
+    if (!box.containsKey(DataStoreKeys.version)) return null;
+    return "${box.get(DataStoreKeys.version)}";
+  }
+
+  Future<void> setVersion(String value) =>
+      box.put(DataStoreKeys.version, value);
+
   // bool? get isShowOnborading {
   //   if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
   //   return box.get(DataStoreKeys.onBoarding);

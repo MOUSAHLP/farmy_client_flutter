@@ -13,6 +13,12 @@ class BaseApiClient {
   static Dio client = Dio();
   static const String _acceptHeader = 'application/json';
   static CancelToken getTargetCancelToken = CancelToken();
+  static final Map<String, String> _headers = {
+    'accept': _acceptHeader,
+    'version': DataStore.instance.getVersion ?? "",
+    'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
+  };
+
   BaseApiClient() {
     client.interceptors.add(LogInterceptor());
     if (kDebugMode) {
@@ -33,7 +39,7 @@ class BaseApiClient {
       bool isToken = false,
       dynamic returnOnError}) async {
     try {
-      print(formData);
+      // print(formData);
       var response = await client.post(
         url,
         queryParameters: queryParameters,
@@ -45,10 +51,7 @@ class BaseApiClient {
           }
         },
         options: Options(
-          headers: {
-            'accept': _acceptHeader,
-            'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
-          },
+          headers: _headers,
         ),
       );
       if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
@@ -95,10 +98,7 @@ class BaseApiClient {
           }
         },
         options: Options(
-          headers: {
-            'accept': _acceptHeader,
-            'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
-          },
+          headers: _headers,
         ),
       );
       if (response.statusCode! >= 200 || response.statusCode! <= 205) {
@@ -132,10 +132,7 @@ class BaseApiClient {
         url,
         queryParameters: queryParameters,
         options: Options(
-          headers: {
-            'accept': _acceptHeader,
-            'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
-          },
+          headers: _headers,
         ),
         cancelToken: cancelToken,
       );
@@ -174,10 +171,7 @@ class BaseApiClient {
         url,
         queryParameters: queryParameters,
         options: Options(
-          headers: {
-            'accept': _acceptHeader,
-            'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
-          },
+          headers: _headers,
         ),
       );
       if (response.statusCode! >= 200 || response.statusCode! <= 205) {

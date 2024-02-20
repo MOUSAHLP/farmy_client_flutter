@@ -88,23 +88,18 @@ class _MyAppState extends State<MyApp> {
                         switch (state.authenticationScreen) {
                           case AuthenticationScreenStates
                                 .authenticationAuthenticated:
-                            {
-                              return const HomeScreen();
-                            }
+                            return const HomeScreen();
+
                           case AuthenticationScreenStates
                                 .authenticationUnauthenticated:
-                            {
-                              return const OnBoardingView();
-                            }
+                            return const OnBoardingView();
+
                           case AuthenticationScreenStates
                                 .authenticationLoggedOut:
-                            {
-                              return const AccountScreen();
-                            }
+                            return const AccountScreen();
+
                           default:
-                            {
-                              return const SplashScreen();
-                            }
+                            return const SplashScreen();
                         }
                       },
                     )

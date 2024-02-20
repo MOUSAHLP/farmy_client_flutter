@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import '../../core/app_enum.dart';
 import '../../data/data_resource/local_resource/data_store.dart';
 import '../../data/repository/user_repository.dart';
@@ -24,7 +25,9 @@ class AuthenticationBloc
     this.userRepository,
   ) : super(AuthenticationState()) {
     on<AuthenticationEvent>((event, emit) async {
+      final PackageInfo info = await PackageInfo.fromPlatform();
       if (event is AppStarted) {
+        DataStore.instance.setVersion(info.version);
         final bool hasToken = await userRepository.hasToken();
         await Future.delayed(const Duration(seconds: 3)).then((value) {
           /// he logged in -> go to home page
