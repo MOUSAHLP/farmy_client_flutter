@@ -271,6 +271,7 @@
   "all_points_will_expire_after_period":"From the date of obtaining them, it will not be possible to exchange the points after the expiration of their validity period.",
   "done":"Done",
   "congrats":"Congrats :)",
-  "you_got": "You got"
+  "you_got": "You got",
+  "loading" : "Loading"
   
 }

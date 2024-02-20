@@ -6,6 +6,7 @@ import 'package:pharma/presentation/screens/all_invoices/all_invoices_screen.dar
 import 'package:pharma/presentation/screens/contact_us/contact_us_screen.dart';
 import 'package:pharma/presentation/screens/join_our_team/join_our_team_screen.dart';
 import 'package:pharma/presentation/screens/setting_screen/setting_screen.dart';
+import 'package:pharma/presentation/screens/who_we_are/who_we_are_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:pharma/translations.dart';
 import '../../bloc/authentication_bloc/authertication_bloc.dart';
@@ -58,23 +59,17 @@ class CustomAppDrawer extends StatelessWidget {
                           const SizedBox(
                             height: 24,
                           ),
-                          sl<AuthenticationBloc>().loggedIn?   Text(
-                            "${
-                                context
-                                    .read<AuthenticationBloc>()
-                                    .loginResponse!
-                                    .firstName
-                            } ${context
-                                .read<AuthenticationBloc>()
-                                .loginResponse!
-                                .lastName}",
-                            style: getMediumStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ):const SizedBox(),
+                          sl<AuthenticationBloc>().loggedIn
+                              ? Text(
+                                  "${context.read<AuthenticationBloc>().loginResponse!.firstName} ${context.read<AuthenticationBloc>().loginResponse!.lastName}",
+                                  style: getMediumStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                )
+                              : const SizedBox(),
                           const SizedBox(
                             height: 21,
                           ),
@@ -102,15 +97,18 @@ class CustomAppDrawer extends StatelessWidget {
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.who_are_we, () {
-                            AppRouter.pop(context);
+                            AppRouter.push(context, const WhoWeAreScreen());
                           }),
-                          sl<AuthenticationBloc>().loggedIn?  buildElevatedButton(
-                              AppLocalizations.of(context)!.sign_out, () {
-                            LogoutConfirmationDialog.handle(context);
-                          }):buildElevatedButton(
-                              AppLocalizations.of(context)!.sign_in, () {
-                            AppRouter.pushReplacement(context, const AccountScreen());
-                          }),
+                          sl<AuthenticationBloc>().loggedIn
+                              ? buildElevatedButton(
+                                  AppLocalizations.of(context)!.sign_out, () {
+                                  LogoutConfirmationDialog.handle(context);
+                                })
+                              : buildElevatedButton(
+                                  AppLocalizations.of(context)!.sign_in, () {
+                                  AppRouter.pushReplacement(
+                                      context, const AccountScreen());
+                                }),
                           const SizedBox(height: 20),
 
                           // const SizedBox(width:20),

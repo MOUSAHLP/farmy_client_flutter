@@ -35,7 +35,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       }
       if (event is GetFavorites) {
         // emit(state.copyWith(screenState: ScreenState.loading));
-
         // todo add request to add and remove favorite
         // (await categoriesRepo.getProductsBySubCategoriesId(event.id)).fold((l) {
         //   if (l != "cancel") {
