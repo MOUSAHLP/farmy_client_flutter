@@ -34,8 +34,8 @@ class MembershipLevelsWidget extends StatelessWidget {
                 return const MembershipLevelExplain(
                   level: "Platinium",
                   explain:
-                      "تحصل على هذه الرتبة عند الاشتراك في التطبيق للمرة الأولى",
-                  features: ["لرقثلقث", "بقثلثق"],
+                      "You get this rank when you subscribe to the application for the first time.",
+                  features: ["gregre", "few"],
                   crownColor: ColorManager.platinium,
                 );
               },

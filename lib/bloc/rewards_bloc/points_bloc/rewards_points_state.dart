@@ -1,8 +1,10 @@
 abstract class RewardsPointsState {}
 
+class RewardsPointsInit extends RewardsPointsState {}
+
 class RewardsPointsLoading extends RewardsPointsState {}
 
-class RewardsPointsInit extends RewardsPointsState {}
+class RewardsPointsLoaded extends RewardsPointsState {}
 
 class RewardsTabPointsHistoryChanged extends RewardsPointsState {}
 

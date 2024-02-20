@@ -8,6 +8,7 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/translations.dart';
+import 'package:dotted_decoration/dotted_decoration.dart';
 
 class RewardsActivityTicket extends StatelessWidget {
   final String text;
@@ -44,29 +45,35 @@ class RewardsActivityTicket extends StatelessWidget {
       child: IntrinsicHeight(
         child: Row(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                    left: BorderSide(
-                  color: ColorManager.grayForSearch,
-                  width: 1,
-                )),
-              ),
+            Padding(
               padding: const EdgeInsets.fromLTRB(
                   PaddingApp.p10, PaddingApp.p5, PaddingApp.p5, PaddingApp.p5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: Row(
                 children: [
-                  Image.asset(
-                    ImageManager.discount,
-                    width: 80.w,
-                    height: 80.h,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        ImageManager.discount,
+                        width: 80.w,
+                        height: 80.h,
+                      ),
+                      Text(
+                        imageText,
+                        style: getBoldStyle(color: ColorManager.primaryGreen),
+                      )
+                    ],
                   ),
-                  Text(
-                    imageText,
-                    style: getBoldStyle(color: ColorManager.primaryGreen),
-                  )
+                  Container(
+                    margin:
+                        const EdgeInsetsDirectional.only(start: PaddingApp.p5),
+                    decoration: DottedDecoration(
+                        color: ColorManager.grayForMessage,
+                        strokeWidth: 0.5,
+                        linePosition: LinePosition.right,
+                        dash: const [3, 3]),
+                  ),
                 ],
               ),
             ),
