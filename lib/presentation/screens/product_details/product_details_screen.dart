@@ -11,11 +11,13 @@ import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/product_details_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/about_product_and_amount_section.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/product_image.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/presentation/widgets/custom_app_button.dart';
 import 'package:pharma/presentation/widgets/custom_loading.dart';
+import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/translations.dart';
 
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
@@ -123,9 +125,8 @@ class ProductDetailsBody extends StatelessWidget {
                                       state.productDetailsResponse
                                               .relatedProducts!.isNotEmpty
                                           ? Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25),
+                                              padding: EdgeInsets.fromLTRB(
+                                                  25.w, 20.h, 10.w, 0),
                                               child: Text(
                                                 AppLocalizations.of(context)!
                                                     .related_products,
@@ -138,7 +139,7 @@ class ProductDetailsBody extends StatelessWidget {
                                       state.productDetailsResponse
                                               .relatedProducts!.isNotEmpty
                                           ? SizedBox(
-                                              height: 115,
+                                              height: 260.h,
                                               width: 1.sw,
                                               child: ListView.builder(
                                                 scrollDirection:
@@ -153,41 +154,37 @@ class ProductDetailsBody extends StatelessWidget {
                                                         const EdgeInsets.all(
                                                             8.0),
                                                     child: GestureDetector(
-                                                      onTap: () {
-                                                        AppRouter.pushReplacement(
-                                                            context,
-                                                            ProductDetailsScreen(
-                                                                id: state
+                                                        onTap: () {
+                                                          AppRouter.pushReplacement(
+                                                              context,
+                                                              ProductDetailsScreen(
+                                                                  id: state
+                                                                      .productDetailsResponse
+                                                                      .relatedProducts![
+                                                                          index]
+                                                                      .id));
+                                                        },
+                                                        child: CustomProductCard(
+                                                            isSellerFound: state
+                                                                        .productDetailsResponse
+                                                                        .relatedProducts![
+                                                                            index]
+                                                                        .sellerName !=
+                                                                    null
+                                                                ? true
+                                                                : false,
+                                                            isDisCount: state
+                                                                        .productDetailsResponse
+                                                                        .relatedProducts![
+                                                                            index]
+                                                                        .discountStatus ==
+                                                                    "1"
+                                                                ? true
+                                                                : false,
+                                                            productInfo: state
                                                                     .productDetailsResponse
                                                                     .relatedProducts![
-                                                                        index]
-                                                                    .id));
-                                                      },
-                                                      child: Container(
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                                color: ColorManager
-                                                                    .grayForPlaceholder,
-                                                                boxShadow: [
-                                                              BoxShadow(
-                                                                color: Color(
-                                                                    0xff0000002E),
-                                                                offset: Offset(
-                                                                    0, 2),
-                                                                blurRadius: 4,
-                                                                spreadRadius: 0,
-                                                              ),
-                                                            ]),
-                                                        height: 115,
-                                                        width: 115,
-                                                        child: CachedImage(
-                                                            imageUrl: state
-                                                                .productDetailsResponse
-                                                                .relatedProducts![
-                                                                    index]
-                                                                .image),
-                                                      ),
-                                                    ),
+                                                                index])),
                                                   );
                                                 },
                                               ),
@@ -196,9 +193,8 @@ class ProductDetailsBody extends StatelessWidget {
                                       state.productDetailsResponse
                                               .similarProducts!.isNotEmpty
                                           ? Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25),
+                                              padding: EdgeInsets.fromLTRB(
+                                                  25.w, 20.h, 10.w, 0),
                                               child: Text(
                                                 AppLocalizations.of(context)!
                                                     .similar_products,
@@ -211,7 +207,7 @@ class ProductDetailsBody extends StatelessWidget {
                                       state.productDetailsResponse
                                               .similarProducts!.isNotEmpty
                                           ? SizedBox(
-                                              height: 115,
+                                              height: 260.h,
                                               width: 1.sw,
                                               child: ListView.builder(
                                                 scrollDirection:
@@ -226,41 +222,37 @@ class ProductDetailsBody extends StatelessWidget {
                                                         const EdgeInsets.all(
                                                             8.0),
                                                     child: GestureDetector(
-                                                      onTap: () {
-                                                        AppRouter.pushReplacement(
-                                                            context,
-                                                            ProductDetailsScreen(
-                                                                id: state
+                                                        onTap: () {
+                                                          AppRouter.pushReplacement(
+                                                              context,
+                                                              ProductDetailsScreen(
+                                                                  id: state
+                                                                      .productDetailsResponse
+                                                                      .similarProducts![
+                                                                          index]
+                                                                      .id));
+                                                        },
+                                                        child: CustomProductCard(
+                                                            isSellerFound: state
+                                                                        .productDetailsResponse
+                                                                        .similarProducts![
+                                                                            index]
+                                                                        .sellerName !=
+                                                                    null
+                                                                ? true
+                                                                : false,
+                                                            isDisCount: state
+                                                                        .productDetailsResponse
+                                                                        .similarProducts![
+                                                                            index]
+                                                                        .discountStatus ==
+                                                                    "1"
+                                                                ? true
+                                                                : false,
+                                                            productInfo: state
                                                                     .productDetailsResponse
                                                                     .similarProducts![
-                                                                        index]
-                                                                    .id));
-                                                      },
-                                                      child: Container(
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                                color: ColorManager
-                                                                    .grayForPlaceholder,
-                                                                boxShadow: [
-                                                              BoxShadow(
-                                                                color: Color(
-                                                                    0xff0000002e),
-                                                                offset: Offset(
-                                                                    0, 2),
-                                                                blurRadius: 4,
-                                                                spreadRadius: 0,
-                                                              ),
-                                                            ]),
-                                                        height: 115,
-                                                        width: 115,
-                                                        child: CachedImage(
-                                                            imageUrl: state
-                                                                .productDetailsResponse
-                                                                .similarProducts![
-                                                                    index]
-                                                                .image),
-                                                      ),
-                                                    ),
+                                                                index])),
                                                   );
                                                 },
                                               ),
