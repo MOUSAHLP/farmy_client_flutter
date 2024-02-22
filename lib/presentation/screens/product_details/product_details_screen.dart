@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
@@ -54,7 +53,7 @@ class ProductDetailsBody extends StatelessWidget {
             },
           )
         ],
-        child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
+        child: BlocBuilder<ProductdetailsBloc,ProductdetailsState>(
           builder: (context, state) {
             return Scaffold(
               body: Column(
@@ -67,24 +66,16 @@ class ProductDetailsBody extends StatelessWidget {
                                 children: [
                                   ProductImage(
                                       productImage: state.productDetailsResponse
-                                                  .image !=
-                                              null
+                                                  .image !=null
                                           ? state.productDetailsResponse.image!
                                           : ""),
                                   AboutProductAndAmonutSection(
-                                      attributeList: state
-                                          .productDetailsResponse.attributeList,
-                                      productDesc: state.productDetailsResponse
-                                                  .description !=
-                                              null
-                                          ? state.productDetailsResponse
-                                              .description!
+                                      attributeList: state.productDetailsResponse.attributeList,
+                                      productDesc: state.productDetailsResponse.description!=null
+                                          ? state.productDetailsResponse.description!
                                           : "",
-                                      productName: state.productDetailsResponse
-                                                  .nameOfProduct !=
-                                              null
-                                          ? state.productDetailsResponse
-                                              .nameOfProduct!
+                                      productName: state.productDetailsResponse.nameOfProduct!=null
+                                          ? state.productDetailsResponse.nameOfProduct!
                                           : ""),
                                   Column(
                                     crossAxisAlignment:
@@ -101,13 +92,11 @@ class ProductDetailsBody extends StatelessWidget {
                                               AppLocalizations.of(context)!
                                                   .price,
                                               style: getBoldStyle(
-                                                  color:
-                                                      ColorManager.primaryGreen,
-                                                  fontSize: FontSizeApp.s15),
+                                                  color:ColorManager.primaryGreen,
+                                                  fontSize: FontSizeApp.s15,
+                                              ),
                                             ),
-                                            state.productDetailsResponse
-                                                        .price !=
-                                                    null
+                                            state.productDetailsResponse.price!=null
                                                 ? Text(
                                                     "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
                                                     style: getBoldStyle(
@@ -135,10 +124,9 @@ class ProductDetailsBody extends StatelessWidget {
                                               ),
                                             )
                                           : const SizedBox(),
-                                      state.productDetailsResponse
-                                              .relatedProducts!.isNotEmpty
+                                      state.productDetailsResponse.relatedProducts!.isNotEmpty
                                           ? SizedBox(
-                                              height: 115,
+                                              height: 160,
                                               width: 1.sw,
                                               child: ListView.builder(
                                                 scrollDirection:
@@ -148,45 +136,141 @@ class ProductDetailsBody extends StatelessWidget {
                                                     .relatedProducts!
                                                     .length,
                                                 itemBuilder: (context, index) {
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        AppRouter.pushReplacement(
-                                                            context,
-                                                            ProductDetailsScreen(
-                                                                id: state
+                                                  return Container(
+                                                    margin:
+                                                        const EdgeInsetsDirectional
+                                                            .symmetric(
+                                                            horizontal: 7),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        color: ColorManager
+                                                            .grayForPlaceholder,
+                                                        boxShadow: const [
+                                                          BoxShadow(
+                                                            color: Color(
+                                                                0xFFAFAFAF),
+                                                            offset:
+                                                                Offset(0, 2),
+                                                            blurRadius: 4,
+                                                            spreadRadius: 0,
+                                                          ),
+                                                        ]),
+                                                    width: 130,
+                                                    child: Stack(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            AppRouter.pushReplacement(
+                                                                context,
+                                                                ProductDetailsScreen(
+                                                                    id: state
+                                                                        .productDetailsResponse
+                                                                        .relatedProducts![
+                                                                            index]
+                                                                        .id));
+                                                          },
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            child: CachedImage(
+                                                                height: 160,
+                                                                imageUrl: state
                                                                     .productDetailsResponse
                                                                     .relatedProducts![
                                                                         index]
-                                                                    .id));
-                                                      },
-                                                      child: Container(
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                                color: ColorManager
-                                                                    .grayForPlaceholder,
+                                                                    .image),
+                                                          ),
+                                                        ),
+                                                        Positioned(
+                                                          bottom: 10,
+                                                          right: 10,
+                                                          left: 10,
+                                                          child: Container(
+                                                            width: 120,
+                                                            height: 30,
+                                                            decoration: BoxDecoration(
                                                                 boxShadow: [
-                                                              BoxShadow(
-                                                                color: Color(
-                                                                    0xff0000002E),
-                                                                offset: Offset(
-                                                                    0, 2),
-                                                                blurRadius: 4,
-                                                                spreadRadius: 0,
-                                                              ),
-                                                            ]),
-                                                        height: 115,
-                                                        width: 115,
-                                                        child: CachedImage(
-                                                            imageUrl: state
-                                                                .productDetailsResponse
-                                                                .relatedProducts![
-                                                                    index]
-                                                                .image),
-                                                      ),
+                                                                  BoxShadow(
+                                                                      color: Colors
+                                                                          .black
+                                                                          .withOpacity(
+                                                                              0.25),
+                                                                      blurRadius:
+                                                                          5,
+                                                                      offset:
+                                                                          const Offset(
+                                                                              1,
+                                                                              1))
+                                                                ],
+                                                                color: Colors
+                                                                    .white,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10)),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceAround,
+                                                              children: [
+                                                                InkWell(
+                                                                    onTap:
+                                                                        () {
+                                                                          context.read<ProductdetailsBloc>().add(AddQuantityToOrder(
+                                                                              context.read<ProductdetailsBloc>().state.quantity!));
+                                                                        },
+                                                                    child:
+                                                                        const Icon(
+                                                                      Icons.add,
+                                                                      color: ColorManager
+                                                                          .primaryGreen,
+                                                                    )),
+                                                                Container(
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(6),
+                                                                  ),
+                                                                  child: BlocBuilder<
+                                                                      ProductdetailsBloc,
+                                                                      ProductdetailsState>(
+                                                                    builder:
+                                                                        (context,
+                                                                            state) {
+                                                                      return Center(
+                                                                          child:
+                                                                              Text(
+                                                                        state
+                                                                            .quantity
+                                                                            .toString(),
+                                                                        style: getUnderBoldStyle(
+                                                                            color:
+                                                                                ColorManager.primaryGreen,
+                                                                            fontSize: FontSizeApp.s20),
+                                                                      ));
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                 InkWell(
+                                                                  onTap: (){
+                                                                    context.read<ProductdetailsBloc>().add(RemoveQuantityToOrder(
+                                                                        context.read<ProductdetailsBloc>().state.quantity!));
+                                                                  },
+                                                                    child: const Icon(
+                                                                  Icons.remove,
+                                                                  color: ColorManager
+                                                                      .primaryGreen,
+                                                                )),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   );
                                                 },
@@ -199,19 +283,29 @@ class ProductDetailsBody extends StatelessWidget {
                                               padding:
                                                   const EdgeInsets.symmetric(
                                                       horizontal: 25),
-                                              child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .similar_products,
-                                                style: getBoldStyle(
-                                                    color: ColorManager.black,
-                                                    fontSize: FontSizeApp.s15),
+                                              child: Column(
+                                                children: [
+                                                  const SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .similar_products,
+                                                    style: getBoldStyle(
+                                                        color:
+                                                            ColorManager.black,
+                                                        fontSize:
+                                                            FontSizeApp.s15),
+                                                  ),
+                                                ],
                                               ),
                                             )
                                           : const SizedBox(),
                                       state.productDetailsResponse
                                               .similarProducts!.isNotEmpty
                                           ? SizedBox(
-                                              height: 115,
+                                              height: 160,
                                               width: 1.sw,
                                               child: ListView.builder(
                                                 scrollDirection:
@@ -221,55 +315,142 @@ class ProductDetailsBody extends StatelessWidget {
                                                     .similarProducts!
                                                     .length,
                                                 itemBuilder: (context, index) {
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        AppRouter.pushReplacement(
-                                                            context,
-                                                            ProductDetailsScreen(
-                                                                id: state
-                                                                    .productDetailsResponse
-                                                                    .similarProducts![
-                                                                        index]
-                                                                    .id));
-                                                      },
-                                                      child: Container(
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                                color: ColorManager
-                                                                    .grayForPlaceholder,
-                                                                boxShadow: [
-                                                              BoxShadow(
-                                                                color: Color(
-                                                                    0xff0000002e),
-                                                                offset: Offset(
-                                                                    0, 2),
-                                                                blurRadius: 4,
-                                                                spreadRadius: 0,
+                                                  return Container(
+                                                      margin:
+                                                          const EdgeInsetsDirectional
+                                                              .symmetric(
+                                                              horizontal: 7),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          color: ColorManager
+                                                              .grayForPlaceholder,
+                                                          boxShadow: const [
+                                                            BoxShadow(
+                                                              color: Color(
+                                                                  0xFFAFAFAF),
+                                                              offset:
+                                                                  Offset(0, 2),
+                                                              blurRadius: 4,
+                                                              spreadRadius: 0,
+                                                            ),
+                                                          ]),
+                                                      width: 130,
+                                                      child: Stack(
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              AppRouter.pushReplacement(
+                                                                  context,
+                                                                  ProductDetailsScreen(
+                                                                      id: state
+                                                                          .productDetailsResponse
+                                                                          .similarProducts![
+                                                                              index]
+                                                                          .id));
+                                                            },
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              child: CachedImage(
+                                                                  height: 160,
+                                                                  imageUrl: state
+                                                                      .productDetailsResponse
+                                                                      .similarProducts![
+                                                                          index]
+                                                                      .image),
+                                                            ),
+                                                          ),
+                                                          Positioned(
+                                                            bottom: 10,
+                                                            right: 10,
+                                                            left: 10,
+                                                            child: Container(
+                                                              width: 120,
+                                                              height: 30,
+                                                              decoration: BoxDecoration(
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                        color: Colors
+                                                                            .black
+                                                                            .withOpacity(
+                                                                                0.25),
+                                                                        blurRadius:
+                                                                            5,
+                                                                        offset: const Offset(
+                                                                            1,
+                                                                            1))
+                                                                  ],
+                                                                  color: Colors
+                                                                      .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10)),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: [
+                                                                   InkWell(
+                                                                     onTap:(){
+                                                                       context.read<ProductdetailsBloc>().add(AddQuantityToOrder(
+                                                                           context.read<ProductdetailsBloc>().state.quantity!));
+                                                                     },
+                                                                      child:
+                                                                          const Icon(
+                                                                    Icons.add,
+                                                                    color: ColorManager
+                                                                        .primaryGreen,
+                                                                  )),
+                                                                  Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              6),
+                                                                    ),
+                                                                    child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
+                                                                      builder: (context,state){
+                                                                        return Center(
+                                                                            child:
+                                                                                Text(
+                                                                                  state.quantity.toString(),
+                                                                          style: getUnderBoldStyle(
+                                                                              color: ColorManager.primaryGreen,
+                                                                              fontSize: FontSizeApp.s20),
+                                                                        ));
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                   InkWell(
+                                                                     onTap: (){
+                                                                       context.read<ProductdetailsBloc>().add(RemoveQuantityToOrder(
+                                                                         context.read<ProductdetailsBloc>().state.quantity!));
+                                                                       },
+                                                                      child:
+                                                                          const Icon(
+                                                                    Icons
+                                                                        .remove,
+                                                                    color: ColorManager
+                                                                        .primaryGreen,
+                                                                  )),
+                                                                ],
                                                               ),
-                                                            ]),
-                                                        height: 115,
-                                                        width: 115,
-                                                        child: CachedImage(
-                                                            imageUrl: state
-                                                                .productDetailsResponse
-                                                                .similarProducts![
-                                                                    index]
-                                                                .image),
-                                                      ),
-                                                    ),
-                                                  );
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ));
                                                 },
                                               ),
                                             )
                                           : const SizedBox(),
                                       CustomAppButton(
                                         ontap: () {
-                                          if (sl<AuthenticationBloc>()
-                                              .loggedIn) {
+                                          if (sl<AuthenticationBloc>().loggedIn) {
                                             context
                                                 .read<BasketBloc>()
                                                 .add(buildAddToBasket(state));
@@ -318,7 +499,7 @@ class ProductDetailsBody extends StatelessWidget {
                 : true,
             attributeList: state.productDetailsResponse.attributeList,
             id: state.productDetailsResponse.id!,
-            quantity: state.quntity,
+            quantity: state.quantity,
             discountValue: state.productDetailsResponse.discountValue));
   }
 }
