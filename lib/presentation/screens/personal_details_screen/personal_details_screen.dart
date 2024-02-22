@@ -60,8 +60,7 @@ class EditProfileBody extends StatelessWidget {
                       },
                       titleError: state.error,
                     );
-                  } else
-                    // ignore: curly_braces_in_flow_control_structures
+                  } else {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 28),
                       child: SingleChildScrollView(
@@ -142,15 +141,14 @@ class EditProfileBody extends StatelessWidget {
                                                     const ColorScheme.light(
                                               primary:
                                                   ColorManager.primaryGreen,
-
                                               onPrimary: Colors.white,
-
                                               onSurface: Colors.black,
                                             )),
                                             child: child!);
                                       });
                                   if (selectedTime != null) {
-                                    context.read<ProfileBloc>().add(EditBirthDay(birthDay: selectedTime));
+                                    context.read<ProfileBloc>().add(
+                                        EditBirthDay(birthDay: selectedTime));
                                   }
                                 },
                                 child: Row(
@@ -313,7 +311,7 @@ class EditProfileBody extends StatelessWidget {
                                   AppLocalizations.of(context)!.email_with_at,
                               // readOnly: !context.read<ProfileBloc>().isEditing,
                             ),
-                            const SizedBox(height: 143),
+                            const SizedBox(height: 120),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 70, vertical: 20),
@@ -521,10 +519,6 @@ class EditProfileBody extends StatelessWidget {
                                       if (_formKey.currentState!.validate()) {
                                         context
                                             .read<ProfileBloc>()
-                                            .add(IsEditingEvent(false));
-
-                                        context
-                                            .read<ProfileBloc>()
                                             .add(UpdateProfile());
                                       }
                                     },
@@ -540,6 +534,7 @@ class EditProfileBody extends StatelessWidget {
                         ),
                       ),
                     );
+                  }
                 }),
               ),
             ],
