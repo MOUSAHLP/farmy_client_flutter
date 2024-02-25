@@ -21,11 +21,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       TextEditingController(text: DataStore.instance.userInfo?.phone);
   TextEditingController emailController =
       TextEditingController(text: DataStore.instance.userInfo?.email);
+
   DateTime? birthday=DataStore.instance.userInfo?.birthday;
   File? imagePick;
 
   ProfileBloc() : super(ProfileInit()) {
     on<ProfileEvent>((event, emit) async {
+      print("DataStore.instance.userInfo?.birthday");
+      print(DataStore.instance.userInfo?.birthday);
       if (event is UpdateProfile) {
         emit(ProfileLoading());
         profileModel.fName = fNameController.text;
@@ -40,12 +43,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         }, (r) {
           LoginResponse result = LoginResponse(
             id: r.id ?? DataStore.instance.userInfo!.id,
-            firstName: fNameController.text,
-            phone: profileModel.phone!,
-            email: profileModel.email!,
-            lastName: lNameController.text,
-            birthday: birthday
+            firstName: r.firstName??"",
+            phone: r.phone??"",
+            email: r.email??"",
+            lastName: r.lastName??"",
+            birthday:r. birthday
           );
+          DataStore.instance.userInfo?.birthday=r.birthday;
           sl<AuthenticationBloc>().loginResponse = result;
           DataStore.instance.setUserInfo(result);
           emit(ProfileSuccessUpdate());

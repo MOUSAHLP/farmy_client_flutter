@@ -35,3 +35,4 @@ class DeleteProduct extends BasketEvent {
 
   DeleteProduct(this.id);
 }
+class ClearBasket extends BasketEvent{}

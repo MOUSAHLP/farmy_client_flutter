@@ -16,6 +16,7 @@ import '../../../bloc/profile_bloc/profile_state.dart';
 import '../../../core/app_router/app_router.dart';
 import '../../../core/app_validators.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../data/data_resource/local_resource/data_store.dart';
 import '../../resources/assets_manager.dart';
 import '../../widgets/custom_error_screen.dart';
 
@@ -40,6 +41,8 @@ class EditProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("DataStore.instance.userInfo?.birthday");
+    print(DataStore.instance.userInfo?.birthday);
     return Scaffold(
       body: SafeArea(
         child: Form(
