@@ -41,3 +41,4 @@ enum AddToBasketState { successAddedToBasket }
 enum RewardsPointsStateEnum { usedPoints, endedpoints, earnedPoints }
 
 enum RewardsActivityStateEnum { activity, offers }
+

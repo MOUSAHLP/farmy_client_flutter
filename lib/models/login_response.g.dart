@@ -26,13 +26,14 @@ class LoginResponseAdapter extends TypeAdapter<LoginResponse> {
       token: fields[6] as String?,
       email: fields[4] as String?,
       roleId: fields[7] as dynamic,
+      birthday: fields[9] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, LoginResponse obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class LoginResponseAdapter extends TypeAdapter<LoginResponse> {
       ..writeByte(7)
       ..write(obj.roleId)
       ..writeByte(8)
-      ..write(obj.status);
+      ..write(obj.status)
+      ..writeByte(9)
+      ..write(obj.birthday);
   }
 
   @override
