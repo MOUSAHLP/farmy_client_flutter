@@ -7,8 +7,6 @@ class ProfileModel {
   String? lName;
   String? phone;
   DateTime? birthday;
-
-
   ProfileModel({
     this.id,
     this.fName,
@@ -20,12 +18,12 @@ class ProfileModel {
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
-        id: json["id"],
-        fName: json["name"],
-        email: json["email"],
-        lName: json["email_verified_at"],
-        phone: json["phone"],
-       birthday: DateTime.parse(json["birthday"]),
+        id: json['user']["id"],
+        fName: json['user']["name"],
+        email: json['user']["email"],
+        lName: json['user']["email_verified_at"],
+        phone: json['user']["phone"],
+       birthday: DateTime.parse(json['user']["birthday"]),
       );
 
   Map<String, dynamic> toJson() => {

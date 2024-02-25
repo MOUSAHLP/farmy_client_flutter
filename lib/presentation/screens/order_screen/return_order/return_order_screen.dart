@@ -18,6 +18,7 @@ class ReturnOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreenScaffold(
       appbarTitle: AppLocalizations.of(context)!.cart,
+      isComeBack: false,
       body: Column(
         children: [
           // const CustomAppBar(),

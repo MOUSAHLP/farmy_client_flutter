@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
@@ -98,10 +100,16 @@ class CustomAppBar extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () async {
-                            Uri url = Uri.parse(
-                                "https://wa.me/ ${0936252114}/?text=hello");
-                            if (!await launchUrl(url)) {
-                              throw Exception('Could not launch $url');
+                            var settingModel =
+                                context.read<SettingBloc>().settingModel;
+                            if (settingModel != null) {
+                              int phone = int.parse(settingModel.data!.phone!);
+                              Uri url =
+                                  Uri.parse("https://wa.me/$phone/?text=");
+                              if (!await canLaunchUrl(url)) {
+                                await launchUrl(url);
+                                // throw Exception('Could not launch $url');
+                              }
                             }
                           },
                           child: Image.asset(

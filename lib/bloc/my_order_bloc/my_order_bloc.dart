@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_event.dart';
 
@@ -7,7 +6,6 @@ import '../../models/my_order_response.dart';
 import 'my_order_state.dart';
 
 class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
-
   List<MyOrderResponse> myOrderList = [];
 
   MyOrderBloc() : super(MyOrderLoading()) {
@@ -18,7 +16,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
         response.fold((l) {
           emit(MyOrderError(l));
         }, (r) {
-          myOrderList=r;
+          myOrderList = r;
           emit(MyOrderSuccess(r));
         });
       }

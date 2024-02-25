@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/models/my_order_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/row_order.dart';
-import 'package:pharma/presentation/screens/order_tracking_screen/order_tracking_screen.dart';
-import 'package:pharma/presentation/widgets/custom_button.dart';
+import 'package:pharma/presentation/screens/order_screen/widgets/state_buttons.dart';
 import 'package:pharma/translations.dart';
-
 import '../../../../core/get_address.dart';
-import '../../order_details_screen/order_details_screen.dart';
-import '../../rate_order/rate_order_screen.dart';
-import '../return_order/return_order_screen.dart';
 
 class CardOrder extends StatelessWidget {
   const CardOrder({super.key, required this.myOrder});
@@ -60,7 +54,7 @@ class CardOrder extends StatelessWidget {
                                   color: Colors.black, fontSize: 11)),
                         ),
                         Expanded(
-                          child: Text(myOrder.total ?? "",
+                          child: Text("${myOrder.total ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
                               style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: 15),
@@ -70,58 +64,14 @@ class CardOrder extends StatelessWidget {
                       ],
                     )
                   : const SizedBox(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: CustomButton(
-                        label: AppLocalizations.of(context)!.show_Order,
-                        fillColor: ColorManager.primaryGreen,
-                        onTap: () {
-                          // AppRouter.push(context, OrderDetailsScreen(orderDetailsList:myOrder.orderDetailsList??[],));
-                          AppRouter.push(
-                              context,
-                              ReturnOrderScreen(
-                                orderDetailsList:
-                                    myOrder.orderDetailsList ?? [],
-                              ));
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: CustomButton(
-                        label: AppLocalizations.of(context)!.track_Order,
-                        fillColor: ColorManager.primaryGreen,
-                        labelColor: Colors.white,
-                        onTap: () {
-                          AppRouter.push(context, const OrderTrackingScreen());
-                          // SystemNavigator.pop();
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: CustomButton(
-                        label: AppLocalizations.of(context)!.edit_Orders,
-                        fillColor: ColorManager.primaryGreen,
-                        labelColor: Colors.white,
-                        onTap: () {
-                          AppRouter.push(context, const RateOrderScreen());
-                          // SystemNavigator.pop();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              )
+               // Text(myOrder.status??""),
+               StateButtons(status:myOrder.status??"" ,)
             ],
           ),
         ),
       ),
     );
   }
+
+
 }

@@ -9,14 +9,13 @@ class RewardsPointsBloc extends Bloc<RewardsPointsEvent, RewardsPointsState> {
   RewardsPointsBloc() : super(RewardsPointsInit()) {
     on<RewardsPointsEvent>((event, emit) async {
       if (event is GetPointsRewards) {
+        emit(RewardsPointsLoading());
+        // get the rewards points
+        emit(RewardsPointsLoaded());
       } else if (event is ChangeTabPointsRewardsEvent) {
         currentScreen = event.currentScreen;
         emit(RewardsTabPointsHistoryChanged());
       }
     });
-  }
-
-  void test() {
-    print("test inside points bloc");
   }
 }

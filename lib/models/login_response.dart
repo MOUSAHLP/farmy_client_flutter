@@ -1,5 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'package:hive_flutter/adapters.dart';
+import 'package:intl/intl.dart';
 
 part 'login_response.g.dart';
 
@@ -23,7 +24,8 @@ class LoginResponse {
   dynamic roleId;
   @HiveField(8)
   dynamic status;
-
+  @HiveField(9)
+  DateTime? birthday;
   LoginResponse({
     required this.id,
     required this.firstName,
@@ -34,6 +36,7 @@ class LoginResponse {
     this.token,
     this.email,
     this.roleId,
+    this.birthday
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
@@ -45,6 +48,7 @@ class LoginResponse {
         address: json['user']["address"],
         email: json['user']["email"],
         roleId: json['user']["role_id"],
+        birthday:DateFormat("yyyy-MM-dd").parse(json['user']["birthday"]) ,
         token: json['token'],
       );
 

@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 259,
+                                    height: 260.h,
                                     width: 1.sw,
                                     child: ListView.builder(
                                       padding: const EdgeInsets.symmetric(

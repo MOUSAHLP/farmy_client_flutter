@@ -24,6 +24,21 @@ class ApiConst {
   //home
   static String getHomeDate = "/home-page";
 
+  /// Setting
+  static const String getSetting = "/settings";
+
+  /// privacy
+  static const String getPrivacy = "/privacy";
+
+  /// conditions
+  static const String getConditions = "/conditions";
+
+  /// faq_questions
+  static const String getFaqQuestions = "/faq_questions";
+
+  /// who_we_are
+  static const String getWhoWeAre = "/who_we_are";
+
   //payment-process
   static String getPaymentDetails = "/payment-process";
   static String createOrders = "/orders";
@@ -39,7 +54,7 @@ class ApiConst {
   static const String getMyOrder = "/orders";
 
   ///notification
-  static const String getNotifications = "/orders";
+  static const String getNotifications = "/";
 
   /// Rewards Screen
   static const String getAllRewards = "/rewards";

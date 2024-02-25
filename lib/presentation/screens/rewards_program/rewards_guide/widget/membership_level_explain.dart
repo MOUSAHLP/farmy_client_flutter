@@ -7,6 +7,7 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/rewards_program/rewards_guide/widget/membership_level_feature.dart';
+import 'package:pharma/translations.dart';
 
 class MembershipLevelExplain extends StatelessWidget {
   final String level;
@@ -23,10 +24,7 @@ class MembershipLevelExplain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: PaddingApp.p5,
-        vertical: PaddingApp.p14,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: PaddingApp.p5),
       decoration: BoxDecoration(
         color: ColorManager.white,
         boxShadow: [
@@ -37,44 +35,53 @@ class MembershipLevelExplain extends StatelessWidget {
       child: IntrinsicHeight(
         child: Row(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: PaddingApp.p10,
-                horizontal: PaddingApp.p18,
-              ),
-              decoration: const BoxDecoration(
-                border: Border(
-                  left: BorderSide(
-                    color: ColorManager.grayForSearch,
+            Row(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsetsDirectional.only(start: PaddingApp.p10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        IconsManager.crown,
+                        width: 50.w,
+                        height: 40.h,
+                        colorFilter:
+                            ColorFilter.mode(crownColor, BlendMode.srcIn),
+                      ),
+                      SizedBox(
+                        height: 7.h,
+                      ),
+                      Text(
+                        level,
+                        style: getUnderBoldStyle(
+                          color: ColorManager.grayForMessage,
+                          fontSize: FontSizeApp.s14,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    IconsManager.crown,
-                    width: 50.w,
-                    height: 40.h,
-                    colorFilter: ColorFilter.mode(crownColor, BlendMode.srcIn),
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: PaddingApp.p10,
+                    horizontal: PaddingApp.p18,
                   ),
-                  SizedBox(
-                    height: 7.h,
-                  ),
-                  Text(
-                    level,
-                    style: getUnderBoldStyle(
-                      color: ColorManager.grayForMessage,
-                      fontSize: FontSizeApp.s14,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      left: BorderSide(
+                        color: ColorManager.grayForSearch,
+                      ),
                     ),
                   ),
-                ],
-              ),
+                )
+              ],
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(PaddingApp.p10),
+                padding: const EdgeInsets.symmetric(vertical: PaddingApp.p10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +100,7 @@ class MembershipLevelExplain extends StatelessWidget {
                       ),
                     if (features.isNotEmpty)
                       Text(
-                        "ميزات الرتبة:",
+                        AppLocalizations.of(context)!.rank_features,
                         style: getUnderBoldStyle(
                           color: ColorManager.primaryGreen,
                           fontSize: FontSizeApp.s13,

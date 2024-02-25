@@ -94,16 +94,16 @@ class UserRepository {
         });
   }
 
-  static Future<Either<String, ProfileModel>> editProfile(
+  static Future<Either<String, LoginResponse>> editProfile(
       ProfileModel profileModel) async {
     print(profileModel.toJson());
     print(FormData.fromMap(profileModel.toJson()));
 
-    return BaseApiClient.post<ProfileModel>(
+    return BaseApiClient.post<LoginResponse>(
         url: ApiConst.updateProfile,
         formData: FormData.fromMap(profileModel.toJson()),
         converter: (e) {
-          return ProfileModel.fromJson(e['data']);
+          return LoginResponse.fromJson(e['data']);
         });
   }
 
