@@ -16,7 +16,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       if (event is ToggleFavorite) {
         emit(state.copyWith(isFavorite: event.isFavorite));
 
-        // todo add request to add and remove favorite
+        // todo Ghina add request to add and remove favorite
         // emit(state.copyWith(screenState: ScreenState.loading));
         // (await categoriesRepo.getProductsBySubCategoriesId(event.id)).fold((l) {
         //   if (l != "cancel") {
@@ -36,7 +36,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       if (event is GetFavorites) {
         // emit(state.copyWith(screenState: ScreenState.loading));
 
-        // todo add request to add and remove favorite
+        // todo Ghina add request to add and remove favorite
         // (await categoriesRepo.getProductsBySubCategoriesId(event.id)).fold((l) {
         //   if (l != "cancel") {
         //     emit(state.copyWith(screenState: ScreenState.error));

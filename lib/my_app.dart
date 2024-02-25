@@ -11,7 +11,6 @@ import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
-import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 import 'bloc/authentication_bloc/authentication_event.dart';
