@@ -25,3 +25,19 @@ class RemoveQuantityToOrder extends ProductdetailsEvent {
 
    RemoveQuantityToOrder(this.quantity);
 }
+
+
+class AddQuantityFromRelatedToOrder extends ProductdetailsEvent {
+  int quantity;
+   int id;
+
+  AddQuantityFromRelatedToOrder(this.quantity,this.id
+      );
+}
+
+class RemoveQuantityFromRelatedToOrder extends ProductdetailsEvent {
+  int quantity;
+   int id;
+
+  RemoveQuantityFromRelatedToOrder(this.quantity,this.id);
+}

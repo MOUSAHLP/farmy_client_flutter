@@ -48,12 +48,35 @@ class ProductDetailsBody extends StatelessWidget {
             listener: (context, state) {
               if (state.addToBasketState ==
                   AddToBasketState.successAddedToBasket) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: const Duration(seconds: 1),
+                      content: Container(
+
+                          alignment: Alignment.center,
+                          child: Text(
+                            AppLocalizations.of(context)!.added_to_basket,
+                            style: getRegularStyle(
+                                color: ColorManager.white,
+                                fontSize: FontSizeApp.s14),
+                          )),
+                      backgroundColor: ColorManager.primaryGreen,
+                    )
+                //     SnackBar(
+                //     content:
+                //         Text('${AppLocalizations.of(context)!.added_to_basket}',
+                //         style: AppS,),
+                // duration:  Duration(seconds: 2),
+                //   backgroundColor: ColorManager.primaryGreen,
+                //   width: 200,
+                // )
+                );
                 AppRouter.pop(context);
               }
             },
           )
         ],
-        child: BlocBuilder<ProductdetailsBloc,ProductdetailsState>(
+        child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
           builder: (context, state) {
             return Scaffold(
               body: Column(
@@ -66,16 +89,24 @@ class ProductDetailsBody extends StatelessWidget {
                                 children: [
                                   ProductImage(
                                       productImage: state.productDetailsResponse
-                                                  .image !=null
+                                                  .image !=
+                                              null
                                           ? state.productDetailsResponse.image!
                                           : ""),
                                   AboutProductAndAmonutSection(
-                                      attributeList: state.productDetailsResponse.attributeList,
-                                      productDesc: state.productDetailsResponse.description!=null
-                                          ? state.productDetailsResponse.description!
+                                      attributeList: state
+                                          .productDetailsResponse.attributeList,
+                                      productDesc: state.productDetailsResponse
+                                                  .description !=
+                                              null
+                                          ? state.productDetailsResponse
+                                              .description!
                                           : "",
-                                      productName: state.productDetailsResponse.nameOfProduct!=null
-                                          ? state.productDetailsResponse.nameOfProduct!
+                                      productName: state.productDetailsResponse
+                                                  .nameOfProduct !=
+                                              null
+                                          ? state.productDetailsResponse
+                                              .nameOfProduct!
                                           : ""),
                                   Column(
                                     crossAxisAlignment:
@@ -92,11 +123,14 @@ class ProductDetailsBody extends StatelessWidget {
                                               AppLocalizations.of(context)!
                                                   .price,
                                               style: getBoldStyle(
-                                                  color:ColorManager.primaryGreen,
-                                                  fontSize: FontSizeApp.s15,
+                                                color:
+                                                    ColorManager.primaryGreen,
+                                                fontSize: FontSizeApp.s15,
                                               ),
                                             ),
-                                            state.productDetailsResponse.price!=null
+                                            state.productDetailsResponse
+                                                        .price !=
+                                                    null
                                                 ? Text(
                                                     "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
                                                     style: getBoldStyle(
@@ -124,7 +158,8 @@ class ProductDetailsBody extends StatelessWidget {
                                               ),
                                             )
                                           : const SizedBox(),
-                                      state.productDetailsResponse.relatedProducts!.isNotEmpty
+                                      state.productDetailsResponse
+                                              .relatedProducts!.isNotEmpty
                                           ? SizedBox(
                                               height: 160,
                                               width: 1.sw,
@@ -218,11 +253,14 @@ class ProductDetailsBody extends StatelessWidget {
                                                                       .spaceAround,
                                                               children: [
                                                                 InkWell(
-                                                                    onTap:
-                                                                        () {
-                                                                          context.read<ProductdetailsBloc>().add(AddQuantityToOrder(
-                                                                              context.read<ProductdetailsBloc>().state.quantity!));
-                                                                        },
+                                                                    onTap: () {
+                                                                      context.read<ProductdetailsBloc>().add(AddQuantityFromRelatedToOrder(
+                                                                          context
+                                                                              .read<ProductdetailsBloc>()
+                                                                              .state
+                                                                              .quantity!,
+                                                                          index));
+                                                                    },
                                                                     child:
                                                                         const Icon(
                                                                       Icons.add,
@@ -256,16 +294,21 @@ class ProductDetailsBody extends StatelessWidget {
                                                                     },
                                                                   ),
                                                                 ),
-                                                                 InkWell(
-                                                                  onTap: (){
-                                                                    context.read<ProductdetailsBloc>().add(RemoveQuantityToOrder(
-                                                                        context.read<ProductdetailsBloc>().state.quantity!));
-                                                                  },
-                                                                    child: const Icon(
-                                                                  Icons.remove,
-                                                                  color: ColorManager
-                                                                      .primaryGreen,
-                                                                )),
+                                                                InkWell(
+                                                                    onTap: () {
+                                                                      context.read<ProductdetailsBloc>().add(RemoveQuantityToOrder(context
+                                                                          .read<
+                                                                              ProductdetailsBloc>()
+                                                                          .state
+                                                                          .quantity!));
+                                                                    },
+                                                                    child:
+                                                                        const Icon(
+                                                                      Icons
+                                                                          .remove,
+                                                                      color: ColorManager
+                                                                          .primaryGreen,
+                                                                    )),
                                                               ],
                                                             ),
                                                           ),
@@ -395,17 +438,21 @@ class ProductDetailsBody extends StatelessWidget {
                                                                     MainAxisAlignment
                                                                         .spaceAround,
                                                                 children: [
-                                                                   InkWell(
-                                                                     onTap:(){
-                                                                       context.read<ProductdetailsBloc>().add(AddQuantityToOrder(
-                                                                           context.read<ProductdetailsBloc>().state.quantity!));
-                                                                     },
+                                                                  InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        context.read<ProductdetailsBloc>().add(AddQuantityToOrder(context
+                                                                            .read<ProductdetailsBloc>()
+                                                                            .state
+                                                                            .quantity!));
+                                                                      },
                                                                       child:
                                                                           const Icon(
-                                                                    Icons.add,
-                                                                    color: ColorManager
-                                                                        .primaryGreen,
-                                                                  )),
+                                                                        Icons
+                                                                            .add,
+                                                                        color: ColorManager
+                                                                            .primaryGreen,
+                                                                      )),
                                                                   Container(
                                                                     decoration:
                                                                         BoxDecoration(
@@ -413,12 +460,18 @@ class ProductDetailsBody extends StatelessWidget {
                                                                           BorderRadius.circular(
                                                                               6),
                                                                     ),
-                                                                    child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
-                                                                      builder: (context,state){
+                                                                    child: BlocBuilder<
+                                                                        ProductdetailsBloc,
+                                                                        ProductdetailsState>(
+                                                                      builder:
+                                                                          (context,
+                                                                              state) {
                                                                         return Center(
                                                                             child:
                                                                                 Text(
-                                                                                  state.quantity.toString(),
+                                                                          state
+                                                                              .quantity
+                                                                              .toString(),
                                                                           style: getUnderBoldStyle(
                                                                               color: ColorManager.primaryGreen,
                                                                               fontSize: FontSizeApp.s20),
@@ -426,18 +479,21 @@ class ProductDetailsBody extends StatelessWidget {
                                                                       },
                                                                     ),
                                                                   ),
-                                                                   InkWell(
-                                                                     onTap: (){
-                                                                       context.read<ProductdetailsBloc>().add(RemoveQuantityToOrder(
-                                                                         context.read<ProductdetailsBloc>().state.quantity!));
-                                                                       },
+                                                                  InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        context.read<ProductdetailsBloc>().add(RemoveQuantityToOrder(context
+                                                                            .read<ProductdetailsBloc>()
+                                                                            .state
+                                                                            .quantity!));
+                                                                      },
                                                                       child:
                                                                           const Icon(
-                                                                    Icons
-                                                                        .remove,
-                                                                    color: ColorManager
-                                                                        .primaryGreen,
-                                                                  )),
+                                                                        Icons
+                                                                            .remove,
+                                                                        color: ColorManager
+                                                                            .primaryGreen,
+                                                                      )),
                                                                 ],
                                                               ),
                                                             ),
@@ -450,7 +506,8 @@ class ProductDetailsBody extends StatelessWidget {
                                           : const SizedBox(),
                                       CustomAppButton(
                                         ontap: () {
-                                          if (sl<AuthenticationBloc>().loggedIn) {
+                                          if (sl<AuthenticationBloc>()
+                                              .loggedIn) {
                                             context
                                                 .read<BasketBloc>()
                                                 .add(buildAddToBasket(state));

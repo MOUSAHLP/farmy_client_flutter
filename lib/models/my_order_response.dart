@@ -42,6 +42,7 @@ class MyOrderResponse {
         orderDetailsList:OrderDetailsModel.listFromJson(json['order_details'])
     );
   }
+
   static List<MyOrderResponse> listFromJson(List<dynamic>? json) {
     return json == null
         ? []

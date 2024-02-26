@@ -9,9 +9,9 @@ part 'productdetails_state.dart';
 class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> {
   ProductRepo productRepo;
   int quantity = 1;
-  List<ProductDetailsResponse> listProduct = [];
+  List<dynamic> listProduct = [];
 
-   int? countsProducts(int id) {
+    countsProducts(int id) {
     if (listProduct.any((element) => element.id == id)) {
       int index =
       listProduct.indexWhere((element) => element.id == id);
@@ -26,21 +26,15 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
         emit(state.copyWith(screenState: ScreenState.loading));
         (await productRepo.getProductDetailsById(event.id)).fold(
             (l) => emit(state.copyWith(screenState: ScreenState.error)),
-            (r) => emit(state.copyWith(productDetailsResponse: r,
-                screenState: ScreenState.success
-            )
-            )
+            (r) {
+              listProduct =List.filled(r.relatedProducts!.length, 0);
+                return  emit(state.copyWith(productDetailsResponse: r,
+                    screenState: ScreenState.success
+                ));
+            }
         );
       }
       if (event is AddQuantityToOrder) {
-        // if (countsProducts(event.id) == 0) {
-        //   listProduct.add(ProductDetailsResponse(
-        //       id: event.id, quantity: 1));
-        // } else {
-        //   int index = listProduct.indexWhere((element) => element.id == event.id);
-        //     listProduct[index].quantity++;
-        //   quantity;
-        // }
          quantity = event.quantity;
          ++quantity;
          emit(state.copyWith(quantity: quantity));
@@ -50,6 +44,19 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
         --quantity;
         if (quantity < 1) quantity = 1;
         emit(state.copyWith(quantity: quantity));
+      }
+
+
+      if (event is AddQuantityFromRelatedToOrder) {
+        if (countsProducts(event.id) == 0) {
+          listProduct.add(ProductDetailsResponse(
+              id: event.id, quantity: 1));
+        } else {
+          int index = listProduct.indexWhere((element) => element.id == event.id);
+            listProduct[index].quantity++;
+        //  quantity;
+        }
+       emit(state.copyWith(quantity: quantity));
       }
     });
   }

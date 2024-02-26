@@ -9,8 +9,7 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Dialog(
+    return Dialog(
       backgroundColor: Colors.transparent,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -24,10 +23,9 @@ class CustomDialog extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadiusDirectional.all(
                       Radius.circular(20),
-
                     ),
                     color: Colors.white,
-                      border: Border.all(color: Colors.white),
+                    border: Border.all(color: Colors.white),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -70,7 +68,6 @@ class CustomDialog extends StatelessWidget {
                 //     ),
                 //   ),
                 // ),
-
               ],
             ),
           ),
