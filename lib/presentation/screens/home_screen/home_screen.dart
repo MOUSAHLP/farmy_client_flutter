@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 return Expanded(
                   child: CustomErrorScreen(onTap: () {
                     sl<HomeBloc>().add(GetHomeData());
-                  }),
+                  },titleError:state.error ),
                 );
               } else if (state.screenState == ScreenState.success) {
                 context.read<LocationBloc>().state.addressCurrent =
