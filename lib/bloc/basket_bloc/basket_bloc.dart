@@ -99,6 +99,10 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           prductList: mutableProducts,
         ));
       }
+      if(event is ClearBasket){
+        mutableProducts.clear();
+        emit(state.copyWith());
+      }
     });
   }
 }

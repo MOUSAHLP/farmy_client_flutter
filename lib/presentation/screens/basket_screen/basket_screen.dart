@@ -34,6 +34,7 @@ class BasketScreen extends StatelessWidget {
     return BaseScreenScaffold(
       backgroundColor: Colors.white,
       appbarTitle: AppLocalizations.of(context)!.basket,
+      isComeBack: false,
       body: Column(
         children: [
           // const CustomAppBar(),

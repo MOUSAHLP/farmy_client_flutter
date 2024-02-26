@@ -5,6 +5,9 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/about_the_app/about_the_app_screen.dart';
 import 'package:pharma/presentation/screens/change_password/change_password_screen.dart';
 import 'package:pharma/presentation/screens/setting_screen/widgets/card_setting.dart';
+import 'package:pharma/presentation/screens/setting_screen/widgets/conditions_screen.dart';
+import 'package:pharma/presentation/screens/setting_screen/widgets/faq_screen.dart';
+import 'package:pharma/presentation/screens/setting_screen/widgets/privacy_policy_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/translations.dart';
 
@@ -27,7 +30,8 @@ class SettingScreen extends StatelessWidget {
         child: Column(
           children: [
             CustomAppBarScreen(
-                sectionName: AppLocalizations.of(context)!.settings,isComeBack: false),
+                sectionName: AppLocalizations.of(context)!.settings,
+                isComeBack: false),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -211,11 +215,15 @@ class SettingScreen extends StatelessWidget {
                       child: CardSetting(
                           title: AppLocalizations.of(context)!
                               .terms_and_Conditions,
-                          onTap: () {}),
+                          onTap: () {
+                            AppRouter.push(context, const ConditionsScreen());
+                          }),
                     ),
                     CardSetting(
                         title: AppLocalizations.of(context)!.privacy_Policy,
-                        onTap: () {}),
+                        onTap: () {
+                          AppRouter.push(context, const PrivacyPolicyScreen());
+                        }),
                     const SizedBox(
                       height: 10,
                     ),
@@ -225,7 +233,9 @@ class SettingScreen extends StatelessWidget {
                       child: CardSetting(
                           title: AppLocalizations.of(context)!
                               .frequently_Asked_Questions,
-                          onTap: () {}),
+                          onTap: () {
+                            AppRouter.push(context, const FAQScreen());
+                          }),
                     ),
                     CardSetting(
                         title: AppLocalizations.of(context)!.about_Application,

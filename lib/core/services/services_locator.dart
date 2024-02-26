@@ -2,16 +2,21 @@ import 'package:get_it/get_it.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
+import 'package:pharma/bloc/conditions_bloc/conditions_bloc.dart';
+import 'package:pharma/bloc/faq_bloc/faq_bloc.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/onboarding_bloc/onboarding_bloc.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
+import 'package:pharma/bloc/privacy_bloc/privacy_bloc.dart';
 import 'package:pharma/bloc/products_bloc/products_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/activity_bloc/rewards_activity_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
+import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
+import 'package:pharma/bloc/who_we_are_bloc/who_we_are_bloc.dart';
 import 'package:pharma/data/repository/basket_repo.dart';
 import 'package:pharma/data/repository/categories_repo.dart';
 import 'package:pharma/data/repository/home_repo.dart';
@@ -37,6 +42,9 @@ class ServicesLocator {
       () => HomeBloc(homeRepo: sl<HomeRepo>()),
     );
     sl.registerLazySingleton(() => LocationBloc());
+
+    // setting
+    sl.registerLazySingleton(() => SettingBloc());
 
     // payment
     sl.registerSingleton<PaymentRepo>(PaymentRepo());
@@ -76,5 +84,17 @@ class ServicesLocator {
     sl.registerFactory(() => RewardsActivityBloc());
     sl.registerFactory(() => RewardsPointsBloc());
     sl.registerFactory(() => RewardsRankBloc());
+
+    /// Privacy Policy Screen
+    sl.registerFactory(() => PrivacyBloc());
+
+    /// FAQ Screen
+    sl.registerFactory(() => FaqBloc());
+
+    /// Conditions Screen
+    sl.registerFactory(() => ConditionsBloc());
+
+    /// Who We Are Screen
+    sl.registerFactory(() => WhoWeAreBloc());
   }
 }

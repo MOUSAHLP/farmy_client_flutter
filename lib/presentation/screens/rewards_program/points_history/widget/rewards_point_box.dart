@@ -38,7 +38,7 @@ class RewardsPointBox extends StatelessWidget {
                   ),
                   if (expiredDate != null)
                     RewardsPointRow(
-                      text: AppLocalizations.of(context)!.date_of_use,
+                      text: AppLocalizations.of(context)!.expiry_date,
                       date: expiredDate!,
                       expired: true,
                     ),

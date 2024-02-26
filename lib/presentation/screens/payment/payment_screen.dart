@@ -21,7 +21,6 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
 import 'package:pharma/presentation/screens/location_screen/location_screen.dart';
-import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_bill_details_row.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_note_on_the_order_continer.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_order_type_continer.dart';

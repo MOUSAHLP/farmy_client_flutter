@@ -8,10 +8,11 @@ import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
+import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
+import 'package:pharma/bloc/setting_bloc/setting_event.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
-import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 import 'bloc/authentication_bloc/authentication_event.dart';
@@ -38,6 +39,10 @@ class _MyAppState extends State<MyApp> {
       builder: (context, ctx) {
         return MultiBlocProvider(
           providers: [
+            BlocProvider(
+              create: (BuildContext context) =>
+                  sl<SettingBloc>()..add(const GetSetting()),
+            ),
             BlocProvider(
                 create: (BuildContext context) => sl<AuthenticationBloc>()),
             BlocProvider(

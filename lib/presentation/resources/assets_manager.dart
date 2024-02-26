@@ -47,6 +47,9 @@ class ImageManager {
   static const String ticket = "$imagePath/ticket.png";
   static const String discount = "$imagePath/discount.png";
   static const String share = "$imagePath/share.png";
+  static const String stars = "$imagePath/stars.png";
+  static const String innerShadowBox = "$imagePath/innerShadowBox.png";
+  static const String innerShadowCircle = "$imagePath/innerShadowCircle.png";
 }
 
 class IconsManager {

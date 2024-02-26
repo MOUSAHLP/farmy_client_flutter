@@ -16,35 +16,44 @@ class RewardsPointPoint extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(PaddingApp.p10),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: PaddingApp.p14),
-        decoration: const BoxDecoration(
-          border: Border(
-              left: BorderSide(color: ColorManager.grayForSearch, width: 1)),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              point,
-              style: getBoldStyle(
-                  color: expired
-                      ? ColorManager.redForFavorite
-                      : ColorManager.primaryGreen,
-                  fontSize: FontSizeApp.s26),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              AppLocalizations.of(context)!.point,
-              style: getBoldStyle(
-                  color: expired
-                      ? ColorManager.redForFavorite
-                      : ColorManager.primaryGreen,
-                  fontSize: FontSizeApp.s12),
-              textAlign: TextAlign.center,
-            ),
-          ],
+      child: Padding(
+        padding: const EdgeInsetsDirectional.only(start: PaddingApp.p14),
+        child: IntrinsicHeight(
+          child: Row(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    point,
+                    style: getBoldStyle(
+                        color: expired
+                            ? ColorManager.redForFavorite
+                            : ColorManager.primaryGreen,
+                        fontSize: FontSizeApp.s26),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.point,
+                    style: getBoldStyle(
+                        color: expired
+                            ? ColorManager.redForFavorite
+                            : ColorManager.primaryGreen,
+                        fontSize: FontSizeApp.s12),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              Container(
+                margin: const EdgeInsetsDirectional.only(start: PaddingApp.p18),
+                decoration: BoxDecoration(
+                  border:
+                      Border.all(color: ColorManager.grayForSearch, width: 1),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

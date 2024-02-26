@@ -16,6 +16,7 @@ import '../../../bloc/profile_bloc/profile_state.dart';
 import '../../../core/app_router/app_router.dart';
 import '../../../core/app_validators.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../data/data_resource/local_resource/data_store.dart';
 import '../../resources/assets_manager.dart';
 import '../../widgets/custom_error_screen.dart';
 
@@ -40,6 +41,8 @@ class EditProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("DataStore.instance.userInfo?.birthday");
+    print(DataStore.instance.userInfo?.birthday);
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -60,8 +63,7 @@ class EditProfileBody extends StatelessWidget {
                       },
                       titleError: state.error,
                     );
-                  } else
-                    // ignore: curly_braces_in_flow_control_structures
+                  } else {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 28),
                       child: SingleChildScrollView(
@@ -142,15 +144,14 @@ class EditProfileBody extends StatelessWidget {
                                                     const ColorScheme.light(
                                               primary:
                                                   ColorManager.primaryGreen,
-
                                               onPrimary: Colors.white,
-
                                               onSurface: Colors.black,
                                             )),
                                             child: child!);
                                       });
                                   if (selectedTime != null) {
-                                    context.read<ProfileBloc>().add(EditBirthDay(birthDay: selectedTime));
+                                    context.read<ProfileBloc>().add(
+                                        EditBirthDay(birthDay: selectedTime));
                                   }
                                 },
                                 child: Row(
@@ -313,7 +314,7 @@ class EditProfileBody extends StatelessWidget {
                                   AppLocalizations.of(context)!.email_with_at,
                               // readOnly: !context.read<ProfileBloc>().isEditing,
                             ),
-                            const SizedBox(height: 143),
+                            const SizedBox(height: 120),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 70, vertical: 20),
@@ -521,10 +522,6 @@ class EditProfileBody extends StatelessWidget {
                                       if (_formKey.currentState!.validate()) {
                                         context
                                             .read<ProfileBloc>()
-                                            .add(IsEditingEvent(false));
-
-                                        context
-                                            .read<ProfileBloc>()
                                             .add(UpdateProfile());
                                       }
                                     },
@@ -540,6 +537,7 @@ class EditProfileBody extends StatelessWidget {
                         ),
                       ),
                     );
+                  }
                 }),
               ),
             ],
