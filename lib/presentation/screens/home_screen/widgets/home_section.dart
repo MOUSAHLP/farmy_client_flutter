@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/language_bloc/language_bloc.dart';
+import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/core/utils/app_value_const.dart';
+import 'package:pharma/models/products_by_sub_category_id_response.dart';
+import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
+import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
+import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
+import 'package:pharma/translations.dart';
+
+class HomeSection extends StatelessWidget {
+  final List<ProductsBySubCategoryIdResponse> list;
+  const HomeSection({Key? key, required this.list}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          vertical: AppValueConst.homeVerticalPadding),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 33.w, vertical: 0),
+            child: CustomSectionName(
+              sectionName: AppLocalizations.of(context)!.suggested_products,
+              onTap: () {
+                // context.read<LanguageBloc>().lang;
+              },
+            ),
+          ),
+          SizedBox(
+            height: 260.h,
+            width: 1.sw,
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
+              itemCount: list.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    AppRouter.push(
+                        context,
+                        ProductDetailsScreen(
+                          id: list[index].id,
+                        ));
+                  },
+                  child: Padding(
+                      padding: EdgeInsetsDirectional.only(
+                          bottom: 0, start: index == 0 ? 0 : 15),
+                      child: CustomProductCard(
+                          isSellerFound:
+                              list[index].sellerName != null ? true : false,
+                          isDisCount:
+                              list[index].discountStatus == "1" ? true : false,
+                          productInfo: list[index])),
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

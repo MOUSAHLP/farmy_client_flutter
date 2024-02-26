@@ -8,6 +8,7 @@ import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
 import 'package:pharma/presentation/screens/notification_screen/notification_screen.dart';
 import 'package:pharma/translations.dart';
@@ -22,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 1.sw,
-      height: 165.h,
+      padding: const EdgeInsets.only(top: PaddingApp.p20),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -35,12 +36,12 @@ class CustomAppBar extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: PaddingApp.p10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22),
+              padding: const EdgeInsets.symmetric(horizontal: PaddingApp.p22),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -123,6 +124,9 @@ class CustomAppBar extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 10.h,
             ),
             InputFieldAuth(
               maxLines: 2,

@@ -78,6 +78,7 @@ class _MyAppState extends State<MyApp> {
                 builder: (context, state) {
               if (true) {
                 return MaterialApp(
+                    debugShowCheckedModeBanner: false,
                     title: 'Farmy',
                     locale: Locale(DataStore.instance.lang),
                     supportedLocales: AppLocalizations.supportedLocales,
