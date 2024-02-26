@@ -37,6 +37,7 @@ class MyOrderResponse {
       deliveryMethod:DeliveryMethodModel.fromJson(json['delivery_method']),
     );
   }
+
   static List<MyOrderResponse> listFromJson(List<dynamic>? json) {
     return json == null
         ? []

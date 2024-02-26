@@ -48,7 +48,7 @@ class LoginResponse {
         address: json['user']["address"],
         email: json['user']["email"],
         roleId: json['user']["role_id"],
-        birthday:DateFormat("yyyy-MM-dd").parse(json['user']["birthday"]) ,
+        birthday:json['user']["birthday"]!=null?DateFormat("yyyy-MM-dd").parse(json['user']["birthday"]):null ,
         token: json['token'],
       );
 

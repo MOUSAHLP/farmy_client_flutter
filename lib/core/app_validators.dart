@@ -23,8 +23,7 @@ class AppValidators {
     return null;
   }
 
-  static String? validatePasswordFields(
-      BuildContext context, String? password) {
+  static String? validatePasswordFields(BuildContext context, String? password) {
     if (password == null || password.isEmpty) {
       return AppLocalizations.of(context)!.passwordFieldIsRequired;
     }

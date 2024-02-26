@@ -12,14 +12,32 @@ class GetProductDetailsById extends ProductdetailsEvent {
   const GetProductDetailsById({required this.id});
 }
 
-class AddQuntityToOrder extends ProductdetailsEvent {
-  final int quntity;
+class AddQuantityToOrder extends ProductdetailsEvent {
+   int quantity;
+  // int id;
 
-  const AddQuntityToOrder(this.quntity);
+   AddQuantityToOrder(this.quantity);
 }
 
-class RemoveQuntityToOrder extends ProductdetailsEvent {
-  final int quntity;
+class RemoveQuantityToOrder extends ProductdetailsEvent {
+   int quantity;
+  // int id;
 
-  const RemoveQuntityToOrder(this.quntity);
+   RemoveQuantityToOrder(this.quantity);
+}
+
+
+class AddQuantityFromRelatedToOrder extends ProductdetailsEvent {
+  int quantity;
+   int id;
+
+  AddQuantityFromRelatedToOrder(this.quantity,this.id
+      );
+}
+
+class RemoveQuantityFromRelatedToOrder extends ProductdetailsEvent {
+  int quantity;
+   int id;
+
+  RemoveQuantityFromRelatedToOrder(this.quantity,this.id);
 }

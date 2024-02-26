@@ -63,7 +63,7 @@ class AuthenticationState extends Equatable {
       signUp: signUp ?? this.signUp,
       isReSend: isReSend ?? false,
       isDeleteAccount: isDeleteAccount ?? false,
-      isCheckPolicy: isCheckPolicy ?? false,
+      isCheckPolicy: isCheckPolicy ?? this.isCheckPolicy,
     );
   }
 

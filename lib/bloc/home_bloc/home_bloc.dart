@@ -82,7 +82,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       if (event is GetHomeData) {
         emit(state.copyWith(screenState: ScreenState.loading));
         (await homeRepo.getHomeData()).fold(
-            (l) => emit(state.copyWith(screenState: ScreenState.error)),
+            (l) => emit(state.copyWith(screenState: ScreenState.error,error: l)),
             (HomeResponse r) => emit(
                 state.copyWith(screenState: ScreenState.success, homeData: r)));
       }
