@@ -50,10 +50,6 @@ class HomeSection extends StatelessWidget {
                       padding: EdgeInsetsDirectional.only(
                           bottom: 0, start: index == 0 ? 0 : 15),
                       child: CustomProductCard(
-                          isSellerFound:
-                              list[index].sellerName != null ? true : false,
-                          isDisCount:
-                              list[index].discountStatus == "1" ? true : false,
                           productInfo: list[index])),
                 );
               },

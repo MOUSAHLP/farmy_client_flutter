@@ -88,8 +88,6 @@ class FavoriteScreen extends StatelessWidget {
                       ));
                 },
                 child: CustomProductCard(
-                  isSellerFound: false,
-                  isDisCount: true,
                   productInfo: ProductsBySubCategoryIdResponse.init(),
                 )));
       },

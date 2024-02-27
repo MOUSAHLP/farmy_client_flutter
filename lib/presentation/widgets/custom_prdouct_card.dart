@@ -10,16 +10,10 @@ import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/translations.dart';
 
 class CustomProductCard extends StatelessWidget {
-  final bool? isDisCount;
-  final bool? isSellerFound;
   final ProductsBySubCategoryIdResponse productInfo;
-
   const CustomProductCard(
       {super.key,
-      required this.isDisCount,
-      required this.isSellerFound,
-      required this.productInfo,
-      });
+      required this.productInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -126,10 +120,10 @@ class CustomProductCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          isDisCount!
-                              ? Row(
+
+                             Row(
                                   children: [
-                                    Text(productInfo.discountValue!,
+                                    Text(productInfo.discountValue??"",
                                         style: getRegularStyle(
                                                 color:
                                                     ColorManager.grayForMessage,
@@ -152,8 +146,8 @@ class CustomProductCard extends StatelessWidget {
                                                 height: 1)),
                                   ],
                                 )
-                              : const SizedBox(),
-                          Padding(
+
+                          ,Padding(
                             padding: const EdgeInsets.only(top: 4, bottom: 0),
                             child: Row(
                               children: [
@@ -215,8 +209,7 @@ class CustomProductCard extends StatelessWidget {
               ],
             ),
           ),
-          isDisCount == true
-              ? ClipRRect(
+       ClipRRect(
                   borderRadius: const BorderRadiusDirectional.only(
                       topStart: Radius.circular(6),
                       bottomEnd: Radius.circular(6)),
@@ -234,7 +227,7 @@ class CustomProductCard extends StatelessWidget {
                     )),
                   ),
                 )
-              : const SizedBox()
+
         ],
       ),
     );

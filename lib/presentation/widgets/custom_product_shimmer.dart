@@ -24,8 +24,6 @@ class CustomProductShimmer extends StatelessWidget {
           baseColor: ColorManager.grayForPlaceholder,
           highlightColor: const Color(0xFFe2e4e9),
           child: CustomProductCard(
-              isSellerFound: false,
-              isDisCount: false,
               productInfo: ProductsBySubCategoryIdResponse(
                   availabilityOfProduct: "",
                   discount: "",
