@@ -14,8 +14,10 @@ class MyOrderResponse {
   UserModel? user;
   DeliveryMethodModel? deliveryMethod;
   PaymentMethodModel? paymentMethod;
+  int expectedTime;
 
-  MyOrderResponse({this.orderNumber,
+  MyOrderResponse({
+    this.orderNumber,
     this.total,
     this.date,
     this.status,
@@ -24,17 +26,20 @@ class MyOrderResponse {
     this.user,
     this.deliveryMethod,
     this.paymentMethod,
+    required this.expectedTime,
   });
+
   factory MyOrderResponse.fromJson(Map<String, dynamic> json) {
     return MyOrderResponse(
-        id: json["id"],
-        orderNumber: json["order_number"] ,
-        status: json["status"],
-        paymentMethod:PaymentMethodModel.fromJson(json['payment_method']),
-        userAddress:UserAddressModel.fromJson(json['user_address']),
-        total: json["total"] ,
-    date: json["date"],
-      deliveryMethod:DeliveryMethodModel.fromJson(json['delivery_method']),
+      id: json["id"],
+      orderNumber: json["order_number"],
+      status: json["status"],
+      expectedTime: json["expected_time"],
+      paymentMethod: PaymentMethodModel.fromJson(json['payment_method']),
+      userAddress: UserAddressModel.fromJson(json['user_address']),
+      total: json["total"],
+      date: json["date"],
+      deliveryMethod: DeliveryMethodModel.fromJson(json['delivery_method']),
     );
   }
 

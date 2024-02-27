@@ -27,9 +27,9 @@ class AppValidators {
     if (password == null || password.isEmpty) {
       return AppLocalizations.of(context)!.passwordFieldIsRequired;
     }
-    // if(!AppRegexp.passwordRegex.hasMatch(password)) {
-    //   return AppLocalizations.of(context)!.validatePasswordMsg2;
-    // }
+     if(!AppRegexp.passwordRegex.hasMatch(password)) {
+       return AppLocalizations.of(context)!.validatePasswordMsg2;
+     }
     if (password.length < 7) {
       return AppLocalizations.of(context)!.passwordShouldBeEightCharacter;
     }

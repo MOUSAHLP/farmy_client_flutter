@@ -46,13 +46,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             builder: (context, state) {
               if (state.screenState == ScreenState.loading) {
                 return const CustomHomeShimmer();
-              } else if (state.screenState == ScreenState.error) {
+              }
+              else if (state.screenState == ScreenState.error) {
                 return Expanded(
                   child: CustomErrorScreen(onTap: () {
                     sl<HomeBloc>().add(GetHomeData());
                   },titleError:state.error ),
                 );
-              } else if (state.screenState == ScreenState.success) {
+              }
+              else if (state.screenState == ScreenState.success) {
                 context.read<LocationBloc>().state.addressCurrent =
                     state.homeData!.userAddressModel!;
                 return Expanded(
@@ -122,7 +124,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ],
                   ),
                 );
-              } else {
+              }
+              else {
                 return const SizedBox();
               }
             },

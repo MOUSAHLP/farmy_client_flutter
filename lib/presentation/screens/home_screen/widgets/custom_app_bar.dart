@@ -140,7 +140,7 @@ class CustomAppBar extends StatelessWidget {
               width: 1.sw - 25,
               color: ColorManager.grayForSearch,
               borderColor: ColorManager.grayForSearchProduct,
-            )
+            ),
           ],
         ),
       ),

@@ -556,22 +556,17 @@ class PaymentBody extends StatelessWidget {
                             : AppValueConst.defaultInvoiceValue.toString(),
                     onCompletePayment: () {
                       context.read<PaymentBloc>().add(CreateOrder(
-                            prductList:
-                                context.read<BasketBloc>().state.prductList!,
+                            prductList: context.read<BasketBloc>().state.prductList!,
                             invoicesParms: InvoicesParms(
                                 deliveryMethodId:
                                     state.deleveryMethodChossenList.isNotEmpty
                                         ? state.deleveryMethodChossenList[0].id!
                                         : 0,
-                                userAddressid: context
-                                    .read<LocationBloc>()
-                                    .state
-                                    .addressCurrent
-                                    .id!),
+                                userAddressid: context.read<LocationBloc>().state.addressCurrent.id!),
                           ));
                     },
                     onCompleteShopping: () {
-                      AppRouter.pushReplacement(context,  HomeScreen());
+                      AppRouter.pushReplacement(context, const HomeScreen());
                     },
                   ),
                 ],

@@ -190,7 +190,7 @@
   "or_via_whatsup": "Or via Whatsapp",
   "contact_us": "Contact Us",
   "passwordFieldIsRequired": "Password Field Is Required.",
-  "passwordShouldBeEightCharacter": "Password must have at least 3 characters.",
+  "passwordShouldBeEightCharacter": "Password must have at least 7 characters.",
   "pleaseConfirmYourPassword": "Please confirm your password.",
   "emailFieldIsRequired": "E-mail Field Is Required",
   "emailIsNotValid": "This E-mail is not a Valid Email.",
