@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
-
-import 'package:pharma/core/app_router/app_router.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
-import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/screens/favorite/widgets/body_favorite.dart';
 import 'package:pharma/presentation/screens/favorite/widgets/build_shimmer_favorites.dart';
 import 'package:pharma/presentation/screens/guest_screen/guest_screen.dart';
-import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
-import 'package:pharma/presentation/widgets/custom_error_screen.dart';
-import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/translations.dart';
-
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../bloc/favorite_bloc/favorite_bloc.dart';
 import '../../../core/services/services_locator.dart';
@@ -48,13 +41,13 @@ class FavoriteScreen extends StatelessWidget {
                     if(state.screenState==ScreenState.loading) {
                       return const BuildShimmerFavorites();
                     } else if(state.screenState==ScreenState.error) {
-                        return
-                          CustomErrorScreen(
-                          onTap: (){},
-                          titleError: state.error,
-                        );
+                        return BodyFavorite(state: state);
+                        //   CustomErrorScreen(
+                        //   onTap: (){},
+                        //   titleError: state.error,
+                        // );
                       } else if(state.screenState==ScreenState.success) {
-                        return buildGridView(state);
+                        return BodyFavorite(state: state);
                       } else {
                         return const SizedBox();
                       }
@@ -68,29 +61,6 @@ class FavoriteScreen extends StatelessWidget {
 
   }
 
-  GridView buildGridView(FavoriteState state) {
-    return GridView.builder(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      itemCount:state.favoritesList.length ,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-
-          crossAxisCount: 2,
-          mainAxisSpacing: 26,
-          mainAxisExtent: 226),
-      itemBuilder: (context, index) {
-        return Center(
-            child: GestureDetector(
-                onTap: () {
-                  AppRouter.push(
-                      context,
-                      const ProductDetailsScreen(
-                        id: 1,
-                      ));
-                },
-                child: CustomProductCard(
-                  productInfo: ProductsBySubCategoryIdResponse.init(),
-                )));
-      },
-    );
-  }
 }
+
+

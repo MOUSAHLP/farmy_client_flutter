@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
@@ -33,17 +34,17 @@ class CustomProductCard extends StatelessWidget {
         alignment: AlignmentDirectional.topEnd,
         children: [
           SizedBox(
-            width: 163,
+            width: 163.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(6),
                   child: Container(
-                    height: 144,
+                    height: 144.h,
                     color: ColorManager.grayForPlaceholder,
                     child: CachedImage(
-                      width: 163,
+                      width: 163.w,
                       imageUrl: productInfo.image,
                     ),
                   ),
@@ -209,7 +210,7 @@ class CustomProductCard extends StatelessWidget {
               ],
             ),
           ),
-       ClipRRect(
+          productInfo.discount!=null?  ClipRRect(
                   borderRadius: const BorderRadiusDirectional.only(
                       topStart: Radius.circular(6),
                       bottomEnd: Radius.circular(6)),
@@ -226,7 +227,7 @@ class CustomProductCard extends StatelessWidget {
                           .copyWith(),
                     )),
                   ),
-                )
+                ):const SizedBox()
 
         ],
       ),

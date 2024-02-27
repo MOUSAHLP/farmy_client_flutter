@@ -13,7 +13,6 @@ class CustomProductShimmer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       itemCount: 4,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          // childAspectRatio: 144 / 233,
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 26,
