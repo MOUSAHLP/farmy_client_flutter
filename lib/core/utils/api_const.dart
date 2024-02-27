@@ -38,6 +38,8 @@ class ApiConst {
 
   /// who_we_are
   static const String getWhoWeAre = "/who_we_are";
+  /// favorite
+  static const String getFavorite = "/favorite";
 
   //payment-process
   static String getPaymentDetails = "/payment-process";

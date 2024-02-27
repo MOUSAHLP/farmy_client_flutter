@@ -68,7 +68,7 @@ class ServicesLocator {
     sl.registerLazySingleton(() => BasketBloc(basketRepo: sl<BasketRepo>()));
 
     /// favorite
-    sl.registerLazySingleton(() => FavoriteBloc());
+    sl.registerFactory(() => FavoriteBloc());
 
     ///profile
     sl.registerFactory(() => ProfileBloc());
