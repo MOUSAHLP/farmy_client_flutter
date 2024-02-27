@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
@@ -10,16 +11,10 @@ import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/translations.dart';
 
 class CustomProductCard extends StatelessWidget {
-  final bool? isDisCount;
-  final bool? isSellerFound;
   final ProductsBySubCategoryIdResponse productInfo;
-
   const CustomProductCard(
       {super.key,
-      required this.isDisCount,
-      required this.isSellerFound,
-      required this.productInfo,
-      });
+      required this.productInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +34,17 @@ class CustomProductCard extends StatelessWidget {
         alignment: AlignmentDirectional.topEnd,
         children: [
           SizedBox(
-            width: 163,
+            width: 163.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(6),
                   child: Container(
-                    height: 144,
+                    height: 144.h,
                     color: ColorManager.grayForPlaceholder,
                     child: CachedImage(
-                      width: 163,
+                      width: 163.w,
                       imageUrl: productInfo.image,
                     ),
                   ),
@@ -126,10 +121,10 @@ class CustomProductCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          isDisCount!
-                              ? Row(
+
+                             Row(
                                   children: [
-                                    Text(productInfo.discountValue!,
+                                    Text(productInfo.discountValue??"",
                                         style: getRegularStyle(
                                                 color:
                                                     ColorManager.grayForMessage,
@@ -152,8 +147,8 @@ class CustomProductCard extends StatelessWidget {
                                                 height: 1)),
                                   ],
                                 )
-                              : const SizedBox(),
-                          Padding(
+
+                          ,Padding(
                             padding: const EdgeInsets.only(top: 4, bottom: 0),
                             child: Row(
                               children: [
@@ -215,8 +210,7 @@ class CustomProductCard extends StatelessWidget {
               ],
             ),
           ),
-          isDisCount == true
-              ? ClipRRect(
+          productInfo.discount!=null?  ClipRRect(
                   borderRadius: const BorderRadiusDirectional.only(
                       topStart: Radius.circular(6),
                       bottomEnd: Radius.circular(6)),
@@ -233,8 +227,8 @@ class CustomProductCard extends StatelessWidget {
                           .copyWith(),
                     )),
                   ),
-                )
-              : const SizedBox()
+                ):const SizedBox()
+
         ],
       ),
     );

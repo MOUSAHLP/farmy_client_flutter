@@ -271,5 +271,6 @@
   "congrats":"مبروك :)",
   "you_got":"لقد حصلت على",
   "loading" : "يتم التحميل",
-  "added_to_basket": "تمت الإضافة إلى السلة"
+  "added_to_basket": "تمت الإضافة إلى السلة",
+  "no_favorite_items": "لا يوجد عناصر مفضلة"
 }

@@ -203,22 +203,8 @@ class ProductDetailsBody extends StatelessWidget {
                                                       child: Stack(
                                                         children: [
                                                           CustomProductCard(
-                                                            isSellerFound: state
-                                                                        .productDetailsResponse
-                                                                        .relatedProducts![
-                                                                            index]
-                                                                        .sellerName !=
-                                                                    null
-                                                                ? true
-                                                                : false,
-                                                            isDisCount: state
-                                                                        .productDetailsResponse
-                                                                        .relatedProducts![
-                                                                            index]
-                                                                        .discountStatus ==
-                                                                    "1"
-                                                                ? true
-                                                                : false,
+
+
                                                             productInfo: state
                                                                 .productDetailsResponse
                                                                 .relatedProducts![index],
@@ -307,22 +293,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                           },
                                                           child:
                                                               CustomProductCard(
-                                                            isSellerFound: state
-                                                                        .productDetailsResponse
-                                                                        .similarProducts![
-                                                                            index]
-                                                                        .sellerName !=
-                                                                    null
-                                                                ? true
-                                                                : false,
-                                                            isDisCount: state
-                                                                        .productDetailsResponse
-                                                                        .similarProducts![
-                                                                            index]
-                                                                        .discountStatus ==
-                                                                    "1"
-                                                                ? true
-                                                                : false,
+
                                                             productInfo: state
                                                                 .productDetailsResponse
                                                                 .similarProducts![index],

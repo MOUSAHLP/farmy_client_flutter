@@ -125,22 +125,18 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                         ));
                                                   },
                                                   child: CustomProductCard(
-                                                      isSellerFound: state
-                                                                  .productsList[
-                                                                      index]
-                                                                  .sellerName !=
-                                                              null
-                                                          ? true
-                                                          : false,
+
                                                       productInfo: state
                                                           .productsList[index],
-                                                      isDisCount: (state
-                                                                  .productsList[
-                                                                      index]
-                                                                  .discountStatus ==
-                                                              "0")
-                                                          ? false
-                                                          : true)));
+                                                      // isDisCount: (state
+                                                      //             .productsList[
+                                                      //                 index]
+                                                      //             .discountStatus ==
+                                                      //         "0")
+                                                      //     ? false
+                                                      //     : true
+                                              )
+                                              ));
                                         },
                                       )
                                     : CustomNoData(
