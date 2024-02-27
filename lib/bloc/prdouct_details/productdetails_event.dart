@@ -9,7 +9,6 @@ class ProductdetailsEvent extends Equatable {
 
 class GetProductDetailsById extends ProductdetailsEvent {
   final int id;
-
   const GetProductDetailsById({required this.id});
 }
 

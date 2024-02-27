@@ -17,17 +17,22 @@ class GuestScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset(ImageManager.logoGuest),
-        const SizedBox(height: 44),
+        Image.asset(ImageManager.logoGuest, height:1.sh*0.24,
+            width:1.sw*0.44 ),
         SizedBox(
-          width: 1.sw - 100,
+          height:1.sh*0.02,
+        ),
+        SizedBox(
+          width: 1.sw * 0.7,
           child: Text(AppLocalizations.of(context)!.sign_now_or_create,
               style: getBoldStyle(color: ColorManager.grayForMessage),
               textAlign: TextAlign.center),
         ),
-        const SizedBox(height: 37),
+        SizedBox(
+          height:1.sh*0.05,
+        ),
         CustomButton(
-            width: 1.sw - 100,
+            width: 1.sw * 0.7,
             label: AppLocalizations.of(context)!.sign_Up_Now,
             onTap: () {
               AppRouter.push(context, const AccountScreen());

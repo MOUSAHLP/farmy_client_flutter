@@ -9,6 +9,7 @@ class ProductRepo {
         url: ApiConst.getProductDetailsById(id),
         converter: (e) {
           return ProductDetailsResponse.fromJson(e["data"]);
-        });
+        }
+        );
   }
 }

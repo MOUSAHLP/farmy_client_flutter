@@ -9,7 +9,6 @@ class ProductsBySubCategoryIdResponse {
   String? discountStatus;
   String? discountValue;
   String? image;
-  String? quntity;
 
   ProductsBySubCategoryIdResponse(
       {this.id,
@@ -17,7 +16,6 @@ class ProductsBySubCategoryIdResponse {
       this.price,
       this.quantity,
       this.availabilityOfProduct,
-      this.quntity,
       this.discountStatus,
       this.discountValue,
       this.image,

@@ -84,6 +84,9 @@ class ServicesLocator {
     sl.registerFactory(() => RewardsPointsBloc());
     sl.registerFactory(() => RewardsRankBloc());
 
+    /// Rate Screen
+    sl.registerFactory(() => RateBloc());
+
     /// Privacy Policy Screen
     sl.registerFactory(() => PrivacyBloc());
 

@@ -24,6 +24,7 @@ import '../../../core/services/services_locator.dart';
 import '../../resources/font_app.dart';
 import '../base_screen/base_screen.dart';
 import '../guest_screen/guest_screen.dart';
+import '../home_screen/home_screen.dart';
 import '../home_screen/widgets/custom_app_bar.dart';
 
 class BasketScreen extends StatelessWidget {
@@ -184,6 +185,7 @@ class BasketScreen extends StatelessWidget {
                                                     ColorManager.primaryGreen,
                                                 labelColor: Colors.white,
                                                 onTap: () {
+                                                  AppRouter.pushReplacement(context, const HomeScreen());
                                                   // SystemNavigator.pop();
                                                 },
                                               ),

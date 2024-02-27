@@ -38,7 +38,7 @@ class CardOrder extends StatelessWidget {
                   details: myOrder.deliveryMethod?.name ?? ""),
               RowOrder(
                   title: AppLocalizations.of(context)!.expected_Time,
-                  details: " 30 دقيقة"),
+                  details: myOrder.expectedTime.toString() ?? ""),
               myOrder.total != null
                   ? Row(
                       children: [
@@ -72,6 +72,4 @@ class CardOrder extends StatelessWidget {
       ),
     );
   }
-
-
 }

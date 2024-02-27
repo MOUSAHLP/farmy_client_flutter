@@ -9,7 +9,8 @@ class OrderDetailsModel {
   String? price;
   ProductModel? product;
 
-  OrderDetailsModel({this.orderNumber,
+  OrderDetailsModel({
+    this.orderNumber,
     this.quantity,
     this.price,
     this.status,
@@ -25,7 +26,7 @@ class OrderDetailsModel {
       status: json["status"],
       quantity: json["quantity"] ,
       price: json["price"],
- product:ProductModel.fromJson(json['product']),
+      product:ProductModel.fromJson(json['product']),
 
     );
   }

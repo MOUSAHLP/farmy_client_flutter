@@ -13,7 +13,6 @@ import 'package:pharma/bloc/setting_bloc/setting_event.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
-import 'package:pharma/presentation/screens/main_screen/main_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 import 'bloc/authentication_bloc/authentication_event.dart';
@@ -39,6 +38,7 @@ class _MyAppState extends State<MyApp> {
       designSize: MediaQuery.of(context).size,
       builder: (context, ctx) {
         return MultiBlocProvider(
+
           providers: [
             BlocProvider(
               create: (BuildContext context) =>
@@ -79,6 +79,7 @@ class _MyAppState extends State<MyApp> {
                 builder: (context, state) {
               if (true) {
                 return MaterialApp(
+                    debugShowCheckedModeBanner: false,
                     title: 'Farmy',
                     locale: Locale(DataStore.instance.lang),
                     supportedLocales: AppLocalizations.supportedLocales,

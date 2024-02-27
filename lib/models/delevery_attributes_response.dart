@@ -6,9 +6,10 @@ class DeliveryAttributesResponse {
     this.id,
     this.nameDeleveryAttribute,
   });
-  factory DeliveryAttributesResponse.fromJson(Map<String, dynamic> json) {
+  factory DeliveryAttributesResponse.fromJson(Map<String, dynamic> json){
     return DeliveryAttributesResponse(
-        id: json["id"], nameDeleveryAttribute: json["name"]);
+        id: json["id"],
+        nameDeleveryAttribute: json["name"]);
   }
 
   static List<DeliveryAttributesResponse> listFromJson(List<dynamic>? json) {

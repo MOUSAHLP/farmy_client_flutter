@@ -147,10 +147,11 @@ class DeleteAccountScreen extends StatelessWidget {
                                     color: ColorManager.grayForSearchProduct,
                                     fontSize: FontSizeApp.s14),
                                 suffixIcon: const Text(" "),
-                                validator: (value) {
-                                  return AppValidators.validatePasswordFields(
-                                      context, passwordController.text);
-                                }),
+                                // validator: (value) {
+                                //   return AppValidators.validatePasswordFields(
+                                //       context, passwordController.text);
+                                // }
+                                ),
                           ),
                           const SizedBox(
                             height: 99,

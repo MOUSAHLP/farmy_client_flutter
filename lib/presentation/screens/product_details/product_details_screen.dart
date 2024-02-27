@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
@@ -9,12 +10,13 @@ import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/product_details_response.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/about_product_and_amount_section.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/counter_box.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/product_image.dart';
+import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/presentation/widgets/custom_app_button.dart';
 import 'package:pharma/presentation/widgets/custom_loading.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
@@ -34,15 +36,14 @@ class ProductDetailsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           sl<ProductdetailsBloc>()..add(GetProductDetailsById(id: id!)),
-      child: ProductDetailsBody(),
+      child:  ProductDetailsBody(),
     );
   }
 }
 
 class ProductDetailsBody extends StatelessWidget {
-  ProductDetailsBody({super.key});
-
-  final List<ProductDetailsResponse> tempProductList = [];
+   ProductDetailsBody({super.key});
+  final List<ProductDetailsResponse> tempProductList  = [];
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,29 @@ class ProductDetailsBody extends StatelessWidget {
             listener: (context, state) {
               if (state.addToBasketState ==
                   AddToBasketState.successAddedToBasket) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: const Duration(seconds: 1),
+                      content: Container(
+
+                          alignment: Alignment.center,
+                          child: Text(
+                            AppLocalizations.of(context)!.added_to_basket,
+                            style: getRegularStyle(
+                                color: ColorManager.white,
+                                fontSize: FontSizeApp.s14),
+                          )),
+                      backgroundColor: ColorManager.primaryGreen,
+                    )
+                //     SnackBar(
+                //     content:
+                //         Text('${AppLocalizations.of(context)!.added_to_basket}',
+                //         style: AppS,),
+                // duration:  Duration(seconds: 2),
+                //   backgroundColor: ColorManager.primaryGreen,
+                //   width: 200,
+                // )
+                );
                 AppRouter.pop(context);
               }
             },
@@ -97,8 +121,7 @@ class ProductDetailsBody extends StatelessWidget {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                          horizontal: 45,
-                                        ),
+                                            horizontal: 45),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -353,10 +376,8 @@ class ProductDetailsBody extends StatelessWidget {
                                         myText: AppLocalizations.of(context)!
                                             .add_to_basket,
                                         padding: const EdgeInsets.symmetric(
-                                          horizontal: 74,
-                                          vertical: 10,
-                                        ),
-                                      ),
+                                            horizontal: 74, vertical: 10),
+                                      )
                                     ],
                                   )
                                 ],
@@ -444,6 +465,8 @@ class ProductDetailsBody extends StatelessWidget {
               height: 25,
               width: 30,
               child: CustomCountWidget(
+                height: 25,
+                width: 30,
                 myIcon: Icons.add,
                 onTap: () {
                   context.read<ProductdetailsBloc>().add(addEvent);
@@ -495,6 +518,8 @@ class ProductDetailsBody extends StatelessWidget {
               height: 25,
               width: 30,
               child: CustomCountWidget(
+                height: 25,
+                width: 30,
                 myIcon: Icons.remove,
                 onTap: () {
                   context.read<ProductdetailsBloc>().add(removeEvent);
