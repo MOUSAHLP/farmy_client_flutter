@@ -7,32 +7,32 @@ class BasketState extends Equatable {
   final ScreenState? screenState;
   final String? errorMessage;
   final bool isClear;
-  const BasketState(
-      {this.prductList = const [],
-      this.addToBasketState,
-      this.errorMessage,
-      this.screenState,
-      this.paymentProcessResponse,
-      this.isClear=false
-      });
 
-  BasketState copyWith(
-      {List<ProductDetailsResponse>? prductList,
-      AddToBasketState? addToBasketState,
-      ScreenState? screenState,
-      String? errorMessage,
-      PaymentProcessResponse? paymentProcessResponse,
-      bool? isClear
+  const BasketState({
+    this.prductList = const [],
+    this.addToBasketState,
+    this.errorMessage,
+    this.screenState,
+    this.paymentProcessResponse,
+    this.isClear = false,
+  });
 
-      }) {
+  BasketState copyWith({
+    List<ProductDetailsResponse>? productList,
+    AddToBasketState? addToBasketState,
+    ScreenState? screenState,
+    String? errorMessage,
+    PaymentProcessResponse? paymentProcessResponse,
+    bool? isClear,
+  }) {
     return BasketState(
         errorMessage: errorMessage ?? "",
         paymentProcessResponse:
             paymentProcessResponse ?? this.paymentProcessResponse,
         addToBasketState: addToBasketState ?? addToBasketState,
-        prductList: prductList ?? this.prductList,
+        prductList: productList ?? this.prductList,
         screenState: screenState ?? ScreenState.initialized,
-        isClear:isClear??false);
+        isClear: isClear ?? false);
   }
 
   @override
@@ -43,6 +43,6 @@ class BasketState extends Equatable {
         screenState,
         paymentProcessResponse,
         errorMessage,
-    isClear
+        isClear
       ];
 }

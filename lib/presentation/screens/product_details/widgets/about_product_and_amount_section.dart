@@ -13,11 +13,13 @@ class AboutProductAndAmonutSection extends StatelessWidget {
   final String productName;
   final String productDesc;
   final List<AttrbiuteResponse> attributeList;
+
   const AboutProductAndAmonutSection(
       {super.key,
       required this.productName,
       required this.productDesc,
-      required this.attributeList});
+      required this.attributeList,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +35,19 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(productName,
-                        style: getBoldStyle(
-                          color: ColorManager.black,
-                          fontSize: FontSizeApp.s15,
-                        )),
+                    Text(
+                      productName,
+                      style: getBoldStyle(
+                        color: ColorManager.black,
+                        fontSize: FontSizeApp.s15,
+                      ),
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: HtmlWidget(
                             productDesc,
-
-                            //  Text(productDesc,
-                            //       maxLines: 5,
-                            //       overflow: TextOverflow.ellipsis,
-                            //       style: getBoldStyle(
-                            //         color: ColorManager.grayForMessage,
-                            //         fontSize: FontSizeApp.s15,
-                            //       )),
                           ),
                         ),
                         const Icon(
@@ -93,8 +89,11 @@ class AboutProductAndAmonutSection extends StatelessWidget {
             CustomCountWidget(
               myIcon: Icons.add,
               onTap: () {
-                context.read<ProductdetailsBloc>().add(AddQuntityToOrder(
-                    context.read<ProductdetailsBloc>().state.quntity!));
+                context.read<ProductdetailsBloc>().add(
+                      AddQuntityToOrder(
+                        context.read<ProductdetailsBloc>().state.quntity!,
+                      ),
+                    );
               },
             ),
             const SizedBox(
@@ -103,9 +102,15 @@ class AboutProductAndAmonutSection extends StatelessWidget {
             InnerShadow(
               shadows: [
                 Shadow(
-                    color: Colors.black.withOpacity(0.25),
-                    blurRadius: 10,
-                    offset: const Offset(2, 5))
+                  color: Colors.black.withOpacity(
+                    0.25,
+                  ),
+                  blurRadius: 10,
+                  offset: const Offset(
+                    2,
+                    5,
+                  ),
+                )
               ],
               child: Container(
                 height: 38,
@@ -116,12 +121,14 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                 child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
                   builder: (context, state) {
                     return Center(
-                        child: Text(
-                      state.quntity.toString(),
-                      style: getUnderBoldStyle(
+                      child: Text(
+                        state.quntity.toString(),
+                        style: getUnderBoldStyle(
                           color: ColorManager.primaryGreen,
-                          fontSize: FontSizeApp.s24),
-                    ));
+                          fontSize: FontSizeApp.s24,
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -132,15 +139,22 @@ class AboutProductAndAmonutSection extends StatelessWidget {
             CustomCountWidget(
               myIcon: Icons.remove,
               onTap: () {
-                context.read<ProductdetailsBloc>().add(RemoveQuntityToOrder(
-                    context.read<ProductdetailsBloc>().state.quntity!));
+                context.read<ProductdetailsBloc>().add(
+                      RemoveQuntityToOrder(
+                        context.read<ProductdetailsBloc>().state.quntity!,
+                      ),
+                    );
               },
             ),
           ],
         ),
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25),
-          child: Divider(thickness: 1),
+          padding: EdgeInsets.symmetric(
+            horizontal: 25,
+          ),
+          child: Divider(
+            thickness: 1,
+          ),
         ),
       ],
     );

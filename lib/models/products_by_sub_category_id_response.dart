@@ -6,7 +6,6 @@ class ProductsBySubCategoryIdResponse {
   String? availabilityOfProduct;
   String? sellerName;
   String? discount;
-
   String? discountStatus;
   String? discountValue;
   String? image;

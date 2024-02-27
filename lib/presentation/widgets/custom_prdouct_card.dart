@@ -18,7 +18,8 @@ class CustomProductCard extends StatelessWidget {
       {super.key,
       required this.isDisCount,
       required this.isSellerFound,
-      required this.productInfo});
+      required this.productInfo,
+      });
 
   @override
   Widget build(BuildContext context) {

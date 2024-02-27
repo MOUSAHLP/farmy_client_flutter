@@ -56,13 +56,12 @@ class ServicesLocator {
         () => CategoriesBloc(categoriesRepo: sl<CategoriesRepo>()));
 
     sl.registerLazySingleton<UserRepository>(() => UserRepository());
-    sl.registerFactory(
-        () => ProductsBloc(categoriesRepo: sl<CategoriesRepo>()));
+    sl.registerFactory(() => ProductsBloc(categoriesRepo: sl<CategoriesRepo>()));
 
     /// product
     sl.registerSingleton<ProductRepo>(ProductRepo());
-    sl.registerFactory(
-        () => ProductdetailsBloc(productRepo: sl<ProductRepo>()));
+    sl.registerFactory(() => ProductdetailsBloc(productRepo: sl<ProductRepo>()));
+    // sl.registerFactory(() => ProductRelatedBloc(productRepo: sl<ProductRepo>()));
 
     ///basket
     sl.registerSingleton<BasketRepo>(BasketRepo());
@@ -93,6 +92,7 @@ class ServicesLocator {
 
     /// Conditions Screen
     sl.registerFactory(() => ConditionsBloc());
+
 
     /// Who We Are Screen
     sl.registerFactory(() => WhoWeAreBloc());
