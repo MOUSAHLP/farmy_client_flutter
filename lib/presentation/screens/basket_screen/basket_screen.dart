@@ -38,10 +38,6 @@ class BasketScreen extends StatelessWidget {
       isComeBack: false,
       body: Column(
         children: [
-          // const CustomAppBar(),
-          // CustomAppBarScreen(
-          //     sectionName: AppLocalizations.of(context)!.basket,
-          //     isComeBack: false),
           sl<AuthenticationBloc>().loggedIn
               ? Expanded(
                   child: BlocConsumer<BasketBloc, BasketState>(
@@ -71,7 +67,8 @@ class BasketScreen extends StatelessWidget {
                           state.prductList!.isEmpty
                               ? CustomNoData(
                                   noDataStatment: AppLocalizations.of(context)!
-                                      .sorryBasketIsEmpty)
+                                      .sorryBasketIsEmpty,
+                                )
                               : IntrinsicWidth(
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -85,9 +82,10 @@ class BasketScreen extends StatelessWidget {
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: getSemiBoldStyle(
-                                                color:
-                                                    ColorManager.grayForMessage,
-                                                fontSize: 15.sp),
+                                              color:
+                                                  ColorManager.grayForMessage,
+                                              fontSize: 15.sp,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -98,9 +96,12 @@ class BasketScreen extends StatelessWidget {
                             child: CustomOverscrollIndicator(
                               child: ListView.builder(
                                 padding: EdgeInsets.zero,
-                                itemBuilder: (context, index) => CardBasket(
+                                itemBuilder: (context, index) {
+                                  return  CardBasket(
                                     productAddedToBasketDetails:
-                                        state.prductList![index]),
+                                    state.prductList![index],
+                                  );
+                                },
                                 itemCount: state.prductList!.length,
                               ),
                             ),

@@ -1,63 +1,90 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/product_repo.dart';
 import 'package:pharma/models/product_details_response.dart';
+
 part 'productdetails_event.dart';
+
 part 'productdetails_state.dart';
 
 class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> {
   ProductRepo productRepo;
-  int quantity = 1;
-  List<dynamic> listProduct = [];
+  int quntity = 1;
+  int quantityRelated = 0;
+  int quantitySimilar = 0;
 
-    countsProducts(int id) {
-    if (listProduct.any((element) => element.id == id)) {
-      int index =
-      listProduct.indexWhere((element) => element.id == id);
-      return listProduct[index].quantity;
-    }
-    return 0;
-  }
   ProductdetailsBloc({required this.productRepo})
-      : super( ProductdetailsState(productDetailsResponse: ProductDetailsResponse())) {
-    on<ProductdetailsEvent>((event, emit) async {
-      if (event is GetProductDetailsById) {
-        emit(state.copyWith(screenState: ScreenState.loading));
-        (await productRepo.getProductDetailsById(event.id)).fold(
-            (l) => emit(state.copyWith(screenState: ScreenState.error)),
-            (r) {
-              listProduct =List.filled(r.relatedProducts!.length, 0);
-                return  emit(state.copyWith(productDetailsResponse: r,
-                    screenState: ScreenState.success
-                ));
-            }
-        );
-      }
-      if (event is AddQuantityToOrder) {
-         quantity = event.quantity;
-         ++quantity;
-         emit(state.copyWith(quantity: quantity));
-      }
-      if (event is RemoveQuantityToOrder) {
-        quantity = event.quantity;
-        --quantity;
-        if (quantity < 1) quantity = 1;
-        emit(state.copyWith(quantity: quantity));
-      }
-
-
-      if (event is AddQuantityFromRelatedToOrder) {
-        if (countsProducts(event.id) == 0) {
-          listProduct.add(ProductDetailsResponse(
-              id: event.id, quantity: 1));
-        } else {
-          int index = listProduct.indexWhere((element) => element.id == event.id);
-            listProduct[index].quantity++;
-        //  quantity;
+      : super(
+          ProductdetailsState(
+            productDetailsResponse: ProductDetailsResponse(),
+          ),
+        ) {
+    on<ProductdetailsEvent>(
+      (event, emit) async {
+        if (event is GetProductDetailsById) {
+          emit(
+            state.copyWith(screenState: ScreenState.loading),
+          );
+          (await productRepo.getProductDetailsById(event.id)).fold(
+            (l) => emit(
+              state.copyWith(screenState: ScreenState.error),
+            ),
+            (r) => emit(
+              state.copyWith(
+                  productDetailsResponse: r, screenState: ScreenState.success),
+            ),
+          );
         }
-       emit(state.copyWith(quantity: quantity));
-      }
-    });
+        if (event is AddQuntityToOrder) {
+          quntity = event.quntity;
+          ++quntity;
+          emit(
+            state.copyWith(quntity: quntity),
+          );
+        }
+        if (event is AddQuantityRelatedToOrder) {
+          quantityRelated = event.quantityRelated;
+          ++quantityRelated;
+          emit(
+            state.copyWith(quantityRelated: quantityRelated),
+          );
+        }
+        if (event is AddQuantitySimilarToOrder) {
+          quantitySimilar = event.quantitySimilar;
+          ++quantitySimilar;
+          emit(
+            state.copyWith(quantitySimilar: quantitySimilar),
+          );
+        }
+        if (event is RemoveQuntityToOrder) {
+          quntity = event.quntity;
+          --quntity;
+          if (quntity < 1) quntity = 1;
+          emit(
+            state.copyWith(quntity: quntity),
+          );
+        }
+        if (event is RemoveQuantityRelatedToOrder) {
+          quantityRelated = event.quantityRelated;
+          if (quantityRelated > 0) {
+            --quantityRelated;
+          }
+          emit(
+            state.copyWith(quantityRelated: quantityRelated),
+          );
+        }
+        if (event is RemoveQuantitySimilarToOrder) {
+          quantitySimilar = event.quantitySimilar;
+          if (quantitySimilar > 0){
+            --quantitySimilar;}
+
+          emit(
+            state.copyWith(quantitySimilar: quantitySimilar),
+          );
+        }
+      },
+    );
   }
 }

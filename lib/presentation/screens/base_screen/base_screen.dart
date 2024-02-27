@@ -53,7 +53,8 @@ class BaseScreenScaffold extends StatelessWidget {
               CustomAppBar(scaffoldKey: scaffoldKey),
               if (appbarTitle != null)
                 CustomAppBarScreen(
-                    sectionName: appbarTitle!, isComeBack: isComeBack),
+                    sectionName: appbarTitle!, isComeBack: isComeBack,
+                ),
             ],
           ),
         ),

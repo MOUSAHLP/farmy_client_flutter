@@ -93,8 +93,11 @@ class AboutProductAndAmonutSection extends StatelessWidget {
             CustomCountWidget(width: 38,height: 38,
               myIcon: Icons.add,
               onTap: () {
-                context.read<ProductdetailsBloc>().add(AddQuantityToOrder(
-                    context.read<ProductdetailsBloc>().state.quantity!));
+                context.read<ProductdetailsBloc>().add(
+                      AddQuntityToOrder(
+                        context.read<ProductdetailsBloc>().state.quntity!,
+                      ),
+                    );
               },
             ),
             const SizedBox(
@@ -117,7 +120,7 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                   builder: (context, state) {
                     return Center(
                         child: Text(
-                      state.quantity.toString(),
+                      state.quntity.toString(),
                       style: getUnderBoldStyle(
                           color: ColorManager.primaryGreen,
                           fontSize: FontSizeApp.s24),
@@ -129,11 +132,12 @@ class AboutProductAndAmonutSection extends StatelessWidget {
             const SizedBox(
               width: 18,
             ),
-            CustomCountWidget(height: 38,width: 38,
+            CustomCountWidget(
+              width: 38,height: 38,
               myIcon: Icons.remove,
               onTap: () {
-                context.read<ProductdetailsBloc>().add(RemoveQuantityToOrder(
-                    context.read<ProductdetailsBloc>().state.quantity!));
+                context.read<ProductdetailsBloc>().add(RemoveQuntityToOrder(
+                    context.read<ProductdetailsBloc>().state.quntity!));
               },
             ),
           ],

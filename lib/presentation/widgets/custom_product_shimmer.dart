@@ -32,7 +32,8 @@ class CustomProductShimmer extends StatelessWidget {
                   nameOfProduct: "",
                   price: "",
                   quantity: "",
-                  sellerName: "")),
+                  sellerName: "",
+              ),),
         ));
       },
     );

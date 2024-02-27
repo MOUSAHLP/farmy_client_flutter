@@ -28,6 +28,7 @@ import '../base_screen/base_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
   // final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
@@ -65,7 +66,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ? BlocBuilder<LocationBloc, LocationState>(
                               builder: (context, state) {
                                 return CustomDeliveryAddress(
-                                    userAddressModel: state.addressCurrent);
+                                  userAddressModel: state.addressCurrent,
+                                );
                               },
                             )
                           : const SizedBox(),

@@ -12,32 +12,38 @@ class GetProductDetailsById extends ProductdetailsEvent {
   const GetProductDetailsById({required this.id});
 }
 
-class AddQuantityToOrder extends ProductdetailsEvent {
-   int quantity;
-  // int id;
+class AddQuntityToOrder extends ProductdetailsEvent {
+  final int quntity;
 
-   AddQuantityToOrder(this.quantity);
+  const AddQuntityToOrder(this.quntity);
 }
 
-class RemoveQuantityToOrder extends ProductdetailsEvent {
-   int quantity;
-  // int id;
+class AddQuantityRelatedToOrder extends ProductdetailsEvent {
+  final int quantityRelated;
+  const AddQuantityRelatedToOrder(this.quantityRelated);
 
-   RemoveQuantityToOrder(this.quantity);
 }
 
+class AddQuantitySimilarToOrder extends ProductdetailsEvent {
+  final int quantitySimilar;
 
-class AddQuantityFromRelatedToOrder extends ProductdetailsEvent {
-  int quantity;
-   int id;
-
-  AddQuantityFromRelatedToOrder(this.quantity,this.id
-      );
+  const AddQuantitySimilarToOrder(this.quantitySimilar);
 }
 
-class RemoveQuantityFromRelatedToOrder extends ProductdetailsEvent {
-  int quantity;
-   int id;
+class RemoveQuntityToOrder extends ProductdetailsEvent {
+  final int quntity;
 
-  RemoveQuantityFromRelatedToOrder(this.quantity,this.id);
+  const RemoveQuntityToOrder(this.quntity);
+}
+
+class RemoveQuantityRelatedToOrder extends ProductdetailsEvent {
+  final int quantityRelated;
+
+  const RemoveQuantityRelatedToOrder(this.quantityRelated);
+}
+
+class RemoveQuantitySimilarToOrder extends ProductdetailsEvent {
+  final int quantitySimilar;
+
+  const RemoveQuantitySimilarToOrder(this.quantitySimilar);
 }

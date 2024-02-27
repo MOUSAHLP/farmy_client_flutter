@@ -5,6 +5,7 @@ import 'package:pharma/data/repository/basket_repo.dart';
 import 'package:pharma/models/params/payment_process_parms.dart';
 import 'package:pharma/models/payment_process_response.dart';
 import 'package:pharma/models/product_details_response.dart';
+import 'package:pharma/models/products_by_sub_category_id_response.dart';
 
 part 'basket_event.dart';
 
@@ -12,7 +13,7 @@ part 'basket_state.dart';
 
 class BasketBloc extends Bloc<BasketEvent, BasketState> {
   BasketRepo basketRepo;
-  List<ProductDetailsResponse> mutableProducts = [];
+    List<ProductDetailsResponse> mutableProducts = [];
 
   int countsProducts(int id) {
     if (mutableProducts.any((element) => element.id == id)) {
@@ -38,71 +39,93 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   }
 
   BasketBloc({required this.basketRepo}) : super(const BasketState()) {
-    on<BasketEvent>((event, emit) async {
-      if (event is AddToBasket) {
-        mutableProducts = List.from(state.prductList!);
-        bool contain = false;
-        for (var i in mutableProducts) {
-          if (i.id == event.product.id) {
-            contain = true;
-            i.quantity = (event.product.quantity ?? 0) + (i.quantity ?? 0);
-            emit(state.copyWith(
-                prductList: mutableProducts,
-                addToBasketState: AddToBasketState.successAddedToBasket));
+    on<BasketEvent>(
+      (event, emit) async {
+        if (event is AddToBasket) {
+          bool contain = false;
+          mutableProducts = List.from(state.prductList!);
+          // for (var i in mutableProducts) {
+          //   if (i.id == event.product.id) {
+          //     contain = true;
+          //     i.quantity = (event.product.quantity ?? 0) + (i.quantity ?? 0);
+          //     emit(state.copyWith(
+          //         productList: mutableProducts,
+          //         addToBasketState: AddToBasketState.successAddedToBasket));
+          //   }
+          // }
+          if (!contain) {
+            mutableProducts.addAll(event.product);
+            print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+            print(mutableProducts[0].id);
+            print(mutableProducts[0].quantity);
+            print(mutableProducts[0].nameOfProduct);
+
+            emit(
+              state.copyWith(
+                productList: mutableProducts,
+                addToBasketState: AddToBasketState.successAddedToBasket,
+              ),
+            );
           }
         }
-        if (!contain) {
-          mutableProducts.add(event.product);
-          emit(state.copyWith(
-              prductList: mutableProducts,
-              addToBasketState: AddToBasketState.successAddedToBasket));
-        }
-      }
-      if (event is PaymentProcess) {
-        emit(state.copyWith(screenState: ScreenState.loading));
-        PaymentProcessParms paymentProcessParms =
-            PaymentProcessParms(prodictInBasketList: state.prductList!);
-        (await basketRepo.getPaymentDetails(paymentProcessParms)).fold(
+        if (event is PaymentProcess) {
+          emit(state.copyWith(screenState: ScreenState.loading));
+          PaymentProcessParms paymentProcessParms =
+              PaymentProcessParms(prodictInBasketList: state.prductList!);
+          (await basketRepo.getPaymentDetails(paymentProcessParms)).fold(
             (l) => emit(state.copyWith(
                 screenState: ScreenState.error, errorMessage: l)),
-            (r) => emit(state.copyWith(
-                screenState: ScreenState.success, paymentProcessResponse: r)));
-      }
-      if (event is AddCount) {
-        int index1 =
-            mutableProducts.indexWhere((element) => element.id == event.id);
-
-        mutableProducts[index1].quantity =
-            mutableProducts[index1].quantity! + 1;
-
-        emit(state.copyWith(
-          prductList: mutableProducts,
-        ));
-      }
-      if (event is MinusCount) {
-        int index1 =
-            mutableProducts.indexWhere((element) => element.id == event.id);
-
-        if (mutableProducts[index1].quantity != 1) {
-          mutableProducts[index1].quantity =
-              mutableProducts[index1].quantity! - 1;
+            (r) => emit(
+              state.copyWith(
+                  screenState: ScreenState.success, paymentProcessResponse: r),
+            ),
+          );
         }
 
-        emit(state.copyWith(
-          prductList: mutableProducts,
-        ));
-        // }
-      }
-      if (event is DeleteProduct) {
-        mutableProducts.removeWhere((element) => element.id == event.id);
-        emit(state.copyWith(
-          prductList: mutableProducts,
-        ));
-      }
-      if(event is ClearBasket){
-        mutableProducts.clear();
-        emit(state.copyWith());
-      }
-    });
+        if (event is AddCount) {
+          int index1 = mutableProducts.indexWhere((element) => element.id == event.id);
+
+
+          mutableProducts[index1].quantity =
+              mutableProducts[index1].quantity! + 1;
+
+
+          emit(state.copyWith(
+              productList: mutableProducts,
+     ),);
+        }
+
+        if (event is MinusCount) {
+          int index1 =
+              mutableProducts.indexWhere((element) => element.id == event.id);
+
+
+          if (mutableProducts[index1].quantity != 1) {
+            mutableProducts[index1].quantity =
+                mutableProducts[index1].quantity! - 1;
+          }
+
+
+          emit(
+            state.copyWith(
+              productList: mutableProducts,
+
+            ),
+          );
+          // }
+        }
+
+        if (event is DeleteProduct) {
+          mutableProducts.removeWhere((element) => element.id == event.id);
+          emit(state.copyWith(
+            productList: mutableProducts,
+          ));
+        }
+        if (event is ClearBasket) {
+          mutableProducts.clear();
+          emit(state.copyWith());
+        }
+      },
+    );
   }
 }
