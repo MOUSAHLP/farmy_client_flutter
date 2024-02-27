@@ -568,6 +568,7 @@ class PaymentBody extends StatelessWidget {
                     onCompleteShopping: () {
                       AppRouter.pushReplacement(context, const HomeScreen());
                     },
+
                   ),
                 ],
               ),

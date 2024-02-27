@@ -36,8 +36,10 @@ class GetInvoicesDetails extends PaymentEvent {
   final InvoicesParms invoicesParmas;
   final List<ProductDetailsResponse>? productList;
 
-  const GetInvoicesDetails(
-      {required this.invoicesParmas, required this.productList});
+  const GetInvoicesDetails({
+    required this.invoicesParmas,
+        required this.productList
+      });
 }
 
 class RemoveFromChossenList extends PaymentEvent {
