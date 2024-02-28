@@ -266,5 +266,6 @@
   "you_got": "You got",
   "loading" : "Loading",
   "rank_features":"Rank Features:",
-  "no_favorite_items": "There are no favorite items"
+  "no_favorite_items": "There are no favorite items",
+  "pleaseLogIn": "Please login to add items to your favorites"
 }

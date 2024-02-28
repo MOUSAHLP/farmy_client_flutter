@@ -100,6 +100,8 @@ class ProductDetailsBody extends StatelessWidget {
                                           ? state.productDetailsResponse.image!
                                           : ""),
                                   AboutProductAndAmonutSection(
+                                    productId: state
+                                        .productDetailsResponse.id??0 ,
                                     attributeList: state
                                         .productDetailsResponse.attributeList,
                                     productDesc: state.productDetailsResponse

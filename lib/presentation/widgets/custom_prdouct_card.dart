@@ -10,6 +10,10 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/translations.dart';
 
+import '../../bloc/favorite_bloc/favorite_event.dart';
+import '../../bloc/favorite_bloc/favorite_state.dart';
+import 'favorite_heart.dart';
+
 class CustomProductCard extends StatelessWidget {
   final ProductsBySubCategoryIdResponse productInfo;
   const CustomProductCard(
@@ -181,25 +185,15 @@ class CustomProductCard extends StatelessWidget {
                         children: [
                           BlocBuilder<FavoriteBloc, FavoriteState>(
                             builder: (context, state) {
-                              return GestureDetector(
+                              return FavoriteHeart(   id: productInfo.id??0,
+                                isToggled: context
+                                    .read<FavoriteBloc>()
+                                    .isFavoriteProduct(productInfo.id??0),
                                 onTap: () {
                                   context.read<FavoriteBloc>().add(
-                                      ToggleFavorite(
-                                          isFavorite: !state.isFavorite!));
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
-                                  child: Icon(
-                                    color: state.isFavorite == true
-                                        ? Colors.red
-                                        : Colors.black,
-                                    state.isFavorite == true
-                                        ? Icons.favorite
-                                        : Icons.favorite_border_outlined,
-                                    size: 26,
-                                  ),
-                                ),
-                              );
+                                      ChangeFavoriteStatusRestaurant(
+                                          productInfo.id??0));
+                                },);
                             },
                           ),
                         ],
@@ -234,3 +228,44 @@ class CustomProductCard extends StatelessWidget {
     );
   }
 }
+
+// class FavoriteHeart extends StatelessWidget {
+//   const FavoriteHeart({
+//     super.key,
+//     required this.productInfo,
+//   });
+//
+//   final ProductsBySubCategoryIdResponse productInfo;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         context.read<FavoriteBloc>().add(
+//             ChangeFavoriteStatusRestaurant(
+//                 productInfo.id??0));
+//         // context.read<FavoriteBloc>().add(
+//         //     ToggleFavorite(
+//         //         isFavorite: !state.isFavorite!));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.symmetric(vertical: 10),
+//         child: Icon(
+//           color: context
+//               .read<FavoriteBloc>()
+//               .isFavoriteRestaurant(productInfo.id??0) == true
+//               ? Colors.red
+//               : Colors.black,
+//           context
+//               .read<FavoriteBloc>()
+//               .isFavoriteRestaurant(productInfo.id??0) == true
+//
+//               ? Icons.favorite
+//               :
+//           Icons.favorite_border_outlined,
+//           size: 26,
+//         ),
+//       ),
+//     );
+//   }
+// }

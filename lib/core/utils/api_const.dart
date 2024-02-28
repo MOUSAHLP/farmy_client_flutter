@@ -39,7 +39,9 @@ class ApiConst {
   /// who_we_are
   static const String getWhoWeAre = "/who_we_are";
   /// favorite
-  static const String getFavorite = "/favorite";
+  static const String getFavorite = "/getFavorit";
+  static const String addFavorite = "/addToFavorit";
+  static const String removeFavorite = "/removeFromFavorit";
 
   //payment-process
   static String getPaymentDetails = "/payment-process";
