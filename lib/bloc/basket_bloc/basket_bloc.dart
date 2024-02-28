@@ -5,7 +5,6 @@ import 'package:pharma/data/repository/basket_repo.dart';
 import 'package:pharma/models/params/payment_process_parms.dart';
 import 'package:pharma/models/payment_process_response.dart';
 import 'package:pharma/models/product_details_response.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
 
 part 'basket_event.dart';
 

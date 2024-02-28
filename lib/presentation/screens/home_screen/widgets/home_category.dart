@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/models/categories_respoonse.dart';
@@ -9,12 +11,15 @@ import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/translations.dart';
 
 class HomeCategory extends StatelessWidget {
+  final Map<String, String> title;
   final List<CategoriesResponse> categoriesList;
-  const HomeCategory({Key? key, required this.categoriesList})
+  const HomeCategory(
+      {Key? key, required this.categoriesList, required this.title})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String appLang = context.read<LanguageBloc>().lang;
     return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: AppValueConst.homeVerticalPadding),
@@ -24,7 +29,8 @@ class HomeCategory extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 33.w, vertical: 0),
             child: CustomSectionName(
-              sectionName: AppLocalizations.of(context)!.sections,
+              sectionName:
+                  title[appLang] ?? AppLocalizations.of(context)!.sections,
               onTap: () {
                 AppRouter.push(
                     context,

@@ -11,11 +11,14 @@ import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/translations.dart';
 
 class HomeSection extends StatelessWidget {
+  final Map<String, String> title;
   final List<ProductsBySubCategoryIdResponse> list;
-  const HomeSection({Key? key, required this.list}) : super(key: key);
+  const HomeSection({Key? key, required this.list, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String appLang = context.read<LanguageBloc>().lang;
     return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: AppValueConst.homeVerticalPadding),
@@ -24,7 +27,8 @@ class HomeSection extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 33.w, vertical: 0),
             child: CustomSectionName(
-              sectionName: AppLocalizations.of(context)!.suggested_products,
+              sectionName: title[appLang] ??
+                  AppLocalizations.of(context)!.suggested_products,
               onTap: () {
                 // context.read<LanguageBloc>().lang;
               },
@@ -49,8 +53,7 @@ class HomeSection extends StatelessWidget {
                   child: Padding(
                       padding: EdgeInsetsDirectional.only(
                           bottom: 0, start: index == 0 ? 0 : 15),
-                      child: CustomProductCard(
-                          productInfo: list[index])),
+                      child: CustomProductCard(productInfo: list[index])),
                 );
               },
             ),

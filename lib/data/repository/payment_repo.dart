@@ -24,12 +24,10 @@ class PaymentRepo {
     PaymentProcessParms paymentProcessParms,
     InvoicesParms invoicesParms,
     List<DeliveryAttributesResponse>? deleveryAttributesList,
-  ){
+  ) {
     return BaseApiClient.post<String>(
-        formData: paymentProcessParms.createOrdertoJsonWithParms(
-            invoicesParms,
-            deleveryAttributesList,
-            paymentProcessParms.prodictInBasketList),
+        formData: paymentProcessParms.createOrdertoJsonWithParms(invoicesParms,
+            deleveryAttributesList, paymentProcessParms.prodictInBasketList),
         url: ApiConst.createOrders,
         converter: (e) {
           return e["message"];

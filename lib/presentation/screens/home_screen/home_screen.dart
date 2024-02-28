@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
+import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/app_value_const.dart';
+import 'package:pharma/models/home_page_dynamic_model.dart';
 
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_servies.dart';
@@ -45,17 +47,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: [
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
+              context.read<HomeBloc>().test();
               if (state.screenState == ScreenState.loading) {
                 return const CustomHomeShimmer();
-              }
-              else if (state.screenState == ScreenState.error) {
+              } else if (state.screenState == ScreenState.error) {
                 return Expanded(
-                  child: CustomErrorScreen(onTap: () {
-                    sl<HomeBloc>().add(GetHomeData());
-                  },titleError:state.error ),
+                  child: CustomErrorScreen(
+                      onTap: () {
+                        sl<HomeBloc>().add(GetHomeData());
+                      },
+                      titleError: state.error),
                 );
-              }
-              else if (state.screenState == ScreenState.success) {
+              } else if (state.screenState == ScreenState.success) {
                 context.read<LocationBloc>().state.addressCurrent =
                     state.homeData!.userAddressModel!;
                 return Expanded(
@@ -74,50 +77,65 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       const CustomDeliveryService(),
 
                       //// sections
-                      state.homeData!.homeCategoriesList!.isNotEmpty
-                          ? HomeCategory(
-                              categoriesList:
-                                  state.homeData!.homeCategoriesList!,
-                            )
-                          : const SizedBox(),
-                      if (state.homeData!.homeBannerListTopSection!.isNotEmpty)
-                        CustomHomeCursel(
-                          verticalPadding: state.homeData!
-                                  .homeSuggestedProductsList!.isNotEmpty
-                              ? 0
-                              : 0,
-                          bannerList: state.homeData!.homeBannerListTopSection,
-                          height: 164.h,
-                        ),
-                      if (state.homeData!.homeSuggestedProductsList!.isNotEmpty)
-                        HomeSection(
-                            list: state.homeData!.homeSuggestedProductsList!),
-                      if (state
-                          .homeData!.homeBannerListBottomSection!.isNotEmpty)
-                        CustomHomeCursel(
-                          verticalPadding: state.homeData!
-                                  .homeSuggestedProductsList!.isNotEmpty
-                              ? 0
-                              : 10,
-                          bannerList:
-                              state.homeData!.homeBannerListBottomSection,
-                          height: 164.h,
-                        ),
-                      if (state
-                          .homeData!.homeDiscountedProductsList!.isNotEmpty)
-                        HomeSection(
-                            list: state.homeData!.homeDiscountedProductsList!),
+                      // state.homeData!.homeCategoriesList!.isNotEmpty
+                      //     ? HomeCategory(
+                      //         categoriesList:
+                      //             state.homeData!.homeCategoriesList!,
+                      //       )
+                      //     : const SizedBox(),
+                      // if (state.homeData!.homeBannerListTopSection!.isNotEmpty)
+                      //   CustomHomeCursel(
+                      //     verticalPadding: state.homeData!
+                      //             .homeSuggestedProductsList!.isNotEmpty
+                      //         ? 0
+                      //         : 0,
+                      //     bannerList: state.homeData!.homeBannerListTopSection,
+                      //     height: 164.h,
+                      //   ),
+                      // if (state.homeData!.homeSuggestedProductsList!.isNotEmpty)
+                      //   HomeSection(
+                      //       list: state.homeData!.homeSuggestedProductsList!),
+                      // if (state
+                      //     .homeData!.homeBannerListBottomSection!.isNotEmpty)
+                      //   CustomHomeCursel(
+                      //     verticalPadding: state.homeData!
+                      //             .homeSuggestedProductsList!.isNotEmpty
+                      //         ? 0
+                      //         : 10,
+                      //     bannerList:
+                      //         state.homeData!.homeBannerListBottomSection,
+                      //     height: 164.h,
+                      //   ),
+                      // if (state
+                      //     .homeData!.homeDiscountedProductsList!.isNotEmpty)
+                      //   HomeSection(
+                      //       list: state.homeData!.homeDiscountedProductsList!),
 
-                      //// making dynamic content
-                      ...List.generate(context.read<HomeBloc>().test.length,
+                      //// ==================== making dynamic content ==================== ////
+                      ...List.generate(
+                          context.read<HomeBloc>().homePageDynamicModel!.length,
                           (index) {
-                        List test = context.read<HomeBloc>().test;
-                        if (test[index]["type"] == "section") {
-                          return HomeSection(list: test[index]["content"]);
-                        } else if (test[index]["type"] == "slider") {
+                        List<HomePageDynamicModel> homePageDynamicModel =
+                            context.read<HomeBloc>().homePageDynamicModel!;
+
+                        if (homePageDynamicModel[index].type == "category") {
+                          return HomeCategory(
+                            title: homePageDynamicModel[index].title!,
+                            categoriesList:
+                                homePageDynamicModel[index].categoryContent!,
+                          );
+                        } else if (homePageDynamicModel[index].type ==
+                            "section") {
+                          return HomeSection(
+                            title: homePageDynamicModel[index].title!,
+                            list: homePageDynamicModel[index].sectionContent!,
+                          );
+                        } else if (homePageDynamicModel[index].type ==
+                            "slider") {
                           return CustomHomeCursel(
                             verticalPadding: 10,
-                            bannerList: test[index]["content"],
+                            bannerList:
+                                homePageDynamicModel[index].sliderContent,
                             height: 164.h,
                           );
                         }
@@ -126,8 +144,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ],
                   ),
                 );
-              }
-              else {
+              } else {
                 return const SizedBox();
               }
             },
