@@ -2,9 +2,10 @@
 class InvoicesParms {
   int userAddressid;
   int deliveryMethodId;
+  String notes;
   InvoicesParms({
     required this.userAddressid,
     required this.deliveryMethodId,
+    this.notes = "",
   });
-
 }

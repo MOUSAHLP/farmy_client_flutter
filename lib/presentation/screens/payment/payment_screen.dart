@@ -48,13 +48,15 @@ class PaymentScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => sl<PaymentBloc>()
         ..add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse)),
-      child: const PaymentBody(),
+      child: PaymentBody(),
     );
   }
 }
 
 class PaymentBody extends StatelessWidget {
-  const PaymentBody({super.key});
+  PaymentBody({super.key});
+
+  final TextEditingController noteController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -278,6 +280,7 @@ class PaymentBody extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 4),
                                     InputFieldAuth(
+                                      controller: noteController,
                                       maxLines: 5,
                                       minLines: 5,
                                       height: .30.sw,
@@ -560,6 +563,7 @@ class PaymentBody extends StatelessWidget {
                             prductList:
                                 context.read<BasketBloc>().state.prductList!,
                             invoicesParms: InvoicesParms(
+                                notes: noteController.text,
                                 deliveryMethodId:
                                     state.deleveryMethodChossenList.isNotEmpty
                                         ? state.deleveryMethodChossenList[0].id!
@@ -611,6 +615,7 @@ class PaymentBody extends StatelessWidget {
                 .add(ToogleDeleveryMethod(deleveryMethodData: item));
             context.read<PaymentBloc>().add(GetInvoicesDetails(
                 invoicesParmas: InvoicesParms(
+                    notes: noteController.text,
                     deliveryMethodId: item.id!,
                     userAddressid: loctionstate.addressCurrent.id!),
                 productList: context.read<BasketBloc>().state.prductList));

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/delevery_attributes_response.dart';
 import 'package:pharma/models/delivery_response.dart';
@@ -55,8 +56,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           List<DeliveryAttributesResponse> mutableChangeList =
               List.from(state.attrbiuteChossenList);
           mutableChangeList.add(event.attributeData!);
-          emit(state.copyWith(
-              attrbiuteChossenList: mutableChangeList));
+          emit(state.copyWith(attrbiuteChossenList: mutableChangeList));
         }
         if (event is RemoveChangeAttributeList) {
           /// todo : change DeliveryAttributesResponse to changeResponse
@@ -64,8 +64,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
               List.from(state.attrbiuteChossenList);
           mutableChangeList
               .removeWhere((element) => element.id == event.attributeData!.id);
-          emit(state.copyWith(
-              attrbiuteChossenList: mutableChangeList));
+          emit(state.copyWith(attrbiuteChossenList: mutableChangeList));
         }
 
         if (event is ToogleDeleveryMethod) {
@@ -102,6 +101,11 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
               completePaymentStates: CompletePaymentStates.loading));
           PaymentProcessParms paymentProcessParms =
               PaymentProcessParms(prodictInBasketList: event.prductList);
+
+          print("event.invoicesParms.note");
+          print(event.invoicesParms.notes);
+          print("event.invoicesParms.note");
+
           (await paymentRepo.createOrder(
             paymentProcessParms,
             event.invoicesParms,

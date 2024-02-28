@@ -47,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: [
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
-              context.read<HomeBloc>().test();
               if (state.screenState == ScreenState.loading) {
                 return const CustomHomeShimmer();
               } else if (state.screenState == ScreenState.error) {
