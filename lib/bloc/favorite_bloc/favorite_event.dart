@@ -1,20 +1,15 @@
-part of 'favorite_bloc.dart';
-
-class FavoriteEvent extends Equatable {
-  const FavoriteEvent();
-
-  @override
-  List<Object> get props => [];
-}
-
-class ToggleFavorite extends FavoriteEvent {
-  final bool isFavorite;
-
-  const ToggleFavorite({required this.isFavorite});
+abstract class FavoriteEvent {
+  FavoriteEvent([List props = const []]) : super();
 }
 
 class GetFavorites extends FavoriteEvent {
-  // final bool isFavorite;
+  GetFavorites();
+}
 
-  const GetFavorites();
+class ChangeFavoriteStatusRestaurant extends FavoriteEvent {
+  final int id;
+  ChangeFavoriteStatusRestaurant(
+      this.id
+
+      );
 }

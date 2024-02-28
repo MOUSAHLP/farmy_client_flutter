@@ -128,7 +128,7 @@ class BaseApiClient {
     required T Function(dynamic) converter,
     CancelToken? cancelToken,
   }) async {
-    try {
+    // try {
       var response = await client.get(
         url,
         queryParameters: queryParameters,
@@ -146,21 +146,21 @@ class BaseApiClient {
       } else {
         return left(response.data['message']);
       }
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.cancel) {
-        return left('cancel');
-      }
-      Map dioError = DioErrorsHandler.onError(e);
-      if (kDebugMode) {
-        print(e);
-      }
-      return left(dioError['message']);
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      return left("");
-    }
+    // } on DioException catch (e) {
+    //   if (e.type == DioExceptionType.cancel) {
+    //     return left('cancel');
+    //   }
+    //   Map dioError = DioErrorsHandler.onError(e);
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    //   return left(dioError['message']);
+    // } catch (e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    //   return left("");
+    // }
   }
 
   static Future<Either<String, T>> delete<T>(

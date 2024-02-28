@@ -1,49 +1,70 @@
-import 'package:equatable/equatable.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/app_enum.dart';
 import '../../data/repository/favorite_repository.dart';
 import '../../models/products_by_sub_category_id_response.dart';
-
-part 'favorite_event.dart';
-
-part 'favorite_state.dart';
+import 'favorite_event.dart';
+import 'favorite_state.dart';
 
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
-  // CategoriesRepo categoriesRepo;
-  // FavoriteBloc({required this.categoriesRepo})
-  FavoriteBloc() : super(FavoriteState(screenState: ScreenState.initialized)) {
+  List<ProductsBySubCategoryIdResponse> favoriteListProducts = [];
+  List<int> idProducts=[];
+  bool isFavoriteProduct(int id){
+    bool x=false;
+    if (idProducts.any((element) => element == id))
+    {
+      x =true;
+      return x;
+    }
+    return x;
+  }
+  FavoriteBloc() : super(FavoritesListLoading()) {
     on<FavoriteEvent>((event, emit) async {
-      if (event is ToggleFavorite) {
-        emit(state.copyWith(isFavorite: event.isFavorite));
-
-        // todo Ghina add request to add and remove favorite
-        // emit(state.copyWith(screenState: ScreenState.loading));
-        // (await categoriesRepo.getProductsBySubCategoriesId(event.id)).fold((l) {
-        //   if (l != "cancel") {
-        //     emit(state.copyWith(screenState: ScreenState.error));
-        //   }
-        // }, (r) {
-        //   List<ProductsBySubCategoryIdResponse> mutableProducts = List.from(r);
-        //   mutableProducts.removeWhere(
-        //     (element) {
-        //       return element.id == null;
-        //     },
-        //   );
-        //   emit(state.copyWith(
-        //       screenState: ScreenState.success, productsList: mutableProducts));
-        // });
-      }
+      print("===========event");
+      print(event);
       if (event is GetFavorites) {
-       emit(state.copyWith(screenState: ScreenState.loading));
-        (await FavoriteRepository.getFavoriteList()).fold((l) {
-          if (l != "cancel") {
-            emit(state.copyWith(screenState: ScreenState.error,error: l));
-          }
+        emit(FavoritesListLoading());
+        final response = await FavoriteRepository.getFavoriteList();
+        response.fold((l) {
+          emit(FavoritesListError(l));
         }, (r) {
-          emit(state.copyWith(
-              screenState: ScreenState.success, favoritesList:r ));
+
+          favoriteListProducts=r;
+          idProducts=favoriteListProducts.map((item) => item.id??0).toList();
+          print("idProducts");
+          print(idProducts);
+          print(idProducts.length);
+          emit(FavoritesListSuccess());
         });
+      }
+
+      if (event is ChangeFavoriteStatusRestaurant) {
+        if (!isFavoriteProduct(event.id)) {
+          idProducts.add(event.id);
+          emit(RemoveFavoriteSuccess());
+          final response =
+          await FavoriteRepository.addFavorite(event.id);
+          response.fold((l) {
+            idProducts
+                .removeWhere((element) => element== event.id);
+            emit(RemoveFavoriteSuccess());
+          }, (r) {
+            emit(RemoveFavoriteSuccess());
+          });
+        }
+        else {
+          idProducts.removeWhere((element) => element == event.id);
+          favoriteListProducts.removeWhere((element) => element.id == event.id);
+          emit(RemoveFavoriteSuccess());
+          final response = await FavoriteRepository.removeFavorite(event.id);
+          response.fold((l) {
+            idProducts.add(event.id);
+            emit(RemoveFavoriteSuccess());
+          }, (r) {
+
+            emit(RemoveFavoriteSuccess());
+          });
+        }
       }
     });
   }
