@@ -9,8 +9,17 @@ class CategoriesEvent extends Equatable {
 
 class GetCaegoriesEvent extends CategoriesEvent {}
 
-class GetSubCategoryEvent extends CategoriesEvent {
-  final int categoryId;
+class AllProductsPageEvent extends CategoriesEvent {}
 
-  const GetSubCategoryEvent({required this.categoryId});
+class GetSubCategoryEvent extends CategoriesEvent {
+  final int tabIndex;
+  final int categoryId;
+  const GetSubCategoryEvent({required this.tabIndex, required this.categoryId});
+}
+
+class SubCategoryPageEvent extends CategoriesEvent {
+  final int tabIndex;
+  const SubCategoryPageEvent({
+    required this.tabIndex,
+  });
 }

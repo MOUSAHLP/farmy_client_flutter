@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/app_value_const.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/presentation/screens/all_section/all_section_screen.dart';
+import 'package:pharma/presentation/screens/all_section/widgets/test.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
 import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/translations.dart';
@@ -19,7 +19,7 @@ class HomeCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String appLang = context.read<LanguageBloc>().lang;
+    String appLang = DataStore.instance.lang;
     return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: AppValueConst.homeVerticalPadding),
@@ -32,17 +32,12 @@ class HomeCategory extends StatelessWidget {
               sectionName:
                   title[appLang] ?? AppLocalizations.of(context)!.sections,
               onTap: () {
-                AppRouter.push(
-                    context,
-                    ALlSectionScreen(
-                      index: 0,
-                      tabControllerLength: categoriesList.length + 1,
-                    ));
+                AppRouter.push(context, const ALlSectionScreen());
               },
             ),
           ),
           SizedBox(
-            height: 300.h,
+            height: 140.h,
             child: GridView.builder(
               padding: EdgeInsets.symmetric(horizontal: 19.w),
               itemCount: categoriesList.length,
@@ -51,16 +46,11 @@ class HomeCategory extends StatelessWidget {
                   crossAxisSpacing: 23,
                   mainAxisSpacing: 15,
                   mainAxisExtent: 97,
-                  crossAxisCount: 2),
+                  crossAxisCount: 1),
               itemBuilder: (context, index) {
                 return CustomCategory(
                   onTap: () {
-                    AppRouter.push(
-                        context,
-                        ALlSectionScreen(
-                          index: index + 1,
-                          tabControllerLength: categoriesList.length + 1,
-                        ));
+                    AppRouter.push(context, const ALlSectionScreen());
                   },
                   categoryImage: categoriesList[index].imageUrl,
                   categoryName: categoriesList[index].name != null

@@ -3,29 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
+import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/core/app_enum.dart';
-import 'package:pharma/core/app_router/app_router.dart';
-import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/models/home_page_dynamic_model.dart';
-
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_servies.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_cursel.dart';
-import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/cutsom_home_shimmer.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/home_category.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/home_section.dart';
-import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
-import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
-import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
-import 'package:pharma/translations.dart';
-
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
-import '../all_section/all_section_screen.dart';
 import '../base_screen/base_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -111,35 +102,48 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       //       list: state.homeData!.homeDiscountedProductsList!),
 
                       //// ==================== making dynamic content ==================== ////
-                      ...List.generate(
-                          context.read<HomeBloc>().homePageDynamicModel!.length,
-                          (index) {
-                        List<HomePageDynamicModel> homePageDynamicModel =
-                            context.read<HomeBloc>().homePageDynamicModel!;
+                      BlocBuilder<LanguageBloc, LanguageState>(
+                          builder: (context, state) {
+                        return Column(
+                          children: [
+                            ...List.generate(
+                                context
+                                    .read<HomeBloc>()
+                                    .homePageDynamicModel!
+                                    .length, (index) {
+                              List<HomePageDynamicModel> homePageDynamicModel =
+                                  context
+                                      .read<HomeBloc>()
+                                      .homePageDynamicModel!;
 
-                        if (homePageDynamicModel[index].type == "category") {
-                          return HomeCategory(
-                            title: homePageDynamicModel[index].title!,
-                            categoriesList:
-                                homePageDynamicModel[index].categoryContent!,
-                          );
-                        } else if (homePageDynamicModel[index].type ==
-                            "section") {
-                          return HomeSection(
-                            title: homePageDynamicModel[index].title!,
-                            list: homePageDynamicModel[index].sectionContent!,
-                          );
-                        } else if (homePageDynamicModel[index].type ==
-                            "slider") {
-                          return CustomHomeCursel(
-                            verticalPadding: 10,
-                            bannerList:
-                                homePageDynamicModel[index].sliderContent,
-                            height: 164.h,
-                          );
-                        }
-                        return const SizedBox();
-                      })
+                              if (homePageDynamicModel[index].type ==
+                                  "category") {
+                                return HomeCategory(
+                                  title: homePageDynamicModel[index].title!,
+                                  categoriesList: homePageDynamicModel[index]
+                                      .categoryContent!,
+                                );
+                              } else if (homePageDynamicModel[index].type ==
+                                  "section") {
+                                return HomeSection(
+                                  title: homePageDynamicModel[index].title!,
+                                  list: homePageDynamicModel[index]
+                                      .sectionContent!,
+                                );
+                              } else if (homePageDynamicModel[index].type ==
+                                  "slider") {
+                                return CustomHomeCursel(
+                                  verticalPadding: 10,
+                                  bannerList:
+                                      homePageDynamicModel[index].sliderContent,
+                                  height: 164.h,
+                                );
+                              }
+                              return const SizedBox();
+                            })
+                          ],
+                        );
+                      }),
                     ],
                   ),
                 );

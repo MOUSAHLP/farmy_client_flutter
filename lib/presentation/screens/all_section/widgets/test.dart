@@ -9,30 +9,27 @@ import 'package:pharma/presentation/screens/all_section/widgets/custom_category_
 import 'package:pharma/presentation/screens/all_section/widgets/custom_sub_category_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_category_shimmer.dart';
-import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
 import 'package:pharma/translations.dart';
 
-class ALlSectionScreen extends StatelessWidget {
-  const ALlSectionScreen({Key? key}) : super(key: key);
+class TestAllScreen extends StatelessWidget {
+  const TestAllScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => sl<CategoriesBloc>()..add(GetCaegoriesEvent()),
-        child: const ALlSectionScreenBody());
+        child: const TestAllScreenBody());
   }
 }
 
-class ALlSectionScreenBody extends StatefulWidget {
-  const ALlSectionScreenBody({Key? key}) : super(key: key);
+class TestAllScreenBody extends StatefulWidget {
+  const TestAllScreenBody({Key? key}) : super(key: key);
 
   @override
-  State<ALlSectionScreenBody> createState() {
-    return _ALlSectionScreenBodyState();
-  }
+  _TestAllScreenBodyState createState() => _TestAllScreenBodyState();
 }
 
-class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
+class _TestAllScreenBodyState extends State<TestAllScreenBody>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
@@ -47,7 +44,9 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
               child: Scaffold(
             body: (state.screenState == ScreenState.loading &&
                     state.tabs.isEmpty)
-                ? const CustomLoadingWidget()
+                ? const Center(
+                    child: Text("Loading"),
+                  )
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,6 +122,77 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                       ),
                     ],
                   ),
+            // Column(
+            //   children: [
+            //     Expanded(
+            //       child: Scaffold(
+            //         backgroundColor: ColorManager.white,
+            //         appBar: AppBar(
+            //           backgroundColor: ColorManager.white,
+            //           shadowColor: ColorManager.grayForMessage,
+            //           toolbarHeight: 0,
+            //           automaticallyImplyLeading: false,
+            //           bottom: TabBar(
+            //             controller: tabController,
+            //             isScrollable: true,
+            //             indicatorColor: ColorManager.primaryGreen,
+            //             labelColor: ColorManager.primaryGreen,
+            //             unselectedLabelColor: ColorManager.grayForMessage,
+            //             dividerColor: Colors.transparent,
+            //             indicatorSize: TabBarIndicatorSize.tab,
+            //             onTap: (index) {
+            //               print(index);
+            //               print("index index index");
+            //               if (index == 0) {
+            //                 if (context
+            //                     .read<CategoriesBloc>()
+            //                     .state
+            //                     .categoriesList
+            //                     .isEmpty) {
+            //                   context
+            //                       .read<CategoriesBloc>()
+            //                       .add(GetCaegoriesEvent());
+            //                 }
+            //               } else {
+            //                 print("else");
+            //                 context.read<CategoriesBloc>().add(
+            //                     GetSubCategoryEvent(
+            //                         tabIndex: index,
+            //                         categoryId: context
+            //                             .read<CategoriesBloc>()
+            //                             .state
+            //                             .categoriesList[index - 1]
+            //                             .id));
+            //               }
+            //             },
+            //             tabs: state.tabs,
+            //           ),
+            //         ),
+            //         body: TabBarView(
+            //           children: [
+            //             CustomCategoryScreen(
+            //               categoriesList: state.categoriesList,
+            //               tabController: tabController,
+            //             ),
+            //             ...state.categoriesList.map((title) {
+            //               print(state.categoriesList[0].name);
+            //               print(state.categoriesList[1].name);
+            //               print(state.categoriesList[2].name);
+            //               print(state.categoriesList[3].name);
+            //               print(state.subCategoryList.length);
+            //               return state.screenState == ScreenState.loading
+            //                   ? const CustomCategoryShimmer()
+            //                   : CustomSubCategoryScreen(
+            //                       subCategoriesList: state.subCategoryList,
+            //                       tabController: tabController,
+            //                     );
+            //             }).toList()
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ));
         });
   }

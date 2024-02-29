@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 1.sw,
-      height: 130.h,
+      padding: EdgeInsets.only(top: 40.h),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -123,6 +123,9 @@ class CustomAppBar extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 10.h,
             ),
             InputFieldAuth(
               maxLines: 2,

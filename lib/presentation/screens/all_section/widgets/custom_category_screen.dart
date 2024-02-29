@@ -8,8 +8,11 @@ class CustomCategoryScreen extends StatelessWidget {
   final List<CategoriesResponse>? categoriesList;
   final TabController tabController;
 
-  const CustomCategoryScreen(
-      {super.key, required this.categoriesList, required this.tabController});
+  const CustomCategoryScreen({
+    super.key,
+    required this.categoriesList,
+    required this.tabController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +27,11 @@ class CustomCategoryScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
             onTap: () {
-              if (index != 0) {
-                context.read<CategoriesBloc>().add(
-                    GetSubCategoryEvent(categoryId: categoriesList![index].id));
-              }
-              tabController.animateTo(index);
+              print(index);
+              print("=====================");
+              context.read<CategoriesBloc>().add(GetSubCategoryEvent(
+                  tabIndex: index + 1, categoryId: categoriesList![index].id));
+              tabController.animateTo(index + 1);
             },
             child: CustomCategory(
               categoryName: categoriesList![index].name!,

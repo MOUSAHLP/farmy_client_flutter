@@ -46,14 +46,15 @@ class BaseScreenScaffold extends StatelessWidget {
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButton: floatingActionButton,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(appbarTitle != null ? 170.h : 116.h),
+          preferredSize: Size.fromHeight(appbarTitle != null ? 190.h : 130.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomAppBar(scaffoldKey: scaffoldKey),
               if (appbarTitle != null)
                 CustomAppBarScreen(
-                    sectionName: appbarTitle!, isComeBack: isComeBack,
+                  sectionName: appbarTitle!,
+                  isComeBack: isComeBack,
                 ),
             ],
           ),

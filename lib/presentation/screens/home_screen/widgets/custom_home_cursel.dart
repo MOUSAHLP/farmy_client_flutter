@@ -56,8 +56,8 @@ class _CustomHomeCurselState extends State<CustomHomeCursel> {
                   Uri url = Uri.parse(widget.isLoadingState == true
                       ? ""
                       : widget.bannerList![index].bannerLink ?? "");
-                  if (!await launchUrl(url)) {
-                    throw Exception('Could not launch $url');
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url);
                   }
                 },
                 child: ClipRRect(

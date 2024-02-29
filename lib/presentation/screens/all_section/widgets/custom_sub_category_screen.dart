@@ -10,8 +10,11 @@ class CustomSubCategoryScreen extends StatefulWidget {
   final List<SubCategoryResponse>? subCategoriesList;
   final TabController tabController;
 
-  const CustomSubCategoryScreen(
-      {super.key, this.subCategoriesList, required this.tabController});
+  const CustomSubCategoryScreen({
+    super.key,
+    this.subCategoriesList,
+    required this.tabController,
+  });
 
   @override
   State<CustomSubCategoryScreen> createState() =>

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/app_value_const.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
 import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
@@ -18,7 +20,7 @@ class HomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String appLang = context.read<LanguageBloc>().lang;
+    String appLang = DataStore.instance.lang;
     return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: AppValueConst.homeVerticalPadding),
@@ -29,9 +31,7 @@ class HomeSection extends StatelessWidget {
             child: CustomSectionName(
               sectionName: title[appLang] ??
                   AppLocalizations.of(context)!.suggested_products,
-              onTap: () {
-                // context.read<LanguageBloc>().lang;
-              },
+              onTap: () {},
             ),
           ),
           SizedBox(

@@ -12,9 +12,7 @@ import 'package:pharma/translations.dart';
 
 class CustomProductCard extends StatelessWidget {
   final ProductsBySubCategoryIdResponse productInfo;
-  const CustomProductCard(
-      {super.key,
-      required this.productInfo});
+  const CustomProductCard({super.key, required this.productInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -121,41 +119,38 @@ class CustomProductCard extends StatelessWidget {
                               ],
                             ),
                           ),
-
-                             Row(
-                                  children: [
-                                    Text(productInfo.discountValue??"",
-                                        style: getRegularStyle(
-                                                color:
-                                                    ColorManager.grayForMessage,
-                                                fontSize: FontSizeApp.s12)!
-                                            .copyWith(
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                height: 1)),
-                                    const SizedBox(
-                                      width: 1,
-                                    ),
-                                    Text(AppLocalizations.of(context)!.curruncy,
-                                        style: getRegularStyle(
-                                                color:
-                                                    ColorManager.grayForMessage,
-                                                fontSize: FontSizeApp.s13)!
-                                            .copyWith(
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                height: 1)),
-                                  ],
-                                )
-
-                          ,Padding(
+                          Row(
+                            children: [
+                              Text(productInfo.discountValue ?? "",
+                                  style: getRegularStyle(
+                                          color: ColorManager.grayForMessage,
+                                          fontSize: FontSizeApp.s12)!
+                                      .copyWith(
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          height: 1)),
+                              const SizedBox(
+                                width: 1,
+                              ),
+                              Text(AppLocalizations.of(context)!.curruncy,
+                                  style: getRegularStyle(
+                                          color: ColorManager.grayForMessage,
+                                          fontSize: FontSizeApp.s13)!
+                                      .copyWith(
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          height: 1)),
+                            ],
+                          ),
+                          Padding(
                             padding: const EdgeInsets.only(top: 4, bottom: 0),
                             child: Row(
                               children: [
                                 if (productInfo.price != null)
                                   Text(
-                                      Formatter.formatPrice(
-                                          int.tryParse(productInfo.price!)!),
+                                      Formatter.formatPrice(int.tryParse(
+                                              productInfo.price ?? "0") ??
+                                          0),
                                       style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
                                               fontSize: FontSizeApp.s15)!
@@ -188,7 +183,8 @@ class CustomProductCard extends StatelessWidget {
                                           isFavorite: !state.isFavorite!));
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
                                   child: Icon(
                                     color: state.isFavorite == true
                                         ? Colors.red
@@ -210,7 +206,8 @@ class CustomProductCard extends StatelessWidget {
               ],
             ),
           ),
-          productInfo.discount!=null?  ClipRRect(
+          productInfo.discount != null
+              ? ClipRRect(
                   borderRadius: const BorderRadiusDirectional.only(
                       topStart: Radius.circular(6),
                       bottomEnd: Radius.circular(6)),
@@ -227,8 +224,8 @@ class CustomProductCard extends StatelessWidget {
                           .copyWith(),
                     )),
                   ),
-                ):const SizedBox()
-
+                )
+              : const SizedBox()
         ],
       ),
     );

@@ -102,10 +102,6 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           PaymentProcessParms paymentProcessParms =
               PaymentProcessParms(prodictInBasketList: event.prductList);
 
-          print("event.invoicesParms.note");
-          print(event.invoicesParms.notes);
-          print("event.invoicesParms.note");
-
           (await paymentRepo.createOrder(
             paymentProcessParms,
             event.invoicesParms,

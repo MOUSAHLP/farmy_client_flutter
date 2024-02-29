@@ -38,7 +38,6 @@ class _MyAppState extends State<MyApp> {
       designSize: MediaQuery.of(context).size,
       builder: (context, ctx) {
         return MultiBlocProvider(
-
           providers: [
             BlocProvider(
               create: (BuildContext context) =>
