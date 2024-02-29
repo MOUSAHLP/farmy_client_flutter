@@ -9,13 +9,21 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/counter_box.dart';
 
+import '../../../../bloc/favorite_bloc/favorite_bloc.dart';
+import '../../../../bloc/favorite_bloc/favorite_event.dart';
+import '../../../../bloc/favorite_bloc/favorite_state.dart';
+import '../../../widgets/favorite_heart.dart';
+
 class AboutProductAndAmonutSection extends StatelessWidget {
+
   final String productName;
+  final int productId;
   final String productDesc;
   final List<AttrbiuteResponse> attributeList;
   const AboutProductAndAmonutSection(
       {super.key,
       required this.productName,
+      required this.productId,
       required this.productDesc,
       required this.attributeList});
 
@@ -54,10 +62,18 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                             //       )),
                           ),
                         ),
-                        const Icon(
-                          Icons.favorite,
-                          color: ColorManager.grayForMessage,
-                          size: 28,
+                        BlocBuilder<FavoriteBloc, FavoriteState>(
+                          builder: (context, state) {
+                            return FavoriteHeart(   id: productId,
+                              isToggled: context
+                                  .read<FavoriteBloc>()
+                                  .isFavoriteProduct(productId),
+                              onTap: () {
+                                context.read<FavoriteBloc>().add(
+                                    ChangeFavoriteStatusRestaurant(
+                                        productId));
+                              },);
+                          },
                         ),
                       ],
                     ),

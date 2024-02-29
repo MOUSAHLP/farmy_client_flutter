@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pharma/bloc/home_bloc/home_bloc.dart';
-import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/data/data_resource/local_resource/data_store.dart';

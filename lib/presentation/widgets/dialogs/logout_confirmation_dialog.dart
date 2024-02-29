@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import '../../../bloc/authentication_bloc/authentication_event.dart';
@@ -64,6 +66,7 @@ class _LogoutConfirmationDialog extends StatelessWidget {
                     fillColor: Colors.red,
                     onTap: () {
                       sl<AuthenticationBloc>().add(LoggedOut());
+
                       AppRouter.pushAndRemoveAllStack(context, const AccountScreen());
                     },
                   ),

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/presentation/screens/favorite/widgets/body_favorite.dart';
 import 'package:pharma/presentation/screens/favorite/widgets/build_shimmer_favorites.dart';
 import 'package:pharma/presentation/screens/guest_screen/guest_screen.dart';
 import 'package:pharma/translations.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../bloc/favorite_bloc/favorite_bloc.dart';
+import '../../../bloc/favorite_bloc/favorite_event.dart';
+import '../../../bloc/favorite_bloc/favorite_state.dart';
 import '../../../core/services/services_locator.dart';
+import '../../widgets/custom_error_screen.dart';
 import '../base_screen/base_screen.dart';
 
 class AllFavoritesScreen extends StatelessWidget {
@@ -15,11 +17,7 @@ class AllFavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) =>
-        sl<FavoriteBloc>()
-          ..add(const GetFavorites()),
-        child: const FavoriteScreen());
+    return const FavoriteScreen();
   }
 }
 
@@ -31,25 +29,24 @@ class FavoriteScreen extends StatelessWidget {
     return  BaseScreenScaffold(
           appbarTitle: AppLocalizations.of(context)!.favorite,
           isComeBack: false,
-          body: !sl<AuthenticationBloc>().loggedIn
+          body: sl<AuthenticationBloc>().loggedIn
               ? Column(crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     child: BlocBuilder<FavoriteBloc, FavoriteState>(
+                      bloc: context.read<FavoriteBloc>()..add(GetFavorites()),
             builder: (context, state) {
-                    if(state.screenState==ScreenState.loading) {
+                    if(state is  FavoritesListLoading) {
                       return const BuildShimmerFavorites();
-                    } else if(state.screenState==ScreenState.error) {
-                        return BodyFavorite(state: state);
-                        //   CustomErrorScreen(
-                        //   onTap: (){},
-                        //   titleError: state.error,
-                        // );
-                      } else if(state.screenState==ScreenState.success) {
-                        return BodyFavorite(state: state);
-                      } else {
-                        return const SizedBox();
+                    } else if(state is FavoritesListError ) {
+                        return
+                          CustomErrorScreen(
+                          onTap: (){},
+                          titleError: state.error,
+                        );
+                      } else  {
+                        return const BodyFavorite();
                       }
                     },
           ),

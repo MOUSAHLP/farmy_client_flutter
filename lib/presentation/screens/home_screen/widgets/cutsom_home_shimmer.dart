@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
-
 import 'package:pharma/presentation/resources/color_manager.dart';
 
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_cursel.dart';
 import 'package:pharma/presentation/widgets/custom_category.dart';
-import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomHomeShimmer extends StatelessWidget {
@@ -79,7 +76,7 @@ class CustomHomeShimmer extends StatelessWidget {
                       return Shimmer.fromColors(
                         baseColor: ColorManager.grayForPlaceholder,
                         highlightColor: const Color(0xFFe2e4e9),
-                        child:  CustomCategory(
+                        child: CustomCategory(
                           textHieght: 0,
                           categoryName: "",
                         ),
@@ -111,32 +108,34 @@ class CustomHomeShimmer extends StatelessWidget {
                           padding: EdgeInsetsDirectional.only(
                               bottom: 10, start: index == 0 ? 0 : 15),
                           child: Shimmer.fromColors(
-                            baseColor: ColorManager.grayForPlaceholder,
-                            highlightColor: const Color(0xFFe2e4e9),
-                            child: Container(
-                            width: 163,
-                            decoration: BoxDecoration(
-                            color: Colors.white,
-                      borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(6)),
-                      boxShadow: [
-                      BoxShadow(
-                      color: const Color(0xFF000000).withOpacity(0.18),
-                      offset: const Offset(0, 2),
-                      blurRadius: 5.0,
-                      ),
-                      ],
-                      ),
-                            // CustomProductCard(
-                            //     isSellerFound: false,
-                            //     isDisCount: false,
-                            //     productInfo: ProductsBySubCategoryIdResponse(
-                            //         availabilityOfProduct: "",
-                            //         discount: "",
-                            //         nameOfProduct: "",
-                            //         price: "",
-                            //         quantity: "",
-                            //         sellerName: "")),
-                          )));
+                              baseColor: ColorManager.grayForPlaceholder,
+                              highlightColor: const Color(0xFFe2e4e9),
+                              child: Container(
+                                width: 163,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(6)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF000000)
+                                          .withOpacity(0.18),
+                                      offset: const Offset(0, 2),
+                                      blurRadius: 5.0,
+                                    ),
+                                  ],
+                                ),
+                                // CustomProductCard(
+                                //     isSellerFound: false,
+                                //     isDisCount: false,
+                                //     productInfo: ProductsBySubCategoryIdResponse(
+                                //         availabilityOfProduct: "",
+                                //         discount: "",
+                                //         nameOfProduct: "",
+                                //         price: "",
+                                //         quantity: "",
+                                //         sellerName: "")),
+                              )));
                     },
                   ),
                 ),
@@ -171,10 +170,12 @@ class CustomHomeShimmer extends StatelessWidget {
                                 width: 163,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(6)),
+                                  borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(6)),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: const Color(0xFF000000).withOpacity(0.18),
+                                      color: const Color(0xFF000000)
+                                          .withOpacity(0.18),
                                       offset: const Offset(0, 2),
                                       blurRadius: 5.0,
                                     ),

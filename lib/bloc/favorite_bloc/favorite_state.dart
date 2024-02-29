@@ -1,34 +1,17 @@
-part of 'favorite_bloc.dart';
+import '../../models/products_by_sub_category_id_response.dart';
 
-class FavoriteState extends Equatable {
-  final ScreenState screenState;
-  final bool? isFavorite;
-  final String error;
+abstract class FavoriteState {}
 
-  /// todo edit ProductsBySubCategoryIdResponse
-  List<ProductsBySubCategoryIdResponse> favoritesList = [];
+class FavoritesListLoading extends FavoriteState {}
 
-  FavoriteState(
-      {this.screenState=ScreenState.initialized,
-      this.isFavorite = false,
-      this.favoritesList = const [],
-      this.error = ''});
-
-  FavoriteState copyWith(
-      {bool? isFavorite,
-      ScreenState? screenState,
-      List<ProductsBySubCategoryIdResponse>? favoritesList,
-         String? error
-
-      }) {
-    return FavoriteState(
-      isFavorite: isFavorite ?? isFavorite,
-      favoritesList: favoritesList ?? this.favoritesList,
-      screenState: screenState ?? this.screenState,
-        error: error??''
-    );
-  }
-  @override
-  List<Object?> get props =>
-      [identityHashCode(this), screenState, isFavorite, favoritesList,error];
+class FavoritesListError extends FavoriteState {
+  String error;
+  FavoritesListError(this.error);
 }
+
+class FavoritesListSuccess extends FavoriteState {
+
+  FavoritesListSuccess();
+}
+class AddFavoriteSuccess extends FavoriteState{}
+class RemoveFavoriteSuccess extends FavoriteState{}
