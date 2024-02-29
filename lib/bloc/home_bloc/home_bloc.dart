@@ -80,14 +80,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       "type": "section",
       "order": 2,
       "title": {
-        "en": "title en 11111111111",
-        "ar": "title ar 1111111111",
+        "en": "section title en ",
+        "ar": "section title ar ",
       },
       "link": "link",
       "content": [
         {
-          "id": 37,
-          "name": "فليفلة مشكلة",
+          "id": 22,
+          "name": "لحمة طازجة",
           "description":
               "<p>-Doctorate in Islamic Law</p>\r\n<p>-Academic director and lecturer at various universities and institutions</p>\r\n<p>-More than 12 years of professional experience in the Halal sector</p>",
           "price": "2500",
@@ -105,7 +105,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           "commission": {"id": 1, "name": "test", "commission_value": "10"},
           "created_at": "2024-01-01T09:43:25.000000Z",
           "image":
-              "https://control.farmy.peaklink.site/public/storage/23/flyglh.jpg",
+              "https://control.farmy.peaklink.site/public/storage/20/لحمة.jpg",
           "attributes": [
             {"id": 7, "name": "عدد القطع", "value": "1"},
             {"id": 8, "name": "الوزن", "value": "500g"}

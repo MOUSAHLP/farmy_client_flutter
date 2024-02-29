@@ -125,18 +125,16 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                         ));
                                                   },
                                                   child: CustomProductCard(
-
-                                                      productInfo: state
-                                                          .productsList[index],
-                                                      // isDisCount: (state
-                                                      //             .productsList[
-                                                      //                 index]
-                                                      //             .discountStatus ==
-                                                      //         "0")
-                                                      //     ? false
-                                                      //     : true
-                                              )
-                                              ));
+                                                    productInfo: state
+                                                        .productsList[index],
+                                                    // isDisCount: (state
+                                                    //             .productsList[
+                                                    //                 index]
+                                                    //             .discountStatus ==
+                                                    //         "0")
+                                                    //     ? false
+                                                    //     : true
+                                                  )));
                                         },
                                       )
                                     : CustomNoData(
