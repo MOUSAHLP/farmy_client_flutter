@@ -7,7 +7,8 @@ import 'package:pharma/bloc/rewards_bloc/activity_bloc/rewards_activity_state.da
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_container.dart';
-import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket.dart';
+import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_buy.dart';
+import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_code.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_progress_container.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_row.dart';
@@ -97,17 +98,16 @@ class RewardsactivityScreen extends StatelessWidget {
                             RewardsProgressContainer(),
                           ]),
                     ] else ...[
-                      const RewardsActivityTicket(
+                      const RewardsActivityTicketBuy(
                           text:
                               "احصل على حسم 50% لفترة محدودة استفيد من العرض قبل انتهاءه",
-                          code: "AB12345C",
-                          codeValidity: "2024/4/1",
+                          point: "1500",
                           imageText: "imageText",
                           imagePath: "imagePath"),
                       SizedBox(
                         height: 20.h,
                       ),
-                      const RewardsActivityTicket(
+                      const RewardsActivityTicketCode(
                           text:
                               "احصل على حسم 50% لفترة محدودة استفيد من العرض قبل انتهاءه",
                           code: "AB12345C",

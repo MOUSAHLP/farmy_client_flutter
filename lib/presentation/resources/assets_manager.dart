@@ -56,11 +56,11 @@ class IconsManager {
   static const String logoApp = "$iconPath/logo_app.svg";
   static const String logoGreen = "$iconPath/logo_green.svg";
   static const String errorIcon = "$iconPath/error_icon.svg";
+  static const String copy = "$iconPath/copy.svg";
   static const String crown = "$iconPath/crown_icon.svg";
   static const String close = "$iconPath/close.svg";
   static const String add = "$iconPath/add.svg";
   static const String remove = "$iconPath/remove.svg";
-  static const String share = "$iconPath/share.svg";
   static const String locationIcon = "$iconPath/location_icon.png";
   static const String locationIconApp = "$iconPath/location_icon_app.png";
 }
