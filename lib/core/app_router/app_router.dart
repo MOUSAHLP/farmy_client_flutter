@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 part 'route_transition.dart';
 
 class AppRouter {
-  static void push(BuildContext context, Widget child,
-      {RouteTransitions? routeTransition}) {
+  static void push(BuildContext context, Widget child, {RouteTransitions? routeTransition}) {
     Navigator.push(
       context,
       RouteTransition(

@@ -16,7 +16,8 @@ import 'favorite_heart.dart';
 
 class CustomProductCard extends StatelessWidget {
   final ProductsBySubCategoryIdResponse productInfo;
-  const CustomProductCard({super.key, required this.productInfo});
+
+  const   CustomProductCard({super.key, required this.productInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -184,11 +185,15 @@ class CustomProductCard extends StatelessWidget {
                                 id: productInfo.id ?? 0,
                                 isToggled: context
                                     .read<FavoriteBloc>()
-                                    .isFavoriteProduct(productInfo.id ?? 0),
+                                    .isFavoriteProduct(
+                                      productInfo.id ?? 0,
+                                    ),
                                 onTap: () {
                                   context.read<FavoriteBloc>().add(
-                                      ChangeFavoriteStatusRestaurant(
-                                          productInfo.id ?? 0));
+                                        ChangeFavoriteStatusRestaurant(
+                                          productInfo.id ?? 0,
+                                        ),
+                                      );
                                 },
                               );
                             },

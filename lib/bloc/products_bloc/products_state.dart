@@ -4,6 +4,7 @@ class ProductsState extends Equatable {
   final ScreenState? screenState;
   List<ProductsBySubCategoryIdResponse> productsList = [];
   ProductsState({this.screenState, this.productsList = const []});
+
   ProductsState copyWith({
     List<ProductsBySubCategoryIdResponse>? productsList,
     ScreenState? screenState,

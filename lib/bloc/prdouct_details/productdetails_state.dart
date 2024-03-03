@@ -5,29 +5,30 @@ class ProductdetailsState extends Equatable {
   final ProductDetailsResponse productDetailsResponse;
   final AddToBasketState? addToBasketState;
   final int? quntity;
-  final int? quantityRelated;
-  final int? quantitySimilar;
+  List<ProductsBySubCategoryIdResponse>? listRelatedProduct;
+  List<ProductsBySubCategoryIdResponse>? listSimilarProduct;
 
-  const ProductdetailsState({
+  ProductdetailsState({
     this.screenState,
-    this.quantityRelated = 0,
-    this.quantitySimilar = 0,
+    this.listRelatedProduct,
+    this.listSimilarProduct,
     required this.productDetailsResponse,
     this.addToBasketState,
     this.quntity = 1,
   });
 
-  ProductdetailsState copyWith(
-      {ScreenState? screenState,
-      final int? quntity,
-      final int? quantityRelated,
-      final int? quantitySimilar,
-      ProductDetailsResponse? productDetailsResponse,
-      AddToBasketState? addToBasketState}) {
+  ProductdetailsState copyWith({
+    ScreenState? screenState,
+    final int? quntity,
+    List<ProductsBySubCategoryIdResponse>? listSimilarProduct,
+    List<ProductsBySubCategoryIdResponse>? listRelatedProduct,
+    ProductDetailsResponse? productDetailsResponse,
+    AddToBasketState? addToBasketState,
+  }) {
     return ProductdetailsState(
         quntity: quntity ?? this.quntity,
-        quantityRelated: quantityRelated ?? this.quantityRelated,
-        quantitySimilar: quantitySimilar ?? this.quantitySimilar,
+        listRelatedProduct: listRelatedProduct ?? this.listRelatedProduct,
+        listSimilarProduct: listSimilarProduct ?? this.listSimilarProduct,
         screenState: screenState ?? this.screenState,
         productDetailsResponse:
             productDetailsResponse ?? this.productDetailsResponse);
@@ -39,7 +40,7 @@ class ProductdetailsState extends Equatable {
         screenState,
         productDetailsResponse,
         quntity,
-        quantityRelated,
-        quantitySimilar,
+        listRelatedProduct,
+        listSimilarProduct,
       ];
 }

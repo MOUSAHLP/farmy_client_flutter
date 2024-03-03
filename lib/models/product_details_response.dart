@@ -19,6 +19,7 @@ class ProductDetailsResponse {
 
   List<ProductsBySubCategoryIdResponse>? relatedProducts;
   List<ProductsBySubCategoryIdResponse>? similarProducts;
+
   ProductDetailsResponse({
     this.id,
     this.nameOfProduct,

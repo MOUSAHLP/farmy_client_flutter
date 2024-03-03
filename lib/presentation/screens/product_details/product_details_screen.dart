@@ -12,11 +12,10 @@ import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/product_details_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
-import 'package:pharma/presentation/resources/values_app.dart';
+import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/about_product_and_amount_section.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/counter_box.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/product_image.dart';
-import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/presentation/widgets/custom_app_button.dart';
 import 'package:pharma/presentation/widgets/custom_loading.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
@@ -36,14 +35,14 @@ class ProductDetailsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           sl<ProductdetailsBloc>()..add(GetProductDetailsById(id: id!)),
-      child:  ProductDetailsBody(),
+      child: ProductDetailsBody(),
     );
   }
 }
 
 class ProductDetailsBody extends StatelessWidget {
-   ProductDetailsBody({super.key});
-  final List<ProductDetailsResponse> tempProductList  = [];
+  ProductDetailsBody({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,32 +51,21 @@ class ProductDetailsBody extends StatelessWidget {
         listeners: [
           BlocListener<BasketBloc, BasketState>(
             listener: (context, state) {
-              if (state.addToBasketState ==
-                  AddToBasketState.successAddedToBasket) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      duration: const Duration(seconds: 1),
-                      content: Container(
+              if (state.addToBasketState == AddToBasketState.successAddedToBasket) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  duration: const Duration(seconds: 1),
+                  content: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      AppLocalizations.of(context)!.added_to_basket,
+                      style: getRegularStyle(
+                          color: ColorManager.white, fontSize: FontSizeApp.s14),
+                    ),
+                  ),
+                  backgroundColor: ColorManager.primaryGreen,
+                ),);
+                  AppRouter.pushReplacement(context,const HomeScreen());
 
-                          alignment: Alignment.center,
-                          child: Text(
-                            AppLocalizations.of(context)!.added_to_basket,
-                            style: getRegularStyle(
-                                color: ColorManager.white,
-                                fontSize: FontSizeApp.s14),
-                          )),
-                      backgroundColor: ColorManager.primaryGreen,
-                    )
-                //     SnackBar(
-                //     content:
-                //         Text('${AppLocalizations.of(context)!.added_to_basket}',
-                //         style: AppS,),
-                // duration:  Duration(seconds: 2),
-                //   backgroundColor: ColorManager.primaryGreen,
-                //   width: 200,
-                // )
-                );
-                AppRouter.pop(context);
               }
             },
           )
@@ -100,8 +88,8 @@ class ProductDetailsBody extends StatelessWidget {
                                           ? state.productDetailsResponse.image!
                                           : ""),
                                   AboutProductAndAmonutSection(
-                                    productId: state
-                                        .productDetailsResponse.id??0 ,
+                                    productId:
+                                        state.productDetailsResponse.id ?? 0,
                                     attributeList: state
                                         .productDetailsResponse.attributeList,
                                     productDesc: state.productDetailsResponse
@@ -123,7 +111,8 @@ class ProductDetailsBody extends StatelessWidget {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 45),
+                                          horizontal: 45,
+                                        ),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -183,6 +172,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                     .relatedProducts!
                                                     .length,
                                                 itemBuilder: (context, index) {
+                                                  var targetId = state.productDetailsResponse.relatedProducts![index].id;
                                                   return Padding(
                                                     padding:
                                                         const EdgeInsets.all(
@@ -205,31 +195,41 @@ class ProductDetailsBody extends StatelessWidget {
                                                       child: Stack(
                                                         children: [
                                                           CustomProductCard(
-
-
                                                             productInfo: state
                                                                 .productDetailsResponse
                                                                 .relatedProducts![index],
                                                           ),
                                                           customAmount(
                                                             quantityString: state
-                                                                .quantityRelated
-                                                                .toString(),
+                                                                        .listRelatedProduct ==
+                                                                    null
+                                                                ? 0.toString()
+                                                                : state.listRelatedProduct!
+                                                                        .any(
+                                                                    (element) =>
+                                                                        element
+                                                                            .id ==
+                                                                        targetId,
+                                                                  )
+                                                                    ? state
+                                                                        .listRelatedProduct!
+                                                                        .firstWhere(
+                                                                          (element) =>
+                                                                              element.id ==
+                                                                              targetId,
+                                                                        )
+                                                                        .quantity
+                                                                        .toString()
+                                                                    : 0.toString(),
                                                             addEvent:
                                                                 AddQuantityRelatedToOrder(
-                                                              context
-                                                                  .read<
-                                                                      ProductdetailsBloc>()
-                                                                  .state
-                                                                  .quantityRelated!,
+                                                              state.productDetailsResponse
+                                                                      .relatedProducts![
+                                                                  index],
                                                             ),
                                                             removeEvent:
                                                                 RemoveQuantityRelatedToOrder(
-                                                              context
-                                                                  .read<
-                                                                      ProductdetailsBloc>()
-                                                                  .state
-                                                                  .quantityRelated!,
+                                                              state.productDetailsResponse.relatedProducts![index],
                                                             ),
                                                             context: context,
                                                           ),
@@ -272,6 +272,11 @@ class ProductDetailsBody extends StatelessWidget {
                                                     .similarProducts!
                                                     .length,
                                                 itemBuilder: (context, index) {
+                                                  var targetId = state
+                                                      .productDetailsResponse
+                                                      .similarProducts![index]
+                                                      .id;
+
                                                   return Padding(
                                                     padding:
                                                         const EdgeInsets.all(
@@ -295,7 +300,6 @@ class ProductDetailsBody extends StatelessWidget {
                                                           },
                                                           child:
                                                               CustomProductCard(
-
                                                             productInfo: state
                                                                 .productDetailsResponse
                                                                 .similarProducts![index],
@@ -303,23 +307,37 @@ class ProductDetailsBody extends StatelessWidget {
                                                         ),
                                                         customAmount(
                                                           quantityString: state
-                                                              .quantitySimilar
-                                                              .toString(),
+                                                                      .listSimilarProduct ==
+                                                                  null
+                                                              ? 0.toString()
+                                                              : state.listSimilarProduct!
+                                                                      .any(
+                                                                  (element) =>
+                                                                      element
+                                                                          .id ==
+                                                                      targetId,
+                                                                )
+                                                                  ? state
+                                                                      .listSimilarProduct!
+                                                                      .firstWhere(
+                                                                        (element) =>
+                                                                            element.id ==
+                                                                            targetId,
+                                                                      )
+                                                                      .quantity
+                                                                      .toString()
+                                                                  : 0.toString(),
                                                           addEvent:
                                                               AddQuantitySimilarToOrder(
-                                                            context
-                                                                .read<
-                                                                    ProductdetailsBloc>()
-                                                                .state
-                                                                .quantitySimilar!,
+                                                            state.productDetailsResponse
+                                                                    .similarProducts![
+                                                                index],
                                                           ),
                                                           removeEvent:
                                                               RemoveQuantitySimilarToOrder(
-                                                            context
-                                                                .read<
-                                                                    ProductdetailsBloc>()
-                                                                .state
-                                                                .quantitySimilar!,
+                                                            state.productDetailsResponse
+                                                                    .similarProducts![
+                                                                index],
                                                           ),
                                                           context: context,
                                                         ),
@@ -332,11 +350,8 @@ class ProductDetailsBody extends StatelessWidget {
                                           : const SizedBox(),
                                       CustomAppButton(
                                         ontap: () {
-                                          if (sl<AuthenticationBloc>()
-                                              .loggedIn) {
-                                            context.read<BasketBloc>().add(
-                                                  buildAddToBasket(state),
-                                                );
+                                          if (sl<AuthenticationBloc>().loggedIn) {
+                                            context.read<BasketBloc>().add(buildAddToBasket(state));
                                           } else {
                                             ErrorDialog.openDialog(
                                               context,
@@ -344,13 +359,12 @@ class ProductDetailsBody extends StatelessWidget {
                                                   .no_add_basket,
                                             );
                                           }
-                                          tempProductList.clear();
                                         },
-                                        myText: AppLocalizations.of(context)!
-                                            .add_to_basket,
+                                        myText: AppLocalizations.of(context)!.add_to_basket,
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 74, vertical: 10),
-                                      )
+                                            horizontal: 74, vertical: 10,
+                                        ),
+                                      ),
                                     ],
                                   )
                                 ],
@@ -367,56 +381,64 @@ class ProductDetailsBody extends StatelessWidget {
   }
 
   AddToBasket buildAddToBasket(ProductdetailsState state) {
-    print('=========================================');
-    print("ProductRelated : ${state.productDetailsResponse.id}");
-    print('=========================================');
-    print("Product : ${state.quantityRelated}");
-    print('=========================================');
-    print("Product :  ${state.productDetailsResponse.similarProducts![0].id}");
-    print("Product :  ${state.quantitySimilar}");
-    print('=========================================');
+
+    List<ProductDetailsResponse> A = [];
+    if (state.listSimilarProduct != null) {
+      for (var tmp in state.listSimilarProduct!) {
+        A.add(
+          ProductDetailsResponse(
+            quantity: int.parse(tmp.quantity!),
+            image: tmp.image,
+            id: tmp.id,
+            discountValue: tmp.discountValue,
+            discountStatus: tmp.discountStatus,
+            availabilityOfProduct: tmp.availabilityOfProduct,
+            nameOfProduct: tmp.nameOfProduct,
+            price: tmp.price,
+            sellerName: tmp.sellerName,
+          ),
+        );
+      }
+    }
+    if (state.listRelatedProduct != null) {
+      print(state.listRelatedProduct!.length);
+      for (var tmp in state.listRelatedProduct!) {
+        A.add(
+          ProductDetailsResponse(
+            quantity: int.parse(tmp.quantity!),
+            image: tmp.image,
+            id: tmp.id,
+            discountValue: tmp.discountValue,
+            discountStatus: tmp.discountStatus,
+            availabilityOfProduct: tmp.availabilityOfProduct,
+            nameOfProduct: tmp.nameOfProduct,
+            price: tmp.price,
+            sellerName: tmp.sellerName,
+          ),
+        );
+      }
+    }
+    A.add(
+      ProductDetailsResponse(
+        similarProducts: state.productDetailsResponse.similarProducts,
+        sellerName: state.productDetailsResponse.sellerName,
+        relatedProducts: state.productDetailsResponse.relatedProducts,
+        price: state.productDetailsResponse.price,
+        nameOfProduct: state.productDetailsResponse.nameOfProduct,
+        isDiscount: state.productDetailsResponse.isDiscount,
+        availabilityOfProduct:
+        state.productDetailsResponse.availabilityOfProduct,
+        attributeList: state.productDetailsResponse.attributeList,
+        description: state.productDetailsResponse.description,
+        discountValue: state.productDetailsResponse.discountValue,
+        id: state.productDetailsResponse.id,
+        image: state.productDetailsResponse.image,
+        quantity: state.quntity,
+        discountStatus: state.productDetailsResponse.discountStatus,
+      ),
+    );
     return AddToBasket(
-      product: [
-        ProductDetailsResponse(
-          image: state.productDetailsResponse.image ?? "",
-          price: state.productDetailsResponse.price == null
-              ? ""
-              : state.productDetailsResponse.price!,
-          nameOfProduct: state.productDetailsResponse.nameOfProduct == null
-              ? ""
-              : state.productDetailsResponse.nameOfProduct!,
-          sellerName: state.productDetailsResponse.sellerName == null
-              ? ""
-              : state.productDetailsResponse.sellerName!,
-          isDiscount: state.productDetailsResponse.discountValue == "0"
-              ? false || state.productDetailsResponse.discountValue != null
-              : true,
-          attributeList: state.productDetailsResponse.attributeList,
-          id: state.productDetailsResponse.id!,
-          quantity: state.quntity,
-          discountValue: state.productDetailsResponse.discountValue,
-        ),
-        ProductDetailsResponse(
-          image: state.productDetailsResponse.similarProducts![0].image ?? "",
-          price: state.productDetailsResponse.similarProducts![0].price == null
-              ? ""
-              : state.productDetailsResponse.similarProducts![0].price!,
-          nameOfProduct: state.productDetailsResponse.similarProducts![0]
-                      .nameOfProduct ==
-                  null
-              ? ""
-              : state.productDetailsResponse.similarProducts![0].nameOfProduct!,
-          sellerName: state
-                      .productDetailsResponse.similarProducts![0].sellerName ==
-                  null
-              ? ""
-              : state.productDetailsResponse.similarProducts![0].sellerName!,
-          id: state.productDetailsResponse.similarProducts![0].id!,
-          quantity: state.quantityRelated,
-          discountValue:
-              state.productDetailsResponse.similarProducts![0].discountValue,
-        ),
-      ],
+      product: A,
     );
   }
 
