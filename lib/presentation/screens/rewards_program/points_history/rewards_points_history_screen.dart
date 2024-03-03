@@ -17,7 +17,6 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
     return BlocConsumer<RewardsPointsBloc, RewardsPointsState>(
         listener: (context, state) {
       if (state is RewardsTabPointsHistoryChanged) {
-        print("RewardsRankInit");
       }
     }, builder: (context, state) {
       if (state is RewardsPointsInit) {

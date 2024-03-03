@@ -31,7 +31,7 @@ class PaymentProcessParms {
     return {
       "user_address_id": invoicesParms.userAddressid,
       "delivery_method_id": invoicesParms.deliveryMethodId,
-      "notes": invoicesParms.notes,
+      "notes": "${invoicesParms.notes} ",
       "products": ProductDetailsResponse.toJsonCardList(prodictInBasketList),
       "delivery_attributes": toJsonCardList(deleveryAttributesList),
       "payment_method_id": 1,

@@ -295,6 +295,64 @@ class PaymentBody extends StatelessWidget {
                                 ),
                               ),
                               Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 35),
+                                child: Column(
+                                  children: [
+                                    for (int i = 0;
+                                        i <
+                                            state.paymentProcessResponse!
+                                                .deleveryAttributesList!.length;
+                                        i++)
+                                      CustomNoteOnTheOrder(
+                                        onTab: () {
+                                          if (context
+                                              .read<PaymentBloc>()
+                                              .state
+                                              .attrbiuteChossenList
+                                              .any((element) =>
+                                                  element.id ==
+                                                  state
+                                                      .paymentProcessResponse!
+                                                      .deleveryAttributesList![
+                                                          i]
+                                                      .id)) {
+                                            context.read<PaymentBloc>().add(
+                                                RemoveFromChossenList(
+                                                    attributeData: state
+                                                        .paymentProcessResponse!
+                                                        .deleveryAttributesList![i]));
+                                          } else {
+                                            context.read<PaymentBloc>().add(
+                                                AddToChossenAttrbiuteList(
+                                                    attrbiuteData: state
+                                                        .paymentProcessResponse!
+                                                        .deleveryAttributesList![i]));
+                                          }
+                                        },
+                                        isSelected: context
+                                                .read<PaymentBloc>()
+                                                .state
+                                                .attrbiuteChossenList
+                                                .any((element) =>
+                                                    element.id ==
+                                                    state
+                                                        .paymentProcessResponse!
+                                                        .deleveryAttributesList![
+                                                            i]
+                                                        .id)
+                                            ? true
+                                            : false,
+                                        noteText: state
+                                            .paymentProcessResponse!
+                                            .deleveryAttributesList![i]
+                                            .nameDeleveryAttribute!,
+                                      ),
+                                  ],
+                                ),
+                              ),
+
+                              Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 21, vertical: 12),
                                 child: Column(
@@ -306,9 +364,6 @@ class PaymentBody extends StatelessWidget {
                                       style: getBoldStyle(
                                           color: ColorManager.primaryGreen,
                                           fontSize: FontSizeApp.s14),
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
                                     ),
                                     SizedBox(
                                       width: 1.sw,
