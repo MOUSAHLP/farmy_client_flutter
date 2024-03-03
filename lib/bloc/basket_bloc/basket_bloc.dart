@@ -42,14 +42,18 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       (event, emit) async {
         if (event is AddToBasket) {
           bool contain = false;
+          bool contain_2 = true;
           mutableProducts = List.from(state.prductList!);
-          print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-          print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-          print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+          print('@@@@@@@@@');
           print(mutableProducts.length);
-          for (var i in mutableProducts) {
-            for (var x in event.product) {
+          print('#########');
+          print(state.prductList!.length);
+          print('^^^^^^^^^');
+          print(mutableProducts);
+          for (var x in event.product) {
+            for (var i in mutableProducts) {
               if (i.id == x.id) {
+                contain_2 = true;
                 contain = true;
                 i.quantity = (x.quantity ?? 0) + (i.quantity ?? 0);
                 emit(state.copyWith(
@@ -57,16 +61,23 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
                     addToBasketState: AddToBasketState.successAddedToBasket));
               }
             }
+            if (!mutableProducts.any((element) => element.id == x.id))  {
+              mutableProducts.add(x);
+              contain_2 = true;
+              emit(state.copyWith(
+                  productList: mutableProducts,
+                  addToBasketState: AddToBasketState.successAddedToBasket));
+            }
           }
-          if (!contain) {
-            mutableProducts.addAll(event.product);
-            emit(
-              state.copyWith(
-                productList: mutableProducts,
-                addToBasketState: AddToBasketState.successAddedToBasket,
-              ),
-            );
-          }
+          // if (!contain) {
+          //   mutableProducts.addAll(event.product);
+          //   emit(
+          //     state.copyWith(
+          //       productList: mutableProducts,
+          //       addToBasketState: AddToBasketState.successAddedToBasket,
+          //     ),
+          //   );
+          // }
         }
         if (event is PaymentProcess) {
           emit(state.copyWith(screenState: ScreenState.loading));

@@ -437,6 +437,8 @@ class ProductDetailsBody extends StatelessWidget {
         discountStatus: state.productDetailsResponse.discountStatus,
       ),
     );
+    print('========== buildAddToBasket ==========');
+    print(A.length);
     return AddToBasket(
       product: A,
     );
