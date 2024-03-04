@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/shimmer_order.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/card_order.dart';
-import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:pharma/translations.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';

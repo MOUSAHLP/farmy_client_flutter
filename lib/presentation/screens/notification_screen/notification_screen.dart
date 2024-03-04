@@ -7,7 +7,6 @@ import 'package:pharma/presentation/screens/notification_screen/widgets/card_not
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/translations.dart';
 
-import '../../../bloc/authentication_bloc/authentication_event.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../bloc/notification_bloc/notification_bloc.dart';
 import '../../../bloc/notification_bloc/notification_event.dart';

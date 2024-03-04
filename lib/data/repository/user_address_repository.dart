@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pharma/bloc/location_bloc/location_event.dart';
 
 import '../../core/utils/api_const.dart';
 import '../../models/params/add_address_params.dart';

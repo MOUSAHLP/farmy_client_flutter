@@ -15,17 +15,18 @@ import '../../../../bloc/favorite_bloc/favorite_state.dart';
 import '../../../widgets/favorite_heart.dart';
 
 class AboutProductAndAmonutSection extends StatelessWidget {
-
   final String productName;
   final int productId;
   final String productDesc;
   final List<AttrbiuteResponse> attributeList;
-  const AboutProductAndAmonutSection(
-      {super.key,
-      required this.productName,
-      required this.productId,
-      required this.productDesc,
-      required this.attributeList});
+
+  const AboutProductAndAmonutSection({
+    super.key,
+    required this.productName,
+    required this.productId,
+    required this.productDesc,
+    required this.attributeList,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,38 +42,34 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(productName,
-                        style: getBoldStyle(
-                          color: ColorManager.black,
-                          fontSize: FontSizeApp.s15,
-                        )),
+                    Text(
+                      productName,
+                      style: getBoldStyle(
+                        color: ColorManager.black,
+                        fontSize: FontSizeApp.s15,
+                      ),
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: HtmlWidget(
                             productDesc,
-
-                            //  Text(productDesc,
-                            //       maxLines: 5,
-                            //       overflow: TextOverflow.ellipsis,
-                            //       style: getBoldStyle(
-                            //         color: ColorManager.grayForMessage,
-                            //         fontSize: FontSizeApp.s15,
-                            //       )),
                           ),
                         ),
                         BlocBuilder<FavoriteBloc, FavoriteState>(
                           builder: (context, state) {
-                            return FavoriteHeart(   id: productId,
+                            return FavoriteHeart(
+                              id: productId,
                               isToggled: context
                                   .read<FavoriteBloc>()
                                   .isFavoriteProduct(productId),
                               onTap: () {
                                 context.read<FavoriteBloc>().add(
-                                    ChangeFavoriteStatusRestaurant(
-                                        productId));
-                              },);
+                                      ChangeFavoriteStatusRestaurant(productId),
+                                    );
+                              },
+                            );
                           },
                         ),
                       ],
@@ -88,25 +85,31 @@ class AboutProductAndAmonutSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             attributeList.isNotEmpty
-                ? Text(attributeList[0].value,
+                ? Text(
+                    attributeList[0].value,
                     style: getBoldStyle(
                       color: ColorManager.grayForMessage,
                       fontSize: FontSizeApp.s15,
-                    ))
+                    ),
+                  )
                 : const SizedBox(),
             attributeList.length > 1
-                ? Text(" / ${attributeList[1].value}",
+                ? Text(
+                    " / ${attributeList[1].value}",
                     style: getBoldStyle(
                       color: ColorManager.grayForMessage,
                       fontSize: FontSizeApp.s15,
-                    ))
+                    ),
+                  )
                 : const SizedBox(),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomCountWidget(width: 38,height: 38,
+            CustomCountWidget(
+              width: 38,
+              height: 38,
               myIcon: Icons.add,
               onTap: () {
                 context.read<ProductdetailsBloc>().add(
@@ -122,9 +125,10 @@ class AboutProductAndAmonutSection extends StatelessWidget {
             InnerShadow(
               shadows: [
                 Shadow(
-                    color: Colors.black.withOpacity(0.25),
-                    blurRadius: 10,
-                    offset: const Offset(2, 5))
+                  color: Colors.black.withOpacity(0.25),
+                  blurRadius: 10,
+                  offset: const Offset(2, 5),
+                )
               ],
               child: Container(
                 height: 38,
@@ -135,12 +139,14 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                 child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
                   builder: (context, state) {
                     return Center(
-                        child: Text(
-                      state.quntity.toString(),
-                      style: getUnderBoldStyle(
+                      child: Text(
+                        state.quntity.toString(),
+                        style: getUnderBoldStyle(
                           color: ColorManager.primaryGreen,
-                          fontSize: FontSizeApp.s24),
-                    ));
+                          fontSize: FontSizeApp.s24,
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -149,11 +155,14 @@ class AboutProductAndAmonutSection extends StatelessWidget {
               width: 18,
             ),
             CustomCountWidget(
-              width: 38,height: 38,
+              width: 38,
+              height: 38,
               myIcon: Icons.remove,
               onTap: () {
-                context.read<ProductdetailsBloc>().add(RemoveQuntityToOrder(
-                    context.read<ProductdetailsBloc>().state.quntity!));
+                context.read<ProductdetailsBloc>().add(
+                      RemoveQuntityToOrder(
+                          context.read<ProductdetailsBloc>().state.quntity!),
+                    );
               },
             ),
           ],

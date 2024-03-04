@@ -1,4 +1,3 @@
-import '../../models/products_by_sub_category_id_response.dart';
 
 abstract class FavoriteState {}
 

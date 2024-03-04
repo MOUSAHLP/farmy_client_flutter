@@ -5,7 +5,6 @@ import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/presentation/screens/all_section/all_section_screen.dart';
-import 'package:pharma/presentation/screens/all_section/widgets/test.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
 import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/translations.dart';
