@@ -9,10 +9,8 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
-import '../../../../core/app_router/app_router.dart';
 import '../../../../core/utils/formatter.dart';
 import '../../../../translations.dart';
-import '../../../widgets/custom_button.dart';
 import '../../../widgets/dialogs/confirm_delete_product_dialog.dart';
 
 class CardBasket extends StatelessWidget {

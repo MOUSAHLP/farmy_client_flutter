@@ -10,7 +10,6 @@ import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_a
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
-import 'package:pharma/presentation/widgets/dialogs/confirm_delete_account_dialog.dart';
 import 'package:pharma/translations.dart';
 
 import '../../../bloc/authentication_bloc/authentication_event.dart';

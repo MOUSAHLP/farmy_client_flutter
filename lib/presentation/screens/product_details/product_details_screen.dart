@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
@@ -11,19 +11,18 @@ import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/product_details_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/about_product_and_amount_section.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/counter_box.dart';
+import 'package:pharma/presentation/screens/product_details/widgets/custom_amount.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/product_image.dart';
 import 'package:pharma/presentation/widgets/custom_app_button.dart';
 import 'package:pharma/presentation/widgets/custom_loading.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
+import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:pharma/translations.dart';
-
-import '../../../bloc/authentication_bloc/authertication_bloc.dart';
-import '../../resources/font_app.dart';
-import '../../widgets/dialogs/error_dialog.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final int? id;
@@ -33,16 +32,17 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          sl<ProductdetailsBloc>()..add(GetProductDetailsById(id: id!)),
-      child: ProductDetailsBody(),
+      create: (context) => sl<ProductdetailsBloc>()
+        ..add(
+          GetProductDetailsById(id: id!),
+        ),
+      child: const ProductDetailsBody(),
     );
   }
 }
 
 class ProductDetailsBody extends StatelessWidget {
-  ProductDetailsBody({super.key});
-
+  const ProductDetailsBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,21 +51,28 @@ class ProductDetailsBody extends StatelessWidget {
         listeners: [
           BlocListener<BasketBloc, BasketState>(
             listener: (context, state) {
-              if (state.addToBasketState == AddToBasketState.successAddedToBasket) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  duration: const Duration(seconds: 1),
-                  content: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      AppLocalizations.of(context)!.added_to_basket,
-                      style: getRegularStyle(
-                          color: ColorManager.white, fontSize: FontSizeApp.s14),
+              if (state.addToBasketState ==
+                  AddToBasketState.successAddedToBasket) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    duration: const Duration(seconds: 1),
+                    content: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        AppLocalizations.of(context)!.added_to_basket,
+                        style: getRegularStyle(
+                          color: ColorManager.white,
+                          fontSize: FontSizeApp.s14,
+                        ),
+                      ),
                     ),
+                    backgroundColor: ColorManager.primaryGreen,
                   ),
-                  backgroundColor: ColorManager.primaryGreen,
-                ),);
-                  AppRouter.pushReplacement(context,const HomeScreen());
-
+                );
+                AppRouter.pushReplacement(
+                  context,
+                  const HomeScreen(),
+                );
               }
             },
           )
@@ -82,11 +89,12 @@ class ProductDetailsBody extends StatelessWidget {
                               child: ListView(
                                 children: [
                                   ProductImage(
-                                      productImage: state.productDetailsResponse
-                                                  .image !=
-                                              null
-                                          ? state.productDetailsResponse.image!
-                                          : ""),
+                                    productImage: state
+                                                .productDetailsResponse.image !=
+                                            null
+                                        ? state.productDetailsResponse.image!
+                                        : "",
+                                  ),
                                   AboutProductAndAmonutSection(
                                     productId:
                                         state.productDetailsResponse.id ?? 0,
@@ -132,10 +140,10 @@ class ProductDetailsBody extends StatelessWidget {
                                                 ? Text(
                                                     "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
                                                     style: getBoldStyle(
-                                                        color: ColorManager
-                                                            .primaryGreen,
-                                                        fontSize:
-                                                            FontSizeApp.s15),
+                                                      color: ColorManager
+                                                          .primaryGreen,
+                                                      fontSize: FontSizeApp.s15,
+                                                    ),
                                                   )
                                                 : const SizedBox(),
                                           ],
@@ -154,8 +162,9 @@ class ProductDetailsBody extends StatelessWidget {
                                                 AppLocalizations.of(context)!
                                                     .related_products,
                                                 style: getBoldStyle(
-                                                    color: ColorManager.black,
-                                                    fontSize: FontSizeApp.s15),
+                                                  color: ColorManager.black,
+                                                  fontSize: FontSizeApp.s15,
+                                                ),
                                               ),
                                             )
                                           : const SizedBox(),
@@ -172,7 +181,10 @@ class ProductDetailsBody extends StatelessWidget {
                                                     .relatedProducts!
                                                     .length,
                                                 itemBuilder: (context, index) {
-                                                  var targetId = state.productDetailsResponse.relatedProducts![index].id;
+                                                  var targetId = state
+                                                      .productDetailsResponse
+                                                      .relatedProducts![index]
+                                                      .id;
                                                   return Padding(
                                                     padding:
                                                         const EdgeInsets.all(
@@ -199,7 +211,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                                 .productDetailsResponse
                                                                 .relatedProducts![index],
                                                           ),
-                                                          customAmount(
+                                                          CustomAmount(
                                                             quantityString: state
                                                                         .listRelatedProduct ==
                                                                     null
@@ -229,9 +241,11 @@ class ProductDetailsBody extends StatelessWidget {
                                                             ),
                                                             removeEvent:
                                                                 RemoveQuantityRelatedToOrder(
-                                                              state.productDetailsResponse.relatedProducts![index],
+                                                              state.productDetailsResponse
+                                                                      .relatedProducts![
+                                                                  index],
                                                             ),
-                                                            context: context,
+                                                            // context: context,
                                                           ),
                                                         ],
                                                       ),
@@ -255,7 +269,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                     .similar_products,
                                                 style: getBoldStyle(
                                                     color: ColorManager.black,
-                                                    fontSize: FontSizeApp.s15),
+                                                    fontSize: FontSizeApp.s15,),
                                               ),
                                             )
                                           : const SizedBox(),
@@ -305,7 +319,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                                 .similarProducts![index],
                                                           ),
                                                         ),
-                                                        customAmount(
+                                                        CustomAmount(
                                                           quantityString: state
                                                                       .listSimilarProduct ==
                                                                   null
@@ -339,7 +353,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                                     .similarProducts![
                                                                 index],
                                                           ),
-                                                          context: context,
+                                                          // context: context,
                                                         ),
                                                       ],
                                                     ),
@@ -350,8 +364,11 @@ class ProductDetailsBody extends StatelessWidget {
                                           : const SizedBox(),
                                       CustomAppButton(
                                         ontap: () {
-                                          if (sl<AuthenticationBloc>().loggedIn) {
-                                            context.read<BasketBloc>().add(buildAddToBasket(state));
+                                          if (sl<AuthenticationBloc>()
+                                              .loggedIn) {
+                                            context
+                                                .read<BasketBloc>()
+                                                .add(buildAddToBasket(state));
                                           } else {
                                             ErrorDialog.openDialog(
                                               context,
@@ -360,9 +377,11 @@ class ProductDetailsBody extends StatelessWidget {
                                             );
                                           }
                                         },
-                                        myText: AppLocalizations.of(context)!.add_to_basket,
+                                        myText: AppLocalizations.of(context)!
+                                            .add_to_basket,
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 74, vertical: 10,
+                                          horizontal: 74,
+                                          vertical: 10,
                                         ),
                                       ),
                                     ],
@@ -370,7 +389,7 @@ class ProductDetailsBody extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : const SizedBox()
+                          : const SizedBox(),
                 ],
               ),
             );
@@ -381,7 +400,6 @@ class ProductDetailsBody extends StatelessWidget {
   }
 
   AddToBasket buildAddToBasket(ProductdetailsState state) {
-
     List<ProductDetailsResponse> A = [];
     if (state.listSimilarProduct != null) {
       for (var tmp in state.listSimilarProduct!) {
@@ -401,7 +419,6 @@ class ProductDetailsBody extends StatelessWidget {
       }
     }
     if (state.listRelatedProduct != null) {
-      print(state.listRelatedProduct!.length);
       for (var tmp in state.listRelatedProduct!) {
         A.add(
           ProductDetailsResponse(
@@ -427,7 +444,7 @@ class ProductDetailsBody extends StatelessWidget {
         nameOfProduct: state.productDetailsResponse.nameOfProduct,
         isDiscount: state.productDetailsResponse.isDiscount,
         availabilityOfProduct:
-        state.productDetailsResponse.availabilityOfProduct,
+            state.productDetailsResponse.availabilityOfProduct,
         attributeList: state.productDetailsResponse.attributeList,
         description: state.productDetailsResponse.description,
         discountValue: state.productDetailsResponse.discountValue,
@@ -437,95 +454,93 @@ class ProductDetailsBody extends StatelessWidget {
         discountStatus: state.productDetailsResponse.discountStatus,
       ),
     );
-    print('========== buildAddToBasket ==========');
-    print(A.length);
     return AddToBasket(
       product: A,
     );
   }
 
-  Widget customAmount({
-    required BuildContext context,
-    required ProductdetailsEvent addEvent,
-    required ProductdetailsEvent removeEvent,
-    required String quantityString,
-  }) {
-    return Padding(
-      padding: EdgeInsets.only(
-        right: Directionality.of(context) == TextDirection.rtl ? 22 : 0,
-        left: Directionality.of(context) == TextDirection.ltr ? 22 : 0,
-      ),
-      child: Center(
-        child: Row(
-          children: [
-            SizedBox(
-              height: 25,
-              width: 30,
-              child: CustomCountWidget(
-                height: 25,
-                width: 30,
-                myIcon: Icons.add,
-                onTap: () {
-                  context.read<ProductdetailsBloc>().add(addEvent);
-                },
-              ),
-            ),
-            const SizedBox(
-              width: 9,
-            ),
-            InnerShadow(
-              shadows: [
-                Shadow(
-                  color: Colors.black.withOpacity(
-                    0.25,
-                  ),
-                  blurRadius: 10,
-                  offset: const Offset(
-                    2,
-                    5,
-                  ),
-                )
-              ],
-              child: Container(
-                height: 25,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: Colors.white,
-                ),
-                child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
-                  builder: (context, state) {
-                    return Center(
-                      child: Text(
-                        quantityString,
-                        style: getUnderBoldStyle(
-                          color: ColorManager.primaryGreen,
-                          fontSize: FontSizeApp.s20,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 9,
-            ),
-            SizedBox(
-              height: 25,
-              width: 30,
-              child: CustomCountWidget(
-                height: 25,
-                width: 30,
-                myIcon: Icons.remove,
-                onTap: () {
-                  context.read<ProductdetailsBloc>().add(removeEvent);
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget customAmount({
+  //   required BuildContext context,
+  //   required ProductdetailsEvent addEvent,
+  //   required ProductdetailsEvent removeEvent,
+  //   required String quantityString,
+  // }) {
+  //   return Padding(
+  //     padding: EdgeInsets.only(
+  //       right: Directionality.of(context) == TextDirection.rtl ? 22 : 0,
+  //       left: Directionality.of(context) == TextDirection.ltr ? 22 : 0,
+  //     ),
+  //     child: Center(
+  //       child: Row(
+  //         children: [
+  //           SizedBox(
+  //             height: 25,
+  //             width: 30,
+  //             child: CustomCountWidget(
+  //               height: 25,
+  //               width: 30,
+  //               myIcon: Icons.add,
+  //               onTap: () {
+  //                 context.read<ProductdetailsBloc>().add(addEvent);
+  //               },
+  //             ),
+  //           ),
+  //           const SizedBox(
+  //             width: 9,
+  //           ),
+  //           InnerShadow(
+  //             shadows: [
+  //               Shadow(
+  //                 color: Colors.black.withOpacity(
+  //                   0.25,
+  //                 ),
+  //                 blurRadius: 10,
+  //                 offset: const Offset(
+  //                   2,
+  //                   5,
+  //                 ),
+  //               )
+  //             ],
+  //             child: Container(
+  //               height: 25,
+  //               width: 40,
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(6),
+  //                 color: Colors.white,
+  //               ),
+  //               child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
+  //                 builder: (context, state) {
+  //                   return Center(
+  //                     child: Text(
+  //                       quantityString,
+  //                       style: getUnderBoldStyle(
+  //                         color: ColorManager.primaryGreen,
+  //                         fontSize: FontSizeApp.s20,
+  //                       ),
+  //                     ),
+  //                   );
+  //                 },
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(
+  //             width: 9,
+  //           ),
+  //           SizedBox(
+  //             height: 25,
+  //             width: 30,
+  //             child: CustomCountWidget(
+  //               height: 25,
+  //               width: 30,
+  //               myIcon: Icons.remove,
+  //               onTap: () {
+  //                 context.read<ProductdetailsBloc>().add(removeEvent);
+  //               },
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

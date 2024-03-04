@@ -11,7 +11,6 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:flutter/material.dart';
 import 'package:pharma/presentation/screens/basket_screen/widgets/card_basket.dart';
 import 'package:pharma/presentation/screens/payment/payment_screen.dart';
-import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/presentation/widgets/custom_no_dataa.dart';
 import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
@@ -21,11 +20,9 @@ import 'package:pharma/translations.dart';
 
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
-import '../../resources/font_app.dart';
 import '../base_screen/base_screen.dart';
 import '../guest_screen/guest_screen.dart';
 import '../home_screen/home_screen.dart';
-import '../home_screen/widgets/custom_app_bar.dart';
 
 class BasketScreen extends StatelessWidget {
   const BasketScreen({super.key});

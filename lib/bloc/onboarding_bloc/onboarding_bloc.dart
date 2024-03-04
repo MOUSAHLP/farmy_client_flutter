@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/data/data_resource/local_resource/data_store.dart';
-import '../../presentation/resources/assets_manager.dart';
 import '../../presentation/screens/onboarding_screen/widget/slide_item.dart';
-import '../../translations.dart';
 import 'onboarding_event.dart';
 import 'onboarding_state.dart';
 

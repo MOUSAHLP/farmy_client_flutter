@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:extended_image/extended_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/delevery_attributes_response.dart';
 import 'package:pharma/models/delivery_response.dart';
