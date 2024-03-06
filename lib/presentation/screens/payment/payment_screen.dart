@@ -79,6 +79,8 @@ class PaymentBody extends StatelessWidget {
 
             ConfirmPaymentOrderDialog.openDialog(
                 context, AppLocalizations.of(context)!.orderSuccesfulyComplete);
+            context.read<BasketBloc>().add(
+                ClearBasket());
           }
           if (state.completePaymentStates == CompletePaymentStates.loading) {
             LoadingDialog().openDialog(context);

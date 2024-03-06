@@ -182,7 +182,9 @@ class BasketScreen extends StatelessWidget {
                                                     ColorManager.primaryGreen,
                                                 labelColor: Colors.white,
                                                 onTap: () {
-                                                  AppRouter.pushReplacement(context, const HomeScreen());
+
+
+                                                 AppRouter.pushReplacement(context, const HomeScreen());
                                                   // SystemNavigator.pop();
                                                 },
                                               ),
