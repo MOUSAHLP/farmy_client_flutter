@@ -127,8 +127,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   "section") {
                                 return HomeSection(
                                   title: homePageDynamicModel[index].title!,
-                                  list: homePageDynamicModel[index]
-                                      .sectionContent!,
+                                  list: homePageDynamicModel[index].sectionContent!,
                                 );
                               } else if (homePageDynamicModel[index].type ==
                                   "slider") {

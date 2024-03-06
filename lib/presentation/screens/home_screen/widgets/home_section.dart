@@ -12,6 +12,7 @@ import 'package:pharma/translations.dart';
 class HomeSection extends StatelessWidget {
   final Map<String, String> title;
   final List<ProductsBySubCategoryIdResponse> list;
+
   const HomeSection({Key? key, required this.list, required this.title})
       : super(key: key);
 
@@ -42,15 +43,20 @@ class HomeSection extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     AppRouter.push(
-                        context,
-                        ProductDetailsScreen(
-                          id: list[index].id,
-                        ));
+                      context,
+                      ProductDetailsScreen(
+                        id: list[index].id,
+                        quantity: list[index].quantity!,
+                      ),
+                    );
                   },
                   child: Padding(
-                      padding: EdgeInsetsDirectional.only(
-                          bottom: 0, start: index == 0 ? 0 : 15),
-                      child: CustomProductCard(productInfo: list[index])),
+                    padding: EdgeInsetsDirectional.only(
+                        bottom: 0, start: index == 0 ? 0 : 15),
+                    child: CustomProductCard(
+                      productInfo: list[index],
+                    ),
+                  ),
                 );
               },
             ),

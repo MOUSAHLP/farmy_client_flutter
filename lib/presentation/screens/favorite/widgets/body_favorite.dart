@@ -31,14 +31,15 @@ class BodyFavorite extends StatelessWidget {
                       child: GestureDetector(
                           onTap: () {
                             AppRouter.push(
-                                context,
-                                ProductDetailsScreen(
-                                  id: context
-                                          .read<FavoriteBloc>()
-                                          .favoriteListProducts[index]
-                                          .id ??
-                                      0,
-                                ));
+                              context,
+                              ProductDetailsScreen(
+                                id: context
+                                        .read<FavoriteBloc>()
+                                        .favoriteListProducts[index]
+                                        .id ??
+                                    0,
+                              ),
+                            );
                           },
                           child: CustomProductCard(
                             productInfo: context

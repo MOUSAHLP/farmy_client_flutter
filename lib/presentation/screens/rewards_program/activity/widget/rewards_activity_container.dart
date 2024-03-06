@@ -12,10 +12,10 @@ class RewardsActivityContainer extends StatelessWidget {
   final List<Widget> tasks;
   const RewardsActivityContainer(
       {super.key,
-      required this.taskTitle,
-      required this.rewardText,
-      required this.tasks,
-      this.onTap});
+        required this.taskTitle,
+        required this.rewardText,
+        required this.tasks,
+        this.onTap});
 
   @override
   Widget build(BuildContext context) {

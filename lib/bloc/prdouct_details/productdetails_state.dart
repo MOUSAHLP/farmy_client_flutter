@@ -8,30 +8,35 @@ class ProductdetailsState extends Equatable {
   List<ProductsBySubCategoryIdResponse>? listRelatedProduct;
   List<ProductsBySubCategoryIdResponse>? listSimilarProduct;
 
+
   ProductdetailsState({
     this.screenState,
     this.listRelatedProduct,
     this.listSimilarProduct,
+
     required this.productDetailsResponse,
     this.addToBasketState,
     this.quntity = 1,
   });
 
   ProductdetailsState copyWith({
+    int? quantityRelate,
     ScreenState? screenState,
     final int? quntity,
     List<ProductsBySubCategoryIdResponse>? listSimilarProduct,
     List<ProductsBySubCategoryIdResponse>? listRelatedProduct,
+
     ProductDetailsResponse? productDetailsResponse,
     AddToBasketState? addToBasketState,
   }) {
     return ProductdetailsState(
-        quntity: quntity ?? this.quntity,
-        listRelatedProduct: listRelatedProduct ?? this.listRelatedProduct,
-        listSimilarProduct: listSimilarProduct ?? this.listSimilarProduct,
-        screenState: screenState ?? this.screenState,
-        productDetailsResponse:
-            productDetailsResponse ?? this.productDetailsResponse);
+      quntity: quntity ?? this.quntity,
+      listRelatedProduct: listRelatedProduct ?? this.listRelatedProduct,
+      listSimilarProduct: listSimilarProduct ?? this.listSimilarProduct,
+      screenState: screenState ?? this.screenState,
+      productDetailsResponse:
+          productDetailsResponse ?? this.productDetailsResponse,
+    );
   }
 
   @override
@@ -42,5 +47,6 @@ class ProductdetailsState extends Equatable {
         quntity,
         listRelatedProduct,
         listSimilarProduct,
+
       ];
 }

@@ -80,23 +80,7 @@ class RewardsactivityScreen extends StatelessWidget {
                             RewardsProgressContainer(),
                             RewardsProgressContainer(),
                           ]),
-                      RewardsActivityContainer(
-                          onTap: () {
-                            RewardsPointDialog.openDialog(context, "100");
-                          },
-                          taskTitle:
-                              "عند إضافة ميلادك ستحصل على 100 نقطة عند إضافة ميلادك ستحصل على 100 نقطة",
-                          rewardText:
-                              "أضف عيد ميلادك في التفاصيل الشخصية في “حسابي” ",
-                          tasks: const [
-                            RewardsProgressContainer(
-                              active: true,
-                            ),
-                            RewardsProgressContainer(
-                              active: true,
-                            ),
-                            RewardsProgressContainer(),
-                          ]),
+
                     ] else ...[
                       const RewardsActivityTicketBuy(
                           text:

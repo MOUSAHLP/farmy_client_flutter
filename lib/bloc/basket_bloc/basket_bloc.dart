@@ -14,6 +14,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   BasketRepo basketRepo;
   List<ProductDetailsResponse> mutableProducts = [];
 
+
   int countsProducts(int id) {
     if (mutableProducts.any((element) => element.id == id)) {
       int index = mutableProducts.indexWhere((element) => element.id == id);
@@ -42,18 +43,10 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       (event, emit) async {
         if (event is AddToBasket) {
           bool contain = false;
-          bool contain_2 = true;
           mutableProducts = List.from(state.prductList!);
-          print('@@@@@@@@@');
-          print(mutableProducts.length);
-          print('#########');
-          print(state.prductList!.length);
-          print('^^^^^^^^^');
-          print(mutableProducts);
           for (var x in event.product) {
             for (var i in mutableProducts) {
               if (i.id == x.id) {
-                contain_2 = true;
                 contain = true;
                 i.quantity = (x.quantity ?? 0) + (i.quantity ?? 0);
                 emit(state.copyWith(
@@ -63,7 +56,6 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
             }
             if (!mutableProducts.any((element) => element.id == x.id))  {
               mutableProducts.add(x);
-              contain_2 = true;
               emit(state.copyWith(
                   productList: mutableProducts,
                   addToBasketState: AddToBasketState.successAddedToBasket));

@@ -16,6 +16,8 @@ import '../../../widgets/favorite_heart.dart';
 
 class AboutProductAndAmonutSection extends StatelessWidget {
   final String productName;
+  final String sellerName;
+  final int quantity;
   final int productId;
   final String productDesc;
   final List<AttrbiuteResponse> attributeList;
@@ -26,152 +28,216 @@ class AboutProductAndAmonutSection extends StatelessWidget {
     required this.productId,
     required this.productDesc,
     required this.attributeList,
+    required this.sellerName,
+    required this.quantity,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
+      builder: (context, state) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        productName,
+                        style: getBoldStyle(
+                          color: ColorManager.black,
+                          fontSize: FontSizeApp.s15,
+                        ),
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  "($sellerName)",
+                                  style: getBoldStyle(
+                                    color: ColorManager.primaryGreen,
+                                    fontSize: FontSizeApp.s10,
+                                  )!
+                                      .copyWith(
+                                    height: 1,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                Row(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "400 غ",
+                                          style: getRegularStyle(
+                                                  color: ColorManager
+                                                      .grayForMessage,
+                                                  fontSize: FontSizeApp.s13)!
+                                              .copyWith(height: 1),
+                                        ),
+                                        Text(
+                                          " / ",
+                                          style: getRegularStyle(
+                                                  color: ColorManager
+                                                      .grayForMessage,
+                                                  fontSize: FontSizeApp.s13)!
+                                              .copyWith(height: 1),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      "$quantity قطعة ",
+                                      style: getRegularStyle(
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s10,
+                                      )!
+                                          .copyWith(
+                                        height: 1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                HtmlWidget(
+                                  productDesc,
+                                ),
+                              ],
+                            ),
+                          ),
+                          BlocBuilder<FavoriteBloc, FavoriteState>(
+                            builder: (context, state) {
+                              return FavoriteHeart(
+                                id: productId,
+                                isToggled: context
+                                    .read<FavoriteBloc>()
+                                    .isFavoriteProduct(productId),
+                                onTap: () {
+                                  context.read<FavoriteBloc>().add(
+                                        ChangeFavoriteStatusRestaurant(
+                                            productId),
+                                      );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //todo attr product
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      productName,
+              attributeList.isNotEmpty
+                  ? Text(
+                      attributeList[0].value,
                       style: getBoldStyle(
-                        color: ColorManager.black,
+                        color: ColorManager.grayForMessage,
                         fontSize: FontSizeApp.s15,
                       ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: HtmlWidget(
-                            productDesc,
+                    )
+                  : const SizedBox(),
+              attributeList.length > 1
+                  ? Text(
+                      " / ${attributeList[1].value}",
+                      style: getBoldStyle(
+                        color: ColorManager.grayForMessage,
+                        fontSize: FontSizeApp.s15,
+                      ),
+                    )
+                  : const SizedBox(),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomCountWidget(
+                width: 38,
+                height: 38,
+                myIcon: Icons.add,
+                onTap: () {
+                  if (state.quntity! < quantity) {
+                    context.read<ProductdetailsBloc>().add(
+                          AddQuntityToOrder(
+                            context.read<ProductdetailsBloc>().state.quntity!,
                           ),
-                        ),
-                        BlocBuilder<FavoriteBloc, FavoriteState>(
-                          builder: (context, state) {
-                            return FavoriteHeart(
-                              id: productId,
-                              isToggled: context
-                                  .read<FavoriteBloc>()
-                                  .isFavoriteProduct(productId),
-                              onTap: () {
-                                context.read<FavoriteBloc>().add(
-                                      ChangeFavoriteStatusRestaurant(productId),
-                                    );
-                              },
-                            );
-                          },
-                        ),
-                      ],
+                        );
+                  }
+                },
+              ),
+              const SizedBox(
+                width: 18,
+              ),
+              InnerShadow(
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 10,
+                    offset: const Offset(2, 5),
+                  )
+                ],
+                child: Container(
+                  height: 38,
+                  width: 84,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.white),
+                  child: Center(
+                    child: Text(
+                      state.quntity.toString(),
+                      style: getUnderBoldStyle(
+                        color: ColorManager.primaryGreen,
+                        fontSize: FontSizeApp.s24,
+                      ),
                     ),
-                  ],
+                  ),
                 ),
+              ),
+              const SizedBox(
+                width: 18,
+              ),
+              CustomCountWidget(
+                width: 38,
+                height: 38,
+                myIcon: Icons.remove,
+                onTap: () {
+                  if (state.quntity! >= 0) {
+                    context.read<ProductdetailsBloc>().add(
+                          RemoveQuntityToOrder(
+                            context.read<ProductdetailsBloc>().state.quntity!,
+                          ),
+                        );
+                  }
+                },
               ),
             ],
           ),
-        ),
-        //todo attr product
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            attributeList.isNotEmpty
-                ? Text(
-                    attributeList[0].value,
-                    style: getBoldStyle(
-                      color: ColorManager.grayForMessage,
-                      fontSize: FontSizeApp.s15,
-                    ),
-                  )
-                : const SizedBox(),
-            attributeList.length > 1
-                ? Text(
-                    " / ${attributeList[1].value}",
-                    style: getBoldStyle(
-                      color: ColorManager.grayForMessage,
-                      fontSize: FontSizeApp.s15,
-                    ),
-                  )
-                : const SizedBox(),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomCountWidget(
-              width: 38,
-              height: 38,
-              myIcon: Icons.add,
-              onTap: () {
-                context.read<ProductdetailsBloc>().add(
-                      AddQuntityToOrder(
-                        context.read<ProductdetailsBloc>().state.quntity!,
-                      ),
-                    );
-              },
-            ),
-            const SizedBox(
-              width: 18,
-            ),
-            InnerShadow(
-              shadows: [
-                Shadow(
-                  color: Colors.black.withOpacity(0.25),
-                  blurRadius: 10,
-                  offset: const Offset(2, 5),
-                )
-              ],
-              child: Container(
-                height: 38,
-                width: 84,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: Colors.white),
-                child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
-                  builder: (context, state) {
-                    return Center(
-                      child: Text(
-                        state.quntity.toString(),
-                        style: getUnderBoldStyle(
-                          color: ColorManager.primaryGreen,
-                          fontSize: FontSizeApp.s24,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 18,
-            ),
-            CustomCountWidget(
-              width: 38,
-              height: 38,
-              myIcon: Icons.remove,
-              onTap: () {
-                context.read<ProductdetailsBloc>().add(
-                      RemoveQuntityToOrder(
-                          context.read<ProductdetailsBloc>().state.quntity!),
-                    );
-              },
-            ),
-          ],
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25),
-          child: Divider(thickness: 1),
-        ),
-      ],
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: Divider(thickness: 1),
+          ),
+        ],
+      ),
     );
   }
 }

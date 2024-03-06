@@ -17,14 +17,18 @@ import 'favorite_heart.dart';
 class CustomProductCard extends StatelessWidget {
   final ProductsBySubCategoryIdResponse productInfo;
 
-  const   CustomProductCard({super.key, required this.productInfo});
+  const CustomProductCard({super.key, required this.productInfo});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(6)),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            6,
+          ),
+        ),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF000000).withOpacity(0.18),
@@ -56,7 +60,7 @@ class CustomProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      padding: const EdgeInsets.symmetric(vertical: 7),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -69,105 +73,132 @@ class CustomProductCard extends StatelessWidget {
                                     ? Text(
                                         productInfo.nameOfProduct!,
                                         style: getBoldStyle(
-                                                color: ColorManager.black,
-                                                fontSize: FontSizeApp.s10)!
+                                          color: ColorManager.black,
+                                          fontSize: FontSizeApp.s10,
+                                        )!
                                             .copyWith(height: 1),
                                       )
                                     : const SizedBox(),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                productInfo.sellerName != null
-                                    ? Text(
-                                        "(${productInfo.sellerName!})",
-                                        style: getBoldStyle(
-                                                color:
-                                                    ColorManager.primaryGreen,
-                                                fontSize: FontSizeApp.s10)!
-                                            .copyWith(height: 1),
-                                      )
-                                    : const SizedBox(),
+                                // const SizedBox(
+                                //   height: 4,
+                                // ),
+                                // productInfo.sellerName != null
+                                //     ? Text(
+                                //         "(${productInfo.sellerName!})",
+                                //         style: getBoldStyle(
+                                //           color: ColorManager.primaryGreen,
+                                //           fontSize: FontSizeApp.s10,
+                                //         )!
+                                //             .copyWith(
+                                //           height: 1,
+                                //         ),
+                                //       )
+                                //     : const SizedBox(),
                               ],
                             ),
                           ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(bottom: 4),
+                          //   child: Row(
+                          //     children: [
+                          // todo wazn
+                          // Row(
+                          //   children: [
+                          //     Text(
+                          //       "400 غ",
+                          //       style: getRegularStyle(
+                          //               color: ColorManager.grayForMessage,
+                          //               fontSize: FontSizeApp.s13)!
+                          //           .copyWith(height: 1),
+                          //     ),
+                          //     Text(
+                          //       " / ",
+                          //       style: getRegularStyle(
+                          //               color: ColorManager.grayForMessage,
+                          //               fontSize: FontSizeApp.s13)!
+                          //           .copyWith(height: 1),
+                          //     ),
+                          //   ],
+                          // ),
+                          // if (productInfo.quantity != null)
+                          //   Text(
+                          //     "${productInfo.quantity} قطعة",
+                          //     style: getRegularStyle(
+                          //       color: ColorManager.grayForMessage,
+                          //       fontSize: FontSizeApp.s10,
+                          //     )!
+                          //         .copyWith(
+                          //       height: 1,
+                          //     ),
+                          //   ),
+                          //     ],
+                          //   ),
+                          // ),
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 4),
+                            padding: const EdgeInsets.only(top: 7),
                             child: Row(
                               children: [
-                                //todo wazn
-                                // Row(
-                                //   children: [
-                                //     Text(
-                                //       "400 غ",
-                                //       style: getRegularStyle(
-                                //               color: ColorManager.grayForMessage,
-                                //               fontSize: FontSizeApp.s13)!
-                                //           .copyWith(height: 1),
-                                //     ),
-                                //     Text(
-                                //       " / ",
-                                //       style: getRegularStyle(
-                                //               color: ColorManager.grayForMessage,
-                                //               fontSize: FontSizeApp.s13)!
-                                //           .copyWith(height: 1),
-                                //     ),
-                                //   ],
-                                // ),
-                                if (productInfo.quantity != null)
-                                  Text(
-                                    "${productInfo.quantity} قطعة",
-                                    style: getRegularStyle(
-                                            color: ColorManager.grayForMessage,
-                                            fontSize: FontSizeApp.s10)!
-                                        .copyWith(height: 1),
+                                Text(
+                                  productInfo.discountValue ?? "",
+                                  style: getRegularStyle(
+                                    color: ColorManager.grayForMessage,
+                                    fontSize: FontSizeApp.s12,
+                                  )!
+                                      .copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    height: 1,
                                   ),
+                                ),
+                                const SizedBox(
+                                  width: 1,
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!.curruncy,
+                                  style: getRegularStyle(
+                                    color: ColorManager.grayForMessage,
+                                    fontSize: FontSizeApp.s13,
+                                  )!
+                                      .copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    height: 1,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-                          Row(
-                            children: [
-                              Text(productInfo.discountValue ?? "",
-                                  style: getRegularStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: FontSizeApp.s12)!
-                                      .copyWith(
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                          height: 1)),
-                              const SizedBox(
-                                width: 1,
-                              ),
-                              Text(AppLocalizations.of(context)!.curruncy,
-                                  style: getRegularStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: FontSizeApp.s13)!
-                                      .copyWith(
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                          height: 1)),
-                            ],
-                          ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 4, bottom: 0),
+                            padding: const EdgeInsets.only(top: 10, bottom: 0),
                             child: Row(
                               children: [
                                 if (productInfo.price != null)
                                   Text(
-                                      Formatter.formatPrice(int.tryParse(
-                                              productInfo.price ?? "0") ??
-                                          0),
-                                      style: getBoldStyle(
-                                              color: ColorManager.primaryGreen,
-                                              fontSize: FontSizeApp.s15)!
-                                          .copyWith(height: 1)),
+                                    Formatter.formatPrice(
+                                      int.tryParse(
+                                            productInfo.price ?? "0",
+                                          ) ??
+                                          0,
+                                    ),
+                                    style: getBoldStyle(
+                                      color: ColorManager.primaryGreen,
+                                      fontSize: FontSizeApp.s15,
+                                    )!
+                                        .copyWith(
+                                      height: 1,
+                                    ),
+                                  ),
                                 const SizedBox(width: 1),
                                 //todo caruncy
                                 if (productInfo.price != null)
-                                  Text(AppLocalizations.of(context)!.curruncy,
-                                      style: getBoldStyle(
-                                              color: ColorManager.primaryGreen,
-                                              fontSize: FontSizeApp.s13)!
-                                          .copyWith(height: 1))
+                                  Text(
+                                    AppLocalizations.of(context)!.curruncy,
+                                    style: getBoldStyle(
+                                      color: ColorManager.primaryGreen,
+                                      fontSize: FontSizeApp.s13,
+                                    )!
+                                        .copyWith(
+                                      height: 1,
+                                    ),
+                                  )
                               ],
                             ),
                           )
@@ -209,20 +240,23 @@ class CustomProductCard extends StatelessWidget {
           productInfo.discount != null
               ? ClipRRect(
                   borderRadius: const BorderRadiusDirectional.only(
-                      topStart: Radius.circular(6),
-                      bottomEnd: Radius.circular(6)),
+                    topEnd: Radius.circular(6),
+                    bottomStart: Radius.circular(6),
+                  ),
                   child: Container(
                     color: ColorManager.redForFavorite,
                     height: 18,
                     width: 76,
                     child: Center(
-                        child: Text(
-                      "${AppLocalizations.of(context)!.discount} ${productInfo.discount} %",
-                      style: getBoldStyle(
-                              color: ColorManager.white,
-                              fontSize: FontSizeApp.s7)!
-                          .copyWith(),
-                    )),
+                      child: Text(
+                        "${AppLocalizations.of(context)!.discount} ${productInfo.discount} %",
+                        style: getBoldStyle(
+                          color: ColorManager.white,
+                          fontSize: FontSizeApp.s7,
+                        )!
+                            .copyWith(),
+                      ),
+                    ),
                   ),
                 )
               : const SizedBox()

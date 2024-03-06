@@ -21,7 +21,7 @@ class CustomAmount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return BlocBuilder<ProductdetailsBloc, ProductdetailsState>(builder: (context, state) => Padding(
       padding: EdgeInsets.only(
         right: Directionality.of(context) == TextDirection.rtl ? 22 : 0,
         left: Directionality.of(context) == TextDirection.ltr ? 22 : 0,
@@ -37,7 +37,7 @@ class CustomAmount extends StatelessWidget {
                 width: 30,
                 myIcon: Icons.add,
                 onTap: () {
-                  context.read<ProductdetailsBloc>().add(addEvent);
+                    context.read<ProductdetailsBloc>().add(addEvent);
                 },
               ),
             ),
@@ -64,18 +64,14 @@ class CustomAmount extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                   color: Colors.white,
                 ),
-                child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
-                  builder: (context, state) {
-                    return Center(
-                      child: Text(
-                        quantityString,
-                        style: getUnderBoldStyle(
-                          color: ColorManager.primaryGreen,
-                          fontSize: FontSizeApp.s20,
-                        ),
-                      ),
-                    );
-                  },
+                child: Center(
+                  child: Text(
+                    quantityString,
+                    style: getUnderBoldStyle(
+                      color: ColorManager.primaryGreen,
+                      fontSize: FontSizeApp.s20,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -97,6 +93,6 @@ class CustomAmount extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),);
   }
 }

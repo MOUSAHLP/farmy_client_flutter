@@ -14,19 +14,23 @@ class GetProductDetailsById extends ProductdetailsEvent {
 
 class AddQuntityToOrder extends ProductdetailsEvent {
   final int quntity;
-
   const AddQuntityToOrder(this.quntity);
 }
 
 class AddQuantityRelatedToOrder extends ProductdetailsEvent {
   final ProductsBySubCategoryIdResponse relatedProduct;
-  const AddQuantityRelatedToOrder(this.relatedProduct);
+  final int index;
+
+  const AddQuantityRelatedToOrder(this.relatedProduct, this.index);
 
 }
 
 class AddQuantitySimilarToOrder extends ProductdetailsEvent {
-  final ProductsBySubCategoryIdResponse product;
-  const AddQuantitySimilarToOrder(this.product);
+  final int index;
+
+  final ProductsBySubCategoryIdResponse similarProduct;
+
+  const AddQuantitySimilarToOrder(this.similarProduct, this.index);
 }
 
 class RemoveQuntityToOrder extends ProductdetailsEvent {
