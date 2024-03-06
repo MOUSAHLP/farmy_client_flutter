@@ -61,15 +61,6 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
                   addToBasketState: AddToBasketState.successAddedToBasket));
             }
           }
-          // if (!contain) {
-          //   mutableProducts.addAll(event.product);
-          //   emit(
-          //     state.copyWith(
-          //       productList: mutableProducts,
-          //       addToBasketState: AddToBasketState.successAddedToBasket,
-          //     ),
-          //   );
-          // }
         }
         if (event is PaymentProcess) {
           emit(state.copyWith(screenState: ScreenState.loading));
@@ -109,7 +100,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
               productList: mutableProducts,
             ),
           );
-          // }
+
         }
         if (event is DeleteProduct) {
           mutableProducts.removeWhere((element) => element.id == event.id);
@@ -118,8 +109,6 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           ));
         }
         if (event is ClearBasket) {
-
-          // mutableProducts.clear();
           emit(state.copyWith(productList: []));
         }
       },
