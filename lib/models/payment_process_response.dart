@@ -5,10 +5,12 @@ import 'package:pharma/models/invocies_response.dart';
 import 'package:pharma/models/user_address_response.dart';
 
 class PaymentProcessResponse {
+
   InvociesResponse? invociesResponse;
   List<DeleveryMethodResponse>? deleveryMethodList;
   List<DeliveryAttributesResponse>? deleveryAttributesList;
   List<UserAddressModel>? userAdressList;
+
   PaymentProcessResponse({
     this.userAdressList,
     this.invociesResponse,

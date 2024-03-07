@@ -1,6 +1,4 @@
-
-
-import '../../models/my_order_response.dart';
+import 'package:pharma/models/my_order_response.dart';
 
 abstract class MyOrderState {}
 

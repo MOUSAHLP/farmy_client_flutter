@@ -88,14 +88,6 @@ class ProductDetailsBody extends StatelessWidget {
         ],
         child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
           builder: (context, state) {
-            // if (!isAttribution) {
-            //   state.listSimilarProductStatic = state.listSimilarProduct;
-            //   isAttribution = true;
-            //   print('@@@@@@@@@@@@@@@@');
-            //   print(state.listSimilarProductStatic![0].quantity);
-            // }
-            // print('@@@@@@@@@@@@@@@@');
-            // print(quantity);
             return Scaffold(
               body: Column(
                 children: [

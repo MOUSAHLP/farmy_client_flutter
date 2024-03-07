@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_event.dart';
+import 'package:pharma/bloc/my_order_bloc/my_order_state.dart';
+import 'package:pharma/data/repository/my_order_repository.dart';
+import 'package:pharma/models/my_order_response.dart';
 
-import '../../data/repository/my_order_repository.dart';
-import '../../models/my_order_response.dart';
-import 'my_order_state.dart';
 
 class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
   List<MyOrderResponse> myOrderList = [];
