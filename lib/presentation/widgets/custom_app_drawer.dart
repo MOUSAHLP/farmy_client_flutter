@@ -117,6 +117,8 @@ class CustomAppDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                // version
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: FutureBuilder(

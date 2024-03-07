@@ -23,29 +23,33 @@ class BodyFavorite extends StatelessWidget {
                 itemCount:
                     context.read<FavoriteBloc>().favoriteListProducts.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 26,
-                    mainAxisExtent: 230),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 26,
+                  mainAxisExtent: 230,
+                ),
                 itemBuilder: (context, index) {
                   return Center(
-                      child: GestureDetector(
-                          onTap: () {
-                            AppRouter.push(
-                              context,
-                              ProductDetailsScreen(
-                                id: context
-                                        .read<FavoriteBloc>()
-                                        .favoriteListProducts[index]
-                                        .id ??
-                                    0,
-                              ),
-                            );
-                          },
-                          child: CustomProductCard(
-                            productInfo: context
-                                .read<FavoriteBloc>()
-                                .favoriteListProducts[index],
-                          )));
+                    child: GestureDetector(
+                      onTap: () {
+                        AppRouter.push(
+                          context,
+                          ProductDetailsScreen(
+                            id: context
+                                    .read<FavoriteBloc>()
+                                    .favoriteListProducts[index]
+                                    .id ??
+                                0,
+                            quantity: context.read<FavoriteBloc>().favoriteListProducts[index].quantity,
+                          ),
+                        );
+                      },
+                      child: CustomProductCard(
+                        productInfo: context
+                            .read<FavoriteBloc>()
+                            .favoriteListProducts[index],
+                      ),
+                    ),
+                  );
                 },
               )
             : CustomNoData(

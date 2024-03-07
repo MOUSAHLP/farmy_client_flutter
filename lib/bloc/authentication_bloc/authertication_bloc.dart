@@ -92,15 +92,11 @@ class AuthenticationBloc
         });
       }
       if (event is LoggedOut) {
-        emit(state.copyWith(
-            authenticationScreenStates:
-                AuthenticationScreenStates.authenticationInitialized));
+        emit(state.copyWith(authenticationScreenStates: AuthenticationScreenStates.authenticationInitialized));
         await userRepository.logout().then((value) {
           userRepository.deleteToken();
           DataStore.instance.deleteUserInfo();
-          emit(state.copyWith(
-              authenticationScreenStates:
-                  AuthenticationScreenStates.authenticationLoggedOut));
+          emit(state.copyWith(authenticationScreenStates: AuthenticationScreenStates.authenticationLoggedOut));
         });
       }
       if (event is DeleteAccount) {

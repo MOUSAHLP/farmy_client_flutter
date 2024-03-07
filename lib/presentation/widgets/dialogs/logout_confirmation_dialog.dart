@@ -64,7 +64,6 @@ class _LogoutConfirmationDialog extends StatelessWidget {
                     fillColor: Colors.red,
                     onTap: () {
                       sl<AuthenticationBloc>().add(LoggedOut());
-
                       AppRouter.pushAndRemoveAllStack(context, const AccountScreen());
                     },
                   ),

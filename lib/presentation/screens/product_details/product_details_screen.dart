@@ -60,24 +60,23 @@ class ProductDetailsBody extends StatelessWidget {
         listeners: [
           BlocListener<BasketBloc, BasketState>(
             listener: (context, state) {
-              if (state.addToBasketState ==
-                  AddToBasketState.successAddedToBasket) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    duration: const Duration(seconds: 1),
-                    content: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        AppLocalizations.of(context)!.added_to_basket,
-                        style: getRegularStyle(
-                          color: ColorManager.white,
-                          fontSize: FontSizeApp.s14,
-                        ),
-                      ),
-                    ),
-                    backgroundColor: ColorManager.primaryGreen,
-                  ),
-                );
+              if (state.addToBasketState == AddToBasketState.successAddedToBasket) {
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     duration: const Duration(seconds: 1),
+                //     content: Container(
+                //       alignment: Alignment.center,
+                //       child: Text(
+                //         AppLocalizations.of(context)!.added_to_basket,
+                //         style: getRegularStyle(
+                //           color: ColorManager.white,
+                //           fontSize: FontSizeApp.s14,
+                //         ),
+                //       ),
+                //     ),
+                //     backgroundColor: ColorManager.primaryGreen,
+                //   ),
+                // );
                 AppRouter.pushReplacement(
                   context,
                   const HomeScreen(),
@@ -386,11 +385,24 @@ class ProductDetailsBody extends StatelessWidget {
                                           : const SizedBox(),
                                       CustomAppButton(
                                         ontap: () {
-                                          if (sl<AuthenticationBloc>()
-                                              .loggedIn) {
-                                            context
-                                                .read<BasketBloc>()
-                                                .add(buildAddToBasket(state));
+                                          if (sl<AuthenticationBloc>().loggedIn) {
+                                            context.read<BasketBloc>().add(buildAddToBasket(state));
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                duration: const Duration(seconds: 1),
+                                                content: Container(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    AppLocalizations.of(context)!.added_to_basket,
+                                                    style: getRegularStyle(
+                                                      color: ColorManager.white,
+                                                      fontSize: FontSizeApp.s14,
+                                                    ),
+                                                  ),
+                                                ),
+                                                backgroundColor: ColorManager.primaryGreen,
+                                              ),
+                                            );
                                           } else {
                                             ErrorDialog.openDialog(
                                               context,

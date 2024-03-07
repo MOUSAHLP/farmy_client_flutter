@@ -26,38 +26,34 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  BaseScreenScaffold(
-          appbarTitle: AppLocalizations.of(context)!.favorite,
-          isComeBack: false,
-          body: sl<AuthenticationBloc>().loggedIn
-              ? Column(crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: BlocBuilder<FavoriteBloc, FavoriteState>(
-                      bloc: context.read<FavoriteBloc>()..add(GetFavorites()),
-            builder: (context, state) {
-                    if(state is  FavoritesListLoading) {
-                      return const BuildShimmerFavorites();
-                    } else if(state is FavoritesListError ) {
-                        return
-                          CustomErrorScreen(
-                          onTap: (){},
+    return BaseScreenScaffold(
+      appbarTitle: AppLocalizations.of(context)!.favorite,
+      isComeBack: false,
+      body: sl<AuthenticationBloc>().loggedIn
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: BlocBuilder<FavoriteBloc, FavoriteState>(
+                    bloc: context.read<FavoriteBloc>()..add(GetFavorites()),
+                    builder: (context, state) {
+                      if (state is FavoritesListLoading) {
+                        return const BuildShimmerFavorites();
+                      } else if (state is FavoritesListError) {
+                        return CustomErrorScreen(
+                          onTap: () {},
                           titleError: state.error,
                         );
-                      } else  {
+                      } else {
                         return const BodyFavorite();
                       }
                     },
-          ),
                   ),
-                ],
-              )
-              : const Expanded(child: GuestScreen()),
-        );
-
+                ),
+              ],
+            )
+          : const Expanded(child: GuestScreen()),
+    );
   }
-
 }
-
-

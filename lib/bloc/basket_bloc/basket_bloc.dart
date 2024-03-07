@@ -42,12 +42,10 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     on<BasketEvent>(
       (event, emit) async {
         if (event is AddToBasket) {
-          bool contain = false;
           mutableProducts = List.from(state.prductList!);
           for (var x in event.product) {
             for (var i in mutableProducts) {
               if (i.id == x.id) {
-                contain = true;
                 i.quantity = (x.quantity ?? 0) + (i.quantity ?? 0);
                 emit(state.copyWith(
                     productList: mutableProducts,
