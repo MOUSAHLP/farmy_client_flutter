@@ -23,7 +23,7 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
   ProductdetailsBloc({required this.productRepo})
       : super(
           ProductdetailsState(
-            productDetailsResponse: ProductDetailsResponse(),
+            productDetailsResponse: ProductDetailsResponse(id:0),
           ),
         ) {
     on<ProductdetailsEvent>(

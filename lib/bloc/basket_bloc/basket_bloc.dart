@@ -51,14 +51,16 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
                 i.quantity = (x.quantity ?? 0) + (i.quantity ?? 0);
                 emit(state.copyWith(
                     productList: mutableProducts,
-                    addToBasketState: AddToBasketState.successAddedToBasket));
+                   addToBasketState: AddToBasketState.successAddedToBasket
+                ));
               }
             }
             if (!mutableProducts.any((element) => element.id == x.id))  {
               mutableProducts.add(x);
               emit(state.copyWith(
                   productList: mutableProducts,
-                  addToBasketState: AddToBasketState.successAddedToBasket));
+                 addToBasketState: AddToBasketState.successAddedToBasket
+              ));
             }
           }
         }

@@ -10,11 +10,11 @@ class ProductModel {
   String? slug;
   String? quantity;
   String? status;
-
   String? sellerName;
   String? discountStatus;
   String? discountValue;
   String? image;
+  bool isFavorite;
 
 
   ProductModel({
@@ -32,6 +32,7 @@ class ProductModel {
     this.discountValue,
 
     this.image,
+    this.isFavorite=false
 
 
   });

@@ -4,7 +4,7 @@ import 'package:pharma/models/attribute_response.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 
 class ProductDetailsResponse {
-  int? id;
+  int id;
   String? nameOfProduct;
   String? price;
   int? quantity;
@@ -21,7 +21,7 @@ class ProductDetailsResponse {
   List<ProductsBySubCategoryIdResponse>? similarProducts;
 
   ProductDetailsResponse({
-    this.id,
+    required this.id,
     this.nameOfProduct,
     this.price,
     this.quantity,
@@ -65,7 +65,7 @@ class ProductDetailsResponse {
                 : List<ProductsBySubCategoryIdResponse>.from(
                     json["similar_products"].map(
                         (x) => ProductsBySubCategoryIdResponse.fromJson(x))))
-        : ProductDetailsResponse();
+        : ProductDetailsResponse( id: 0,);
   }
   static Map<String, dynamic> toJsonCard(
       ProductDetailsResponse productDetailsResponse) {

@@ -53,18 +53,16 @@ class ProductDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAttribution = false;
-
     return SafeArea(
       child: MultiBlocListener(
         listeners: [
           BlocListener<BasketBloc, BasketState>(
             listener: (context, state) {
-              if (state.addToBasketState ==
-                  AddToBasketState.successAddedToBasket) {
+              if (state.addToBasketState == AddToBasketState.successAddedToBasket) {
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    duration: const Duration(seconds: 1),
+                  duration: const Duration(seconds: 1),
                     content: Container(
                       alignment: Alignment.center,
                       child: Text(
@@ -88,14 +86,6 @@ class ProductDetailsBody extends StatelessWidget {
         ],
         child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
           builder: (context, state) {
-            // if (!isAttribution) {
-            //   state.listSimilarProductStatic = state.listSimilarProduct;
-            //   isAttribution = true;
-            //   print('@@@@@@@@@@@@@@@@');
-            //   print(state.listSimilarProductStatic![0].quantity);
-            // }
-            // print('@@@@@@@@@@@@@@@@');
-            // print(quantity);
             return Scaffold(
               body: Column(
                 children: [
@@ -112,26 +102,11 @@ class ProductDetailsBody extends StatelessWidget {
                                         ? state.productDetailsResponse.image!
                                         : "",
                                   ),
-                                  AboutProductAndAmonutSection(
+                                  AboutProductAndAmountSection(
+                                    productDetails:state
+                                        .productDetailsResponse ,
                                     quantity: int.parse(quantity!),
-                                    sellerName: state
-                                        .productDetailsResponse.sellerName!,
-                                    productId:
-                                        state.productDetailsResponse.id ?? 0,
-                                    attributeList: state
-                                        .productDetailsResponse.attributeList,
-                                    productDesc: state.productDetailsResponse
-                                                .description !=
-                                            null
-                                        ? state
-                                            .productDetailsResponse.description!
-                                        : "",
-                                    productName: state.productDetailsResponse
-                                                .nameOfProduct !=
-                                            null
-                                        ? state.productDetailsResponse
-                                            .nameOfProduct!
-                                        : "",
+
                                   ),
                                   Column(
                                     crossAxisAlignment:
@@ -437,7 +412,7 @@ class ProductDetailsBody extends StatelessWidget {
           ProductDetailsResponse(
             quantity: int.parse(tmp.quantity!),
             image: tmp.image,
-            id: tmp.id,
+            id: tmp.id??0,
             discountValue: tmp.discountValue,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,
@@ -454,7 +429,7 @@ class ProductDetailsBody extends StatelessWidget {
           ProductDetailsResponse(
             quantity: int.parse(tmp.quantity!),
             image: tmp.image,
-            id: tmp.id,
+            id: tmp.id??0,
             discountValue: tmp.discountValue,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,
