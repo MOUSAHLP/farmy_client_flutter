@@ -12,24 +12,21 @@ import 'package:pharma/presentation/screens/product_details/widgets/counter_box.
 import '../../../../bloc/favorite_bloc/favorite_bloc.dart';
 import '../../../../bloc/favorite_bloc/favorite_event.dart';
 import '../../../../bloc/favorite_bloc/favorite_state.dart';
+import '../../../../models/product_details_response.dart';
 import '../../../widgets/favorite_heart.dart';
 
-class AboutProductAndAmonutSection extends StatelessWidget {
-  final String productName;
-  final String sellerName;
-  final int quantity;
-  final int productId;
-  final String productDesc;
-  final List<AttrbiuteResponse> attributeList;
+class AboutProductAndAmountSection extends StatelessWidget {
 
-  const AboutProductAndAmonutSection({
+
+  final int quantity;
+
+
+
+ final ProductDetailsResponse productDetails;
+  const AboutProductAndAmountSection({
     super.key,
-    required this.productName,
-    required this.productId,
-    required this.productDesc,
-    required this.attributeList,
-    required this.sellerName,
     required this.quantity,
+    required this.productDetails,
   });
 
   @override
@@ -48,7 +45,7 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        productName,
+                        productDetails.nameOfProduct??"",
                         style: getBoldStyle(
                           color: ColorManager.black,
                           fontSize: FontSizeApp.s15,
@@ -65,7 +62,7 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                                   height: 3,
                                 ),
                                 Text(
-                                  "($sellerName)",
+                                  "(${productDetails.sellerName})",
                                   style: getBoldStyle(
                                     color: ColorManager.primaryGreen,
                                     fontSize: FontSizeApp.s10,
@@ -115,7 +112,7 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                                   height: 4,
                                 ),
                                 HtmlWidget(
-                                  productDesc,
+                                  productDetails.description??"",
                                 ),
                               ],
                             ),
@@ -123,14 +120,14 @@ class AboutProductAndAmonutSection extends StatelessWidget {
                           BlocBuilder<FavoriteBloc, FavoriteState>(
                             builder: (context, state) {
                               return FavoriteHeart(
-                                id: productId,
+                                id: productDetails.id,
                                 isToggled: context
                                     .read<FavoriteBloc>()
-                                    .isFavoriteProduct(productId),
+                                    .isFavoriteProduct(productDetails.id),
                                 onTap: () {
                                   context.read<FavoriteBloc>().add(
                                         ChangeFavoriteStatusRestaurant(
-                                            productId),
+                                            productDetails.id),
                                       );
                                 },
                               );
@@ -148,18 +145,18 @@ class AboutProductAndAmonutSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              attributeList.isNotEmpty
+              productDetails.attributeList.isNotEmpty
                   ? Text(
-                      attributeList[0].value,
+                productDetails.attributeList[0].value,
                       style: getBoldStyle(
                         color: ColorManager.grayForMessage,
                         fontSize: FontSizeApp.s15,
                       ),
                     )
                   : const SizedBox(),
-              attributeList.length > 1
+              productDetails.attributeList.length > 1
                   ? Text(
-                      " / ${attributeList[1].value}",
+                      " / ${productDetails.attributeList[1].value}",
                       style: getBoldStyle(
                         color: ColorManager.grayForMessage,
                         fontSize: FontSizeApp.s15,

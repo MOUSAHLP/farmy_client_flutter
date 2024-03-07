@@ -103,26 +103,11 @@ class ProductDetailsBody extends StatelessWidget {
                                         ? state.productDetailsResponse.image!
                                         : "",
                                   ),
-                                  AboutProductAndAmonutSection(
+                                  AboutProductAndAmountSection(
+                                    productDetails:state
+                                        .productDetailsResponse ,
                                     quantity: int.parse(quantity!),
-                                    sellerName: state
-                                        .productDetailsResponse.sellerName!,
-                                    productId:
-                                        state.productDetailsResponse.id ?? 0,
-                                    attributeList: state
-                                        .productDetailsResponse.attributeList,
-                                    productDesc: state.productDetailsResponse
-                                                .description !=
-                                            null
-                                        ? state
-                                            .productDetailsResponse.description!
-                                        : "",
-                                    productName: state.productDetailsResponse
-                                                .nameOfProduct !=
-                                            null
-                                        ? state.productDetailsResponse
-                                            .nameOfProduct!
-                                        : "",
+
                                   ),
                                   Column(
                                     crossAxisAlignment:
@@ -385,24 +370,11 @@ class ProductDetailsBody extends StatelessWidget {
                                           : const SizedBox(),
                                       CustomAppButton(
                                         ontap: () {
-                                          if (sl<AuthenticationBloc>().loggedIn) {
-                                            context.read<BasketBloc>().add(buildAddToBasket(state));
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                duration: const Duration(seconds: 1),
-                                                content: Container(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    AppLocalizations.of(context)!.added_to_basket,
-                                                    style: getRegularStyle(
-                                                      color: ColorManager.white,
-                                                      fontSize: FontSizeApp.s14,
-                                                    ),
-                                                  ),
-                                                ),
-                                                backgroundColor: ColorManager.primaryGreen,
-                                              ),
-                                            );
+                                          if (sl<AuthenticationBloc>()
+                                              .loggedIn) {
+                                            context
+                                                .read<BasketBloc>()
+                                                .add(buildAddToBasket(state));
                                           } else {
                                             ErrorDialog.openDialog(
                                               context,
@@ -441,7 +413,7 @@ class ProductDetailsBody extends StatelessWidget {
           ProductDetailsResponse(
             quantity: int.parse(tmp.quantity!),
             image: tmp.image,
-            id: tmp.id,
+            id: tmp.id??0,
             discountValue: tmp.discountValue,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,
@@ -458,7 +430,7 @@ class ProductDetailsBody extends StatelessWidget {
           ProductDetailsResponse(
             quantity: int.parse(tmp.quantity!),
             image: tmp.image,
-            id: tmp.id,
+            id: tmp.id??0,
             discountValue: tmp.discountValue,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,

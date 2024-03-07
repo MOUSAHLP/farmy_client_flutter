@@ -10,8 +10,7 @@ part 'productdetails_event.dart';
 
 part 'productdetails_state.dart';
 
-class ProductdetailsBloc
-    extends Bloc<ProductdetailsEvent, ProductdetailsState> {
+class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> {
   ProductRepo productRepo;
   int quntity = 1;
   int quantityRelated = 0;
@@ -24,7 +23,7 @@ class ProductdetailsBloc
   ProductdetailsBloc({required this.productRepo})
       : super(
           ProductdetailsState(
-            productDetailsResponse: ProductDetailsResponse(),
+            productDetailsResponse: ProductDetailsResponse(id:0),
           ),
         ) {
     on<ProductdetailsEvent>(
