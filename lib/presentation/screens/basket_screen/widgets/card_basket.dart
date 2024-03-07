@@ -23,146 +23,157 @@ class CardBasket extends StatelessWidget {
     return BlocBuilder<BasketBloc, BasketState>(
       builder: (context, state) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 37),
-        child: Container(
-          height: 115,
-          width: 1.sw,
-          decoration: BoxDecoration(
-              boxShadow: [ColorManager.shadowGaryDown],
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(6)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 5),
-                child: buildCounterWidget(context),
-              ),
-              // const Spacer(),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    productAddedToBasketDetails.nameOfProduct != null
-                        ? Text(
-                            productAddedToBasketDetails.nameOfProduct ?? "",
-                            style: getBoldStyle(
-                                    color: ColorManager.black,
-                                    fontSize: FontSizeApp.s10)
-                                ?.copyWith(
-                              height: 2,
-                              overflow: TextOverflow.fade,
-                            ),
-                            maxLines: 1,
-                          )
-                        : const SizedBox(),
-                    productAddedToBasketDetails.sellerName != null ||
-                            productAddedToBasketDetails.sellerName != ""
-                        ? Text(
-                            "( ${productAddedToBasketDetails.sellerName.toString()} )",
-                            style: getBoldStyle(
-                              color: ColorManager.primaryGreen,
-                              fontSize: FontSizeApp.s10,
-                            )?.copyWith(
-                              height: 2,
-                              overflow: TextOverflow.fade,
-                            ),
-                            maxLines: 1,
-                          )
-                        : const SizedBox(),
-                    productAddedToBasketDetails.attributeList.isNotEmpty
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                productAddedToBasketDetails
-                                        .attributeList.isNotEmpty
-                                    ? Text(
-                                        productAddedToBasketDetails
-                                            .attributeList[0].value,
-                                        style: getRegularStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: FontSizeApp.s15,
-                                        )!
-                                            .copyWith(height: 1),
-                                      )
-                                    : const SizedBox(),
-                                productAddedToBasketDetails
-                                            .attributeList.length >
-                                        1
-                                    ? Text(
-                                        " / ${productAddedToBasketDetails.attributeList[1].value}",
-                                        style: getRegularStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: FontSizeApp.s15,
-                                        )!
-                                            .copyWith(height: 1))
-                                    : const SizedBox(),
-                              ],
-                            ))
-                        : const SizedBox(),
-                    productAddedToBasketDetails.discountValue != null
-                        ? Text(
-                            productAddedToBasketDetails.discountValue ?? '',
-                            style: getRegularStyle(
-                                    color: ColorManager.grayForMessage,
-                                    fontSize: FontSizeApp.s12)!
-                                .copyWith(
-                                    decoration: TextDecoration.lineThrough,
-                                    overflow: TextOverflow.fade,
-                                    height: 1),
-                            maxLines: 1,
-                          )
-                        : const SizedBox(),
-                    productAddedToBasketDetails.price != null
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                Formatter.formatPrice(int.tryParse(context
-                                        .read<BasketBloc>()
-                                        .productPrice(
-                                            productAddedToBasketDetails.id ?? 0)
-                                        .toString()) ??
-                                    0),
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            Container(
+              height: 115,
+              width: 1.sw,
+              decoration: BoxDecoration(
+                  boxShadow: [ColorManager.shadowGaryDown],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(6)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 5),
+                    child: buildCounterWidget(context),
+                  ),
+                  // const Spacer(),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        productAddedToBasketDetails.nameOfProduct != null
+                            ? Text(
+                                productAddedToBasketDetails.nameOfProduct ?? "",
                                 style: getBoldStyle(
-                                        color: ColorManager.primaryGreen,
-                                        fontSize: FontSizeApp.s15)!
-                                    .copyWith(
-                                  height: 1,
+                                        color: ColorManager.black,
+                                        fontSize: FontSizeApp.s10)
+                                    ?.copyWith(
+                                  height: 2,
                                   overflow: TextOverflow.fade,
                                 ),
                                 maxLines: 1,
-                              ),
-                              const SizedBox(width: 1),
-                              //todo caruncy
-                              if (productAddedToBasketDetails.price != null)
-                                Text(AppLocalizations.of(context)!.curruncy,
+                              )
+                            : const SizedBox(),
+                        productAddedToBasketDetails.sellerName != null ||
+                                productAddedToBasketDetails.sellerName != ""
+                            ? Text(
+                                "( ${productAddedToBasketDetails.sellerName.toString()} )",
+                                style: getBoldStyle(
+                                  color: ColorManager.primaryGreen,
+                                  fontSize: FontSizeApp.s10,
+                                )?.copyWith(
+                                  height: 2,
+                                  overflow: TextOverflow.fade,
+                                ),
+                                maxLines: 1,
+                              )
+                            : const SizedBox(),
+                        productAddedToBasketDetails.attributeList.isNotEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    productAddedToBasketDetails
+                                            .attributeList.isNotEmpty
+                                        ? Text(
+                                            productAddedToBasketDetails
+                                                .attributeList[0].value,
+                                            style: getRegularStyle(
+                                              color: ColorManager.grayForMessage,
+                                              fontSize: FontSizeApp.s15,
+                                            )!
+                                                .copyWith(height: 1),
+                                          )
+                                        : const SizedBox(),
+                                    productAddedToBasketDetails
+                                                .attributeList.length >
+                                            1
+                                        ? Text(
+                                            " / ${productAddedToBasketDetails.attributeList[1].value}",
+                                            style: getRegularStyle(
+                                              color: ColorManager.grayForMessage,
+                                              fontSize: FontSizeApp.s15,
+                                            )!
+                                                .copyWith(height: 1))
+                                        : const SizedBox(),
+                                  ],
+                                ))
+                            : const SizedBox(),
+                        productAddedToBasketDetails.discountValue != null
+                            ? Text(
+                                productAddedToBasketDetails.discountValue ?? '',
+                                style: getRegularStyle(
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s12)!
+                                    .copyWith(
+                                        decoration: TextDecoration.lineThrough,
+                                        overflow: TextOverflow.fade,
+                                        height: 1),
+                                maxLines: 1,
+                              )
+                            : const SizedBox(),
+                        productAddedToBasketDetails.price != null
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    Formatter.formatPrice(int.tryParse(context
+                                            .read<BasketBloc>()
+                                            .productPrice(
+                                                productAddedToBasketDetails.id ?? 0)
+                                            .toString()) ??
+                                        0),
                                     style: getBoldStyle(
                                             color: ColorManager.primaryGreen,
-                                            fontSize: FontSizeApp.s10)!
-                                        .copyWith(height: 1))
-                            ],
-                          )
-                        : const SizedBox(),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 19),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: Container(
-                  height: 115,
-                  width: 115,
-                  color: ColorManager.grayForPlaceholder,
-                  child: CachedImage(
-                    imageUrl: productAddedToBasketDetails.image,
+                                            fontSize: FontSizeApp.s15)!
+                                        .copyWith(
+                                      height: 1,
+                                      overflow: TextOverflow.fade,
+                                    ),
+                                    maxLines: 1,
+                                  ),
+                                  const SizedBox(width: 1),
+                                  //todo caruncy
+                                  if (productAddedToBasketDetails.price != null)
+                                    Text(AppLocalizations.of(context)!.curruncy,
+                                        style: getBoldStyle(
+                                                color: ColorManager.primaryGreen,
+                                                fontSize: FontSizeApp.s10)!
+                                            .copyWith(height: 1))
+                                ],
+                              )
+                            : const SizedBox(),
+                      ],
+                    ),
                   ),
-                ),
+                  const SizedBox(width: 19),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: Container(
+                      height: 115,
+                      width: 115,
+                      color: ColorManager.grayForPlaceholder,
+                      child: CachedImage(
+                        imageUrl: productAddedToBasketDetails.image,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            InkWell(
+                onTap: (){
+                  context.read<BasketBloc>().add(
+                      DeleteProduct(productAddedToBasketDetails.id ?? 0));
+                },
+                child: const Icon(Icons.clear, color: Colors.red,size: 30,))
+          ],
         ),
       ),
     );

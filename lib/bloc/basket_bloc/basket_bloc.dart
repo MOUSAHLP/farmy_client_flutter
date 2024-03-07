@@ -51,25 +51,18 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
                 i.quantity = (x.quantity ?? 0) + (i.quantity ?? 0);
                 emit(state.copyWith(
                     productList: mutableProducts,
-                    addToBasketState: AddToBasketState.successAddedToBasket));
+                   addToBasketState: AddToBasketState.successAddedToBasket
+                ));
               }
             }
             if (!mutableProducts.any((element) => element.id == x.id))  {
               mutableProducts.add(x);
               emit(state.copyWith(
                   productList: mutableProducts,
-                  addToBasketState: AddToBasketState.successAddedToBasket));
+                 addToBasketState: AddToBasketState.successAddedToBasket
+              ));
             }
           }
-          // if (!contain) {
-          //   mutableProducts.addAll(event.product);
-          //   emit(
-          //     state.copyWith(
-          //       productList: mutableProducts,
-          //       addToBasketState: AddToBasketState.successAddedToBasket,
-          //     ),
-          //   );
-          // }
         }
         if (event is PaymentProcess) {
           emit(state.copyWith(screenState: ScreenState.loading));
@@ -109,7 +102,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
               productList: mutableProducts,
             ),
           );
-          // }
+
         }
         if (event is DeleteProduct) {
           mutableProducts.removeWhere((element) => element.id == event.id);
@@ -118,8 +111,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           ));
         }
         if (event is ClearBasket) {
-          mutableProducts.clear();
-          emit(state.copyWith());
+          emit(state.copyWith(productList: []));
         }
       },
     );
