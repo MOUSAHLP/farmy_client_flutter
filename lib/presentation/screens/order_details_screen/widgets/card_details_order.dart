@@ -73,7 +73,7 @@ class CardDetailsOrder extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    productAddedToBasketDetails.product?.name ?? "",
+                    productAddedToBasketDetails.product?.nameOfProduct ?? "",
                     style: getBoldStyle(
                             color: ColorManager.black,
                             fontSize: FontSizeApp.s10)

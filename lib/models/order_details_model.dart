@@ -1,5 +1,6 @@
 
 
+import 'package:pharma/models/product_details_response.dart';
 import 'package:pharma/models/product_model.dart';
 class OrderDetailsModel {
   int id;
@@ -7,7 +8,7 @@ class OrderDetailsModel {
   String? status;
   String? quantity;
   String? price;
-  ProductModel? product;
+  ProductResponse? product;
 
   OrderDetailsModel({
     this.orderNumber,
@@ -26,7 +27,7 @@ class OrderDetailsModel {
       status: json["status"],
       quantity: json["quantity"] ,
       price: json["price"],
-      product:ProductModel.fromJson(json['product']),
+      product:ProductResponse.fromJson(json['product']),
 
     );
   }

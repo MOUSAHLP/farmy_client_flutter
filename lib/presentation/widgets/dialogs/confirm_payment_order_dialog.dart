@@ -98,7 +98,9 @@ class _ConfirmPaymentOrderDialogBodyState
                     isFilled: true,
                     fillColor: ColorManager.white,
                     label: AppLocalizations.of(context)!.exit,
-                    onTap: () {},
+                    onTap: () {
+                      AppRouter.pop(context);
+                    },
                   ),
                 ),
               ],

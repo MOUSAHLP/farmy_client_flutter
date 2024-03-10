@@ -14,7 +14,6 @@ import '../../../bloc/onboarding_bloc/onboarding_event.dart';
 import '../../../bloc/onboarding_bloc/onboarding_state.dart';
 import '../../widgets/over_scroll_indicator.dart';
 import 'onboarding_body.dart';
-import 'widget/language_selection.dart';
 
 class OnBoardingView extends StatelessWidget {
   const OnBoardingView({super.key});

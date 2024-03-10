@@ -5,12 +5,15 @@ class InvociesResponse {
   int? deliveryValue;
   int? tax;
   int? subTotal;
-  InvociesResponse(
-      {this.total,
-      this.coponValue,
-      this.deliveryValue,
-      this.tax,
-      this.subTotal});
+
+  InvociesResponse({
+    this.total,
+    this.coponValue,
+    this.deliveryValue,
+    this.tax,
+    this.subTotal,
+  });
+
   factory InvociesResponse.formJson(Map<String, dynamic> json) {
     return InvociesResponse(
         subTotal: json["subtotal"],

@@ -64,9 +64,8 @@ class _MyAppState extends State<MyApp> {
               create: (BuildContext context) => sl<BasketBloc>(),
             ),
             BlocProvider(
-              lazy: false,
               create: (BuildContext context) =>
-                  sl<FavoriteBloc>()..add( GetFavorites()),
+                  sl<FavoriteBloc>(),
             ),
           ],
           child: OverlaySupport.global(

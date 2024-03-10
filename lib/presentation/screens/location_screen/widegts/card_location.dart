@@ -6,7 +6,6 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
 import '../../../../bloc/location_bloc/location_event.dart';
-import '../../../../core/app_router/app_router.dart';
 import '../../../../models/user_address_response.dart';
 
 class CardLocation extends StatelessWidget {

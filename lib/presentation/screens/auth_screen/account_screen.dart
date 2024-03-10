@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/bloc/authentication_bloc/authentication_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';

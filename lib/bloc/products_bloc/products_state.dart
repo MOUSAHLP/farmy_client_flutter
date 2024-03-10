@@ -2,11 +2,11 @@ part of 'products_bloc.dart';
 
 class ProductsState extends Equatable {
   final ScreenState? screenState;
-  List<ProductsBySubCategoryIdResponse> productsList = [];
+  List<ProductResponse> productsList = [];
   ProductsState({this.screenState, this.productsList = const []});
 
   ProductsState copyWith({
-    List<ProductsBySubCategoryIdResponse>? productsList,
+    List<ProductResponse>? productsList,
     ScreenState? screenState,
   }) {
     return ProductsState(

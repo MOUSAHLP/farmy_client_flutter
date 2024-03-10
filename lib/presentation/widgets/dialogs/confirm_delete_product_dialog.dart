@@ -13,7 +13,7 @@ class ConfirmDeleteProductDialog extends StatelessWidget {
   const ConfirmDeleteProductDialog(
       {required this.productAddedToBasketDetails, super.key});
 
-  final ProductDetailsResponse productAddedToBasketDetails;
+  final ProductResponse productAddedToBasketDetails;
 
   @override
   Widget build(BuildContext context) {

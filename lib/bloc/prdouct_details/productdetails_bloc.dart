@@ -15,13 +15,15 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
   int quntity = 1;
   int quantityRelated = 0;
   int quantitySimilar = 0;
-  List<ProductsBySubCategoryIdResponse> listSimilarProduct = [];
-  List<ProductsBySubCategoryIdResponse> listRelatedProduct = [];
+  List<ProductResponse> listSimilarProduct = [];
+  List<ProductResponse> listRelatedProduct = [];
+  List<int> listRelatedProductQuantity = [];
+  List<int> listSimilarProductQuantity = [];
 
   ProductdetailsBloc({required this.productRepo})
       : super(
           ProductdetailsState(
-            productDetailsResponse: ProductDetailsResponse(),
+            productDetailsResponse: ProductResponse(id:0),
           ),
         ) {
     on<ProductdetailsEvent>(
@@ -32,14 +34,31 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
           );
           (await productRepo.getProductDetailsById(event.id)).fold(
             (l) => emit(
-              state.copyWith(screenState: ScreenState.error),
+              state.copyWith(screenState: ScreenState.error,error: l),
             ),
-            (r) => emit(
-              state.copyWith(
-                  productDetailsResponse: r, screenState: ScreenState.success),
-            ),
+            (r) {
+              if (r.similarProducts != null) {
+                for (var similarProduct in r.similarProducts!) {
+                  listSimilarProductQuantity.add(
+                  similarProduct.quantity??0)
+              ;
+                }
+              }
+              if (r.relatedProducts != null) {
+                for (var relatedProduct in r.relatedProducts!) {
+                  listRelatedProductQuantity  .add(
+                   relatedProduct.quantity??0)
+                  ;
+                }
+              }
+              return emit(
+                state.copyWith(
+                  productDetailsResponse: r,
+                  screenState: ScreenState.success,
+                ),
+              );
+            },
           );
-
         }
         if (event is AddQuntityToOrder) {
           quntity = event.quntity;
@@ -49,52 +68,40 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
           );
         }
         if (event is AddQuantityRelatedToOrder) {
-          int index ;
+          int index;
           if (listRelatedProduct.any((element) => element.id == event.relatedProduct.id)) {
             index = listRelatedProduct.indexWhere((element) => element.id == event.relatedProduct.id);
-            int tmp = int.parse(listRelatedProduct[index].quantity!);
-            tmp++;
-            listRelatedProduct[index].quantity = tmp.toString();
-            print('========= this Product Already exist =========');
-            print("event : ${event.relatedProduct.id}");
-            print("listSimilarProduct : ${ listRelatedProduct[index].quantity}");
-            print("list : ${listRelatedProduct.firstWhere((element) => element.id == event.relatedProduct.id)}");
+            int tmp = listRelatedProduct[index].quantity??0;
+            if (listRelatedProductQuantity[event.index] > tmp) {
+              tmp++;
+              listRelatedProduct[index].quantity = tmp;
+            }
           } else {
-            event.relatedProduct.quantity ="1";
+            event.relatedProduct.quantity =1;
             listRelatedProduct.add(event.relatedProduct);
-            index = listRelatedProduct.indexWhere((element) => element.id == event.relatedProduct.id);
-            print('======== add Product ========');
-            print("length : ${listRelatedProduct.length}");
-            print("event : ${event.relatedProduct.id}");
-            print("list : ${listRelatedProduct.firstWhere((element) => element.id == event.relatedProduct.id).id}");
-            print("listSimilarProduct : ${ listRelatedProduct[index].quantity}");
-            print("event : ${ event.relatedProduct.quantity }");
+            index = listRelatedProduct
+                .indexWhere((element) => element.id == event.relatedProduct.id);
           }
           emit(
             state.copyWith(listRelatedProduct: listRelatedProduct),
           );
         }
         if (event is AddQuantitySimilarToOrder) {
-          int index ;
-          if (listSimilarProduct.any((element) => element.id == event.product.id)) {
-            index = listSimilarProduct.indexWhere((element) => element.id == event.product.id);
-            int tmp = int.parse(listSimilarProduct[index].quantity!);
-            tmp++;
-            listSimilarProduct[index].quantity = tmp.toString();
-            print('========= this Product Already exist =========');
-            print("event : ${event.product.id}");
-            print("listSimilarProduct : ${ listSimilarProduct[index].quantity}");
-            print("list : ${listSimilarProduct.firstWhere((element) => element.id == event.product.id)}");
+          int index;
+          if (listSimilarProduct
+              .any((element) => element.id == event.similarProduct.id)) {
+            index = listSimilarProduct
+                .indexWhere((element) => element.id == event.similarProduct.id);
+            int tmp = listSimilarProduct[index].quantity??0;
+            if (listSimilarProductQuantity[event.index] > tmp) {
+              tmp++;
+              listSimilarProduct[index].quantity = tmp;
+            }
           } else {
-            event.product.quantity ="1";
-            listSimilarProduct.add(event.product);
-            index = listSimilarProduct.indexWhere((element) => element.id == event.product.id);
-            print('======== add Product ========');
-            print("length : ${listSimilarProduct.length}");
-            print("event : ${event.product.id}");
-            print("list : ${listSimilarProduct.firstWhere((element) => element.id == event.product.id).id}");
-            print("listSimilarProduct : ${ listSimilarProduct[index].quantity}");
-            print("event : ${ event.product.quantity }");
+            event.similarProduct.quantity = 1;
+            listSimilarProduct.add(event.similarProduct);
+            index = listSimilarProduct
+                .indexWhere((element) => element.id == event.similarProduct.id);
           }
           emit(
             state.copyWith(listSimilarProduct: listSimilarProduct),
@@ -109,18 +116,16 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
           );
         }
         if (event is RemoveQuantityRelatedToOrder) {
-          int index ;
-          if (listRelatedProduct.any((element) => element.id == event.relatedProduct.id)) {
-            index = listRelatedProduct.indexWhere((element) => element.id == event.relatedProduct.id);
-            int tmp = int.parse(listRelatedProduct[index].quantity!);
-            if(tmp>0) {
+          int index;
+          if (listRelatedProduct
+              .any((element) => element.id == event.relatedProduct.id)) {
+            index = listRelatedProduct
+                .indexWhere((element) => element.id == event.relatedProduct.id);
+            int tmp = listRelatedProduct[index].quantity??0;
+            if (tmp > 0) {
               tmp--;
             }
-            listRelatedProduct[index].quantity = tmp.toString();
-            print('========= this Product Already exist =========');
-            print("event : ${event.relatedProduct.id}");
-            print("listSimilarProduct : ${ listRelatedProduct[index].quantity}");
-            print("list : ${listRelatedProduct.firstWhere((element) => element.id == event.relatedProduct.id)}");
+            listRelatedProduct[index].quantity = tmp;
           }
 
           emit(
@@ -128,18 +133,16 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
           );
         }
         if (event is RemoveQuantitySimilarToOrder) {
-          int index ;
-          if (listSimilarProduct.any((element) => element.id == event.product.id)) {
-            index = listSimilarProduct.indexWhere((element) => element.id == event.product.id);
-            int tmp = int.parse(listSimilarProduct[index].quantity!);
-            if(tmp>0) {
+          int index;
+          if (listSimilarProduct
+              .any((element) => element.id == event.product.id)) {
+            index = listSimilarProduct
+                .indexWhere((element) => element.id == event.product.id);
+            int tmp = listSimilarProduct[index].quantity??0;
+            if (tmp > 0) {
               tmp--;
             }
-            listSimilarProduct[index].quantity = tmp.toString();
-            print('========= this Product Already exist =========');
-            print("event : ${event.product.id}");
-            print("listSimilarProduct : ${ listSimilarProduct[index].quantity}");
-            print("list : ${listSimilarProduct.firstWhere((element) => element.id == event.product.id)}");
+            listSimilarProduct[index].quantity = tmp;
           }
           emit(
             state.copyWith(listSimilarProduct: listSimilarProduct),

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,19 +19,18 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
+import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/location_screen.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_bill_details_row.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_note_on_the_order_continer.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_order_type_continer.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_total_price.dart';
+import 'package:pharma/presentation/widgets/dialogs/confirm_payment_order_dialog.dart';
 import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/presentation/widgets/select_location.dart';
 import 'package:pharma/translations.dart';
-
-import '../../widgets/dialogs/confirm_payment_order_dialog.dart';
-import '../home_screen/home_screen.dart';
 import 'widgets/custom_change_on_the_order_container.dart';
 import 'widgets/custom_discount_code_continer.dart';
 import 'widgets/custom_payment_status_continer.dart';
@@ -55,6 +53,7 @@ class PaymentScreen extends StatelessWidget {
 
 class PaymentBody extends StatelessWidget {
   PaymentBody({super.key});
+  final Duration animationDuration = const Duration(milliseconds: 500);
 
   final TextEditingController noteController = TextEditingController();
 
@@ -79,6 +78,7 @@ class PaymentBody extends StatelessWidget {
 
             ConfirmPaymentOrderDialog.openDialog(
                 context, AppLocalizations.of(context)!.orderSuccesfulyComplete);
+            context.read<BasketBloc>().add(ClearBasket());
           }
           if (state.completePaymentStates == CompletePaymentStates.loading) {
             LoadingDialog().openDialog(context);
@@ -90,7 +90,7 @@ class PaymentBody extends StatelessWidget {
         },
         child: BlocBuilder<PaymentBloc, PaymentState>(
           builder: (context, state) {
-            log("state $state");
+            // log("state $state");
             return Scaffold(
               body: Stack(
                 alignment: Alignment.bottomCenter,
@@ -101,7 +101,8 @@ class PaymentBody extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomAppBarScreen(
-                            sectionName: AppLocalizations.of(context)!.payment),
+                          sectionName: AppLocalizations.of(context)!.payment,
+                        ),
                         Expanded(
                           child: ListView(
                             children: [
@@ -109,36 +110,44 @@ class PaymentBody extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 21),
                                 child: Text(
-                                    AppLocalizations.of(context)!
-                                        .payment_statment,
-                                    style: getRegularStyle(
-                                        color: ColorManager.grayForMessage,
-                                        fontSize: FontSizeApp.s16)),
+                                  AppLocalizations.of(context)!
+                                      .payment_statment,
+                                  style: getRegularStyle(
+                                    color: ColorManager.grayForMessage,
+                                    fontSize: FontSizeApp.s16,
+                                  ),
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 21, vertical: 8),
+                                  horizontal: 21,
+                                  vertical: 8,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       AppLocalizations.of(context)!.address,
                                       style: getBoldStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: FontSizeApp.s14),
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s14,
+                                      ),
                                     ),
                                     const SizedBox(height: 4),
                                     GestureDetector(
                                       onTap: () {
                                         AppRouter.push(
-                                            context, const LocationScreen());
+                                          context,
+                                          const LocationScreen(),
+                                        );
                                       },
                                       child: BlocBuilder<LocationBloc,
                                           LocationState>(
                                         builder: (context, state) {
                                           return SelectLocation(
-                                              favoriteuserAddress:
-                                                  state.addressCurrent);
+                                            favoriteuserAddress:
+                                                state.addressCurrent,
+                                          );
                                         },
                                       ),
                                     ),
@@ -154,8 +163,9 @@ class PaymentBody extends StatelessWidget {
                                     Text(
                                       AppLocalizations.of(context)!.conduction,
                                       style: getBoldStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: FontSizeApp.s14),
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s14,
+                                      ),
                                     ),
                                     const SizedBox(height: 4),
                                     for (var item in state
@@ -164,16 +174,16 @@ class PaymentBody extends StatelessWidget {
                                       BlocBuilder<LocationBloc, LocationState>(
                                         builder: (context, loctionstate) {
                                           return buildCustomOrderTypeContainer(
-                                              context,
-                                              loctionstate,
-                                              item,
-                                              state);
+                                            context,
+                                            loctionstate,
+                                            item,
+                                            state,
+                                          );
                                         },
                                       ),
                                   ],
                                 ),
                               ),
-
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 21),
@@ -183,8 +193,9 @@ class PaymentBody extends StatelessWidget {
                                     Text(
                                       AppLocalizations.of(context)!.payment,
                                       style: getBoldStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: FontSizeApp.s14),
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s14,
+                                      ),
                                     ),
                                     const SizedBox(height: 4),
                                     CustomPaymentStatusContiner(
@@ -203,44 +214,52 @@ class PaymentBody extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              //todo
+                              //  todo
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 21, vertical: 12),
+                                  horizontal: 21,
+                                  vertical: 12,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       AppLocalizations.of(context)!.hasm_code,
                                       style: getBoldStyle(
-                                          color: ColorManager.primaryGreen,
-                                          fontSize: FontSizeApp.s14),
+                                        color: ColorManager.primaryGreen,
+                                        fontSize: FontSizeApp.s14,
+                                      ),
                                     ),
                                     const SizedBox(height: 8),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 5),
+                                        horizontal: 5,
+                                      ),
                                       child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                              child: CustomDiscountCodeContiner(
-                                            imageUrl: ImageManager.codeDiscount,
-                                            subjectText:
-                                                AppLocalizations.of(context)!
-                                                    .hasm_code,
-                                          )),
+                                            child: CustomDiscountCodeContainer(
+                                              imageUrl:
+                                                  ImageManager.codeDiscount,
+                                              subjectText:
+                                                  AppLocalizations.of(context)!
+                                                      .hasm_code,
+                                            ),
+                                          ),
                                           const SizedBox(width: 4),
                                           Expanded(
-                                              child: CustomDiscountCodeContiner(
-                                            isReplacePoint: true,
-                                            imageUrl: ImageManager.replacePoint,
-                                            subjectText:
-                                                AppLocalizations.of(context)!
-                                                    .redeem_points,
-                                          ))
+                                            child: CustomDiscountCodeContainer(
+                                              isReplacePoint: true,
+                                              imageUrl:ImageManager.replacePoint,
+                                              subjectText:
+                                                  AppLocalizations.of(context)!
+                                                      .redeem_points,
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -251,7 +270,8 @@ class PaymentBody extends StatelessWidget {
                                   Text(
                                     "لا يمكنك استخدام كود الحسم واستبدال النقاط معا (اختر واحدة فقط)",
                                     style: getRegularStyle(
-                                        color: ColorManager.grayForMessage),
+                                      color: ColorManager.grayForMessage,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -261,22 +281,26 @@ class PaymentBody extends StatelessWidget {
                                   Text(
                                     "لقد حصلت على حسم 5000 ل.س من مجمل الفاتورة",
                                     style: getBoldStyle(
-                                        color: ColorManager.redForFavorite,
-                                        fontSize: 15),
+                                      color: ColorManager.redForFavorite,
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ],
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 21, vertical: 12),
+                                  horizontal: 21,
+                                  vertical: 12,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       AppLocalizations.of(context)!.reviews,
                                       style: getBoldStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: FontSizeApp.s14),
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s14,
+                                      ),
                                     ),
                                     const SizedBox(height: 4),
                                     InputFieldAuth(
@@ -289,11 +313,13 @@ class PaymentBody extends StatelessWidget {
                                       hintText: AppLocalizations.of(context)!
                                           .add_notes,
                                       hintStyle: getRegularStyle(
-                                          color: ColorManager.grayForMessage),
+                                        color: ColorManager.grayForMessage,
+                                      ),
                                     )
                                   ],
                                 ),
                               ),
+
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 35),
@@ -318,16 +344,20 @@ class PaymentBody extends StatelessWidget {
                                                           i]
                                                       .id)) {
                                             context.read<PaymentBloc>().add(
-                                                RemoveFromChossenList(
+                                                  RemoveFromChossenList(
                                                     attributeData: state
                                                         .paymentProcessResponse!
-                                                        .deleveryAttributesList![i]));
+                                                        .deleveryAttributesList![i],
+                                                  ),
+                                                );
                                           } else {
                                             context.read<PaymentBloc>().add(
-                                                AddToChossenAttrbiuteList(
+                                                  AddToChossenAttrbiuteList(
                                                     attrbiuteData: state
                                                         .paymentProcessResponse!
-                                                        .deleveryAttributesList![i]));
+                                                        .deleveryAttributesList![i],
+                                                  ),
+                                                );
                                           }
                                         },
                                         isSelected: context
@@ -354,7 +384,9 @@ class PaymentBody extends StatelessWidget {
 
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 21, vertical: 12),
+                                  horizontal: 21,
+                                  vertical: 14,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -364,6 +396,9 @@ class PaymentBody extends StatelessWidget {
                                       style: getBoldStyle(
                                           color: ColorManager.primaryGreen,
                                           fontSize: FontSizeApp.s14),
+                                    ),
+                                    const SizedBox(
+                                      height: 18,
                                     ),
                                     SizedBox(
                                       width: 1.sw,
@@ -376,16 +411,18 @@ class PaymentBody extends StatelessWidget {
                                         itemBuilder: (context, index) {
                                           return Container(
                                             decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(6),
-                                                boxShadow: const [
-                                                  BoxShadow(
-                                                      offset: Offset(1, 2),
-                                                      spreadRadius: 1.5,
-                                                      color: ColorManager
-                                                          .grayForSearch)
-                                                ]),
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                  offset: Offset(1, 2),
+                                                  spreadRadius: 1.5,
+                                                  color: ColorManager
+                                                      .grayForSearch,
+                                                ),
+                                              ],
+                                            ),
                                             child: CustomChangeOnTheOrder(
                                               onTab: () {
                                                 if (context
@@ -400,33 +437,41 @@ class PaymentBody extends StatelessWidget {
                                                                 index]
                                                             .id)) {
                                                   /// todo : change DeliveryAttributesResponse to changeResponse
-                                                  context.read<PaymentBloc>().add(
-                                                      RemoveChangeAttributeList(
+                                                  context
+                                                      .read<PaymentBloc>()
+                                                      .add(
+                                                        RemoveChangeAttributeList(
                                                           attributeData: state
-                                                                  .paymentProcessResponse!
-                                                                  .deleveryAttributesList![
-                                                              index]));
+                                                              .paymentProcessResponse!
+                                                              .deleveryAttributesList![index],
+                                                        ),
+                                                      );
                                                 } else {
                                                   /// todo : change DeliveryAttributesResponse to changeResponse
-                                                  context.read<PaymentBloc>().add(
-                                                      AddChangeAttributeList(
+                                                  context
+                                                      .read<PaymentBloc>()
+                                                      .add(
+                                                        AddChangeAttributeList(
                                                           attributeData: state
-                                                                  .paymentProcessResponse!
-                                                                  .deleveryAttributesList![
-                                                              index]));
+                                                              .paymentProcessResponse!
+                                                              .deleveryAttributesList![index],
+                                                        ),
+                                                      );
                                                 }
                                               },
                                               isSelected: context
                                                       .read<PaymentBloc>()
                                                       .state
                                                       .attrbiuteChossenList
-                                                      .any((element) =>
-                                                          element.id ==
-                                                          state
-                                                              .paymentProcessResponse!
-                                                              .deleveryAttributesList![
-                                                                  index]
-                                                              .id)
+                                                      .any(
+                                                        (element) =>
+                                                            element.id ==
+                                                            state
+                                                                .paymentProcessResponse!
+                                                                .deleveryAttributesList![
+                                                                    index]
+                                                                .id,
+                                                      )
                                                   ? true
                                                   : false,
                                               changeText: state
@@ -439,10 +484,11 @@ class PaymentBody extends StatelessWidget {
                                         },
                                         gridDelegate:
                                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisSpacing: 30,
-                                                mainAxisSpacing: 10,
-                                                mainAxisExtent: 30,
-                                                crossAxisCount: 3),
+                                          crossAxisSpacing: 30,
+                                          mainAxisSpacing: 10,
+                                          mainAxisExtent: 30,
+                                          crossAxisCount: 3,
+                                        ),
                                       ),
                                     )
                                   ],
@@ -451,15 +497,18 @@ class PaymentBody extends StatelessWidget {
 
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 38, left: 38, top: 15),
+                                  right: 38,
+                                  left: 38,
+                                  top: 15,
+                                ),
                                 child: Row(
                                   children: [
                                     Text(
                                       AppLocalizations.of(context)!.invoice,
                                       style: getUnderBoldStyle(
-                                              color:
-                                                  ColorManager.grayForMessage,
-                                              fontSize: FontSizeApp.s14)!
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s14,
+                                      )!
                                           .copyWith(height: 1),
                                     ),
                                   ],
@@ -467,24 +516,26 @@ class PaymentBody extends StatelessWidget {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 21, left: 21, bottom: 11),
+                                  right: 21,
+                                  left: 21,
+                                  bottom: 11,
+                                ),
                                 child: Column(
                                   children: [
                                     CustomBillDetailsRow(
-                                        subStatusBill:
-                                            AppLocalizations.of(context)!
-                                                .total_amount,
-                                        price: state
-                                                    .paymentProcessResponse!
-                                                    .invociesResponse!
-                                                    .subTotal !=
-                                                null
-                                            ? Formatter.formatPrice(state
-                                                .paymentProcessResponse!
-                                                .invociesResponse!
-                                                .subTotal!)
-                                            : AppValueConst.defaultInvoiceValue
-                                                .toString()),
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!
+                                              .total_amount,
+                                      price: state.paymentProcessResponse!
+                                                  .invociesResponse!.subTotal !=
+                                              null
+                                          ? Formatter.formatPrice(state
+                                              .paymentProcessResponse!
+                                              .invociesResponse!
+                                              .subTotal!)
+                                          : AppValueConst.defaultInvoiceValue
+                                              .toString(),
+                                    ),
                                     CustomBillDetailsRow(
                                       subStatusBill:
                                           AppLocalizations.of(context)!
@@ -513,30 +564,32 @@ class PaymentBody extends StatelessWidget {
                                           .toString(),
                                     ),
                                     CustomBillDetailsRow(
-                                        subStatusBill:
-                                            AppLocalizations.of(context)!.tax,
-                                        price: state.paymentProcessResponse!
-                                                    .invociesResponse!.tax !=
-                                                null
-                                            ? Formatter.formatPrice(state
-                                                .paymentProcessResponse!
-                                                .invociesResponse!
-                                                .tax!)
-                                            : AppValueConst.defaultInvoiceValue
-                                                .toString()),
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!.tax,
+                                      price: state.paymentProcessResponse!
+                                                  .invociesResponse!.tax !=
+                                              null
+                                          ? Formatter.formatPrice(state
+                                              .paymentProcessResponse!
+                                              .invociesResponse!
+                                              .tax!)
+                                          : AppValueConst.defaultInvoiceValue
+                                              .toString(),
+                                    ),
                                     CustomBillDetailsRow(
-                                        colorText: ColorManager.primaryGreen,
-                                        subStatusBill:
-                                            AppLocalizations.of(context)!.total,
-                                        price: state.paymentProcessResponse!
-                                                    .invociesResponse!.total !=
-                                                null
-                                            ? Formatter.formatPrice(state
-                                                .paymentProcessResponse!
-                                                .invociesResponse!
-                                                .total!)
-                                            : AppValueConst.defaultInvoiceValue
-                                                .toString())
+                                      colorText: ColorManager.primaryGreen,
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!.total,
+                                      price: state.paymentProcessResponse!
+                                                  .invociesResponse!.total !=
+                                              null
+                                          ? Formatter.formatPrice(state
+                                              .paymentProcessResponse!
+                                              .invociesResponse!
+                                              .total!)
+                                          : AppValueConst.defaultInvoiceValue
+                                              .toString(),
+                                    )
                                   ],
                                 ),
                               ),
@@ -560,21 +613,23 @@ class PaymentBody extends StatelessWidget {
                                 .total!)
                             : AppValueConst.defaultInvoiceValue.toString(),
                     onCompletePayment: () {
-                      context.read<PaymentBloc>().add(CreateOrder(
-                            prductList:
-                                context.read<BasketBloc>().state.prductList!,
-                            invoicesParms: InvoicesParms(
-                                notes: noteController.text,
-                                deliveryMethodId:
-                                    state.deleveryMethodChossenList.isNotEmpty
-                                        ? state.deleveryMethodChossenList[0].id!
-                                        : 0,
-                                userAddressid: context
-                                    .read<LocationBloc>()
-                                    .state
-                                    .addressCurrent
-                                    .id!),
-                          ));
+                      context.read<PaymentBloc>().add(
+                            CreateOrder(
+                              prductList:
+                                  context.read<BasketBloc>().state.prductList!,
+                              invoicesParms: InvoicesParms(
+                                  notes: noteController.text,
+                                  deliveryMethodId: state
+                                          .deleveryMethodChossenList.isNotEmpty
+                                      ? state.deleveryMethodChossenList[0].id!
+                                      : 0,
+                                  userAddressid: context
+                                      .read<LocationBloc>()
+                                      .state
+                                      .addressCurrent
+                                      .id!),
+                            ),
+                          );
                     },
                     onCompleteShopping: () {
                       AppRouter.pushReplacement(context, const HomeScreen());
@@ -611,15 +666,19 @@ class PaymentBody extends StatelessWidget {
             .any((element) => element.id == item.id)) {
           if (context.read<LocationBloc>().state.addressCurrent.latitude !=
               null) {
-            context
-                .read<PaymentBloc>()
-                .add(ToogleDeleveryMethod(deleveryMethodData: item));
-            context.read<PaymentBloc>().add(GetInvoicesDetails(
-                invoicesParmas: InvoicesParms(
-                    notes: noteController.text,
-                    deliveryMethodId: item.id!,
-                    userAddressid: loctionstate.addressCurrent.id!),
-                productList: context.read<BasketBloc>().state.prductList));
+            context.read<PaymentBloc>().add(
+                  ToogleDeleveryMethod(deleveryMethodData: item),
+                );
+            context.read<PaymentBloc>().add(
+                  GetInvoicesDetails(
+                    invoicesParmas: InvoicesParms(
+                      notes: noteController.text,
+                      deliveryMethodId: item.id!,
+                      userAddressid: loctionstate.addressCurrent.id!,
+                    ),
+                    productList: context.read<BasketBloc>().state.prductList,
+                  ),
+                );
           }
         }
       },

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
-import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/translations.dart';
 
-import '../screens/order_screen/order_screen.dart';
 
 
 class CustomTotalPrice extends StatelessWidget {

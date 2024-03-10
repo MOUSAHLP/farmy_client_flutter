@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/activity_bloc/rewards_activity_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_bloc.dart';
-import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_state.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
