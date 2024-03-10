@@ -22,9 +22,12 @@ import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:pharma/translations.dart';
 
+import '../../widgets/custom_app_bar_screen.dart';
+import '../../widgets/custom_error_screen.dart';
+
 class ProductDetailsScreen extends StatelessWidget {
   final int? id;
-  final String? quantity;
+  final int? quantity;
 
   const ProductDetailsScreen({
     super.key,
@@ -47,7 +50,7 @@ class ProductDetailsScreen extends StatelessWidget {
 }
 
 class ProductDetailsBody extends StatelessWidget {
-  final String? quantity;
+  final int? quantity;
 
   const ProductDetailsBody({super.key, this.quantity});
 
@@ -90,6 +93,7 @@ class ProductDetailsBody extends StatelessWidget {
             return Scaffold(
               body: Column(
                 children: [
+
                   state.screenState == ScreenState.loading
                       ? const CustomLoading()
                       : state.screenState == ScreenState.success
@@ -97,16 +101,12 @@ class ProductDetailsBody extends StatelessWidget {
                               child: ListView(
                                 children: [
                                   ProductImage(
-                                    productImage: state
-                                                .productDetailsResponse.image !=
-                                            null
-                                        ? state.productDetailsResponse.image!
-                                        : "",
+                                    productImage: state.productDetailsResponse.image??""
                                   ),
                                   AboutProductAndAmountSection(
                                     productDetails:state
                                         .productDetailsResponse ,
-                                    quantity: int.parse(quantity!),
+                                    quantity: quantity??0,
 
                                   ),
                                   Column(
@@ -411,7 +411,13 @@ class ProductDetailsBody extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : const SizedBox(),
+                          : state.screenState == ScreenState.error?
+                  Column(
+                    children: [
+                      const CustomAppBarScreen(sectionName: "",isComeBack: true),
+                      Center(child: CustomErrorScreen(onTap: (){},)),
+                    ],
+                  ):const SizedBox(),
                 ],
               ),
             );
@@ -422,12 +428,12 @@ class ProductDetailsBody extends StatelessWidget {
   }
 
   AddToBasket buildAddToBasket(ProductdetailsState state) {
-    List<ProductDetailsResponse> A = [];
+    List<ProductResponse> A = [];
     if (state.listSimilarProduct != null) {
       for (var tmp in state.listSimilarProduct!) {
         A.add(
-          ProductDetailsResponse(
-            quantity: int.parse(tmp.quantity!),
+          ProductResponse(
+            quantity: tmp.quantity,
             image: tmp.image,
             id: tmp.id??0,
             discountValue: tmp.discountValue,
@@ -443,8 +449,8 @@ class ProductDetailsBody extends StatelessWidget {
     if (state.listRelatedProduct != null) {
       for (var tmp in state.listRelatedProduct!) {
         A.add(
-          ProductDetailsResponse(
-            quantity: int.parse(tmp.quantity!),
+          ProductResponse(
+            quantity: tmp.quantity,
             image: tmp.image,
             id: tmp.id??0,
             discountValue: tmp.discountValue,
@@ -458,7 +464,7 @@ class ProductDetailsBody extends StatelessWidget {
       }
     }
     A.add(
-      ProductDetailsResponse(
+      ProductResponse(
         similarProducts: state.productDetailsResponse.similarProducts,
         sellerName: state.productDetailsResponse.sellerName,
         relatedProducts: state.productDetailsResponse.relatedProducts,

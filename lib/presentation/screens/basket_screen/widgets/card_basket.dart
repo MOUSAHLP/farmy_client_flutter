@@ -14,7 +14,7 @@ import '../../../../translations.dart';
 import '../../../widgets/dialogs/confirm_delete_product_dialog.dart';
 
 class CardBasket extends StatelessWidget {
-  final ProductDetailsResponse productAddedToBasketDetails;
+  final ProductResponse productAddedToBasketDetails;
 
   const CardBasket({super.key, required this.productAddedToBasketDetails});
 

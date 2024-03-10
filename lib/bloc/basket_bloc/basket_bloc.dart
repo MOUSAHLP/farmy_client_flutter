@@ -12,7 +12,7 @@ part 'basket_state.dart';
 
 class BasketBloc extends Bloc<BasketEvent, BasketState> {
   BasketRepo basketRepo;
-  List<ProductDetailsResponse> mutableProducts = [];
+  List<ProductResponse> mutableProducts = [];
 
 
   int countsProducts(int id) {

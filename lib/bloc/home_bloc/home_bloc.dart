@@ -8,6 +8,7 @@ import 'package:pharma/models/home_response.dart';
 import '../../models/banners_response.dart';
 import '../../models/categories_respoonse.dart';
 import '../../models/endpoint_home_response.dart';
+import '../../models/product_details_response.dart';
 import '../../models/products_by_sub_category_id_response.dart';
 
 part 'home_event.dart';

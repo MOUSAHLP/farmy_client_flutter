@@ -34,7 +34,7 @@ class AddToChossenAttrbiuteList extends PaymentEvent {
 
 class GetInvoicesDetails extends PaymentEvent {
   final InvoicesParms invoicesParmas;
-  final List<ProductDetailsResponse>? productList;
+  final List<ProductResponse>? productList;
 
   const GetInvoicesDetails({
     required this.invoicesParmas,
@@ -80,7 +80,7 @@ class ToogleDeleveryMethod extends PaymentEvent {
 
 class CreateOrder extends PaymentEvent {
   final InvoicesParms invoicesParms;
-  final List<ProductDetailsResponse> prductList;
+  final List<ProductResponse> prductList;
 
   const CreateOrder({
     required this.invoicesParms,

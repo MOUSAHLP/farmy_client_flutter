@@ -5,7 +5,7 @@ class HomeState extends Equatable {
   final HomeResponse? homeData;
   final List<EndpointHomeResponse>? endpointHome;
   final List<CategoriesResponse>? categories;
-  final List<ProductsBySubCategoryIdResponse>? products;
+  final List<ProductResponse>? products;
   final List<BannersResponse>? banners;
 final String error;
   const HomeState(
@@ -23,7 +23,7 @@ final String error;
       HomeResponse? homeData,
       List<EndpointHomeResponse>? endpointHome,
       List<CategoriesResponse>? categories,
-      List<ProductsBySubCategoryIdResponse>? products,
+      List<ProductResponse>? products,
       List<BannersResponse>? banners,
       String? error
       }) {

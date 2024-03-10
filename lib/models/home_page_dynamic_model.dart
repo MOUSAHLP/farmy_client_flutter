@@ -1,5 +1,6 @@
 import 'package:pharma/models/banners_response.dart';
 import 'package:pharma/models/categories_respoonse.dart';
+import 'package:pharma/models/product_details_response.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 
 class HomePageDynamicModel {
@@ -8,7 +9,7 @@ class HomePageDynamicModel {
   Map<String, String>? title;
   String? link;
 
-  List<ProductsBySubCategoryIdResponse>? sectionContent;
+  List<ProductResponse>? sectionContent;
   List<BannersResponse>? sliderContent;
   List<CategoriesResponse>? categoryContent;
 
@@ -27,9 +28,9 @@ class HomePageDynamicModel {
     link = json['link'];
     if (json['type'] == "section") {
       if (json['content'] != null) {
-        sectionContent = <ProductsBySubCategoryIdResponse>[];
+        sectionContent = <ProductResponse>[];
         json['content'].forEach((v) {
-          sectionContent!.add(ProductsBySubCategoryIdResponse.fromJson(v));
+          sectionContent!.add(ProductResponse.fromJson(v));
         });
       }
     } else if (json['type'] == "slider") {
