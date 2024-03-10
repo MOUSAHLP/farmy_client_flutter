@@ -38,9 +38,14 @@ class BaseApiClient {
       required T Function(dynamic) converter,
       bool isToken = false,
       dynamic returnOnError}) async {
+    print("post================================");
+    print(url);
+    print("queryParameters");
+    print(queryParameters);
+    print("formData");
+    print(formData);
+    print("post================================");
     try {
-      print("formData formData formData formData formData ");
-      print(formData);
       var response = await client.post(
         url,
         queryParameters: queryParameters,
@@ -128,7 +133,12 @@ class BaseApiClient {
     required T Function(dynamic) converter,
     CancelToken? cancelToken,
   }) async {
-    // try {
+    print("get================================");
+    print(url);
+    print("queryParameters");
+    print(queryParameters);
+    print("get================================");
+    try {
       var response = await client.get(
         url,
         queryParameters: queryParameters,
@@ -146,21 +156,21 @@ class BaseApiClient {
       } else {
         return left(response.data['message']);
       }
-    // } on DioException catch (e) {
-    //   if (e.type == DioExceptionType.cancel) {
-    //     return left('cancel');
-    //   }
-    //   Map dioError = DioErrorsHandler.onError(e);
-    //   if (kDebugMode) {
-    //     print(e);
-    //   }
-    //   return left(dioError['message']);
-    // } catch (e) {
-    //   if (kDebugMode) {
-    //     print(e);
-    //   }
-    //   return left("");
-    // }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.cancel) {
+        return left('cancel');
+      }
+      Map dioError = DioErrorsHandler.onError(e);
+      if (kDebugMode) {
+        print(e);
+      }
+      return left(dioError['message']);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return left("");
+    }
   }
 
   static Future<Either<String, T>> delete<T>(
