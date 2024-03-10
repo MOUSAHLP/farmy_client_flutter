@@ -34,7 +34,7 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
           );
           (await productRepo.getProductDetailsById(event.id)).fold(
             (l) => emit(
-              state.copyWith(screenState: ScreenState.error),
+              state.copyWith(screenState: ScreenState.error,error: l),
             ),
             (r) {
               if (r.similarProducts != null) {

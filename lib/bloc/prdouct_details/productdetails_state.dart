@@ -5,6 +5,7 @@ class ProductdetailsState extends Equatable {
   final ProductDetailsResponse productDetailsResponse;
   final AddToBasketState? addToBasketState;
   final int? quntity;
+  final String error;
   List<ProductsBySubCategoryIdResponse>? listRelatedProduct;
   List<ProductsBySubCategoryIdResponse>? listSimilarProduct;
 
@@ -17,6 +18,7 @@ class ProductdetailsState extends Equatable {
     required this.productDetailsResponse,
     this.addToBasketState,
     this.quntity = 1,
+    this.error='',
   });
 
   ProductdetailsState copyWith({
@@ -25,7 +27,7 @@ class ProductdetailsState extends Equatable {
     final int? quntity,
     List<ProductsBySubCategoryIdResponse>? listSimilarProduct,
     List<ProductsBySubCategoryIdResponse>? listRelatedProduct,
-
+    String? error,
     ProductDetailsResponse? productDetailsResponse,
     AddToBasketState? addToBasketState,
   }) {
@@ -36,6 +38,7 @@ class ProductdetailsState extends Equatable {
       screenState: screenState ?? this.screenState,
       productDetailsResponse:
           productDetailsResponse ?? this.productDetailsResponse,
+      error: error??'',
     );
   }
 
@@ -47,6 +50,6 @@ class ProductdetailsState extends Equatable {
         quntity,
         listRelatedProduct,
         listSimilarProduct,
-
+    error,
       ];
 }

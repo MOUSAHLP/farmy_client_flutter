@@ -121,13 +121,12 @@ class AboutProductAndAmountSection extends StatelessWidget {
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: productDetails.id,
-                                isToggled: context
-                                    .read<FavoriteBloc>()
-                                    .isFavoriteProduct(productDetails.id),
+                                isToggled: productDetails.isFavorite,
                                 onTap: () {
                                   context.read<FavoriteBloc>().add(
-                                        ChangeFavoriteStatusRestaurant(
-                                            productDetails.id),
+                                        ChangeFavoriteStatusProduct(
+                                            productDetails.id,
+                                        productDetails),
                                       );
                                 },
                               );

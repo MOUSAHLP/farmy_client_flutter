@@ -22,6 +22,9 @@ import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:pharma/translations.dart';
 
+import '../../widgets/custom_app_bar_screen.dart';
+import '../../widgets/custom_error_screen.dart';
+
 class ProductDetailsScreen extends StatelessWidget {
   final int? id;
   final String? quantity;
@@ -89,6 +92,7 @@ class ProductDetailsBody extends StatelessWidget {
             return Scaffold(
               body: Column(
                 children: [
+
                   state.screenState == ScreenState.loading
                       ? const CustomLoading()
                       : state.screenState == ScreenState.success
@@ -96,11 +100,7 @@ class ProductDetailsBody extends StatelessWidget {
                               child: ListView(
                                 children: [
                                   ProductImage(
-                                    productImage: state
-                                                .productDetailsResponse.image !=
-                                            null
-                                        ? state.productDetailsResponse.image!
-                                        : "",
+                                    productImage: state.productDetailsResponse.image??""
                                   ),
                                   AboutProductAndAmountSection(
                                     productDetails:state
@@ -394,7 +394,13 @@ class ProductDetailsBody extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : const SizedBox(),
+                          : state.screenState == ScreenState.error?
+                  Column(
+                    children: [
+                      const CustomAppBarScreen(sectionName: "",isComeBack: true),
+                      Center(child: CustomErrorScreen(onTap: (){},)),
+                    ],
+                  ):const SizedBox(),
                 ],
               ),
             );

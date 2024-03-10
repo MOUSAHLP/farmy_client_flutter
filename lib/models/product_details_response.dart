@@ -16,6 +16,7 @@ class ProductDetailsResponse {
   String? image;
   String? description;
   bool? isDiscount;
+  bool isFavorite;
 
   List<ProductsBySubCategoryIdResponse>? relatedProducts;
   List<ProductsBySubCategoryIdResponse>? similarProducts;
@@ -35,11 +36,13 @@ class ProductDetailsResponse {
     this.description,
     this.relatedProducts,
     this.similarProducts,
+    this.isFavorite=false
   });
   factory ProductDetailsResponse.fromJson(Map<String, dynamic> json) {
     return json["availability"] == "1"
         ? ProductDetailsResponse(
             id: json["id"],
+
         quantity: json["quantity"] != null ? int.parse(json["quantity"]) : null,
 
         description: json["description"],
@@ -55,6 +58,7 @@ class ProductDetailsResponse {
                 : List<AttrbiuteResponse>.from(json["attributes"]
                     .map((x) => AttrbiuteResponse.fromJson(x))),
             image: json["image"],
+        isFavorite: json["is_favorite"],
             relatedProducts: json["related_products"] == null
                 ? []
                 : List<ProductsBySubCategoryIdResponse>.from(

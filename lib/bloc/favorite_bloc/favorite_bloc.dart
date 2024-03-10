@@ -29,33 +29,39 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
           emit(FavoritesListError(l));
         }, (r) {
           favoriteListProducts = r;
-          idProducts =
-              favoriteListProducts.map((item) => item.id ?? 0).toList();
-          print("idProducts");
-          print(idProducts);
-          print(idProducts.length);
+          // idProducts =
+          //     favoriteListProducts.map((item) => item.id ?? 0).toList();
+          // print("idProducts");
+          // print(idProducts);
+          // print(idProducts.length);
           emit(FavoritesListSuccess());
         });
       }
 
-      if (event is ChangeFavoriteStatusRestaurant) {
-        if (!isFavoriteProduct(event.id)) {
-          idProducts.add(event.id);
+      if (event is ChangeFavoriteStatusProduct) {
+        if(event.productDetailsResponse.isFavorite==false)
+        // if (!isFavoriteProduct(event.id))
+        {
+          event.productDetailsResponse.isFavorite=true;
+        //  idProducts.add(event.id);
           emit(RemoveFavoriteSuccess());
           final response = await FavoriteRepository.addFavorite(event.id);
           response.fold((l) {
-            idProducts.removeWhere((element) => element == event.id);
+            event.productDetailsResponse.isFavorite=false;
+         //   idProducts.removeWhere((element) => element == event.id);
             emit(RemoveFavoriteSuccess());
           }, (r) {
             emit(RemoveFavoriteSuccess());
           });
         } else {
-          idProducts.removeWhere((element) => element == event.id);
-          favoriteListProducts.removeWhere((element) => element.id == event.id);
+          event.productDetailsResponse.isFavorite=false;
+      //    idProducts.removeWhere((element) => element == event.id);
+        //  favoriteListProducts.removeWhere((element) => element.id == event.id);
           emit(RemoveFavoriteSuccess());
           final response = await FavoriteRepository.removeFavorite(event.id);
           response.fold((l) {
-            idProducts.add(event.id);
+            event.productDetailsResponse.isFavorite=false;
+            // idProducts.add(event.id);
             emit(RemoveFavoriteSuccess());
           }, (r) {
             emit(RemoveFavoriteSuccess());
