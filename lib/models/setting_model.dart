@@ -26,6 +26,7 @@ class Data {
   String? baseUrl;
   String? version;
   String? phone;
+  bool? showRewardSystem;
 
   Data({this.baseUrl, this.version, this.phone});
 
@@ -33,6 +34,7 @@ class Data {
     baseUrl = json['baseUrl'];
     version = json['version'];
     phone = json['phone'];
+    showRewardSystem = json["show_reward_system"];
   }
 
   Map<String, dynamic> toJson() {
