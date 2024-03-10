@@ -9,7 +9,7 @@ class BasketEvent extends Equatable {
 }
 
 class AddToBasket extends BasketEvent {
-    final List<ProductDetailsResponse> product;
+    final List<ProductResponse> product;
 
   const AddToBasket( {
     required this.product,

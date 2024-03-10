@@ -1,12 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repository/favorite_repository.dart';
+import '../../models/product_details_response.dart';
 import '../../models/products_by_sub_category_id_response.dart';
 import 'favorite_event.dart';
 import 'favorite_state.dart';
 
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
-  List<ProductsBySubCategoryIdResponse> favoriteListProducts = [];
+  List<ProductResponse> favoriteListProducts = [];
   List<int> idProducts = [];
 
   bool isFavoriteProduct(int id) {

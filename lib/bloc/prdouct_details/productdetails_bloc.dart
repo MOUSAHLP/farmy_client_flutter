@@ -15,15 +15,15 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
   int quntity = 1;
   int quantityRelated = 0;
   int quantitySimilar = 0;
-  List<ProductsBySubCategoryIdResponse> listSimilarProduct = [];
-  List<ProductsBySubCategoryIdResponse> listRelatedProduct = [];
+  List<ProductResponse> listSimilarProduct = [];
+  List<ProductResponse> listRelatedProduct = [];
   List<int> listRelatedProductQuantity = [];
   List<int> listSimilarProductQuantity = [];
 
   ProductdetailsBloc({required this.productRepo})
       : super(
           ProductdetailsState(
-            productDetailsResponse: ProductDetailsResponse(id:0),
+            productDetailsResponse: ProductResponse(id:0),
           ),
         ) {
     on<ProductdetailsEvent>(
@@ -40,15 +40,15 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
               if (r.similarProducts != null) {
                 for (var similarProduct in r.similarProducts!) {
                   listSimilarProductQuantity.add(
-                    int.parse(similarProduct.quantity!),
-                  );
+                  similarProduct.quantity??0)
+              ;
                 }
               }
               if (r.relatedProducts != null) {
                 for (var relatedProduct in r.relatedProducts!) {
                   listRelatedProductQuantity  .add(
-                    int.parse(relatedProduct.quantity!),
-                  );
+                   relatedProduct.quantity??0)
+                  ;
                 }
               }
               return emit(
@@ -71,13 +71,13 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
           int index;
           if (listRelatedProduct.any((element) => element.id == event.relatedProduct.id)) {
             index = listRelatedProduct.indexWhere((element) => element.id == event.relatedProduct.id);
-            int tmp = int.parse(listRelatedProduct[index].quantity!);
+            int tmp = listRelatedProduct[index].quantity??0;
             if (listRelatedProductQuantity[event.index] > tmp) {
               tmp++;
-              listRelatedProduct[index].quantity = tmp.toString();
+              listRelatedProduct[index].quantity = tmp;
             }
           } else {
-            event.relatedProduct.quantity = "1";
+            event.relatedProduct.quantity =1;
             listRelatedProduct.add(event.relatedProduct);
             index = listRelatedProduct
                 .indexWhere((element) => element.id == event.relatedProduct.id);
@@ -92,13 +92,13 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
               .any((element) => element.id == event.similarProduct.id)) {
             index = listSimilarProduct
                 .indexWhere((element) => element.id == event.similarProduct.id);
-            int tmp = int.parse(listSimilarProduct[index].quantity!);
+            int tmp = listSimilarProduct[index].quantity??0;
             if (listSimilarProductQuantity[event.index] > tmp) {
               tmp++;
-              listSimilarProduct[index].quantity = tmp.toString();
+              listSimilarProduct[index].quantity = tmp;
             }
           } else {
-            event.similarProduct.quantity = "1";
+            event.similarProduct.quantity = 1;
             listSimilarProduct.add(event.similarProduct);
             index = listSimilarProduct
                 .indexWhere((element) => element.id == event.similarProduct.id);
@@ -121,11 +121,11 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
               .any((element) => element.id == event.relatedProduct.id)) {
             index = listRelatedProduct
                 .indexWhere((element) => element.id == event.relatedProduct.id);
-            int tmp = int.parse(listRelatedProduct[index].quantity!);
+            int tmp = listRelatedProduct[index].quantity??0;
             if (tmp > 0) {
               tmp--;
             }
-            listRelatedProduct[index].quantity = tmp.toString();
+            listRelatedProduct[index].quantity = tmp;
           }
 
           emit(
@@ -138,11 +138,11 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
               .any((element) => element.id == event.product.id)) {
             index = listSimilarProduct
                 .indexWhere((element) => element.id == event.product.id);
-            int tmp = int.parse(listSimilarProduct[index].quantity!);
+            int tmp = listSimilarProduct[index].quantity??0;
             if (tmp > 0) {
               tmp--;
             }
-            listSimilarProduct[index].quantity = tmp.toString();
+            listSimilarProduct[index].quantity = tmp;
           }
           emit(
             state.copyWith(listSimilarProduct: listSimilarProduct),

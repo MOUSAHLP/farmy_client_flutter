@@ -2,12 +2,12 @@ part of 'productdetails_bloc.dart';
 
 class ProductdetailsState extends Equatable {
   final ScreenState? screenState;
-  final ProductDetailsResponse productDetailsResponse;
+  final ProductResponse productDetailsResponse;
   final AddToBasketState? addToBasketState;
   final int? quntity;
   final String error;
-  List<ProductsBySubCategoryIdResponse>? listRelatedProduct;
-  List<ProductsBySubCategoryIdResponse>? listSimilarProduct;
+  List<ProductResponse>? listRelatedProduct;
+  List<ProductResponse>? listSimilarProduct;
 
 
   ProductdetailsState({
@@ -25,10 +25,10 @@ class ProductdetailsState extends Equatable {
     int? quantityRelate,
     ScreenState? screenState,
     final int? quntity,
-    List<ProductsBySubCategoryIdResponse>? listSimilarProduct,
-    List<ProductsBySubCategoryIdResponse>? listRelatedProduct,
+    List<ProductResponse>? listSimilarProduct,
+    List<ProductResponse>? listRelatedProduct,
     String? error,
-    ProductDetailsResponse? productDetailsResponse,
+    ProductResponse? productDetailsResponse,
     AddToBasketState? addToBasketState,
   }) {
     return ProductdetailsState(

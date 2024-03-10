@@ -4,14 +4,14 @@ import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/product_details_response.dart';
 
 class PaymentProcessParms {
-  List<ProductDetailsResponse> prodictInBasketList;
+  List<ProductResponse> prodictInBasketList;
   PaymentProcessParms({
     required this.prodictInBasketList,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      "products": ProductDetailsResponse.toJsonCardList(prodictInBasketList)
+      "products": ProductResponse.toJsonCardList(prodictInBasketList)
     };
   }
 
@@ -20,19 +20,19 @@ class PaymentProcessParms {
       "user_address_id": invoicesParms.userAddressid,
       "delivery_method_id": invoicesParms.deliveryMethodId,
       "notes": invoicesParms.notes,
-      "products": ProductDetailsResponse.toJsonCardList(prodictInBasketList)
+      "products": ProductResponse.toJsonCardList(prodictInBasketList)
     };
   }
 
   Map<String, dynamic> createOrdertoJsonWithParms(
       InvoicesParms invoicesParms,
       List<DeliveryAttributesResponse>? deleveryAttributesList,
-      List<ProductDetailsResponse> prodictInBasketList) {
+      List<ProductResponse> prodictInBasketList) {
     return {
       "user_address_id": invoicesParms.userAddressid,
       "delivery_method_id": invoicesParms.deliveryMethodId,
       "notes": "${invoicesParms.notes} ",
-      "products": ProductDetailsResponse.toJsonCardList(prodictInBasketList),
+      "products": ProductResponse.toJsonCardList(prodictInBasketList),
       "delivery_attributes": toJsonCardList(deleveryAttributesList),
       "payment_method_id": 1,
     };

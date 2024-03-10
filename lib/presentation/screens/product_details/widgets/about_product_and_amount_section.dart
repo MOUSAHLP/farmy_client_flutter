@@ -22,7 +22,7 @@ class AboutProductAndAmountSection extends StatelessWidget {
 
 
 
- final ProductDetailsResponse productDetails;
+ final ProductResponse productDetails;
   const AboutProductAndAmountSection({
     super.key,
     required this.quantity,

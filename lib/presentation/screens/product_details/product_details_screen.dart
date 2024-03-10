@@ -27,7 +27,7 @@ import '../../widgets/custom_error_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final int? id;
-  final String? quantity;
+  final int? quantity;
 
   const ProductDetailsScreen({
     super.key,
@@ -50,7 +50,7 @@ class ProductDetailsScreen extends StatelessWidget {
 }
 
 class ProductDetailsBody extends StatelessWidget {
-  final String? quantity;
+  final int? quantity;
 
   const ProductDetailsBody({super.key, this.quantity});
 
@@ -105,7 +105,7 @@ class ProductDetailsBody extends StatelessWidget {
                                   AboutProductAndAmountSection(
                                     productDetails:state
                                         .productDetailsResponse ,
-                                    quantity: int.parse(quantity!),
+                                    quantity: quantity??0,
 
                                   ),
                                   Column(
@@ -411,12 +411,12 @@ class ProductDetailsBody extends StatelessWidget {
   }
 
   AddToBasket buildAddToBasket(ProductdetailsState state) {
-    List<ProductDetailsResponse> A = [];
+    List<ProductResponse> A = [];
     if (state.listSimilarProduct != null) {
       for (var tmp in state.listSimilarProduct!) {
         A.add(
-          ProductDetailsResponse(
-            quantity: int.parse(tmp.quantity!),
+          ProductResponse(
+            quantity: tmp.quantity,
             image: tmp.image,
             id: tmp.id??0,
             discountValue: tmp.discountValue,
@@ -432,8 +432,8 @@ class ProductDetailsBody extends StatelessWidget {
     if (state.listRelatedProduct != null) {
       for (var tmp in state.listRelatedProduct!) {
         A.add(
-          ProductDetailsResponse(
-            quantity: int.parse(tmp.quantity!),
+          ProductResponse(
+            quantity: tmp.quantity,
             image: tmp.image,
             id: tmp.id??0,
             discountValue: tmp.discountValue,
@@ -447,7 +447,7 @@ class ProductDetailsBody extends StatelessWidget {
       }
     }
     A.add(
-      ProductDetailsResponse(
+      ProductResponse(
         similarProducts: state.productDetailsResponse.similarProducts,
         sellerName: state.productDetailsResponse.sellerName,
         relatedProducts: state.productDetailsResponse.relatedProducts,

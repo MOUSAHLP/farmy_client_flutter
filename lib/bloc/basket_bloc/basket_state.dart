@@ -1,7 +1,7 @@
 part of 'basket_bloc.dart';
 
 class BasketState extends Equatable {
-  final List<ProductDetailsResponse>? prductList;
+  final List<ProductResponse>? prductList;
   final AddToBasketState? addToBasketState;
   final PaymentProcessResponse? paymentProcessResponse;
   final ScreenState? screenState;
@@ -18,7 +18,7 @@ class BasketState extends Equatable {
   });
 
   BasketState copyWith({
-    List<ProductDetailsResponse>? productList,
+    List<ProductResponse>? productList,
     AddToBasketState? addToBasketState,
     ScreenState? screenState,
     String? errorMessage,
