@@ -3,20 +3,28 @@ class DeleveryMethodResponse {
   int? id;
   String? deleveryName;
   String? deleveytime;
-  int? deleveyPrice;
+  String? deleveyPrice;
+  String? time;
+  int? totalPrice;
+
   DeleveryMethodResponse({
     this.id,
     this.deleveryName,
     this.deleveytime,
     this.deleveyPrice,
+    this.totalPrice,
+    this.time,
   });
 
   factory DeleveryMethodResponse.fromJson(Map<String, dynamic> json) {
     return DeleveryMethodResponse(
-        id: json["id"],
-        deleveryName: json["name"],
-        deleveytime: json["time"],
-        deleveyPrice: json["total_price"]);
+      id: json["id"],
+      deleveryName: json["name"],
+      deleveytime: json["time"],
+      totalPrice: json["total_price"],
+      deleveyPrice: json["price"],
+      time: json["time"],
+    );
   }
 
   static List<DeleveryMethodResponse> listFromJson(List<dynamic>? json) {

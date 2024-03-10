@@ -65,8 +65,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           emit(state.copyWith(attrbiuteChossenList: mutableChangeList));
         }
         if (event is ToogleDeleveryMethod) {
-          List<DeleveryMethodResponse> mutableChossenDeleveryMethodList =
-              List.from(state.deleveryMethodChossenList);
+          List<DeleveryMethodResponse> mutableChossenDeleveryMethodList =  List.from(state.deleveryMethodChossenList);
           if (state.deleveryMethodChossenList
               .any((element) => element.id == event.deleveryMethodData!.id)) {
             mutableChossenDeleveryMethodList.removeWhere(
@@ -79,14 +78,13 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           }
           emit(state.copyWith(
               deleveryMethodChossenList: mutableChossenDeleveryMethodList,
-              deleveryCost: event.deleveryMethodData!.deleveyPrice));
+              deleveryCost: int.parse(event.deleveryMethodData!.deleveyPrice!)));
         }
         if (event is GetInvoicesDetails) {
           emit(state.copyWith(screenState: ScreenStates.loading));
           PaymentProcessParms paymentProcessParms =
               PaymentProcessParms(prodictInBasketList: event.productList!);
-          (await paymentRepo.getInvoiceDetails(paymentProcessParms, event.invoicesParmas))
-              .fold(
+          (await paymentRepo.getInvoiceDetails(paymentProcessParms, event.invoicesParmas)).fold(
             (l) => emit(state.copyWith(screenState: ScreenStates.error)),
             (r) => emit(
               state.copyWith(

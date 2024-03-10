@@ -53,6 +53,7 @@ class PaymentScreen extends StatelessWidget {
 
 class PaymentBody extends StatelessWidget {
   PaymentBody({super.key});
+
   final Duration animationDuration = const Duration(milliseconds: 500);
 
   final TextEditingController noteController = TextEditingController();
@@ -172,10 +173,10 @@ class PaymentBody extends StatelessWidget {
                                         .paymentProcessResponse!
                                         .deleveryMethodList!)
                                       BlocBuilder<LocationBloc, LocationState>(
-                                        builder: (context, loctionstate) {
+                                        builder: (context, locationState) {
                                           return buildCustomOrderTypeContainer(
                                             context,
-                                            loctionstate,
+                                            locationState,
                                             item,
                                             state,
                                           );
@@ -236,7 +237,8 @@ class PaymentBody extends StatelessWidget {
                                         horizontal: 5,
                                       ),
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Expanded(
                                             child: CustomDiscountCodeContainer(
@@ -251,7 +253,8 @@ class PaymentBody extends StatelessWidget {
                                           Expanded(
                                             child: CustomDiscountCodeContainer(
                                               isReplacePoint: true,
-                                              imageUrl:ImageManager.replacePoint,
+                                              imageUrl:
+                                                  ImageManager.replacePoint,
                                               subjectText:
                                                   AppLocalizations.of(context)!
                                                       .redeem_points,
@@ -644,23 +647,24 @@ class PaymentBody extends StatelessWidget {
     );
   }
 
-  CutomOrderTypeContiner buildCustomOrderTypeContainer(
-      BuildContext context,
-      LocationState loctionstate,
-      DeleveryMethodResponse item,
-      PaymentState state) {
-    return CutomOrderTypeContiner(
+  CustomOrderTypeContainer buildCustomOrderTypeContainer(
+    BuildContext context,
+    LocationState locationState,
+    DeleveryMethodResponse item,
+    PaymentState state,
+  ) {
+    return CustomOrderTypeContainer(
       isChossenLocation:
           context.read<LocationBloc>().state.addressCurrent.latitude != null,
-      userAddressid: loctionstate.addressCurrent.id ?? 0,
+      userAddressId: locationState.addressCurrent.id ?? 0,
       delveryField: item,
       isSelected: state.deleveryMethodChossenList
           .any((element) => element.id == item.id),
-      deliverycost:
-          "${AppLocalizations.of(context)!.delivery_cost} ${state.paymentProcessResponse!.invociesResponse!.deliveryValue}",
+      deliveryCost:
+          "${AppLocalizations.of(context)!.delivery_cost} ${item.deleveyPrice} ل.س ",
       image: ImageManager.dateTimeImage,
-      text:
-          "${item.deleveryName} (${state.paymentProcessResponse!.invociesResponse!.deliveryValue})",
+      // text: "${item.deleveryName} (${state.paymentProcessResponse!.invociesResponse!.deliveryValue})",
+      text: "${item.deleveryName} (${item.time} دقيقة) ",
       onTap: () {
         if (!state.deleveryMethodChossenList
             .any((element) => element.id == item.id)) {
@@ -674,7 +678,7 @@ class PaymentBody extends StatelessWidget {
                     invoicesParmas: InvoicesParms(
                       notes: noteController.text,
                       deliveryMethodId: item.id!,
-                      userAddressid: loctionstate.addressCurrent.id!,
+                      userAddressid: locationState.addressCurrent.id!,
                     ),
                     productList: context.read<BasketBloc>().state.prductList,
                   ),

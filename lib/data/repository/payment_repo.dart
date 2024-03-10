@@ -14,6 +14,7 @@ class PaymentRepo {
         formData: paymentProcessParms.toJsonWithParms(invoicesParms),
         url: ApiConst.getPaymentDetails,
         converter: (e) {
+          print('@@@@@@@@@@@@@@@');
           return PaymentProcessResponse.fromJson(e["data"]);
         });
   }

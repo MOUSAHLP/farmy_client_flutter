@@ -22,9 +22,7 @@ class PaymentProcessResponse {
     return PaymentProcessResponse(
         userAdressList: UserAddressModel.listFromJson(json["user_address"]),
         invociesResponse: InvociesResponse.formJson(json["invoice"]),
-        deleveryMethodList:
-            DeleveryMethodResponse.listFromJson(json["delivery_methods"]),
-        deleveryAttributesList: DeliveryAttributesResponse.listFromJson(
-            json["delivery_attributes"]));
+        deleveryMethodList:DeleveryMethodResponse.listFromJson(json["delivery_methods"]),
+        deleveryAttributesList: DeliveryAttributesResponse.listFromJson(json["delivery_attributes"]));
   }
 }

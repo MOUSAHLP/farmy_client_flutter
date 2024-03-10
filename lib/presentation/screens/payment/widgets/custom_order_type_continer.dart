@@ -11,26 +11,27 @@ import 'package:pharma/presentation/screens/payment/widgets/selected_continer.da
 
 import '../../../../bloc/payment_bloc/payment_bloc.dart';
 
-class CutomOrderTypeContiner extends StatelessWidget {
+class CustomOrderTypeContainer extends StatelessWidget {
   final bool isSelected;
   final bool isChossenLocation;
   final DeleveryMethodResponse delveryField;
-  final int userAddressid;
+  final int userAddressId;
   final String image;
   final String text;
-  final String deliverycost;
+  final String deliveryCost;
   final Function() onTap;
 
-  const CutomOrderTypeContiner(
-      {super.key,
-      required this.isSelected,
-      required this.userAddressid,
-      required this.isChossenLocation,
-      required this.delveryField,
-      required this.onTap,
-      required this.deliverycost,
-      required this.image,
-      required this.text});
+  const CustomOrderTypeContainer({
+    super.key,
+    required this.isSelected,
+    required this.userAddressId,
+    required this.isChossenLocation,
+    required this.delveryField,
+    required this.onTap,
+    required this.deliveryCost,
+    required this.image,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,68 +43,71 @@ class CutomOrderTypeContiner extends StatelessWidget {
           child: Container(
             width: 1.sw,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: ColorManager.grayForMessage,
-                  width: 1,
-                )),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: ColorManager.grayForMessage,
+                width: 1,
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 19),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          image,
-                          height: 34,
-                          width: 34,
-                        ),
-                      ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    image,
+                    height: 34,
+                    width: 34,
+                  ),
+                  const SizedBox(width: 30),
+                  Expanded(
+                    child: Text(
+                      text,
+                      style: getBoldStyle(color: ColorManager.grayForMessage),
                     ),
-                    const SizedBox(width: 30),
-                    Expanded(
-                      child: Text(
-                        text,
-                        style: getBoldStyle(color: ColorManager.grayForMessage),
-                      ),
-                    ),
-                    BlocBuilder<PaymentBloc, PaymentState>(
-                      builder: (context, state) {
-                        return SlectedContiner(
-                          onPreased: () {
-                            if (!isSelected) {
-                              if (isChossenLocation) {
-                                context.read<PaymentBloc>().add(
+                  ),
+                  BlocBuilder<PaymentBloc, PaymentState>(
+                    builder: (context, state) {
+                      return SlectedContiner(
+                        onPreased: () {
+                          if (!isSelected) {
+                            if (isChossenLocation) {
+                              context.read<PaymentBloc>().add(
                                     ToogleDeleveryMethod(
-                                        deleveryMethodData: delveryField));
+                                      deleveryMethodData: delveryField,
+                                    ),
+                                  );
 
-                                context.read<PaymentBloc>().add(
+                              context.read<PaymentBloc>().add(
                                     GetInvoicesDetails(
-                                        invoicesParmas: InvoicesParms(
-                                            deliveryMethodId: delveryField.id!,
-                                            userAddressid: userAddressid),
-                                        productList: context
-                                            .read<BasketBloc>()
-                                            .state
-                                            .prductList));
-                              }
+                                      invoicesParmas: InvoicesParms(
+                                        deliveryMethodId: delveryField.id!,
+                                        userAddressid: userAddressId,
+                                      ),
+                                      productList: context
+                                          .read<BasketBloc>()
+                                          .state
+                                          .prductList,
+                                    ),
+                                  );
                             }
-                          },
-                          color: isSelected
-                              ? ColorManager.primaryGreen
-                              : ColorManager.greyForUnSelectedItem,
-                        );
-                      },
-                    ),
-                  ]),
+                          }
+                        },
+                        color: isSelected
+                            ? ColorManager.primaryGreen
+                            : ColorManager.greyForUnSelectedItem,
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
         const SizedBox(height: 4),
         isChossenLocation
             ? Text(
-                deliverycost,
+                deliveryCost,
                 style: getBoldStyle(
                     color: ColorManager.grayForMessage,
                     fontSize: FontSizeApp.s14),
