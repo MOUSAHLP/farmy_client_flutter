@@ -11,7 +11,7 @@ import 'package:pharma/presentation/screens/product_details/widgets/counter_box.
 import '../../../../bloc/favorite_bloc/favorite_bloc.dart';
 import '../../../../bloc/favorite_bloc/favorite_event.dart';
 import '../../../../bloc/favorite_bloc/favorite_state.dart';
-import '../../../../models/product_details_response.dart';
+import '../../../../models/product_response.dart';
 import '../../../widgets/favorite_heart.dart';
 
 class AboutProductAndAmountSection extends StatelessWidget {

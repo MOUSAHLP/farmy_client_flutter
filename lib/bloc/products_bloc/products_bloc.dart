@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/categories_repo.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
 
-import '../../models/product_details_response.dart';
+
+import '../../models/product_response.dart';
 
 part 'products_event.dart';
 part 'products_state.dart';

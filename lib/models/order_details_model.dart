@@ -1,7 +1,7 @@
 
 
-import 'package:pharma/models/product_details_response.dart';
-import 'package:pharma/models/product_model.dart';
+import 'package:pharma/models/product_response.dart';
+
 class OrderDetailsModel {
   int id;
   String? orderNumber;

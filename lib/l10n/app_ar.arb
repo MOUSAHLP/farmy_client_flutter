@@ -51,11 +51,11 @@
   "delivery_Type": "نوع التوصيل",
   "expected_Time": "الوقت المتوقع",
   "total_Price_with_Delivery": "إجمال السعر مع التوصيل",
-  "show_Order": "عرض الطلب",
-  "track_Order": "تتبع الطلب",
-  "edit_Orders": "تعديل الطلبات",
-  "edit_Information": "تعديل المعلومات",
-  "delete_Order": "حذف الطلب",
+  "show_Order": "عرض ",
+  "track_Order": "تتبع ",
+  "edit_Orders": "تعديل ",
+  "edit_Information": "تعديل ",
+  "delete_Order": "حذف ",
   "delivery_Address": "عنوان التوصيل",
   "choose_the_Address": "اختر العنوان",
   "please_select_the_desired_delivery_address": "يرجى اختيار عنوان التوصيل المطلوب",
@@ -273,5 +273,7 @@
   "loading" : "يتم التحميل",
   "added_to_basket": "تمت الإضافة إلى السلة",
   "no_favorite_items": "لا يوجد عناصر مفضلة",
-  "pleaseLogIn": "الرجاء تسجيل الدخول لاضافة العناصر الى المفضلة"
+  "pleaseLogIn": "الرجاء تسجيل الدخول لاضافة العناصر الى المفضلة",
+  "returned": "مرتجع",
+  "totalPrice": "إجمالي السعر + سعر التوصيل + الحسم"
 }

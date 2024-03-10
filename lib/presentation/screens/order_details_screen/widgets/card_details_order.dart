@@ -22,6 +22,8 @@ class CardDetailsOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("productAddedToBasketDetails.price" );
+    print(productAddedToBasketDetails.price );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 37),
       child: Container(
@@ -84,9 +86,9 @@ class CardDetailsOrder extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          productAddedToBasketDetails.product?.price != null
+                          productAddedToBasketDetails.price != null
                               ? Text(
-                                  productAddedToBasketDetails.product!.price ??
+                                  productAddedToBasketDetails.price ??
                                       "",
                                   style: getBoldStyle(
                                     color: ColorManager.grayForMessage,
@@ -99,10 +101,8 @@ class CardDetailsOrder extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                          Formatter.formatPrice(int.tryParse(
-                                  productAddedToBasketDetails.product!.price ??
-                                      "") ??
-                              0),
+                                  productAddedToBasketDetails.price ??""
+                                     ,
                           style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: FontSizeApp.s15)!
@@ -129,7 +129,7 @@ class CardDetailsOrder extends StatelessWidget {
                   height: 120.h,
                   color: ColorManager.grayForPlaceholder,
                   child: CachedImage(
-                    imageUrl: productAddedToBasketDetails.product?.image,
+                    imageUrl: productAddedToBasketDetails.product?.image??"",
                   ),
                 ),
               ),

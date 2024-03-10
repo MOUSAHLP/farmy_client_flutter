@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/basket_bloc/basket_bloc.dart';
 import '../../../core/app_router/app_router.dart';
-import '../../../models/product_details_response.dart';
+import '../../../models/product_response.dart';
 import '../../../translations.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/style_app.dart';

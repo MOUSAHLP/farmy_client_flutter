@@ -8,7 +8,7 @@ import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/core/utils/formatter.dart';
-import 'package:pharma/models/product_details_response.dart';
+import 'package:pharma/models/product_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';

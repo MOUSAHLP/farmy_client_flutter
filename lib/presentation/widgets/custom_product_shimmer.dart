@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
+
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../models/product_details_response.dart';
+import '../../models/product_response.dart';
 
 class CustomProductShimmer extends StatelessWidget {
   const CustomProductShimmer({super.key});

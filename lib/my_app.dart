@@ -18,7 +18,6 @@ import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:pharma/translations.dart';
 import 'bloc/authentication_bloc/authentication_event.dart';
 import 'bloc/authentication_bloc/authentication_state.dart';
-import 'bloc/favorite_bloc/favorite_event.dart';
 import 'bloc/home_bloc/home_bloc.dart';
 import 'bloc/onboarding_bloc/onboarding_bloc.dart';
 import 'core/app_enum.dart';

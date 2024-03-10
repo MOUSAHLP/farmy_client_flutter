@@ -1,4 +1,4 @@
-import '../../models/product_details_response.dart';
+import '../../models/product_response.dart';
 
 abstract class FavoriteEvent {
   FavoriteEvent([List props = const []]) : super();

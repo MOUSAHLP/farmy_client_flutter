@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repository/favorite_repository.dart';
-import '../../models/product_details_response.dart';
-import '../../models/products_by_sub_category_id_response.dart';
+import '../../models/product_response.dart';
+
 import 'favorite_event.dart';
 import 'favorite_state.dart';
 
@@ -57,7 +57,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         } else {
           event.productDetailsResponse.isFavorite=false;
       //    idProducts.removeWhere((element) => element == event.id);
-        //  favoriteListProducts.removeWhere((element) => element.id == event.id);
+        favoriteListProducts.removeWhere((element) => element.id == event.id);
           emit(RemoveFavoriteSuccess());
           final response = await FavoriteRepository.removeFavorite(event.id);
           response.fold((l) {
