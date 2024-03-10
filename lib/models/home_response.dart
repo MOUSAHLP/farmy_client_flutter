@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:pharma/models/banners_response.dart';
 import 'package:pharma/models/categories_respoonse.dart';
-import 'package:pharma/models/product_details_response.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
+import 'package:pharma/models/product_response.dart';
+
 import 'package:pharma/models/user_address_response.dart';
 
 class HomeResponse {

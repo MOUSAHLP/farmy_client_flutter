@@ -45,7 +45,7 @@ class BaseScreenScaffold extends StatelessWidget {
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButton: floatingActionButton,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(appbarTitle != null ? 190.h : 130.h),
+          preferredSize: Size.fromHeight(appbarTitle != null ? 195.h : 140.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

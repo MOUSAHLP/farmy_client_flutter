@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:pharma/models/delevery_attributes_response.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
-import 'package:pharma/models/product_details_response.dart';
+import 'package:pharma/models/product_response.dart';
 
 class PaymentProcessParms {
   List<ProductResponse> prodictInBasketList;

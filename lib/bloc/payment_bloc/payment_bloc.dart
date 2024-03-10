@@ -8,7 +8,7 @@ import 'package:pharma/models/invocies_response.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/params/payment_process_parms.dart';
 import 'package:pharma/models/payment_process_response.dart';
-import 'package:pharma/models/product_details_response.dart';
+import 'package:pharma/models/product_response.dart';
 
 part 'payment_event.dart';
 

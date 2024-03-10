@@ -42,9 +42,6 @@ class OrderScreenBody extends StatelessWidget {
       isComeBack: false,
       body: Column(
         children: [
-          // CustomAppBarScreen(
-          //     sectionName: AppLocalizations.of(context)!.my_order,
-          //     isComeBack: false),
           Expanded(
             child: sl<AuthenticationBloc>().loggedIn
                 ? BlocBuilder<MyOrderBloc, MyOrderState>(

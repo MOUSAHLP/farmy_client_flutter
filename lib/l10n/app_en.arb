@@ -51,11 +51,11 @@
   "delivery_Type": "Delivery Type",
   "expected_Time": "Expected Time",
   "total_Price_with_Delivery": "Total Price with Delivery",
-  "show_Order": "Show Order",
-  "track_Order": "Track Order",
-  "edit_Orders": "Edit Orders",
+  "show_Order": "Show",
+  "track_Order": "Track ",
+  "edit_Orders": "Edit",
   "edit_Information": "Edit Information",
-  "delete_Order": "Delete Order",
+  "delete_Order": "Delete ",
   "delivery_Address": "Delivery Address",
   "choose_the_Address": "Choose the Address",
   "please_select_the_desired_delivery_address": "Please select the desired delivery address",
@@ -267,5 +267,7 @@
   "loading" : "Loading",
   "rank_features":"Rank Features:",
   "no_favorite_items": "There are no favorite items",
-  "pleaseLogIn": "Please login to add items to your favorites"
+  "pleaseLogIn": "Please login to add items to your favorites",
+  "returned": "Returned",
+  "totalPrice": "Total price + delivery price + discount"
 }

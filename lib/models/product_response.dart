@@ -1,7 +1,7 @@
 
 
 import 'package:pharma/models/attribute_response.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
+
 
 class ProductResponse {
   int id;
