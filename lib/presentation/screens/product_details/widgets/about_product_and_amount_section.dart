@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
-import 'package:pharma/models/attribute_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';

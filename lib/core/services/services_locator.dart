@@ -31,7 +31,12 @@ import '../../data/repository/user_repository.dart';
 
 final sl = GetIt.instance;
 
+
 class ServicesLocator {
+
+  static void  clearAll() {
+    sl.reset();
+  }
   void init() {
     sl.registerLazySingleton(() => AuthenticationBloc(sl()));
     sl.registerLazySingleton(() => LanguageBloc());

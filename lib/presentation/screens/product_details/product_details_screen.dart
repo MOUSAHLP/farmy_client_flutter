@@ -375,6 +375,22 @@ class ProductDetailsBody extends StatelessWidget {
                                             context
                                                 .read<BasketBloc>()
                                                 .add(buildAddToBasket(state));
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                duration: const Duration(seconds: 1),
+                                                content: Container(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    AppLocalizations.of(context)!.added_to_basket,
+                                                    style: getRegularStyle(
+                                                      color: ColorManager.white,
+                                                      fontSize: FontSizeApp.s14,
+                                                    ),
+                                                  ),
+                                                ),
+                                                backgroundColor: ColorManager.primaryGreen,
+                                              ),
+                                            );
                                           } else {
                                             ErrorDialog.openDialog(
                                               context,

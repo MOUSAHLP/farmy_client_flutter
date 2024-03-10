@@ -109,6 +109,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           ));
         }
         if (event is ClearBasket) {
+          
           emit(state.copyWith(productList: []));
         }
       },
