@@ -12,10 +12,11 @@ import 'package:pharma/translations.dart';
 
 import '../../bloc/favorite_bloc/favorite_event.dart';
 import '../../bloc/favorite_bloc/favorite_state.dart';
+import '../../models/product_details_response.dart';
 import 'favorite_heart.dart';
 
 class CustomProductCard extends StatelessWidget {
-  final ProductsBySubCategoryIdResponse productInfo;
+  final ProductResponse productInfo;
 
   const CustomProductCard({super.key, required this.productInfo});
 
@@ -214,17 +215,19 @@ class CustomProductCard extends StatelessWidget {
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: productInfo.id ?? 0,
-                                isToggled: context
+                                isToggled:
+                                context
                                     .read<FavoriteBloc>()
                                     .isFavoriteProduct(
                                       productInfo.id ?? 0,
                                     ),
                                 onTap: () {
-                                  context.read<FavoriteBloc>().add(
-                                        ChangeFavoriteStatusRestaurant(
-                                          productInfo.id ?? 0,
-                                        ),
-                                      );
+                                  // context.read<FavoriteBloc>().add(
+                                  //       ChangeFavoriteStatusRestaurant(
+                                  //         productInfo.id ?? 0,
+                                  //         productInfo
+                                  //       ),
+                                  //     );
                                 },
                               );
                             },

@@ -3,7 +3,7 @@
 import 'package:pharma/models/attribute_response.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 
-class ProductDetailsResponse {
+class ProductResponse {
   int id;
   String? nameOfProduct;
   String? price;
@@ -16,11 +16,13 @@ class ProductDetailsResponse {
   String? image;
   String? description;
   bool? isDiscount;
+  bool isFavorite;
+  String? discount;
 
-  List<ProductsBySubCategoryIdResponse>? relatedProducts;
-  List<ProductsBySubCategoryIdResponse>? similarProducts;
+  List<ProductResponse>? relatedProducts;
+  List<ProductResponse>? similarProducts;
 
-  ProductDetailsResponse({
+  ProductResponse({
     required this.id,
     this.nameOfProduct,
     this.price,
@@ -35,11 +37,14 @@ class ProductDetailsResponse {
     this.description,
     this.relatedProducts,
     this.similarProducts,
+    this.isFavorite=false,
+    this.discount
   });
-  factory ProductDetailsResponse.fromJson(Map<String, dynamic> json) {
+  factory ProductResponse.fromJson(Map<String, dynamic> json) {
     return json["availability"] == "1"
-        ? ProductDetailsResponse(
+        ? ProductResponse(
             id: json["id"],
+
         quantity: json["quantity"] != null ? int.parse(json["quantity"]) : null,
 
         description: json["description"],
@@ -50,25 +55,29 @@ class ProductDetailsResponse {
             sellerName: json["seller"] == null ? null : json["seller"]["name"],
             nameOfProduct: json["name"],
             price: json["price"],
+        discount: json["discount_status"] != 0
+                ? getDiscountedPrice(json["price"], json["discount"])
+                : json["discount"],
             attributeList: json["attributes"] == null
                 ? []
                 : List<AttrbiuteResponse>.from(json["attributes"]
                     .map((x) => AttrbiuteResponse.fromJson(x))),
             image: json["image"],
+        isFavorite: json["is_favorite"] ?? false,
             relatedProducts: json["related_products"] == null
                 ? []
-                : List<ProductsBySubCategoryIdResponse>.from(
+                : List<ProductResponse>.from(
                     json["related_products"].map(
-                        (x) => ProductsBySubCategoryIdResponse.fromJson(x))),
+                        (x) => ProductResponse.fromJson(x))),
             similarProducts: json["related_products"] == null
                 ? []
-                : List<ProductsBySubCategoryIdResponse>.from(
+                : List<ProductResponse>.from(
                     json["similar_products"].map(
-                        (x) => ProductsBySubCategoryIdResponse.fromJson(x))))
-        : ProductDetailsResponse( id: 0,);
+                        (x) => ProductResponse.fromJson(x))))
+        : ProductResponse( id: 0,);
   }
   static Map<String, dynamic> toJsonCard(
-      ProductDetailsResponse productDetailsResponse) {
+      ProductResponse productDetailsResponse) {
     return {
       "product_id": productDetailsResponse.id,
       "quantity": productDetailsResponse.quantity
@@ -76,11 +85,11 @@ class ProductDetailsResponse {
   }
 
   static List<Map<String, dynamic>> toJsonCardList(
-      List<ProductDetailsResponse>? basketList) {
+      List<ProductResponse>? basketList) {
     return basketList == null
         ? []
         : basketList
-            .map((value) => ProductDetailsResponse.toJsonCard(value))
+            .map((value) => ProductResponse.toJsonCard(value))
             .toList();
   }
 
@@ -93,12 +102,12 @@ class ProductDetailsResponse {
     return percantge.toString();
   }
 
-  static List<ProductsBySubCategoryIdResponse> listFromJson(
+  static List<ProductResponse> listFromJson(
       List<dynamic>? json) {
     return json == null
         ? []
         : json
-            .map((value) => ProductsBySubCategoryIdResponse.fromJson(value))
+            .map((value) => ProductResponse.fromJson(value))
             .toList();
   }
 }

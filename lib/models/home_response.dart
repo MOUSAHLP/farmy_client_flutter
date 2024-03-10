@@ -1,13 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:pharma/models/banners_response.dart';
 import 'package:pharma/models/categories_respoonse.dart';
+import 'package:pharma/models/product_details_response.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 import 'package:pharma/models/user_address_response.dart';
 
 class HomeResponse {
   List<CategoriesResponse>? homeCategoriesList;
-  List<ProductsBySubCategoryIdResponse>? homeSuggestedProductsList;
-  List<ProductsBySubCategoryIdResponse>? homeDiscountedProductsList;
+  List<ProductResponse>? homeSuggestedProductsList;
+  List<ProductResponse>? homeDiscountedProductsList;
   List<BannersResponse>? homeBannerListTopSection;
   List<BannersResponse>? homeBannerListBottomSection;
   UserAddressModel? userAddressModel;
@@ -44,14 +45,14 @@ class HomeResponse {
               .map((x) => BannersResponse.fromJson(x))),
       homeSuggestedProductsList: json["suggested-Products"] == null
           ? []
-          : List<ProductsBySubCategoryIdResponse>.from(
+          : List<ProductResponse>.from(
               json["suggested-Products"]
-                  .map((x) => ProductsBySubCategoryIdResponse.fromJson(x))),
+                  .map((x) => ProductResponse.fromJson(x))),
       homeDiscountedProductsList: json["discounted-Products"] == null
           ? []
-          : List<ProductsBySubCategoryIdResponse>.from(
+          : List<ProductResponse>.from(
               json["discounted-Products"]
-                  .map((x) => ProductsBySubCategoryIdResponse.fromJson(x))),
+                  .map((x) => ProductResponse.fromJson(x))),
     );
   }
 }

@@ -9,9 +9,11 @@ import 'package:pharma/presentation/screens/product_details/product_details_scre
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../../models/product_details_response.dart';
+
 class HomeSection extends StatelessWidget {
   final Map<String, String> title;
-  final List<ProductsBySubCategoryIdResponse> list;
+  final List<ProductResponse> list;
 
   const HomeSection({Key? key, required this.list, required this.title})
       : super(key: key);
@@ -46,7 +48,7 @@ class HomeSection extends StatelessWidget {
                       context,
                       ProductDetailsScreen(
                         id: list[index].id,
-                        quantity: list[index].quantity!,
+                        quantity: list[index].quantity??0,
                       ),
                     );
                   },

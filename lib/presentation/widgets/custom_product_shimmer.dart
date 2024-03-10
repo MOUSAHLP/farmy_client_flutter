@@ -4,6 +4,8 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../models/product_details_response.dart';
+
 class CustomProductShimmer extends StatelessWidget {
   const CustomProductShimmer({super.key});
 
@@ -23,13 +25,13 @@ class CustomProductShimmer extends StatelessWidget {
           baseColor: ColorManager.grayForPlaceholder,
           highlightColor: const Color(0xFFe2e4e9),
           child: CustomProductCard(
-              productInfo: ProductsBySubCategoryIdResponse(
+              productInfo: ProductResponse(
                   availabilityOfProduct: "",
                   discount: "",
                   nameOfProduct: "",
                   price: "",
-                  quantity: "",
-                  sellerName: "",
+                  quantity: 0,
+                  sellerName: "", id: 0,
               ),),
         ));
       },
