@@ -14,7 +14,7 @@ import '../../../../bloc/payment_bloc/payment_bloc.dart';
 class CustomOrderTypeContainer extends StatelessWidget {
   final bool isSelected;
   final bool isChossenLocation;
-  final DeleveryMethodResponse delveryField;
+  final DeliveryMethodResponse delveryField;
   final int userAddressId;
   final String image;
   final String text;
@@ -73,16 +73,16 @@ class CustomOrderTypeContainer extends StatelessWidget {
                           if (!isSelected) {
                             if (isChossenLocation) {
                               context.read<PaymentBloc>().add(
-                                    ToogleDeleveryMethod(
-                                      deleveryMethodData: delveryField,
+                                ToggleDeliveryMethod(
+                                  deliveryMethodData: delveryField,
                                     ),
                                   );
 
                               context.read<PaymentBloc>().add(
                                     GetInvoicesDetails(
-                                      invoicesParmas: InvoicesParms(
+                                      invoicesParams: InvoicesParams(
                                         deliveryMethodId: delveryField.id!,
-                                        userAddressid: userAddressId,
+                                        userAddressId: userAddressId,
                                       ),
                                       productList: context
                                           .read<BasketBloc>()

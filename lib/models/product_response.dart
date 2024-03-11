@@ -8,7 +8,7 @@ class ProductResponse {
   String? nameOfProduct;
   String? price;
   int? quantity;
-  List<AttrbiuteResponse> attributeList;
+  List<AttributeResponse> attributeList;
   String? availabilityOfProduct;
   String? sellerName;
   String? discountStatus;
@@ -60,8 +60,8 @@ class ProductResponse {
                 : json["discount"],
             attributeList: json["attributes"] == null
                 ? []
-                : List<AttrbiuteResponse>.from(json["attributes"]
-                    .map((x) => AttrbiuteResponse.fromJson(x))),
+                : List<AttributeResponse>.from(json["attributes"]
+                    .map((x) => AttributeResponse.fromJson(x))),
             image: json["image"],
         isFavorite: json["is_favorite"] ?? false,
             relatedProducts: json["related_products"] == null

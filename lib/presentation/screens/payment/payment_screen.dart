@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,6 +21,7 @@ import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_a
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/location_screen.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_bill_details_row.dart';
+import 'package:pharma/presentation/screens/payment/widgets/custom_date_picker.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_note_on_the_order_continer.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_order_type_continer.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
@@ -32,8 +32,8 @@ import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/presentation/widgets/select_location.dart';
 import 'package:pharma/translations.dart';
 import 'widgets/custom_change_on_the_order_container.dart';
-import 'widgets/custom_discount_code_continer.dart';
-import 'widgets/custom_payment_status_continer.dart';
+import 'widgets/custom_discount_code_container.dart';
+import 'widgets/custom_payment_status_container.dart';
 
 class PaymentScreen extends StatelessWidget {
   final PaymentProcessResponse paymentProcessResponse;
@@ -42,7 +42,6 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(paymentProcessResponse.deleveryMethodList!.length);
     return BlocProvider(
       create: (context) => sl<PaymentBloc>()
         ..add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse)),
@@ -63,7 +62,7 @@ class PaymentBody extends StatelessWidget {
     return SafeArea(
       child: BlocListener<PaymentBloc, PaymentState>(
         listener: (context, state) {
-          log(state.toString());
+          // log(state.toString());
           if (state.screenState == ScreenStates.loading) {
             LoadingDialog().openDialog(context);
           }
@@ -171,7 +170,7 @@ class PaymentBody extends StatelessWidget {
                                     const SizedBox(height: 4),
                                     for (var item in state
                                         .paymentProcessResponse!
-                                        .deleveryMethodList!)
+                                        .deliveryMethodList!)
                                       BlocBuilder<LocationBloc, LocationState>(
                                         builder: (context, locationState) {
                                           return buildCustomOrderTypeContainer(
@@ -186,8 +185,9 @@ class PaymentBody extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 21),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 21,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -331,34 +331,36 @@ class PaymentBody extends StatelessWidget {
                                     for (int i = 0;
                                         i <
                                             state.paymentProcessResponse!
-                                                .deleveryAttributesList!.length;
+                                                .deliveryAttributeList!.length;
                                         i++)
                                       CustomNoteOnTheOrder(
                                         onTab: () {
                                           if (context
                                               .read<PaymentBloc>()
                                               .state
-                                              .attrbiuteChossenList
-                                              .any((element) =>
-                                                  element.id ==
-                                                  state
-                                                      .paymentProcessResponse!
-                                                      .deleveryAttributesList![
-                                                          i]
-                                                      .id)) {
+                                              .attributeChosenList
+                                              .any(
+                                                (element) =>
+                                                    element.id ==
+                                                    state
+                                                        .paymentProcessResponse!
+                                                        .deliveryAttributeList![
+                                                            i]
+                                                        .id,
+                                              )) {
                                             context.read<PaymentBloc>().add(
-                                                  RemoveFromChossenList(
+                                                  RemoveFromChosenList(
                                                     attributeData: state
                                                         .paymentProcessResponse!
-                                                        .deleveryAttributesList![i],
+                                                        .deliveryAttributeList![i],
                                                   ),
                                                 );
                                           } else {
                                             context.read<PaymentBloc>().add(
-                                                  AddToChossenAttrbiuteList(
-                                                    attrbiuteData: state
+                                                  AddToChosenAttributeList(
+                                                    attributeData: state
                                                         .paymentProcessResponse!
-                                                        .deleveryAttributesList![i],
+                                                        .deliveryAttributeList![i],
                                                   ),
                                                 );
                                           }
@@ -366,20 +368,22 @@ class PaymentBody extends StatelessWidget {
                                         isSelected: context
                                                 .read<PaymentBloc>()
                                                 .state
-                                                .attrbiuteChossenList
-                                                .any((element) =>
-                                                    element.id ==
-                                                    state
-                                                        .paymentProcessResponse!
-                                                        .deleveryAttributesList![
-                                                            i]
-                                                        .id)
+                                                .attributeChosenList
+                                                .any(
+                                                  (element) =>
+                                                      element.id ==
+                                                      state
+                                                          .paymentProcessResponse!
+                                                          .deliveryAttributeList![
+                                                              i]
+                                                          .id,
+                                                )
                                             ? true
                                             : false,
                                         noteText: state
                                             .paymentProcessResponse!
-                                            .deleveryAttributesList![i]
-                                            .nameDeleveryAttribute!,
+                                            .deliveryAttributeList![i]
+                                            .nameDeliveryAttribute!,
                                       ),
                                   ],
                                 ),
@@ -397,17 +401,16 @@ class PaymentBody extends StatelessWidget {
                                       AppLocalizations.of(context)!
                                           .requiredChange,
                                       style: getBoldStyle(
-                                          color: ColorManager.primaryGreen,
-                                          fontSize: FontSizeApp.s14),
+                                        color: ColorManager.primaryGreen,
+                                        fontSize: FontSizeApp.s14,
+                                      ),
                                     ),
-                                    const SizedBox(
-                                      height: 18,
-                                    ),
+                                    const SizedBox(height: 18),
                                     SizedBox(
                                       width: 1.sw,
                                       child: GridView.builder(
                                         itemCount: state.paymentProcessResponse!
-                                            .deleveryAttributesList!.length,
+                                            .deliveryChangesResponse.length,
                                         shrinkWrap: true,
                                         physics:
                                             const NeverScrollableScrollPhysics(),
@@ -431,22 +434,24 @@ class PaymentBody extends StatelessWidget {
                                                 if (context
                                                     .read<PaymentBloc>()
                                                     .state
-                                                    .attrbiuteChossenList
-                                                    .any((element) =>
-                                                        element.id ==
-                                                        state
-                                                            .paymentProcessResponse!
-                                                            .deleveryAttributesList![
-                                                                index]
-                                                            .id)) {
+                                                    .deliveryChangesList
+                                                    .any(
+                                                      (element) =>
+                                                          element.id ==
+                                                          state
+                                                              .paymentProcessResponse!
+                                                              .deliveryChangesResponse[
+                                                                  index]
+                                                              .id,
+                                                    )) {
                                                   /// todo : change DeliveryAttributesResponse to changeResponse
                                                   context
                                                       .read<PaymentBloc>()
                                                       .add(
-                                                        RemoveChangeAttributeList(
-                                                          attributeData: state
+                                                        RemoveChangeList(
+                                                          removeDeliveryChangesResponse: state
                                                               .paymentProcessResponse!
-                                                              .deleveryAttributesList![index],
+                                                              .deliveryChangesResponse[index],
                                                         ),
                                                       );
                                                 } else {
@@ -454,10 +459,10 @@ class PaymentBody extends StatelessWidget {
                                                   context
                                                       .read<PaymentBloc>()
                                                       .add(
-                                                        AddChangeAttributeList(
-                                                          attributeData: state
+                                                        AddChangeList(
+                                                          addDeliveryChangesResponse: state
                                                               .paymentProcessResponse!
-                                                              .deleveryAttributesList![index],
+                                                              .deliveryChangesResponse[index],
                                                         ),
                                                       );
                                                 }
@@ -465,13 +470,13 @@ class PaymentBody extends StatelessWidget {
                                               isSelected: context
                                                       .read<PaymentBloc>()
                                                       .state
-                                                      .attrbiuteChossenList
+                                                      .deliveryChangesList
                                                       .any(
                                                         (element) =>
                                                             element.id ==
                                                             state
                                                                 .paymentProcessResponse!
-                                                                .deleveryAttributesList![
+                                                                .deliveryChangesResponse[
                                                                     index]
                                                                 .id,
                                                       )
@@ -479,9 +484,9 @@ class PaymentBody extends StatelessWidget {
                                                   : false,
                                               changeText: state
                                                   .paymentProcessResponse!
-                                                  .deleveryAttributesList![
+                                                  .deliveryChangesResponse[
                                                       index]
-                                                  .nameDeleveryAttribute!,
+                                                  .value!,
                                             ),
                                           );
                                         },
@@ -517,6 +522,7 @@ class PaymentBody extends StatelessWidget {
                                   ],
                                 ),
                               ),
+
                               Padding(
                                 padding: const EdgeInsets.only(
                                   right: 21,
@@ -530,12 +536,12 @@ class PaymentBody extends StatelessWidget {
                                           AppLocalizations.of(context)!
                                               .total_amount,
                                       price: state.paymentProcessResponse!
-                                                  .invociesResponse!.subTotal !=
+                                                  .invoicesResponse!.subTotal !=
                                               null
-                                          ? Formatter.formatPrice(state
-                                              .paymentProcessResponse!
-                                              .invociesResponse!
-                                              .subTotal!)
+                                          ? Formatter.formatPrice(
+                                              state.paymentProcessResponse!
+                                                  .invoicesResponse!.subTotal!,
+                                            )
                                           : AppValueConst.defaultInvoiceValue
                                               .toString(),
                                     ),
@@ -545,13 +551,15 @@ class PaymentBody extends StatelessWidget {
                                               .hasm_code,
                                       price: state
                                                   .paymentProcessResponse!
-                                                  .invociesResponse!
+                                                  .invoicesResponse!
                                                   .coponValue !=
                                               null
-                                          ? Formatter.formatPrice(state
-                                              .paymentProcessResponse!
-                                              .invociesResponse!
-                                              .coponValue!)
+                                          ? Formatter.formatPrice(
+                                              state
+                                                  .paymentProcessResponse!
+                                                  .invoicesResponse!
+                                                  .coponValue!,
+                                            )
                                           : AppValueConst.defaultInvoiceValue
                                               .toString(),
                                     ),
@@ -559,23 +567,24 @@ class PaymentBody extends StatelessWidget {
                                       subStatusBill:
                                           AppLocalizations.of(context)!
                                               .deliverycharges,
-                                      price: (state
-                                                  .paymentProcessResponse!
-                                                  .invociesResponse!
-                                                  .deliveryValue ??
-                                              0)
-                                          .toString(),
+                                      price: (
+                                        state
+                                                .paymentProcessResponse!
+                                                .invoicesResponse!
+                                                .deliveryValue ??
+                                            0,
+                                      ).toString(),
                                     ),
                                     CustomBillDetailsRow(
                                       subStatusBill:
                                           AppLocalizations.of(context)!.tax,
                                       price: state.paymentProcessResponse!
-                                                  .invociesResponse!.tax !=
+                                                  .invoicesResponse!.tax !=
                                               null
-                                          ? Formatter.formatPrice(state
-                                              .paymentProcessResponse!
-                                              .invociesResponse!
-                                              .tax!)
+                                          ? Formatter.formatPrice(
+                                              state.paymentProcessResponse!
+                                                  .invoicesResponse!.tax!,
+                                            )
                                           : AppValueConst.defaultInvoiceValue
                                               .toString(),
                                     ),
@@ -584,12 +593,12 @@ class PaymentBody extends StatelessWidget {
                                       subStatusBill:
                                           AppLocalizations.of(context)!.total,
                                       price: state.paymentProcessResponse!
-                                                  .invociesResponse!.total !=
+                                                  .invoicesResponse!.total !=
                                               null
-                                          ? Formatter.formatPrice(state
-                                              .paymentProcessResponse!
-                                              .invociesResponse!
-                                              .total!)
+                                          ? Formatter.formatPrice(
+                                              state.paymentProcessResponse!
+                                                  .invoicesResponse!.total!,
+                                            )
                                           : AppValueConst.defaultInvoiceValue
                                               .toString(),
                                     )
@@ -608,29 +617,31 @@ class PaymentBody extends StatelessWidget {
                         .total_price
                         .replaceAll(":", ""),
                     totoalPrice:
-                        state.paymentProcessResponse!.invociesResponse!.total !=
+                        state.paymentProcessResponse!.invoicesResponse!.total !=
                                 null
-                            ? Formatter.formatPrice(state
-                                .paymentProcessResponse!
-                                .invociesResponse!
-                                .total!)
+                            ? Formatter.formatPrice(
+                                state.paymentProcessResponse!.invoicesResponse!
+                                    .total!,
+                              )
                             : AppValueConst.defaultInvoiceValue.toString(),
                     onCompletePayment: () {
                       context.read<PaymentBloc>().add(
                             CreateOrder(
-                              prductList:
+                              productList:
                                   context.read<BasketBloc>().state.prductList!,
-                              invoicesParms: InvoicesParms(
-                                  notes: noteController.text,
-                                  deliveryMethodId: state
-                                          .deleveryMethodChossenList.isNotEmpty
-                                      ? state.deleveryMethodChossenList[0].id!
-                                      : 0,
-                                  userAddressid: context
-                                      .read<LocationBloc>()
-                                      .state
-                                      .addressCurrent
-                                      .id!),
+                              invoicesParams: InvoicesParams(
+                                notes: noteController.text,
+                                deliveryMethodId: state
+                                        .deliveryMethodChosenList.isNotEmpty
+                                    // ToDo deliveryMethodChosenList[0].id ??? 0
+                                    ? state.deliveryMethodChosenList[0].id!
+                                    : 0,
+                                userAddressId: context
+                                    .read<LocationBloc>()
+                                    .state
+                                    .addressCurrent
+                                    .id!,
+                              ),
                             ),
                           );
                     },
@@ -650,35 +661,31 @@ class PaymentBody extends StatelessWidget {
   CustomOrderTypeContainer buildCustomOrderTypeContainer(
     BuildContext context,
     LocationState locationState,
-    DeleveryMethodResponse item,
+    DeliveryMethodResponse item,
     PaymentState state,
   ) {
     return CustomOrderTypeContainer(
-      isChossenLocation:
-          context.read<LocationBloc>().state.addressCurrent.latitude != null,
+      isChossenLocation: context.read<LocationBloc>().state.addressCurrent.latitude != null,
       userAddressId: locationState.addressCurrent.id ?? 0,
       delveryField: item,
-      isSelected: state.deleveryMethodChossenList
-          .any((element) => element.id == item.id),
-      deliveryCost:
-          "${AppLocalizations.of(context)!.delivery_cost} ${item.deleveyPrice} ل.س ",
+      isSelected: state.deliveryMethodChosenList.any((element) => element.id == item.id),
+      deliveryCost: "${AppLocalizations.of(context)!.delivery_cost} ${item.deliveryPrice} ل.س ",
       image: ImageManager.dateTimeImage,
-      // text: "${item.deleveryName} (${state.paymentProcessResponse!.invociesResponse!.deliveryValue})",
-      text: "${item.deleveryName} (${item.time} دقيقة) ",
+      text: "${item.deliveryName} (${item.deliveryTime} دقيقة) ",
       onTap: () {
-        if (!state.deleveryMethodChossenList
+        if (!state.deliveryMethodChosenList
             .any((element) => element.id == item.id)) {
           if (context.read<LocationBloc>().state.addressCurrent.latitude !=
               null) {
-            context.read<PaymentBloc>().add(
-                  ToogleDeleveryMethod(deleveryMethodData: item),
-                );
-            context.read<PaymentBloc>().add(
-                  GetInvoicesDetails(
-                    invoicesParmas: InvoicesParms(
+            // showDialog(
+            //   context: context,
+            //   builder: (context) => const CustomDatePicker(),
+            // );
+            context.read<PaymentBloc>().add(ToggleDeliveryMethod(deliveryMethodData: item));
+            context.read<PaymentBloc>().add(GetInvoicesDetails(invoicesParams: InvoicesParams(
                       notes: noteController.text,
                       deliveryMethodId: item.id!,
-                      userAddressid: locationState.addressCurrent.id!,
+                      userAddressId: locationState.addressCurrent.id!,
                     ),
                     productList: context.read<BasketBloc>().state.prductList,
                   ),

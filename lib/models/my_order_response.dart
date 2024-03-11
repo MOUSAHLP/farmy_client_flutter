@@ -6,9 +6,9 @@ import 'delivery_method_model.dart';
 
 class MyOrderResponse {
   int id;
-  String? orderNumber;
+  int? orderNumber;
   String? status;
-  String? total;
+  int? total;
   String? date;
   UserAddressModel? userAddress;
   UserModel? user;

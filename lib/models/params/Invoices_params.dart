@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class InvoicesParms {
-  int userAddressid;
+class InvoicesParams {
+  int userAddressId;
   int deliveryMethodId;
   String notes;
-  InvoicesParms({
-    required this.userAddressid,
+
+  InvoicesParams({
+    required this.userAddressId,
     required this.deliveryMethodId,
     this.notes = " ",
   });

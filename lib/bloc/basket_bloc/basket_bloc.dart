@@ -64,8 +64,8 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         }
         if (event is PaymentProcess) {
           emit(state.copyWith(screenState: ScreenState.loading));
-          PaymentProcessParms paymentProcessParms =
-              PaymentProcessParms(prodictInBasketList: state.prductList!);
+          PaymentProcessParams paymentProcessParms =
+              PaymentProcessParams(productInBasketList: state.prductList!);
           (await basketRepo.getPaymentDetails(paymentProcessParms)).fold(
             (l) => emit(state.copyWith(
                 screenState: ScreenState.error, errorMessage: l)),

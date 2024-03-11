@@ -5,7 +5,6 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/widgets/cached_image.dart';
 
-import '../../../../core/utils/formatter.dart';
 import '../../../../models/order_details_model.dart';
 import '../../../../translations.dart';
 

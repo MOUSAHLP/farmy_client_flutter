@@ -24,28 +24,28 @@ class ChoosePaymentStatusEvent extends PaymentEvent {
 
 class GetPaymentDetailsEvent extends PaymentEvent {}
 
-class AddToChossenAttrbiuteList extends PaymentEvent {
-  final DeliveryAttributesResponse? attrbiuteData;
+class AddToChosenAttributeList extends PaymentEvent {
+  final DeliveryAttributesResponse? attributeData;
 
-  const AddToChossenAttrbiuteList({
-    this.attrbiuteData,
+  const AddToChosenAttributeList({
+    this.attributeData,
   });
 }
 
 class GetInvoicesDetails extends PaymentEvent {
-  final InvoicesParms invoicesParmas;
+  final InvoicesParams invoicesParams;
   final List<ProductResponse>? productList;
 
   const GetInvoicesDetails({
-    required this.invoicesParmas,
+    required this.invoicesParams,
         required this.productList
       });
 }
 
-class RemoveFromChossenList extends PaymentEvent {
+class RemoveFromChosenList extends PaymentEvent {
   final DeliveryAttributesResponse? attributeData;
 
-  const RemoveFromChossenList({
+  const RemoveFromChosenList({
     this.attributeData,
   });
 }
@@ -69,22 +69,40 @@ class RemoveChangeAttributeList extends PaymentEvent {
   });
 }
 
+class AddChangeList extends PaymentEvent {
+  /// todo : change DeliveryAttributesResponse to changeResponse
+  final DeliveryChangesResponse? addDeliveryChangesResponse;
 
-class ToogleDeleveryMethod extends PaymentEvent {
-  final DeleveryMethodResponse? deleveryMethodData;
+  const AddChangeList({
+    this.addDeliveryChangesResponse,
+  });
+}
 
-  const ToogleDeleveryMethod({
-    this.deleveryMethodData,
+class RemoveChangeList extends PaymentEvent {
+  /// todo : change DeliveryAttributesResponse to changeResponse
+  final DeliveryChangesResponse? removeDeliveryChangesResponse;
+
+  const RemoveChangeList({
+    this.removeDeliveryChangesResponse,
+  });
+}
+
+
+class ToggleDeliveryMethod extends PaymentEvent {
+  final DeliveryMethodResponse? deliveryMethodData;
+
+  const ToggleDeliveryMethod({
+    this.deliveryMethodData,
   });
 }
 
 class CreateOrder extends PaymentEvent {
-  final InvoicesParms invoicesParms;
-  final List<ProductResponse> prductList;
+  final InvoicesParams invoicesParams;
+  final List<ProductResponse> productList;
 
   const CreateOrder({
-    required this.invoicesParms,
-    required this.prductList,
+    required this.invoicesParams,
+    required this.productList,
   });
 }
 

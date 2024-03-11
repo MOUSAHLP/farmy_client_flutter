@@ -1,35 +1,32 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class DeleveryMethodResponse {
+class DeliveryMethodResponse {
   int? id;
-  String? deleveryName;
-  String? deleveytime;
-  String? deleveyPrice;
-  String? time;
+  String? deliveryName;
+  String? deliveryTime;
+  String? deliveryPrice;
   int? totalPrice;
 
-  DeleveryMethodResponse({
+  DeliveryMethodResponse({
     this.id,
-    this.deleveryName,
-    this.deleveytime,
-    this.deleveyPrice,
+    this.deliveryName,
+    this.deliveryTime,
+    this.deliveryPrice,
     this.totalPrice,
-    this.time,
   });
 
-  factory DeleveryMethodResponse.fromJson(Map<String, dynamic> json) {
-    return DeleveryMethodResponse(
+  factory DeliveryMethodResponse.fromJson(Map<String, dynamic> json) {
+    return DeliveryMethodResponse(
       id: json["id"],
-      deleveryName: json["name"],
-      deleveytime: json["time"],
+      deliveryName: json["name"],
+      deliveryTime: json["time"],
       totalPrice: json["total_price"],
-      deleveyPrice: json["price"],
-      time: json["time"],
+      deliveryPrice: json["price"],
     );
   }
 
-  static List<DeleveryMethodResponse> listFromJson(List<dynamic>? json) {
+  static List<DeliveryMethodResponse> listFromJson(List<dynamic>? json) {
     return json == null
         ? []
-        : json.map((value) => DeleveryMethodResponse.fromJson(value)).toList();
+        : json.map((value) => DeliveryMethodResponse.fromJson(value)).toList();
   }
 }

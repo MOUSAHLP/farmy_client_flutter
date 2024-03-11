@@ -1,20 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class AttrbiuteResponse {
+class AttributeResponse {
   String value;
 
-  AttrbiuteResponse({
+  AttributeResponse({
     required this.value,
   });
 
-  factory AttrbiuteResponse.fromJson(Map<String, dynamic> json) {
-    return AttrbiuteResponse(
+  factory AttributeResponse.fromJson(Map<String, dynamic> json) {
+    return AttributeResponse(
       value: json["value"],
     );
   }
 
-  static List<AttrbiuteResponse> listFromJson(List<dynamic>? json) {
+  static List<AttributeResponse> listFromJson(List<dynamic>? json) {
     return json == null
         ? []
-        : json.map((value) => AttrbiuteResponse.fromJson(value)).toList();
+        : json.map((value) => AttributeResponse.fromJson(value)).toList();
   }
 }

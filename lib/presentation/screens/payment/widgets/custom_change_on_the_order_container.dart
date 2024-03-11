@@ -8,7 +8,7 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
 class CustomChangeOnTheOrder extends StatelessWidget {
-  final String changeText;
+  final int changeText;
   final bool isSelected;
   final Function() onTab;
 
@@ -40,7 +40,7 @@ class CustomChangeOnTheOrder extends StatelessWidget {
               ),
               const SizedBox(width: 9),
               Text(
-                changeText,
+                "$changeText",
                 style: getRegularStyle(
                     color: ColorManager.grayForMessage,
                     fontSize: FontSizeApp.s14),

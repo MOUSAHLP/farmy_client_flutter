@@ -269,5 +269,9 @@
   "no_favorite_items": "There are no favorite items",
   "pleaseLogIn": "Please login to add items to your favorites",
   "returned": "Returned",
-  "totalPrice": "Total price + delivery price + discount"
+  "totalPrice": "Total price + delivery price + discount",
+  "minutes": "Minutes",
+  "hour": "Hour",
+  "select_hour": "Select Hour",
+  "select_calculator": "Select Calculator"
 }

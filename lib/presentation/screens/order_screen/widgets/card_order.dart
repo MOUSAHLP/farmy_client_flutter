@@ -29,7 +29,7 @@ class CardOrder extends StatelessWidget {
             children: [
               RowOrder(
                   title: AppLocalizations.of(context)!.order_Number,
-                  details: myOrder.orderNumber ?? ""),
+                  details: myOrder.orderNumber.toString() ?? ""),
               RowOrder(
                   title: AppLocalizations.of(context)!.address,
                   details: getAddress(myOrder.userAddress!)),
