@@ -36,7 +36,7 @@ class DeleteProductDialog extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      AppLocalizations.of(context)!.delete_product,
+                      "حذف المنتج",
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       style: getBoldStyle(

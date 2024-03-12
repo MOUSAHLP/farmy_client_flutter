@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../bloc/my_order_bloc/my_order_bloc.dart';
+import '../../../../bloc/my_order_bloc/my_order_event.dart';
 import '../../../../core/app_router/app_router.dart';
 import '../../../../translations.dart';
 import '../../../resources/color_manager.dart';
@@ -43,7 +46,10 @@ final int id;
                 label: AppLocalizations.of(context)!.delete_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
-                onTap: () {},
+                onTap: () {
+                  context.read<MyOrderBloc>().add(DeleteOrder(id: id));
+                  //DeleteOrder
+                },
               ),
             ),
           ];

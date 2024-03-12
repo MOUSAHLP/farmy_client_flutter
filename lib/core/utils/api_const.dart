@@ -57,6 +57,7 @@ class ApiConst {
   ///my_order
   static const String getMyOrder = "/orders";
   static  String getDetailsOrder(int id) => "/orders/order-details/$id";
+  static  String deleteOrder(int id) => "/orders/$id";
 
   ///notification
   static const String getNotifications = "/";

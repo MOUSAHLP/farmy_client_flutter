@@ -21,4 +21,18 @@ class MyOrderRepository {
       },
     );
   }
+
+  static Future<Either<String, String>> deleteOrder( int id) {
+    print("Delet.toJson()");
+    print(id);
+    return BaseApiClient.delete<String>(
+      url: ApiConst.deleteOrder(id),
+
+      converter: (e) {
+        return e['message'];
+      },
+
+    );
+  }
+
 }

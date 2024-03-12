@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/details_order_bloc/details_order_event.dart';
 import 'package:pharma/core/app_enum.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 import 'package:pharma/presentation/screens/order_details_screen/widgets/card_details_order.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
@@ -45,7 +46,7 @@ final bool isEdit;
       body: SafeArea(
         child: Column(
           children: [
-            CustomAppBar(),
+            const CustomAppBar(),
             CustomAppBarScreen(
                 sectionName: AppLocalizations.of(context)!.order_details),
             Padding(
@@ -67,7 +68,7 @@ final bool isEdit;
               builder:(context, state)
               {
                 if(state.screenStates==ScreenStates.loading) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if(state.screenStates==ScreenStates.error) {
                   return CustomErrorScreen(onTap: () {
                     sl<DetailsOrderBloc>().add(ShowDetailsOrder(id:id));
@@ -137,18 +138,16 @@ final bool isEdit;
                                  horizontal: 27, vertical: 9),
                              child: Row(
                                children: [
-                                 Expanded(
+                                isEdit? Expanded(
                                    child: CustomButton(
-                                     label: AppLocalizations.of(
-                                         context)!
-                                         .proceed_to_checkout,
+                                     label: "حفظ التعديلات",
                                      fillColor:
                                      ColorManager.primaryGreen,
                                      onTap: () {
 
                                      },
                                    ),
-                                 ),
+                                 ):const SizedBox(),
                                  const SizedBox(
                                    width: 16,
                                  ),
@@ -160,7 +159,7 @@ final bool isEdit;
                                      labelColor: Colors.white,
                                      onTap: () {
 
-
+AppRouter.pop(context);
                                             // SystemNavigator.pop();
                                      },
                                    ),

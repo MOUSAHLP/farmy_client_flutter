@@ -5,4 +5,11 @@ abstract class MyOrderEvent {
 class GetMyOrder extends MyOrderEvent {
   GetMyOrder();
 }
+class DeleteOrder extends MyOrderEvent {
+  int id;
+  DeleteOrder({required this.id});
+}
+
+
+
 
