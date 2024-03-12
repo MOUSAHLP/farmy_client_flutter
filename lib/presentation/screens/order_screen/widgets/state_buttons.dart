@@ -31,7 +31,10 @@ final int id;
                 label:AppLocalizations.of(context)!.edit_Orders,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
-                onTap: () {},
+                onTap: () {
+                  return AppRouter.push(context, OrderDetailsScreen(id:id,isEdit: true,));
+
+                },
               ),
             ),
             const SizedBox(width: 2),

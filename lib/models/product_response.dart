@@ -8,7 +8,8 @@ class ProductResponse {
   String? nameOfProduct;
   String? price;
   int? quantity;
-  List<AttributeResponse> attributeList;
+  int? tax;
+  List<AttrbiuteResponse> attributeList;
   String? availabilityOfProduct;
   String? sellerName;
   String? discountStatus;
@@ -26,6 +27,7 @@ class ProductResponse {
     required this.id,
     this.nameOfProduct,
     this.price,
+    this.tax,
     this.quantity,
     this.attributeList = const [],
     this.availabilityOfProduct,
@@ -44,6 +46,7 @@ class ProductResponse {
     return json["availability"] == "1"
         ? ProductResponse(
             id: json["id"],
+        tax: json["tax"] != null ? int.parse(json["tax"]) : null,
 
         quantity: json["quantity"] != null ? int.parse(json["quantity"]) : null,
 
@@ -60,8 +63,8 @@ class ProductResponse {
                 : json["discount"],
             attributeList: json["attributes"] == null
                 ? []
-                : List<AttributeResponse>.from(json["attributes"]
-                    .map((x) => AttributeResponse.fromJson(x))),
+                : List<AttrbiuteResponse>.from(json["attributes"]
+                    .map((x) => AttrbiuteResponse.fromJson(x))),
             image: json["image"],
         isFavorite: json["is_favorite"] ?? false,
             relatedProducts: json["related_products"] == null

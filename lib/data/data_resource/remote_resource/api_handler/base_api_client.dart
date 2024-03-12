@@ -55,6 +55,7 @@ class BaseApiClient {
           headers: _headers,
         ),
       );
+      print(response);
       if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
           (response.data['error'].toString() != 'true')) {
         if (kDebugMode) {
