@@ -13,24 +13,26 @@ import '../../../../bloc/payment_bloc/payment_bloc.dart';
 
 class CustomOrderTypeContainer extends StatelessWidget {
   final bool isSelected;
-  final bool isChossenLocation;
-  final DeliveryMethodResponse delveryField;
+  final bool isChosenLocation;
+  final DeliveryMethodResponse deliveryField;
   final int userAddressId;
   final String image;
   final String text;
   final String deliveryCost;
   final Function() onTap;
+  final int idMethodeType;
 
   const CustomOrderTypeContainer({
     super.key,
     required this.isSelected,
     required this.userAddressId,
-    required this.isChossenLocation,
-    required this.delveryField,
+    required this.isChosenLocation,
+    required this.deliveryField,
     required this.onTap,
     required this.deliveryCost,
     required this.image,
     required this.text,
+    required this.idMethodeType,
   });
 
   @override
@@ -68,31 +70,32 @@ class CustomOrderTypeContainer extends StatelessWidget {
                   ),
                   BlocBuilder<PaymentBloc, PaymentState>(
                     builder: (context, state) {
-                      return SlectedContiner(
-                        onPreased: () {
-                          if (!isSelected) {
-                            if (isChossenLocation) {
-                              context.read<PaymentBloc>().add(
-                                ToggleDeliveryMethod(
-                                  deliveryMethodData: delveryField,
-                                    ),
-                                  );
-
-                              context.read<PaymentBloc>().add(
-                                    GetInvoicesDetails(
-                                      invoicesParams: InvoicesParams(
-                                        deliveryMethodId: delveryField.id!,
-                                        userAddressId: userAddressId,
-                                      ),
-                                      productList: context
-                                          .read<BasketBloc>()
-                                          .state
-                                          .prductList,
-                                    ),
-                                  );
-                            }
-                          }
-                        },
+                      return SelectedContainer(
+                        idMethodeType: idMethodeType,
+                        // onPressed: () {
+                        //   if (!isSelected) {
+                        //     if (isChosenLocation) {
+                        //       context.read<PaymentBloc>().add(
+                        //             ToggleDeliveryMethod(
+                        //               deliveryMethodData: deliveryField,
+                        //             ),
+                        //           );
+                        //
+                        //       context.read<PaymentBloc>().add(
+                        //             GetInvoicesDetails(
+                        //               invoicesParams: InvoicesParams(
+                        //                 deliveryMethodId: deliveryField.id,
+                        //                 userAddressId: userAddressId,
+                        //               ),
+                        //               productList: context
+                        //                   .read<BasketBloc>()
+                        //                   .state
+                        //                   .productList,
+                        //             ),
+                        //           );
+                        //     }
+                        //   }
+                        // },
                         color: isSelected
                             ? ColorManager.primaryGreen
                             : ColorManager.greyForUnSelectedItem,
@@ -105,7 +108,7 @@ class CustomOrderTypeContainer extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        isChossenLocation
+        isChosenLocation
             ? Text(
                 deliveryCost,
                 style: getBoldStyle(
@@ -113,7 +116,7 @@ class CustomOrderTypeContainer extends StatelessWidget {
                     fontSize: FontSizeApp.s14),
               )
             : Text(
-                "please chosse you location",
+                "please chose you location",
                 style: getBoldStyle(
                         color: ColorManager.redForFavorite,
                         fontSize: FontSizeApp.s14)!

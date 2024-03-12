@@ -52,6 +52,7 @@ class ImageManager {
   static const String stars = "$imagePath/stars.png";
   static const String innerShadowBox = "$imagePath/innerShadowBox.png";
   static const String innerShadowCircle = "$imagePath/innerShadowCircle.png";
+  static const String arrowBack = "$imagePath/arrow_back.svg";
 }
 
 class IconsManager {

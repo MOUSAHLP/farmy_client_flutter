@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class DeliveryMethodResponse {
-  int? id;
+  int id;
   String? deliveryName;
   String? deliveryTime;
   String? deliveryPrice;
   int? totalPrice;
 
   DeliveryMethodResponse({
-    this.id,
+    required this.id,
     this.deliveryName,
     this.deliveryTime,
     this.deliveryPrice,

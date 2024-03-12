@@ -170,7 +170,7 @@ class PaymentBody extends StatelessWidget {
                                     const SizedBox(height: 4),
                                     for (var item in state
                                         .paymentProcessResponse!
-                                        .deliveryMethodList!)
+                                        .deliveryMethodList!) ...[
                                       BlocBuilder<LocationBloc, LocationState>(
                                         builder: (context, locationState) {
                                           return buildCustomOrderTypeContainer(
@@ -181,6 +181,7 @@ class PaymentBody extends StatelessWidget {
                                           );
                                         },
                                       ),
+                                    ],
                                   ],
                                 ),
                               ),
@@ -199,14 +200,14 @@ class PaymentBody extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(height: 4),
-                                    CustomPaymentStatusContiner(
+                                    CustomPaymentStatusContainer(
                                       image: ImageManager.farmySmile,
                                       text: AppLocalizations.of(context)!
                                           .cash_payment,
                                       paymentState: PaymentStates.cashPayment,
                                     ),
                                     const SizedBox(height: 12),
-                                    CustomPaymentStatusContiner(
+                                    CustomPaymentStatusContainer(
                                       image: ImageManager.farmySmile,
                                       text: AppLocalizations.of(context)!
                                           .farmy_wallet,
@@ -628,7 +629,7 @@ class PaymentBody extends StatelessWidget {
                       context.read<PaymentBloc>().add(
                             CreateOrder(
                               productList:
-                                  context.read<BasketBloc>().state.prductList!,
+                                  context.read<BasketBloc>().state.productList!,
                               invoicesParams: InvoicesParams(
                                 notes: noteController.text,
                                 deliveryMethodId: state
@@ -665,31 +666,37 @@ class PaymentBody extends StatelessWidget {
     PaymentState state,
   ) {
     return CustomOrderTypeContainer(
-      isChossenLocation: context.read<LocationBloc>().state.addressCurrent.latitude != null,
+      idMethodeType: item.id,
+      isChosenLocation:
+          context.read<LocationBloc>().state.addressCurrent.latitude != null,
       userAddressId: locationState.addressCurrent.id ?? 0,
-      delveryField: item,
-      isSelected: state.deliveryMethodChosenList.any((element) => element.id == item.id),
-      deliveryCost: "${AppLocalizations.of(context)!.delivery_cost} ${item.deliveryPrice} ل.س ",
+      deliveryField: item,
+      isSelected: state.deliveryMethodChosenList
+          .any((element) => element.id == item.id),
+      deliveryCost:
+          "${AppLocalizations.of(context)!.delivery_cost} ${item.deliveryPrice} ل.س ",
       image: ImageManager.dateTimeImage,
       text: "${item.deliveryName} (${item.deliveryTime} دقيقة) ",
       onTap: () {
-        if (!state.deliveryMethodChosenList
-            .any((element) => element.id == item.id)) {
-          if (context.read<LocationBloc>().state.addressCurrent.latitude !=
-              null) {
-            // showDialog(
-            //   context: context,
-            //   builder: (context) => const CustomDatePicker(),
-            // );
-            context.read<PaymentBloc>().add(ToggleDeliveryMethod(deliveryMethodData: item));
-            context.read<PaymentBloc>().add(GetInvoicesDetails(invoicesParams: InvoicesParams(
+        if (!state.deliveryMethodChosenList.any((element) => element.id == item.id)) {
+          if (context.read<LocationBloc>().state.addressCurrent.latitude != null) {
+            context.read<PaymentBloc>().add(ToggleDeliveryMethod(deliveryMethodData: item),);
+
+            context.read<PaymentBloc>().add(GetInvoicesDetails(
+                    invoicesParams: InvoicesParams(
                       notes: noteController.text,
-                      deliveryMethodId: item.id!,
+                      deliveryMethodId: item.id,
                       userAddressId: locationState.addressCurrent.id!,
                     ),
-                    productList: context.read<BasketBloc>().state.prductList,
+                    productList: context.read<BasketBloc>().state.productList,
                   ),
                 );
+            if (item.id == 3) {
+              showDialog(
+                context: context,
+                builder: (context) => const CustomDatePicker(),
+              );
+            }
           }
         }
       },

@@ -7,16 +7,17 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/payment/widgets/selected_continer.dart';
 
-class CustomPaymentStatusContiner extends StatelessWidget {
+class CustomPaymentStatusContainer extends StatelessWidget {
   final PaymentStates paymentState;
   final String image;
   final String text;
 
-  const CustomPaymentStatusContiner(
-      {super.key,
-      required this.paymentState,
-      required this.image,
-      required this.text});
+  const CustomPaymentStatusContainer({
+    super.key,
+    required this.paymentState,
+    required this.image,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +54,8 @@ class CustomPaymentStatusContiner extends StatelessWidget {
               ),
               BlocBuilder<PaymentBloc, PaymentState>(
                 builder: (context, state) {
-                  return SlectedContiner(
-                    onPreased: () {
+                  return SelectedContainer(
+                    onPressed: () {
                       context.read<PaymentBloc>().add(
                           ChoosePaymentStatusEvent(paymentState: paymentState));
                     },

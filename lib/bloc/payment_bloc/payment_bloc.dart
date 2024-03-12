@@ -53,29 +53,35 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         }
         if (event is AddChangeAttributeList) {
           /// todo : change DeliveryAttributesResponse to changeResponse
-          List<DeliveryAttributesResponse> mutableChangeList = List.from(state.attributeChosenList);
+          List<DeliveryAttributesResponse> mutableChangeList =
+              List.from(state.attributeChosenList);
           mutableChangeList.add(event.attributeData!);
           emit(state.copyWith(attributeChosenList: mutableChangeList));
         }
 
         if (event is AddChangeList) {
           /// todo : change DeliveryAttributesResponse to changeResponse
-          List<DeliveryChangesResponse> mutableChangeList = List.from(state.deliveryChangesList);
+          List<DeliveryChangesResponse> mutableChangeList =
+              List.from(state.deliveryChangesList);
           mutableChangeList.add(event.addDeliveryChangesResponse!);
           emit(state.copyWith(deliveryChangesList: mutableChangeList));
         }
 
         if (event is RemoveChangeList) {
           /// todo : change DeliveryAttributesResponse to changeResponse
-          List<DeliveryChangesResponse> mutableChangeList = List.from(state.deliveryChangesList);
-          mutableChangeList.removeWhere((element) => element.id == event.removeDeliveryChangesResponse!.id);
+          List<DeliveryChangesResponse> mutableChangeList =
+              List.from(state.deliveryChangesList);
+          mutableChangeList.removeWhere((element) =>
+              element.id == event.removeDeliveryChangesResponse!.id);
           emit(state.copyWith(deliveryChangesList: mutableChangeList));
         }
 
         if (event is RemoveChangeAttributeList) {
           /// todo : change DeliveryAttributesResponse to changeResponse
-          List<DeliveryAttributesResponse> mutableChangeList = List.from(state.attributeChosenList);
-          mutableChangeList.removeWhere((element) => element.id == event.attributeData!.id);
+          List<DeliveryAttributesResponse> mutableChangeList =
+              List.from(state.attributeChosenList);
+          mutableChangeList
+              .removeWhere((element) => element.id == event.attributeData!.id);
           emit(state.copyWith(attributeChosenList: mutableChangeList));
         }
         if (event is ToggleDeliveryMethod) {
@@ -111,8 +117,10 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         if (event is CreateOrder) {
           // List<int?> ids = state.deliveryChangesList.map((e) => e.id).toList();
 
-          emit(state.copyWith(completePaymentStates: CompletePaymentStates.loading));
-          PaymentProcessParams paymentProcessParams = PaymentProcessParams(productInBasketList: event.productList);
+          emit(state.copyWith(
+              completePaymentStates: CompletePaymentStates.loading));
+          PaymentProcessParams paymentProcessParams =
+              PaymentProcessParams(productInBasketList: event.productList);
           (await paymentRepo.createOrder(
             paymentProcessParams,
             event.invoicesParams,
@@ -134,6 +142,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         if (event is GetInitializeInvoice) {
           emit(state.copyWith(paymentProcessResponse: event.initializeInvoice));
         }
+
       },
     );
   }

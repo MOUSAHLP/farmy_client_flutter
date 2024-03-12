@@ -67,6 +67,6 @@ class PaymentState extends Equatable {
         deliveryMethodChosenList,
         paymentProcessResponse,
         completePaymentStates,
-        errorMessage
+        errorMessage,
       ];
 }

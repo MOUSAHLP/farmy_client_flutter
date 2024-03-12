@@ -1,7 +1,7 @@
 part of 'basket_bloc.dart';
 
 class BasketState extends Equatable {
-  final List<ProductResponse>? prductList;
+  final List<ProductResponse>? productList;
   final AddToBasketState? addToBasketState;
   final PaymentProcessResponse? paymentProcessResponse;
   final ScreenState? screenState;
@@ -9,7 +9,7 @@ class BasketState extends Equatable {
   final bool isClear;
 
   const BasketState({
-    this.prductList = const [],
+    this.productList = const [],
     this.addToBasketState,
     this.errorMessage,
     this.screenState,
@@ -30,7 +30,7 @@ class BasketState extends Equatable {
         paymentProcessResponse:
             paymentProcessResponse ?? this.paymentProcessResponse,
         addToBasketState: addToBasketState ?? addToBasketState,
-        prductList: productList ?? this.prductList,
+        productList: productList ?? this.productList,
         screenState: screenState ?? ScreenState.initialized,
         isClear: isClear ?? false);
   }
@@ -38,7 +38,7 @@ class BasketState extends Equatable {
   @override
   List<Object?> get props => [
         identityHashCode(this),
-        prductList,
+        productList,
         addToBasketState,
         screenState,
         paymentProcessResponse,

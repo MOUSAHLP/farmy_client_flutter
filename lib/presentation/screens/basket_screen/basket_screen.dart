@@ -60,7 +60,7 @@ class BasketScreen extends StatelessWidget {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          state.prductList!.isEmpty
+                          state.productList!.isEmpty
                               ? CustomNoData(
                                   noDataStatment: AppLocalizations.of(context)!
                                       .sorryBasketIsEmpty,
@@ -95,14 +95,14 @@ class BasketScreen extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return  CardBasket(
                                     productAddedToBasketDetails:
-                                    state.prductList![index],
+                                    state.productList![index],
                                   );
                                 },
-                                itemCount: state.prductList!.length,
+                                itemCount: state.productList!.length,
                               ),
                             ),
                           ),
-                          state.prductList!.isEmpty
+                          state.productList!.isEmpty
                               ? const SizedBox()
                               : Container(
                                   width: 1.sw,

@@ -42,7 +42,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     on<BasketEvent>(
       (event, emit) async {
         if (event is AddToBasket) {
-          mutableProducts = List.from(state.prductList!);
+          mutableProducts = List.from(state.productList!);
           for (var x in event.product) {
             for (var i in mutableProducts) {
               if (i.id == x.id) {
@@ -65,7 +65,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         if (event is PaymentProcess) {
           emit(state.copyWith(screenState: ScreenState.loading));
           PaymentProcessParams paymentProcessParms =
-              PaymentProcessParams(productInBasketList: state.prductList!);
+              PaymentProcessParams(productInBasketList: state.productList!);
           (await basketRepo.getPaymentDetails(paymentProcessParms)).fold(
             (l) => emit(state.copyWith(
                 screenState: ScreenState.error, errorMessage: l)),

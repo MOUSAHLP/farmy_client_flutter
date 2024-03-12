@@ -36,10 +36,8 @@ class GetInvoicesDetails extends PaymentEvent {
   final InvoicesParams invoicesParams;
   final List<ProductResponse>? productList;
 
-  const GetInvoicesDetails({
-    required this.invoicesParams,
-        required this.productList
-      });
+  const GetInvoicesDetails(
+      {required this.invoicesParams, required this.productList});
 }
 
 class RemoveFromChosenList extends PaymentEvent {
@@ -49,7 +47,6 @@ class RemoveFromChosenList extends PaymentEvent {
     this.attributeData,
   });
 }
-
 
 class AddChangeAttributeList extends PaymentEvent {
   /// todo : change DeliveryAttributesResponse to changeResponse
@@ -70,7 +67,6 @@ class RemoveChangeAttributeList extends PaymentEvent {
 }
 
 class AddChangeList extends PaymentEvent {
-  /// todo : change DeliveryAttributesResponse to changeResponse
   final DeliveryChangesResponse? addDeliveryChangesResponse;
 
   const AddChangeList({
@@ -79,14 +75,12 @@ class AddChangeList extends PaymentEvent {
 }
 
 class RemoveChangeList extends PaymentEvent {
-  /// todo : change DeliveryAttributesResponse to changeResponse
   final DeliveryChangesResponse? removeDeliveryChangesResponse;
 
   const RemoveChangeList({
     this.removeDeliveryChangesResponse,
   });
 }
-
 
 class ToggleDeliveryMethod extends PaymentEvent {
   final DeliveryMethodResponse? deliveryMethodData;
@@ -113,3 +107,5 @@ class GetInitializeInvoice extends PaymentEvent {
     required this.initializeInvoice,
   });
 }
+
+
