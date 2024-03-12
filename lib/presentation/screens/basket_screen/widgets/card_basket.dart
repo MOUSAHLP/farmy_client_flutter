@@ -24,7 +24,7 @@ class CardBasket extends StatelessWidget {
       builder: (context, state) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 37),
         child: Stack(
-          alignment: Alignment.topRight,
+          alignment: AlignmentDirectional.topEnd,
           children: [
             Container(
               height: 115,
@@ -172,7 +172,12 @@ class CardBasket extends StatelessWidget {
                   context.read<BasketBloc>().add(
                       DeleteProduct(productAddedToBasketDetails.id ?? 0));
                 },
-                child: const Icon(Icons.clear, color: Colors.red,size: 30,))
+                child: Container(
+                    width: 30.h,
+                    decoration: BoxDecoration(boxShadow: [
+                      ColorManager.shadowGaryDown,
+                    ], color: Colors.white),
+                    child: const Icon(Icons.clear, color: Colors.red,size: 30,)))
           ],
         ),
       ),

@@ -7,6 +7,7 @@ class DetailsOrderState extends Equatable {
   ScreenStates screenStates;
 
   bool isLoading;
+  int totalPrice;
   String error;
   final bool success;
   List<OrderDetailsModel> productList;
@@ -15,6 +16,7 @@ class DetailsOrderState extends Equatable {
     this.screenStates = ScreenStates.loading,
     this.isLoading = false,
     this.success = false,
+    this.totalPrice = 0,
     this.error = '',
     this.productList = const [],
   });
@@ -23,6 +25,7 @@ class DetailsOrderState extends Equatable {
     ScreenStates? screenStates,
     bool? isLoading,
     bool? success,
+    int? totalPrice,
     String? error,
     List<OrderDetailsModel>? productList,
   }) {
@@ -32,6 +35,7 @@ class DetailsOrderState extends Equatable {
       success: success ?? false,
       error: error ?? '',
       productList: productList ?? this.productList,
+      totalPrice: totalPrice ?? 0,
 
     );
   }
@@ -44,7 +48,7 @@ class DetailsOrderState extends Equatable {
         success,
         error,
         productList,
-
+    totalPrice
       ];
 }
 

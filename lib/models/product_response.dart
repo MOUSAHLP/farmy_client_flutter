@@ -1,13 +1,15 @@
 
 
-import 'package:pharma/models/attribute_response.dart';
 
+
+import 'attribute_response.dart';
 
 class ProductResponse {
   int id;
   String? nameOfProduct;
   String? price;
   int? quantity;
+  int? tax;
   List<AttributeResponse> attributeList;
   String? availabilityOfProduct;
   String? sellerName;
@@ -26,6 +28,7 @@ class ProductResponse {
     required this.id,
     this.nameOfProduct,
     this.price,
+    this.tax,
     this.quantity,
     this.attributeList = const [],
     this.availabilityOfProduct,
@@ -43,37 +46,38 @@ class ProductResponse {
   factory ProductResponse.fromJson(Map<String, dynamic> json) {
     return json["availability"] == "1"
         ? ProductResponse(
-            id: json["id"],
+        id: json["id"],
+        tax: json["tax"] != null ? int.parse(json["tax"]) : null,
 
         quantity: json["quantity"] != null ? int.parse(json["quantity"]) : null,
 
         description: json["description"],
-            discountStatus: json["discount_status"],
-            discountValue: json["discount_status"] != 0
-                ? getDiscountedPrice(json["price"], json["discount"])
-                : json["discount"],
-            sellerName: json["seller"] == null ? null : json["seller"]["name"],
-            nameOfProduct: json["name"],
-            price: json["price"],
+        discountStatus: json["discount_status"],
+        discountValue: json["discount_status"] != 0
+            ? getDiscountedPrice(json["price"], json["discount"])
+            : json["discount"],
+        sellerName: json["seller"] == null ? null : json["seller"]["name"],
+        nameOfProduct: json["name"],
+        price: json["price"],
         discount: json["discount_status"] != 0
-                ? getDiscountedPrice(json["price"], json["discount"])
-                : json["discount"],
-            attributeList: json["attributes"] == null
-                ? []
-                : List<AttributeResponse>.from(json["attributes"]
-                    .map((x) => AttributeResponse.fromJson(x))),
-            image: json["image"],
+            ? getDiscountedPrice(json["price"], json["discount"])
+            : json["discount"],
+        attributeList: json["attributes"] == null
+            ? []
+            : List<AttributeResponse>.from(json["attributes"]
+            .map((x) => AttributeResponse.fromJson(x))),
+        image: json["image"],
         isFavorite: json["is_favorite"] ?? false,
-            relatedProducts: json["related_products"] == null
-                ? []
-                : List<ProductResponse>.from(
-                    json["related_products"].map(
-                        (x) => ProductResponse.fromJson(x))),
-            similarProducts: json["related_products"] == null
-                ? []
-                : List<ProductResponse>.from(
-                    json["similar_products"].map(
-                        (x) => ProductResponse.fromJson(x))))
+        relatedProducts: json["related_products"] == null
+            ? []
+            : List<ProductResponse>.from(
+            json["related_products"].map(
+                    (x) => ProductResponse.fromJson(x))),
+        similarProducts: json["related_products"] == null
+            ? []
+            : List<ProductResponse>.from(
+            json["similar_products"].map(
+                    (x) => ProductResponse.fromJson(x))))
         : ProductResponse( id: 0,);
   }
   static Map<String, dynamic> toJsonCard(
@@ -89,8 +93,8 @@ class ProductResponse {
     return basketList == null
         ? []
         : basketList
-            .map((value) => ProductResponse.toJsonCard(value))
-            .toList();
+        .map((value) => ProductResponse.toJsonCard(value))
+        .toList();
   }
 
   static String getDiscountedPrice(String price, String discount) {
@@ -107,7 +111,7 @@ class ProductResponse {
     return json == null
         ? []
         : json
-            .map((value) => ProductResponse.fromJson(value))
-            .toList();
+        .map((value) => ProductResponse.fromJson(value))
+        .toList();
   }
 }
