@@ -9,6 +9,7 @@ import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
+import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_event.dart';
 import 'package:pharma/core/services/services_locator.dart';
@@ -40,32 +41,15 @@ class _MyAppState extends State<MyApp> {
       builder: (context, ctx) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (BuildContext context) =>
-                  sl<SettingBloc>()..add(const GetSetting()),
-            ),
-            BlocProvider(
-                create: (BuildContext context) => sl<AuthenticationBloc>()),
-            BlocProvider(
-              create: (BuildContext context) => sl<LanguageBloc>(),
-            ),
-            BlocProvider(
-              create: (BuildContext context) => sl<LocationBloc>(),
-            ),
-            BlocProvider(
-                create: (BuildContext context) => sl<OnBoardingBloc>()),
-            BlocProvider(
-
-              create: (BuildContext context) =>
-                  sl<HomeBloc>()..add(GetHomeData()),
-            ),
-            BlocProvider(
-              create: (BuildContext context) => sl<BasketBloc>(),
-            ),
-            BlocProvider(
-              create: (BuildContext context) =>
-                  sl<FavoriteBloc>(),
-            ),
+            BlocProvider(create: (BuildContext context) => sl<SettingBloc>()..add(const GetSetting())),
+            BlocProvider(create: (BuildContext context) => sl<AuthenticationBloc>()),
+            BlocProvider(create: (BuildContext context) => sl<LanguageBloc>()),
+            BlocProvider(create: (BuildContext context) => sl<LocationBloc>()),
+            BlocProvider(create: (BuildContext context) => sl<OnBoardingBloc>()),
+            BlocProvider(create: (BuildContext context) => sl<HomeBloc>()..add(GetHomeData())),
+            BlocProvider(create: (BuildContext context) => sl<BasketBloc>()),
+            BlocProvider(create: (BuildContext context) => sl<FavoriteBloc>(),),
+            BlocProvider(create: (BuildContext context) => sl<PaymentBloc>()),
           ],
           child: OverlaySupport.global(
             child: GestureDetector(

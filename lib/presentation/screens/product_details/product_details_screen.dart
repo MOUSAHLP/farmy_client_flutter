@@ -63,7 +63,8 @@ class ProductDetailsBody extends StatelessWidget {
         listeners: [
           BlocListener<BasketBloc, BasketState>(
             listener: (context, state) {
-              if (state.addToBasketState == AddToBasketState.successAddedToBasket) {
+              if (state.addToBasketState ==
+                  AddToBasketState.successAddedToBasket) {
                 // ScaffoldMessenger.of(context).showSnackBar(
                 //   SnackBar(
                 //     duration: const Duration(seconds: 1),
@@ -93,7 +94,6 @@ class ProductDetailsBody extends StatelessWidget {
             return Scaffold(
               body: Column(
                 children: [
-
                   state.screenState == ScreenState.loading
                       ? const CustomLoading()
                       : state.screenState == ScreenState.success
@@ -101,14 +101,15 @@ class ProductDetailsBody extends StatelessWidget {
                               child: ListView(
                                 children: [
                                   ProductImage(
-                                    productImage: state.productDetailsResponse.image??""
-                                  ),
+                                      productImage:
+                                          state.productDetailsResponse.image ??
+                                              ""),
                                   AboutProductAndAmountSection(
-                                    productDetails:state
-                                        .productDetailsResponse ,
-                                    quantity: quantity??0,
-
+                                    productDetails:
+                                        state.productDetailsResponse,
+                                    quantity: quantity ?? 0,
                                   ),
+
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -375,20 +376,25 @@ class ProductDetailsBody extends StatelessWidget {
                                             context
                                                 .read<BasketBloc>()
                                                 .add(buildAddToBasket(state));
-                                            ScaffoldMessenger.of(context).showSnackBar(
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
                                               SnackBar(
-                                                duration: const Duration(seconds: 1),
+                                                duration:
+                                                    const Duration(seconds: 1),
                                                 content: Container(
                                                   alignment: Alignment.center,
                                                   child: Text(
-                                                    AppLocalizations.of(context)!.added_to_basket,
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .added_to_basket,
                                                     style: getRegularStyle(
                                                       color: ColorManager.white,
                                                       fontSize: FontSizeApp.s14,
                                                     ),
                                                   ),
                                                 ),
-                                                backgroundColor: ColorManager.primaryGreen,
+                                                backgroundColor:
+                                                    ColorManager.primaryGreen,
                                               ),
                                             );
                                           } else {
@@ -411,13 +417,18 @@ class ProductDetailsBody extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : state.screenState == ScreenState.error?
-                  Column(
-                    children: [
-                      const CustomAppBarScreen(sectionName: "",isComeBack: true),
-                      Center(child: CustomErrorScreen(onTap: (){},)),
-                    ],
-                  ):const SizedBox(),
+                          : state.screenState == ScreenState.error
+                              ? Column(
+                                  children: [
+                                    const CustomAppBarScreen(
+                                        sectionName: "", isComeBack: true),
+                                    Center(
+                                        child: CustomErrorScreen(
+                                      onTap: () {},
+                                    )),
+                                  ],
+                                )
+                              : const SizedBox(),
                 ],
               ),
             );
@@ -435,7 +446,7 @@ class ProductDetailsBody extends StatelessWidget {
           ProductResponse(
             quantity: tmp.quantity,
             image: tmp.image,
-            id: tmp.id??0,
+            id: tmp.id ?? 0,
             discountValue: tmp.discountValue,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,
@@ -452,7 +463,7 @@ class ProductDetailsBody extends StatelessWidget {
           ProductResponse(
             quantity: tmp.quantity,
             image: tmp.image,
-            id: tmp.id??0,
+            id: tmp.id ?? 0,
             discountValue: tmp.discountValue,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,

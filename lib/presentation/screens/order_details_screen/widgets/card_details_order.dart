@@ -9,11 +9,9 @@ import 'package:pharma/presentation/widgets/cached_image.dart';
 
 import '../../../../bloc/details_order_bloc/details_order_bloc.dart';
 import '../../../../bloc/details_order_bloc/details_order_event.dart';
-import '../../../../core/utils/formatter.dart';
 import '../../../../models/order_details_model.dart';
 import '../../../../translations.dart';
 import '../../../resources/assets_manager.dart';
-import '../../../widgets/dialogs/confirm_delete_product_dialog.dart';
 import 'delete_product_dialog.dart';
 
 class CardDetailsOrder extends StatelessWidget {

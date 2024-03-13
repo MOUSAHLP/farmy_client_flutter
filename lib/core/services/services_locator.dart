@@ -54,8 +54,9 @@ class ServicesLocator {
 
     // payment
     sl.registerSingleton<PaymentRepo>(PaymentRepo());
-    sl.registerFactory<PaymentBloc>(
-        () => PaymentBloc(paymentRepo: sl<PaymentRepo>()));
+
+    sl.registerFactory<PaymentBloc>(() => PaymentBloc(paymentRepo: sl<PaymentRepo>()));
+
     sl.registerLazySingleton(() => OnBoardingBloc());
     sl.registerSingleton<CategoriesRepo>(CategoriesRepo());
     sl.registerFactory(

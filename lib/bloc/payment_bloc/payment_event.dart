@@ -108,4 +108,22 @@ class GetInitializeInvoice extends PaymentEvent {
   });
 }
 
+class GetTimeEvent extends PaymentEvent {
+  final String time;
 
+  const GetTimeEvent({
+    required this.time,
+  });
+}
+
+class SelectedMinutesEvents extends PaymentEvent {
+  final bool isExpandedMinutes ;
+
+  const SelectedMinutesEvents(this.isExpandedMinutes);
+}
+
+class SelectedHoursEvents extends PaymentEvent {
+  final bool isExpandedHour ;
+
+  const SelectedHoursEvents(this.isExpandedHour);
+}

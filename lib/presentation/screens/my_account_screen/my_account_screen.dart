@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
@@ -71,15 +73,19 @@ class MyAccountScreen extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                             child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Center(
-                                    child: SvgPicture.asset(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Center(
+                                child: SvgPicture.asset(
                                   IconsManager.logoApp,
                                   width: 50,
                                   height: 50,
                                   colorFilter: const ColorFilter.mode(
-                                      Color(0xff99B990), BlendMode.srcIn),
-                                ))),
+                                    Color(0xff99B990),
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 7,
@@ -94,7 +100,7 @@ class MyAccountScreen extends StatelessWidget {
                                   .personal_Details,
                               details:
                                   AppLocalizations.of(context)!.name_number,
-                              ontap: () {
+                              onTap: () {
                                 AppRouter.push(
                                     context, const PersonalDetailsScreen());
                               }),
@@ -103,32 +109,36 @@ class MyAccountScreen extends StatelessWidget {
                                   .delivery_Addresses,
                               details:
                                   AppLocalizations.of(context)!.edit_Addresses,
-                              ontap: () {
+                              onTap: () {
                                 AppRouter.push(context, const LocationScreen());
                               }),
                           CardMyAccount(
-                              title: AppLocalizations.of(context)!
-                                  .electronic_Payment,
-                              details:
-                                  AppLocalizations.of(context)!.payment_Methods,
-                              ontap: () {
-                                AppRouter.push(
-                                    context, const ElectronicPaymentScreen());
-                              }),
-                          CardMyAccount(
+                            title: AppLocalizations.of(context)!
+                                .electronic_Payment,
+                            details:
+                                AppLocalizations.of(context)!.payment_Methods,
+                            onTap: () {
+                              AppRouter.push(
+                                  context, const ElectronicPaymentScreen());
+                            },
+                          ),
+                          if (context.read<SettingBloc>().settingModel!.data!.showRewardSystem!) ...[
+                            CardMyAccount(
                               title:
                                   AppLocalizations.of(context)!.rewards_Program,
                               details: AppLocalizations.of(context)!
                                   .redeem_Points_for_Discounts,
-                              ontap: () {
+                              onTap: () {
                                 AppRouter.push(
                                     context, const RewardsProgramScreen());
-                              }),
+                              },
+                            ),
+                          ],
                           CardMyAccount(
                               title: AppLocalizations.of(context)!.my_Reviews,
                               details:
                                   AppLocalizations.of(context)!.all_Reviews,
-                              ontap: () {
+                              onTap: () {
                                 AppRouter.push(
                                     context, const MyEvaluationScreen());
                               }),
@@ -137,7 +147,7 @@ class MyAccountScreen extends StatelessWidget {
                                   AppLocalizations.of(context)!.about_the_App,
                               details:
                                   AppLocalizations.of(context)!.about_the_App,
-                              ontap: () {
+                              onTap: () {
                                 AppRouter.push(
                                     context, const AboutTheAppcreen());
                               }),
@@ -146,7 +156,7 @@ class MyAccountScreen extends StatelessWidget {
                                   AppLocalizations.of(context)!.delete_account,
                               details:
                                   AppLocalizations.of(context)!.delete_account,
-                              ontap: () {
+                              onTap: () {
                                 AppRouter.push(context, DeleteAccountScreen());
                               }),
                         ],

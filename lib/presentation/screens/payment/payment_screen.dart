@@ -5,11 +5,12 @@ import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
+import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
-import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/core/utils/formatter.dart';
+import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/delivery_response.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/payment_process_response.dart';
@@ -38,20 +39,22 @@ import 'widgets/custom_payment_status_container.dart';
 class PaymentScreen extends StatelessWidget {
   final PaymentProcessResponse paymentProcessResponse;
 
-  const PaymentScreen({super.key, required this.paymentProcessResponse});
+  PaymentScreen({super.key, required this.paymentProcessResponse});
+
+  final PaymentBloc paymentBloc = PaymentBloc(paymentRepo: PaymentRepo());
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<PaymentBloc>()
-        ..add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse)),
-      child: PaymentBody(),
-    );
+    paymentBloc
+        .add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse));
+    return PaymentBody(paymentBloc: paymentBloc);
   }
 }
 
 class PaymentBody extends StatelessWidget {
-  PaymentBody({super.key});
+  final PaymentBloc paymentBloc;
+
+  PaymentBody({super.key, required this.paymentBloc});
 
   final Duration animationDuration = const Duration(milliseconds: 500);
 
@@ -60,7 +63,8 @@ class PaymentBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: BlocListener<PaymentBloc, PaymentState>(
+      child: BlocConsumer<PaymentBloc, PaymentState>(
+        bloc: paymentBloc,
         listener: (context, state) {
           // log(state.toString());
           if (state.screenState == ScreenStates.loading) {
@@ -88,89 +92,101 @@ class PaymentBody extends StatelessWidget {
             ErrorDialog.openDialog(context, state.errorMessage);
           }
         },
-        child: BlocBuilder<PaymentBloc, PaymentState>(
-          builder: (context, state) {
-            // log("state $state");
-            return Scaffold(
-              body: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 150),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomAppBarScreen(
-                          sectionName: AppLocalizations.of(context)!.payment,
-                        ),
-                        Expanded(
-                          child: ListView(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 21),
-                                child: Text(
-                                  AppLocalizations.of(context)!
-                                      .payment_statment,
-                                  style: getRegularStyle(
-                                    color: ColorManager.grayForMessage,
-                                    fontSize: FontSizeApp.s16,
-                                  ),
+        builder: (context, state) {
+          // log("state $state");
+          return Scaffold(
+            body: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 150),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomAppBarScreen(
+                        sectionName: AppLocalizations.of(context)!.payment,
+                      ),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 21),
+                              child: Text(
+                                AppLocalizations.of(context)!.payment_statment,
+                                style: getRegularStyle(
+                                  color: ColorManager.grayForMessage,
+                                  fontSize: FontSizeApp.s16,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 21,
-                                  vertical: 8,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.address,
-                                      style: getBoldStyle(
-                                        color: ColorManager.grayForMessage,
-                                        fontSize: FontSizeApp.s14,
-                                      ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 21,
+                                vertical: 8,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.address,
+                                    style: getBoldStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s14,
                                     ),
-                                    const SizedBox(height: 4),
-                                    GestureDetector(
-                                      onTap: () {
-                                        AppRouter.push(
-                                          context,
-                                          const LocationScreen(),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  GestureDetector(
+                                    onTap: () {
+                                      AppRouter.push(
+                                        context,
+                                        const LocationScreen(),
+                                      );
+                                    },
+                                    child: BlocBuilder<LocationBloc,
+                                        LocationState>(
+                                      builder: (context, state) {
+                                        return SelectLocation(
+                                          favoriteuserAddress:
+                                              state.addressCurrent,
                                         );
                                       },
-                                      child: BlocBuilder<LocationBloc,
-                                          LocationState>(
-                                        builder: (context, state) {
-                                          return SelectLocation(
-                                            favoriteuserAddress:
-                                                state.addressCurrent,
-                                          );
-                                        },
-                                      ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 21),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.conduction,
-                                      style: getBoldStyle(
-                                        color: ColorManager.grayForMessage,
-                                        fontSize: FontSizeApp.s14,
-                                      ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 21),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.conduction,
+                                    style: getBoldStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s14,
                                     ),
-                                    const SizedBox(height: 4),
-                                    for (var item in state
-                                        .paymentProcessResponse!
-                                        .deliveryMethodList!) ...[
+                                  ),
+                                  const SizedBox(height: 4),
+                                  for (var item in state.paymentProcessResponse!.deliveryMethodList!) ...[
+                                    if (item.deliveryName == "طلب مجدول") ...[
+                                      if (checkIsOpening(context)) ...[
+                                        BlocBuilder<LocationBloc,
+                                            LocationState>(
+                                          builder: (context, locationState) {
+                                            return buildCustomOrderTypeContainer(
+                                              context,
+                                              locationState,
+                                              item,
+                                              state,
+                                            );
+                                          },
+                                        ),
+                                      ]
+                                    ],
+                                    if (item.deliveryName != "طلب مجدول") ...[
                                       BlocBuilder<LocationBloc, LocationState>(
                                         builder: (context, locationState) {
                                           return buildCustomOrderTypeContainer(
@@ -181,480 +197,457 @@ class PaymentBody extends StatelessWidget {
                                           );
                                         },
                                       ),
-                                    ],
+                                    ]
                                   ],
-                                ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 21,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.payment,
-                                      style: getBoldStyle(
-                                        color: ColorManager.grayForMessage,
-                                        fontSize: FontSizeApp.s14,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    CustomPaymentStatusContainer(
-                                      image: ImageManager.farmySmile,
-                                      text: AppLocalizations.of(context)!
-                                          .cash_payment,
-                                      paymentState: PaymentStates.cashPayment,
-                                    ),
-                                    const SizedBox(height: 12),
-                                    CustomPaymentStatusContainer(
-                                      image: ImageManager.farmySmile,
-                                      text: AppLocalizations.of(context)!
-                                          .farmy_wallet,
-                                      paymentState: PaymentStates.farmyWallet,
-                                    ),
-                                  ],
-                                ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 21,
                               ),
-                              //  todo
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 21,
-                                  vertical: 12,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.hasm_code,
-                                      style: getBoldStyle(
-                                        color: ColorManager.primaryGreen,
-                                        fontSize: FontSizeApp.s14,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 5,
-                                      ),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: CustomDiscountCodeContainer(
-                                              imageUrl:
-                                                  ImageManager.codeDiscount,
-                                              subjectText:
-                                                  AppLocalizations.of(context)!
-                                                      .hasm_code,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 4),
-                                          Expanded(
-                                            child: CustomDiscountCodeContainer(
-                                              isReplacePoint: true,
-                                              imageUrl:
-                                                  ImageManager.replacePoint,
-                                              subjectText:
-                                                  AppLocalizations.of(context)!
-                                                      .redeem_points,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              //  todo
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "لا يمكنك استخدام كود الحسم واستبدال النقاط معا (اختر واحدة فقط)",
-                                    style: getRegularStyle(
+                                    AppLocalizations.of(context)!.payment,
+                                    style: getBoldStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  CustomPaymentStatusContainer(
+                                    image: ImageManager.farmySmile,
+                                    text: AppLocalizations.of(context)!
+                                        .cash_payment,
+                                    paymentState: PaymentStates.cashPayment,
+                                  ),
+                                  const SizedBox(height: 12),
+                                  CustomPaymentStatusContainer(
+                                    image: ImageManager.farmySmile,
+                                    text: AppLocalizations.of(context)!
+                                        .farmy_wallet,
+                                    paymentState: PaymentStates.farmyWallet,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            //  todo
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 21,
+                                vertical: 12,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.hasm_code,
+                                    style: getBoldStyle(
+                                      color: ColorManager.primaryGreen,
+                                      fontSize: FontSizeApp.s14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 5,
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: CustomDiscountCodeContainer(
+                                            imageUrl: ImageManager.codeDiscount,
+                                            subjectText:
+                                                AppLocalizations.of(context)!
+                                                    .hasm_code,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Expanded(
+                                          child: CustomDiscountCodeContainer(
+                                            isReplacePoint: true,
+                                            imageUrl: ImageManager.replacePoint,
+                                            subjectText:
+                                                AppLocalizations.of(context)!
+                                                    .redeem_points,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            //  todo
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "لا يمكنك استخدام كود الحسم واستبدال النقاط معا (اختر واحدة فقط)",
+                                  style: getRegularStyle(
+                                    color: ColorManager.grayForMessage,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "لقد حصلت على حسم 5000 ل.س من مجمل الفاتورة",
+                                  style: getBoldStyle(
+                                    color: ColorManager.redForFavorite,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 21,
+                                vertical: 12,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.reviews,
+                                    style: getBoldStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  InputFieldAuth(
+                                    controller: noteController,
+                                    maxLines: 5,
+                                    minLines: 5,
+                                    height: .30.sw,
+                                    width: 1.sw,
+                                    color: ColorManager.lightGray,
+                                    hintText:
+                                        AppLocalizations.of(context)!.add_notes,
+                                    hintStyle: getRegularStyle(
                                       color: ColorManager.grayForMessage,
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                            ),
+
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 35),
+                              child: Column(
+                                children: [
+                                  for (int i = 0;
+                                      i <
+                                          state.paymentProcessResponse!
+                                              .deliveryAttributeList!.length;
+                                      i++)
+                                    CustomNoteOnTheOrder(
+                                      onTab: () {
+                                        if (paymentBloc
+                                            .state.attributeChosenList
+                                            .any(
+                                          (element) =>
+                                              element.id ==
+                                              state.paymentProcessResponse!
+                                                  .deliveryAttributeList![i].id,
+                                        )) {
+                                          paymentBloc.add(
+                                            RemoveFromChosenList(
+                                              attributeData: state
+                                                  .paymentProcessResponse!
+                                                  .deliveryAttributeList![i],
+                                            ),
+                                          );
+                                        } else {
+                                          paymentBloc.add(
+                                            AddToChosenAttributeList(
+                                              attributeData: state
+                                                  .paymentProcessResponse!
+                                                  .deliveryAttributeList![i],
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      isSelected: paymentBloc
+                                              .state.attributeChosenList
+                                              .any(
+                                        (element) =>
+                                            element.id ==
+                                            state.paymentProcessResponse!
+                                                .deliveryAttributeList![i].id,
+                                      )
+                                          ? true
+                                          : false,
+                                      noteText: state
+                                          .paymentProcessResponse!
+                                          .deliveryAttributeList![i]
+                                          .nameDeliveryAttribute!,
+                                    ),
+                                ],
+                              ),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 21,
+                                vertical: 14,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "لقد حصلت على حسم 5000 ل.س من مجمل الفاتورة",
+                                    AppLocalizations.of(context)!
+                                        .requiredChange,
                                     style: getBoldStyle(
-                                      color: ColorManager.redForFavorite,
-                                      fontSize: 15,
+                                      color: ColorManager.primaryGreen,
+                                      fontSize: FontSizeApp.s14,
                                     ),
                                   ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 21,
-                                  vertical: 12,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.reviews,
-                                      style: getBoldStyle(
-                                        color: ColorManager.grayForMessage,
-                                        fontSize: FontSizeApp.s14,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    InputFieldAuth(
-                                      controller: noteController,
-                                      maxLines: 5,
-                                      minLines: 5,
-                                      height: .30.sw,
-                                      width: 1.sw,
-                                      color: ColorManager.lightGray,
-                                      hintText: AppLocalizations.of(context)!
-                                          .add_notes,
-                                      hintStyle: getRegularStyle(
-                                        color: ColorManager.grayForMessage,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 35),
-                                child: Column(
-                                  children: [
-                                    for (int i = 0;
-                                        i <
-                                            state.paymentProcessResponse!
-                                                .deliveryAttributeList!.length;
-                                        i++)
-                                      CustomNoteOnTheOrder(
-                                        onTab: () {
-                                          if (context
-                                              .read<PaymentBloc>()
-                                              .state
-                                              .attributeChosenList
-                                              .any(
+                                  const SizedBox(height: 18),
+                                  SizedBox(
+                                    width: 1.sw,
+                                    child: GridView.builder(
+                                      itemCount: state.paymentProcessResponse!
+                                          .deliveryChangesResponse.length,
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                offset: Offset(1, 2),
+                                                spreadRadius: 1.5,
+                                                color:
+                                                    ColorManager.grayForSearch,
+                                              ),
+                                            ],
+                                          ),
+                                          child: CustomChangeOnTheOrder(
+                                            onTab: () {
+                                              if (paymentBloc
+                                                  .state.deliveryChangesList
+                                                  .any(
                                                 (element) =>
                                                     element.id ==
                                                     state
                                                         .paymentProcessResponse!
-                                                        .deliveryAttributeList![
-                                                            i]
+                                                        .deliveryChangesResponse[
+                                                            index]
                                                         .id,
                                               )) {
-                                            context.read<PaymentBloc>().add(
-                                                  RemoveFromChosenList(
-                                                    attributeData: state
+                                                /// todo : change DeliveryAttributesResponse to changeResponse
+                                                paymentBloc.add(
+                                                  RemoveChangeList(
+                                                    removeDeliveryChangesResponse: state
                                                         .paymentProcessResponse!
-                                                        .deliveryAttributeList![i],
+                                                        .deliveryChangesResponse[index],
                                                   ),
                                                 );
-                                          } else {
-                                            context.read<PaymentBloc>().add(
-                                                  AddToChosenAttributeList(
-                                                    attributeData: state
-                                                        .paymentProcessResponse!
-                                                        .deliveryAttributeList![i],
-                                                  ),
-                                                );
-                                          }
-                                        },
-                                        isSelected: context
-                                                .read<PaymentBloc>()
-                                                .state
-                                                .attributeChosenList
-                                                .any(
-                                                  (element) =>
-                                                      element.id ==
-                                                      state
-                                                          .paymentProcessResponse!
-                                                          .deliveryAttributeList![
-                                                              i]
-                                                          .id,
-                                                )
-                                            ? true
-                                            : false,
-                                        noteText: state
-                                            .paymentProcessResponse!
-                                            .deliveryAttributeList![i]
-                                            .nameDeliveryAttribute!,
-                                      ),
-                                  ],
-                                ),
-                              ),
+                                              } else {
+                                                /// todo : change DeliveryAttributesResponse to changeResponse
 
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 21,
-                                  vertical: 14,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!
-                                          .requiredChange,
-                                      style: getBoldStyle(
-                                        color: ColorManager.primaryGreen,
-                                        fontSize: FontSizeApp.s14,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 18),
-                                    SizedBox(
-                                      width: 1.sw,
-                                      child: GridView.builder(
-                                        itemCount: state.paymentProcessResponse!
-                                            .deliveryChangesResponse.length,
-                                        shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          return Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                  offset: Offset(1, 2),
-                                                  spreadRadius: 1.5,
-                                                  color: ColorManager
-                                                      .grayForSearch,
-                                                ),
-                                              ],
-                                            ),
-                                            child: CustomChangeOnTheOrder(
-                                              onTab: () {
-                                                if (context
-                                                    .read<PaymentBloc>()
-                                                    .state
-                                                    .deliveryChangesList
+                                                paymentBloc.add(
+                                                  AddChangeList(
+                                                    addDeliveryChangesResponse: state
+                                                        .paymentProcessResponse!
+                                                        .deliveryChangesResponse[index],
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            isSelected: paymentBloc
+                                                    .state.deliveryChangesList
                                                     .any(
-                                                      (element) =>
-                                                          element.id ==
-                                                          state
-                                                              .paymentProcessResponse!
-                                                              .deliveryChangesResponse[
-                                                                  index]
-                                                              .id,
-                                                    )) {
-                                                  /// todo : change DeliveryAttributesResponse to changeResponse
-                                                  context
-                                                      .read<PaymentBloc>()
-                                                      .add(
-                                                        RemoveChangeList(
-                                                          removeDeliveryChangesResponse: state
-                                                              .paymentProcessResponse!
-                                                              .deliveryChangesResponse[index],
-                                                        ),
-                                                      );
-                                                } else {
-                                                  /// todo : change DeliveryAttributesResponse to changeResponse
-                                                  context
-                                                      .read<PaymentBloc>()
-                                                      .add(
-                                                        AddChangeList(
-                                                          addDeliveryChangesResponse: state
-                                                              .paymentProcessResponse!
-                                                              .deliveryChangesResponse[index],
-                                                        ),
-                                                      );
-                                                }
-                                              },
-                                              isSelected: context
-                                                      .read<PaymentBloc>()
-                                                      .state
-                                                      .deliveryChangesList
-                                                      .any(
-                                                        (element) =>
-                                                            element.id ==
-                                                            state
-                                                                .paymentProcessResponse!
-                                                                .deliveryChangesResponse[
-                                                                    index]
-                                                                .id,
-                                                      )
-                                                  ? true
-                                                  : false,
-                                              changeText: state
-                                                  .paymentProcessResponse!
-                                                  .deliveryChangesResponse[
-                                                      index]
-                                                  .value!,
-                                            ),
-                                          );
-                                        },
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisSpacing: 30,
-                                          mainAxisSpacing: 10,
-                                          mainAxisExtent: 30,
-                                          crossAxisCount: 3,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  right: 38,
-                                  left: 38,
-                                  top: 15,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.invoice,
-                                      style: getUnderBoldStyle(
-                                        color: ColorManager.grayForMessage,
-                                        fontSize: FontSizeApp.s14,
-                                      )!
-                                          .copyWith(height: 1),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  right: 21,
-                                  left: 21,
-                                  bottom: 11,
-                                ),
-                                child: Column(
-                                  children: [
-                                    CustomBillDetailsRow(
-                                      subStatusBill:
-                                          AppLocalizations.of(context)!
-                                              .total_amount,
-                                      price: state.paymentProcessResponse!
-                                                  .invoicesResponse!.subTotal !=
-                                              null
-                                          ? Formatter.formatPrice(
-                                              state.paymentProcessResponse!
-                                                  .invoicesResponse!.subTotal!,
+                                              (element) =>
+                                                  element.id ==
+                                                  state
+                                                      .paymentProcessResponse!
+                                                      .deliveryChangesResponse[
+                                                          index]
+                                                      .id,
                                             )
-                                          : AppValueConst.defaultInvoiceValue
-                                              .toString(),
-                                    ),
-                                    CustomBillDetailsRow(
-                                      subStatusBill:
-                                          AppLocalizations.of(context)!
-                                              .hasm_code,
-                                      price: state
-                                                  .paymentProcessResponse!
-                                                  .invoicesResponse!
-                                                  .coponValue !=
-                                              null
-                                          ? Formatter.formatPrice(
-                                              state
-                                                  .paymentProcessResponse!
-                                                  .invoicesResponse!
-                                                  .coponValue!,
-                                            )
-                                          : AppValueConst.defaultInvoiceValue
-                                              .toString(),
-                                    ),
-                                    CustomBillDetailsRow(
-                                      subStatusBill:
-                                          AppLocalizations.of(context)!
-                                              .deliverycharges,
-                                      price: (
-                                        state
+                                                ? true
+                                                : false,
+                                            changeText: state
                                                 .paymentProcessResponse!
-                                                .invoicesResponse!
-                                                .deliveryValue ??
-                                            0,
-                                      ).toString(),
+                                                .deliveryChangesResponse[index]
+                                                .value!,
+                                          ),
+                                        );
+                                      },
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisSpacing: 30,
+                                        mainAxisSpacing: 10,
+                                        mainAxisExtent: 30,
+                                        crossAxisCount: 3,
+                                      ),
                                     ),
-                                    CustomBillDetailsRow(
-                                      subStatusBill:
-                                          AppLocalizations.of(context)!.tax,
-                                      price: state.paymentProcessResponse!
-                                                  .invoicesResponse!.tax !=
-                                              null
-                                          ? Formatter.formatPrice(
-                                              state.paymentProcessResponse!
-                                                  .invoicesResponse!.tax!,
-                                            )
-                                          : AppValueConst.defaultInvoiceValue
-                                              .toString(),
-                                    ),
-                                    CustomBillDetailsRow(
-                                      colorText: ColorManager.primaryGreen,
-                                      subStatusBill:
-                                          AppLocalizations.of(context)!.total,
-                                      price: state.paymentProcessResponse!
-                                                  .invoicesResponse!.total !=
-                                              null
-                                          ? Formatter.formatPrice(
-                                              state.paymentProcessResponse!
-                                                  .invoicesResponse!.total!,
-                                            )
-                                          : AppValueConst.defaultInvoiceValue
-                                              .toString(),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 50),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  CustomTotalPrice(
-                    title: AppLocalizations.of(context)!
-                        .total_price
-                        .replaceAll(":", ""),
-                    totoalPrice:
-                        state.paymentProcessResponse!.invoicesResponse!.total !=
-                                null
-                            ? Formatter.formatPrice(
-                                state.paymentProcessResponse!.invoicesResponse!
-                                    .total!,
-                              )
-                            : AppValueConst.defaultInvoiceValue.toString(),
-                    onCompletePayment: () {
-                      context.read<PaymentBloc>().add(
-                            CreateOrder(
-                              productList:
-                                  context.read<BasketBloc>().state.productList!,
-                              invoicesParams: InvoicesParams(
-                                notes: noteController.text,
-                                deliveryMethodId: state
-                                        .deliveryMethodChosenList.isNotEmpty
-                                    // ToDo deliveryMethodChosenList[0].id ??? 0
-                                    ? state.deliveryMethodChosenList[0].id!
-                                    : 0,
-                                userAddressId: context
-                                    .read<LocationBloc>()
-                                    .state
-                                    .addressCurrent
-                                    .id!,
+                                  )
+                                ],
                               ),
                             ),
-                          );
-                    },
-                    onCompleteShopping: () {
-                      AppRouter.pushReplacement(context, const HomeScreen());
-                    },
+
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                right: 38,
+                                left: 38,
+                                top: 15,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.invoice,
+                                    style: getUnderBoldStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s14,
+                                    )!
+                                        .copyWith(height: 1),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                right: 21,
+                                left: 21,
+                                bottom: 11,
+                              ),
+                              child: Column(
+                                children: [
+                                  CustomBillDetailsRow(
+                                    subStatusBill: AppLocalizations.of(context)!
+                                        .total_amount,
+                                    price: state.paymentProcessResponse!
+                                                .invoicesResponse!.subTotal !=
+                                            null
+                                        ? Formatter.formatPrice(
+                                            state.paymentProcessResponse!
+                                                .invoicesResponse!.subTotal!,
+                                          )
+                                        : AppValueConst.defaultInvoiceValue
+                                            .toString(),
+                                  ),
+                                  CustomBillDetailsRow(
+                                    subStatusBill:
+                                        AppLocalizations.of(context)!.hasm_code,
+                                    price: state.paymentProcessResponse!
+                                                .invoicesResponse!.coponValue !=
+                                            null
+                                        ? Formatter.formatPrice(
+                                            state.paymentProcessResponse!
+                                                .invoicesResponse!.coponValue!,
+                                          )
+                                        : AppValueConst.defaultInvoiceValue
+                                            .toString(),
+                                  ),
+                                  CustomBillDetailsRow(
+                                    subStatusBill: AppLocalizations.of(context)!
+                                        .deliverycharges,
+                                    price: (
+                                      state
+                                              .paymentProcessResponse!
+                                              .invoicesResponse!
+                                              .deliveryValue ??
+                                          0,
+                                    ).toString(),
+                                  ),
+                                  CustomBillDetailsRow(
+                                    subStatusBill:
+                                        AppLocalizations.of(context)!.tax,
+                                    price: state.paymentProcessResponse!
+                                                .invoicesResponse!.tax !=
+                                            null
+                                        ? Formatter.formatPrice(
+                                            state.paymentProcessResponse!
+                                                .invoicesResponse!.tax!,
+                                          )
+                                        : AppValueConst.defaultInvoiceValue
+                                            .toString(),
+                                  ),
+                                  CustomBillDetailsRow(
+                                    colorText: ColorManager.primaryGreen,
+                                    subStatusBill:
+                                        AppLocalizations.of(context)!.total,
+                                    price: state.paymentProcessResponse!
+                                                .invoicesResponse!.total !=
+                                            null
+                                        ? Formatter.formatPrice(
+                                            state.paymentProcessResponse!
+                                                .invoicesResponse!.total!,
+                                          )
+                                        : AppValueConst.defaultInvoiceValue
+                                            .toString(),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 50),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                ),
+                CustomTotalPrice(
+                  title: AppLocalizations.of(context)!
+                      .total_price
+                      .replaceAll(":", ""),
+                  totoalPrice:
+                      state.paymentProcessResponse!.invoicesResponse!.total !=
+                              null
+                          ? Formatter.formatPrice(
+                              state.paymentProcessResponse!.invoicesResponse!
+                                  .total!,
+                            )
+                          : AppValueConst.defaultInvoiceValue.toString(),
+                  onCompletePayment: () {
+                    print('#####################');
+                    print(state.time);
+                    print('#####################');
+                    paymentBloc.add(
+                      CreateOrder(
+                        productList:
+                            context.read<BasketBloc>().state.productList!,
+                        invoicesParams: InvoicesParams(
+                          time: state.time,
+                          notes: noteController.text,
+                          deliveryMethodId:
+                              state.deliveryMethodChosenList.isNotEmpty
+                                  // ToDo deliveryMethodChosenList[0].id ??? 0
+                                  ? state.deliveryMethodChosenList[0].id
+                                  : 0,
+                          userAddressId: context
+                              .read<LocationBloc>()
+                              .state
+                              .addressCurrent
+                              .id!,
+                        ),
+                      ),
+                    );
+                  },
+                  onCompleteShopping: () {
+                    AppRouter.pushReplacement(context, const HomeScreen());
+                  },
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -678,28 +671,53 @@ class PaymentBody extends StatelessWidget {
       image: ImageManager.dateTimeImage,
       text: "${item.deliveryName} (${item.deliveryTime} دقيقة) ",
       onTap: () {
-        if (!state.deliveryMethodChosenList.any((element) => element.id == item.id)) {
-          if (context.read<LocationBloc>().state.addressCurrent.latitude != null) {
-            context.read<PaymentBloc>().add(ToggleDeliveryMethod(deliveryMethodData: item),);
-
-            context.read<PaymentBloc>().add(GetInvoicesDetails(
-                    invoicesParams: InvoicesParams(
-                      notes: noteController.text,
-                      deliveryMethodId: item.id,
-                      userAddressId: locationState.addressCurrent.id!,
-                    ),
-                    productList: context.read<BasketBloc>().state.productList,
-                  ),
-                );
+        if (!state.deliveryMethodChosenList
+            .any((element) => element.id == item.id)) {
+          if (context.read<LocationBloc>().state.addressCurrent.latitude !=
+              null) {
+            paymentBloc.add(ToggleDeliveryMethod(deliveryMethodData: item));
+            paymentBloc.add(
+              GetInvoicesDetails(
+                invoicesParams: InvoicesParams(
+                  time: state.time,
+                  notes: noteController.text,
+                  deliveryMethodId: item.id,
+                  userAddressId: locationState.addressCurrent.id!,
+                ),
+                productList: context.read<BasketBloc>().state.productList,
+              ),
+            );
             if (item.id == 3) {
               showDialog(
                 context: context,
-                builder: (context) => const CustomDatePicker(),
+                builder: (unContext) => CustomDatePicker(
+                  paymentBloc: paymentBloc,
+                ),
               );
             }
           }
         }
       },
     );
+  }
+
+  bool checkIsOpening(BuildContext context) {
+    DateTime dateTime = DateTime.now();
+    List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
+    print('=================== Current Time =============================');
+    print(dateTime.hour);
+    print('====================== End Time ==============================');
+    print(endTime[0]);
+    print('==============================================================');
+    if (int.parse(endTime[0]) > dateTime.hour) {
+      return true;
+    } else if (int.parse(endTime[0]) == dateTime.hour) {
+      if (int.parse(endTime[1]) > dateTime.minute) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+    return false;
   }
 }

@@ -11,6 +11,11 @@ class PaymentState extends Equatable {
   final int? deliveryCost;
   final CompletePaymentStates? completePaymentStates;
   final String? errorMessage;
+  final String? time;
+  final String? hour;
+  final String? minutes;
+  final bool isExpandedMinutes;
+  final bool isExpandedHours;
 
   const PaymentState({
     this.screenState,
@@ -23,6 +28,11 @@ class PaymentState extends Equatable {
     this.deliveryMethodChosenList = const [],
     this.attributeChosenList = const [],
     this.deliveryChangesList = const [],
+    this.time,
+    this.isExpandedMinutes = false,
+    this.isExpandedHours = false,
+    this.hour,
+    this.minutes,
   });
 
   PaymentState copyWith({
@@ -37,6 +47,10 @@ class PaymentState extends Equatable {
     PaymentStates? paymentState,
     List<DeliveryAttributesResponse>? attributeChosenList,
     bool? isCompletePayment,
+    String? time,
+
+    bool? isExpandedMinutes,
+    bool? isExpandedHours,
   }) {
     return PaymentState(
       completePaymentStates:
@@ -52,6 +66,10 @@ class PaymentState extends Equatable {
       orderState: orderState ?? this.orderState,
       paymentState: paymentState ?? this.paymentState,
       errorMessage: errorMessage ?? "",
+      time: time ?? this.time,
+
+      isExpandedMinutes: isExpandedMinutes ?? this.isExpandedMinutes,
+      isExpandedHours: isExpandedHours ?? this.isExpandedHours,
     );
   }
 
@@ -68,5 +86,9 @@ class PaymentState extends Equatable {
         paymentProcessResponse,
         completePaymentStates,
         errorMessage,
+        time,
+        isExpandedMinutes,
+        isExpandedHours,
+
       ];
 }

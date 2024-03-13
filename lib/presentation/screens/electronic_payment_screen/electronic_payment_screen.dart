@@ -27,9 +27,9 @@ class ElectronicPaymentScreen extends StatelessWidget {
                     Text(AppLocalizations.of(context)!.available_Electronic_Payment_Methods,style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 13),),
                   ],
                 ),
-                CardMyAccount(title:AppLocalizations.of(context)!.payment_via_Banks , details: AppLocalizations.of(context)!.available_Banks_for_Use, ontap: (){}),
-                CardMyAccount(title:AppLocalizations.of(context)!.electronic_Payment_Companies, details: AppLocalizations.of(context)!.available_for_use_companies, ontap: (){}),
-                CardMyAccount(title:AppLocalizations.of(context)!.farmy_Portfolio, details: AppLocalizations.of(context)!.farmy_electronic_portfolio, ontap: (){}),
+                CardMyAccount(title:AppLocalizations.of(context)!.payment_via_Banks , details: AppLocalizations.of(context)!.available_Banks_for_Use, onTap: (){}),
+                CardMyAccount(title:AppLocalizations.of(context)!.electronic_Payment_Companies, details: AppLocalizations.of(context)!.available_for_use_companies, onTap: (){}),
+                CardMyAccount(title:AppLocalizations.of(context)!.farmy_Portfolio, details: AppLocalizations.of(context)!.farmy_electronic_portfolio, onTap: (){}),
 
 
               ],),

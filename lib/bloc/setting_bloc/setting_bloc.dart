@@ -8,17 +8,22 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   SettingModel? settingModel;
 
   SettingBloc() : super(SettingInit()) {
-    on<SettingEvent>((event, emit) async {
-      if (event is GetSetting) {
-        emit(SettingLoading());
-        var response = await SettingRepo.getSetting();
-        response.fold((l) {
-          emit(SettingError(l));
-        }, (r) {
-          settingModel = r;
-          emit(SettingSuccess());
-        });
-      }
-    });
+    on<SettingEvent>(
+      (event, emit) async {
+        if (event is GetSetting) {
+          emit(SettingLoading());
+          var response = await SettingRepo.getSetting();
+          response.fold(
+            (l) {
+              emit(SettingError(l));
+            },
+            (r) {
+              settingModel = r;
+              emit(SettingSuccess());
+            },
+          );
+        }
+      },
+    );
   }
 }
