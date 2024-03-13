@@ -22,7 +22,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeRepo homeRepo;
 
   List<HomePageDynamicModel>? homePageDynamicModel;
-  RefreshController refreshController =
+
+  final RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
   HomeBloc({required this.homeRepo}) : super(const HomeState()) {
@@ -38,6 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           indexPagePagination = 2;
           homePageDynamicModel = r;
           lastPagePagination = homePageDynamicModel![0].lastPagePagination!;
+
           emit(state.copyWith(screenState: ScreenState.success));
         });
       } else if (event is OnLoadingHomeData) {
@@ -63,19 +65,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       });
       refreshController.loadComplete();
     }
-  }
-
-  onLoading(Emitter<HomeState> emit) async {
-    emit(state.copyWith(screenState: ScreenState.loading));
-
-    (await homeRepo.getHomeData()).fold(
-        (String l) =>
-            emit(state.copyWith(screenState: ScreenState.error, error: l)),
-        (HomeResponse r) => emit(
-            state.copyWith(screenState: ScreenState.success, homeData: r)));
-
-    refreshController.loadNoData();
-
-    refreshController.loadComplete();
   }
 }

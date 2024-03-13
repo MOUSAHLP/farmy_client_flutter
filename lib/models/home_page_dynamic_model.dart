@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:pharma/models/banners_response.dart';
 import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/models/product_details_response.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
+import 'package:pharma/models/user_address_response.dart';
 
 class HomePageDynamicModel {
   String? type;
@@ -14,6 +17,8 @@ class HomePageDynamicModel {
   List<BannersResponse>? sliderContent;
   List<CategoriesResponse>? categoryContent;
 
+  UserAddressModel? userAddressModel;
+
   HomePageDynamicModel(
       {this.type,
       this.order,
@@ -21,6 +26,7 @@ class HomePageDynamicModel {
       this.link,
       this.sectionContent,
       this.lastPagePagination,
+      this.userAddressModel,
       this.sliderContent});
 
   HomePageDynamicModel.fromJson(Map<String, dynamic> json) {
@@ -28,7 +34,13 @@ class HomePageDynamicModel {
     order = json['order'];
     title = json['title'];
     link = json['link'];
+
+    userAddressModel = json["favourite_address"] != null
+        ? UserAddressModel.fromJson(json["favourite_address"])
+        : UserAddressModel();
+
     lastPagePagination = int.tryParse(json['last_page'].toString());
+
     if (json['type'] == "section") {
       if (json['content'] != null) {
         sectionContent = <ProductResponse>[];

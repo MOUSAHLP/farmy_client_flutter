@@ -54,8 +54,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 );
               } else if (state.screenState == ScreenState.success ||
                   state.screenState == ScreenState.loadMoreData) {
-                // context.read<LocationBloc>().state.addressCurrent =
-                //     state.homeData!.userAddressModel!;
+                context.read<LocationBloc>().state.addressCurrent = context
+                    .read<HomeBloc>()
+                    .homePageDynamicModel!
+                    .last
+                    .userAddressModel!;
                 return Expanded(
                   child: Column(
                     children: [
@@ -69,42 +72,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             )
                           : const SizedBox(),
                       const CustomDeliveryService(),
-
-                      //// sections
-                      // state.homeData!.homeCategoriesList!.isNotEmpty
-                      //     ? HomeCategory(
-                      //         categoriesList:
-                      //             state.homeData!.homeCategoriesList!,
-                      //       )
-                      //     : const SizedBox(),
-                      // if (state.homeData!.homeBannerListTopSection!.isNotEmpty)
-                      //   CustomHomeCursel(
-                      //     verticalPadding: state.homeData!
-                      //             .homeSuggestedProductsList!.isNotEmpty
-                      //         ? 0
-                      //         : 0,
-                      //     bannerList: state.homeData!.homeBannerListTopSection,
-                      //     height: 164.h,
-                      //   ),
-                      // if (state.homeData!.homeSuggestedProductsList!.isNotEmpty)
-                      //   HomeSection(
-                      //       list: state.homeData!.homeSuggestedProductsList!),
-                      // if (state
-                      //     .homeData!.homeBannerListBottomSection!.isNotEmpty)
-                      //   CustomHomeCursel(
-                      //     verticalPadding: state.homeData!
-                      //             .homeSuggestedProductsList!.isNotEmpty
-                      //         ? 0
-                      //         : 10,
-                      //     bannerList:
-                      //         state.homeData!.homeBannerListBottomSection,
-                      //     height: 164.h,
-                      //   ),
-                      // if (state
-                      //     .homeData!.homeDiscountedProductsList!.isNotEmpty)
-                      //   HomeSection(
-                      //       list: state.homeData!.homeDiscountedProductsList!),
-
                       //// ==================== making dynamic content ==================== ////
                       Expanded(
                         child: SmartRefresher(

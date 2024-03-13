@@ -1,4 +1,3 @@
-
 class UserAddressModel {
   UserAddressModel({
     this.id,
@@ -26,7 +25,7 @@ class UserAddressModel {
   String? isFavorite;
 
   UserAddressModel.fromJson(dynamic json) {
-    id = json['id'];
+    id = int.parse(json['id'].toString());
     isFavorite = json["is_favourite"];
     name = json['name'];
     adress = json["address"];
