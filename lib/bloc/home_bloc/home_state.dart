@@ -7,7 +7,8 @@ class HomeState extends Equatable {
   final List<CategoriesResponse>? categories;
   final List<ProductResponse>? products;
   final List<BannersResponse>? banners;
-final String error;
+
+  final String error;
   const HomeState(
       {this.screenState = ScreenState.loading,
       this.endpointHome,
@@ -15,8 +16,7 @@ final String error;
       this.categories,
       this.banners,
       this.homeData,
-        this.error=''
-      });
+      this.error = ''});
 
   HomeState copyWith(
       {ScreenState? screenState,
@@ -25,20 +25,25 @@ final String error;
       List<CategoriesResponse>? categories,
       List<ProductResponse>? products,
       List<BannersResponse>? banners,
-      String? error
-      }) {
+      String? error}) {
     return HomeState(
-      screenState: screenState ?? this.screenState,
-      homeData: homeData ?? this.homeData,
-      categories: categories ?? this.categories,
-      endpointHome: endpointHome ?? this.endpointHome,
-      products: products ?? this.products,
-      banners: banners ?? this.banners,
-      error: error??''
-    );
+        screenState: screenState ?? this.screenState,
+        homeData: homeData ?? this.homeData,
+        categories: categories ?? this.categories,
+        endpointHome: endpointHome ?? this.endpointHome,
+        products: products ?? this.products,
+        banners: banners ?? this.banners,
+        error: error ?? '');
   }
 
   @override
-  List<Object?> get props =>
-      [screenState, homeData, endpointHome, products, banners, categories,error];
+  List<Object?> get props => [
+        screenState,
+        homeData,
+        endpointHome,
+        products,
+        banners,
+        categories,
+        error
+      ];
 }

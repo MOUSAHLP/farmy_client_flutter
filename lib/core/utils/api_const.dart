@@ -1,6 +1,8 @@
 class ApiConst {
-  static const String baseUrl =
-      "https://control.farmy.peaklink.site/public/api";
+  // static const String baseUrl =
+  //     "https://control.farmy.peaklink.site/public/api";
+
+  static const String baseUrl = "http://10.0.2.2:8000/api";
 
   ///Auth
   static const String login = "/auth/login";
@@ -22,7 +24,8 @@ class ApiConst {
   static String getProductDetailsById(int id) => "/products/$id";
 
   //home
-  static String getHomeDate = "/home-page";
+  static String getHomeData = "/home-page";
+  static String getHomeDynamicData = "/home-page-dynamic";
 
   /// Setting
   static const String getSetting = "/settings";
@@ -38,6 +41,7 @@ class ApiConst {
 
   /// who_we_are
   static const String getWhoWeAre = "/who_we_are";
+
   /// favorite
   static const String getFavorite = "/getFavorit";
   static const String addFavorite = "/addToFavorit";

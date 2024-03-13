@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
@@ -18,6 +19,7 @@ import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../base_screen/base_screen.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,6 +40,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: [
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
+              RefreshController refreshController =
+                  context.read<HomeBloc>().refreshController;
               if (state.screenState == ScreenState.loading) {
                 return const CustomHomeShimmer();
               } else if (state.screenState == ScreenState.error) {
@@ -48,12 +52,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       titleError: state.error),
                 );
-              } else if (state.screenState == ScreenState.success) {
-                context.read<LocationBloc>().state.addressCurrent =
-                    state.homeData!.userAddressModel!;
+              } else if (state.screenState == ScreenState.success ||
+                  state.screenState == ScreenState.loadMoreData) {
+                // context.read<LocationBloc>().state.addressCurrent =
+                //     state.homeData!.userAddressModel!;
                 return Expanded(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
+                  child: Column(
                     children: [
                       sl<AuthenticationBloc>().loggedIn
                           ? BlocBuilder<LocationBloc, LocationState>(
@@ -102,47 +106,81 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       //       list: state.homeData!.homeDiscountedProductsList!),
 
                       //// ==================== making dynamic content ==================== ////
-                      BlocBuilder<LanguageBloc, LanguageState>(
-                          builder: (context, state) {
-                        return Column(
-                          children: [
-                            ...List.generate(
-                                context
-                                    .read<HomeBloc>()
-                                    .homePageDynamicModel!
-                                    .length, (index) {
-                              List<HomePageDynamicModel> homePageDynamicModel =
-                                  context
-                                      .read<HomeBloc>()
-                                      .homePageDynamicModel!;
-
-                              if (homePageDynamicModel[index].type ==
-                                  "category") {
-                                return HomeCategory(
-                                  title: homePageDynamicModel[index].title!,
-                                  categoriesList: homePageDynamicModel[index]
-                                      .categoryContent!,
-                                );
-                              } else if (homePageDynamicModel[index].type ==
-                                  "section") {
-                                return HomeSection(
-                                  title: homePageDynamicModel[index].title!,
-                                  list: homePageDynamicModel[index].sectionContent!,
-                                );
-                              } else if (homePageDynamicModel[index].type ==
-                                  "slider") {
-                                return CustomHomeCursel(
-                                  verticalPadding: 10,
-                                  bannerList:
-                                      homePageDynamicModel[index].sliderContent,
-                                  height: 164.h,
-                                );
+                      Expanded(
+                        child: SmartRefresher(
+                          controller: refreshController,
+                          enablePullDown: true,
+                          enablePullUp: true,
+                          onRefresh: () => sl<HomeBloc>().add(GetHomeData()),
+                          onLoading: () =>
+                              sl<HomeBloc>().add(OnLoadingHomeData()),
+                          footer: CustomFooter(
+                            builder: (BuildContext context, LoadStatus? mode) {
+                              Widget body;
+                              if (mode == LoadStatus.loading) {
+                                body = const CircularProgressIndicator();
+                              } else if (mode == LoadStatus.failed) {
+                                body = const Text("Load Failed!Click retry!");
+                              } else if (mode == LoadStatus.canLoading) {
+                                body = const Text("release to load more");
+                              } else {
+                                body = const Text("No More Data");
                               }
-                              return const SizedBox();
-                            })
-                          ],
-                        );
-                      }),
+                              return SizedBox(
+                                height: 55.0,
+                                child: Center(child: body),
+                              );
+                            },
+                          ),
+                          child: ListView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: context
+                                .read<HomeBloc>()
+                                .homePageDynamicModel!
+                                .length,
+                            itemBuilder: (context, index) {
+                              return BlocBuilder<LanguageBloc, LanguageState>(
+                                  builder: (context, state) {
+                                List<HomePageDynamicModel>
+                                    homePageDynamicModel = context
+                                        .read<HomeBloc>()
+                                        .homePageDynamicModel!;
+
+                                return Column(
+                                  children: [
+                                    if (homePageDynamicModel[index].type ==
+                                        "category")
+                                      HomeCategory(
+                                        title:
+                                            homePageDynamicModel[index].title!,
+                                        categoriesList:
+                                            homePageDynamicModel[index]
+                                                .categoryContent!,
+                                      ),
+                                    if (homePageDynamicModel[index].type ==
+                                        "section")
+                                      HomeSection(
+                                        title:
+                                            homePageDynamicModel[index].title!,
+                                        list: homePageDynamicModel[index]
+                                            .sectionContent!,
+                                      ),
+                                    if (homePageDynamicModel[index].type ==
+                                        "slider")
+                                      CustomHomeCursel(
+                                        verticalPadding: 10,
+                                        bannerList: homePageDynamicModel[index]
+                                            .sliderContent,
+                                        height: 164.h,
+                                      ),
+                                  ],
+                                );
+                              });
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 );

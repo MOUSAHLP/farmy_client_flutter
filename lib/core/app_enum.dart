@@ -11,7 +11,7 @@ enum AuthenticationScreenStates {
 
 enum DataType { api, cache }
 
-enum ScreenState { initialized, loading, success, error }
+enum ScreenState { initialized, loadMoreData, loading, success, error }
 
 enum ScreenStates { initialized, loading, error, success }
 
@@ -41,4 +41,3 @@ enum AddToBasketState { successAddedToBasket }
 enum RewardsPointsStateEnum { usedPoints, endedpoints, earnedPoints }
 
 enum RewardsActivityStateEnum { activity, offers }
-

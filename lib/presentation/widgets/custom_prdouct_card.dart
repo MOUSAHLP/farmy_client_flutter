@@ -215,8 +215,7 @@ class CustomProductCard extends StatelessWidget {
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: productInfo.id ?? 0,
-                                isToggled:
-                                context
+                                isToggled: context
                                     .read<FavoriteBloc>()
                                     .isFavoriteProduct(
                                       productInfo.id ?? 0,

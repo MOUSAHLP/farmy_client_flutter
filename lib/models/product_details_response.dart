@@ -1,5 +1,3 @@
-
-
 import 'package:pharma/models/attribute_response.dart';
 import 'package:pharma/models/products_by_sub_category_id_response.dart';
 
@@ -22,59 +20,60 @@ class ProductResponse {
   List<ProductResponse>? relatedProducts;
   List<ProductResponse>? similarProducts;
 
-  ProductResponse({
-    required this.id,
-    this.nameOfProduct,
-    this.price,
-    this.quantity,
-    this.attributeList = const [],
-    this.availabilityOfProduct,
-    this.sellerName,
-    this.discountStatus,
-    this.discountValue,
-    this.isDiscount,
-    this.image,
-    this.description,
-    this.relatedProducts,
-    this.similarProducts,
-    this.isFavorite=false,
-    this.discount
-  });
+  ProductResponse(
+      {required this.id,
+      this.nameOfProduct,
+      this.price,
+      this.quantity,
+      this.attributeList = const [],
+      this.availabilityOfProduct,
+      this.sellerName,
+      this.discountStatus,
+      this.discountValue,
+      this.isDiscount,
+      this.image,
+      this.description,
+      this.relatedProducts,
+      this.similarProducts,
+      this.isFavorite = false,
+      this.discount});
   factory ProductResponse.fromJson(Map<String, dynamic> json) {
-    return json["availability"] == "1"
+    return (json["availability"].toString() == "1")
         ? ProductResponse(
             id: json["id"],
-
-        quantity: json["quantity"] != null ? int.parse(json["quantity"]) : null,
-
-        description: json["description"],
-            discountStatus: json["discount_status"],
+            quantity: json["quantity"] != null
+                ? int.parse(json["quantity"].toString())
+                : null,
+            description: json["description"],
+            discountStatus: json["discount_status"].toString(),
             discountValue: json["discount_status"] != 0
-                ? getDiscountedPrice(json["price"], json["discount"])
-                : json["discount"],
+                ? getDiscountedPrice(
+                    json["price"].toString(), json["discount"].toString())
+                : json["discount"].toString(),
             sellerName: json["seller"] == null ? null : json["seller"]["name"],
             nameOfProduct: json["name"],
-            price: json["price"],
-        discount: json["discount_status"] != 0
-                ? getDiscountedPrice(json["price"], json["discount"])
-                : json["discount"],
+            price: json["price"].toString(),
+            discount: json["discount_status"] != 0
+                ? getDiscountedPrice(
+                    json["price"].toString(), json["discount"].toString())
+                : json["discount"].toString(),
             attributeList: json["attributes"] == null
                 ? []
                 : List<AttrbiuteResponse>.from(json["attributes"]
                     .map((x) => AttrbiuteResponse.fromJson(x))),
             image: json["image"],
-        isFavorite: json["is_favorite"] ?? false,
+            isFavorite: json["is_favorite"] ?? false,
             relatedProducts: json["related_products"] == null
                 ? []
-                : List<ProductResponse>.from(
-                    json["related_products"].map(
-                        (x) => ProductResponse.fromJson(x))),
+                : List<ProductResponse>.from(json["related_products"]
+                    .map((x) => ProductResponse.fromJson(x))),
             similarProducts: json["related_products"] == null
                 ? []
-                : List<ProductResponse>.from(
-                    json["similar_products"].map(
-                        (x) => ProductResponse.fromJson(x))))
-        : ProductResponse( id: 0,);
+                : List<ProductResponse>.from(json["similar_products"]
+                    .map((x) => ProductResponse.fromJson(x))))
+        : ProductResponse(
+            id: 0,
+          );
   }
   static Map<String, dynamic> toJsonCard(
       ProductResponse productDetailsResponse) {
@@ -88,9 +87,7 @@ class ProductResponse {
       List<ProductResponse>? basketList) {
     return basketList == null
         ? []
-        : basketList
-            .map((value) => ProductResponse.toJsonCard(value))
-            .toList();
+        : basketList.map((value) => ProductResponse.toJsonCard(value)).toList();
   }
 
   static String getDiscountedPrice(String price, String discount) {
@@ -102,12 +99,9 @@ class ProductResponse {
     return percantge.toString();
   }
 
-  static List<ProductResponse> listFromJson(
-      List<dynamic>? json) {
+  static List<ProductResponse> listFromJson(List<dynamic>? json) {
     return json == null
         ? []
-        : json
-            .map((value) => ProductResponse.fromJson(value))
-            .toList();
+        : json.map((value) => ProductResponse.fromJson(value)).toList();
   }
 }

@@ -10,7 +10,7 @@ import 'package:pharma/presentation/widgets/custom_category.dart';
 import 'package:pharma/translations.dart';
 
 class HomeCategory extends StatelessWidget {
-  final Map<String, String> title;
+  final Map<String, dynamic> title;
   final List<CategoriesResponse> categoriesList;
   const HomeCategory(
       {Key? key, required this.categoriesList, required this.title})

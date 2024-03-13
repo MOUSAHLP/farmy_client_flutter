@@ -5,9 +5,10 @@ import 'package:pharma/models/products_by_sub_category_id_response.dart';
 
 class HomePageDynamicModel {
   String? type;
-  int? order;
-  Map<String, String>? title;
+  String? order;
+  Map<String, dynamic>? title;
   String? link;
+  int? lastPagePagination;
 
   List<ProductResponse>? sectionContent;
   List<BannersResponse>? sliderContent;
@@ -19,6 +20,7 @@ class HomePageDynamicModel {
       this.title,
       this.link,
       this.sectionContent,
+      this.lastPagePagination,
       this.sliderContent});
 
   HomePageDynamicModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class HomePageDynamicModel {
     order = json['order'];
     title = json['title'];
     link = json['link'];
+    lastPagePagination = int.tryParse(json['last_page'].toString());
     if (json['type'] == "section") {
       if (json['content'] != null) {
         sectionContent = <ProductResponse>[];
@@ -50,12 +53,19 @@ class HomePageDynamicModel {
     }
   }
 
-  List<HomePageDynamicModel> fromJsonList(List<Map<String, dynamic>> listJson) {
-    List<HomePageDynamicModel> returnedList = [];
-    for (var json in listJson) {
-      returnedList.add(HomePageDynamicModel.fromJson(json));
-    }
-    return returnedList;
+  // List<HomePageDynamicModel> fromJsonList(
+  //     List<Map<dynamic, dynamic>> listJson) {
+  //   List<HomePageDynamicModel> returnedList = [];
+  //   for (var json in listJson) {
+  //     returnedList.add(HomePageDynamicModel.fromJson(json));
+  //   }
+  //   return returnedList;
+  // }
+
+  static List<HomePageDynamicModel> fromJsonList(List<dynamic>? json) {
+    return json == null
+        ? []
+        : json.map((value) => HomePageDynamicModel.fromJson(value)).toList();
   }
 
 //   Map<String, dynamic> toJson() {

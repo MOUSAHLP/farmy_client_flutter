@@ -9,8 +9,6 @@ class HomeEvent extends Equatable {
 
 class GetHomeData extends HomeEvent {}
 
-/// Ghina Change
-class GetHomeEndpoints extends HomeEvent {}
-class GetCategory extends HomeEvent {}
-class GetBanner extends HomeEvent {}
-class GetProduct extends HomeEvent {}
+class OnLoadingHomeData extends HomeEvent {}
+
+class OnRefreshHomeData extends HomeEvent {}
