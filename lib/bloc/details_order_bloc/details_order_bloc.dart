@@ -77,9 +77,11 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
 
       }
       if (event is DeleteProduct) {
-        productList.removeWhere((element) => element.id == event.id);
+        productList.removeWhere((element) => element.product?.id == event.id);
+        sum=0;
         emit(state.copyWith(
           productList: productList,
+          totalPrice:  finalPrice()
         ));
       }
     });

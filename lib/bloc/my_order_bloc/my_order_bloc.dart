@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_event.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_state.dart';
+import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/my_order_repository.dart';
 import 'package:pharma/models/my_order_response.dart';
 
@@ -8,18 +9,30 @@ import 'package:pharma/models/my_order_response.dart';
 class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
   List<MyOrderResponse> myOrderList = [];
 
-  MyOrderBloc() : super(MyOrderLoading()) {
+  MyOrderBloc() : super(MyOrderState()) {
     on<MyOrderEvent>((event, emit) async {
       if (event is GetMyOrder) {
-        emit(MyOrderLoading());
+        emit(state.copyWith(screenStates: ScreenStates.loading));
         final response = await MyOrderRepository.getMyOrder();
         response.fold((l) {
-          emit(MyOrderError(l));
+          emit(state.copyWith(screenStates: ScreenStates.error,error:l));
+
         }, (r) {
-          myOrderList = r;
-          emit(MyOrderSuccess(r));
+          emit(state.copyWith(screenStates: ScreenStates.success,myOrderList: r));
+
         });
       }
+      if (event is DeleteOrder) {
+        emit(state.copyWith(isLoadingDelet: true));
+        final response = await MyOrderRepository.deleteOrder(event.id);
+        response.fold((l) {
+          emit(state.copyWith(errorDelet: l,isErrorDelet: true));
+        }, (r) {
+
+          emit(state.copyWith(successDelet: true));
+        });
+      }
+
     });
   }
 }

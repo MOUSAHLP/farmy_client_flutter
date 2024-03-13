@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/shimmer_order.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/card_order.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
@@ -11,6 +12,8 @@ import '../../../bloc/my_order_bloc/my_order_state.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../../widgets/custom_no_dataa.dart';
+import '../../widgets/dialogs/error_dialog.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 import '../base_screen/base_screen.dart';
 import '../guest_screen/guest_screen.dart';
 
@@ -44,11 +47,25 @@ class OrderScreenBody extends StatelessWidget {
         children: [
           Expanded(
             child: sl<AuthenticationBloc>().loggedIn
-                ? BlocBuilder<MyOrderBloc, MyOrderState>(
-                    builder: (context, state) {
-                    if (state is MyOrderLoading) {
+                ? BlocConsumer<MyOrderBloc, MyOrderState>(
+                    listener: (context, state) {
+                    if (state.isLoadingDelet) {
+                      LoadingDialog().openDialog(context);
+                    } else {
+                      LoadingDialog().closeDialog(context);
+                    }
+                    if (state.isErrorDelet) {
+                      ErrorDialog.openDialog(context, state.error);
+                    }
+                    if (state.successDelet) {
+                      context.read<MyOrderBloc>().add(GetMyOrder());
+                    }
+                  },
+
+                builder: (context, state) {
+                    if (state.screenStates == ScreenStates.loading) {
                       return const BuildShimmerOrders();
-                    } else if (state is MyOrderError) {
+                    } else if (state.screenStates == ScreenStates.error) {
                       return Center(
                         child: CustomErrorScreen(
                           onTap: () {
@@ -56,7 +73,7 @@ class OrderScreenBody extends StatelessWidget {
                           },
                         ),
                       );
-                    } else if (state is MyOrderSuccess) {
+                    } else if (state.screenStates == ScreenStates.success) {
                       return state.myOrderList.isNotEmpty
                           ? CustomOverscrollIndicator(
                               child: ListView.builder(

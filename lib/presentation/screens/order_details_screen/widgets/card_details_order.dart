@@ -18,19 +18,18 @@ class CardDetailsOrder extends StatelessWidget {
   final OrderDetailsModel product;
   final Function? onTapDelete;
   final Color? cardColor;
-  final bool? isEdit;
+  final bool isEdit;
 
   const CardDetailsOrder(
       {super.key,
       required this.product,
       this.onTapDelete,
       this.cardColor,
-      this.isEdit});
+      this.isEdit=false});
 
   @override
   Widget build(BuildContext context) {
-    print("productAddedToBasketDetails.price" );
-    print(product.price );
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 37),
       child: Container(
@@ -48,7 +47,7 @@ class CardDetailsOrder extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             const SizedBox(width: 10,),
-            buildCounterWidget(context),
+            isEdit? buildCounterWidget(context):SizedBox(),
 
             if (onTapDelete != null)
               Expanded(
