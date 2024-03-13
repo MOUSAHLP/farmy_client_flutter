@@ -1,8 +1,8 @@
 class ApiConst {
-  // static const String baseUrl =
-  //     "https://control.farmy.peaklink.site/public/api";
+  static const String baseUrl =
+      "https://control.farmy.peaklink.site/public/api";
 
-  static const String baseUrl = "http://10.0.2.2:8000/api";
+  // static const String baseUrl = "http://10.0.2.2:8000/api";
 
   ///Auth
   static const String login = "/auth/login";
