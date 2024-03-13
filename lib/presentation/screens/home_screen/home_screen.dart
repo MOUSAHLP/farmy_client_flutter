@@ -32,6 +32,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
+  void initState() {
+    context.read<HomeBloc>().refreshController =
+        RefreshController(initialRefresh: false);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BaseScreenScaffold(
       // key: widget.scaffoldKey,
@@ -75,9 +82,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         child: SmartRefresher(
                           controller:
                               context.read<HomeBloc>().refreshController,
-                          enablePullDown: true,
+                          enablePullDown: false,
                           enablePullUp: true,
-                          onRefresh: () => sl<HomeBloc>().add(GetHomeData()),
+
+                          // onRefresh: () => sl<HomeBloc>().add(GetHomeData()),
                           onLoading: () =>
                               sl<HomeBloc>().add(OnLoadingHomeData()),
                           footer: CustomFooter(
