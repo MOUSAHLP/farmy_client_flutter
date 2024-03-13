@@ -40,8 +40,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: [
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
-              RefreshController refreshController =
-                  context.read<HomeBloc>().refreshController;
               if (state.screenState == ScreenState.loading) {
                 return const CustomHomeShimmer();
               } else if (state.screenState == ScreenState.error) {
@@ -75,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       //// ==================== making dynamic content ==================== ////
                       Expanded(
                         child: SmartRefresher(
-                          controller: refreshController,
+                          controller:
+                              context.read<HomeBloc>().refreshController,
                           enablePullDown: true,
                           enablePullUp: true,
                           onRefresh: () => sl<HomeBloc>().add(GetHomeData()),

@@ -23,7 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   List<HomePageDynamicModel>? homePageDynamicModel;
 
-  final RefreshController refreshController =
+  RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
   HomeBloc({required this.homeRepo}) : super(const HomeState()) {
