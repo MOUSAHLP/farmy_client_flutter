@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/data/data_resource/local_resource/data_store.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
+
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
 import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/translations.dart';
 
-import '../../../../models/product_details_response.dart';
+import '../../../../models/product_response.dart';
 
 class HomeSection extends StatelessWidget {
   final Map<String, dynamic> title;

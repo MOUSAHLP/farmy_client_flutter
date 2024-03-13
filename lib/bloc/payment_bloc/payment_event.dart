@@ -24,32 +24,29 @@ class ChoosePaymentStatusEvent extends PaymentEvent {
 
 class GetPaymentDetailsEvent extends PaymentEvent {}
 
-class AddToChossenAttrbiuteList extends PaymentEvent {
-  final DeliveryAttributesResponse? attrbiuteData;
-
-  const AddToChossenAttrbiuteList({
-    this.attrbiuteData,
-  });
-}
-
-class GetInvoicesDetails extends PaymentEvent {
-  final InvoicesParms invoicesParmas;
-  final List<ProductResponse>? productList;
-
-  const GetInvoicesDetails({
-    required this.invoicesParmas,
-        required this.productList
-      });
-}
-
-class RemoveFromChossenList extends PaymentEvent {
+class AddToChosenAttributeList extends PaymentEvent {
   final DeliveryAttributesResponse? attributeData;
 
-  const RemoveFromChossenList({
+  const AddToChosenAttributeList({
     this.attributeData,
   });
 }
 
+class GetInvoicesDetails extends PaymentEvent {
+  final InvoicesParams invoicesParams;
+  final List<ProductResponse>? productList;
+
+  const GetInvoicesDetails(
+      {required this.invoicesParams, required this.productList});
+}
+
+class RemoveFromChosenList extends PaymentEvent {
+  final DeliveryAttributesResponse? attributeData;
+
+  const RemoveFromChosenList({
+    this.attributeData,
+  });
+}
 
 class AddChangeAttributeList extends PaymentEvent {
   /// todo : change DeliveryAttributesResponse to changeResponse
@@ -69,22 +66,37 @@ class RemoveChangeAttributeList extends PaymentEvent {
   });
 }
 
+class AddChangeList extends PaymentEvent {
+  final DeliveryChangesResponse? addDeliveryChangesResponse;
 
-class ToogleDeleveryMethod extends PaymentEvent {
-  final DeleveryMethodResponse? deleveryMethodData;
+  const AddChangeList({
+    this.addDeliveryChangesResponse,
+  });
+}
 
-  const ToogleDeleveryMethod({
-    this.deleveryMethodData,
+class RemoveChangeList extends PaymentEvent {
+  final DeliveryChangesResponse? removeDeliveryChangesResponse;
+
+  const RemoveChangeList({
+    this.removeDeliveryChangesResponse,
+  });
+}
+
+class ToggleDeliveryMethod extends PaymentEvent {
+  final DeliveryMethodResponse? deliveryMethodData;
+
+  const ToggleDeliveryMethod({
+    this.deliveryMethodData,
   });
 }
 
 class CreateOrder extends PaymentEvent {
-  final InvoicesParms invoicesParms;
-  final List<ProductResponse> prductList;
+  final InvoicesParams invoicesParams;
+  final List<ProductResponse> productList;
 
   const CreateOrder({
-    required this.invoicesParms,
-    required this.prductList,
+    required this.invoicesParams,
+    required this.productList,
   });
 }
 
@@ -94,4 +106,24 @@ class GetInitializeInvoice extends PaymentEvent {
   const GetInitializeInvoice({
     required this.initializeInvoice,
   });
+}
+
+class GetTimeEvent extends PaymentEvent {
+  final String time;
+
+  const GetTimeEvent({
+    required this.time,
+  });
+}
+
+class SelectedMinutesEvents extends PaymentEvent {
+  final bool isExpandedMinutes ;
+
+  const SelectedMinutesEvents(this.isExpandedMinutes);
+}
+
+class SelectedHoursEvents extends PaymentEvent {
+  final bool isExpandedHour ;
+
+  const SelectedHoursEvents(this.isExpandedHour);
 }

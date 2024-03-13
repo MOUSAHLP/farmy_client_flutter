@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -80,8 +81,8 @@ class _CustomDiscountCodeContainerState
                           height: 22,
                           width: 22,
                           child: isExpanded
-                              ? Image.asset(ImageManager.dropUp)
-                              : Image.asset(ImageManager.dropDown),
+                              ? SvgPicture.asset(ImageManager.dropUp)
+                              : SvgPicture.asset(ImageManager.dropDown),
                         ),
                       )
                     : const SizedBox(),

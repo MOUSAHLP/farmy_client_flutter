@@ -35,8 +35,8 @@ class ImageManager {
   static const String logoAboutApp = "$imagePath/logo.png";
   static const String flagOfSyria = "$imagePath/flag_of_syria.png";
   static const String listOfTypeJoinUs = "$imagePath/list_type_join_us.png";
-  static const String dropDown = "$imagePath/iconDropDown.png";
-  static const String dropUp = "$imagePath/iconDropUp.png";
+  static const String dropDown = "$imagePath/iconDropDown.svg";
+  static const String dropUp = "$imagePath/iconDropUp.svg";
   static const String whatsUpLogo = "$imagePath/whats_up.png";
   static const String contactLogo = "$imagePath/contact_logo.png";
   static const String select = "$imagePath/select.png";
@@ -52,6 +52,7 @@ class ImageManager {
   static const String stars = "$imagePath/stars.png";
   static const String innerShadowBox = "$imagePath/innerShadowBox.png";
   static const String innerShadowCircle = "$imagePath/innerShadowCircle.png";
+  static const String arrowBack = "$imagePath/arrow_back.svg";
 }
 
 class IconsManager {

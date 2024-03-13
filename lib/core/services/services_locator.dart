@@ -22,6 +22,7 @@ import 'package:pharma/data/repository/categories_repo.dart';
 import 'package:pharma/data/repository/home_repo.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/data/repository/product_repo.dart';
+import '../../bloc/details_order_bloc/details_order_bloc.dart';
 import '../../bloc/location_bloc/location_bloc.dart';
 import '../../bloc/my_order_bloc/my_order_bloc.dart';
 import '../../bloc/notification_bloc/notification_bloc.dart';
@@ -53,8 +54,9 @@ class ServicesLocator {
 
     // payment
     sl.registerSingleton<PaymentRepo>(PaymentRepo());
-    sl.registerFactory<PaymentBloc>(
-        () => PaymentBloc(paymentRepo: sl<PaymentRepo>()));
+
+    sl.registerFactory<PaymentBloc>(() => PaymentBloc(paymentRepo: sl<PaymentRepo>()));
+
     sl.registerLazySingleton(() => OnBoardingBloc());
     sl.registerSingleton<CategoriesRepo>(CategoriesRepo());
     sl.registerFactory(
@@ -80,6 +82,7 @@ class ServicesLocator {
 
     ///my order
     sl.registerFactory(() => MyOrderBloc());
+    sl.registerFactory(() => DetailsOrderBloc());
 
     ///notification
     sl.registerFactory(() => NotificationBloc());

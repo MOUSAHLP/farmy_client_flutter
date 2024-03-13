@@ -4,7 +4,7 @@ import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/basket_repo.dart';
 import 'package:pharma/models/params/payment_process_parms.dart';
 import 'package:pharma/models/payment_process_response.dart';
-import 'package:pharma/models/product_details_response.dart';
+import 'package:pharma/models/product_response.dart';
 
 part 'basket_event.dart';
 
@@ -42,7 +42,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     on<BasketEvent>(
       (event, emit) async {
         if (event is AddToBasket) {
-          mutableProducts = List.from(state.prductList!);
+          mutableProducts = List.from(state.productList!);
           for (var x in event.product) {
             for (var i in mutableProducts) {
               if (i.id == x.id) {
@@ -64,8 +64,8 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         }
         if (event is PaymentProcess) {
           emit(state.copyWith(screenState: ScreenState.loading));
-          PaymentProcessParms paymentProcessParms =
-              PaymentProcessParms(prodictInBasketList: state.prductList!);
+          PaymentProcessParams paymentProcessParms =
+              PaymentProcessParams(productInBasketList: state.productList!);
           (await basketRepo.getPaymentDetails(paymentProcessParms)).fold(
             (l) => emit(state.copyWith(
                 screenState: ScreenState.error, errorMessage: l)),

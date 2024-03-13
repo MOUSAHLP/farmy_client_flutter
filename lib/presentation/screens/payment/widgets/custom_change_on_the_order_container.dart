@@ -8,15 +8,16 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
 class CustomChangeOnTheOrder extends StatelessWidget {
-  final String changeText;
+  final int changeText;
   final bool isSelected;
   final Function() onTab;
 
-  const CustomChangeOnTheOrder(
-      {super.key,
-      required this.changeText,
-      required this.onTab,
-      required this.isSelected});
+  const CustomChangeOnTheOrder({
+    super.key,
+    required this.changeText,
+    required this.onTab,
+    required this.isSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +34,15 @@ class CustomChangeOnTheOrder extends StatelessWidget {
                 height: 17,
                 width: 17,
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: isSelected
-                        ? ColorManager.primaryGreen
-                        : ColorManager.grayForSearch),
+                  shape: BoxShape.circle,
+                  color: isSelected
+                      ? ColorManager.primaryGreen
+                      : ColorManager.grayForSearch,
+                ),
               ),
               const SizedBox(width: 9),
               Text(
-                changeText,
+                "$changeText",
                 style: getRegularStyle(
                     color: ColorManager.grayForMessage,
                     fontSize: FontSizeApp.s14),

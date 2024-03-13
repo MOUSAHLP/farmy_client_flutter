@@ -29,7 +29,7 @@ class CardOrder extends StatelessWidget {
             children: [
               RowOrder(
                   title: AppLocalizations.of(context)!.order_Number,
-                  details: myOrder.orderNumber ?? ""),
+                  details: myOrder.orderNumber.toString()),
               RowOrder(
                   title: AppLocalizations.of(context)!.address,
                   details: getAddress(myOrder.userAddress!)),
@@ -64,8 +64,8 @@ class CardOrder extends StatelessWidget {
                       ],
                     )
                   : const SizedBox(),
-               // Text(myOrder.status??""),
-               StateButtons(status:myOrder.status??"" ,)
+       //      Text(myOrder.status??""),
+               StateButtons(status:myOrder.status??"" ,id: myOrder.id,)
             ],
           ),
         ),

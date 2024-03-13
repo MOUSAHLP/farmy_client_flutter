@@ -17,7 +17,7 @@ class ApiConst {
   static const String deleteAccount = "/delete_account";
 
   ///Categories
-  static const String getAllCategoties = "/categories";
+  static const String getAllCategories = "/categories";
   static String getSubCategories(int id) => "/categories/$id";
   //product
   static String getProductBySubCategoryId = "/products";
@@ -60,6 +60,8 @@ class ApiConst {
 
   ///my_order
   static const String getMyOrder = "/orders";
+  static String getDetailsOrder(int id) => "/orders/order-details/$id";
+  static String deleteOrder(int id) => "/orders/$id";
 
   ///notification
   static const String getNotifications = "/";

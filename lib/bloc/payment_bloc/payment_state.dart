@@ -5,11 +5,17 @@ class PaymentState extends Equatable {
   final OrderStates? orderState;
   final PaymentStates? paymentState;
   final PaymentProcessResponse? paymentProcessResponse;
-  final List<DeliveryAttributesResponse> attrbiuteChossenList;
-  final List<DeleveryMethodResponse> deleveryMethodChossenList;
-  final int? deleveryCost;
+  final List<DeliveryAttributesResponse> attributeChosenList;
+  final List<DeliveryMethodResponse> deliveryMethodChosenList;
+  final List<DeliveryChangesResponse> deliveryChangesList;
+  final int? deliveryCost;
   final CompletePaymentStates? completePaymentStates;
   final String? errorMessage;
+  final String? time;
+  final String? hour;
+  final String? minutes;
+  final bool isExpandedMinutes;
+  final bool isExpandedHours;
 
   const PaymentState({
     this.screenState,
@@ -17,37 +23,53 @@ class PaymentState extends Equatable {
     this.completePaymentStates,
     this.errorMessage,
     this.orderState,
-    this.deleveryCost = 0,
+    this.deliveryCost = 0,
     this.paymentState,
-    this.deleveryMethodChossenList = const [],
-    this.attrbiuteChossenList = const [],
+    this.deliveryMethodChosenList = const [],
+    this.attributeChosenList = const [],
+    this.deliveryChangesList = const [],
+    this.time,
+    this.isExpandedMinutes = false,
+    this.isExpandedHours = false,
+    this.hour,
+    this.minutes,
   });
 
   PaymentState copyWith({
     ScreenStates? screenState,
     OrderStates? orderState,
-    int? deleveryCost,
+    int? deliveryCost,
     PaymentProcessResponse? paymentProcessResponse,
     CompletePaymentStates? completePaymentStates,
     String? errorMessage,
-    List<DeleveryMethodResponse>? deleveryMethodChossenList,
+    List<DeliveryMethodResponse>? deliveryMethodChosenList,
+    List<DeliveryChangesResponse>? deliveryChangesList,
     PaymentStates? paymentState,
-    List<DeliveryAttributesResponse>? attrbiuteChossenList,
+    List<DeliveryAttributesResponse>? attributeChosenList,
     bool? isCompletePayment,
+    String? time,
+
+    bool? isExpandedMinutes,
+    bool? isExpandedHours,
   }) {
     return PaymentState(
       completePaymentStates:
           completePaymentStates ?? CompletePaymentStates.initialized,
       paymentProcessResponse:
           paymentProcessResponse ?? this.paymentProcessResponse,
-      deleveryCost: deleveryCost ?? this.deleveryCost,
-      deleveryMethodChossenList:
-          deleveryMethodChossenList ?? this.deleveryMethodChossenList,
-      attrbiuteChossenList: attrbiuteChossenList ?? this.attrbiuteChossenList,
+      deliveryCost: deliveryCost ?? this.deliveryCost,
+      deliveryMethodChosenList:
+          deliveryMethodChosenList ?? this.deliveryMethodChosenList,
+      deliveryChangesList: deliveryChangesList ?? this.deliveryChangesList,
+      attributeChosenList: attributeChosenList ?? this.attributeChosenList,
       screenState: screenState ?? ScreenStates.initialized,
       orderState: orderState ?? this.orderState,
       paymentState: paymentState ?? this.paymentState,
       errorMessage: errorMessage ?? "",
+      time: time ?? this.time,
+
+      isExpandedMinutes: isExpandedMinutes ?? this.isExpandedMinutes,
+      isExpandedHours: isExpandedHours ?? this.isExpandedHours,
     );
   }
 
@@ -57,11 +79,16 @@ class PaymentState extends Equatable {
         screenState,
         orderState,
         paymentState,
-        deleveryCost,
-        attrbiuteChossenList,
-        deleveryMethodChossenList,
+        deliveryCost,
+        attributeChosenList,
+        deliveryChangesList,
+        deliveryMethodChosenList,
         paymentProcessResponse,
         completePaymentStates,
-        errorMessage
+        errorMessage,
+        time,
+        isExpandedMinutes,
+        isExpandedHours,
+
       ];
 }

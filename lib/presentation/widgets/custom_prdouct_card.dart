@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/core/utils/formatter.dart';
-import 'package:pharma/models/products_by_sub_category_id_response.dart';
+
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -12,7 +12,7 @@ import 'package:pharma/translations.dart';
 
 import '../../bloc/favorite_bloc/favorite_event.dart';
 import '../../bloc/favorite_bloc/favorite_state.dart';
-import '../../models/product_details_response.dart';
+import '../../models/product_response.dart';
 import 'favorite_heart.dart';
 
 class CustomProductCard extends StatelessWidget {
@@ -215,12 +215,13 @@ class CustomProductCard extends StatelessWidget {
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: productInfo.id ?? 0,
-                                isToggled: context
-                                    .read<FavoriteBloc>()
-                                    .isFavoriteProduct(
-                                      productInfo.id ?? 0,
-                                    ),
+                                isToggled:productInfo.isFavorite,
                                 onTap: () {
+                                  context.read<FavoriteBloc>().add(
+                                    ChangeFavoriteStatusProduct(
+                                        productInfo.id,
+                                        productInfo),
+                                  );
                                   // context.read<FavoriteBloc>().add(
                                   //       ChangeFavoriteStatusRestaurant(
                                   //         productInfo.id ?? 0,

@@ -79,7 +79,7 @@ class RewardsProgramScreen extends StatelessWidget {
                       body: const TabBarView(
                         children: [
                           RewardsRankScreen(),
-                          RewardsactivityScreen(),
+                          RewardsActivityScreen(),
                           RewardsPointsHistoryScreen(),
                         ],
                       ),

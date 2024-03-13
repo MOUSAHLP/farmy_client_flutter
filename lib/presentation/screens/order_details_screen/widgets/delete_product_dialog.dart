@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
 
-import '../../../bloc/basket_bloc/basket_bloc.dart';
-import '../../../core/app_router/app_router.dart';
-import '../../../models/product_response.dart';
-import '../../../translations.dart';
-import '../../resources/color_manager.dart';
-import '../../resources/style_app.dart';
-import '../custom_button.dart';
+import '../../../../bloc/details_order_bloc/details_order_bloc.dart';
+import '../../../../bloc/details_order_bloc/details_order_event.dart';
+import '../../../../core/app_router/app_router.dart';
+import '../../../../models/product_response.dart';
+import '../../../../translations.dart';
 
-class ConfirmDeleteProductDialog extends StatelessWidget {
-  const ConfirmDeleteProductDialog(
-      {required this.productAddedToBasketDetails, super.key});
+import '../../../resources/color_manager.dart';
 
-  final ProductResponse productAddedToBasketDetails;
+import '../../../widgets/custom_button.dart';
+
+
+class DeleteProductDialog extends StatelessWidget {
+  const DeleteProductDialog(
+      {required this.product, super.key});
+
+  final ProductResponse product;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class ConfirmDeleteProductDialog extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      AppLocalizations.of(context)!.delete_product,
+                      "حذف المنتج",
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       style: getBoldStyle(
@@ -50,8 +54,8 @@ class ConfirmDeleteProductDialog extends StatelessWidget {
                       label: AppLocalizations.of(context)!.confirm,
                       fillColor: ColorManager.primaryGreen,
                       onTap: () {
-                        context.read<BasketBloc>().add(
-                            DeleteProduct(productAddedToBasketDetails.id ?? 0));
+                        context.read<DetailsOrderBloc>().add(
+                            DeleteProduct(product.id ?? 0));
                         AppRouter.pop(context);
                       },
                     ),

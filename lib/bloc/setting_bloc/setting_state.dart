@@ -8,5 +8,8 @@ class SettingLoading extends SettingState {}
 
 class SettingError extends SettingState {
   String error;
+
   SettingError(this.error);
 }
+
+

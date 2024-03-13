@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
-import 'package:pharma/models/product_details_response.dart';
+import 'package:pharma/models/product_response.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -24,7 +24,7 @@ class CardBasket extends StatelessWidget {
       builder: (context, state) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 37),
         child: Stack(
-          alignment: Alignment.topRight,
+          alignment: AlignmentDirectional.topEnd,
           children: [
             Container(
               height: 115,
@@ -172,7 +172,12 @@ class CardBasket extends StatelessWidget {
                   context.read<BasketBloc>().add(
                       DeleteProduct(productAddedToBasketDetails.id ?? 0));
                 },
-                child: const Icon(Icons.clear, color: Colors.red,size: 30,))
+                child: Container(
+                    width: 30.h,
+                    decoration: BoxDecoration(boxShadow: [
+                      ColorManager.shadowGaryDown,
+                    ], color: Colors.white),
+                    child: const Icon(Icons.clear, color: Colors.red,size: 30,)))
           ],
         ),
       ),
