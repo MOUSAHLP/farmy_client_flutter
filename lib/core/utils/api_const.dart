@@ -19,7 +19,7 @@ class ApiConst {
   ///Categories
   static const String getAllCategoties = "/categories";
   static String getSubCategories(int id) => "/categories/$id";
-//product
+  //product
   static String getProductBySubCategoryId = "/products";
   static String getProductDetailsById(int id) => "/products/$id";
 
