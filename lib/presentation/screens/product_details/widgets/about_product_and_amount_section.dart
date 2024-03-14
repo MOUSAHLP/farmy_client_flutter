@@ -13,14 +13,10 @@ import '../../../../bloc/favorite_bloc/favorite_event.dart';
 import '../../../../bloc/favorite_bloc/favorite_state.dart';
 import '../../../../models/product_response.dart';
 import '../../../widgets/favorite_heart.dart';
+import 'card_attributes.dart';
 
 class AboutProductAndAmountSection extends StatelessWidget {
-
-
   final int quantity;
-
-
-
  final ProductResponse productDetails;
   const AboutProductAndAmountSection({
     super.key,
@@ -30,8 +26,6 @@ class AboutProductAndAmountSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print( "productDetails.attributeList");
-    print( productDetails.attributeList);
     return BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
       builder: (context, state) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,40 +69,7 @@ class AboutProductAndAmountSection extends StatelessWidget {
                                 const SizedBox(
                                   height: 3,
                                 ),
-                                Row(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "400 غ",
-                                          style: getRegularStyle(
-                                                  color: ColorManager
-                                                      .grayForMessage,
-                                                  fontSize: FontSizeApp.s13)!
-                                              .copyWith(height: 1),
-                                        ),
-                                        Text(
-                                          " / ",
-                                          style: getRegularStyle(
-                                                  color: ColorManager
-                                                      .grayForMessage,
-                                                  fontSize: FontSizeApp.s13)!
-                                              .copyWith(height: 1),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      "$quantity قطعة ",
-                                      style: getRegularStyle(
-                                        color: ColorManager.grayForMessage,
-                                        fontSize: FontSizeApp.s10,
-                                      )!
-                                          .copyWith(
-                                        height: 1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+
                                 const SizedBox(
                                   height: 4,
                                 ),
@@ -141,30 +102,7 @@ class AboutProductAndAmountSection extends StatelessWidget {
               ],
             ),
           ),
-          //todo attr product
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // productDetails.attributeList.isNotEmpty
-              //     ? Text(
-              //   productDetails.attributeList[0].value,
-              //         style: getBoldStyle(
-              //           color: ColorManager.grayForMessage,
-              //           fontSize: FontSizeApp.s15,
-              //         ),
-              //       )
-              //     : const SizedBox(),
-              productDetails.attributeList.length > 1
-                  ? Text(
-                      " / ${productDetails.attributeList[1].value}",
-                      style: getBoldStyle(
-                        color: ColorManager.grayForMessage,
-                        fontSize: FontSizeApp.s15,
-                      ),
-                    )
-                  : const SizedBox(),
-            ],
-          ),
+          CardAttributes(productDetails: productDetails),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -238,3 +176,5 @@ class AboutProductAndAmountSection extends StatelessWidget {
     );
   }
 }
+
+
