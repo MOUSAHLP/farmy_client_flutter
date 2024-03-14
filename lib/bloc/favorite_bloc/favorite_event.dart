@@ -11,8 +11,5 @@ class GetFavorites extends FavoriteEvent {
 class ChangeFavoriteStatusProduct extends FavoriteEvent {
   final int id;
   ProductResponse productDetailsResponse;
-  ChangeFavoriteStatusProduct(
-      this.id,
-this.productDetailsResponse
-      );
+  ChangeFavoriteStatusProduct(this.id, this.productDetailsResponse);
 }

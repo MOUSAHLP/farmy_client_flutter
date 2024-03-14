@@ -26,6 +26,7 @@ class ApiConst {
   //home
   static String getHomeData = "/home-page";
   static String getHomeDynamicData = "/home-page-dynamic";
+  static String getHomeAllProductById(int id) => "/home-page-dynamic/$id";
 
   /// Setting
   static const String getSetting = "/settings";

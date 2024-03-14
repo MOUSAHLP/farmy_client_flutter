@@ -6,6 +6,7 @@ import 'package:pharma/bloc/conditions_bloc/conditions_bloc.dart';
 import 'package:pharma/bloc/faq_bloc/faq_bloc.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
+import 'package:pharma/bloc/home_section_all_products_bloc/home_section_all_products_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/onboarding_bloc/onboarding_bloc.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
@@ -32,12 +33,11 @@ import '../../data/repository/user_repository.dart';
 
 final sl = GetIt.instance;
 
-
 class ServicesLocator {
-
-  static void  clearAll() {
+  static void clearAll() {
     sl.reset();
   }
+
   void init() {
     sl.registerLazySingleton(() => AuthenticationBloc(sl()));
     sl.registerLazySingleton(() => LanguageBloc());
@@ -49,13 +49,17 @@ class ServicesLocator {
     );
     sl.registerLazySingleton(() => LocationBloc());
 
+    /// Home Section All Products Screen
+    sl.registerFactory(() => HomeSectionAllProductsBloc());
+
     // setting
     sl.registerLazySingleton(() => SettingBloc());
 
     // payment
     sl.registerSingleton<PaymentRepo>(PaymentRepo());
 
-    sl.registerFactory<PaymentBloc>(() => PaymentBloc(paymentRepo: sl<PaymentRepo>()));
+    sl.registerFactory<PaymentBloc>(
+        () => PaymentBloc(paymentRepo: sl<PaymentRepo>()));
 
     sl.registerLazySingleton(() => OnBoardingBloc());
     sl.registerSingleton<CategoriesRepo>(CategoriesRepo());
@@ -63,11 +67,13 @@ class ServicesLocator {
         () => CategoriesBloc(categoriesRepo: sl<CategoriesRepo>()));
 
     sl.registerLazySingleton<UserRepository>(() => UserRepository());
-    sl.registerFactory(() => ProductsBloc(categoriesRepo: sl<CategoriesRepo>()));
+    sl.registerFactory(
+        () => ProductsBloc(categoriesRepo: sl<CategoriesRepo>()));
 
     /// product
     sl.registerSingleton<ProductRepo>(ProductRepo());
-    sl.registerFactory(() => ProductdetailsBloc(productRepo: sl<ProductRepo>()));
+    sl.registerFactory(
+        () => ProductdetailsBloc(productRepo: sl<ProductRepo>()));
     // sl.registerFactory(() => ProductRelatedBloc(productRepo: sl<ProductRepo>()));
 
     ///basket
@@ -103,7 +109,6 @@ class ServicesLocator {
 
     /// Conditions Screen
     sl.registerFactory(() => ConditionsBloc());
-
 
     /// Who We Are Screen
     sl.registerFactory(() => WhoWeAreBloc());

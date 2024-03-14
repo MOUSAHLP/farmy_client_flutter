@@ -5,6 +5,7 @@ import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_section_name.dart';
+import 'package:pharma/presentation/screens/home_screen/widgets/home_section_products.dart';
 import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/translations.dart';
@@ -37,13 +38,13 @@ class HomeSection extends StatelessWidget {
               sectionName: title[appLang] ??
                   AppLocalizations.of(context)!.suggested_products,
               onTap: () {
-                // AppRouter.push(
-                //   context,
-                //   ProductDetailsScreen(
-                //     id: list[index].id,
-                //     quantity: list[index].quantity ?? 0,
-                //   ),
-                // );
+                AppRouter.push(
+                  context,
+                  HomeSectionProducts(
+                    sectionId: sectionId,
+                    sectionName: title[appLang],
+                  ),
+                );
               },
             ),
           ),
