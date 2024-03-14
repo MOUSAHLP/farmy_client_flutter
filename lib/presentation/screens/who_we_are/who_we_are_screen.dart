@@ -5,9 +5,12 @@ import 'package:pharma/bloc/who_we_are_bloc/who_we_are_bloc.dart';
 import 'package:pharma/bloc/who_we_are_bloc/who_we_are_event.dart';
 import 'package:pharma/bloc/who_we_are_bloc/who_we_are_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
+import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
+import 'package:pharma/translations.dart';
 
 class WhoWeAreScreen extends StatelessWidget {
   const WhoWeAreScreen({
@@ -20,8 +23,9 @@ class WhoWeAreScreen extends StatelessWidget {
       lazy: true,
       create: (BuildContext context) => sl<WhoWeAreBloc>()..add(GetWhoWeAre()),
       child: Scaffold(
+        backgroundColor: ColorManager.white,
         body: Padding(
-          padding: const EdgeInsets.all(PaddingApp.p20),
+          padding: const EdgeInsets.only(top: PaddingApp.p40),
           child: BlocConsumer<WhoWeAreBloc, WhoWeAreState>(
               listener: (context, state) {},
               builder: (context, state) {
@@ -36,7 +40,15 @@ class WhoWeAreScreen extends StatelessWidget {
                   String html =
                       context.read<WhoWeAreBloc>().whoWeAreModel!.data!.html!;
                   return Center(
-                    child: HtmlWidget(html),
+                    child: Column(
+                      children: [
+                        CustomAppBarScreen(
+                          sectionName: AppLocalizations.of(context)!.who_are_we,
+                          isComeBack: true,
+                        ),
+                        HtmlWidget(html),
+                      ],
+                    ),
                   );
                 }
                 return const CustomLoadingWidget();

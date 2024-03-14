@@ -39,8 +39,7 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
     return BlocConsumer<CategoriesBloc, CategoriesState>(
         listener: (context, state) {},
         builder: (context, state) {
-          TabController tabController =
-              TabController(length: state.tabs.length, vsync: this);
+          TabController tabController = TabController(length: state.tabs.length, vsync: this);
           tabController.animateTo(state.tabIndex);
 
           return SafeArea(
@@ -80,18 +79,19 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                               }
                             } else if (state.previousSubCategoryIndex ==
                                 index) {
-                              context
-                                  .read<CategoriesBloc>()
-                                  .add(SubCategoryPageEvent(
+                              context.read<CategoriesBloc>().add(SubCategoryPageEvent(
                                     tabIndex: index,
-                                  ));
+                                  ),
+                              );
                             } else {
                               if (state.tabIndex != index) {
                                 context.read<CategoriesBloc>().add(
                                     GetSubCategoryEvent(
                                         tabIndex: index,
                                         categoryId: state
-                                            .categoriesList[index - 1].id));
+                                            .categoriesList[index - 1].id,
+                                    ),
+                                );
                               }
                             }
                           },

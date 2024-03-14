@@ -19,26 +19,27 @@ import '../../resources/style_app.dart';
 import '../../widgets/custom_button.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
- final int id;
- final bool isEdit;
-  const OrderDetailsScreen({super.key,required this.id,this.isEdit=false});
+  final int id;
+  final bool isEdit;
+
+  const OrderDetailsScreen({super.key, required this.id, this.isEdit = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return sl<DetailsOrderBloc>()
-          ..add(ShowDetailsOrder(id:id));
+        return sl<DetailsOrderBloc>()..add(ShowDetailsOrder(id: id));
       },
-      child:  OrderDetailsBody(id: id,isEdit: isEdit),
+      child: OrderDetailsBody(id: id, isEdit: isEdit),
     );
   }
 }
 
 class OrderDetailsBody extends StatelessWidget {
-final int id;
-final bool isEdit;
-  const OrderDetailsBody({super.key,required this.id,this.isEdit=false});
+  final int id;
+  final bool isEdit;
+
+  const OrderDetailsBody({super.key, required this.id, this.isEdit = false});
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +51,9 @@ final bool isEdit;
             CustomAppBarScreen(
                 sectionName: AppLocalizations.of(context)!.order_details),
             Padding(
-              padding:
-              const EdgeInsets.symmetric(horizontal: 21),
+              padding: const EdgeInsets.symmetric(horizontal: 21),
               child: Text(
-                AppLocalizations.of(context)!
-                    .payment_statment,
+                AppLocalizations.of(context)!.payment_statment,
                 style: getRegularStyle(
                   color: ColorManager.grayForMessage,
                   fontSize: FontSizeApp.s16,
@@ -65,117 +64,112 @@ final bool isEdit;
               listener: (context, state) {
                 // TODO: implement listener}
               },
-              builder:(context, state)
-              {
-                if(state.screenStates==ScreenStates.loading) {
+              builder: (context, state) {
+                if (state.screenStates == ScreenStates.loading) {
                   return const CircularProgressIndicator();
-                } else if(state.screenStates==ScreenStates.error) {
-                  return CustomErrorScreen(onTap: () {
-                    sl<DetailsOrderBloc>().add(ShowDetailsOrder(id:id));
-                  },
-                    titleError: state.error,);
+                } else if (state.screenStates == ScreenStates.error) {
+                  return CustomErrorScreen(
+                    onTap: () {
+                      sl<DetailsOrderBloc>().add(ShowDetailsOrder(id: id));
+                    },
+                    titleError: state.error,
+                  );
                 }
-               return Expanded(
-                 child: Column(
-                   children: [
-                     Expanded(
+                return Expanded(
+                  child: Column(
+                    children: [
+                      Expanded(
                         child: CustomOverscrollIndicator(
                           child: ListView.builder(
                             itemBuilder: (context, index) => CardDetailsOrder(
-                                product: state.productList[index],isEdit: isEdit),
-                            itemCount:  state.productList.length,
+                                product: state.productList[index],
+                                isEdit: isEdit),
+                            itemCount: state.productList.length,
                           ),
                         ),
                       ),
-                     state.productList.isEmpty
-                         ? const SizedBox()
-                         : Container(
-                       width: 1.sw,
-                       decoration: BoxDecoration(
-                           color: Colors.white,
-                           borderRadius: const BorderRadius.only(
-                               topLeft: Radius.circular(22),
-                               topRight: Radius.circular(22)),
-                           boxShadow: [ColorManager.shadowGaryUp]),
-                       child: Column(
-                         mainAxisSize: MainAxisSize.min,
-                         children: [
-                           const SizedBox(
-                             height: 9,
-                           ),
-                           Text(
-                               AppLocalizations.of(context)!
-                                   .totalPrice,
-                               style: getBoldStyle(
-                                   color:
-                                   ColorManager.grayForMessage,
-                                   fontSize: 14)),
-                           Row(
-                             mainAxisAlignment:
-                             MainAxisAlignment.center,
-                             children: [
-                               Text(
-                             state.totalPrice.toString(),
-                                   style: getBoldStyle(
-                                       color:
-                                       ColorManager.primaryGreen,
-                                       fontSize: 24)),
-                               const SizedBox(
-                                 width: 2,
-                               ),
-                               Text(
-                                   AppLocalizations.of(context)!
-                                       .curruncy,
-                                   style: getBoldStyle(
-                                       color: ColorManager
-                                           .primaryGreen,
-                                       fontSize: 15)!
-                                       .copyWith(height: 1))
-                             ],
-                           ),
-                           Padding(
-                             padding: const EdgeInsets.symmetric(
-                                 horizontal: 27, vertical: 9),
-                             child: Row(
-                               children: [
-                                isEdit? Expanded(
-                                   child: CustomButton(
-                                     label: "حفظ التعديلات",
-                                     fillColor:
-                                     ColorManager.primaryGreen,
-                                     onTap: () {
-
-                                     },
-                                   ),
-                                 ):const SizedBox(),
-                                 const SizedBox(
-                                   width: 16,
-                                 ),
-                                 Expanded(
-                                   child: CustomButton(
-                                     label:"رجوع",
-                                     fillColor:
-                                     ColorManager.primaryGreen,
-                                     labelColor: Colors.white,
-                                     onTap: () {
-
-AppRouter.pop(context);
-                                            // SystemNavigator.pop();
-                                     },
-                                   ),
-                                 ),
-                               ],
-                             ),
-                           ),
-                           const SizedBox(
-                             height: 9,
-                           ),
-                         ],
-                       ),
-                     )
-                   ],
-                 ),
-               );
+                      state.productList.isEmpty
+                          ? const SizedBox()
+                          : Container(
+                              width: 1.sw,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(22),
+                                      topRight: Radius.circular(22)),
+                                  boxShadow: [ColorManager.shadowGaryUp]),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const SizedBox(
+                                    height: 9,
+                                  ),
+                                  Text(AppLocalizations.of(context)!.totalPrice,
+                                      style: getBoldStyle(
+                                          color: ColorManager.grayForMessage,
+                                          fontSize: 14)),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(state.totalPrice.toString(),
+                                          style: getBoldStyle(
+                                              color: ColorManager.primaryGreen,
+                                              fontSize: 24)),
+                                      const SizedBox(
+                                        width: 2,
+                                      ),
+                                      Text(
+                                          AppLocalizations.of(context)!
+                                              .curruncy,
+                                          style: getBoldStyle(
+                                                  color:
+                                                      ColorManager.primaryGreen,
+                                                  fontSize: 15)!
+                                              .copyWith(height: 1))
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 27, vertical: 9),
+                                    child: Row(
+                                      children: [
+                                        isEdit
+                                            ? Expanded(
+                                                child: CustomButton(
+                                                  label: "حفظ التعديلات",
+                                                  fillColor:
+                                                      ColorManager.primaryGreen,
+                                                  onTap: () {},
+                                                ),
+                                              )
+                                            : const SizedBox(),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        Expanded(
+                                          child: CustomButton(
+                                            label: "رجوع",
+                                            fillColor:
+                                                ColorManager.primaryGreen,
+                                            labelColor: Colors.white,
+                                            onTap: () {
+                                              AppRouter.pop(context);
+                                              // SystemNavigator.pop();
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 9,
+                                  ),
+                                ],
+                              ),
+                            )
+                    ],
+                  ),
+                );
               },
             )
           ],
