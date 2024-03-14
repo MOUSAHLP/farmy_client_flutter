@@ -14,16 +14,11 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
   List<OrderDetailsModel> productDetailsList=[];
   List<ProductResponse> product=[];
   int sum = 0;
-  int productPrice(int id) {
-    int index = productDetailsList.indexWhere((element) => element.id == id);
-    return (productDetailsList[index].product?.quantity??0 *
-        int.parse(productDetailsList[index].product?.price ?? ''));
-  }
 
   int countsProducts(int id) {
     if (productDetailsList.any((element) => element.id == id)) {
       int index = productDetailsList.indexWhere((element) => element.id == id);
-      return productDetailsList[index].product?.quantity ?? 0;
+      return productDetailsList[index].quantity??0;
     }
     return 0;
   }
@@ -32,7 +27,7 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
     int totalProduct=0;
     for (int i = 0; i < productDetailsList.length; i++) {
       totalTax+=productDetailsList[i].product?.tax??0;
-      totalProduct += (int.parse(productDetailsList[i].product!.price??"0") * productDetailsList[i].product!.quantity!);
+      totalProduct += (int.parse(productDetailsList[i].product!.price??"0") * productDetailsList[i].quantity!);
     }
     sum=totalProduct+totalTax;
     return sum;
@@ -46,15 +41,14 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
           emit(state.copyWith(screenStates: ScreenStates.error));
         }, (r) {
           productDetailsList=r;
-
           emit(state.copyWith(screenStates: ScreenStates.success,productList:r,totalPrice: finalPrice() ));
         });
       }
       if (event is AddCount) {
         int index1 =
         productDetailsList.indexWhere((element) => element.id == event.id);
-        productDetailsList[index1].product?.quantity =
-            productDetailsList[index1].product!.quantity! + 1;
+        productDetailsList[index1].quantity =
+            productDetailsList[index1].quantity! + 1;
         sum=0;
         emit(
           state.copyWith(
@@ -67,9 +61,9 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
         int index1 =
         productDetailsList.indexWhere((element) => element.id == event.id);
 
-        if (productDetailsList[index1].product?.quantity != 1) {
-          productDetailsList[index1].product?.quantity =
-              productDetailsList[index1].product!.quantity! - 1;
+        if (productDetailsList[index1].quantity != 1) {
+          productDetailsList[index1].quantity =
+              productDetailsList[index1].quantity! - 1;
 
         }
         sum=0;
@@ -98,8 +92,8 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
         response.fold((l) {
           emit(state.copyWith(errorEdit: l));
         }, (r) {
-          sl<MyOrderBloc>()
-            .add(GetMyOrder());
+          // sl<MyOrderBloc>()
+          //   .add(GetMyOrder());
 
           emit(state.copyWith(successEdit: true));
         });

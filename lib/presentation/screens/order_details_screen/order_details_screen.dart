@@ -80,7 +80,7 @@ final bool isEdit;
               builder:(context, state)
               {
                 if(state.screenStates==ScreenStates.loading) {
-                  return const BuildShimmerOrdersDetails();
+                  return const Expanded(child: Center(child: CircularProgressIndicator(color: ColorManager.primaryGreen,)));
                 } else if(state.screenStates==ScreenStates.error) {
                   return Expanded(
                     child: CustomErrorScreen(onTap: () {

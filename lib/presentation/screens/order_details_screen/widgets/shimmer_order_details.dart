@@ -20,7 +20,7 @@ itemCount: 5,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: SizedBox(
                 width: 1.sw,
-                height: 170,
+                height: 50,
               ),
             ),
           ),

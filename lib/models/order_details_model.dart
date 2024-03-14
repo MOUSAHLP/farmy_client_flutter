@@ -6,7 +6,7 @@ class OrderDetailsModel {
   int id;
   String? orderNumber;
   String? status;
-  String? quantity;
+  int? quantity;
   String? price;
   ProductResponse? product;
 
@@ -25,7 +25,7 @@ class OrderDetailsModel {
       id: json["id"],
       orderNumber: json["order_number"] ,
       status: json["status"],
-      quantity: json["quantity"] ,
+      quantity: int.parse(json["quantity"].toString()) ,
       price: json["price"],
       product:ProductResponse.fromJson(json['product']),
 
