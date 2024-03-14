@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../models/product_response.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/font_app.dart';
@@ -27,7 +26,7 @@ class CardAttributes extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                " ${productDetails.attributeList[index].name} :",
+                " ${productDetails.attributeList[index].name} : ",
                 style: getBoldStyle(
                   color: ColorManager.grayForMessage,
                   fontSize: FontSizeApp.s10,

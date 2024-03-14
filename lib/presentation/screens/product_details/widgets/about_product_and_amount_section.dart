@@ -65,7 +65,7 @@ class AboutProductAndAmountSection extends StatelessWidget {
                                       .copyWith(
                                     height: 1,
                                   ),
-                                ):SizedBox(),
+                                ):const SizedBox(),
                                 const SizedBox(
                                   height: 3,
                                 ),
