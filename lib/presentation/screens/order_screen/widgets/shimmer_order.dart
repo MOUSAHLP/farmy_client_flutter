@@ -10,7 +10,7 @@ class BuildShimmerOrders extends StatelessWidget {
       padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 10),
       child: SizedBox(
         child: ListView.builder(
-
+itemCount: 5,
           itemBuilder: (context, index) =>  Shimmer.fromColors(
             baseColor: const Color(0xFFd3d7de),
             highlightColor: const Color(0xFFe2e4e9),

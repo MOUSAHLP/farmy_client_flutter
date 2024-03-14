@@ -1,33 +1,38 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
+import '../../core/services/services_locator.dart';
 import '../../data/repository/my_order_repository.dart';
 import '../../models/order_details_model.dart';
+import '../../models/product_response.dart';
+import '../my_order_bloc/my_order_bloc.dart';
+import '../my_order_bloc/my_order_event.dart';
 import 'details_order_event.dart';
 import 'details_order_state.dart';
 
 class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
-  List<OrderDetailsModel> productList=[];
+  List<OrderDetailsModel> productDetailsList=[];
+  List<ProductResponse> product=[];
   int sum = 0;
   int productPrice(int id) {
-    int index = productList.indexWhere((element) => element.id == id);
-    return (productList[index].product?.quantity??0 *
-        int.parse(productList[index].product?.price ?? ''));
+    int index = productDetailsList.indexWhere((element) => element.id == id);
+    return (productDetailsList[index].product?.quantity??0 *
+        int.parse(productDetailsList[index].product?.price ?? ''));
   }
 
   int countsProducts(int id) {
-    if (productList.any((element) => element.id == id)) {
-      int index = productList.indexWhere((element) => element.id == id);
-      return productList[index].product?.quantity ?? 0;
+    if (productDetailsList.any((element) => element.id == id)) {
+      int index = productDetailsList.indexWhere((element) => element.id == id);
+      return productDetailsList[index].product?.quantity ?? 0;
     }
     return 0;
   }
   int finalPrice(){
     int totalTax=0;
     int totalProduct=0;
-    for (int i = 0; i < productList.length; i++) {
-      totalTax+=productList[i].product?.tax??0;
-      totalProduct += (int.parse(productList[i].product!.price??"0") * productList[i].product!.quantity!);
+    for (int i = 0; i < productDetailsList.length; i++) {
+      totalTax+=productDetailsList[i].product?.tax??0;
+      totalProduct += (int.parse(productDetailsList[i].product!.price??"0") * productDetailsList[i].product!.quantity!);
     }
     sum=totalProduct+totalTax;
     return sum;
@@ -40,49 +45,64 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
         response.fold((l) {
           emit(state.copyWith(screenStates: ScreenStates.error));
         }, (r) {
-          productList=r;
+          productDetailsList=r;
 
           emit(state.copyWith(screenStates: ScreenStates.success,productList:r,totalPrice: finalPrice() ));
         });
       }
       if (event is AddCount) {
         int index1 =
-        productList.indexWhere((element) => element.id == event.id);
-        productList[index1].product?.quantity =
-            productList[index1].product!.quantity! + 1;
+        productDetailsList.indexWhere((element) => element.id == event.id);
+        productDetailsList[index1].product?.quantity =
+            productDetailsList[index1].product!.quantity! + 1;
         sum=0;
         emit(
           state.copyWith(
-            productList: productList,
+            productList: productDetailsList,
               totalPrice: finalPrice()
           ),
         );
       }
       if (event is MinusCount) {
         int index1 =
-        productList.indexWhere((element) => element.id == event.id);
+        productDetailsList.indexWhere((element) => element.id == event.id);
 
-        if (productList[index1].product?.quantity != 1) {
-          productList[index1].product?.quantity =
-              productList[index1].product!.quantity! - 1;
+        if (productDetailsList[index1].product?.quantity != 1) {
+          productDetailsList[index1].product?.quantity =
+              productDetailsList[index1].product!.quantity! - 1;
 
         }
         sum=0;
         emit(
           state.copyWith(
-            productList: productList,
+            productList: productDetailsList,
               totalPrice: finalPrice()
           ),
         );
 
       }
       if (event is DeleteProduct) {
-        productList.removeWhere((element) => element.product?.id == event.id);
+        productDetailsList.removeWhere((element) => element.product?.id == event.id);
         sum=0;
         emit(state.copyWith(
-          productList: productList,
+          productList: productDetailsList,
           totalPrice:  finalPrice()
         ));
+      }
+      if(event is EditDetailsOrder){
+        emit(state.copyWith(isLoadingEdite: true));
+        for(int i=0;i<productDetailsList.length;i++) {
+          product.add(productDetailsList[i].product!);
+        }
+        final response = await MyOrderRepository.editOrder(event.id,product);
+        response.fold((l) {
+          emit(state.copyWith(errorEdit: l));
+        }, (r) {
+          sl<MyOrderBloc>()
+            .add(GetMyOrder());
+
+          emit(state.copyWith(successEdit: true));
+        });
       }
     });
   }

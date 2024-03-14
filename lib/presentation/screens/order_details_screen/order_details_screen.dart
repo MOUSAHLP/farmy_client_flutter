@@ -17,6 +17,8 @@ import '../../resources/color_manager.dart';
 import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
 import '../../widgets/custom_button.dart';
+import '../../widgets/dialogs/error_dialog.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
  final int id;
@@ -63,17 +65,28 @@ final bool isEdit;
             ),
             BlocConsumer<DetailsOrderBloc, DetailsOrderState>(
               listener: (context, state) {
-                // TODO: implement listener}
+                if (state.isLoadingEdite) {
+                  LoadingDialog().openDialog(context);
+                } else {
+                  LoadingDialog().closeDialog(context);
+                }
+                if (state.errorEdit!="") {
+                  ErrorDialog.openDialog(context, state.errorEdit);
+                }
+                if (state.successEdit) {
+                }
               },
               builder:(context, state)
               {
                 if(state.screenStates==ScreenStates.loading) {
                   return const CircularProgressIndicator();
                 } else if(state.screenStates==ScreenStates.error) {
-                  return CustomErrorScreen(onTap: () {
-                    sl<DetailsOrderBloc>().add(ShowDetailsOrder(id:id));
-                  },
-                    titleError: state.error,);
+                  return Expanded(
+                    child: CustomErrorScreen(onTap: () {
+                      context.read<DetailsOrderBloc>().add(ShowDetailsOrder(id:id));
+                    },
+                      titleError: state.error,),
+                  );
                 }
                return Expanded(
                  child: Column(
@@ -144,6 +157,7 @@ final bool isEdit;
                                      fillColor:
                                      ColorManager.primaryGreen,
                                      onTap: () {
+                                       context.read<DetailsOrderBloc>().add(EditDetailsOrder(id:id));
 
                                      },
                                    ),

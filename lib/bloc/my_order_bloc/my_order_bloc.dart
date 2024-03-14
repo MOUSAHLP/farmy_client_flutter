@@ -23,13 +23,13 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
         });
       }
       if (event is DeleteOrder) {
-        emit(state.copyWith(isLoadingDelet: true));
+        emit(state.copyWith(isLoadingDelete: true));
         final response = await MyOrderRepository.deleteOrder(event.id);
         response.fold((l) {
-          emit(state.copyWith(errorDelet: l,isErrorDelet: true));
+          emit(state.copyWith(errorDelete: l,isErrorDelete: true));
         }, (r) {
 
-          emit(state.copyWith(successDelet: true));
+          emit(state.copyWith(successDelete: true));
         });
       }
 
