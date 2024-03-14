@@ -57,7 +57,6 @@ class ProductDetailsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isAttribution = false;
-
     return SafeArea(
       child: MultiBlocListener(
         listeners: [
@@ -109,7 +108,6 @@ class ProductDetailsBody extends StatelessWidget {
                                         state.productDetailsResponse,
                                     quantity: quantity ?? 0,
                                   ),
-
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

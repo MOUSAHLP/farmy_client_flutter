@@ -6,6 +6,7 @@ import 'package:pharma/models/product_response.dart';
 import 'package:pharma/models/user_address_response.dart';
 
 class HomePageDynamicModel {
+  int? id;
   String? type;
   String? order;
   Map<String, dynamic>? title;
@@ -19,7 +20,8 @@ class HomePageDynamicModel {
   UserAddressModel? userAddressModel;
 
   HomePageDynamicModel(
-      {this.type,
+      {this.id,
+      this.type,
       this.order,
       this.title,
       this.link,
@@ -29,6 +31,7 @@ class HomePageDynamicModel {
       this.sliderContent});
 
   HomePageDynamicModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     type = json['type'];
     order = json['order'];
     title = json['title'];

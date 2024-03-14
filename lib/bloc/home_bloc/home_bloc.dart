@@ -4,7 +4,7 @@ import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/home_repo.dart';
 import 'package:pharma/models/home_page_dynamic_model.dart';
 import 'package:pharma/models/home_response.dart';
-import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
+import 'package:flutter/material.dart';
 
 import '../../models/banners_response.dart';
 import '../../models/categories_respoonse.dart';
@@ -21,11 +21,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   int indexPagePagination = 2;
   HomeRepo homeRepo;
 
+  final ScrollController scrollController = ScrollController();
+
   List<HomePageDynamicModel>? homePageDynamicModel;
 
-  late RefreshController refreshController;
-
   HomeBloc({required this.homeRepo}) : super(const HomeState()) {
+    scrollController.addListener(_scrollListener);
     on<HomeEvent>((event, emit) async {
       if (event is GetHomeData) {
         emit(state.copyWith(screenState: ScreenState.loading));
@@ -34,7 +35,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             (l) =>
                 emit(state.copyWith(screenState: ScreenState.error, error: l)),
             (List<HomePageDynamicModel> r) {
-          refreshController.resetNoData();
           indexPagePagination = 2;
           homePageDynamicModel = r;
           lastPagePagination = homePageDynamicModel![0].lastPagePagination!;
@@ -49,11 +49,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<void> getPagination(Emitter<HomeState> emit) async {
     if (indexPagePagination > lastPagePagination) {
-      refreshController.loadNoData();
+      print("no More Data");
     } else {
       emit(state.copyWith(screenState: ScreenState.loadMoreData));
-      await refreshController.requestLoading();
-
       (await homeRepo.getHomeDynamicData(page: indexPagePagination)).fold(
           (String l) =>
               emit(state.copyWith(screenState: ScreenState.error, error: l)),
@@ -62,7 +60,29 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         indexPagePagination++;
         emit(state.copyWith(screenState: ScreenState.success));
       });
-      refreshController.loadComplete();
+    }
+  }
+
+  Widget buildListViewFooter() {
+    Widget? body;
+    if (state.screenState == ScreenState.loadMoreData) {
+      body = const CircularProgressIndicator();
+    } else if (indexPagePagination > lastPagePagination) {
+      body = const Text("No More Data");
+    } else {
+      body = null;
+    }
+    return SizedBox(
+      height: 55.0,
+      child: Center(child: body),
+    );
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent &&
+        indexPagePagination <= lastPagePagination) {
+      add(OnLoadingHomeData());
     }
   }
 }

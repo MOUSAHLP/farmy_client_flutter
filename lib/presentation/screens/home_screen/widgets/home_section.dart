@@ -12,10 +12,15 @@ import 'package:pharma/translations.dart';
 import '../../../../models/product_response.dart';
 
 class HomeSection extends StatelessWidget {
+  final int sectionId;
   final Map<String, dynamic> title;
   final List<ProductResponse> list;
 
-  const HomeSection({Key? key, required this.list, required this.title})
+  const HomeSection(
+      {Key? key,
+      required this.sectionId,
+      required this.list,
+      required this.title})
       : super(key: key);
 
   @override
@@ -31,7 +36,15 @@ class HomeSection extends StatelessWidget {
             child: CustomSectionName(
               sectionName: title[appLang] ??
                   AppLocalizations.of(context)!.suggested_products,
-              onTap: () {},
+              onTap: () {
+                // AppRouter.push(
+                //   context,
+                //   ProductDetailsScreen(
+                //     id: list[index].id,
+                //     quantity: list[index].quantity ?? 0,
+                //   ),
+                // );
+              },
             ),
           ),
           SizedBox(
