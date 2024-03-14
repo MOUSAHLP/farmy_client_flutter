@@ -6,6 +6,7 @@ import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 import 'package:pharma/presentation/screens/order_details_screen/widgets/card_details_order.dart';
+import 'package:pharma/presentation/screens/order_details_screen/widgets/shimmer_order_details.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
@@ -79,7 +80,7 @@ final bool isEdit;
               builder:(context, state)
               {
                 if(state.screenStates==ScreenStates.loading) {
-                  return const CircularProgressIndicator();
+                  return const BuildShimmerOrdersDetails();
                 } else if(state.screenStates==ScreenStates.error) {
                   return Expanded(
                     child: CustomErrorScreen(onTap: () {

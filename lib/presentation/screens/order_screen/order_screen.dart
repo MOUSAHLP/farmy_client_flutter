@@ -71,6 +71,7 @@ class OrderScreenBody extends StatelessWidget {
                           onTap: () {
                             context.read<MyOrderBloc>().add(GetMyOrder());
                           },
+                            titleError: state.error,
                         ),
                       );
                     } else if (state.screenStates == ScreenStates.success) {

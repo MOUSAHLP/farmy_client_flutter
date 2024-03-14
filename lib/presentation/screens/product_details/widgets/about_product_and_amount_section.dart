@@ -30,6 +30,8 @@ class AboutProductAndAmountSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print( "productDetails.attributeList");
+    print( productDetails.attributeList);
     return BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
       builder: (context, state) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +62,7 @@ class AboutProductAndAmountSection extends StatelessWidget {
                                 const SizedBox(
                                   height: 3,
                                 ),
-                                Text(
+                                productDetails.sellerName!=null?  Text(
                                   "(${productDetails.sellerName})",
                                   style: getBoldStyle(
                                     color: ColorManager.primaryGreen,
@@ -69,7 +71,7 @@ class AboutProductAndAmountSection extends StatelessWidget {
                                       .copyWith(
                                     height: 1,
                                   ),
-                                ),
+                                ):SizedBox(),
                                 const SizedBox(
                                   height: 3,
                                 ),
@@ -143,15 +145,15 @@ class AboutProductAndAmountSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              productDetails.attributeList.isNotEmpty
-                  ? Text(
-                productDetails.attributeList[0].value,
-                      style: getBoldStyle(
-                        color: ColorManager.grayForMessage,
-                        fontSize: FontSizeApp.s15,
-                      ),
-                    )
-                  : const SizedBox(),
+              // productDetails.attributeList.isNotEmpty
+              //     ? Text(
+              //   productDetails.attributeList[0].value,
+              //         style: getBoldStyle(
+              //           color: ColorManager.grayForMessage,
+              //           fontSize: FontSizeApp.s15,
+              //         ),
+              //       )
+              //     : const SizedBox(),
               productDetails.attributeList.length > 1
                   ? Text(
                       " / ${productDetails.attributeList[1].value}",
