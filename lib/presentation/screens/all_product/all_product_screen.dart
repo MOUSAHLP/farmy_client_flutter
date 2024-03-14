@@ -77,8 +77,10 @@ class _AllLProductBodyState extends State<AllProductBody>
                     child: TabBar(
                       onTap: (value) {
                         context.read<ProductsBloc>().add(
-                            GetProductsBySubCategoryId(
-                                id: widget.subCategoryList![value].id!));
+                              GetProductsBySubCategoryId(
+                                id: widget.subCategoryList![value].id!,
+                              ),
+                            );
                       },
                       isScrollable: true,
                       indicatorColor: ColorManager.primaryGreen,
@@ -102,39 +104,42 @@ class _AllLProductBodyState extends State<AllProductBody>
                             : state.screenState == ScreenState.success
                                 ? state.productsList.isNotEmpty
                                     ? GridView.builder(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 10),
+                                        padding:  EdgeInsets.symmetric(
+                                          vertical: 8.h,
+                                          horizontal: 5.w,
+                                        ),
                                         itemCount: state.productsList.length,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                // childAspectRatio: 144 / 233,
-                                                crossAxisCount: 2,
-                                                mainAxisSpacing: 26,
-                                                mainAxisExtent: 232),
+                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                          // childAspectRatio: 15 / 2,
+                                          crossAxisCount: 2,
+                                          mainAxisSpacing: 26,
+                                          mainAxisExtent: 232,
+                                        ),
                                         itemBuilder: (context, index) {
                                           return Center(
-                                              child: GestureDetector(
-                                                  onTap: () {
-                                                    AppRouter.push(
-                                                        context,
-                                                        ProductDetailsScreen(
-                                                          id: state
-                                                              .productsList[
-                                                                  index]
-                                                              .id,
-                                                        ));
-                                                  },
-                                                  child: CustomProductCard(
-                                                    productInfo: state
-                                                        .productsList[index],
-                                                    // isDisCount: (state
-                                                    //             .productsList[
-                                                    //                 index]
-                                                    //             .discountStatus ==
-                                                    //         "0")
-                                                    //     ? false
-                                                    //     : true
-                                                  )));
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                AppRouter.push(
+                                                  context,
+                                                  ProductDetailsScreen(
+                                                    id: state
+                                                        .productsList[index].id,
+                                                  ),
+                                                );
+                                              },
+                                              child: CustomProductCard(
+                                                productInfo:
+                                                    state.productsList[index],
+                                                // isDisCount: (state
+                                                //             .productsList[
+                                                //                 index]
+                                                //             .discountStatus ==
+                                                //         "0")
+                                                //     ? false
+                                                //     : true
+                                              ),
+                                            ),
+                                          );
                                         },
                                       )
                                     : CustomNoData(
