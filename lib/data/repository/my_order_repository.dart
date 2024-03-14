@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
+import '../../bloc/details_order_bloc/details_order_bloc.dart';
 import '../../core/utils/api_const.dart';
 import '../../models/my_order_response.dart';
 import '../../models/order_details_model.dart';
+import '../../models/params/product_edit_params.dart';
 import '../../models/product_response.dart';
 import '../data_resource/remote_resource/api_handler/base_api_client.dart';
 
@@ -33,15 +35,15 @@ class MyOrderRepository {
 
     );
   }
-  static Future<Either<String, String>> editOrder( int id,List<ProductResponse> product) {
+  static Future<Either<String, String>> editOrder( int id,List<ProductEditPrams> product) {
    print("============edit order");
-   print(ProductResponse.toJsonCardList(product));
+   print(ProductEditPrams.toJsonCardList(product));
    print("===============product");
    print(product);
     return BaseApiClient.put<String>(
       url: ApiConst.deleteOrder(id),
       queryParameters: {
-        "products":ProductResponse.toJsonCardList(product)},
+        "products":ProductEditPrams.toJsonCardList(product)},
       converter: (e) {
         return e['message'];
       },
