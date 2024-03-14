@@ -93,33 +93,34 @@ class CustomAppBar extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            var settingModel =
-                                context.read<SettingBloc>().settingModel;
-                            if (settingModel != null) {
-                              int phone = int.parse(settingModel.data!.phone!);
-                              Uri url =
-                                  Uri.parse("https://wa.me/$phone/?text=");
-                              if (!await canLaunchUrl(url)) {
-                                await launchUrl(url);
-                                // throw Exception('Could not launch $url');
-                              }
-                            }
-                          },
-                          child: Image.asset(
-                            ImageManager.contactUs,
-                            height: 20,
-                            width: 20,
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: SizedBox(),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     GestureDetector(
+                    //       onTap: () async {
+                    //         var settingModel =
+                    //             context.read<SettingBloc>().settingModel;
+                    //         if (settingModel != null) {
+                    //           int phone = int.parse(settingModel.data!.phone!);
+                    //           Uri url =
+                    //               Uri.parse("https://wa.me/$phone/?text=");
+                    //           if (!await canLaunchUrl(url)) {
+                    //             await launchUrl(url);
+                    //             // throw Exception('Could not launch $url');
+                    //           }
+                    //         }
+                    //       },
+                    //       child: Image.asset(
+                    //         ImageManager.contactUs,
+                    //         height: 20,
+                    //         width: 20,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ),
                 ],
               ),
