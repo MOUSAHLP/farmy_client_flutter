@@ -30,8 +30,9 @@ class SettingScreen extends StatelessWidget {
         child: Column(
           children: [
             CustomAppBarScreen(
-                sectionName: AppLocalizations.of(context)!.settings,
-                isComeBack: false),
+              sectionName: AppLocalizations.of(context)!.settings,
+              isComeBack: true,
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 28),

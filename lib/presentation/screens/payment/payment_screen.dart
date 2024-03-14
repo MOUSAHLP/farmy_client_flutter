@@ -676,8 +676,7 @@ class PaymentBody extends StatelessWidget {
           if (context.read<LocationBloc>().state.addressCurrent.latitude !=
               null) {
             paymentBloc.add(ToggleDeliveryMethod(deliveryMethodData: item));
-            paymentBloc.add(
-              GetInvoicesDetails(
+            paymentBloc.add(GetInvoicesDetails(
                 invoicesParams: InvoicesParams(
                   time: state.time,
                   notes: noteController.text,

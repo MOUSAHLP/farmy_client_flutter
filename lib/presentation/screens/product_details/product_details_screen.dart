@@ -56,7 +56,6 @@ class ProductDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAttribution = false;
     return SafeArea(
       child: MultiBlocListener(
         listeners: [
@@ -444,7 +443,7 @@ class ProductDetailsBody extends StatelessWidget {
           ProductResponse(
             quantity: tmp.quantity,
             image: tmp.image,
-            id: tmp.id ?? 0,
+            id: tmp.id,
             discountValue: tmp.discountValue,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,
@@ -461,7 +460,7 @@ class ProductDetailsBody extends StatelessWidget {
           ProductResponse(
             quantity: tmp.quantity,
             image: tmp.image,
-            id: tmp.id ?? 0,
+            id: tmp.id,
             discountValue: tmp.discountValue,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,

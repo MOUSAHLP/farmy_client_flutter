@@ -6,6 +6,7 @@ import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_app_bar.dart';
 import 'package:pharma/presentation/screens/order_details_screen/widgets/card_details_order.dart';
+import 'package:pharma/presentation/screens/order_details_screen/widgets/shimmer_order_details.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
@@ -17,6 +18,8 @@ import '../../resources/color_manager.dart';
 import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
 import '../../widgets/custom_button.dart';
+import '../../widgets/dialogs/error_dialog.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
  final int id;
@@ -63,17 +66,28 @@ final bool isEdit;
             ),
             BlocConsumer<DetailsOrderBloc, DetailsOrderState>(
               listener: (context, state) {
-                // TODO: implement listener}
+                if (state.isLoadingEdite) {
+                  LoadingDialog().openDialog(context);
+                } else {
+                  LoadingDialog().closeDialog(context);
+                }
+                if (state.errorEdit!="") {
+                  ErrorDialog.openDialog(context, state.errorEdit);
+                }
+                if (state.successEdit) {
+                }
               },
               builder:(context, state)
               {
                 if(state.screenStates==ScreenStates.loading) {
-                  return const CircularProgressIndicator();
+                  return const Expanded(child: Center(child: CircularProgressIndicator(color: ColorManager.primaryGreen,)));
                 } else if(state.screenStates==ScreenStates.error) {
-                  return CustomErrorScreen(onTap: () {
-                    sl<DetailsOrderBloc>().add(ShowDetailsOrder(id:id));
-                  },
-                    titleError: state.error,);
+                  return Expanded(
+                    child: CustomErrorScreen(onTap: () {
+                      context.read<DetailsOrderBloc>().add(ShowDetailsOrder(id:id));
+                    },
+                      titleError: state.error,),
+                  );
                 }
                return Expanded(
                  child: Column(
@@ -144,6 +158,7 @@ final bool isEdit;
                                      fillColor:
                                      ColorManager.primaryGreen,
                                      onTap: () {
+                                       context.read<DetailsOrderBloc>().add(EditDetailsOrder(id:id));
 
                                      },
                                    ),

@@ -3,59 +3,36 @@ import 'package:pharma/models/my_order_response.dart';
 
 import '../../core/app_enum.dart';
 
-// abstract class MyOrderState {}
-//
-// class MyOrderLoading extends MyOrderState {}
-// class DeleteOrderLoading extends MyOrderState {}
-//
-// class MyOrderError extends MyOrderState {
-//   String error;
-//   MyOrderError(this.error);
-// }
-// class DeleteOrderError extends MyOrderState {
-//   String error;
-//   DeleteOrderError(this.error);
-// }
-//
-// class MyOrderSuccess extends MyOrderState {
-//   List<MyOrderResponse> myOrderList;
-//   MyOrderSuccess(this.myOrderList);
-// }
-// class DeleteOrderSuccess extends MyOrderState {
-//
-//   DeleteOrderSuccess();
-// }
-
 class MyOrderState extends Equatable {
   ScreenStates screenStates;
   List<MyOrderResponse> myOrderList;
   bool isLoading;
-  bool isLoadingDelet;
-  bool isErrorDelet;
+  bool isLoadingDelete;
+  bool isErrorDelete;
   bool success;
-  bool successDelet;
+  bool successDelete;
   String error;
-  String errorDelet;
+  String errorDelete;
   MyOrderState({
     this.screenStates = ScreenStates.loading,
    this.myOrderList=const [],
     this.isLoading=false,
-    this.isLoadingDelet=false,
-    this.isErrorDelet=false,
+    this.isLoadingDelete=false,
+    this.isErrorDelete=false,
     this.success=false,
-    this.successDelet=false,
+    this.successDelete=false,
     this.error='',
-    this.errorDelet='',
+    this.errorDelete='',
   });
   MyOrderState copyWith({
     ScreenStates? screenStates,
     bool? isLoading,
-    bool? isLoadingDelet,
-    bool? isErrorDelet,
+    bool? isLoadingDelete,
+    bool? isErrorDelete,
     bool? success,
-    bool? successDelet,
+    bool? successDelete,
     String? error,
-    String? errorDelet,
+    String? errorDelete,
     List<MyOrderResponse>? myOrderList
 
   }){
@@ -63,12 +40,12 @@ class MyOrderState extends Equatable {
       myOrderList:myOrderList??this.myOrderList,
       screenStates: screenStates ?? this.screenStates,
       isLoading: isLoading??false,
-      isLoadingDelet: isLoadingDelet??false,
-      isErrorDelet: isErrorDelet??false,
+      isLoadingDelete: isLoadingDelete??false,
+      isErrorDelete: isErrorDelete??false,
       error: error??'',
-      errorDelet: errorDelet??'',
+      errorDelete: errorDelete??'',
       success: success??false,
-      successDelet: successDelet??false,
+      successDelete: successDelete??false,
     );
   }
   @override
@@ -76,12 +53,12 @@ class MyOrderState extends Equatable {
   List<Object?> get props => [
     screenStates,
     isLoading,
-    isLoadingDelet,
-    isErrorDelet,
+    isLoadingDelete,
+    isErrorDelete,
     success,
-    successDelet,
+    successDelete,
     error,
-    errorDelet,
+    errorDelete,
     myOrderList
   ];
 }

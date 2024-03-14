@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-class BuildShimmerOrders extends StatelessWidget {
-  const BuildShimmerOrders({super.key});
+class BuildShimmerOrdersDetails extends StatelessWidget {
+  const BuildShimmerOrdersDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ itemCount: 5,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: SizedBox(
                 width: 1.sw,
-                height: 170,
+                height: 50,
               ),
             ),
           ),

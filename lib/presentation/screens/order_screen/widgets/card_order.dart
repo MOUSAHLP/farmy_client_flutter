@@ -54,7 +54,8 @@ class CardOrder extends StatelessWidget {
                                   color: Colors.black, fontSize: 11)),
                         ),
                         Expanded(
-                          child: Text("${myOrder.total ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
+                          child: Text(
+                              "${myOrder.total ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
                               style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: 15),
@@ -64,8 +65,11 @@ class CardOrder extends StatelessWidget {
                       ],
                     )
                   : const SizedBox(),
-       //      Text(myOrder.status??""),
-               StateButtons(status:myOrder.status??"" ,id: myOrder.id,)
+              //Text(myOrder.status??""),
+              StateButtons(
+                status: myOrder.status ?? "",
+                id: myOrder.id,
+              )
             ],
           ),
         ),

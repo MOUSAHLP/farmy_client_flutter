@@ -38,14 +38,9 @@ class BaseApiClient {
       required T Function(dynamic) converter,
       bool isToken = false,
       dynamic returnOnError}) async {
-    print("post================================");
-    print(url);
-    print("queryParameters");
-    print(queryParameters);
-    print("formData");
-    print(formData);
-    print("post================================");
     try {
+      print("formData formData formData formData formData ");
+      print(formData);
       var response = await client.post(
         url,
         queryParameters: queryParameters,
@@ -87,11 +82,11 @@ class BaseApiClient {
     }
   }
 
-  static Future put(
+  static Future<Either<String, T>> put<T>(
       {required String url,
       FormData? formData,
       Map<String, dynamic>? queryParameters,
-      required Function(dynamic) converter,
+        required T Function(dynamic) converter,
       dynamic returnOnError}) async {
     try {
       var response = await client.put(
@@ -108,23 +103,26 @@ class BaseApiClient {
           headers: _headers,
         ),
       );
-      if (response.statusCode! >= 200 || response.statusCode! <= 205) {
+      if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
+          (response.data['error'].toString() != 'true')) {
         if (kDebugMode) {
-          print(response.data);
+          log(response.data.toString());
         }
-        return converter(response.data);
+        return right(converter(response.data));
+      } else {
+        return left(response.data['message']);
       }
     } on DioException catch (e) {
       Map dioError = DioErrorsHandler.onError(e);
-      // toast(dioError['message']);
       if (kDebugMode) {
-        print(dioError);
+        print(e);
       }
-      return returnOnError ?? e.response?.data['message'] ?? '';
+      return left(returnOnError ?? dioError["message"] ?? '');
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+      return left("");
     }
   }
 
@@ -134,11 +132,6 @@ class BaseApiClient {
     required T Function(dynamic) converter,
     CancelToken? cancelToken,
   }) async {
-    print("get================================");
-    print(url);
-    print("queryParameters");
-    print(queryParameters);
-    print("get================================");
     try {
       var response = await client.get(
         url,

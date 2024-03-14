@@ -49,15 +49,15 @@ class OrderScreenBody extends StatelessWidget {
             child: sl<AuthenticationBloc>().loggedIn
                 ? BlocConsumer<MyOrderBloc, MyOrderState>(
                     listener: (context, state) {
-                    if (state.isLoadingDelet) {
+                    if (state.isLoadingDelete) {
                       LoadingDialog().openDialog(context);
                     } else {
                       LoadingDialog().closeDialog(context);
                     }
-                    if (state.isErrorDelet) {
+                    if (state.isErrorDelete) {
                       ErrorDialog.openDialog(context, state.error);
                     }
-                    if (state.successDelet) {
+                    if (state.successDelete) {
                       context.read<MyOrderBloc>().add(GetMyOrder());
                     }
                   },
@@ -71,15 +71,21 @@ class OrderScreenBody extends StatelessWidget {
                           onTap: () {
                             context.read<MyOrderBloc>().add(GetMyOrder());
                           },
+                            titleError: state.error,
                         ),
                       );
                     } else if (state.screenStates == ScreenStates.success) {
                       return state.myOrderList.isNotEmpty
                           ? CustomOverscrollIndicator(
-                              child: ListView.builder(
-                                itemBuilder: (context, index) => CardOrder(
-                                    myOrder: state.myOrderList[index]),
-                                itemCount: state.myOrderList.length,
+                              child: RefreshIndicator(
+                                onRefresh: () async {
+                                  context.read<MyOrderBloc>().add(GetMyOrder());
+                                },
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) => CardOrder(
+                                      myOrder: state.myOrderList[index]),
+                                  itemCount: state.myOrderList.length,
+                                ),
                               ),
                             )
                           : CustomNoData(
