@@ -67,9 +67,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Widget? body;
     if (state.screenState == ScreenState.loadMoreData) {
       body = const CircularProgressIndicator();
-    } else if (indexPagePagination > lastPagePagination) {
-      body = const Text("No More Data");
-    } else {
+    }
+    // else if (indexPagePagination > lastPagePagination) {
+    //   body = const Text("No More Data");
+    // }
+    else {
       body = null;
     }
     return SizedBox(
