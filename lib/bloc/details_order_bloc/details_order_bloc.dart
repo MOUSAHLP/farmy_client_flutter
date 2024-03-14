@@ -4,6 +4,7 @@ import 'package:pharma/core/app_enum.dart';
 import '../../core/services/services_locator.dart';
 import '../../data/repository/my_order_repository.dart';
 import '../../models/order_details_model.dart';
+import '../../models/params/product_edit_params.dart';
 import '../../models/product_response.dart';
 import '../my_order_bloc/my_order_bloc.dart';
 import '../my_order_bloc/my_order_event.dart';
@@ -12,7 +13,7 @@ import 'details_order_state.dart';
 
 class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
   List<OrderDetailsModel> productDetailsList=[];
-  List<ProductResponse> product=[];
+  List<ProductEditPrams> product=[];
   int sum = 0;
 
   int countsProducts(int id) {
@@ -86,7 +87,8 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
       if(event is EditDetailsOrder){
         emit(state.copyWith(isLoadingEdite: true));
         for(int i=0;i<productDetailsList.length;i++) {
-          product.add(productDetailsList[i].product!);
+
+          product.add(ProductEditPrams(productDetailsList[i].product!.id, productDetailsList[i].quantity!));
         }
         final response = await MyOrderRepository.editOrder(event.id,product);
         response.fold((l) {
