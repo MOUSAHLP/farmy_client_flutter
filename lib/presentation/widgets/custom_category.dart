@@ -46,9 +46,9 @@ class CustomCategory extends StatelessWidget {
           Container(
             height: 97,
             width: 97,
-            decoration:  BoxDecoration(
-                border: Border.all(color: getChartColor(), width: 2),
-                boxShadow: const [
+            decoration:  const BoxDecoration(
+                // border: Border.all(color: getChartColor(), width: 2),
+                boxShadow: [
                   BoxShadow(
                       blurRadius: 2,
                       offset: Offset(0, -3),

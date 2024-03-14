@@ -25,90 +25,92 @@ class HomeSectionProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HomeSectionAllProductsBloc>(
-      lazy: true,
-      create: (BuildContext context) => sl<HomeSectionAllProductsBloc>()
-        ..add(GetHomeSectionAllProducts(id: sectionId)),
-      child: Scaffold(
-        backgroundColor: ColorManager.white,
-        body: Column(
-          children: [
-            CustomAppBarScreen(
-              sectionName: sectionName,
-              isComeBack: true,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: PaddingApp.p40),
-                child: BlocConsumer<HomeSectionAllProductsBloc,
-                    HomeSectionAllProductsState>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    if (state is HomeSectionAllProductsSuccess) {
-                      if (context
-                          .read<HomeSectionAllProductsBloc>()
-                          .allProductResponse!
-                          .isNotEmpty) {
-                        return GridView.builder(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 8.h,
-                            horizontal: 5.w,
-                          ),
-                          itemCount: context
-                              .read<HomeSectionAllProductsBloc>()
-                              .allProductResponse!
-                              .length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            // childAspectRatio: 15 / 2,
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 26,
-                            mainAxisExtent: 232,
-                          ),
-                          itemBuilder: (context, index) {
-                            return Center(
-                              child: GestureDetector(
-                                onTap: () {
-                                  AppRouter.push(
-                                    context,
-                                    ProductDetailsScreen(
-                                      id: context
-                                          .read<HomeSectionAllProductsBloc>()
-                                          .allProductResponse![index]
-                                          .id,
-                                    ),
-                                  );
-                                },
-                                child: CustomProductCard(
-                                  productInfo: context
-                                      .read<HomeSectionAllProductsBloc>()
-                                      .allProductResponse![index],
+    return SafeArea(
+      child: BlocProvider<HomeSectionAllProductsBloc>(
+        lazy: true,
+        create: (BuildContext context) => sl<HomeSectionAllProductsBloc>()
+          ..add(GetHomeSectionAllProducts(id: sectionId)),
+        child: Scaffold(
+          backgroundColor: ColorManager.white,
+          body: Column(
+            children: [
+              CustomAppBarScreen(
+                sectionName: sectionName,
+                isComeBack: true,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: PaddingApp.p40),
+                  child: BlocConsumer<HomeSectionAllProductsBloc,
+                      HomeSectionAllProductsState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      if (state is HomeSectionAllProductsSuccess) {
+                        if (context
+                            .read<HomeSectionAllProductsBloc>()
+                            .allProductResponse!
+                            .isNotEmpty) {
+                          return GridView.builder(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 8.h,
+                              horizontal: 5.w,
+                            ),
+                            itemCount: context
+                                .read<HomeSectionAllProductsBloc>()
+                                .allProductResponse!
+                                .length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              // childAspectRatio: 15 / 2,
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 26,
+                              mainAxisExtent: 232,
+                            ),
+                            itemBuilder: (context, index) {
+                              return Center(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    AppRouter.push(
+                                      context,
+                                      ProductDetailsScreen(
+                                        id: context
+                                            .read<HomeSectionAllProductsBloc>()
+                                            .allProductResponse![index]
+                                            .id,
+                                      ),
+                                    );
+                                  },
+                                  child: CustomProductCard(
+                                    productInfo: context
+                                        .read<HomeSectionAllProductsBloc>()
+                                        .allProductResponse![index],
 
-                                  // isDisCount: (context
-                                  //             .read<HomeSectionAllProductsBloc>()
-                                  //             .allProductResponse![index]
-                                  //             .discountStatus ==
-                                  //         "0")
-                                  //     ? false
-                                  //     : true,
+                                    // isDisCount: (context
+                                    //             .read<HomeSectionAllProductsBloc>()
+                                    //             .allProductResponse![index]
+                                    //             .discountStatus ==
+                                    //         "0")
+                                    //     ? false
+                                    //     : true,
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
+                              );
+                            },
+                          );
+                        }
+
+                        return CustomNoData(
+                            noDataStatment:
+                                AppLocalizations.of(context)!.thereIsNoProduct);
                       }
 
-                      return CustomNoData(
-                          noDataStatment:
-                              AppLocalizations.of(context)!.thereIsNoProduct);
-                    }
-
-                    return const CustomProductShimmer();
-                  },
+                      return const CustomProductShimmer();
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

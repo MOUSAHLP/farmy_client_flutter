@@ -33,7 +33,7 @@ class PaymentProcessParams {
       "user_address_id": invoicesParams.userAddressId,
       "delivery_method_id": invoicesParams.deliveryMethodId,
       "notes": "${invoicesParams.notes} ",
-      "time":invoicesParams.time,
+      "start_time":invoicesParams.time,
       "products": ProductResponse.toJsonCardList(productInBasketList),
       "delivery_attributes": toJsonCardList(deliveryAttributesList),
       "payment_method_id": 1,
