@@ -9,6 +9,7 @@ import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/models/home_page_dynamic_model.dart';
+import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_servies.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_cursel.dart';
@@ -19,7 +20,6 @@ import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../base_screen/base_screen.dart';
-import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,13 +31,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  @override
-  void initState() {
-    context.read<HomeBloc>().refreshController =
-        RefreshController(initialRefresh: false);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BaseScreenScaffold(
@@ -79,82 +72,69 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       const CustomDeliveryService(),
                       //// ==================== making dynamic content ==================== ////
                       Expanded(
-                        child: SmartRefresher(
-                          controller:
-                              context.read<HomeBloc>().refreshController,
-                          enablePullDown: false,
-                          enablePullUp: true,
+                        child: ListView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          controller: context.read<HomeBloc>().scrollController,
+                          shrinkWrap: true,
+                          children: [
+                            ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: context
+                                  .read<HomeBloc>()
+                                  .homePageDynamicModel!
+                                  .length,
+                              itemBuilder: (context, index) {
+                                return BlocBuilder<LanguageBloc, LanguageState>(
+                                    builder: (context, languageState) {
+                                  List<HomePageDynamicModel>
+                                      homePageDynamicModel = context
+                                          .read<HomeBloc>()
+                                          .homePageDynamicModel!;
 
-                          // onRefresh: () => sl<HomeBloc>().add(GetHomeData()),
-                          onLoading: () =>
-                              sl<HomeBloc>().add(OnLoadingHomeData()),
-                          footer: CustomFooter(
-                            builder: (BuildContext context, LoadStatus? mode) {
-                              Widget body;
-                              if (mode == LoadStatus.loading) {
-                                body = const CircularProgressIndicator();
-                              } else if (mode == LoadStatus.failed) {
-                                body = const Text("Load Failed!Click retry!");
-                              } else if (mode == LoadStatus.canLoading) {
-                                body = const Text("release to load more");
-                              } else {
-                                body = const Text("No More Data");
-                              }
-                              return SizedBox(
-                                height: 55.0,
-                                child: Center(child: body),
-                              );
-                            },
-                          ),
-                          child: ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: context
-                                .read<HomeBloc>()
-                                .homePageDynamicModel!
-                                .length,
-                            itemBuilder: (context, index) {
-                              return BlocBuilder<LanguageBloc, LanguageState>(
-                                  builder: (context, state) {
-                                List<HomePageDynamicModel>
-                                    homePageDynamicModel = context
-                                        .read<HomeBloc>()
-                                        .homePageDynamicModel!;
+                                  return Column(
+                                    children: [
+                                      if (homePageDynamicModel[index].type ==
+                                          "category")
+                                        HomeCategory(
+                                          title: homePageDynamicModel[index]
+                                              .title!,
+                                          categoriesList:
+                                              homePageDynamicModel[index]
+                                                  .categoryContent!,
+                                        ),
+                                      if (homePageDynamicModel[index].type ==
+                                          "section")
+                                        HomeSection(
+                                          title: homePageDynamicModel[index]
+                                              .title!,
+                                          sectionId:
+                                              homePageDynamicModel[index].id!,
+                                          list: homePageDynamicModel[index]
+                                              .sectionContent!,
+                                        ),
+                                      if (homePageDynamicModel[index].type ==
+                                          "slider")
+                                        CustomHomeCursel(
+                                          verticalPadding: 10,
+                                          bannerList:
+                                              homePageDynamicModel[index]
+                                                  .sliderContent,
+                                          height: 164.h,
+                                        ),
+                                    ],
+                                  );
+                                });
+                              },
+                            ),
 
-                                return Column(
-                                  children: [
-                                    if (homePageDynamicModel[index].type ==
-                                        "category")
-                                      HomeCategory(
-                                        title:
-                                            homePageDynamicModel[index].title!,
-                                        categoriesList:
-                                            homePageDynamicModel[index]
-                                                .categoryContent!,
-                                      ),
-                                    if (homePageDynamicModel[index].type ==
-                                        "section")
-                                      HomeSection(
-                                        title:
-                                            homePageDynamicModel[index].title!,
-                                        list: homePageDynamicModel[index]
-                                            .sectionContent!,
-                                      ),
-                                    if (homePageDynamicModel[index].type ==
-                                        "slider")
-                                      CustomHomeCursel(
-                                        verticalPadding: 10,
-                                        bannerList: homePageDynamicModel[index]
-                                            .sliderContent,
-                                        height: 164.h,
-                                      ),
-                                  ],
-                                );
-                              });
-                            },
-                          ),
+                            // loading and no data
+                            context.read<HomeBloc>().buildListViewFooter(),
+                          ],
                         ),
                       ),
+
+                      // ),
                     ],
                   ),
                 );

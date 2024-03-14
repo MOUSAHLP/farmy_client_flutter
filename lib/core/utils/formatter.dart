@@ -82,9 +82,6 @@ mixin Formatter {
 
   static String formatPrice(int price) {
     final formatter = NumberFormat('#,###.##', 'en_US');
-    print("price");
-    print(price);
-    print(formatter.format(price));
     return formatter.format(price);
   }
 }

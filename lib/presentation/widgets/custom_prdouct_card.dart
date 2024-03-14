@@ -215,13 +215,12 @@ class CustomProductCard extends StatelessWidget {
                             builder: (context, state) {
                               return FavoriteHeart(
                                 id: productInfo.id ?? 0,
-                                isToggled:productInfo.isFavorite,
+                                isToggled: productInfo.isFavorite,
                                 onTap: () {
                                   context.read<FavoriteBloc>().add(
-                                    ChangeFavoriteStatusProduct(
-                                        productInfo.id,
-                                        productInfo),
-                                  );
+                                        ChangeFavoriteStatusProduct(
+                                            productInfo.id, productInfo),
+                                      );
                                   // context.read<FavoriteBloc>().add(
                                   //       ChangeFavoriteStatusRestaurant(
                                   //         productInfo.id ?? 0,
