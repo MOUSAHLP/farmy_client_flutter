@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 
 import '../../bloc/authentication_bloc/authertication_bloc.dart';
@@ -57,7 +58,7 @@ class _BottomBarState extends State<BottomBar> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
+                SvgPicture.asset(
                   height: 25,
                   width: 25,
                   ImageManager.homeIcon,
@@ -87,7 +88,7 @@ class _BottomBarState extends State<BottomBar> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
+                SvgPicture.asset(
                   height: 25,
                   width: 25,
                   ImageManager.favoriteIcon,
@@ -117,7 +118,7 @@ class _BottomBarState extends State<BottomBar> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
+                SvgPicture.asset(
                   ImageManager.basketIcon,
                   height: 25,
                   width: 25,
@@ -147,8 +148,8 @@ class _BottomBarState extends State<BottomBar> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  ImageManager.homeIcon,
+               SvgPicture.asset(
+                  ImageManager.myOrder,
                   color: context.read<HomeBloc>().currentIndex == 3
                       ? ColorManager.primaryGreen
                       : ColorManager.greyForUnSelectedItem,
@@ -178,7 +179,7 @@ class _BottomBarState extends State<BottomBar> {
                 Stack(
                   alignment: Alignment.bottomRight,
                   children: [
-                    Image.asset(
+                    SvgPicture.asset(
                       ImageManager.profileIcon,
                       color: context.read<HomeBloc>().currentIndex == 4
                           ? ColorManager.primaryGreen

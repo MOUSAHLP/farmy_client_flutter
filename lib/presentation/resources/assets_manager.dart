@@ -16,10 +16,15 @@ class ImageManager {
       "$imagePath/slider_alternative.png";
 
   static const String placeholderLogo = "$imagePath/app_logo.png";
-  static const String homeIcon = "$imagePath/home_icon.png";
-  static const String favoriteIcon = "$imagePath/favorite_icon.png";
-  static const String basketIcon = "$imagePath/basket_icon.png";
-  static const String profileIcon = "$imagePath/profile_icon.png";
+
+
+  /// Svg
+  static const String homeIcon = "$imagePath/home_icon.svg";
+  static const String favoriteIcon = "$imagePath/favorite_icon.svg";
+  static const String basketIcon = "$imagePath/basket_icon.svg";
+  static const String profileIcon = "$imagePath/profile_icon.svg";
+  static const String myOrder = "$imagePath/my_order.svg";
+
   static const String dateTimeImage = "$imagePath/date_time.png";
   static const String farmySmile = "$imagePath/farmy_smile.png";
   static const String onBoarding1 = "$imagePath/onborading1.png";
