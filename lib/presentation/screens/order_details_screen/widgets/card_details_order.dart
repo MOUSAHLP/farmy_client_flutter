@@ -47,7 +47,7 @@ class CardDetailsOrder extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             const SizedBox(width: 10,),
-            isEdit? buildCounterWidget(context):SizedBox(),
+            isEdit? buildCounterWidget(context):const SizedBox(),
 
             if (onTapDelete != null)
               Expanded(
@@ -89,29 +89,42 @@ class CardDetailsOrder extends StatelessWidget {
                             fontSize: FontSizeApp.s10)
                         ?.copyWith(height: 1),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      product.product!.attributeList.isNotEmpty
-                          ? Text(
-                        product.product!.attributeList[0].value,
-                        style: getBoldStyle(
-                          color: ColorManager.grayForMessage,
-                          fontSize: FontSizeApp.s15,
-                        ),
-                      )
-                          : const SizedBox(height: 5),
-                      product.product!.attributeList.length > 1
-                          ? Text(
-                        " / ${product.product!.attributeList[1].value}",
-                        style: getBoldStyle(
-                          color: ColorManager.grayForMessage,
-                          fontSize: FontSizeApp.s15,
-                        ),
-                      )
-                          : const SizedBox(height: 5),
-                    ],
+                  SizedBox(
+                    height: 25,
+
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount:  product.product!.attributeList.length,
+                      physics: const NeverScrollableScrollPhysics(),
+
+                      itemBuilder: (context, index) =>Padding(
+                          padding: const EdgeInsets.symmetric(vertical:2),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+
+                                product.product!.attributeList[index].value,
+                                style: getRegularStyle(
+                                  color: ColorManager.grayForMessage,
+                                  fontSize: FontSizeApp.s15,
+                                )!
+                                    .copyWith(height: 1),
+                              ),
+                              product.product!.attributeList.length-1!=index?Text(
+                                "/",
+                                style: getRegularStyle(
+                                  color: ColorManager.grayForMessage,
+                                  fontSize: FontSizeApp.s15,
+                                )!
+                                    .copyWith(height: 1),
+                              ):const SizedBox()
+
+                            ],
+                          )) ,),
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
