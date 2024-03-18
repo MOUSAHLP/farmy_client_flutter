@@ -16,13 +16,20 @@ import '../../../resources/assets_manager.dart';
 
 class CustomDeliveryAddress extends StatelessWidget {
   final UserAddressModel? userAddressModel;
-  const CustomDeliveryAddress({super.key, required this.userAddressModel});
+
+  const CustomDeliveryAddress({
+    super.key,
+    required this.userAddressModel,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 13, vertical: AppValueConst.homeVerticalPadding),
+      padding: EdgeInsetsDirectional.only(
+        start: 13,
+        end: 13,
+        bottom: 10.h,
+      ),
       child: InkWell(
         onTap: () {
           AppRouter.push(context, const LocationScreen());
@@ -30,17 +37,22 @@ class CustomDeliveryAddress extends StatelessWidget {
         child: BlocBuilder<LocationBloc, LocationState>(
           builder: (context, state) => Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: const Border(
-                  left: BorderSide(color: ColorManager.grayForMessage),
-                  right: BorderSide(color: ColorManager.grayForMessage),
-                  top: BorderSide(
-                      color: ColorManager
-                          .grayForMessage), // White border at the top
-                  bottom: BorderSide(
-                      color: ColorManager
-                          .grayForMessage), // White border at the bottom
-                )),
+              borderRadius: BorderRadius.circular(10),
+              border: const Border(
+                left: BorderSide(
+                  color: ColorManager.grayForMessage,
+                ),
+                right: BorderSide(
+                  color: ColorManager.grayForMessage,
+                ),
+                top: BorderSide(
+                  color: ColorManager.grayForMessage,
+                ), // White border at the top
+                bottom: BorderSide(
+                  color: ColorManager.grayForMessage,
+                ), // White border at the bottom
+              ),
+            ),
             width: 1.sw,
             height: 61,
             child: Padding(
@@ -65,8 +77,9 @@ class CustomDeliveryAddress extends StatelessWidget {
                             Text(
                               AppLocalizations.of(context)!.delivery_to,
                               style: getSemiBoldStyle(
-                                      color: ColorManager.grayForMessage,
-                                      fontSize: FontSizeApp.s10)!
+                                color: ColorManager.grayForMessage,
+                                fontSize: FontSizeApp.s10,
+                              )!
                                   .copyWith(height: 1),
                             ),
                           ],
@@ -82,8 +95,9 @@ class CustomDeliveryAddress extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: getBoldStyle(
-                                        fontSize: FontSizeApp.s13,
-                                        color: ColorManager.primaryGreen)!
+                                  fontSize: FontSizeApp.s13,
+                                  color: ColorManager.primaryGreen,
+                                )!
                                     .copyWith(height: 1),
                               ),
                             ),

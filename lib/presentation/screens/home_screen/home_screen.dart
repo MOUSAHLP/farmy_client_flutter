@@ -42,7 +42,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             builder: (context, state) {
               if (state.screenState == ScreenState.loading) {
                 return const CustomHomeShimmer();
-              } else if (state.screenState == ScreenState.error) {
+              }
+              else if (state.screenState == ScreenState.error) {
                 return Expanded(
                   child: CustomErrorScreen(
                       onTap: () {
@@ -50,13 +51,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       titleError: state.error),
                 );
-              } else if (state.screenState == ScreenState.success ||
-                  state.screenState == ScreenState.loadMoreData) {
-                context.read<LocationBloc>().state.addressCurrent = context
-                    .read<HomeBloc>()
-                    .homePageDynamicModel!
-                    .last
-                    .userAddressModel!;
+              }
+              else if (state.screenState == ScreenState.success || state.screenState == ScreenState.loadMoreData) {
+                context.read<LocationBloc>().state.addressCurrent = context.read<HomeBloc>().homePageDynamicModel!.last.userAddressModel!;
                 return Expanded(
                   child: Column(
                     children: [

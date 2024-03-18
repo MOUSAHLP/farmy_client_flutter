@@ -50,6 +50,7 @@ class LocationScreen extends StatelessWidget {
 
 class LocationScreenBody extends StatelessWidget {
   const LocationScreenBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -57,7 +58,8 @@ class LocationScreenBody extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           CustomAppBarScreen(
-              sectionName: AppLocalizations.of(context)!.delivery_Address),
+            sectionName: AppLocalizations.of(context)!.delivery_Address,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 21),
             child: Column(
@@ -69,7 +71,9 @@ class LocationScreenBody extends StatelessWidget {
                     Text(
                       AppLocalizations.of(context)!.choose_the_Address,
                       style: getBoldStyle(
-                          color: ColorManager.grayForMessage, fontSize: 14),
+                        color: ColorManager.grayForMessage,
+                        fontSize: 14,
+                      ),
                     ),
                   ],
                 ),
@@ -112,7 +116,8 @@ class LocationScreenBody extends StatelessWidget {
                   itemBuilder: (context, index) => Row(
                     children: [
                       CardLocation(
-                          userAddressModel: state.userAddressList[index]),
+                        userAddressModel: state.userAddressList[index],
+                      ),
                     ],
                   ),
                   itemCount: state.userAddressList.length,
@@ -142,7 +147,8 @@ class LocationScreenBody extends StatelessWidget {
               ],
             ),
           )
-        ]),
+        ],
+        ),
       ),
     );
   }

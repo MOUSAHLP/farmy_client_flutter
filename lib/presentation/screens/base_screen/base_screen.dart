@@ -7,17 +7,18 @@ import '../../widgets/custom_app_drawer.dart';
 import '../home_screen/widgets/custom_app_bar.dart';
 
 class BaseScreenScaffold extends StatelessWidget {
-  BaseScreenScaffold(
-      {required this.body,
-      this.appbarTitle,
-      this.onTapBack,
-      this.backgroundColor,
-      this.floatingActionButtonLocation,
-      this.floatingActionButton,
-      this.drawer,
-      this.isComeBack,
-      this.withNavigator = true,
-      super.key});
+  BaseScreenScaffold({
+    required this.body,
+    this.appbarTitle,
+    this.onTapBack,
+    this.backgroundColor,
+    this.floatingActionButtonLocation,
+    this.floatingActionButton,
+    this.drawer,
+    this.isComeBack,
+    this.withNavigator = true,
+    super.key,
+  });
 
   final Widget body;
   final Widget? drawer;
