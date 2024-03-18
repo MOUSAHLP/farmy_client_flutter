@@ -13,6 +13,8 @@ import 'package:pharma/presentation/screens/notification_screen/notification_scr
 import 'package:pharma/translations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../bloc/home_bloc/home_bloc.dart';
+
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key, this.scaffoldKey});
 
@@ -55,7 +57,7 @@ class CustomAppBar extends StatelessWidget {
                             width: 21,
                           ),
                           onTap: () {
-                            scaffoldKey?.currentState?.openDrawer();
+                                 scaffoldKey?.currentState?.openDrawer();
                           },
                         ),
                         Padding(

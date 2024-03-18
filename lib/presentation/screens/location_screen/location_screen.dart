@@ -6,6 +6,7 @@ import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/add_location_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/widegts/card_location.dart';
 import 'package:pharma/presentation/screens/location_screen/widegts/search_address.dart';
@@ -33,10 +34,21 @@ class LocationScreen extends StatelessWidget {
             LoadingDialog().closeDialog(context);
           }
           if (state.errorDelete != '') {
-            ErrorDialog.openDialog(context, state.error);
+            ErrorDialog.openDialog(context, state.errorDelete);
           }
           if (state.successDelete) {
             AppRouter.pop(context);
+          }
+          if (state.isLoadingFavorite) {
+            LoadingDialog().openDialog(context);
+          } else {
+            LoadingDialog().closeDialog(context);
+          }
+          if (state.errorFavorite != '') {
+            ErrorDialog.openDialog(context, state.errorFavorite);
+          }
+          if (state.successFavorite) {
+        AppRouter.pop(context);
           }
         },
         bloc: sl<LocationBloc>()..add(GetUserAddress()),
@@ -50,7 +62,6 @@ class LocationScreen extends StatelessWidget {
 
 class LocationScreenBody extends StatelessWidget {
   const LocationScreenBody({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,8 +69,7 @@ class LocationScreenBody extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           CustomAppBarScreen(
-            sectionName: AppLocalizations.of(context)!.delivery_Address,
-          ),
+              sectionName: AppLocalizations.of(context)!.delivery_Address),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 21),
             child: Column(
@@ -71,9 +81,7 @@ class LocationScreenBody extends StatelessWidget {
                     Text(
                       AppLocalizations.of(context)!.choose_the_Address,
                       style: getBoldStyle(
-                        color: ColorManager.grayForMessage,
-                        fontSize: 14,
-                      ),
+                          color: ColorManager.grayForMessage, fontSize: 14),
                     ),
                   ],
                 ),
@@ -112,15 +120,19 @@ class LocationScreenBody extends StatelessWidget {
                 return const Text("error");
               }
               return CustomOverscrollIndicator(
-                child: ListView.builder(
-                  itemBuilder: (context, index) => Row(
-                    children: [
-                      CardLocation(
-                        userAddressModel: state.userAddressList[index],
-                      ),
-                    ],
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    sl<LocationBloc>().add(GetUserAddress());
+                  },
+                  child: ListView.builder(
+                    itemBuilder: (context, index) => Row(
+                      children: [
+                        CardLocation(
+                            userAddressModel: state.userAddressList[index]),
+                      ],
+                    ),
+                    itemCount: state.userAddressList.length,
                   ),
-                  itemCount: state.userAddressList.length,
                 ),
               );
             }),
@@ -147,8 +159,7 @@ class LocationScreenBody extends StatelessWidget {
               ],
             ),
           )
-        ],
-        ),
+        ]),
       ),
     );
   }

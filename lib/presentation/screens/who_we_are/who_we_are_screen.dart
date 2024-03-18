@@ -19,40 +19,46 @@ class WhoWeAreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<WhoWeAreBloc>(
-      lazy: true,
-      create: (BuildContext context) => sl<WhoWeAreBloc>()..add(GetWhoWeAre()),
-      child: Scaffold(
-        backgroundColor: ColorManager.white,
-        body: Padding(
-          padding: const EdgeInsets.only(top: PaddingApp.p40),
-          child: BlocConsumer<WhoWeAreBloc, WhoWeAreState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state is WhoWeAreError) {
-                  return CustomErrorScreen(
-                    onTap: () {
-                      context.read<WhoWeAreBloc>().add(GetWhoWeAre());
-                    },
-                  );
-                }
-                if (state is WhoWeAreSuccess) {
-                  String html =
-                      context.read<WhoWeAreBloc>().whoWeAreModel!.data!.html!;
-                  return Center(
-                    child: Column(
-                      children: [
-                        CustomAppBarScreen(
-                          sectionName: AppLocalizations.of(context)!.who_are_we,
-                          isComeBack: true,
-                        ),
-                        HtmlWidget(html),
-                      ],
-                    ),
-                  );
-                }
-                return const CustomLoadingWidget();
-              }),
+    return SafeArea(
+      child: BlocProvider<WhoWeAreBloc>(
+        lazy: true,
+        create: (BuildContext context) => sl<WhoWeAreBloc>()..add(GetWhoWeAre()),
+        child: Scaffold(
+          backgroundColor: ColorManager.white,
+          body: Column(
+            children: [
+              CustomAppBarScreen(
+                sectionName: AppLocalizations.of(context)!.who_are_we,
+                isComeBack: true,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: PaddingApp.p40),
+                child: BlocConsumer<WhoWeAreBloc, WhoWeAreState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      if (state is WhoWeAreError) {
+                        return CustomErrorScreen(
+                          onTap: () {
+                            context.read<WhoWeAreBloc>().add(GetWhoWeAre());
+                          },
+                        );
+                      }
+                      if (state is WhoWeAreSuccess) {
+                        String html =
+                            context.read<WhoWeAreBloc>().whoWeAreModel!.data!.html!;
+                        return Center(
+                          child: Column(
+                            children: [
+                              HtmlWidget(html),
+                            ],
+                          ),
+                        );
+                      }
+                      return const CustomLoadingWidget();
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );

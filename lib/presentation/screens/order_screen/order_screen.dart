@@ -18,10 +18,10 @@ import '../base_screen/base_screen.dart';
 import '../guest_screen/guest_screen.dart';
 
 class OrderScreen extends StatelessWidget {
-  const OrderScreen({super.key});
-
+   OrderScreen({super.key});
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
       create: (context) {
         if (sl<AuthenticationBloc>().loggedIn) {
@@ -100,6 +100,7 @@ class OrderScreenBody extends StatelessWidget {
           ),
         ],
       ),
+
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 
 import '../../widgets/bottom_bar.dart';
 import '../../widgets/custom_app_bar_screen.dart';
@@ -36,12 +38,12 @@ class BaseScreenScaffold extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         if (scaffoldKey.currentState?.isDrawerOpen == true) {
-          scaffoldKey.currentState?.closeDrawer();
+        scaffoldKey.currentState?.closeDrawer();
         } else {}
         return true;
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key:scaffoldKey,
         backgroundColor: backgroundColor,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButton: floatingActionButton,

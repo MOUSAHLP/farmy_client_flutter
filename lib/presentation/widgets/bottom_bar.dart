@@ -35,7 +35,7 @@ class _BottomBarState extends State<BottomBar> {
       const HomeScreen(),
       const AllFavoritesScreen(),
       const BasketScreen(),
-      const OrderScreen(),
+       OrderScreen(),
       const MyAccountScreen(),
     ];
 
