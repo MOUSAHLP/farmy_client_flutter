@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 
 import '../../widgets/bottom_bar.dart';
 import '../../widgets/custom_app_bar_screen.dart';
@@ -28,19 +30,19 @@ class BaseScreenScaffold extends StatelessWidget {
   final bool withNavigator;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final Widget? floatingActionButton;
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  //final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (scaffoldKey.currentState?.isDrawerOpen == true) {
-          scaffoldKey.currentState?.closeDrawer();
+        if (context.read<HomeBloc>().scaffoldKey.currentState?.isDrawerOpen == true) {
+          context.read<HomeBloc>(). scaffoldKey.currentState?.closeDrawer();
         } else {}
         return true;
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: context.read<HomeBloc>().scaffoldKey,
         backgroundColor: backgroundColor,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButton: floatingActionButton,
@@ -49,7 +51,7 @@ class BaseScreenScaffold extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CustomAppBar(scaffoldKey: scaffoldKey),
+              CustomAppBar(scaffoldKey: context.read<HomeBloc>().scaffoldKey),
               if (appbarTitle != null)
                 CustomAppBarScreen(
                   sectionName: appbarTitle!,

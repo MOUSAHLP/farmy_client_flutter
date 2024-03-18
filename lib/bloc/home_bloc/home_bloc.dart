@@ -20,6 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   int lastPagePagination = 1;
   int indexPagePagination = 2;
   HomeRepo homeRepo;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final ScrollController scrollController = ScrollController();
 

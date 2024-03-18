@@ -41,7 +41,7 @@ class OrderDetailsScreen extends StatelessWidget {
 class OrderDetailsBody extends StatelessWidget {
 final int id;
 final bool isEdit;
-  const OrderDetailsBody({super.key,required this.id,this.isEdit=false});
+   OrderDetailsBody({super.key,required this.id,this.isEdit=false});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ final bool isEdit;
       body: SafeArea(
         child: Column(
           children: [
-            const CustomAppBar(),
+             CustomAppBar( ),
             CustomAppBarScreen(
                 sectionName: AppLocalizations.of(context)!.order_details),
             Padding(
