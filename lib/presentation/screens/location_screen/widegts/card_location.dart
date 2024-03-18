@@ -28,14 +28,13 @@ class CardLocation extends StatelessWidget {
                 onTap: (){
 
                 },
-                child: const Icon(Icons.star,color: Colors.yellow,)),
+                child:  Icon(userAddressModel.isFavorite=="1"?Icons.star:null,color: Colors.yellow,)),
             const SizedBox(width: 3,),
             Expanded(
               child: InkWell(
                 onTap: ()
                 {
                   context.read<LocationBloc>().add(SelectAddressDelivery(userAddress:userAddressModel ));
-         
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

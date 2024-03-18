@@ -57,11 +57,8 @@ class CustomAppBar extends StatelessWidget {
                             width: 21,
                           ),
                           onTap: () {
-                            print("drawer");
-                            print(context.read<HomeBloc>().scaffoldKey);
-                            print(context.read<HomeBloc>().scaffoldKey?.currentState);
-                            print(context.read<HomeBloc>().scaffoldKey?.currentState?.isDrawerOpen);
-                            context.read<HomeBloc>().scaffoldKey?.currentState?.openDrawer();
+
+                  scaffoldKey?.currentState?.openDrawer();
                           },
                         ),
                         Padding(

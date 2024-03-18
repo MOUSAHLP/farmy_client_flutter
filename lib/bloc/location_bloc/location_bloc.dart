@@ -94,12 +94,12 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       }
       if (event is SelectAddressDelivery) {
         // addressCurrent = event.userAddress;
-        emit(state.copyWith(isLoadingDelete: true));
+        emit(state.copyWith(isLoadingFavorite: true));
         (await UserAddressRepository.makeAdressFavorite(event.userAddress.id!))
             .fold(
-                (l) => emit(state.copyWith(errorDelete: l)),
+                (l) => emit(state.copyWith(errorFavorite: l)),
                 (r) => emit(state.copyWith(
-                    successDelete: true, addressCurrent: event.userAddress)));
+                    successFavorite: true, addressCurrent: event.userAddress)));
       }
       if (event is DeleteUserAddress) {
         emit(state.copyWith(isLoadingDelete: true));
@@ -110,7 +110,11 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           }
         }, (r) {
           add(GetUserAddress());
-          emit(state.copyWith(successDelete: true));
+          if(event.id==state.addressCurrent.id) {
+            emit(state.copyWith(successDelete: true,addressCurrent: UserAddressModel()));
+          }else{
+            emit(state.copyWith(successDelete: true));
+          }
         });
       }
     });

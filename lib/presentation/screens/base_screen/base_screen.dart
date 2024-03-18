@@ -30,19 +30,19 @@ class BaseScreenScaffold extends StatelessWidget {
   final bool withNavigator;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final Widget? floatingActionButton;
-  //final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (context.read<HomeBloc>().scaffoldKey.currentState?.isDrawerOpen == true) {
-          context.read<HomeBloc>(). scaffoldKey.currentState?.closeDrawer();
+        if (scaffoldKey.currentState?.isDrawerOpen == true) {
+         scaffoldKey.currentState?.closeDrawer();
         } else {}
         return true;
       },
       child: Scaffold(
-        key: context.read<HomeBloc>().scaffoldKey,
+        key: scaffoldKey,
         backgroundColor: backgroundColor,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButton: floatingActionButton,
@@ -51,7 +51,7 @@ class BaseScreenScaffold extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CustomAppBar(scaffoldKey: context.read<HomeBloc>().scaffoldKey),
+              CustomAppBar(scaffoldKey: scaffoldKey),
               if (appbarTitle != null)
                 CustomAppBarScreen(
                   sectionName: appbarTitle!,

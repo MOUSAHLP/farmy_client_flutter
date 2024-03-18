@@ -15,6 +15,11 @@ class LocationState extends Equatable {
   bool isLoadingDelete;
   String errorDelete;
   bool successDelete;
+
+  bool isLoadingFavorite;
+  String errorFavorite;
+  bool successFavorite;
+
   List<UserAddressModel> userAddressList;
   UserAddressModel addressCurrent;
 
@@ -30,6 +35,9 @@ class LocationState extends Equatable {
     this.isLoadingDelete = false,
     this.errorDelete = '',
     this.successDelete = false,
+    this.isLoadingFavorite = false,
+    this.errorFavorite = '',
+    this.successFavorite = false,
   });
 
   LocationState copyWith({
@@ -44,6 +52,9 @@ class LocationState extends Equatable {
     bool? isLoadingDelete,
     String? errorDelete,
     bool? successDelete,
+    bool? isLoadingFavorite,
+    String? errorFavorite,
+    bool? successFavorite,
   }) {
     return LocationState(
       screenStates: screenStates ?? ScreenStates.initialized,
@@ -57,6 +68,10 @@ class LocationState extends Equatable {
       isLoadingDelete: isLoadingDelete ?? false,
       errorDelete: errorDelete ?? '',
       successDelete: successDelete ?? false,
+      isLoadingFavorite: isLoadingFavorite ?? false,
+      errorFavorite: errorFavorite ?? '',
+      successFavorite: successFavorite ?? false,
+      //Favorite
     );
   }
 
@@ -73,7 +88,10 @@ class LocationState extends Equatable {
         addressCurrent,
         isLoadingDelete,
         errorDelete,
-        successDelete
+        successDelete,
+    isLoadingFavorite,
+    errorFavorite,
+    successFavorite
       ];
 }
 

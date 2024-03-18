@@ -17,7 +17,6 @@ import '../../../core/app_validators.dart';
 import '../../../models/params/add_address_params.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
-import '../home_screen/home_screen.dart';
 
 class AddLocationScreen extends StatelessWidget {
   AddLocationScreen({super.key, this.isFirst = false});
@@ -40,7 +39,8 @@ class AddLocationScreen extends StatelessWidget {
           ErrorDialog.openDialog(context, state.error);
         }
         if (state.success) {
-          AppRouter.push(context, const HomeScreen());
+          // AppRouter.push(context, const HomeScreen());
+          AppRouter.pop(context);
         }
       }, builder: (context, state) {
         AddAddressParams address = context.read<LocationBloc>().address;
