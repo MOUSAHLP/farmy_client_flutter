@@ -12,14 +12,17 @@ import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import '../../../bloc/details_order_bloc/details_order_bloc.dart';
 import '../../../bloc/details_order_bloc/details_order_state.dart';
+import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../translations.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
+import '../../widgets/custom_app_drawer.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
+import '../base_screen/base_screen.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
  final int id;
@@ -45,13 +48,15 @@ final bool isEdit;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BaseScreenScaffold(
+      backgroundColor: Colors.white,
+      appbarTitle: AppLocalizations.of(context)!.order_details,
       body: SafeArea(
         child: Column(
           children: [
-             CustomAppBar( ),
-            CustomAppBarScreen(
-                sectionName: AppLocalizations.of(context)!.order_details),
+            // CustomAppBar( ),
+            // CustomAppBarScreen(
+            //     sectionName: AppLocalizations.of(context)!.order_details),
             Padding(
               padding:
               const EdgeInsets.symmetric(horizontal: 21),
@@ -196,6 +201,7 @@ AppRouter.pop(context);
           ],
         ),
       ),
+    //  drawer: const CustomAppDrawer(),
     );
   }
 }

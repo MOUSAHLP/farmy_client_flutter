@@ -57,8 +57,7 @@ class CustomAppBar extends StatelessWidget {
                             width: 21,
                           ),
                           onTap: () {
-
-                  scaffoldKey?.currentState?.openDrawer();
+                                 scaffoldKey?.currentState?.openDrawer();
                           },
                         ),
                         Padding(

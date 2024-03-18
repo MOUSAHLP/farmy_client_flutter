@@ -37,12 +37,12 @@ class BaseScreenScaffold extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         if (scaffoldKey.currentState?.isDrawerOpen == true) {
-         scaffoldKey.currentState?.closeDrawer();
+        scaffoldKey.currentState?.closeDrawer();
         } else {}
         return true;
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key:scaffoldKey,
         backgroundColor: backgroundColor,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButton: floatingActionButton,
