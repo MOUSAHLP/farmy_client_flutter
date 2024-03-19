@@ -188,6 +188,21 @@ class BasketScreen extends StatelessWidget {
                                                 },
                                               ),
                                             ),
+                                            const SizedBox(
+                                              width: 16,
+                                            ),
+                                            Expanded(
+                                              child: CustomButton(
+                                                label:"حفظ المسودة",
+                                                fillColor:
+                                                ColorManager.primaryGreen,
+                                                labelColor: Colors.white,
+                                                onTap: () {
+                                                  context
+                                                      .read<BasketBloc>().add(SaveBasket());
+                                                },
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),

@@ -91,7 +91,6 @@ class CardDetailsOrder extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 25,
-
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,

@@ -9,6 +9,10 @@ class DeleteOrder extends MyOrderEvent {
   int id;
   DeleteOrder({required this.id});
 }
+class TapOnPressed extends MyOrderEvent {
+  int index;
+  TapOnPressed(this.index);
+}
 
 
 

@@ -2,10 +2,13 @@ import 'package:equatable/equatable.dart';
 import 'package:pharma/models/my_order_response.dart';
 
 import '../../core/app_enum.dart';
+import '../../models/basket_model.dart';
 
 class MyOrderState extends Equatable {
   ScreenStates screenStates;
   List<MyOrderResponse> myOrderList;
+  BasketModel basketModel;
+  int indexTap;
   bool isLoading;
   bool isLoadingDelete;
   bool isErrorDelete;
@@ -23,6 +26,8 @@ class MyOrderState extends Equatable {
     this.successDelete=false,
     this.error='',
     this.errorDelete='',
+   required this.basketModel,
+    this.indexTap=0
   });
   MyOrderState copyWith({
     ScreenStates? screenStates,
@@ -33,7 +38,9 @@ class MyOrderState extends Equatable {
     bool? successDelete,
     String? error,
     String? errorDelete,
-    List<MyOrderResponse>? myOrderList
+    List<MyOrderResponse>? myOrderList,
+    BasketModel? basketModel,
+    int? indexTap
 
   }){
     return MyOrderState(
@@ -46,6 +53,8 @@ class MyOrderState extends Equatable {
       errorDelete: errorDelete??'',
       success: success??false,
       successDelete: successDelete??false,
+      basketModel: basketModel??this.basketModel,
+        indexTap:indexTap??this.indexTap
     );
   }
   @override
@@ -59,7 +68,9 @@ class MyOrderState extends Equatable {
     successDelete,
     error,
     errorDelete,
-    myOrderList
+    myOrderList,
+    basketModel,
+    indexTap
   ];
 }
 

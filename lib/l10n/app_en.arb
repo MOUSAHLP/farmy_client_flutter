@@ -273,5 +273,11 @@
   "minutes": "Minutes",
   "hour": "Hour",
   "select_hour": "Select Hour",
-  "select_calculator": "Select Calculator"
+  "select_calculator": "Select Calculator",
+  "current_requests": "Current Requests",
+  "basket_not_installed": "Basket not installed",
+  "place_orders": "You can place orders at the time you want to order these baskets",
+  "type_of_request": "Type of Request:",
+  "number_of_orders": "Number of orders:",
+  "install": "Confirm"
 }
