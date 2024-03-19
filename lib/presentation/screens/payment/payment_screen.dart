@@ -45,8 +45,7 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    paymentBloc
-        .add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse));
+    paymentBloc.add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse));
     return PaymentBody(paymentBloc: paymentBloc);
   }
 }
@@ -79,9 +78,7 @@ class PaymentBody extends StatelessWidget {
           }
           if (state.completePaymentStates == CompletePaymentStates.complete) {
             LoadingDialog().closeDialog(context);
-
-            ConfirmPaymentOrderDialog.openDialog(
-                context, AppLocalizations.of(context)!.orderSuccesfulyComplete);
+            ConfirmPaymentOrderDialog.openDialog(context, AppLocalizations.of(context)!.orderSuccesfulyComplete);
             context.read<BasketBloc>().add(ClearBasket());
           }
           if (state.completePaymentStates == CompletePaymentStates.loading) {
@@ -616,26 +613,17 @@ class PaymentBody extends StatelessWidget {
                             )
                           : AppValueConst.defaultInvoiceValue.toString(),
                   onCompletePayment: () {
-                    print('#####################');
-                    print(state.time);
-                    print('#####################');
                     paymentBloc.add(
                       CreateOrder(
-                        productList:
-                            context.read<BasketBloc>().state.productList!,
+                        productList:context.read<BasketBloc>().state.productList!,
                         invoicesParams: InvoicesParams(
                           time: state.time,
                           notes: noteController.text,
-                          deliveryMethodId:
-                              state.deliveryMethodChosenList.isNotEmpty
+                          deliveryMethodId:state.deliveryMethodChosenList.isNotEmpty
                                   // ToDo deliveryMethodChosenList[0].id ??? 0
                                   ? state.deliveryMethodChosenList[0].id
                                   : 0,
-                          userAddressId: context
-                              .read<LocationBloc>()
-                              .state
-                              .addressCurrent
-                              .id!,
+                          userAddressId: context.read<LocationBloc>().state.addressCurrent.id!,
                         ),
                       ),
                     );

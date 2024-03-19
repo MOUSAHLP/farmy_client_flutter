@@ -25,6 +25,11 @@ class ImageManager {
   static const String profileIcon = "$imagePath/profile_icon.svg";
   static const String myOrder = "$imagePath/my_order.svg";
 
+  static const String status_1 = "$imagePath/status_1.svg";
+  static const String status_2 = "$imagePath/status_2.svg";
+  static const String status_3 = "$imagePath/status_3.svg";
+
+
   static const String dateTimeImage = "$imagePath/date_time.png";
   static const String farmySmile = "$imagePath/farmy_smile.png";
   static const String onBoarding1 = "$imagePath/onborading1.png";

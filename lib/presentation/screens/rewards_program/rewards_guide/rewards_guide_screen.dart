@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pharma/bloc/rewards_bloc/guide_bloc/rewards_guide_bloc.dart';
+import 'package:pharma/bloc/rewards_bloc/guide_bloc/rewards_guide_state.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -43,13 +45,14 @@ class RewardsGuideScreen extends StatelessWidget {
                               Text(AppLocalizations.of(context)!.rewards_guide),
                         ),
                         Tab(
-                          child: Text(AppLocalizations.of(context)!
-                              .levels_and_benefits),
+                          child: Text(
+                            AppLocalizations.of(context)!.levels_and_benefits,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  body: const TabBarView(
+                  body:  TabBarView(
                     children: [
                       RewardsGuideWidget(),
                       MembershipLevelsWidget(),

@@ -70,8 +70,7 @@ class RewardsActivityScreen extends StatelessWidget {
                 child: ListView(
                   children: [
                     SizedBox(height: 10.h),
-                    if (context.read<RewardsActivityBloc>().currentScreen ==
-                        RewardsActivityStateEnum.activity) ...[
+                    if (context.read<RewardsActivityBloc>().currentScreen == RewardsActivityStateEnum.activity) ...[
                       RewardsActivityContainer(
                         onTap: () {
                           RewardsPointDialog.openDialog(context, "1000");

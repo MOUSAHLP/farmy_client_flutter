@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_event.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_state.dart';
@@ -15,73 +16,104 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RewardsPointsBloc, RewardsPointsState>(
-        listener: (context, state) {
-      if (state is RewardsTabPointsHistoryChanged) {
-      }
-    }, builder: (context, state) {
-      if (state is RewardsPointsInit) {
-        context.read<RewardsPointsBloc>().add(ChangeTabPointsRewardsEvent(
-            currentScreen: RewardsPointsStateEnum.earnedPoints));
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      return Column(
-        children: [
-          RewardsFilterRow(rewardsFilterBoxArray: [
-            Expanded(
-                child: GestureDetector(
+      listener: (context, state) {
+        if (state is RewardsTabPointsHistoryChanged) {}
+      },
+      builder: (context, state) {
+        if (state is RewardsPointsInit) {
+          context.read<RewardsPointsBloc>().add(
+                ChangeTabPointsRewardsEvent(
+                  currentScreen: RewardsPointsStateEnum.earnedPoints,
+                ),
+              );
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return Column(
+          children: [
+            RewardsFilterRow(
+              rewardsFilterBoxArray: [
+                Expanded(
+                  child: GestureDetector(
                     onTap: () {
                       context.read<RewardsPointsBloc>().add(
-                          ChangeTabPointsRewardsEvent(
+                            ChangeTabPointsRewardsEvent(
                               currentScreen:
-                                  RewardsPointsStateEnum.earnedPoints));
+                                  RewardsPointsStateEnum.earnedPoints,
+                            ),
+                          );
                     },
                     child: RewardsFilterBox(
-                        text: AppLocalizations.of(context)!.earned_points,
-                        isActive:
-                            context.read<RewardsPointsBloc>().currentScreen ==
-                                RewardsPointsStateEnum.earnedPoints))),
-            Expanded(
-                child: GestureDetector(
+                      text: AppLocalizations.of(context)!.earned_points,
+                      isActive:
+                          context.read<RewardsPointsBloc>().currentScreen ==
+                              RewardsPointsStateEnum.earnedPoints,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
                     onTap: () {
                       context.read<RewardsPointsBloc>().add(
-                          ChangeTabPointsRewardsEvent(
-                              currentScreen:
-                                  RewardsPointsStateEnum.usedPoints));
+                            ChangeTabPointsRewardsEvent(
+                              currentScreen: RewardsPointsStateEnum.usedPoints,
+                            ),
+                          );
                     },
                     child: RewardsFilterBox(
-                        text: AppLocalizations.of(context)!.used_points,
-                        isActive:
-                            context.read<RewardsPointsBloc>().currentScreen ==
-                                RewardsPointsStateEnum.usedPoints))),
-            Expanded(
-                child: GestureDetector(
+                      text: AppLocalizations.of(context)!.used_points,
+                      isActive:
+                          context.read<RewardsPointsBloc>().currentScreen ==
+                              RewardsPointsStateEnum.usedPoints,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
                     onTap: () {
                       context.read<RewardsPointsBloc>().add(
-                          ChangeTabPointsRewardsEvent(
-                              currentScreen:
-                                  RewardsPointsStateEnum.endedpoints));
+                            ChangeTabPointsRewardsEvent(
+                              currentScreen: RewardsPointsStateEnum.endedPoints,
+                            ),
+                          );
                     },
                     child: RewardsFilterBox(
-                        text: AppLocalizations.of(context)!.ended_points,
-                        isActive:
-                            context.read<RewardsPointsBloc>().currentScreen ==
-                                RewardsPointsStateEnum.endedpoints))),
-          ]),
-          Expanded(
+                      text: AppLocalizations.of(context)!.ended_points,
+                      isActive:
+                          context.read<RewardsPointsBloc>().currentScreen ==
+                              RewardsPointsStateEnum.endedPoints,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
               child: ListView(
-            children: const [
-              RewardsPointBox(
-                  date: "1/9/2023", point: "10", expiredDate: "1/12/2024"),
-              RewardsPointBox(
-                date: "1/9/2023",
-                point: "100",
+                children: [
+                  SizedBox(height: 10.h),
+                  if (context.read<RewardsPointsBloc>().currentScreen ==
+                      RewardsPointsStateEnum.earnedPoints) ...[
+                    const RewardsPointBox(point: "2", date: "2/2/2")
+                  ] else if (context.read<RewardsPointsBloc>().currentScreen ==
+                      RewardsPointsStateEnum.endedPoints) ...[
+                    const RewardsPointBox(
+                      point: "2",
+                      date: "2/55/2",
+                      expiredDate: "222/2/4",
+                    )
+                  ] else ...[const RewardsPointBox(
+                      point: "2",
+                      date: "2/35/2",
+                      expiredDate: "32/2/4",
+                    )
+                  ],
+                ],
               ),
-            ],
-          ))
-        ],
-      );
-    });
+            ),
+          ],
+        );
+      },
+    );
   }
 }

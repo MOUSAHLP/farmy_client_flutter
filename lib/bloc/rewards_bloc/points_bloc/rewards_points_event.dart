@@ -8,5 +8,6 @@ class GetPointsRewards extends RewardsPointsEvent {}
 
 class ChangeTabPointsRewardsEvent extends RewardsPointsEvent {
   RewardsPointsStateEnum currentScreen;
+
   ChangeTabPointsRewardsEvent({required this.currentScreen});
 }

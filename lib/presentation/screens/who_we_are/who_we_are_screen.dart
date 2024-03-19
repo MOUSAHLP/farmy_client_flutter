@@ -44,8 +44,7 @@ class WhoWeAreScreen extends StatelessWidget {
                         );
                       }
                       if (state is WhoWeAreSuccess) {
-                        String html =
-                            context.read<WhoWeAreBloc>().whoWeAreModel!.data!.html!;
+                        String html = context.read<WhoWeAreBloc>().whoWeAreModel!.data!.html!;
                         return Center(
                           child: Column(
                             children: [

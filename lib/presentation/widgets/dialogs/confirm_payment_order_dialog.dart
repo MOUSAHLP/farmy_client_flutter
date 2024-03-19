@@ -5,6 +5,7 @@ import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/order_tracking_screen/order_tracking_screen.dart';
 
 import 'package:pharma/presentation/widgets/custom_button.dart';
@@ -25,6 +26,7 @@ class ConfirmPaymentOrderDialog {
 
 class _ConfirmPaymentOrderDialogBody extends StatefulWidget {
   final String message;
+
   const _ConfirmPaymentOrderDialogBody({required this.message});
 
   @override
@@ -36,6 +38,7 @@ class _ConfirmPaymentOrderDialogBodyState
     extends State<_ConfirmPaymentOrderDialogBody>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+
   @override
   void initState() {
     super.initState();
@@ -53,14 +56,18 @@ class _ConfirmPaymentOrderDialogBodyState
             height: 10,
           ),
           SizedBox(
-              height: 50,
-              width: 50,
-              child: Lottie.asset(LottieManager.completePayment,
-                  controller: _controller, onLoaded: (composition) {
+            height: 50,
+            width: 50,
+            child: Lottie.asset(
+              LottieManager.completePayment,
+              controller: _controller,
+              onLoaded: (composition) {
                 _controller
                     // ..duration = composition.duration
                     .forward();
-              })),
+              },
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 8.0,
@@ -99,7 +106,10 @@ class _ConfirmPaymentOrderDialogBodyState
                     fillColor: ColorManager.white,
                     label: AppLocalizations.of(context)!.exit,
                     onTap: () {
-                      AppRouter.pop(context);
+                      AppRouter.pushAndRemoveAllStack(
+                        context,
+                        const HomeScreen(),
+                      );
                     },
                   ),
                 ),

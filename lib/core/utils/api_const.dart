@@ -32,7 +32,7 @@ class ApiConst {
   static const String getSetting = "/settings";
 
   /// privacy
-  static const String getPrivacy = "/privacy";
+  static const String getPrivacy = "/policy";
 
   /// conditions
   static const String getConditions = "/conditions";
@@ -69,4 +69,6 @@ class ApiConst {
 
   /// Rewards Screen
   static const String getAllRewards = "/rewards";
+
+  static const String getRewardsGuide = "/reward/guide/rewards";
 }
