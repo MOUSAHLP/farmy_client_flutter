@@ -73,38 +73,42 @@ class CardBasket extends StatelessWidget {
                                 maxLines: 1,
                               )
                             : const SizedBox(),
-                        productAddedToBasketDetails.attributeList.isNotEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
+                        SizedBox(
+                          height: 25,
+
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount:  productAddedToBasketDetails.attributeList.length,
+                            physics: const NeverScrollableScrollPhysics(),
+
+                            itemBuilder: (context, index) =>Padding(
+                              padding: const EdgeInsets.symmetric(vertical:2),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                Text(
                                     productAddedToBasketDetails
-                                            .attributeList.isNotEmpty
-                                        ? Text(
-                                            productAddedToBasketDetails
-                                                .attributeList[0].value,
-                                            style: getRegularStyle(
-                                              color: ColorManager.grayForMessage,
-                                              fontSize: FontSizeApp.s15,
-                                            )!
-                                                .copyWith(height: 1),
-                                          )
-                                        : const SizedBox(),
-                                    productAddedToBasketDetails
-                                                .attributeList.length >
-                                            1
-                                        ? Text(
-                                            " / ${productAddedToBasketDetails.attributeList[1].value}",
-                                            style: getRegularStyle(
-                                              color: ColorManager.grayForMessage,
-                                              fontSize: FontSizeApp.s15,
-                                            )!
-                                                .copyWith(height: 1))
-                                        : const SizedBox(),
-                                  ],
-                                ))
-                            : const SizedBox(),
+                                        .attributeList[index].value,
+                                    style: getRegularStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s15,
+                                    )!
+                                        .copyWith(height: 1),
+                                  ),
+                                  productAddedToBasketDetails.attributeList.length-1!=index?Text(
+                                   "/",
+                                    style: getRegularStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s15,
+                                    )!
+                                        .copyWith(height: 1),
+                                  ):SizedBox()
+
+                                ],
+                              )) ,),
+                        ),
+
                         productAddedToBasketDetails.discountValue != null
                             ? Text(
                                 productAddedToBasketDetails.discountValue ?? '',
