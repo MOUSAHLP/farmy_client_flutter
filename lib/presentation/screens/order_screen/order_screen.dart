@@ -114,7 +114,7 @@ class _OrderScreenBodyState extends State<OrderScreenBody> with TickerProviderSt
                                     ),
                                     Tab(
                                       child: FittedBox(
-                                          child: Text(AppLocalizations.of(context)!.basket_not_installed)),
+                                          child: Text(AppLocalizations.of(context)!.baskets_are_not_required)),
                                     ),
                                   ],
                                   unselectedLabelColor: ColorManager.grayForMessage,
@@ -146,7 +146,7 @@ class _OrderScreenBodyState extends State<OrderScreenBody> with TickerProviderSt
                                   children: [
                                     Padding(
                                       padding:
-                                      const EdgeInsets.symmetric(horizontal: 37,vertical: 5),
+                                      const EdgeInsets.only(left:37 ,right: 37,top: 15),
                                       child: Text(
                                         AppLocalizations.of(context)!.place_orders,
                                         style: getRegularStyle(
@@ -210,6 +210,11 @@ class BodyBasketNotInstall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<MyOrderBloc, MyOrderState>(
+
+  builder: (context, state) {
+    print("===========state");
+    print(state);
     return CustomOverscrollIndicator(
         child: ListView.builder(
           itemBuilder: (context, index) => BasketNotInstallCard(
@@ -217,6 +222,7 @@ class BodyBasketNotInstall extends StatelessWidget {
           itemCount: state.basketModel.basketList.length,
         ),
       );
+  },
+);
   }
 }
-//Basket not installed

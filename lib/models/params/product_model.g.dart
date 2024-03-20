@@ -1,35 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_basket_params.dart';
+part of 'product_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class GetBasketParamsAdapter extends TypeAdapter<GetBasketParams> {
+class ProductAdapter extends TypeAdapter<Product> {
   @override
-  final int typeId = 3;
+  final int typeId = 4;
 
   @override
-  GetBasketParams read(BinaryReader reader) {
+  Product read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return GetBasketParams(
-      id: fields[0] as int,
-      products: (fields[1] as List).cast<Product>(),
+    return Product(
+      productId: fields[0] as int,
+      quantity: fields[1] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, GetBasketParams obj) {
+  void write(BinaryWriter writer, Product obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.id)
+      ..write(obj.productId)
       ..writeByte(1)
-      ..write(obj.products);
+      ..write(obj.quantity);
   }
 
   @override
@@ -38,7 +38,7 @@ class GetBasketParamsAdapter extends TypeAdapter<GetBasketParams> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is GetBasketParamsAdapter &&
+      other is ProductAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

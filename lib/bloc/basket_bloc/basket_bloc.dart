@@ -11,6 +11,7 @@ import 'package:pharma/models/product_response.dart';
 import '../../data/data_resource/local_resource/data_store.dart';
 import '../../data/data_resource/local_resource/datastore_keys.dart';
 import '../../models/basket_model.dart';
+import '../../models/params/product_model.dart';
 
 part 'basket_event.dart';
 
@@ -22,7 +23,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   BasketModel basketModelStore =
       DataStore.instance.dynamicData<BasketModel>(DataStoreKeys.basket) ??
           BasketModel(basketList: []);
-  List<int> idProducts = [];
+  List<Product> idProducts = [];
 
   int countsProducts(int id) {
     if (mutableProducts.any((element) => element.id == id)) {
@@ -119,10 +120,12 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       }
       if (event is SaveBasket) {
         state.productList?.forEach((element) {
-          idProducts.add(element.id);
+          idProducts.add(Product(productId: element.id, quantity: element.quantity??0));
         });
-          int idBasket = basketModelStore.basketList.last.id ?? 0;
-        basketModelStore.basketList.add(GetBasketParams(idProducts: idProducts, id: idBasket++));
+          int idBasket = basketModelStore.basketList.isNotEmpty? basketModelStore.basketList.last.id!:0;
+
+      int idBasket1=idBasket+1;
+        basketModelStore.basketList.add(GetBasketParams(products: idProducts, id: idBasket1));
         DataStore.instance.setDynamicData(DataStoreKeys.basket, basketModelStore);
         state.productList?.clear();
         idProducts = [];

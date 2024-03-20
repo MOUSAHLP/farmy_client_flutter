@@ -11,7 +11,8 @@ class CustomButton extends StatelessWidget {
     this.borderColor,
     this.isFilled = false,
     this.labelColor = Colors.white,
-    this.height,
+    this.height=47,
+    this.radius=12,
     this.width,
     required this.label,
     this.onTap,
@@ -21,6 +22,7 @@ class CustomButton extends StatelessWidget {
   final Color labelColor;
   final Color? borderColor;
   final double? height;
+  final double radius;
   final double? width;
   final String label;
   final Function()? onTap;
@@ -31,10 +33,10 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width ?? 1.sw - 50,
-        height: height ?? 47,
+        height: height,
         decoration: BoxDecoration(
             color: isFilled ? fillColor : null,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(radius),
             border:
                 Border.all(color: borderColor ?? Colors.transparent, width: 2),
             gradient: !isFilled ? ColorManager.linearGradientPrimary : null
@@ -42,12 +44,13 @@ class CustomButton extends StatelessWidget {
             ),
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(1.0),
             child: FittedBox(
               child: Text(
                 label,
                 style: getBoldStyle(
                   color: labelColor,
+                  fontSize: 11
                 ),
               ),
             ),

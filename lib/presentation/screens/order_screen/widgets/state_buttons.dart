@@ -21,6 +21,8 @@ final int id;
           buttons = [
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label:AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
@@ -32,6 +34,8 @@ final int id;
             const SizedBox(width: 2),
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label:AppLocalizations.of(context)!.edit_Orders,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
@@ -44,6 +48,8 @@ final int id;
             const SizedBox(width: 2),
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label: AppLocalizations.of(context)!.delete_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
@@ -59,6 +65,8 @@ final int id;
           buttons = [
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label: AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
@@ -74,6 +82,8 @@ final int id;
           buttons = [
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label:AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
@@ -85,6 +95,8 @@ final int id;
             const SizedBox(width: 2),
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label: AppLocalizations.of(context)!.returned,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
@@ -96,6 +108,8 @@ final int id;
             const SizedBox(width: 2),
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label:AppLocalizations.of(context)!.track_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
@@ -110,6 +124,8 @@ final int id;
           buttons = [
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label:AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
@@ -124,6 +140,8 @@ final int id;
           buttons = [
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label: AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
@@ -138,6 +156,8 @@ final int id;
           buttons = [
             Expanded(
               child: CustomButton(
+                height: 38,
+                radius: 6,
                 label: AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
