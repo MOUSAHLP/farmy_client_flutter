@@ -285,5 +285,8 @@
   "place_orders": "يمكنك تثبيت الطلبات في الوقت الذي تريد طلب هذة السلات",
   "type_of_request": "نوع الطلب:",
   "number_of_orders": "عدد الطلبات:",
-  "install": "تثبيت "
+  "install": "تثبيت",
+  "delivery_service_is_available_from_now_on":"خدمة التوصيل متوفرة من الساعة",
+  "in_the_morning_until_noon":"صباحاً حتى الساعة",
+  "in_the_evening_it_is_possible_to_choose_to_order_now_and_have_it_delivered_in_the_morning":"مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً"
 }

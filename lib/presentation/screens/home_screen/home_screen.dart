@@ -7,9 +7,9 @@ import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
+import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/models/home_page_dynamic_model.dart';
-import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_servies.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_cursel.dart';
@@ -68,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               },
                             )
                           : const SizedBox(),
-                       CustomDeliveryService(),
+                       if(checkIsOpening(context))
+                       const CustomDeliveryService(),
                       //// ==================== making dynamic content ==================== ////
                       Expanded(
                         child: ListView(
@@ -138,5 +139,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+  bool checkIsOpening(BuildContext context) {
+    DateTime dateTime = DateTime.now();
+    List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
+    if (int.parse(endTime[0]) > dateTime.hour) {
+      return true;
+    } else if (int.parse(endTime[0]) == dateTime.hour) {
+      if (int.parse(endTime[1]) > dateTime.minute) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+    return false;
   }
 }

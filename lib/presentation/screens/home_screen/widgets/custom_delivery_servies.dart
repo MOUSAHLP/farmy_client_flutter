@@ -6,6 +6,7 @@ import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_event.dart';
 import 'package:pharma/bloc/setting_bloc/setting_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
@@ -29,17 +30,32 @@ class CustomDeliveryService extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
                 alignment: Alignment.center,
-                width: 1.sw,
-                height: 61,
+                height: 61.h,
                 color: ColorManager.lightGray,
-                child: Text(
-                  "خدمة التوصيل متوفرة من الساعة ${context.read<SettingBloc>().settingModel!.data!.openingTimes!.startTime} صباحاً حتى الساعة ${context.read<SettingBloc>().settingModel!.data!.openingTimes!.startTime} مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً",
+                child: RichText(
                   textAlign: TextAlign.center,
-                  style: getBoldStyle(
-                    color: ColorManager.grayForMessage,
+                  text: TextSpan(
+                    style: getBoldStyle(
+                      color: ColorManager.grayForMessage,
+                    ),
+                    children: [
+                      TextSpan(text:"${AppLocalizations.of(context)!.delivery_service_is_available_from_now_on} "),
+                      TextSpan(text:Formatter.extractHour(context.read<SettingBloc>().settingModel!.data!.openingTimes!.startTime)),
+                      TextSpan(text:" ${AppLocalizations.of(context)!.in_the_morning_until_noon} "),
+                      TextSpan(text:Formatter.extractHour(context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime)),
+                      TextSpan(text:" ${AppLocalizations.of(context)!.in_the_evening_it_is_possible_to_choose_to_order_now_and_have_it_delivered_in_the_morning} "),
+                    ],
                   ),
                 ),
+                // child: Text(
+                //   "خدمة التوصيل متوفرة من الساعة ${context.read<SettingBloc>().settingModel!.data!.openingTimes!.startTime} مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً",
+                //   textAlign: TextAlign.center,
+                //   style: getBoldStyle(
+                //     color: ColorManager.grayForMessage,
+                //   ),
+                // ),
               ),
             ),
           )

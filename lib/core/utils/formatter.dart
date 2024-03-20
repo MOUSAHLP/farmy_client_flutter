@@ -48,7 +48,8 @@ mixin Formatter {
     return dateFormat.format(number);
   }
 
-  static Object dateTimeDifference(DateTime dateTimeStart, DateTime dateTimeEnd, String type) {
+  static Object dateTimeDifference(
+      DateTime dateTimeStart, DateTime dateTimeEnd, String type) {
     if (type == "daily") {
       if (dateTimeEnd.difference(dateTimeStart).inDays == 0) {
         return dateTimeEnd.difference(dateTimeStart).inDays + 1;
@@ -95,7 +96,17 @@ mixin Formatter {
   }
 
   static String formatDate(DateTime dateTime) {
-    String formattedDate = "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+    String formattedDate =
+        "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
     return formattedDate;
+  }
+
+ static String extractHour(String timeString) {
+    List<String> timeParts = timeString.split(':');
+    int hour = int.parse(timeParts[0]);
+    DateFormat dateFormat = DateFormat('hh');
+    DateTime dateTime = DateFormat('HH').parse(hour.toString());
+    int hour_2 = int.parse(dateFormat.format(dateTime)[1]);
+    return hour_2.toString();
   }
 }
