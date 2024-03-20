@@ -67,8 +67,11 @@ class ApiConst {
   ///notification
   static const String getNotifications = "/";
 
-  /// Rewards Screen
+  /// Rewards
   static const String getAllRewards = "/rewards";
-
   static const String getRewardsGuide = "/reward/guide/rewards";
+  static const String getRewardsMemberShipGuide = "/reward/guide/memberships";
+  static const String getRewardsPointHistoryExpired = "/reward/points/expired";
+  static const String getRewardsPointHistoryUsed = "/reward/points/used";
+  static const String getRewardsPointHistoryValid = "/reward/points/valid";
 }

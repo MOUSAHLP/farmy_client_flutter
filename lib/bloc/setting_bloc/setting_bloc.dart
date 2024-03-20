@@ -5,7 +5,7 @@ import 'package:pharma/data/repository/setting_repo.dart';
 import 'package:pharma/models/setting_model.dart';
 
 class SettingBloc extends Bloc<SettingEvent, SettingState> {
-  SettingModel? settingModel;
+    SettingModel? settingModel;
 
   SettingBloc() : super(SettingInit()) {
     on<SettingEvent>(

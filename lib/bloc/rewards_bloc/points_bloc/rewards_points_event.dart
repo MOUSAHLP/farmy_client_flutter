@@ -4,7 +4,11 @@ abstract class RewardsPointsEvent {
   RewardsPointsEvent([List props = const []]) : super();
 }
 
-class GetPointsRewards extends RewardsPointsEvent {}
+class GetRewardsPointsHistoryUsed extends RewardsPointsEvent {}
+
+class GetRewardsPointsHistoryValid extends RewardsPointsEvent {}
+
+class GetRewardsPointsHistoryExpired extends RewardsPointsEvent {}
 
 class ChangeTabPointsRewardsEvent extends RewardsPointsEvent {
   RewardsPointsStateEnum currentScreen;

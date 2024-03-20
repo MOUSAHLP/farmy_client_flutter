@@ -1,14 +1,24 @@
-abstract class RewardsPointsState {}
+abstract class RewardsPointsHistoryState {}
 
-class RewardsPointsInit extends RewardsPointsState {}
+class RewardsPointsInit extends RewardsPointsHistoryState {}
 
-class RewardsPointsLoading extends RewardsPointsState {}
+class RewardsPointsHistoryLoading extends RewardsPointsHistoryState {}
 
-class RewardsPointsLoaded extends RewardsPointsState {}
+class RewardsPointsHistoryLoaded extends RewardsPointsHistoryState {}
 
-class RewardsTabPointsHistoryChanged extends RewardsPointsState {}
+class RewardsPointsHistorySuccess extends RewardsPointsHistoryState {}
 
-class RewardsPointsError extends RewardsPointsState {
+class RewardsTabPointsHistoryChanged extends RewardsPointsHistoryState {}
+
+class RewardsPointsHistoryError extends RewardsPointsHistoryState {
   String error;
-  RewardsPointsError(this.error);
+  RewardsPointsHistoryError(this.error);
+}
+
+
+extension RewardsGuideStateExtension on RewardsPointsHistoryState {
+  bool get isLoading => this is RewardsPointsHistoryLoading;
+
+  bool get isSuccess => this is RewardsPointsHistorySuccess;
+
 }

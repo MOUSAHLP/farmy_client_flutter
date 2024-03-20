@@ -48,8 +48,7 @@ mixin Formatter {
     return dateFormat.format(number);
   }
 
-  static Object dateTimeDifference(
-      DateTime dateTimeStart, DateTime dateTimeEnd, String type) {
+  static Object dateTimeDifference(DateTime dateTimeStart, DateTime dateTimeEnd, String type) {
     if (type == "daily") {
       if (dateTimeEnd.difference(dateTimeStart).inDays == 0) {
         return dateTimeEnd.difference(dateTimeStart).inDays + 1;
@@ -83,5 +82,20 @@ mixin Formatter {
   static String formatPrice(int price) {
     final formatter = NumberFormat('#,###.##', 'en_US');
     return formatter.format(price);
+  }
+
+  static Color hexToColor(String code) {
+    // Remove the '#' prefix if present
+    if (code.startsWith('#')) {
+      code = code.substring(1);
+    }
+
+    // Parse the hexadecimal color code
+    return Color(int.parse(code, radix: 16) + 0xFF000000);
+  }
+
+  static String formatDate(DateTime dateTime) {
+    String formattedDate = "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+    return formattedDate;
   }
 }

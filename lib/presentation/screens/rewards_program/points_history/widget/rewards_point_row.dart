@@ -8,11 +8,13 @@ class RewardsPointRow extends StatelessWidget {
   final String text;
   final String date;
   final bool expired;
-  const RewardsPointRow(
-      {super.key,
-      required this.text,
-      required this.date,
-      this.expired = false});
+
+  const RewardsPointRow({
+    super.key,
+    required this.text,
+    required this.date,
+    this.expired = false,
+  });
 
   @override
   Widget build(BuildContext context) {

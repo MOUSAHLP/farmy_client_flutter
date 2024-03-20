@@ -12,4 +12,8 @@ class SettingError extends SettingState {
   SettingError(this.error);
 }
 
+extension SettingStateExtension on SettingState {
+  bool get isLoading => this is SettingLoading;
 
+  bool get isSuccess => this is SettingSuccess;
+}

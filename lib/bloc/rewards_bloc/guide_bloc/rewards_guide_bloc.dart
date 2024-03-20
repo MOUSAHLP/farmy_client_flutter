@@ -7,9 +7,11 @@ import 'package:pharma/data/repository/privacy_repo.dart';
 import 'package:pharma/data/repository/rewards_repo.dart';
 import 'package:pharma/models/privacy_model.dart';
 import 'package:pharma/models/reward/reward_guide_model.dart';
+import 'package:pharma/models/reward/reward_membership_guide_model.dart';
 
 class RewardsGuideBloc extends Bloc<RewardsGuidsEvent, RewardsGuideState> {
   RewardGuideModel? rewardGuideModel;
+  RewardMembershipGuideModel? rewardMembershipGuideModel;
 
   RewardsGuideBloc() : super(RewardsGuideInit()) {
     on<RewardsGuidsEvent>(
@@ -22,6 +24,16 @@ class RewardsGuideBloc extends Bloc<RewardsGuidsEvent, RewardsGuideState> {
           }, (r) {
             rewardGuideModel = r;
             emit(RewardsGuideSuccess());
+          });
+        }
+        if (event is GetRewardsMemberShipGuide) {
+          emit(RewardsGuideMemberShipLoading());
+          var response = await RewardsRepo.getRewardMemberShipGuide();
+          response.fold((l) {
+            emit(RewardsGuideError(l));
+          }, (r) {
+            rewardMembershipGuideModel = r;
+            emit(RewardsGuideMemberShipSuccess());
           });
         }
       },

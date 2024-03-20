@@ -122,11 +122,7 @@ class MyAccountScreen extends StatelessWidget {
                                   context, const ElectronicPaymentScreen());
                             },
                           ),
-                          if (context
-                              .read<SettingBloc>()
-                              .settingModel!
-                              .data!
-                              .showRewardSystem!) ...[
+                          if (context.read<SettingBloc>().settingModel!.data!.showRewardSystem!) ...[
                             CardMyAccount(
                               title:
                                   AppLocalizations.of(context)!.rewards_Program,

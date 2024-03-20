@@ -20,7 +20,7 @@ class RewardsGuideWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _rewardsGuideBloc.add(GetRewardsGuide());
-    return BlocConsumer<RewardsGuideBloc, RewardsGuideState>(
+      return BlocConsumer<RewardsGuideBloc, RewardsGuideState>(
       bloc: _rewardsGuideBloc,
       listener: (context, state) {
         if (state.isLoading) {
@@ -32,7 +32,6 @@ class RewardsGuideWidget extends StatelessWidget {
       },
       builder: (context, state) {
         if (state.isSuccess) {
-          print('================ RewardsGuideWidget ====================');
           return ListView(
             children: [
               Padding(

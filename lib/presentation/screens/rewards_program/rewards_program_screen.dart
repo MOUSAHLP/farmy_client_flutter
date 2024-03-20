@@ -17,6 +17,7 @@ class RewardsProgramScreen extends StatelessWidget {
   const RewardsProgramScreen({
     super.key,
   });
+
   @override
   Widget build(BuildContext context) {
     return BaseScreenScaffold(
@@ -25,9 +26,10 @@ class RewardsProgramScreen extends StatelessWidget {
         body: Scaffold(
           body: MultiBlocProvider(
             providers: [
-              BlocProvider<RewardsPointsBloc>(
+              BlocProvider<RewardsPointsHistoryBloc>(
                 lazy: true,
-                create: (BuildContext context) => sl<RewardsPointsBloc>(),
+                create: (BuildContext context) =>
+                    sl<RewardsPointsHistoryBloc>(),
               ),
               BlocProvider<RewardsActivityBloc>(
                 lazy: true,
@@ -42,7 +44,6 @@ class RewardsProgramScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: DefaultTabController(
-                    initialIndex: 2,
                     length: 3,
                     child: Scaffold(
                       backgroundColor: ColorManager.white,
@@ -62,24 +63,28 @@ class RewardsProgramScreen extends StatelessWidget {
                               fontSize: FontSizeApp.s14),
                           tabs: [
                             Tab(
-                              child: Text(AppLocalizations.of(context)!
-                                  .points_and_rank),
-                            ),
-                            Tab(
-                              child: Text(AppLocalizations.of(context)!
-                                  .activities_and_offers),
+                              child: Text(
+                                AppLocalizations.of(context)!.points_and_rank,
+                              ),
                             ),
                             Tab(
                               child: Text(
-                                  AppLocalizations.of(context)!.points_history),
+                                AppLocalizations.of(context)!
+                                    .activities_and_offers,
+                              ),
+                            ),
+                            Tab(
+                              child: Text(
+                                AppLocalizations.of(context)!.points_history,
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      body: const TabBarView(
+                      body: TabBarView(
                         children: [
-                          RewardsRankScreen(),
-                          RewardsActivityScreen(),
+                          const RewardsRankScreen(),
+                          const RewardsActivityScreen(),
                           RewardsPointsHistoryScreen(),
                         ],
                       ),

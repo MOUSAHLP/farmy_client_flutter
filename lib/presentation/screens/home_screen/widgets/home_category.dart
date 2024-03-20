@@ -13,9 +13,11 @@ class HomeCategory extends StatelessWidget {
   final Map<String, dynamic> title;
   final List<CategoriesResponse> categoriesList;
 
-  const HomeCategory(
-      {Key? key, required this.categoriesList, required this.title})
-      : super(key: key);
+  const HomeCategory({
+    Key? key,
+    required this.categoriesList,
+    required this.title,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +31,14 @@ class HomeCategory extends StatelessWidget {
             vertical: 10.h,
           ),
           child: CustomSectionName(
-            sectionName:
-                title[appLang] ?? AppLocalizations.of(context)!.sections,
+            sectionName: title[appLang] ?? AppLocalizations.of(context)!.sections,
             onTap: () {
               AppRouter.push(context, const ALlSectionScreen());
             },
           ),
         ),
         SizedBox(
-          height: 140.h,
+          height: 290.h,
           child: GridView.builder(
             padding: EdgeInsets.symmetric(horizontal: 19.w),
             itemCount: categoriesList.length,
@@ -46,7 +47,7 @@ class HomeCategory extends StatelessWidget {
               crossAxisSpacing: 23,
               mainAxisSpacing: 15,
               mainAxisExtent: 97,
-              crossAxisCount: 1,
+              crossAxisCount: 2,
             ),
             itemBuilder: (context, index) {
               return CustomCategory(

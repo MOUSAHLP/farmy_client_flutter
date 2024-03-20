@@ -52,7 +52,7 @@ class RewardsGuideScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  body:  TabBarView(
+                  body: TabBarView(
                     children: [
                       RewardsGuideWidget(),
                       MembershipLevelsWidget(),
