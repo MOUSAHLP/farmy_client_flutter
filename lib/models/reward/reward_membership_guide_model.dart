@@ -1,4 +1,4 @@
-class RewardMembershipGuideModel {
+class   RewardMembershipGuideModel {
   final String status;
   final String message;
   final Data data;
@@ -39,7 +39,7 @@ class Rank {
   final int id;
   final String name;
   final String limit;
-  final Features features;
+  final Map features;
   final String description;
   final String color;
 
@@ -56,23 +56,23 @@ class Rank {
         id: json["id"],
         name: json["name"],
         limit: json["limit"],
-        features: Features.fromJson(json["features"]),
+        features:json["features"],
         description: json["description"],
         color: json["color"],
       );
 }
 
-class Features {
-  final int couponPerMounth;
-  final int discountOnDeliver;
-
-  Features({
-    required this.couponPerMounth,
-    required this.discountOnDeliver,
-  });
-
-  factory Features.fromJson(Map<String, dynamic> json) => Features(
-        couponPerMounth: json["coupon_per_mounth"],
-        discountOnDeliver: json["discount_on_deliver"],
-      );
-}
+// class Features {
+//   final int couponPerMounth;
+//   final int discountOnDeliver;
+//
+//   Features({
+//     required this.couponPerMounth,
+//     required this.discountOnDeliver,
+//   });
+//
+//   factory Features.fromJson(Map<String, dynamic> json) => Features(
+//         couponPerMounth: json["coupon_per_mounth"],
+//         discountOnDeliver: json["discount_on_deliver"],
+//       );
+// }

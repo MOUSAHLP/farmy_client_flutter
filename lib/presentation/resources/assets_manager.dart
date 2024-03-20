@@ -67,6 +67,7 @@ class ImageManager {
 
 class IconsManager {
   static const String logoApp = "$iconPath/logo_app.svg";
+  static const String basketNotInstall = "$iconPath/basket_not_install.svg";
   static const String logoGreen = "$iconPath/logo_green.svg";
   static const String errorIcon = "$iconPath/error_icon.svg";
   static const String copy = "$iconPath/copy.svg";

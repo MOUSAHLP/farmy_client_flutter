@@ -7,9 +7,9 @@ import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
+import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/models/home_page_dynamic_model.dart';
-import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_servies.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_cursel.dart';
@@ -42,8 +42,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             builder: (context, state) {
               if (state.screenState == ScreenState.loading) {
                 return const CustomHomeShimmer();
-              }
-              else if (state.screenState == ScreenState.error) {
+              } else if (state.screenState == ScreenState.error) {
                 return Expanded(
                   child: CustomErrorScreen(
                       onTap: () {
@@ -51,9 +50,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       titleError: state.error),
                 );
-              }
-              else if (state.screenState == ScreenState.success || state.screenState == ScreenState.loadMoreData) {
-                context.read<LocationBloc>().state.addressCurrent = context.read<HomeBloc>().homePageDynamicModel!.last.userAddressModel!;
+              } else if (state.screenState == ScreenState.success || state.screenState == ScreenState.loadMoreData) {
+                context.read<LocationBloc>().state.addressCurrent = context
+                    .read<HomeBloc>()
+                    .homePageDynamicModel!
+                    .last
+                    .userAddressModel!;
                 return Expanded(
                   child: Column(
                     children: [
@@ -66,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               },
                             )
                           : const SizedBox(),
-                      const CustomDeliveryService(),
+                       if(checkIsOpening(context))
+                       const CustomDeliveryService(),
                       //// ==================== making dynamic content ==================== ////
                       Expanded(
                         child: ListView(
@@ -91,33 +94,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
                                   return Column(
                                     children: [
-                                      if (homePageDynamicModel[index].type ==
-                                          "category")
+                                      if (homePageDynamicModel[index].type == "category")
                                         HomeCategory(
-                                          title: homePageDynamicModel[index]
-                                              .title!,
-                                          categoriesList:
-                                              homePageDynamicModel[index]
-                                                  .categoryContent!,
+                                          title: homePageDynamicModel[index].title!,
+                                          categoriesList: homePageDynamicModel[index].categoryContent!,
                                         ),
-                                      if (homePageDynamicModel[index].type ==
-                                          "section")
+                                      if (homePageDynamicModel[index].type == "section")
                                         HomeSection(
-                                          title: homePageDynamicModel[index]
-                                              .title!,
-                                          sectionId:
-                                              homePageDynamicModel[index].id!,
-                                          list: homePageDynamicModel[index]
-                                              .sectionContent!,
+                                          title: homePageDynamicModel[index].title!,
+                                          sectionId: homePageDynamicModel[index].id!,
+                                          list: homePageDynamicModel[index].sectionContent!,
                                         ),
-                                      if (homePageDynamicModel[index].type ==
-                                          "slider")
-                                        CustomHomeCursel(
-                                          verticalPadding: 10,
-                                          bannerList:
-                                              homePageDynamicModel[index]
-                                                  .sliderContent,
-                                          height: 164.h,
+
+                                      if (homePageDynamicModel[index].type == "slider")
+                                        Padding(
+                                          padding:  const EdgeInsets.only(top: 10,bottom: 10),
+                                          child: CustomHomeCursel(
+                                            verticalPadding: 0,
+                                            bannerList: homePageDynamicModel[index].sliderContent,
+                                            height: 164.h,
+                                          ),
                                         ),
                                     ],
                                   );
@@ -143,5 +139,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+  bool checkIsOpening(BuildContext context) {
+    DateTime dateTime = DateTime.now();
+    List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
+    if (int.parse(endTime[0]) > dateTime.hour) {
+      return true;
+    } else if (int.parse(endTime[0]) == dateTime.hour) {
+      if (int.parse(endTime[1]) > dateTime.minute) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+    return false;
   }
 }

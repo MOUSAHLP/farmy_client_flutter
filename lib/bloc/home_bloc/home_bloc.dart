@@ -20,7 +20,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   int lastPagePagination = 1;
   int indexPagePagination = 2;
   HomeRepo homeRepo;
- // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController scrollController = ScrollController();
 
   List<HomePageDynamicModel>? homePageDynamicModel;
@@ -30,11 +31,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeEvent>((event, emit) async {
       if (event is GetHomeData) {
         emit(state.copyWith(screenState: ScreenState.loading));
-
         (await homeRepo.getHomeDynamicData()).fold(
-            (l) =>
-                emit(state.copyWith(screenState: ScreenState.error, error: l)),
-            (List<HomePageDynamicModel> r) {
+            (l) => emit(
+                  state.copyWith(screenState: ScreenState.error, error: l),
+                ), (List<HomePageDynamicModel> r) {
           indexPagePagination = 2;
           homePageDynamicModel = r;
           lastPagePagination = homePageDynamicModel![0].lastPagePagination!;

@@ -5,4 +5,6 @@ abstract class RewardsGuidsEvent {
 
 class GetRewardsGuide extends RewardsGuidsEvent {}
 
+class GetRewardsMemberShipGuide extends RewardsGuidsEvent {}
+
 

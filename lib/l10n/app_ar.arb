@@ -51,11 +51,11 @@
   "delivery_Type": "نوع التوصيل",
   "expected_Time": "الوقت المتوقع",
   "total_Price_with_Delivery": "إجمال السعر مع التوصيل",
-  "show_Order": "عرض ",
-  "track_Order": "تتبع ",
-  "edit_Orders": "تعديل ",
+  "show_Order": "عرض الطلب",
+  "track_Order": "تتبع الطلب ",
+  "edit_Orders": "تعديل الطلب ",
   "edit_Information": "تعديل ",
-  "delete_Order": "حذف ",
+  "delete_Order": "حذف الطلب",
   "delivery_Address": "عنوان التوصيل",
   "choose_the_Address": "اختر العنوان",
   "please_select_the_desired_delivery_address": "يرجى اختيار عنوان التوصيل المطلوب",
@@ -279,5 +279,16 @@
   "minutes": "الدقيقة",
   "hour": "الساعة",
   "select_hour": "اختر الساعة",
-  "select_calculator": "اختر التاريخ"
+  "select_calculator": "اختر التاريخ",
+  "current_requests": "الطلبات الجارية",
+  "basket_not_installed": "سلة غير مثبتة",
+  "place_orders": "يمكنك تثبيت الطلبات في الوقت الذي تريد طلب هذة السلات",
+  "type_of_request": "نوع الطلب",
+  "number_of_orders": "عدد الطلبات",
+  "install": "تثبيت الطلب",
+  "delivery_service_is_available_from_now_on":"خدمة التوصيل متوفرة من الساعة",
+  "in_the_morning_until_noon":"صباحاً حتى الساعة",
+  "in_the_evening_it_is_possible_to_choose_to_order_now_and_have_it_delivered_in_the_morning":"مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً",
+
+  "baskets_are_not_required": "سلات غير مطلوبة"
 }

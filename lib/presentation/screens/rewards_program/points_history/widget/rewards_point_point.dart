@@ -7,10 +7,13 @@ import 'package:pharma/translations.dart';
 
 class RewardsPointPoint extends StatelessWidget {
   final String point;
-  final bool expired;
+  final Color color;
 
-  const RewardsPointPoint(
-      {super.key, required this.point, this.expired = false});
+  const RewardsPointPoint({
+    super.key,
+    required this.point,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +31,17 @@ class RewardsPointPoint extends StatelessWidget {
                   Text(
                     point,
                     style: getBoldStyle(
-                        color: expired
-                            ? ColorManager.redForFavorite
-                            : ColorManager.primaryGreen,
-                        fontSize: FontSizeApp.s26),
+                      color: color,
+                      fontSize: FontSizeApp.s26,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   Text(
                     AppLocalizations.of(context)!.point,
                     style: getBoldStyle(
-                        color: expired
-                            ? ColorManager.redForFavorite
-                            : ColorManager.primaryGreen,
-                        fontSize: FontSizeApp.s12),
+                      color: color,
+                      fontSize: FontSizeApp.s12,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -48,8 +49,10 @@ class RewardsPointPoint extends StatelessWidget {
               Container(
                 margin: const EdgeInsetsDirectional.only(start: PaddingApp.p18),
                 decoration: BoxDecoration(
-                  border:
-                      Border.all(color: ColorManager.grayForSearch, width: 1),
+                  border: Border.all(
+                    color: ColorManager.grayForSearch,
+                    width: 1,
+                  ),
                 ),
               ),
             ],

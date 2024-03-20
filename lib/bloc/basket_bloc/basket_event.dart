@@ -37,3 +37,5 @@ class DeleteProduct extends BasketEvent {
 }
 
 class ClearBasket extends BasketEvent{}
+class SaveBasket extends BasketEvent{}
+

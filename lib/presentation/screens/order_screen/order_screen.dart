@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/core/app_enum.dart';
+import 'package:pharma/presentation/screens/order_screen/widgets/baset_not_install.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/shimmer_order.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/card_order.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
@@ -10,6 +12,9 @@ import '../../../bloc/my_order_bloc/my_order_bloc.dart';
 import '../../../bloc/my_order_bloc/my_order_event.dart';
 import '../../../bloc/my_order_bloc/my_order_state.dart';
 import '../../../core/services/services_locator.dart';
+import '../../resources/color_manager.dart';
+import '../../resources/font_app.dart';
+import '../../resources/style_app.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../../widgets/custom_no_dataa.dart';
 import '../../widgets/dialogs/error_dialog.dart';
@@ -34,8 +39,21 @@ class OrderScreen extends StatelessWidget {
   }
 }
 
-class OrderScreenBody extends StatelessWidget {
+class OrderScreenBody extends StatefulWidget {
   const OrderScreenBody({super.key});
+
+  @override
+  State<OrderScreenBody> createState() => _OrderScreenBodyState();
+}
+
+class _OrderScreenBodyState extends State<OrderScreenBody> with TickerProviderStateMixin {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<MyOrderBloc>().tabController =
+        TabController(length: 2, vsync: this, initialIndex: 0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,23 +93,73 @@ class OrderScreenBody extends StatelessWidget {
                         ),
                       );
                     } else if (state.screenStates == ScreenStates.success) {
-                      return state.myOrderList.isNotEmpty
-                          ? CustomOverscrollIndicator(
-                              child: RefreshIndicator(
-                                onRefresh: () async {
-                                  context.read<MyOrderBloc>().add(GetMyOrder());
-                                },
-                                child: ListView.builder(
-                                  itemBuilder: (context, index) => CardOrder(
-                                      myOrder: state.myOrderList[index]),
-                                  itemCount: state.myOrderList.length,
+                      return Column(
+                            children: [
+                              Container(
+                                height: 50,
+                                width: 1.sw,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    ColorManager.shadowGaryDown,
+                                  ],
+                                  color: Colors.white,
+                                ),
+                                child: TabBar(
+                                  controller:
+                                  context.read<MyOrderBloc>().tabController,
+                                  tabs: [
+                                    Tab(
+                                      child: FittedBox(
+                                          child: Text(AppLocalizations.of(context)!.current_requests)),
+                                    ),
+                                    Tab(
+                                      child: FittedBox(
+                                          child: Text(AppLocalizations.of(context)!.baskets_are_not_required)),
+                                    ),
+                                  ],
+                                  unselectedLabelColor: ColorManager.grayForMessage,
+                                  labelColor: ColorManager.primaryGreen,
+                                  onTap: (v) {
+                                    context
+                                        .read<MyOrderBloc>()
+                                        .add(TapOnPressed(v));
+                                  },
+                                  labelStyle: getBoldStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: 14),
+                                  indicatorPadding: const EdgeInsets.only(
+                                      bottom: 10.0, left: 30, right: 30),
+                                  indicator: const BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: ColorManager.primaryGreen,
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            )
-                          : CustomNoData(
-                              noDataStatment:
-                                  AppLocalizations.of(context)!.no_order,
-                            );
+                              state.indexTap==0?
+                              Expanded(child: BodyOrders(state: state,)):
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.only(left:37 ,right: 37,top: 15),
+                                      child: Text(
+                                        AppLocalizations.of(context)!.place_orders,
+                                        style: getRegularStyle(
+                                          color: ColorManager.grayForMessage,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ),   Expanded(child: BodyBasketNotInstall(state: state,)),
+                                  ],
+                                ),
+                              )
+                            ])
+                         ;
                     } else {
                       return const Text("");
                     }
@@ -102,5 +170,59 @@ class OrderScreenBody extends StatelessWidget {
       ),
 
     );
+  }
+}
+
+class BodyOrders extends StatelessWidget {
+   BodyOrders({
+    super.key
+    ,
+    required this.state
+  });
+  MyOrderState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomOverscrollIndicator(
+        child: state.myOrderList.isNotEmpty?RefreshIndicator(
+          onRefresh: () async {
+            context.read<MyOrderBloc>().add(GetMyOrder());
+          },
+          child: ListView.builder(
+            itemBuilder: (context, index) => CardOrder(
+                myOrder: state.myOrderList[index]),
+            itemCount: state.myOrderList.length,
+          ),
+        ) : CustomNoData(
+          noDataStatment:
+          AppLocalizations.of(context)!.no_order,
+        ),
+      );
+  }
+}
+class BodyBasketNotInstall extends StatelessWidget {
+  BodyBasketNotInstall({
+    super.key
+    ,
+    required this.state
+  });
+  MyOrderState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MyOrderBloc, MyOrderState>(
+
+  builder: (context, state) {
+    print("===========state");
+    print(state);
+    return CustomOverscrollIndicator(
+        child: ListView.builder(
+          itemBuilder: (context, index) => BasketNotInstallCard(
+              myOrder: state.basketModel.basketList[index]),
+          itemCount: state.basketModel.basketList.length,
+        ),
+      );
+  },
+);
   }
 }

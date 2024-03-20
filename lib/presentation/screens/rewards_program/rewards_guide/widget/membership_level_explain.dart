@@ -13,13 +13,15 @@ class MembershipLevelExplain extends StatelessWidget {
   final String level;
   final Color crownColor;
   final String explain;
-  final List<String> features;
-  const MembershipLevelExplain(
-      {super.key,
-      required this.level,
-      this.crownColor = ColorManager.bronze,
-      required this.explain,
-      this.features = const []});
+  final List<int> features;
+
+  const MembershipLevelExplain({
+    super.key,
+    required this.level,
+    this.crownColor = ColorManager.bronze,
+    required this.explain,
+    this.features = const [],
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +50,10 @@ class MembershipLevelExplain extends StatelessWidget {
                         IconsManager.crown,
                         width: 50.w,
                         height: 40.h,
-                        colorFilter:
-                            ColorFilter.mode(crownColor, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                          crownColor,
+                          BlendMode.srcIn,
+                        ),
                       ),
                       SizedBox(
                         height: 7.h,
@@ -113,7 +117,9 @@ class MembershipLevelExplain extends StatelessWidget {
                           SizedBox(
                             height: 5.h,
                           ),
-                          MembershipLevelFeature(feature: features[index]),
+                          MembershipLevelFeature(
+                            feature: features[index],
+                          ),
                         ],
                       ),
                     ),

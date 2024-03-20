@@ -1,7 +1,10 @@
 import 'dart:developer';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../models/basket_model.dart';
 import '../../../models/login_response.dart';
+import '../../../models/params/get_basket_params.dart';
+import '../../../models/params/product_model.dart';
 import 'datastore_keys.dart';
 
 class DataStore {
@@ -16,6 +19,9 @@ class DataStore {
   Future<void> init() async {
     await Hive.initFlutter();
     Hive.registerAdapter(LoginResponseAdapter());
+    Hive.registerAdapter(ProductAdapter());
+    Hive.registerAdapter(GetBasketParamsAdapter());
+    Hive.registerAdapter(BasketModelAdapter());
     box = await Hive.openBox(DataStoreKeys.box);
 
     log("Datastore initialized", name: "$runtimeType");

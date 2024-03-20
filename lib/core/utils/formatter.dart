@@ -84,4 +84,29 @@ mixin Formatter {
     final formatter = NumberFormat('#,###.##', 'en_US');
     return formatter.format(price);
   }
+
+  static Color hexToColor(String code) {
+    // Remove the '#' prefix if present
+    if (code.startsWith('#')) {
+      code = code.substring(1);
+    }
+
+    // Parse the hexadecimal color code
+    return Color(int.parse(code, radix: 16) + 0xFF000000);
+  }
+
+  static String formatDate(DateTime dateTime) {
+    String formattedDate =
+        "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+    return formattedDate;
+  }
+
+ static String extractHour(String timeString) {
+    List<String> timeParts = timeString.split(':');
+    int hour = int.parse(timeParts[0]);
+    DateFormat dateFormat = DateFormat('hh');
+    DateTime dateTime = DateFormat('HH').parse(hour.toString());
+    int hour_2 = int.parse(dateFormat.format(dateTime)[1]);
+    return hour_2.toString();
+  }
 }
