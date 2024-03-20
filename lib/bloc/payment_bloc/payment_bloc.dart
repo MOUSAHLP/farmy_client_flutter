@@ -85,9 +85,12 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           emit(state.copyWith(attributeChosenList: mutableChangeList));
         }
         if (event is ToggleDeliveryMethod) {
-          List<DeliveryMethodResponse> mutableChosenDeliveryMethodList = List.from(state.deliveryMethodChosenList);
-          if (state.deliveryMethodChosenList.any((element) => element.id == event.deliveryMethodData!.id)) {
-            mutableChosenDeliveryMethodList.removeWhere((element) => element.id == event.deliveryMethodData!.id);
+          List<DeliveryMethodResponse> mutableChosenDeliveryMethodList =
+              List.from(state.deliveryMethodChosenList);
+          if (state.deliveryMethodChosenList
+              .any((element) => element.id == event.deliveryMethodData!.id)) {
+            mutableChosenDeliveryMethodList.removeWhere(
+                (element) => element.id == event.deliveryMethodData!.id);
           } else {
             mutableChosenDeliveryMethodList = [];
             mutableChosenDeliveryMethodList.add(event.deliveryMethodData!);
@@ -114,14 +117,15 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         if (event is CreateOrder) {
           // List<int?> ids = state.deliveryChangesList.map((e) => e.id).toList();
 
-          emit(state.copyWith(completePaymentStates: CompletePaymentStates.loading));
-          PaymentProcessParams paymentProcessParams = PaymentProcessParams(productInBasketList: event.productList);
+          emit(state.copyWith(
+              completePaymentStates: CompletePaymentStates.loading));
+          PaymentProcessParams paymentProcessParams =
+              PaymentProcessParams(productInBasketList: event.productList);
           (await paymentRepo.createOrder(
             paymentProcessParams,
             event.invoicesParams,
             state.attributeChosenList,
             state.deliveryChangesList.map((e) => e.id).toList(),
-
           ))
               .fold(
             (l) => emit(
@@ -131,7 +135,8 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
             ),
             (r) => emit(
               state.copyWith(
-                  completePaymentStates: CompletePaymentStates.complete),
+                  completePaymentStates: CompletePaymentStates.complete,
+                  orderId: r["id"]),
             ),
           );
         }

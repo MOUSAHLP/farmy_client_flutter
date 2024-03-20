@@ -45,7 +45,8 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    paymentBloc.add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse));
+    paymentBloc
+        .add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse));
     return PaymentBody(paymentBloc: paymentBloc);
   }
 }
@@ -78,7 +79,9 @@ class PaymentBody extends StatelessWidget {
           }
           if (state.completePaymentStates == CompletePaymentStates.complete) {
             LoadingDialog().closeDialog(context);
-            ConfirmPaymentOrderDialog.openDialog(context, AppLocalizations.of(context)!.orderSuccesfulyComplete);
+            ConfirmPaymentOrderDialog.openDialog(
+                context, AppLocalizations.of(context)!.orderSuccesfulyComplete,
+                orderId: state.orderId!);
             context.read<BasketBloc>().add(ClearBasket());
           }
           if (state.completePaymentStates == CompletePaymentStates.loading) {
@@ -167,7 +170,8 @@ class PaymentBody extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  for (var item in state.paymentProcessResponse!.deliveryMethodList!) ...[
+                                  for (var item in state.paymentProcessResponse!
+                                      .deliveryMethodList!) ...[
                                     if (item.deliveryName == "طلب مجدول") ...[
                                       if (checkIsOpening(context)) ...[
                                         BlocBuilder<LocationBloc,
@@ -615,15 +619,21 @@ class PaymentBody extends StatelessWidget {
                   onCompletePayment: () {
                     paymentBloc.add(
                       CreateOrder(
-                        productList:context.read<BasketBloc>().state.productList!,
+                        productList:
+                            context.read<BasketBloc>().state.productList!,
                         invoicesParams: InvoicesParams(
                           time: state.time,
                           notes: noteController.text,
-                          deliveryMethodId:state.deliveryMethodChosenList.isNotEmpty
+                          deliveryMethodId:
+                              state.deliveryMethodChosenList.isNotEmpty
                                   // ToDo deliveryMethodChosenList[0].id ??? 0
                                   ? state.deliveryMethodChosenList[0].id
                                   : 0,
-                          userAddressId: context.read<LocationBloc>().state.addressCurrent.id!,
+                          userAddressId: context
+                              .read<LocationBloc>()
+                              .state
+                              .addressCurrent
+                              .id!,
                         ),
                       ),
                     );
@@ -664,7 +674,8 @@ class PaymentBody extends StatelessWidget {
           if (context.read<LocationBloc>().state.addressCurrent.latitude !=
               null) {
             paymentBloc.add(ToggleDeliveryMethod(deliveryMethodData: item));
-            paymentBloc.add(GetInvoicesDetails(
+            paymentBloc.add(
+              GetInvoicesDetails(
                 invoicesParams: InvoicesParams(
                   time: state.time,
                   notes: noteController.text,
@@ -689,20 +700,30 @@ class PaymentBody extends StatelessWidget {
   }
 
   bool checkIsOpening(BuildContext context) {
-    DateTime dateTime = DateTime.now();
-    List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
-    print('=================== Current Time =============================');
-    print(dateTime.hour);
-    print('====================== End Time ==============================');
-    print(endTime[0]);
-    print('==============================================================');
-    if (int.parse(endTime[0]) > dateTime.hour) {
-      return true;
-    } else if (int.parse(endTime[0]) == dateTime.hour) {
-      if (int.parse(endTime[1]) > dateTime.minute) {
+    try {
+      DateTime dateTime = DateTime.now();
+      List<String> endTime = (context
+              .read<SettingBloc>()
+              .settingModel!
+              .data!
+              .openingTimes!
+              .endTime)
+          .split(":");
+      print('=================== Current Time =============================');
+      print(dateTime.hour);
+      print('====================== End Time ==============================');
+      print(endTime[0]);
+      print('==============================================================');
+      if (int.parse(endTime[0]) > dateTime.hour) {
         return true;
+      } else if (int.parse(endTime[0]) == dateTime.hour) {
+        if (int.parse(endTime[1]) > dateTime.minute) {
+          return true;
+        }
+      } else {
+        return false;
       }
-    } else {
+    } catch (e) {
       return false;
     }
     return false;

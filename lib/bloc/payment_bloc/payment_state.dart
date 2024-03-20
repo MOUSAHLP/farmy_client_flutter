@@ -1,6 +1,7 @@
 part of 'payment_bloc.dart';
 
 class PaymentState extends Equatable {
+  final int? orderId;
   final ScreenStates? screenState;
   final OrderStates? orderState;
   final PaymentStates? paymentState;
@@ -18,6 +19,7 @@ class PaymentState extends Equatable {
   final bool isExpandedHours;
 
   const PaymentState({
+    this.orderId,
     this.screenState,
     this.paymentProcessResponse,
     this.completePaymentStates,
@@ -36,6 +38,7 @@ class PaymentState extends Equatable {
   });
 
   PaymentState copyWith({
+    int? orderId,
     ScreenStates? screenState,
     OrderStates? orderState,
     int? deliveryCost,
@@ -48,11 +51,11 @@ class PaymentState extends Equatable {
     List<DeliveryAttributesResponse>? attributeChosenList,
     bool? isCompletePayment,
     String? time,
-
     bool? isExpandedMinutes,
     bool? isExpandedHours,
   }) {
     return PaymentState(
+      orderId: orderId,
       completePaymentStates:
           completePaymentStates ?? CompletePaymentStates.initialized,
       paymentProcessResponse:
@@ -67,7 +70,6 @@ class PaymentState extends Equatable {
       paymentState: paymentState ?? this.paymentState,
       errorMessage: errorMessage ?? "",
       time: time ?? this.time,
-
       isExpandedMinutes: isExpandedMinutes ?? this.isExpandedMinutes,
       isExpandedHours: isExpandedHours ?? this.isExpandedHours,
     );
@@ -76,6 +78,7 @@ class PaymentState extends Equatable {
   @override
   List<Object?> get props => [
         identityHashCode(this),
+        orderId,
         screenState,
         orderState,
         paymentState,
@@ -89,6 +92,5 @@ class PaymentState extends Equatable {
         time,
         isExpandedMinutes,
         isExpandedHours,
-
       ];
 }

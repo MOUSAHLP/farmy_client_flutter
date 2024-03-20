@@ -15,19 +15,26 @@ import 'package:pharma/translations.dart';
 import '../../../core/app_router/app_router.dart';
 
 class ConfirmPaymentOrderDialog {
-  static void openDialog(BuildContext context, String? message) {
+  static void openDialog(BuildContext context, String? message,
+      {required int orderId}) {
+    print("orderId orderId orderId orderId orderId orderId ");
+    print(orderId);
+    print("orderId orderId orderId orderId orderId orderId ");
     dialogTransitionBuilder(
         context,
         _ConfirmPaymentOrderDialogBody(
           message: message!,
+          orderId: orderId,
         ));
   }
 }
 
 class _ConfirmPaymentOrderDialogBody extends StatefulWidget {
   final String message;
+  final int orderId;
 
-  const _ConfirmPaymentOrderDialogBody({required this.message});
+  const _ConfirmPaymentOrderDialogBody(
+      {required this.message, required this.orderId});
 
   @override
   State<_ConfirmPaymentOrderDialogBody> createState() =>
@@ -90,8 +97,8 @@ class _ConfirmPaymentOrderDialogBodyState
                     label: AppLocalizations.of(context)!.order_Tracking,
                     fillColor: ColorManager.lightGreen,
                     onTap: () {
-                      AppRouter.pushReplacement(
-                          context, const OrderTrackingScreen());
+                      AppRouter.pushReplacement(context,
+                          OrderTrackingScreen(orderId: widget.orderId));
                     },
                   ),
                 ),

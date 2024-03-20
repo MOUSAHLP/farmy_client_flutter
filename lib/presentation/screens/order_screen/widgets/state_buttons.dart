@@ -8,10 +8,12 @@ import '../../../resources/color_manager.dart';
 import '../../../widgets/custom_button.dart';
 import '../../order_details_screen/order_details_screen.dart';
 import '../../order_tracking_screen/order_tracking_screen.dart';
+
 class StateButtons extends StatelessWidget {
-   const StateButtons({Key? key, required this.status,required this.id}) : super(key: key);
+  const StateButtons({Key? key, required this.status, required this.id})
+      : super(key: key);
   final String status;
-final int id;
+  final int id;
   @override
   Widget build(BuildContext context) {
     Widget getButtonsBasedOnStatus(String status) {
@@ -21,23 +23,31 @@ final int id;
           buttons = [
             Expanded(
               child: CustomButton(
-                label:AppLocalizations.of(context)!.show_Order,
+                label: AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
+                  return AppRouter.push(
+                      context,
+                      OrderDetailsScreen(
+                        id: id,
+                      ));
                 },
               ),
             ),
             const SizedBox(width: 2),
             Expanded(
               child: CustomButton(
-                label:AppLocalizations.of(context)!.edit_Orders,
+                label: AppLocalizations.of(context)!.edit_Orders,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(context, OrderDetailsScreen(id:id,isEdit: true,));
-
+                  return AppRouter.push(
+                      context,
+                      OrderDetailsScreen(
+                        id: id,
+                        isEdit: true,
+                      ));
                 },
               ),
             ),
@@ -63,22 +73,29 @@ final int id;
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
+                  return AppRouter.push(
+                      context,
+                      OrderDetailsScreen(
+                        id: id,
+                      ));
                 },
               ),
             ),
-
           ];
           break;
         case "OnDelivery":
           buttons = [
             Expanded(
               child: CustomButton(
-                label:AppLocalizations.of(context)!.show_Order,
+                label: AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
+                  return AppRouter.push(
+                      context,
+                      OrderDetailsScreen(
+                        id: id,
+                      ));
                 },
               ),
             ),
@@ -88,19 +105,18 @@ final int id;
                 label: AppLocalizations.of(context)!.returned,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
-                onTap: () {
-
-                },
+                onTap: () {},
               ),
             ),
             const SizedBox(width: 2),
             Expanded(
               child: CustomButton(
-                label:AppLocalizations.of(context)!.track_Order,
+                label: AppLocalizations.of(context)!.track_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  AppRouter.push(context, const OrderTrackingScreen());
+                  AppRouter.push(context,
+                      OrderTrackingScreen(orderId: 0)); // need to pe changed
                 },
               ),
             ),
@@ -110,11 +126,15 @@ final int id;
           buttons = [
             Expanded(
               child: CustomButton(
-                label:AppLocalizations.of(context)!.show_Order,
+                label: AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
+                  return AppRouter.push(
+                      context,
+                      OrderDetailsScreen(
+                        id: id,
+                      ));
                 },
               ),
             ),
@@ -128,7 +148,11 @@ final int id;
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
+                  return AppRouter.push(
+                      context,
+                      OrderDetailsScreen(
+                        id: id,
+                      ));
                 },
               ),
             ),
@@ -142,7 +166,11 @@ final int id;
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
+                  return AppRouter.push(
+                      context,
+                      OrderDetailsScreen(
+                        id: id,
+                      ));
                 },
               ),
             ),
@@ -157,8 +185,7 @@ final int id;
         children: buttons,
       );
     }
-    return getButtonsBasedOnStatus(status);
 
+    return getButtonsBasedOnStatus(status);
   }
 }
-

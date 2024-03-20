@@ -1,6 +1,11 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
+import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
+import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
 
 void notificationTapBackground(NotificationResponse notificationResponse) {
   if (kDebugMode) {
@@ -32,6 +37,7 @@ class FirebaseNotificationsHandler {
 
   bool _requestToken = true;
   RemoteMessage? newMessage;
+  TrackingBloc? bloc;
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
@@ -76,11 +82,14 @@ class FirebaseNotificationsHandler {
         print('OpenedApp');
       }
       // newMessage = message;
-      print(message.notification!.body);
       RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      print('notification ${notification}');
-      if (notification != null) {
+
+      if (message.data["order_status"] != null && bloc != null) {
+        // update the tracking screen
+        bloc!.add(UpdateOrderStatus(
+            orderId: int.parse(message.data["order_id"].toString()),
+            status: int.parse(message.data["order_status"].toString())));
+      } else if (notification != null) {
         flutterLocalNotificationsPlugin
             .show(
                 notification.hashCode,

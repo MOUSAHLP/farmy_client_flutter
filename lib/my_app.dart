@@ -12,7 +12,10 @@ import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_event.dart';
+import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
+import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/core/utils/firebase_notifications_handler.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
@@ -41,15 +44,26 @@ class _MyAppState extends State<MyApp> {
       builder: (context, ctx) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(create: (BuildContext context) => sl<SettingBloc>()..add(const GetSetting())),
-            BlocProvider(create: (BuildContext context) => sl<AuthenticationBloc>()),
+            BlocProvider(
+                create: (BuildContext context) =>
+                    sl<SettingBloc>()..add(const GetSetting())),
+            BlocProvider(
+                create: (BuildContext context) => sl<AuthenticationBloc>()),
             BlocProvider(create: (BuildContext context) => sl<LanguageBloc>()),
             BlocProvider(create: (BuildContext context) => sl<LocationBloc>()),
-            BlocProvider(create: (BuildContext context) => sl<OnBoardingBloc>()),
-            BlocProvider(create: (BuildContext context) => sl<HomeBloc>()..add(GetHomeData())),
+            BlocProvider(
+                create: (BuildContext context) => sl<OnBoardingBloc>()),
+            BlocProvider(
+                create: (BuildContext context) =>
+                    sl<HomeBloc>()..add(GetHomeData())),
             BlocProvider(create: (BuildContext context) => sl<BasketBloc>()),
-            BlocProvider(create: (BuildContext context) => sl<FavoriteBloc>(),),
+            BlocProvider(
+              create: (BuildContext context) => sl<FavoriteBloc>(),
+            ),
             BlocProvider(create: (BuildContext context) => sl<PaymentBloc>()),
+            BlocProvider(
+                create: (BuildContext context) =>
+                    sl<TrackingBloc>()..add(const GetOrderStatus())),
           ],
           child: OverlaySupport.global(
             child: GestureDetector(
@@ -75,7 +89,8 @@ class _MyAppState extends State<MyApp> {
                         GlobalCupertinoLocalizations.delegate,
                         GlobalWidgetsLocalizations.delegate,
                       ],
-                      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                      home:
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
                         bloc: sl<AuthenticationBloc>()..add(AppStarted()),
                         builder: (context, state) {
                           switch (state.authenticationScreen) {
