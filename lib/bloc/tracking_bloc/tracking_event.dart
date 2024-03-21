@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:pharma/models/track_model.dart';
 
 class TrackingEvent extends Equatable {
   const TrackingEvent();
@@ -13,6 +14,6 @@ class GetOrderStatus extends TrackingEvent {
 
 class UpdateOrderStatus extends TrackingEvent {
   int orderId;
-  int status;
-  UpdateOrderStatus({required this.orderId, required this.status});
+  TrackingModel trackingModel;
+  UpdateOrderStatus({required this.orderId, required this.trackingModel});
 }

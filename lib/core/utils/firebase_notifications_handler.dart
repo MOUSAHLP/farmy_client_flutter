@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
+import 'package:pharma/models/track_model.dart';
 
 void notificationTapBackground(NotificationResponse notificationResponse) {
   if (kDebugMode) {
@@ -84,12 +85,18 @@ class FirebaseNotificationsHandler {
       // newMessage = message;
       RemoteNotification? notification = message.notification;
 
-      if (message.data["order_status"] != null && bloc != null) {
-        // update the tracking screen
-        bloc!.add(UpdateOrderStatus(
-            orderId: int.parse(message.data["order_id"].toString()),
-            status: int.parse(message.data["order_status"].toString())));
-      } else if (notification != null) {
+      if (notification != null) {
+        if (message.data["order_status"] != null && bloc != null) {
+          // update the tracking screen
+          TrackingModel trackingModel = TrackingModel(
+              driverPhone: int.parse(message.data["driver_phone"].toString()),
+              status: int.parse(message.data["order_status"].toString()));
+
+          bloc!.add(UpdateOrderStatus(
+              orderId: int.parse(message.data["order_id"].toString()),
+              trackingModel: trackingModel));
+        }
+
         flutterLocalNotificationsPlugin
             .show(
                 notification.hashCode,

@@ -129,8 +129,7 @@ class StateButtons extends StatelessWidget {
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  AppRouter.push(context,
-                      OrderTrackingScreen(orderId: 0)); // need to pe changed
+                  AppRouter.push(context, OrderTrackingScreen(orderId: id));
                 },
               ),
             ),

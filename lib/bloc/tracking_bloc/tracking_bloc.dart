@@ -29,7 +29,7 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
           if (orderId == event.orderId) {
             emit(TrackingUpdate());
 
-            trackingModel!.status = event.status;
+            trackingModel = event.trackingModel;
 
             emit(TrackingSuccess());
           }
