@@ -17,6 +17,7 @@ import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activi
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
+import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/who_we_are_bloc/who_we_are_bloc.dart';
 import 'package:pharma/data/repository/basket_repo.dart';
 import 'package:pharma/data/repository/categories_repo.dart';
@@ -89,6 +90,9 @@ class ServicesLocator {
     ///my order
     sl.registerFactory(() => MyOrderBloc());
     sl.registerFactory(() => DetailsOrderBloc());
+
+    /// Tracking
+    sl.registerFactory(() => TrackingBloc());
 
     ///notification
     sl.registerFactory(() => NotificationBloc());

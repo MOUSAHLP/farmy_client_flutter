@@ -14,6 +14,9 @@ import '../../data/data_resource/local_resource/datastore_keys.dart';
 class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
   List<MyOrderResponse> myOrderList = [];
   late TabController tabController;
+  BasketModel basketModelStore =
+      DataStore.instance.dynamicData<BasketModel>(DataStoreKeys.basket) ??
+          BasketModel(basketList: []);
   MyOrderBloc() : super(MyOrderState(basketModel: BasketModel(basketList: []))) {
     on<MyOrderEvent>((event, emit) async {
       if (event is GetMyOrder) {
@@ -51,13 +54,23 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
             tabController.animateTo(index);
             emit(state.copyWith(
         indexTap:index,
-               basketModel: DataStore.instance.dynamicData<BasketModel>(DataStoreKeys.basket) ??
-                   BasketModel(basketList: [])));
+               basketModel:basketModelStore));
             break;
 
           default:
             break;
         }
+
+      }
+      if(event is DeleteBasket){
+        print("event.idBasket");
+        print(event.idBasket);
+        print(state.basketModel.basketList);
+
+        state.basketModel.basketList.removeWhere((element) => element.id == event.idBasket);
+        DataStore.instance.setDynamicData(DataStoreKeys.basket, basketModelStore);
+        emit(state.copyWith(
+            basketModel:basketModelStore,check: !state.check));
 
       }
     });

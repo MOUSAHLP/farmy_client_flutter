@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/core/utils/firebase_notifications_handler.dart';
 import 'core/services/services_locator.dart';
 import 'data/data_resource/local_resource/data_store.dart';
@@ -27,6 +28,5 @@ void main() async {
   BaseApiClient();
   // SystemChrome.setPreferredOrientations(
   //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
   runApp(const MyApp());
 }

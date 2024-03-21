@@ -18,17 +18,21 @@ class PaymentRepo {
         });
   }
 
-  Future<Either<String, String>> createOrder(
+  Future<Either<String, Map<String, dynamic>>> createOrder(
     PaymentProcessParams paymentProcessParams,
     InvoicesParams invoicesParams,
     List<DeliveryAttributesResponse>? deliveryAttributesList,
     List<int?>? deliveryChangesList,
   ) {
-    return BaseApiClient.post<String>(
-        formData: paymentProcessParams.createOrderToJsonWithParams(invoicesParams, deliveryAttributesList, paymentProcessParams.productInBasketList,deliveryChangesList),
+    return BaseApiClient.post<Map<String, dynamic>>(
+        formData: paymentProcessParams.createOrderToJsonWithParams(
+            invoicesParams,
+            deliveryAttributesList,
+            paymentProcessParams.productInBasketList,
+            deliveryChangesList),
         url: ApiConst.createOrders,
         converter: (e) {
-          return e["message"];
+          return e["data"];
         });
   }
 }

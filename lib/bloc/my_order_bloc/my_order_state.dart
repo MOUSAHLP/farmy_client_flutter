@@ -16,6 +16,7 @@ class MyOrderState extends Equatable {
   bool successDelete;
   String error;
   String errorDelete;
+  bool check;
   MyOrderState({
     this.screenStates = ScreenStates.loading,
    this.myOrderList=const [],
@@ -27,7 +28,8 @@ class MyOrderState extends Equatable {
     this.error='',
     this.errorDelete='',
    required this.basketModel,
-    this.indexTap=0
+    this.indexTap=0,
+    this.check = false,
   });
   MyOrderState copyWith({
     ScreenStates? screenStates,
@@ -40,8 +42,8 @@ class MyOrderState extends Equatable {
     String? errorDelete,
     List<MyOrderResponse>? myOrderList,
     BasketModel? basketModel,
-    int? indexTap
-
+    int? indexTap,
+    bool? check,
   }){
     return MyOrderState(
       myOrderList:myOrderList??this.myOrderList,
@@ -54,7 +56,8 @@ class MyOrderState extends Equatable {
       success: success??false,
       successDelete: successDelete??false,
       basketModel: basketModel??this.basketModel,
-        indexTap:indexTap??this.indexTap
+        indexTap:indexTap??this.indexTap,
+      check: check ?? this.check,
     );
   }
   @override
@@ -70,7 +73,8 @@ class MyOrderState extends Equatable {
     errorDelete,
     myOrderList,
     basketModel,
-    indexTap
+    indexTap,
+    check
   ];
 }
 

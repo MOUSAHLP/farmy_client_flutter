@@ -13,7 +13,11 @@ class TapOnPressed extends MyOrderEvent {
   int index;
   TapOnPressed(this.index);
 }
+class DeleteBasket extends MyOrderEvent {
+  int idBasket;
 
+  DeleteBasket({required this.idBasket});
+}
 
 
 
