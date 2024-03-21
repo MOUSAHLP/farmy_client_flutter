@@ -22,14 +22,6 @@ class BasketNotInstallCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("myOrder.id");
-    print(myOrder.id);
-    myOrder.products.forEach((element) {
-      print("products");
-      print(element.productId);
-
-      print(element.quantity);
-    });
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 37),
@@ -52,9 +44,11 @@ class BasketNotInstallCard extends StatelessWidget {
                          RowOrder(
                             title:AppLocalizations.of(context)!.type_of_request,
                             details: "سلة غير مثبتة"),
+                        const SizedBox(height: 5,),
                         RowOrder(
                             title: AppLocalizations.of(context)!.number_of_orders,
                             details: myOrder.products.length.toString()),
+                        const SizedBox(height: 5,),
                         RowOrder(
                             title:"id basket",
                             details: myOrder.id.toString()),
@@ -83,7 +77,7 @@ class BasketNotInstallCard extends StatelessWidget {
                         child: CustomButton(
                           height: 38,
                           radius: 6,
-                          label:AppLocalizations.of(context)!.edit,
+                          label:AppLocalizations.of(context)!.edit_Orders,
                           fillColor: ColorManager.yellow,
                           labelColor: Colors.white,
                           onTap: () {

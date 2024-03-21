@@ -52,12 +52,15 @@ class _LoadingDialogBody extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SpinKitFadingCircle(
-                itemBuilder: (_, int index) {
-                  return SvgPicture.asset(IconsManager.logoApp,
-                      width: 89, height: 107);
-                },
+              const SpinKitFadingCircle(
+                color: Colors.black,
               ),
+              // SpinKitFadingCircle(
+              //   itemBuilder: (_, int index) {
+              //     return SvgPicture.asset(IconsManager.logoApp,
+              //         width: 89, height: 107);
+              //   },
+              // ),
               const SizedBox(height: 5),
               Text(
                 AppLocalizations.of(context)!.processing,

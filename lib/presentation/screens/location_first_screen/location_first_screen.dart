@@ -125,22 +125,22 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                           const SizedBox(
                             height: 33,
                           ),
-                          FittedBox(
-                            child: Text(
-                              AppLocalizations.of(context)!.welcome_to_Farmy,
-                              style: getBoldStyle(
-                                  color: ColorManager.primaryGreen,
-                                  fontSize: 26),
-                            ),
+                          Text(
+                            AppLocalizations.of(context)!.welcome_to_Farmy,
+                            style: getBoldStyle(
+                                color: ColorManager.primaryGreen,
+                                fontSize: 26),
+
+
                           ),
-                          FittedBox(
-                            child: Text(
-                              AppLocalizations.of(context)!
-                                  .please_choose_delivery_location,
-                              style: getRegularStyle(
-                                  color: ColorManager.primaryGreen,
-                                  fontSize: isImageShrunk ? 16 : 22),
-                            ),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .please_choose_delivery_location,
+                            style: getRegularStyle(
+                                color: ColorManager.primaryGreen,
+                                fontSize: isImageShrunk ? 16 : 20),
+                            maxLines:3,
+                            textAlign: TextAlign.center,
                           ),
                           AnimatedBuilder(
                             animation: _animation,
@@ -241,7 +241,7 @@ class _LocationFirstScreenState extends State<LocationFirstScreen>
                                   ),
                                 )
                               : const SizedBox(),
-                          SizedBox(height: 1.sh/5,),
+                          SizedBox(height: 1.sh/6,),
                           // isImageShrunk
                           //     ? const SizedBox(
                           //         height: 0,

@@ -27,8 +27,10 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen> {
     return widget.subCategoriesList!.isEmpty
         ? Center(
             child: CustomNoData(
-                noDataStatment:
-                    AppLocalizations.of(context)!.thereIsNoSubCategory))
+              noDataStatment:
+                  AppLocalizations.of(context)!.thereIsNoSubCategory,
+            ),
+          )
         : GridView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             itemCount: widget.subCategoriesList!.length,
@@ -36,7 +38,8 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen> {
                 crossAxisSpacing: 0,
                 mainAxisSpacing: 0,
                 mainAxisExtent: 135,
-                crossAxisCount: 3),
+                crossAxisCount: 3,
+            ),
             itemBuilder: (context, index) {
               return GestureDetector(
                   onTap: () {

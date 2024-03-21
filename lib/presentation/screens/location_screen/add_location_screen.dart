@@ -17,6 +17,7 @@ import '../../../core/app_validators.dart';
 import '../../../models/params/add_address_params.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
+import '../home_screen/home_screen.dart';
 
 class AddLocationScreen extends StatelessWidget {
   AddLocationScreen({super.key, this.isFirst = false});
@@ -39,8 +40,7 @@ class AddLocationScreen extends StatelessWidget {
           ErrorDialog.openDialog(context, state.error);
         }
         if (state.success) {
-          // AppRouter.push(context, const HomeScreen());
-          AppRouter.pop(context);
+            AppRouter.push(context, const HomeScreen());
         }
       }, builder: (context, state) {
         AddAddressParams address = context.read<LocationBloc>().address;
@@ -70,6 +70,9 @@ class AddLocationScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      isFirst?const SizedBox(
+                        height: 14,
+                      ):const SizedBox(),
                       isFirst
                           ? const SizedBox()
                           : InkWell(
@@ -115,14 +118,17 @@ class AddLocationScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            AppLocalizations.of(context)!.choose_the_Address,
+                            AppLocalizations.of(context)!.address_details,
                             style: getBoldStyle(
                                 color: ColorManager.grayForMessage,
                                 fontSize: 14),
                           ),
                         ],
                       ),
-                      InputFieldAuth(
+                  const SizedBox(
+                    height: 14,
+                  ),
+                    InputFieldAuth(
                           color: ColorManager.grayForm,
                           width: 1.sw,
                           hintText: AppLocalizations.of(context)!.address,
@@ -175,10 +181,11 @@ class AddLocationScreen extends StatelessWidget {
                                 onChange: (value) {
                                   address.buildingNumber = value;
                                 },
-                                validator: (value) {
-                                  return AppValidators.validateNameFields(
-                                      context, value);
-                                }),
+                                // validator: (value) {
+                                //   return AppValidators.validateNameFields(
+                                //       context, value);
+                                // }
+                                ),
                           ),
                           const SizedBox(
                             width: 13,
@@ -211,10 +218,11 @@ class AddLocationScreen extends StatelessWidget {
                           onChange: (value) {
                             address.name = value;
                           },
-                          validator: (value) {
-                            return AppValidators.validateNameFields(
-                                context, value);
-                          }),
+                          // validator: (value) {
+                          //   return AppValidators.validateNameFields(
+                          //       context, value);
+                          // }
+                          ),
                       const SizedBox(
                         height: 9,
                       ),

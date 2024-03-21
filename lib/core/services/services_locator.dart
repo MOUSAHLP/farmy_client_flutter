@@ -13,7 +13,7 @@ import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/bloc/prdouct_details/productdetails_bloc.dart';
 import 'package:pharma/bloc/privacy_bloc/privacy_bloc.dart';
 import 'package:pharma/bloc/products_bloc/products_bloc.dart';
-import 'package:pharma/bloc/rewards_bloc/activity_bloc/rewards_activity_bloc.dart';
+import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
@@ -98,7 +98,7 @@ class ServicesLocator {
     sl.registerFactory(() => NotificationBloc());
 
     /// Rewards
-    sl.registerFactory(() => RewardsActivityBloc());
+    sl.registerFactory(() => RewardsActivityAndOffersBloc());
     sl.registerFactory(() => RewardsPointsHistoryBloc());
     sl.registerFactory(() => RewardsRankBloc());
 

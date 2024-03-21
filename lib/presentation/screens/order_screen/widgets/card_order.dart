@@ -30,15 +30,19 @@ class CardOrder extends StatelessWidget {
               RowOrder(
                   title: AppLocalizations.of(context)!.order_Number,
                   details: myOrder.orderNumber.toString()),
+              const SizedBox(height: 5,),
               RowOrder(
                   title: AppLocalizations.of(context)!.address,
                   details: getAddress(myOrder.userAddress!)),
+              const SizedBox(height: 5,),
               RowOrder(
                   title: AppLocalizations.of(context)!.delivery_Type,
                   details: myOrder.deliveryMethod?.name ?? ""),
+              const SizedBox(height: 5,),
               RowOrder(
                   title: AppLocalizations.of(context)!.expected_Time,
                   details: myOrder.expectedTime.toString() ?? ""),
+              const SizedBox(height: 5,),
               myOrder.total != null
                   ? Row(
                       children: [
@@ -65,6 +69,7 @@ class CardOrder extends StatelessWidget {
                       ],
                     )
                   : const SizedBox(),
+              const SizedBox(height: 5,),
               //Text(myOrder.status??""),
               StateButtons(
                 status: myOrder.status ?? "",

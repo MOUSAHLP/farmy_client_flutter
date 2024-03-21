@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:pharma/core/utils/api_const.dart';
 import 'package:pharma/data/data_resource/remote_resource/api_handler/base_api_client.dart';
 import 'package:pharma/models/home_response.dart';
+import 'package:pharma/models/reward/reward_activity_coupons_model.dart';
+import 'package:pharma/models/reward/reward_my_coupons_model.dart';
 import 'package:pharma/models/reward/reward_guide_model.dart';
 import 'package:pharma/models/reward/reward_history_model.dart';
 import 'package:pharma/models/reward/reward_membership_guide_model.dart';
@@ -39,6 +41,7 @@ class RewardsRepo {
           return RewardHistoryModel.fromJson(e);
         });
   }
+
   static Future<Either<String, RewardHistoryModel>> getRewardHistoryPointsUsed() {
     return BaseApiClient.get<RewardHistoryModel>(
         url: ApiConst.getRewardsPointHistoryUsed,
@@ -46,6 +49,7 @@ class RewardsRepo {
           return RewardHistoryModel.fromJson(e);
         });
   }
+
   static Future<Either<String, RewardHistoryModel>> getRewardHistoryPointsValid() {
     return BaseApiClient.get<RewardHistoryModel>(
         url: ApiConst.getRewardsPointHistoryValid,
@@ -53,4 +57,22 @@ class RewardsRepo {
           return RewardHistoryModel.fromJson(e);
         });
   }
+
+  static Future<Either<String, RewardMyCouponsModel>> getRewardMyCoupons() {
+    return BaseApiClient.get<RewardMyCouponsModel>(
+        url: ApiConst.getRewardMyCoupons,
+        converter: (e) {
+          return RewardMyCouponsModel.fromJson(e);
+        });
+  }
+
+  static Future<Either<String, RewardCouponsActivityModel>> getRewardActivity() {
+    return BaseApiClient.get<RewardCouponsActivityModel>(
+        url: ApiConst.getRewardActivityCoupons,
+        converter: (e) {
+          return RewardCouponsActivityModel.fromJson(e);
+        });
+  }
+
+
 }
