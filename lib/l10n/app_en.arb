@@ -282,5 +282,7 @@
   "install": "Confirm",
   "delivery_service_is_available_from_now_on": "Delivery service is available from now on",
   "in_the_morning_until_noon": "in the morning until noon",
-  "in_the_evening_it_is_possible_to_choose_to_order_now_and_have_it_delivered_in_the_morning": "In the evening, it is possible to choose to order now and have it delivered in the morning"
+  "in_the_evening_it_is_possible_to_choose_to_order_now_and_have_it_delivered_in_the_morning": "In the evening, it is possible to choose to order now and have it delivered in the morning",
+  "my_coupon":"MyCoupon",
+  "all_products" : "All Products"
 }

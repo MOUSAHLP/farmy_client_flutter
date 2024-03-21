@@ -8,7 +8,9 @@ import 'package:pharma/translations.dart';
 
 class RewardsActivityTicketBuyContent extends StatelessWidget {
   final String point;
-  const RewardsActivityTicketBuyContent({Key? key, required this.point}) : super(key: key);
+
+  const RewardsActivityTicketBuyContent({Key? key, required this.point})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,34 +19,50 @@ class RewardsActivityTicketBuyContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: PaddingApp.p22, vertical: PaddingApp.p3),
+          margin: EdgeInsetsDirectional.only(
+            top: 5.h,
+          ),
+          alignment: Alignment.center,
+          width: 175.w,
+          height: 36.h,
           decoration: BoxDecoration(
-              color: ColorManager.grayForMessage,
-              borderRadius: BorderRadius.circular(RadiusApp.r5)),
+            color: ColorManager.grayForMessage,
+            borderRadius: BorderRadius.circular(
+              RadiusApp.r6.r,
+            ),
+          ),
           child: Text(
+            textAlign: TextAlign.center,
             "$point ${AppLocalizations.of(context)!.point}",
             style: getBoldStyle(
-                color: ColorManager.white,
-                fontSize: FontSizeApp.s18,
-                height: 1.6),
+              color: ColorManager.white,
+              fontSize: FontSizeApp.s18.sp,
+              height: 1.6.h,
+            ),
           ),
         ),
         SizedBox(
           height: 10.h,
         ),
         Container(
-          width: double.infinity,
+          height: 27.h,
+          width: 219.w,
           alignment: Alignment.center,
           padding: const EdgeInsets.all(PaddingApp.p3),
           decoration: BoxDecoration(
-              color: ColorManager.primaryGreen,
-              borderRadius: BorderRadius.circular(RadiusApp.r5)),
-          child: Text("شراء",
-              style: getBoldStyle(
-                  color: ColorManager.white,
-                  fontSize: FontSizeApp.s14,
-                  height: 1.6)),
+            color: ColorManager.primaryGreen,
+            borderRadius: BorderRadius.circular(
+              RadiusApp.r5.r,
+            ),
+          ),
+          child: Text(
+            "شراء",
+            style: getBoldStyle(
+              color: ColorManager.white,
+              fontSize: FontSizeApp.s14.sp,
+              height: 1.6,
+            ),
+          ),
         ),
       ],
     );

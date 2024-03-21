@@ -8,6 +8,7 @@ import 'package:pharma/models/sub_category_response.dart';
 import '../../models/categories_respoonse.dart';
 
 part 'categories_event.dart';
+
 part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
@@ -30,15 +31,19 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
             );
           }).toList();
           tabs.insert(
-              0,
-              const Tab(
-                text: "All Products",
-              ));
-          emit(state.copyWith(
+            0,
+            const Tab(
+              text: "جميع النتجات",
+            ),
+          );
+          emit(
+            state.copyWith(
               tabIndex: 0,
               screenState: ScreenState.success,
               categoriesList: r,
-              tabs: tabs));
+              tabs: tabs,
+            ),
+          );
         });
       } else if (event is GetSubCategoryEvent) {
         emit(state.copyWith(

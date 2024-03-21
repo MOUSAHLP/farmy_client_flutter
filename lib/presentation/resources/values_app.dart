@@ -31,6 +31,7 @@ class PaddingApp {
 
 class RadiusApp {
   static const double r5 = 5.0;
+  static const double r6 = 6.0;
   static const double r8 = 8.0;
   static const double r10 = 10.0;
   static const double r12 = 12.0;

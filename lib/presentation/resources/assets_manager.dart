@@ -29,6 +29,9 @@ class ImageManager {
   static const String status_2 = "$imagePath/status_2.svg";
   static const String status_3 = "$imagePath/status_3.svg";
 
+  static const String subtract = "$imagePath/subtract.png";
+
+
 
   static const String dateTimeImage = "$imagePath/date_time.png";
   static const String farmySmile = "$imagePath/farmy_smile.png";
@@ -57,7 +60,7 @@ class ImageManager {
   static const String logoGuest = "$imagePath/logo_guest.png";
   static const String rate = "$imagePath/rate.png";
   static const String ticket = "$imagePath/ticket.png";
-  static const String discount = "$imagePath/discount.png";
+  static const String discount = "$imagePath/discount.svg";
   static const String share = "$imagePath/share.png";
   static const String stars = "$imagePath/stars.png";
   static const String innerShadowBox = "$imagePath/innerShadowBox.png";

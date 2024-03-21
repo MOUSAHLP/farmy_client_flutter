@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharma/bloc/rewards_bloc/activity_bloc/rewards_activity_bloc.dart';
+import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
 import 'package:pharma/core/services/services_locator.dart';
@@ -8,7 +8,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/base_screen/base_screen.dart';
-import 'package:pharma/presentation/screens/rewards_program/activity/rewards_activity_screen.dart';
+import 'package:pharma/presentation/screens/rewards_program/activity/rewards_activity_and_offers_screen.dart';
 import 'package:pharma/presentation/screens/rewards_program/points_history/rewards_points_history_screen.dart';
 import 'package:pharma/presentation/screens/rewards_program/rank/rewards_rank_screen.dart';
 import 'package:pharma/translations.dart';
@@ -31,9 +31,9 @@ class RewardsProgramScreen extends StatelessWidget {
                 create: (BuildContext context) =>
                     sl<RewardsPointsHistoryBloc>(),
               ),
-              BlocProvider<RewardsActivityBloc>(
+              BlocProvider<RewardsActivityAndOffersBloc>(
                 lazy: true,
-                create: (BuildContext context) => sl<RewardsActivityBloc>(),
+                create: (BuildContext context) => sl<RewardsActivityAndOffersBloc>(),
               ),
               BlocProvider<RewardsRankBloc>(
                 lazy: true,
@@ -84,7 +84,7 @@ class RewardsProgramScreen extends StatelessWidget {
                       body: TabBarView(
                         children: [
                           const RewardsRankScreen(),
-                          const RewardsActivityScreen(),
+                           RewardsActivityAndOffersScreen(),
                           RewardsPointsHistoryScreen(),
                         ],
                       ),

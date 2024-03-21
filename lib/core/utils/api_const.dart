@@ -74,4 +74,6 @@ class ApiConst {
   static const String getRewardsPointHistoryExpired = "/reward/points/expired";
   static const String getRewardsPointHistoryUsed = "/reward/points/used";
   static const String getRewardsPointHistoryValid = "/reward/points/valid";
+  static const String getRewardMyCoupons = "/reward/coupons";
+  static const String getRewardActivityCoupons = "/reward/achievements/not-done";
 }

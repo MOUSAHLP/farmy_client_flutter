@@ -37,66 +37,65 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CategoriesBloc, CategoriesState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          TabController tabController = TabController(length: state.tabs.length, vsync: this);
-          tabController.animateTo(state.tabIndex);
+      listener: (context, state) {},
+      builder: (context, state) {
+        TabController tabController =
+            TabController(length: state.tabs.length, vsync: this);
+        tabController.animateTo(state.tabIndex);
 
-          return SafeArea(
-              child: Scaffold(
-            body: (state.screenState == ScreenState.loading &&
-                    state.tabs.isEmpty)
+        return SafeArea(
+          child: Scaffold(
+            body: (state.screenState == ScreenState.loading && state.tabs.isEmpty)
                 ? const CustomLoadingWidget()
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomAppBarScreen(
-                          sectionName:
-                              AppLocalizations.of(context)!.all_section),
-                      SizedBox(
-                        width: 1.sw,
-                        child: TabBar(
-                          controller: tabController,
-                          isScrollable: true,
-                          indicatorColor: ColorManager.primaryGreen,
-                          labelColor: ColorManager.primaryGreen,
-                          unselectedLabelColor: ColorManager.grayForMessage,
-                          dividerColor: Colors.transparent,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          onTap: (index) {
-                            tabController.animateTo(index);
-
-                            if (index == 0) {
-                              if (state.categoriesList.isEmpty) {
-                                context
-                                    .read<CategoriesBloc>()
-                                    .add(GetCaegoriesEvent());
-                              } else {
-                                context
-                                    .read<CategoriesBloc>()
-                                    .add(AllProductsPageEvent());
-                              }
-                            } else if (state.previousSubCategoryIndex ==
-                                index) {
-                              context.read<CategoriesBloc>().add(SubCategoryPageEvent(
+                        sectionName: AppLocalizations.of(context)!.all_section,
+                      ),
+                      TabBar(
+                        padding: EdgeInsetsDirectional.only(start: 10.w),
+                        tabAlignment: TabAlignment.start,
+                        controller: tabController,
+                        isScrollable: true,
+                        indicatorColor: ColorManager.primaryGreen,
+                        labelColor: ColorManager.primaryGreen,
+                        unselectedLabelColor: ColorManager.grayForMessage,
+                        dividerColor: Colors.transparent,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        onTap: (index) {
+                          tabController.animateTo(index);
+                          if (index == 0) {
+                            if (state.categoriesList.isEmpty) {
+                              context
+                                  .read<CategoriesBloc>()
+                                  .add(GetCaegoriesEvent());
+                            } else {
+                              context
+                                  .read<CategoriesBloc>()
+                                  .add(AllProductsPageEvent());
+                            }
+                          } else if (state.previousSubCategoryIndex ==
+                              index) {
+                            context.read<CategoriesBloc>().add(
+                                  SubCategoryPageEvent(
                                     tabIndex: index,
                                   ),
-                              );
-                            } else {
-                              if (state.tabIndex != index) {
-                                context.read<CategoriesBloc>().add(
-                                    GetSubCategoryEvent(
-                                        tabIndex: index,
-                                        categoryId: state
-                                            .categoriesList[index - 1].id,
-                                    ),
                                 );
-                              }
+                          } else {
+                            if (state.tabIndex != index) {
+                              context.read<CategoriesBloc>().add(
+                                    GetSubCategoryEvent(
+                                      tabIndex: index,
+                                      categoryId:
+                                          state.categoriesList[index - 1].id,
+                                    ),
+                                  );
                             }
-                          },
-                          tabs: state.tabs,
-                        ),
+                          }
+                        },
+                        tabs: state.tabs,
                       ),
                       const SizedBox(
                         height: 10,
@@ -123,7 +122,9 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                       ),
                     ],
                   ),
-          ));
-        });
+          ),
+        );
+      },
+    );
   }
 }

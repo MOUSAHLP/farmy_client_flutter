@@ -17,14 +17,16 @@ class CategoriesState extends Equatable {
       this.subCategoryList = const [],
       this.tabs = const [],
       this.isCategoryLoading = true});
-  CategoriesState copyWith(
-      {int? tabIndex,
-      int? previousSubCategoryIndex,
-      List<CategoriesResponse>? categoriesList,
-      ScreenState? screenState,
-      List<Widget>? tabs,
-      List<SubCategoryResponse>? subCategoryList,
-      bool? isCategoryLoading}) {
+
+  CategoriesState copyWith({
+    int? tabIndex,
+    int? previousSubCategoryIndex,
+    List<CategoriesResponse>? categoriesList,
+    ScreenState? screenState,
+    List<Widget>? tabs,
+    List<SubCategoryResponse>? subCategoryList,
+    bool? isCategoryLoading,
+  }) {
     return CategoriesState(
         tabIndex: tabIndex ?? this.tabIndex,
         previousSubCategoryIndex:
