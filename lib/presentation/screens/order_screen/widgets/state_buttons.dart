@@ -8,12 +8,10 @@ import '../../../resources/color_manager.dart';
 import '../../../widgets/custom_button.dart';
 import '../../order_details_screen/order_details_screen.dart';
 import '../../order_tracking_screen/order_tracking_screen.dart';
-
 class StateButtons extends StatelessWidget {
-  const StateButtons({Key? key, required this.status, required this.id})
-      : super(key: key);
+   const StateButtons({Key? key, required this.status,required this.id}) : super(key: key);
   final String status;
-  final int id;
+final int id;
   @override
   Widget build(BuildContext context) {
     Widget getButtonsBasedOnStatus(String status) {
@@ -25,15 +23,11 @@ class StateButtons extends StatelessWidget {
               child: CustomButton(
                 height: 38,
                 radius: 6,
-                label: AppLocalizations.of(context)!.show_Order,
+                label:AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(
-                      context,
-                      OrderDetailsScreen(
-                        id: id,
-                      ));
+                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
                 },
               ),
             ),
@@ -42,16 +36,12 @@ class StateButtons extends StatelessWidget {
               child: CustomButton(
                 height: 38,
                 radius: 6,
-                label: AppLocalizations.of(context)!.edit_Orders,
+                label:AppLocalizations.of(context)!.edit_Orders,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(
-                      context,
-                      OrderDetailsScreen(
-                        id: id,
-                        isEdit: true,
-                      ));
+                  return AppRouter.push(context, OrderDetailsScreen(id:id,isEdit: true,));
+
                 },
               ),
             ),
@@ -61,8 +51,10 @@ class StateButtons extends StatelessWidget {
                 height: 38,
                 radius: 6,
                 label: AppLocalizations.of(context)!.delete_Order,
-                fillColor: ColorManager.yellow,
-                labelColor: Colors.white,
+                fillColor: Colors.white,
+                borderColor: ColorManager.primaryGreen ,
+                isFilled: true,
+                labelColor: ColorManager.primaryGreen,
                 onTap: () {
                   context.read<MyOrderBloc>().add(DeleteOrder(id: id));
                   //DeleteOrder
@@ -81,14 +73,11 @@ class StateButtons extends StatelessWidget {
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(
-                      context,
-                      OrderDetailsScreen(
-                        id: id,
-                      ));
+                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
                 },
               ),
             ),
+
           ];
           break;
         case "OnDelivery":
@@ -97,15 +86,11 @@ class StateButtons extends StatelessWidget {
               child: CustomButton(
                 height: 38,
                 radius: 6,
-                label: AppLocalizations.of(context)!.show_Order,
+                label:AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(
-                      context,
-                      OrderDetailsScreen(
-                        id: id,
-                      ));
+                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
                 },
               ),
             ),
@@ -115,9 +100,13 @@ class StateButtons extends StatelessWidget {
                 height: 38,
                 radius: 6,
                 label: AppLocalizations.of(context)!.returned,
-                fillColor: ColorManager.yellow,
+                fillColor: ColorManager.grayForMessage,
+                isFilled: true,
                 labelColor: Colors.white,
-                onTap: () {},
+                borderColor: ColorManager.grayForMessage,
+                onTap: () {
+
+                },
               ),
             ),
             const SizedBox(width: 2),
@@ -125,12 +114,13 @@ class StateButtons extends StatelessWidget {
               child: CustomButton(
                 height: 38,
                 radius: 6,
-                label: AppLocalizations.of(context)!.track_Order,
-                fillColor: ColorManager.yellow,
-                labelColor: Colors.white,
+                label:AppLocalizations.of(context)!.track_Order,
+                fillColor: Colors.white,
+                borderColor: ColorManager.primaryGreen ,
+                isFilled: true,
+                labelColor: ColorManager.primaryGreen,
                 onTap: () {
-                  AppRouter.push(context,
-                      OrderTrackingScreen(orderId: 0)); // need to pe changed
+                  AppRouter.push(context, const OrderTrackingScreen());
                 },
               ),
             ),
@@ -142,15 +132,11 @@ class StateButtons extends StatelessWidget {
               child: CustomButton(
                 height: 38,
                 radius: 6,
-                label: AppLocalizations.of(context)!.show_Order,
+                label:AppLocalizations.of(context)!.show_Order,
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(
-                      context,
-                      OrderDetailsScreen(
-                        id: id,
-                      ));
+                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
                 },
               ),
             ),
@@ -166,11 +152,7 @@ class StateButtons extends StatelessWidget {
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(
-                      context,
-                      OrderDetailsScreen(
-                        id: id,
-                      ));
+                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
                 },
               ),
             ),
@@ -186,11 +168,7 @@ class StateButtons extends StatelessWidget {
                 fillColor: ColorManager.yellow,
                 labelColor: Colors.white,
                 onTap: () {
-                  return AppRouter.push(
-                      context,
-                      OrderDetailsScreen(
-                        id: id,
-                      ));
+                  return AppRouter.push(context, OrderDetailsScreen(id:id,));
                 },
               ),
             ),
@@ -205,7 +183,8 @@ class StateButtons extends StatelessWidget {
         children: buttons,
       );
     }
-
     return getButtonsBasedOnStatus(status);
+
   }
 }
+

@@ -4,9 +4,9 @@ import 'package:pharma/core/utils/app_regex.dart';
 import '../translations.dart';
 
 class AppValidators {
-  static String? validateNameFields(BuildContext context, String? name) {//todo
+  static String? validateNameFields(BuildContext context, String? name) {
     if (name == null || name.isEmpty) {
-      return "الحقل مطلوب";
+      return AppLocalizations.of(context)!.field_is_required;
     }
     return null;
   }
