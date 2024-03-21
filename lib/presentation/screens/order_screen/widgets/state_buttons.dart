@@ -120,7 +120,7 @@ final int id;
                 isFilled: true,
                 labelColor: ColorManager.primaryGreen,
                 onTap: () {
-                  AppRouter.push(context, const OrderTrackingScreen());
+                  AppRouter.push(context,  OrderTrackingScreen(orderId: id,));
                 },
               ),
             ),
