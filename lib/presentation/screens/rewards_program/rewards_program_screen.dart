@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_bloc.dart';
+import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_event.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_bloc.dart';
+import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_event.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
+import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_event.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -28,16 +31,21 @@ class RewardsProgramScreen extends StatelessWidget {
             providers: [
               BlocProvider<RewardsPointsHistoryBloc>(
                 lazy: true,
-                create: (BuildContext context) =>
-                    sl<RewardsPointsHistoryBloc>(),
+                create: (BuildContext context) => sl<RewardsPointsHistoryBloc>()
+                  ..add(GetRewardsPointsHistoryValid()),
               ),
               BlocProvider<RewardsActivityAndOffersBloc>(
                 lazy: true,
-                create: (BuildContext context) => sl<RewardsActivityAndOffersBloc>(),
+                create: (BuildContext context) =>
+                    sl<RewardsActivityAndOffersBloc>()
+                      ..add(
+                        GetActivityRewards(),
+                      ),
               ),
-              BlocProvider<RewardsRankBloc>(
+              BlocProvider<RewardsRankAndGuideBloc>(
                 lazy: true,
-                create: (BuildContext context) => sl<RewardsRankBloc>(),
+                create: (BuildContext context) =>
+                    sl<RewardsRankAndGuideBloc>()..add(GetRankUserRewards()),
               ),
             ],
             child: Column(
@@ -84,7 +92,7 @@ class RewardsProgramScreen extends StatelessWidget {
                       body: TabBarView(
                         children: [
                           const RewardsRankScreen(),
-                           RewardsActivityAndOffersScreen(),
+                          RewardsActivityAndOffersScreen(),
                           RewardsPointsHistoryScreen(),
                         ],
                       ),

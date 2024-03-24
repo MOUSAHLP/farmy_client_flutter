@@ -9,40 +9,18 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/rewards_program/points_history/widget/rewards_point_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_row.dart';
-import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/translations.dart';
 
 class RewardsPointsHistoryScreen extends StatelessWidget {
-  RewardsPointsHistoryScreen({super.key});
+  const RewardsPointsHistoryScreen({super.key});
 
-  final rewardsPointsHistoryBloc = RewardsPointsHistoryBloc();
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RewardsPointsHistoryBloc, RewardsPointsHistoryState>(
-      bloc: rewardsPointsHistoryBloc,
-      listener: (context, state) {
-        if (state.isLoading) {
-          LoadingDialog().openDialog(context);
-        }
-        if (state.isSuccess) {
-          LoadingDialog().closeDialog(context);
-        }
-      },
-      builder: (context, state) {
-        if (state is RewardsPointsInit)
-        {
-          rewardsPointsHistoryBloc.add(GetRewardsPointsHistoryValid());
 
-          rewardsPointsHistoryBloc.add(
-                ChangeTabPointsRewardsEvent(
-                  currentScreen: RewardsPointsStateEnum.earnedPoints,
-                ),
-              );
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    return BlocBuilder<RewardsPointsHistoryBloc, RewardsPointsHistoryState>(
+
+      builder: (context, state) {
         return Column(
           children: [
             RewardsFilterRow(
@@ -50,19 +28,18 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      rewardsPointsHistoryBloc
+                      context.read<RewardsPointsHistoryBloc>().add(ChangeStatusScreen());
+                      context.read<RewardsPointsHistoryBloc>()
                           .add(GetRewardsPointsHistoryValid());
-                      rewardsPointsHistoryBloc.add(
-                            ChangeTabPointsRewardsEvent(
-                              currentScreen:
-                                  RewardsPointsStateEnum.earnedPoints,
-                            ),
-                          );
+                      context.read<RewardsPointsHistoryBloc>().add(
+                        ChangeTabPointsRewardsEvent(
+                          currentScreen: RewardsPointsStateEnum.earnedPoints,
+                        ),
+                      );
                     },
                     child: RewardsFilterBox(
                       text: AppLocalizations.of(context)!.earned_points,
-                      isActive: rewardsPointsHistoryBloc
-                              .currentScreen ==
+                      isActive: context.read<RewardsPointsHistoryBloc>().currentScreen ==
                           RewardsPointsStateEnum.earnedPoints,
                     ),
                   ),
@@ -70,18 +47,19 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      rewardsPointsHistoryBloc
+                      context.read<RewardsPointsHistoryBloc>().add(ChangeStatusScreen());
+
+                      context.read<RewardsPointsHistoryBloc>()
                           .add(GetRewardsPointsHistoryUsed());
-                      rewardsPointsHistoryBloc.add(
-                            ChangeTabPointsRewardsEvent(
-                              currentScreen: RewardsPointsStateEnum.usedPoints,
-                            ),
-                          );
+                      context.read<RewardsPointsHistoryBloc>().add(
+                        ChangeTabPointsRewardsEvent(
+                          currentScreen: RewardsPointsStateEnum.usedPoints,
+                        ),
+                      );
                     },
                     child: RewardsFilterBox(
                       text: AppLocalizations.of(context)!.used_points,
-                      isActive: rewardsPointsHistoryBloc
-                              .currentScreen ==
+                      isActive: context.read<RewardsPointsHistoryBloc>().currentScreen ==
                           RewardsPointsStateEnum.usedPoints,
                     ),
                   ),
@@ -89,18 +67,18 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      rewardsPointsHistoryBloc
+                      context.read<RewardsPointsHistoryBloc>().add(ChangeStatusScreen());
+                      context.read<RewardsPointsHistoryBloc>()
                           .add(GetRewardsPointsHistoryExpired());
-                      rewardsPointsHistoryBloc.add(
-                            ChangeTabPointsRewardsEvent(
-                              currentScreen: RewardsPointsStateEnum.endedPoints,
-                            ),
-                          );
+                      context.read<RewardsPointsHistoryBloc>().add(
+                        ChangeTabPointsRewardsEvent(
+                          currentScreen: RewardsPointsStateEnum.endedPoints,
+                        ),
+                      );
                     },
                     child: RewardsFilterBox(
                       text: AppLocalizations.of(context)!.ended_points,
-                      isActive: rewardsPointsHistoryBloc
-                              .currentScreen ==
+                      isActive: context.read<RewardsPointsHistoryBloc>().currentScreen ==
                           RewardsPointsStateEnum.endedPoints,
                     ),
                   ),
@@ -109,25 +87,25 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
+                shrinkWrap: true,
                 children: [
                   SizedBox(height: 10.h),
-                  if (rewardsPointsHistoryBloc.currentScreen ==
+                  if (context.read<RewardsPointsHistoryBloc>().currentScreen ==
                       RewardsPointsStateEnum.earnedPoints) ...[
                     RewardsPointHistoryBox(
-                      expired: true,
-                      rewardsPointsHistoryBloc: rewardsPointsHistoryBloc,
+                      colorPoints: ColorManager.primaryGreen,
+                      rewardsPointsHistoryBloc: context.read<RewardsPointsHistoryBloc>(),
                     ),
-                  ] else if (rewardsPointsHistoryBloc
-                          .currentScreen ==
+                  ] else if (context.read<RewardsPointsHistoryBloc>().currentScreen ==
                       RewardsPointsStateEnum.endedPoints) ...[
                     RewardsPointHistoryBox(
-                      expired: true,
-                      rewardsPointsHistoryBloc: rewardsPointsHistoryBloc,
+                      colorPoints: ColorManager.redForFavorite,
+                      rewardsPointsHistoryBloc: context.read<RewardsPointsHistoryBloc>(),
                     )
                   ] else ...[
                     RewardsPointHistoryBox(
-                      expired: true,
-                      rewardsPointsHistoryBloc: rewardsPointsHistoryBloc,
+                      colorPoints: ColorManager.primaryGreen,
+                      rewardsPointsHistoryBloc: context.read<RewardsPointsHistoryBloc>(),
                     )
                   ],
                 ],

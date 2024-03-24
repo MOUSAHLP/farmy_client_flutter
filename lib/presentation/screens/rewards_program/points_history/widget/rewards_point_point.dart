@@ -6,7 +6,7 @@ import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/translations.dart';
 
 class RewardsPointPoint extends StatelessWidget {
-  final String point;
+  final int point;
   final Color color;
 
   const RewardsPointPoint({
@@ -29,7 +29,7 @@ class RewardsPointPoint extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    point,
+                    "$point",
                     style: getBoldStyle(
                       color: color,
                       fontSize: FontSizeApp.s26,

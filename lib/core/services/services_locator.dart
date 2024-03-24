@@ -100,7 +100,7 @@ class ServicesLocator {
     /// Rewards
     sl.registerFactory(() => RewardsActivityAndOffersBloc());
     sl.registerFactory(() => RewardsPointsHistoryBloc());
-    sl.registerFactory(() => RewardsRankBloc());
+    sl.registerFactory(() => RewardsRankAndGuideBloc());
 
     /// Rate Screen
     sl.registerFactory(() => RateBloc());

@@ -23,7 +23,7 @@ class RewardCouponsActivityModel {
 class Datum {
   final int id;
   final String achievement;
-  final String points;
+  final int points;
   final String description;
   final int segments;
   final int achievementsDoneCount;

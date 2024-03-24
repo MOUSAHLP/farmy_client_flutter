@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_state.dart';
+import 'package:pharma/core/utils/formatter.dart';
+import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_content.dart';
 import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
@@ -18,31 +20,36 @@ class RewardsActivityTicketMyCoupon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(rewardsActivityAndOffersBloc.rewardMyCouponsModel != null) {
-      return SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: ListView.separated(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemBuilder: (context, index) => RewardsActivityTicketBox(
-            text: rewardsActivityAndOffersBloc
-                .rewardMyCouponsModel!.data[index].description,
-            imageText: rewardsActivityAndOffersBloc
-                .rewardMyCouponsModel!.data[index].couponType.name,
-            imagePath: rewardsActivityAndOffersBloc
-                .rewardMyCouponsModel!.data[index].couponType.image,
-            child: RewardsActivityTicketContent(
-              code: rewardsActivityAndOffersBloc
-                  .rewardMyCouponsModel!.data[index].couponCode,
-              codeValidity: "32",
+    if (rewardsActivityAndOffersBloc.state.rewardMyCouponsModel != null) {
+      return ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) => RewardsActivityTicketBox(
+          text: rewardsActivityAndOffersBloc.state.rewardMyCouponsModel!.data[index].description,
+          imageText: rewardsActivityAndOffersBloc
+              .state.rewardMyCouponsModel!.data[index].couponType.name,
+          imagePath: rewardsActivityAndOffersBloc
+              .state.rewardMyCouponsModel!.data[index].couponType.image,
+          child: RewardsActivityTicketContent(
+            code: rewardsActivityAndOffersBloc
+                .state.rewardMyCouponsModel!.data[index].couponCode,
+            codeValidity: Formatter.formatDate(
+              rewardsActivityAndOffersBloc
+                  .state.rewardMyCouponsModel!.data[index].expireAt,
             ),
           ),
-          separatorBuilder: (context, index) => SizedBox(
-            height: 5.h,
-          ),
-          itemCount: 2,
         ),
+        separatorBuilder: (context, index) => SizedBox(
+          height: 5.h,
+        ),
+        itemCount: rewardsActivityAndOffersBloc
+            .state.rewardMyCouponsModel!.data.length,
       );
-    } return const SizedBox();
+    }
+    return const Center(
+      child: CircularProgressIndicator(
+        color: ColorManager.primaryGreen,
+      ),
+    );
   }
 }

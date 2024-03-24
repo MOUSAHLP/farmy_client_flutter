@@ -6,7 +6,7 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
 class MembershipLevelFeature extends StatelessWidget {
-  final int feature;
+  final String feature;
   const MembershipLevelFeature({super.key, required this.feature});
 
   @override
@@ -27,9 +27,9 @@ class MembershipLevelFeature extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            "$feature",
+            feature,
             style: getRegularStyle(
-              color: ColorManager.primaryGreen,
+              color: ColorManager.grayForMessage,
               fontSize: FontSizeApp.s13,
             ),
           ),

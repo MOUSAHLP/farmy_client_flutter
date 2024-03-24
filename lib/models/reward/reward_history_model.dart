@@ -23,12 +23,13 @@ class RewardHistoryModel {
 class Datum {
   final int id;
   final String userId;
-  final String points;
-  final String usedPoints;
-  final String achievementId;
+  final int points;
+  final int usedPoints;
+  final int achievementId;
   final DateTime createdAt;
   final dynamic usedAt;
   final DateTime expireAt;
+  final bool expired;
 
   Datum({
     required this.id,
@@ -39,6 +40,7 @@ class Datum {
     required this.createdAt,
     required this.usedAt,
     required this.expireAt,
+    required this.expired,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -50,5 +52,6 @@ class Datum {
         createdAt: DateTime.parse(json["created_at"]),
         usedAt: json["used_at"],
         expireAt: DateTime.parse(json["expire_at"]),
+        expired: json["is_expired"],
       );
 }

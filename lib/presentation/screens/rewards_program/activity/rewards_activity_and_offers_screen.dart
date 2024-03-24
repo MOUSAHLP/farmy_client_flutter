@@ -9,32 +9,17 @@ import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_container.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_buy.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_my_coupon.dart';
-import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_progress_container.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_row.dart';
-import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
-import 'package:pharma/presentation/widgets/dialogs/rewards_point_dialog.dart';
 import 'package:pharma/translations.dart';
 
 class RewardsActivityAndOffersScreen extends StatelessWidget {
-  RewardsActivityAndOffersScreen({super.key});
-
-  final rewardsActivityAndOffersBloc = RewardsActivityAndOffersBloc();
+  const RewardsActivityAndOffersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    rewardsActivityAndOffersBloc.add(GetActivityRewards());
-    return BlocConsumer<RewardsActivityAndOffersBloc,
+    return BlocBuilder<RewardsActivityAndOffersBloc,
         RewardsActivityAndOffersState>(
-      bloc: rewardsActivityAndOffersBloc,
-      listener: (context, state) {
-        if (state.isLoading) {
-          LoadingDialog().openDialog(context);
-        }
-        if (state.isSuccess) {
-          LoadingDialog().closeDialog(context);
-        }
-      },
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(
@@ -47,16 +32,19 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        rewardsActivityAndOffersBloc.add(GetActivityRewards());
-                        rewardsActivityAndOffersBloc.add(
-                          ChangeTabActivityEvent(
-                            currentScreen: RewardsActivityStateEnum.activity,
-                          ),
-                        );
+                        context.read<RewardsActivityAndOffersBloc>().add(GetActivityRewards());
+                        context.read<RewardsActivityAndOffersBloc>().add(
+                              ChangeTabActivityEvent(
+                                currentScreen:
+                                    RewardsActivityStateEnum.activity,
+                              ),
+                            );
                       },
                       child: RewardsFilterBox(
                         text: AppLocalizations.of(context)!.activities,
-                        isActive: rewardsActivityAndOffersBloc.currentScreen ==
+                        isActive: context
+                                .read<RewardsActivityAndOffersBloc>()
+                                .currentScreen ==
                             RewardsActivityStateEnum.activity,
                       ),
                     ),
@@ -64,17 +52,18 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        rewardsActivityAndOffersBloc.add(GetOffersRewards());
-
-                        rewardsActivityAndOffersBloc.add(
-                          ChangeTabActivityEvent(
-                            currentScreen: RewardsActivityStateEnum.offers,
-                          ),
-                        );
+                        context.read<RewardsActivityAndOffersBloc>().add(GetOffersRewards());
+                        context.read<RewardsActivityAndOffersBloc>().add(
+                              ChangeTabActivityEvent(
+                                currentScreen: RewardsActivityStateEnum.offers,
+                              ),
+                            );
                       },
                       child: RewardsFilterBox(
                         text: AppLocalizations.of(context)!.offers,
-                        isActive: rewardsActivityAndOffersBloc.currentScreen ==
+                        isActive: context
+                                .read<RewardsActivityAndOffersBloc>()
+                                .currentScreen ==
                             RewardsActivityStateEnum.offers,
                       ),
                     ),
@@ -82,16 +71,19 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        rewardsActivityAndOffersBloc.add(GetMyCouponRewards());
-                        rewardsActivityAndOffersBloc.add(
-                          ChangeTabActivityEvent(
-                            currentScreen: RewardsActivityStateEnum.myCoupon,
-                          ),
-                        );
+                        context.read<RewardsActivityAndOffersBloc>().add(GetMyCouponRewards());
+                        context.read<RewardsActivityAndOffersBloc>().add(
+                              ChangeTabActivityEvent(
+                                currentScreen:
+                                    RewardsActivityStateEnum.myCoupon,
+                              ),
+                            );
                       },
                       child: RewardsFilterBox(
                         text: AppLocalizations.of(context)!.my_coupon,
-                        isActive: rewardsActivityAndOffersBloc.currentScreen ==
+                        isActive: context
+                                .read<RewardsActivityAndOffersBloc>()
+                                .currentScreen ==
                             RewardsActivityStateEnum.myCoupon,
                       ),
                     ),
@@ -100,27 +92,29 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
               ),
               Expanded(
                 child: ListView(
+                  shrinkWrap: true,
                   children: [
                     SizedBox(height: 10.h),
-                    if (rewardsActivityAndOffersBloc.currentScreen ==
+                    if (context
+                            .read<RewardsActivityAndOffersBloc>()
+                            .currentScreen ==
                         RewardsActivityStateEnum.activity) ...[
                       RewardsActivityContainer(
                         rewardsActivityAndOffersBloc:
-                            rewardsActivityAndOffersBloc,
+                            context.read<RewardsActivityAndOffersBloc>(),
                       ),
-                    ] else if ((rewardsActivityAndOffersBloc.currentScreen ==
+                    ] else if ((context
+                            .read<RewardsActivityAndOffersBloc>()
+                            .currentScreen ==
                         RewardsActivityStateEnum.offers)) ...[
-                      const RewardsActivityTicketBuyOffers(
-                        text:
-                            "احصل على حسم 50% لفترة محدودة استفيد من العرض قبل انتهاءه",
-                        point: "1500",
-                        imageText: "حسم",
-                        imagePath: "imagePath",
+                      RewardsActivityTicketBuyOffers(
+                        rewardsActivityAndOffersBloc:
+                            context.read<RewardsActivityAndOffersBloc>(),
                       ),
                     ] else ...[
                       RewardsActivityTicketMyCoupon(
                         rewardsActivityAndOffersBloc:
-                            rewardsActivityAndOffersBloc,
+                            context.read<RewardsActivityAndOffersBloc>(),
                       ),
                     ],
                   ],

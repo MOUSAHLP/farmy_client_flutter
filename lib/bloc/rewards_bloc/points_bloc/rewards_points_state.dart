@@ -1,24 +1,51 @@
-abstract class RewardsPointsHistoryState {}
+import 'package:equatable/equatable.dart';
+import 'package:pharma/core/app_enum.dart';
+import 'package:pharma/models/reward/reward_history_model.dart';
 
-class RewardsPointsInit extends RewardsPointsHistoryState {}
+class RewardsPointsHistoryState extends Equatable {
+  final bool rewardsPointsHistorySuccess;
+  final String rewardsPointsHistoryError;
+  final bool rewardsPointsHistoryLoading;
+  final RewardHistoryModel? rewardHistoryModel;
+  final RewardsPointsStateEnum rewardsPointsStateEnum;
 
-class RewardsPointsHistoryLoading extends RewardsPointsHistoryState {}
+  const RewardsPointsHistoryState({
+    required this.rewardsPointsHistorySuccess,
+    required this.rewardsPointsHistoryLoading,
+    required this.rewardsPointsHistoryError,
+    required this.rewardsPointsStateEnum,
+    this.rewardHistoryModel,
+  });
 
-class RewardsPointsHistoryLoaded extends RewardsPointsHistoryState {}
+  RewardsPointsHistoryState copyWith({
+    bool? rewardsPointsHistorySuccess,
+    bool? rewardsPointsHistoryLoading,
+    String? rewardsPointsHistoryError,
+    RewardHistoryModel? rewardHistoryModel,
+    RewardsPointsStateEnum? rewardsPointsStateEnum,
+  }) {
+    return RewardsPointsHistoryState(
+      rewardsPointsHistoryLoading:
+      rewardsPointsHistoryLoading ?? this.rewardsPointsHistoryLoading,
+      rewardsPointsHistorySuccess:
+      rewardsPointsHistorySuccess ?? this.rewardsPointsHistorySuccess,
+      rewardsPointsHistoryError:
+      rewardsPointsHistoryError ?? this.rewardsPointsHistoryError,
+      rewardHistoryModel: rewardHistoryModel ?? this.rewardHistoryModel,
+      rewardsPointsStateEnum:
+      rewardsPointsStateEnum ?? this.rewardsPointsStateEnum,
+    );
+  }
 
-class RewardsPointsHistorySuccess extends RewardsPointsHistoryState {}
-
-class RewardsTabPointsHistoryChanged extends RewardsPointsHistoryState {}
-
-class RewardsPointsHistoryError extends RewardsPointsHistoryState {
-  String error;
-  RewardsPointsHistoryError(this.error);
+  @override
+  List<Object?> get props =>
+      [
+        rewardsPointsHistorySuccess,
+        rewardsPointsHistoryLoading,
+        rewardsPointsHistoryError,
+        rewardHistoryModel,
+        rewardsPointsStateEnum,
+      ];
 }
 
 
-extension RewardsGuideStateExtension on RewardsPointsHistoryState {
-  bool get isLoading => this is RewardsPointsHistoryLoading;
-
-  bool get isSuccess => this is RewardsPointsHistorySuccess;
-
-}

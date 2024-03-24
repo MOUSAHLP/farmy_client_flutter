@@ -1,4 +1,6 @@
-class   RewardMembershipGuideModel {
+
+
+class RewardMembershipGuideModel {
   final String status;
   final String message;
   final Data data;
@@ -11,13 +13,14 @@ class   RewardMembershipGuideModel {
     required this.statusCode,
   });
 
-  factory RewardMembershipGuideModel.fromJson(Map<String, dynamic> json) =>
-      RewardMembershipGuideModel(
-        status: json["status"],
-        message: json["message"],
-        data: Data.fromJson(json["data"]),
-        statusCode: json["statusCode"],
-      );
+  factory RewardMembershipGuideModel.fromJson(Map<String, dynamic> json) => RewardMembershipGuideModel(
+    status: json["status"],
+    message: json["message"],
+    data: Data.fromJson(json["data"]),
+    statusCode: json["statusCode"],
+  );
+
+
 }
 
 class Data {
@@ -30,49 +33,58 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        html: json["html"],
-        ranks: List<Rank>.from(json["ranks"].map((x) => Rank.fromJson(x))),
-      );
+    html: json["html"],
+    ranks: List<Rank>.from(json["ranks"].map((x) => Rank.fromJson(x))),
+  );
+
+
 }
 
 class Rank {
   final int id;
   final String name;
-  final String limit;
-  final Map features;
+  final int limit;
   final String description;
   final String color;
+  final List<Feature> features;
 
   Rank({
     required this.id,
     required this.name,
     required this.limit,
-    required this.features,
     required this.description,
     required this.color,
+    required this.features,
   });
 
   factory Rank.fromJson(Map<String, dynamic> json) => Rank(
-        id: json["id"],
-        name: json["name"],
-        limit: json["limit"],
-        features:json["features"],
-        description: json["description"],
-        color: json["color"],
-      );
+    id: json["id"],
+    name: json["name"],
+    limit: json["limit"],
+    description: json["description"],
+    color: json["color"],
+    features: List<Feature>.from(json["features"].map((x) => Feature.fromJson(x))),
+  );
+
+
 }
 
-// class Features {
-//   final int couponPerMounth;
-//   final int discountOnDeliver;
-//
-//   Features({
-//     required this.couponPerMounth,
-//     required this.discountOnDeliver,
-//   });
-//
-//   factory Features.fromJson(Map<String, dynamic> json) => Features(
-//         couponPerMounth: json["coupon_per_mounth"],
-//         discountOnDeliver: json["discount_on_deliver"],
-//       );
-// }
+class Feature {
+  final String name;
+  final int value;
+  final String description;
+
+  Feature({
+    required this.name,
+    required this.value,
+    required this.description,
+  });
+
+  factory Feature.fromJson(Map<String, dynamic> json) => Feature(
+    name: json["name"],
+    value: json["value"],
+    description: json["description"],
+  );
+
+
+}

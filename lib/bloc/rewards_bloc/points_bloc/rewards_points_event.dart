@@ -10,6 +10,8 @@ class GetRewardsPointsHistoryValid extends RewardsPointsEvent {}
 
 class GetRewardsPointsHistoryExpired extends RewardsPointsEvent {}
 
+class ChangeStatusScreen extends RewardsPointsEvent {}
+
 class ChangeTabPointsRewardsEvent extends RewardsPointsEvent {
   RewardsPointsStateEnum currentScreen;
 

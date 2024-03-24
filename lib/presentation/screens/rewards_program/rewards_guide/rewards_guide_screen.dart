@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharma/bloc/rewards_bloc/guide_bloc/rewards_guide_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/guide_bloc/rewards_guide_state.dart';
+import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -10,7 +11,9 @@ import 'package:pharma/presentation/screens/rewards_program/rewards_guide/widget
 import 'package:pharma/translations.dart';
 
 class RewardsGuideScreen extends StatelessWidget {
-  const RewardsGuideScreen({super.key});
+  final RewardsRankAndGuideBloc rewardsRankAndGuideBloc;
+
+  const RewardsGuideScreen({super.key, required this.rewardsRankAndGuideBloc});
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +55,10 @@ class RewardsGuideScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  body: TabBarView(
+                  body:  TabBarView(
                     children: [
-                      RewardsGuideWidget(),
-                      MembershipLevelsWidget(),
+                      RewardsGuideWidget(rewardsRankAndGuideBloc: rewardsRankAndGuideBloc),
+                      MembershipLevelsWidget(rewardsRankAndGuideBloc: rewardsRankAndGuideBloc),
                     ],
                   ),
                 ),

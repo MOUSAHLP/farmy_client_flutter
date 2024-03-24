@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
+import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_event.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
@@ -14,6 +15,7 @@ import 'package:pharma/presentation/screens/rewards_program/rank/widget/points_e
 import 'package:pharma/presentation/screens/rewards_program/rank/widget/your_points_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/rank/widget/your_rank.dart';
 import 'package:pharma/presentation/screens/rewards_program/rewards_guide/rewards_guide_screen.dart';
+import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/translations.dart';
 
 class RewardsRankScreen extends StatelessWidget {
@@ -21,12 +23,12 @@ class RewardsRankScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        BlocConsumer<RewardsRankBloc, RewardsRankState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              return Padding(
+    return BlocBuilder<RewardsRankAndGuideBloc, RewardsRankAndGuideState>(
+      builder: (context, state) {
+        if (state.rewardsRankUserModel != null) {
+          return ListView(
+            children: [
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: PaddingApp.p30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -47,15 +49,27 @@ class RewardsRankScreen extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                    const YourPointsBox(points: "1000", pointsValue: "35,000"),
+                    const YourPointsBox(),
                     SizedBox(
                       height: 25.h,
                     ),
                     const PointsExpireInWidget(expireInText: "90 يوم"),
                     GestureDetector(
                       onTap: () {
-                        AppRouter.push(context, const RewardsGuideScreen(),
-                            routeTransition: RouteTransitions.fade);
+                        context
+                            .read<RewardsRankAndGuideBloc>()
+                            .add(GetRewardsGuide());
+                        context
+                            .read<RewardsRankAndGuideBloc>()
+                            .add(GetRewardsMemberShipGuide());
+                        AppRouter.push(
+                          context,
+                          RewardsGuideScreen(
+                            rewardsRankAndGuideBloc:
+                                context.read<RewardsRankAndGuideBloc>(),
+                          ),
+                          routeTransition: RouteTransitions.fade,
+                        );
                       },
                       child: Container(
                         width: double.infinity,
@@ -75,17 +89,25 @@ class RewardsRankScreen extends StatelessWidget {
                           child: Text(
                             AppLocalizations.of(context)!.rewards_guide,
                             style: getBoldStyle(
-                                color: ColorManager.primaryGreen,
-                                fontSize: FontSizeApp.s14),
+                              color: ColorManager.primaryGreen,
+                              fontSize: FontSizeApp.s14,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              );
-            }),
-      ],
+              ),
+            ],
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(
+            color: ColorManager.primaryGreen,
+          ),
+        );
+      },
     );
   }
 }

@@ -8,43 +8,77 @@ import 'package:pharma/models/reward/reward_history_model.dart';
 class RewardsPointsHistoryBloc
     extends Bloc<RewardsPointsEvent, RewardsPointsHistoryState> {
   RewardsPointsStateEnum currentScreen = RewardsPointsStateEnum.earnedPoints;
-  RewardHistoryModel? rewardHistoryModel;
 
-  RewardsPointsHistoryBloc() : super(RewardsPointsInit()) {
+  RewardsPointsHistoryBloc()
+      : super(const RewardsPointsHistoryState(
+          rewardsPointsHistorySuccess: false,
+          rewardsPointsHistoryLoading: false,
+          rewardsPointsHistoryError: '',
+          rewardsPointsStateEnum: RewardsPointsStateEnum.earnedPoints,
+        )) {
     on<RewardsPointsEvent>((event, emit) async {
       if (event is GetRewardsPointsHistoryExpired) {
-        emit(RewardsPointsHistoryLoading());
+        emit(state.copyWith(rewardsPointsHistoryLoading: true));
         var response = await RewardsRepo.getRewardHistoryPointsExpired();
-        response.fold((l) {
-          emit(RewardsPointsHistoryError(l));
-        }, (r) {
-          rewardHistoryModel = r;
-          emit(RewardsPointsHistorySuccess());
-        });
+        response.fold(
+          (l) {
+            emit(
+              state.copyWith(rewardsPointsHistoryError: l),
+            );
+          },
+          (r) {
+            emit(
+              state.copyWith(
+                  rewardsPointsHistorySuccess: true, rewardHistoryModel: r),
+            );
+          },
+        );
       }
       if (event is GetRewardsPointsHistoryUsed) {
-        emit(RewardsPointsHistoryLoading());
+        emit(
+          state.copyWith(rewardsPointsHistoryLoading: true),
+        );
         var response = await RewardsRepo.getRewardHistoryPointsUsed();
-        response.fold((l) {
-          emit(RewardsPointsHistoryError(l));
-        }, (r) {
-          rewardHistoryModel = r;
-          emit(RewardsPointsHistorySuccess());
-        });
+        response.fold(
+          (l) {
+            emit(
+              state.copyWith(rewardsPointsHistoryError: l),
+            );
+          },
+          (r) {
+            emit(
+              state.copyWith(
+                  rewardsPointsHistorySuccess: true, rewardHistoryModel: r),
+            );
+          },
+        );
       }
       if (event is GetRewardsPointsHistoryValid) {
-        emit(RewardsPointsHistoryLoading());
+        emit(
+          state.copyWith(rewardsPointsHistoryLoading: true),
+        );
         var response = await RewardsRepo.getRewardHistoryPointsValid();
-        response.fold((l) {
-          emit(RewardsPointsHistoryError(l));
-        }, (r) {
-          rewardHistoryModel = r;
-          emit(RewardsPointsHistorySuccess());
-        });
+        response.fold(
+          (l) {
+            emit(
+              state.copyWith(rewardsPointsHistoryError: l),
+            );
+          },
+          (r) {
+            emit(
+              state.copyWith(
+                  rewardsPointsHistorySuccess: true, rewardHistoryModel: r),
+            );
+          },
+        );
+      }  if(event is ChangeStatusScreen ){
+        emit(state.copyWith(rewardsPointsHistorySuccess: false));
       }
       else if (event is ChangeTabPointsRewardsEvent) {
         currentScreen = event.currentScreen;
-        emit(RewardsTabPointsHistoryChanged());
+        emit(
+          state.copyWith(rewardsPointsStateEnum: currentScreen),
+        );
       }
     });
   }

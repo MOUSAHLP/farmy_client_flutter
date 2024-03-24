@@ -31,7 +31,7 @@ class MyAccountScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appbarTitle: AppLocalizations.of(context)!.my_Account,
       isComeBack: false,
-      body: Column(
+      body: context.read<SettingBloc>().settingModel!=null ? Column(
         children: [
           // CustomAppBarScreen(
           //     sectionName: AppLocalizations.of(context)!.my_Account,
@@ -166,7 +166,7 @@ class MyAccountScreen extends StatelessWidget {
                 : const GuestScreen(),
           ),
         ],
-      ),
+      ) : const Center(child: CircularProgressIndicator(color: ColorManager.primaryGreen,))
     );
   }
 }

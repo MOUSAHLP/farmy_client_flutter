@@ -96,8 +96,7 @@ mixin Formatter {
   }
 
   static String formatDate(DateTime dateTime) {
-    String formattedDate =
-        "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+    String formattedDate = "${dateTime.year}/${dateTime.month.toString().padLeft(2, '0')}/${dateTime.day.toString().padLeft(2, '0')}";
     return formattedDate;
   }
 

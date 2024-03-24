@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -13,7 +14,7 @@ class RewardsPointRow extends StatelessWidget {
     super.key,
     required this.text,
     required this.date,
-    this.expired = false,
+    required this.expired ,
   });
 
   @override
@@ -27,18 +28,20 @@ class RewardsPointRow extends StatelessWidget {
           Text(
             text,
             style: getUnderBoldStyle(
-                color: expired
-                    ? ColorManager.redForFavorite
-                    : ColorManager.grayForMessage,
-                fontSize: FontSizeApp.s12),
+              color: expired
+                  ? ColorManager.redForFavorite
+                  : ColorManager.grayForMessage,
+              fontSize: FontSizeApp.s12.sp,
+            ),
           ),
           Text(
             date,
             style: getUnderBoldStyle(
-                color: expired
-                    ? ColorManager.redForFavorite
-                    : ColorManager.grayForMessage,
-                fontSize: FontSizeApp.s12),
+              color: expired
+                  ? ColorManager.redForFavorite
+                  : ColorManager.grayForMessage,
+              fontSize: FontSizeApp.s12.sp,
+            ),
           )
         ],
       ),

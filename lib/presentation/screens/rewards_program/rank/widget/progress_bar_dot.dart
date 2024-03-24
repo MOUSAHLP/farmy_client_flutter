@@ -10,6 +10,7 @@ class ProgressBarDot extends StatelessWidget {
   final String svg;
   final Color crownColor;
   final bool active;
+
   const ProgressBarDot({
     super.key,
     required this.text,
@@ -28,7 +29,10 @@ class ProgressBarDot extends StatelessWidget {
           svg,
           width: 15.w,
           height: 15.h,
-          colorFilter: ColorFilter.mode(crownColor, BlendMode.srcIn),
+          colorFilter: ColorFilter.mode(
+            crownColor,
+            BlendMode.srcIn,
+          ),
         ),
         SizedBox(
           height: 8.h,
@@ -45,7 +49,9 @@ class ProgressBarDot extends StatelessWidget {
         Text(
           text,
           style: getRegularStyle(
-              color: ColorManager.grayForMessage, fontSize: FontSizeApp.s10),
+            color: ColorManager.grayForMessage,
+            fontSize: FontSizeApp.s10,
+          ),
         ),
       ],
     );

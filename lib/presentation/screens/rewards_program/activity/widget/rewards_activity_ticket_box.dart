@@ -38,26 +38,12 @@ class RewardsActivityTicketBox extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          ImageManager.discount,
-                          width: 60.w,
-                          height: 60.h,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            style: getBoldStyle(
-                              color: ColorManager.white,
-                              fontSize: 15.sp,
-                            ),
-                            children: const [
-                              TextSpan(text: "50%"),
-                            ],
-                          ),
-                        ),
-                      ],
+                    SvgPicture.network(
+                      imagePath,
+                      colorFilter: const ColorFilter.mode(
+                       ColorManager.grayForMessage,
+                        BlendMode.srcIn,
+                      ),
                     ),
                     Text(
                       imageText,
@@ -86,6 +72,8 @@ class RewardsActivityTicketBox extends StatelessWidget {
                     children: [
                       Text(
                         text,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: getBoldStyle(
                           color: ColorManager.grayForMessage,
                         ),

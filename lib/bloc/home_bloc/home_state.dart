@@ -9,6 +9,7 @@ class HomeState extends Equatable {
   final List<BannersResponse>? banners;
 
   final String error;
+
   const HomeState(
       {this.screenState = ScreenState.loading,
       this.endpointHome,
@@ -18,14 +19,15 @@ class HomeState extends Equatable {
       this.homeData,
       this.error = ''});
 
-  HomeState copyWith(
-      {ScreenState? screenState,
-      HomeResponse? homeData,
-      List<EndpointHomeResponse>? endpointHome,
-      List<CategoriesResponse>? categories,
-      List<ProductResponse>? products,
-      List<BannersResponse>? banners,
-      String? error}) {
+  HomeState copyWith({
+    ScreenState? screenState,
+    HomeResponse? homeData,
+    List<EndpointHomeResponse>? endpointHome,
+    List<CategoriesResponse>? categories,
+    List<ProductResponse>? products,
+    List<BannersResponse>? banners,
+    String? error,
+  }) {
     return HomeState(
         screenState: screenState ?? this.screenState,
         homeData: homeData ?? this.homeData,

@@ -22,31 +22,34 @@ class RewardMyCouponsModel {
 
 class Datum {
   final int id;
-  final String couponTypeId;
-  final String value;
+  final int value;
+  final int price;
+  final CouponType couponType;
   final String couponCode;
   final String description;
   final DateTime createdAt;
-  final CouponType couponType;
+  final DateTime expireAt;
 
   Datum({
     required this.id,
-    required this.couponTypeId,
     required this.value,
+    required this.price,
+    required this.couponType,
     required this.couponCode,
     required this.description,
     required this.createdAt,
-    required this.couponType,
+    required this.expireAt,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
-        couponTypeId: json["coupon_type_id"],
         value: json["value"],
+        price: json["price"],
+        couponType: CouponType.fromJson(json["coupon_type"]),
         couponCode: json["coupon_code"],
         description: json["description"],
         createdAt: DateTime.parse(json["created_at"]),
-        couponType: CouponType.fromJson(json["coupon_type"]),
+        expireAt: DateTime.parse(json["expire_at"]),
       );
 }
 
@@ -54,19 +57,19 @@ class CouponType {
   final int id;
   final String name;
   final String image;
-  final bool isPercentage;
+  final String type;
 
   CouponType({
     required this.id,
     required this.name,
     required this.image,
-    required this.isPercentage,
+    required this.type,
   });
 
   factory CouponType.fromJson(Map<String, dynamic> json) => CouponType(
         id: json["id"],
         name: json["name"],
         image: json["image"],
-        isPercentage: json["is_percentage"],
+        type: json["type"],
       );
 }

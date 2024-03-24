@@ -17,19 +17,20 @@ class HomeSection extends StatelessWidget {
   final Map<String, dynamic> title;
   final List<ProductResponse> list;
 
-  const HomeSection(
-      {Key? key,
-      required this.sectionId,
-      required this.list,
-      required this.title})
-      : super(key: key);
+  const HomeSection({
+    Key? key,
+    required this.sectionId,
+    required this.list,
+    required this.title,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String appLang = DataStore.instance.lang;
     return Padding(
       padding: const EdgeInsets.symmetric(
-          vertical: AppValueConst.homeVerticalPadding),
+        vertical: AppValueConst.homeVerticalPadding,
+      ),
       child: Column(
         children: [
           Padding(

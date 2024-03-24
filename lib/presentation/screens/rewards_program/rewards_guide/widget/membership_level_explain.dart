@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/models/reward/reward_membership_guide_model.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -13,7 +14,7 @@ class MembershipLevelExplain extends StatelessWidget {
   final String level;
   final Color crownColor;
   final String explain;
-  final List<int> features;
+  final List<Feature> features;
 
   const MembershipLevelExplain({
     super.key,
@@ -118,7 +119,7 @@ class MembershipLevelExplain extends StatelessWidget {
                             height: 5.h,
                           ),
                           MembershipLevelFeature(
-                            feature: features[index],
+                            feature: features[index].description,
                           ),
                         ],
                       ),
