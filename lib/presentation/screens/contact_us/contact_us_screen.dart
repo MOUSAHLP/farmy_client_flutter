@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/core/launcher.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -26,6 +27,7 @@ class ContactUsScreen extends StatelessWidget {
               child: SingleChildScrollView(
                   child: Column(
                 children: [
+                  const SizedBox(height: 10,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 29),
                     child: Text(
@@ -74,7 +76,7 @@ class ContactUsScreen extends StatelessWidget {
                         horizontal: 139, vertical: 14),
                     child: CustomButton(
                       onTap: () {},
-                      label: AppLocalizations.of(context)!.register,
+                      label: AppLocalizations.of(context)!.sent,
                     ),
                   ),
                   
@@ -85,7 +87,8 @@ class ContactUsScreen extends StatelessWidget {
                       style: getBoldStyle(
                           color: ColorManager.grayForMessage,
                           fontSize: FontSizeApp.s15),
-                    ),
+
+                    textAlign: TextAlign.center),
                   ),
                   Text(
                     AppLocalizations.of(context)!.on_the_next_number,
@@ -93,10 +96,15 @@ class ContactUsScreen extends StatelessWidget {
                         color: ColorManager.grayForMessage,
                         fontSize: FontSizeApp.s15),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: CustomContactContoner(
-                      contactImage: ImageManager.contactLogo,
+                   Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: InkWell(
+                      onTap: (){
+                        launchPhoneCall("0962225868");
+                      },
+                      child: const CustomContactContainer(
+                        contactImage: ImageManager.contactLogo,
+                      ),
                     ),
                   ),
                   Text(
@@ -105,12 +113,18 @@ class ContactUsScreen extends StatelessWidget {
                         color: ColorManager.grayForMessage,
                         fontSize: FontSizeApp.s15),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: CustomContactContoner(
-                      contactImage: ImageManager.whatsUpLogo,
+                   Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: InkWell(
+                      onTap: (){
+                        openWhatsApp("0962225868", context);
+                      },
+                      child: const CustomContactContainer(
+                        contactImage: ImageManager.whatsUpLogo,
+                      ),
                     ),
                   ),
+                  const SizedBox(height: 10,)
                 ],
               )),
             ),

@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
-import 'package:pharma/bloc/setting_bloc/setting_event.dart';
-import 'package:pharma/bloc/setting_bloc/setting_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
-import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 
 import '../../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../../core/services/services_locator.dart';

@@ -90,6 +90,7 @@ class SignInBody extends StatelessWidget {
               children: [
                 Text(AppLocalizations.of(context)!.forget_password,
                     style: getSemiBoldStyle(color: Colors.white)),
+                SizedBox(width: 4,),
                 InkWell(
                   onTap: () {
                     context

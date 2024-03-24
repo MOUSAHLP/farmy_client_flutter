@@ -15,7 +15,6 @@ import 'package:pharma/bloc/setting_bloc/setting_event.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
 import 'package:pharma/core/services/services_locator.dart';
-import 'package:pharma/core/utils/firebase_notifications_handler.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';

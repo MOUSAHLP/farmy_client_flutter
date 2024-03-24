@@ -61,8 +61,10 @@ class StateButtons extends StatelessWidget {
                 height: 38,
                 radius: 6,
                 label: AppLocalizations.of(context)!.delete_Order,
-                fillColor: ColorManager.yellow,
-                labelColor: Colors.white,
+                fillColor: Colors.white,
+                borderColor: ColorManager.primaryGreen,
+                isFilled: true,
+                labelColor: ColorManager.primaryGreen,
                 onTap: () {
                   context.read<MyOrderBloc>().add(DeleteOrder(id: id));
                   //DeleteOrder
@@ -115,8 +117,10 @@ class StateButtons extends StatelessWidget {
                 height: 38,
                 radius: 6,
                 label: AppLocalizations.of(context)!.returned,
-                fillColor: ColorManager.yellow,
+                fillColor: ColorManager.grayForMessage,
+                isFilled: true,
                 labelColor: Colors.white,
+                borderColor: ColorManager.grayForMessage,
                 onTap: () {},
               ),
             ),
@@ -126,11 +130,12 @@ class StateButtons extends StatelessWidget {
                 height: 38,
                 radius: 6,
                 label: AppLocalizations.of(context)!.track_Order,
-                fillColor: ColorManager.yellow,
-                labelColor: Colors.white,
+                fillColor: Colors.white,
+                borderColor: ColorManager.primaryGreen,
+                isFilled: true,
+                labelColor: ColorManager.primaryGreen,
                 onTap: () {
-                  AppRouter.push(context,
-                      OrderTrackingScreen(orderId: 0)); // need to pe changed
+                  AppRouter.push(context, OrderTrackingScreen(orderId: id));
                 },
               ),
             ),

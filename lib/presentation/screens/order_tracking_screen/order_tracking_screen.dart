@@ -10,12 +10,14 @@ import 'package:pharma/core/utils/firebase_notifications_handler.dart';
 import 'package:pharma/models/track_model.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/order_tracking_screen/widgets/order_status_container.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
 import 'package:pharma/presentation/widgets/dialogs/confirm_payment_order_dialog.dart';
 import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../translations.dart';
 import '../../widgets/custom_app_bar_screen.dart';
@@ -130,6 +132,13 @@ class OrderTrackingScreen extends StatelessWidget {
                                     borderColor: ColorManager.primaryGreen,
                                     fillColor: Colors.white,
                                     labelColor: ColorManager.primaryGreen,
+                                    onTap: () async {
+                                      Uri url = Uri.parse(
+                                          "tel://${trackingModel.driverPhone}");
+                                      if (await canLaunchUrl(url)) {
+                                        await launchUrl(url);
+                                      }
+                                    },
                                   ),
                                 ],
                               ),

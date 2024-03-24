@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/core/app_router/app_router.dart';
-import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/presentation/screens/all_section/all_section_screen.dart';

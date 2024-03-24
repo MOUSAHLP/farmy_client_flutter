@@ -1,13 +1,9 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
-import '../../core/services/services_locator.dart';
 import '../../data/repository/my_order_repository.dart';
 import '../../models/order_details_model.dart';
 import '../../models/params/product_edit_params.dart';
-import '../../models/product_response.dart';
-import '../my_order_bloc/my_order_bloc.dart';
-import '../my_order_bloc/my_order_event.dart';
 import 'details_order_event.dart';
 import 'details_order_state.dart';
 

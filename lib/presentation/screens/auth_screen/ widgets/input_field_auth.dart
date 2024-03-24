@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../../resources/color_manager.dart';
 import '../../../resources/font_app.dart';
 import '../../../resources/style_app.dart';
@@ -106,87 +105,85 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
             ),
             color: widget.color ?? Colors.white,
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: widget.icon
-                   ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: widget.icon
+                 ),
 
-                Expanded(
-                  child: SizedBox(
-                    height: 40,
-                    child: TextFormField(
-                      initialValue: widget.initValue,
-                      keyboardType: widget.keyboardType,
-                      onTap: widget.onTab,
-                      style: widget.textStyle,
-                      controller: widget.controller,
-                      readOnly: widget.readOnly,
-                      minLines: widget.minLines,
-                      maxLines: widget.maxLines,
-                      textAlign: widget.textAlign,
-                      onChanged: widget.onChange,
-                      validator: (value) {
-                        if (widget.validator == null) return null;
-                        validateField(value);
-                        return widget.validator!(value);
-                      },
-                      inputFormatters: widget.inputFormatters,
-                      decoration: InputDecoration(
-                        fillColor: widget.readOnly ? Colors.grey : Colors.red,
-                        hintText: widget.withLabel ? null : widget.hintText,
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        label: widget.withLabel
-                            ? Text(
-                                widget.hintText!,
-                                style: getBoldStyle(
-                                  color: Colors.black,
-                                ),
-                              )
-                            : null,
-
-                        prefixIcon: widget.isPhone
-                            ?  Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                  "+963 - ",
-                                style: getBoldStyle(color: ColorManager.primaryGreen),
-                                ),
+              Expanded(
+                child: Container(
+                  // color: Colors.red,
+                  height: 40,
+                  child: TextFormField(
+                    initialValue: widget.initValue,
+                    keyboardType: widget.keyboardType,
+                    onTap: widget.onTab,
+                    style: widget.textStyle,
+                    controller: widget.controller,
+                    readOnly: widget.readOnly,
+                    minLines: widget.minLines,
+                    maxLines: widget.maxLines,
+                    textAlign: widget.textAlign,
+                    onChanged: widget.onChange,
+                    validator: (value) {
+                      if (widget.validator == null) return null;
+                      validateField(value);
+                      return widget.validator!(value);
+                    },
+                    inputFormatters: widget.inputFormatters,
+                    decoration: InputDecoration(
+                      fillColor: widget.readOnly ? Colors.grey : Colors.red,
+                      hintText: widget.withLabel ? null : widget.hintText,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      label: widget.withLabel
+                          ? Text(
+                              widget.hintText!,
+                              style: getBoldStyle(
+                                color: Colors.black,
+                              ),
                             )
-                            :null,
-                        suffixIcon: widget.suffixIcon,
-                        contentPadding: widget.contentPadding,
-                        labelStyle: getRegularStyle(color: Colors.white),
-                        hintStyle: widget.hintStyle ??
-                            getBoldStyle(
-                                color: ColorManager.grayForSearchProduct,
-                                fontSize: 12),
-                        errorStyle: const TextStyle(
-                          fontSize: 0,
-                          height: 0.1,
-                        ),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(28.0)),
-                          borderSide: BorderSide.none,
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(28.0)),
-                          borderSide: BorderSide.none,
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(28.0)),
-                          borderSide: BorderSide.none,
-                        ),
+                          : null,
+
+                      prefixIcon: widget.isPhone
+                          ?  Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Text(
+                                "+963 - ",
+                              style: getBoldStyle(color: ColorManager.primaryGreen),
+                              ),
+                          )
+                          :widget.prefixIcon,
+                      suffixIcon: widget.suffixIcon,
+                      contentPadding: widget.contentPadding,
+                      labelStyle: getRegularStyle(color: Colors.white),
+                      hintStyle: widget.hintStyle ??
+                          getBoldStyle(
+                              color: ColorManager.grayForSearchProduct,
+                              fontSize: 12),
+                      errorStyle: const TextStyle(
+                        fontSize: 0,
+                        height: 0.1,
+                      ),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                        borderSide: BorderSide.none,
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         if (widget.errorMessage != null || validationErrorMessage != null)

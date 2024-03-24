@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pharma/bloc/details_order_bloc/details_order_event.dart';
+import 'package:pharma/bloc/my_order_bloc/my_order_event.dart';
+import 'package:pharma/bloc/my_order_bloc/my_order_state.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
-import 'package:pharma/presentation/screens/order_details_screen/widgets/card_details_order.dart';
+import 'package:pharma/models/params/product_model.dart';
+import 'package:pharma/presentation/screens/order_not_install_details_screen/widgets/card_details_order_not_install.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
-import '../../../bloc/details_order_bloc/details_order_bloc.dart';
-import '../../../bloc/details_order_bloc/details_order_state.dart';
+import '../../../bloc/my_order_bloc/my_order_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../translations.dart';
 import '../../resources/color_manager.dart';
@@ -18,28 +19,31 @@ import '../../widgets/custom_button.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
 import '../base_screen/base_screen.dart';
+import '../payment/payment_screen.dart';
 
-class OrderDetailsScreen extends StatelessWidget {
- final int id;
+class OrderNotInstallDetailsScreen extends StatelessWidget {
+ final List<Product> id;
+ final int idBasket;
  final bool isEdit;
-  const OrderDetailsScreen({super.key,required this.id,this.isEdit=false});
+  const OrderNotInstallDetailsScreen({super.key,required this.id,this.isEdit=false,required this.idBasket});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return sl<DetailsOrderBloc>()
-          ..add(ShowDetailsOrder(id:id));
+        return sl<MyOrderBloc>()
+          ..add(ShowBasket(idProducts:id));
       },
-      child:  OrderDetailsBody(id: id,isEdit: isEdit),
+      child:  OrderDetailsBody(id: id,isEdit: isEdit,idBasket: idBasket),
     );
   }
 }
 
 class OrderDetailsBody extends StatelessWidget {
-final int id;
+final List<Product>  id;
 final bool isEdit;
-   OrderDetailsBody({super.key,required this.id,this.isEdit=false});
+final int idBasket;
+   const OrderDetailsBody({super.key,required this.id,this.isEdit=false,required this.idBasket});
 
   @override
   Widget build(BuildContext context) {
@@ -64,17 +68,23 @@ final bool isEdit;
                 ),
               ),
             ),
-            BlocConsumer<DetailsOrderBloc, DetailsOrderState>(
+            BlocConsumer<MyOrderBloc, MyOrderState>(
               listener: (context, state) {
-                if (state.isLoadingEdite) {
+                if (state.isLoadingConfirm) {
                   LoadingDialog().openDialog(context);
                 } else {
                   LoadingDialog().closeDialog(context);
                 }
-                if (state.errorEdit!="") {
-                  ErrorDialog.openDialog(context, state.errorEdit);
+                if (state.error!="") {
+                  ErrorDialog.openDialog(context, state.error);
                 }
-                if (state.successEdit) {
+                if (state.successConfirm) {
+                  AppRouter.push(
+                      context,
+                      PaymentScreen(
+                        paymentProcessResponse:
+                        state.paymentProcessResponse!,
+                      ));
                 }
               },
               builder:(context, state)
@@ -84,7 +94,7 @@ final bool isEdit;
                 } else if(state.screenStates==ScreenStates.error) {
                   return Expanded(
                     child: CustomErrorScreen(onTap: () {
-                      context.read<DetailsOrderBloc>().add(ShowDetailsOrder(id:id));
+                      // context.read<DetailsOrderBloc>().add(ShowDetailsOrder(id:id));
                     },
                       titleError: state.error,),
                   );
@@ -95,9 +105,10 @@ final bool isEdit;
                      Expanded(
                         child: CustomOverscrollIndicator(
                           child: ListView.builder(
-                            itemBuilder: (context, index) => CardDetailsOrder(
-                                product: state.productList[index],isEdit: isEdit),
+                            itemBuilder: (context, index) => CardDetailsOrderNotInstall(
+                                product: state.productList[index],isEdit: isEdit,   idBasket:idBasket),
                             itemCount:  state.productList.length,
+
                           ),
                         ),
                       ),
@@ -154,11 +165,14 @@ final bool isEdit;
                                children: [
                                 isEdit? Expanded(
                                    child: CustomButton(
-                                     label: "حفظ التعديلات",
+                                     label: "تثبيت الطلب ",
                                      fillColor:
                                      ColorManager.primaryGreen,
                                      onTap: () {
-                                       context.read<DetailsOrderBloc>().add(EditDetailsOrder(id:id));
+                                       context
+                                           .read<MyOrderBloc>()
+                                           .add(PaymentProcessBasket(idBasket));
+                                       // context.read<DetailsOrderBloc>().add(EditDetailsOrder(id:id));
 
                                      },
                                    ),
