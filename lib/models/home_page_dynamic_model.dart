@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:pharma/models/banners_response.dart';
 import 'package:pharma/models/categories_respoonse.dart';

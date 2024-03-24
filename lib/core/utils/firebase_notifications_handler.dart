@@ -1,9 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
 import 'package:pharma/models/track_model.dart';

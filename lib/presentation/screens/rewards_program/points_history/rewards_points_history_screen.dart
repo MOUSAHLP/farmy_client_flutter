@@ -5,7 +5,6 @@ import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_event.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_state.dart';
 import 'package:pharma/core/app_enum.dart';
-import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/rewards_program/points_history/widget/rewards_point_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_row.dart';

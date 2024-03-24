@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pharma/bloc/rewards_bloc/guide_bloc/rewards_guide_bloc.dart';
-import 'package:pharma/bloc/rewards_bloc/guide_bloc/rewards_guide_state.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';

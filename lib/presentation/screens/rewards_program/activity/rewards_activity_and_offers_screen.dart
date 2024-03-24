@@ -9,11 +9,9 @@ import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_container.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_buy.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_my_coupon.dart';
-import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_progress_container.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_row.dart';
 import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
-import 'package:pharma/presentation/widgets/dialogs/rewards_point_dialog.dart';
 import 'package:pharma/translations.dart';
 
 class RewardsActivityAndOffersScreen extends StatelessWidget {

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:hive_flutter/adapters.dart';
 
 class GetEditProductParams extends Equatable {
   List<Product> products;

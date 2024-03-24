@@ -69,11 +69,12 @@ class ProductResponse {
             : List<ProductResponse>.from(
             json["related_products"].map(
                     (x) => ProductResponse.fromJson(x))),
-        similarProducts: json["related_products"] == null
+        similarProducts: json["similar_products"] == null
             ? []
             : List<ProductResponse>.from(
             json["similar_products"].map(
-                    (x) => ProductResponse.fromJson(x))))
+                    (x) => ProductResponse.fromJson(x)))
+    )
         : ProductResponse( id: 0,);
   }
   static Map<String, dynamic> toJsonCard(

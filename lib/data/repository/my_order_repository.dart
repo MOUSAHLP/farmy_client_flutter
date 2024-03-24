@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import '../../bloc/details_order_bloc/details_order_bloc.dart';
 import '../../core/utils/api_const.dart';
 import '../../models/my_order_response.dart';
 import '../../models/order_details_model.dart';
@@ -46,6 +45,22 @@ class MyOrderRepository {
         "products":ProductEditPrams.toJsonCardList(product)},
       converter: (e) {
         return e['message'];
+      },
+
+    );
+  }
+  static Future<Either<String, List<ProductResponse>>> showBasket( List<int> basketModelStore ) {
+   print("============edit order");
+   print(basketModelStore);
+   print("===============product");
+
+    return BaseApiClient.post<List<ProductResponse>>(
+      url: ApiConst.showBasket,
+      formData:{
+        "products":basketModelStore} ,
+
+      converter: (e) {
+        return ProductResponse.listFromJson(e["data"]);
       },
 
     );

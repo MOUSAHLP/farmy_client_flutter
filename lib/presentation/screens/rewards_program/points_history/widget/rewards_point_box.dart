@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_bloc.dart';
-import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_event.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_state.dart';
 import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/values_app.dart';
 import 'package:pharma/presentation/screens/rewards_program/points_history/widget/rewards_point_point.dart';
 import 'package:pharma/presentation/screens/rewards_program/points_history/widget/rewards_point_row.dart';
-import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/translations.dart';
 
 class RewardsPointHistoryBox extends StatelessWidget {

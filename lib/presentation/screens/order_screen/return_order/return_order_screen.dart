@@ -7,7 +7,7 @@
 // import '../../../../translations.dart';
 // import '../../../widgets/over_scroll_indicator.dart';
 // import '../../base_screen/base_screen.dart';
-// import '../../order_details_screen/widgets/card_details_order.dart';
+// import '../../order_details_screen/widgets/card_details_order_not_install.dart';
 //
 // class ReturnOrderScreen extends StatelessWidget {
 //   final List<OrderDetailsModel> orderDetailsList;

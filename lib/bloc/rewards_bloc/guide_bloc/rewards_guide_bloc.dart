@@ -1,11 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharma/bloc/privacy_bloc/privacy_event.dart';
-import 'package:pharma/bloc/privacy_bloc/privacy_state.dart';
 import 'package:pharma/bloc/rewards_bloc/guide_bloc/rewards_guide_event.dart';
 import 'package:pharma/bloc/rewards_bloc/guide_bloc/rewards_guide_state.dart';
-import 'package:pharma/data/repository/privacy_repo.dart';
 import 'package:pharma/data/repository/rewards_repo.dart';
-import 'package:pharma/models/privacy_model.dart';
 import 'package:pharma/models/reward/reward_guide_model.dart';
 import 'package:pharma/models/reward/reward_membership_guide_model.dart';
 

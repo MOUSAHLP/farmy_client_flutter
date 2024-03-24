@@ -38,7 +38,7 @@ class BaseApiClient {
       required T Function(dynamic) converter,
       bool isToken = false,
       dynamic returnOnError}) async {
-    try {
+    // try {
       print("formData formData formData formData formData ");
       print(formData);
       var response = await client.post(
@@ -68,18 +68,18 @@ class BaseApiClient {
       } else {
         return left(response.data['message']);
       }
-    } on DioException catch (e) {
-      Map dioError = DioErrorsHandler.onError(e);
-      if (kDebugMode) {
-        print(e);
-      }
-      return left(returnOnError ?? dioError["message"] ?? '');
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      return left("");
-    }
+    // } on DioException catch (e) {
+    //   Map dioError = DioErrorsHandler.onError(e);
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    //   return left(returnOnError ?? dioError["message"] ?? '');
+    // } catch (e) {
+    //   if (kDebugMode) {
+    //     print(e);
+    //   }
+    //   return left("");
+    // }
   }
 
   static Future<Either<String, T>> put<T>(

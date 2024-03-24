@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/basket_repo.dart';

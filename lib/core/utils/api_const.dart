@@ -63,6 +63,7 @@ class ApiConst {
   static const String getMyOrder = "/orders";
   static String getDetailsOrder(int id) => "/orders/order-details/$id";
   static String deleteOrder(int id) => "/orders/$id";
+  static String showBasket = "/get-cart-products-info";
 
   /// track order
   static String getTrackOrderDetails(int id) => "/orders/order-status/$id";

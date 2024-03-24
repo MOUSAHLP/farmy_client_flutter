@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
-import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';

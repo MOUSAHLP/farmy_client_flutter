@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:pharma/core/app_router/dialog_transition_builder.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 
 import '../../../core/app_router/app_router.dart';
 import '../../../translations.dart';
-import '../../resources/assets_manager.dart';
 
 class LoadingDialog {
   static final LoadingDialog _loadingDialog = LoadingDialog._internal();
