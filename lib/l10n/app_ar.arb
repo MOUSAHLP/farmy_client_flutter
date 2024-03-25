@@ -292,6 +292,7 @@
   "baskets_are_not_required": "سلات غير مطلوبة",
    "my_coupon":"كوبوناتي",
   "all_products" : "جميع النتجات",
-  "field_is_required": "الحقل مطلوب"
+  "field_is_required": "الحقل مطلوب",
+  "noResult": "لا يوجد نتائج بحث"
 
 }

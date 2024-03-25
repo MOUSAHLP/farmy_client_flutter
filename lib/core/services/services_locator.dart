@@ -30,6 +30,7 @@ import '../../bloc/my_order_bloc/my_order_bloc.dart';
 import '../../bloc/notification_bloc/notification_bloc.dart';
 import '../../bloc/profile_bloc/pofile_bloc.dart';
 import '../../bloc/rate_bloc/rate_bloc.dart';
+import '../../bloc/search_bloc/search_bloc.dart';
 import '../../data/repository/user_repository.dart';
 
 final sl = GetIt.instance;
@@ -52,7 +53,7 @@ class ServicesLocator {
 
     /// Home Section All Products Screen
     sl.registerFactory(() => HomeSectionAllProductsBloc());
-
+    sl.registerFactory(() => SearchBloc());
     // setting
     sl.registerLazySingleton(() => SettingBloc());
 

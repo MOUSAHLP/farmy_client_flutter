@@ -15,7 +15,6 @@ import 'package:pharma/presentation/screens/rewards_program/rank/widget/points_e
 import 'package:pharma/presentation/screens/rewards_program/rank/widget/your_points_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/rank/widget/your_rank.dart';
 import 'package:pharma/presentation/screens/rewards_program/rewards_guide/rewards_guide_screen.dart';
-import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/translations.dart';
 
 class RewardsRankScreen extends StatelessWidget {

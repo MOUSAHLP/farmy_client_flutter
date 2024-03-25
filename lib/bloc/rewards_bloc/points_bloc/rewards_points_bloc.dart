@@ -3,7 +3,6 @@ import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_event.dart';
 import 'package:pharma/bloc/rewards_bloc/points_bloc/rewards_points_state.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/rewards_repo.dart';
-import 'package:pharma/models/reward/reward_history_model.dart';
 
 class RewardsPointsHistoryBloc
     extends Bloc<RewardsPointsEvent, RewardsPointsHistoryState> {

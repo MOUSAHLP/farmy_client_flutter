@@ -10,6 +10,8 @@ import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filte
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_row.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../resources/color_manager.dart';
+
 class RewardsPointsHistoryScreen extends StatelessWidget {
   const RewardsPointsHistoryScreen({super.key});
 

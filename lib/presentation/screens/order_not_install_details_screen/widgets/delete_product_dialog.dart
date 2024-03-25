@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_bloc.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
-import '../../../../bloc/details_order_bloc/details_order_bloc.dart';
-import '../../../../bloc/details_order_bloc/details_order_event.dart';
 import '../../../../bloc/my_order_bloc/my_order_event.dart';
 import '../../../../core/app_router/app_router.dart';
 import '../../../../models/product_response.dart';
