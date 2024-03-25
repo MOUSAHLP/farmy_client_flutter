@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharma/bloc/my_order_bloc/my_order_bloc.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
-import '../../../../bloc/details_order_bloc/details_order_bloc.dart';
-import '../../../../bloc/details_order_bloc/details_order_event.dart';
+import '../../../../bloc/my_order_bloc/my_order_event.dart';
 import '../../../../core/app_router/app_router.dart';
 import '../../../../models/product_response.dart';
 import '../../../../translations.dart';
@@ -54,8 +54,8 @@ class DeleteProductDialog extends StatelessWidget {
                       label: AppLocalizations.of(context)!.confirm,
                       fillColor: ColorManager.primaryGreen,
                       onTap: () {
-                        context.read<DetailsOrderBloc>().add(
-                            DeleteProduct(product.id ?? 0));
+                        context.read<MyOrderBloc>().add(
+                            DeleteProductOrder(product.id ?? 0));
                         AppRouter.pop(context);
                       },
                     ),

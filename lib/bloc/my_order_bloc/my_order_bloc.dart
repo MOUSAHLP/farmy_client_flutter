@@ -144,7 +144,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
       if (event is MinusCountOrder) {
         int index1 =
         productDetailsList.indexWhere((element) => element.id == event.id);
-        if (productDetailsList[index1].quantity != 1) {
+        if (productDetailsList[index1].quantity != 0) {
           productDetailsList[index1].quantity =
               productDetailsList[index1].quantity! - 1;
         }
@@ -173,6 +173,14 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
               ),
               );}
         );
+      }
+      if (event is DeleteProductOrder) {
+        productDetailsList.removeWhere((element) => element.id == event.id);
+        sum=0;
+        emit(state.copyWith(
+            productList: productDetailsList,
+            totalPrice:  finalPrice()
+        ));
       }
     });
   }

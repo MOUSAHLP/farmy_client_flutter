@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_state.dart';
 import 'package:pharma/core/utils/formatter.dart';
-import 'package:pharma/models/reward/reward_rank_user_model.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';

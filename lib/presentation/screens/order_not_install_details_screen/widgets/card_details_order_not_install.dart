@@ -12,7 +12,6 @@ import '../../../../bloc/my_order_bloc/my_order_event.dart';
 import '../../../../models/product_response.dart';
 import '../../../../translations.dart';
 import '../../../resources/assets_manager.dart';
-import 'delete_product_dialog.dart';
 
 class CardDetailsOrderNotInstall extends StatelessWidget {
   final ProductResponse product;
@@ -224,18 +223,18 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
               if (context
                   .read<MyOrderBloc>()
                   .countsProducts(product.id,idBasket) ==
-                  1) {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context1) {
-                    return BlocProvider.value(
-                        value: BlocProvider.of<MyOrderBloc>(context),
-                        child:    DeleteProductDialog(
-                            product :
-                            product));
-
-                  },
-                );
+                  0) {
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context1) {
+                //     return BlocProvider.value(
+                //         value: BlocProvider.of<MyOrderBloc>(context),
+                //         child:    DeleteProductDialog(
+                //             product :
+                //             product));
+                //
+                //   },
+                // );
               } else {
                 context
                     .read<MyOrderBloc>()

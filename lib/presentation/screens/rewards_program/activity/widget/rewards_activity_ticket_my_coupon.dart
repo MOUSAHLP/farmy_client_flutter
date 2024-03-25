@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_bloc.dart';
-import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_state.dart';
 import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_content.dart';
-import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 // not used yet -- need to use NetworkImage to use this field
 
 class RewardsActivityTicketMyCoupon extends StatelessWidget {
