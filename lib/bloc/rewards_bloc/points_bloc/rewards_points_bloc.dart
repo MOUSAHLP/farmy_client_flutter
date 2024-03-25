@@ -41,6 +41,7 @@ class RewardsPointsHistoryBloc
         var response = await RewardsRepo.getRewardHistoryPointsUsed();
         response.fold(
           (l) {
+
             emit(
               state.copyWith(rewardsPointsHistoryError: l),
             );
