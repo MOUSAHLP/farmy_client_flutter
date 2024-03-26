@@ -75,7 +75,7 @@ class ApiConst {
   static const String getRewardsGuide = "/reward/guide/rewards";
   static const String getRewardsMemberShipGuide = "/reward/guide/memberships";
   static const String getRewardsPointHistoryExpired = "/reward/points/expired";
-  static const String getRewardsPointHistoryUsed = "/reward/purchases";
+  static const String getRewardsPointHistoryUsed = "/reward/used";
   static const String getRewardsPointHistoryValid = "/reward/points/valid";
   static const String getRewardMyCoupons = "/reward/coupons";
   static const String getRewardActivityCoupons = "/reward/achievements/not-done";

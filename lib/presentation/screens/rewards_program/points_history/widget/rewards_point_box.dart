@@ -10,11 +10,13 @@ import 'package:pharma/translations.dart';
 class RewardsPointHistoryBox extends StatelessWidget {
   final RewardsPointsHistoryBloc rewardsPointsHistoryBloc;
   final Color colorPoints;
+   final bool? isOffers;
 
   const RewardsPointHistoryBox({
     super.key,
     required this.rewardsPointsHistoryBloc,
     required this.colorPoints,
+    this.isOffers,
   });
 
   @override
@@ -49,8 +51,7 @@ class RewardsPointHistoryBox extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      if (rewardsPointsHistoryBloc
-                          .state.rewardHistoryModel!.data[index].expired) ...[
+                      if (rewardsPointsHistoryBloc.state.rewardHistoryModel!.data[index].expired) ...[
                         RewardsPointRow(
                           expired: false,
                           text: AppLocalizations.of(context)!.date_of_earn,
@@ -73,6 +74,14 @@ class RewardsPointHistoryBox extends StatelessWidget {
                           expired: rewardsPointsHistoryBloc
                               .state.rewardHistoryModel!.data[index].expired,
                           text: AppLocalizations.of(context)!.date_of_use,
+                          date: Formatter.formatDate(
+                            rewardsPointsHistoryBloc.state.rewardHistoryModel!
+                                .data[index].createdAt,
+                          ),
+                        ),
+                        RewardsPointRow(
+                          expired: false,
+                          text: AppLocalizations.of(context)!.date_of_earn,
                           date: Formatter.formatDate(
                             rewardsPointsHistoryBloc.state.rewardHistoryModel!
                                 .data[index].createdAt,

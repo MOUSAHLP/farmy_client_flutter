@@ -46,8 +46,7 @@ class RewardsRepo {
         });
   }
 
-  static Future<Either<String, RewardHistoryModel>>
-      getRewardHistoryPointsUsed() {
+  static Future<Either<String, RewardHistoryModel>>   getRewardHistoryPointsUsed() {
     return BaseApiClient.get<RewardHistoryModel>(
         url: ApiConst.getRewardsPointHistoryUsed,
         converter: (e) {
