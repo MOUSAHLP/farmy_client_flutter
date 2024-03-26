@@ -4,8 +4,9 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/join_our_team/widgets/custom_job_row.dart';
 
 class CustomSelectJobDialog extends StatelessWidget {
-  const CustomSelectJobDialog({super.key});
-
+  const CustomSelectJobDialog({super.key,required this.jobs,required this.onChanged});
+final List<String> jobs;
+  final Function(String?) onChanged;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -18,20 +19,15 @@ class CustomSelectJobDialog extends StatelessWidget {
             color: ColorManager.white,
           ),
           width: 280,
-          height: 415,
-          child: const Column(
-            children: [
-              Column(
-                children: [
-                  CustomJobRow(),
-                  CustomJobRow(),
-                  CustomJobRow(),
-                  CustomJobRow(),
-                  CustomJobRow()
-                ],
-              )
-            ],
-          ),
+          // height: 415,
+          child: ListView.builder(
+              itemCount: jobs.length,
+              shrinkWrap: true,
+              itemBuilder:(context, index) =>  InkWell(
+                  onTap: (){
+                    onChanged(jobs[index]);
+                  },
+                  child: CustomJobRow(title:jobs[index] ,))),
         ),
       ),
     );

@@ -2,8 +2,6 @@ class ApiConst {
   static const String baseUrl =
       "https://control.farmy.peaklink.site/public/api";
 
-  // static const String baseUrl = "http://10.0.2.2:8000/api";
-
   ///Auth
   static const String login = "/auth/login";
   static const String logout = "/auth/logout";
@@ -83,4 +81,9 @@ class ApiConst {
   static const String getRewardActivityCoupons = "/reward/achievements/not-done";
   static const String getRewardsRankUser = "/reward/user-statistics";
   static const String getRewardsOfferCoupon = "/reward/coupons/fixed-value";
+  ///setting
+  static const String getJoinOurTeamJobs = "/join-our-team/jobs";
+  static const String addJoinOurTeamJobs = "/join-our-team";
+
+
 }
