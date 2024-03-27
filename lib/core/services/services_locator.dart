@@ -25,6 +25,7 @@ import 'package:pharma/data/repository/home_repo.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/data/repository/product_repo.dart';
 import '../../bloc/details_order_bloc/details_order_bloc.dart';
+import '../../bloc/invoices_bloc/invoices_bloc.dart';
 import '../../bloc/join_our_team_bloc/join_our_team_bloc.dart';
 import '../../bloc/location_bloc/location_bloc.dart';
 import '../../bloc/my_order_bloc/my_order_bloc.dart';
@@ -121,5 +122,8 @@ class ServicesLocator {
 
     ///join our team jobs
     sl.registerFactory(() => JoinOurTeamBloc());
+
+    /// invoices
+    sl.registerFactory(() => InvoicesBloc());
   }
 }

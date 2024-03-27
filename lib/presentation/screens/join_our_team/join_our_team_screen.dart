@@ -74,7 +74,7 @@ class JoinOurTeamBody extends StatelessWidget {
                   }  if (state.screenStates ==ScreenStates.error) {
                     return CustomErrorScreen(
                       onTap: () {
-                        context.read<JoinOurTeamBloc>().add(GetJoinOurTeam());
+                       // context.read<JoinOurTeamBloc>().add(GetJoinOurTeam());
                       },
                     );
                   }  if (state.screenStates ==ScreenStates.success)   {

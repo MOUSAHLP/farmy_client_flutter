@@ -23,3 +23,4 @@ class InvociesResponse {
         total: json["total"]);
   }
 }
+

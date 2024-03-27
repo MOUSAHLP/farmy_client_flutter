@@ -192,7 +192,9 @@ class AuthenticationBloc
         response.fold((l) {
           emit(state.copyWith(error: l));
         }, (r) {
-          emit(state.copyWith(isLoading: true));
+          userRepository.deleteToken();
+          DataStore.instance.deleteUserInfo();
+          emit(state.copyWith(resetPassword: true,authenticationScreenStates: AuthenticationScreenStates.authenticationLoggedOut));
         });
       }
     });

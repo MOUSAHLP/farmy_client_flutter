@@ -120,7 +120,6 @@ class UserRepository {
     return BaseApiClient.post<bool>(
         url: ApiConst.resetPassword,
         formData:  {
-
             "old_password":forgetPasswordParams.oldPassword,
             "password":forgetPasswordParams.password,
             "password_confirmation":forgetPasswordParams.repeatPassword
