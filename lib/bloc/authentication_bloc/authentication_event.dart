@@ -64,3 +64,10 @@ class DeleteAccount extends AuthenticationEvent {
 
   DeleteAccount({required this.deleteAccountParams});
 }
+class ResetPassword extends AuthenticationEvent {
+  final String password;
+  final String oldPassword;
+  final String repeatPassword;
+  ResetPassword({required this.password, required this.repeatPassword,required this.oldPassword})
+      : super([password, repeatPassword,oldPassword]);
+}

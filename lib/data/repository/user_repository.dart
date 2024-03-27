@@ -8,6 +8,7 @@ import '../../models/params/delete_account_params.dart';
 import '../../models/params/forget_password_params.dart';
 import '../../models/params/login_params.dart';
 import '../../models/params/otp_confirm_params.dart';
+import '../../models/params/reset_password_params.dart';
 import '../../models/params/sign_up_params.dart';
 import '../data_resource/local_resource/data_store.dart';
 import '../data_resource/remote_resource/api_handler/base_api_client.dart';
@@ -114,4 +115,18 @@ class UserRepository {
           return ProfileModel.fromJson(e['data']);
         });
   }
+  Future<Either<String, bool>> resetPassword(
+      ResetPasswordParams forgetPasswordParams) async {
+    return BaseApiClient.post<bool>(
+        url: ApiConst.resetPassword,
+        formData:  {
+
+            "old_password":forgetPasswordParams.oldPassword,
+            "password":forgetPasswordParams.password,
+            "password_confirmation":forgetPasswordParams.repeatPassword
+
+        },
+        converter: (e) {
+          return true;
+        });}
 }

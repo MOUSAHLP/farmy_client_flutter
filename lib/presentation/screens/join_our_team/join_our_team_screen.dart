@@ -65,11 +65,8 @@ class JoinOurTeamBody extends StatelessWidget {
                     ErrorDialog.openDialog(context, state.error);
                   }
                   if (state.success) {
-                  // AppRouter.pop(context);
+                  AppRouter.pop(context);
                   }
-
-
-
                 },
                 builder: (context, state) {
                   if (state.screenStates == ScreenStates.loading) {

@@ -7,6 +7,7 @@ import '../../models/login_response.dart';
 import '../../models/otp_verify_response.dart';
 import '../../models/params/forget_password_params.dart';
 import '../../models/params/otp_confirm_params.dart';
+import '../../models/params/reset_password_params.dart';
 import '../../models/params/sign_up_params.dart';
 import 'authentication_event.dart';
 import 'authentication_state.dart';
@@ -178,6 +179,21 @@ class AuthenticationBloc
       }
       if (event is ChangeCheckPolice) {
         emit(state.copyWith(isCheckPolicy: event.isCheck));
+      }
+      if (event is ResetPassword) {
+        emit(state.copyWith(isLoading: true));
+
+        ResetPasswordParams forgetPasswordParams = ResetPasswordParams(
+
+            password: event.password,
+            repeatPassword: event.repeatPassword,
+            oldPassword: event.oldPassword);
+        var response = await userRepository.resetPassword(forgetPasswordParams);
+        response.fold((l) {
+          emit(state.copyWith(error: l));
+        }, (r) {
+          emit(state.copyWith(isLoading: true));
+        });
       }
     });
   }

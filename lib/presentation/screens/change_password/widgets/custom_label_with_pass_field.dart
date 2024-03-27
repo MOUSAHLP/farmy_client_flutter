@@ -7,7 +7,9 @@ import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_a
 
 class CustomLabelWithPassField extends StatelessWidget {
   final String labelName;
-  const CustomLabelWithPassField({super.key, required this.labelName});
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  const CustomLabelWithPassField({super.key, required this.labelName,required this.controller,this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +30,11 @@ class CustomLabelWithPassField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 11),
           child: InputFieldAuth(
+            controller: controller,
             color: ColorManager.grayForm,
             width: 1.sw,
             hintText: "***********************",
+            validator:validator ,
           ),
         ),
       ],

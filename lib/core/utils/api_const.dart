@@ -8,6 +8,7 @@ class ApiConst {
   static const String generateOtp = "/auth/generate-otp";
   static const String verifyOtp = "/auth/verify-otp";
   static const String changePassword = "/auth/change-password";
+  static const String resetPassword = "/change_password";
 
   static const String signUp = "/users";
   static const String updateProfile = "/update_profile";
@@ -84,6 +85,7 @@ class ApiConst {
   ///setting
   static const String getJoinOurTeamJobs = "/join-our-team/jobs";
   static const String addJoinOurTeamJobs = "/join-our-team";
+  static const String getInvoices = "/invoices/get_invoices";
 
 
 }
