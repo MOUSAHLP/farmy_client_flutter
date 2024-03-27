@@ -4,6 +4,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/all_invoices/widgets/custom_invoices_row.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../../core/utils/formatter.dart';
 import '../../../../models/invoice_model.dart';
 import '../../../../models/user_address_response.dart';
 
@@ -34,7 +35,7 @@ class CustomInvoicesContainer extends StatelessWidget {
               ),
               CustomInvoicesRow(
                 label: AppLocalizations.of(context)!.order_Date,
-                valueOfLabel: invoiceModel.date.toString(),
+                valueOfLabel: Formatter.formatDateOnly(context, invoiceModel.date)??"" ,
               ),
               CustomInvoicesRow(
                 label: AppLocalizations.of(context)!.site,
