@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
+import 'package:pharma/bloc/my_order_bloc/my_order_bloc.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
@@ -39,22 +40,28 @@ import 'widgets/custom_payment_status_container.dart';
 class PaymentScreen extends StatelessWidget {
   final PaymentProcessResponse paymentProcessResponse;
 
-  PaymentScreen({super.key, required this.paymentProcessResponse});
+  PaymentScreen(
+      {super.key, required this.paymentProcessResponse, this.myOrderBloc});
 
   final PaymentBloc paymentBloc = PaymentBloc(paymentRepo: PaymentRepo());
+  final MyOrderBloc? myOrderBloc;
 
   @override
   Widget build(BuildContext context) {
     paymentBloc
         .add(GetInitializeInvoice(initializeInvoice: paymentProcessResponse));
-    return PaymentBody(paymentBloc: paymentBloc);
+    return PaymentBody(
+      paymentBloc: paymentBloc,
+      myOrderBloc: myOrderBloc,
+    );
   }
 }
 
 class PaymentBody extends StatelessWidget {
   final PaymentBloc paymentBloc;
+  final MyOrderBloc? myOrderBloc;
 
-  PaymentBody({super.key, required this.paymentBloc});
+  PaymentBody({super.key, required this.paymentBloc, this.myOrderBloc});
 
   final Duration animationDuration = const Duration(milliseconds: 500);
 
@@ -182,6 +189,7 @@ class PaymentBody extends StatelessWidget {
                                               locationState,
                                               item,
                                               state,
+                                              myOrderBloc,
                                             );
                                           },
                                         ),
@@ -195,6 +203,7 @@ class PaymentBody extends StatelessWidget {
                                             locationState,
                                             item,
                                             state,
+                                            myOrderBloc,
                                           );
                                         },
                                       ),
@@ -617,26 +626,47 @@ class PaymentBody extends StatelessWidget {
                             )
                           : AppValueConst.defaultInvoiceValue.toString(),
                   onCompletePayment: () {
-                    paymentBloc.add(
-                      CreateOrder(
-                        productList:
-                            context.read<BasketBloc>().state.productList!,
-                        invoicesParams: InvoicesParams(
-                          time: state.time,
-                          notes: noteController.text,
-                          deliveryMethodId:
-                              state.deliveryMethodChosenList.isNotEmpty
-                                  // ToDo deliveryMethodChosenList[0].id ??? 0
-                                  ? state.deliveryMethodChosenList[0].id
-                                  : 0,
-                          userAddressId: context
-                              .read<LocationBloc>()
-                              .state
-                              .addressCurrent
-                              .id!,
+                    if(myOrderBloc!.productDetailsList.isNotEmpty) {
+                      paymentBloc.add(
+                        CreateOrder(
+                          productList:myOrderBloc!.productDetailsList,
+                          invoicesParams: InvoicesParams(
+                            time: state.time,
+                            notes: noteController.text,
+                            deliveryMethodId:
+                            state.deliveryMethodChosenList.isNotEmpty
+                            // ToDo deliveryMethodChosenList[0].id ??? 0
+                                ? state.deliveryMethodChosenList[0].id
+                                : 0,
+                            userAddressId: context
+                                .read<LocationBloc>()
+                                .state
+                                .addressCurrent
+                                .id!,
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }else {
+                      paymentBloc.add(
+                        CreateOrder(
+                          productList: context.read<BasketBloc>().state.productList!,
+                          invoicesParams: InvoicesParams(
+                            time: state.time,
+                            notes: noteController.text,
+                            deliveryMethodId:
+                            state.deliveryMethodChosenList.isNotEmpty
+                            // ToDo deliveryMethodChosenList[0].id ??? 0
+                                ? state.deliveryMethodChosenList[0].id
+                                : 0,
+                            userAddressId: context
+                                .read<LocationBloc>()
+                                .state
+                                .addressCurrent
+                                .id!,
+                          ),
+                        ),
+                      );
+                    }
                   },
                   onCompleteShopping: () {
                     AppRouter.pushReplacement(context, const HomeScreen());
@@ -655,6 +685,7 @@ class PaymentBody extends StatelessWidget {
     LocationState locationState,
     DeliveryMethodResponse item,
     PaymentState state,
+    MyOrderBloc? myOrderBloc,
   ) {
     return CustomOrderTypeContainer(
       idMethodeType: item.id,
@@ -669,22 +700,43 @@ class PaymentBody extends StatelessWidget {
       image: ImageManager.dateTimeImage,
       text: "${item.deliveryName} (${item.deliveryTime} دقيقة) ",
       onTap: () {
+        print('==========================');
+        print(context.read<BasketBloc>().state.productList);
         if (!state.deliveryMethodChosenList
             .any((element) => element.id == item.id)) {
           if (context.read<LocationBloc>().state.addressCurrent.latitude !=
               null) {
             paymentBloc.add(ToggleDeliveryMethod(deliveryMethodData: item));
-            paymentBloc.add(
-              GetInvoicesDetails(
-                invoicesParams: InvoicesParams(
-                  time: state.time,
-                  notes: noteController.text,
-                  deliveryMethodId: item.id,
-                  userAddressId: locationState.addressCurrent.id!,
+            // print('==========================');
+            // print(context.read<BasketBloc>().state.productList);
+            // print(myOrderBloc!.productDetailsList);
+            // print('==========================');
+            if(myOrderBloc!.productDetailsList.isNotEmpty){
+              paymentBloc.add(
+                GetInvoicesDetails(
+                  invoicesParams: InvoicesParams(
+                    time: state.time,
+                    notes: noteController.text,
+                    deliveryMethodId: item.id,
+                    userAddressId: locationState.addressCurrent.id!,
+                  ),
+                  productList: myOrderBloc.productDetailsList
                 ),
-                productList: context.read<BasketBloc>().state.productList,
-              ),
-            );
+              );
+            }else{
+              paymentBloc.add(
+                GetInvoicesDetails(
+                    invoicesParams: InvoicesParams(
+                      time: state.time,
+                      notes: noteController.text,
+                      deliveryMethodId: item.id,
+                      userAddressId: locationState.addressCurrent.id!,
+                    ),
+                    productList: context.read<BasketBloc>().state.productList,
+                ),
+              );
+            }
+
             if (item.id == 3) {
               showDialog(
                 context: context,

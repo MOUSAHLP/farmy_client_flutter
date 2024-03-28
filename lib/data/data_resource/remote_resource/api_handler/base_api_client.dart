@@ -31,43 +31,44 @@ class BaseApiClient {
     // client.options.connectTimeout = const Duration(seconds: 5);
   }
 
-  static Future<Either<String, T>> post<T>(
-      {required String url,
-      dynamic formData,
-      Map<String, dynamic>? queryParameters,
-      required T Function(dynamic) converter,
-      bool isToken = false,
-      dynamic returnOnError}) async {
+  static Future<Either<String, T>> post<T>({
+    required String url,
+    dynamic formData,
+    Map<String, dynamic>? queryParameters,
+    required T Function(dynamic) converter,
+    bool isToken = false,
+    dynamic returnOnError,
+  }) async {
     // try {
-      print("formData formData formData formData formData ");
-      print(formData);
-      var response = await client.post(
-        url,
-        queryParameters: queryParameters,
-        data: formData,
-        onSendProgress: (int sent, int total) {
-          if (kDebugMode) {
-            print(
-                'progress: ${(sent / total * 100).toStringAsFixed(0)}% ($sent/$total)');
-          }
-        },
-        options: Options(
-          headers: _headers,
-        ),
-      );
-      print(response);
-      if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
-          (response.data['error'].toString() != 'true')) {
+    print("formData formData formData formData formData ");
+    print(formData);
+    var response = await client.post(
+      url,
+      queryParameters: queryParameters,
+      data: formData,
+      onSendProgress: (int sent, int total) {
         if (kDebugMode) {
-          log(response.data.toString());
+          print(
+              'progress: ${(sent / total * 100).toStringAsFixed(0)}% ($sent/$total)');
         }
-        if (isToken) {
-          // DataStore.instance.setToken(response.headers['Authorization']!.first);
-        }
-        return right(converter(response.data));
-      } else {
-        return left(response.data['message']);
+      },
+      options: Options(
+        headers: _headers,
+      ),
+    );
+    print(response);
+    if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
+        (response.data['error'].toString() != 'true')) {
+      if (kDebugMode) {
+        log(response.data.toString());
       }
+      if (isToken) {
+        // DataStore.instance.setToken(response.headers['Authorization']!.first);
+      }
+      return right(converter(response.data));
+    } else {
+      return left(response.data['message']);
+    }
     // } on DioException catch (e) {
     //   Map dioError = DioErrorsHandler.onError(e);
     //   if (kDebugMode) {
@@ -86,7 +87,7 @@ class BaseApiClient {
       {required String url,
       FormData? formData,
       Map<String, dynamic>? queryParameters,
-        required T Function(dynamic) converter,
+      required T Function(dynamic) converter,
       dynamic returnOnError}) async {
     try {
       var response = await client.put(
@@ -133,23 +134,23 @@ class BaseApiClient {
     CancelToken? cancelToken,
   }) async {
     // try {
-      var response = await client.get(
-        url,
-        queryParameters: queryParameters,
-        options: Options(
-          headers: _headers,
-        ),
-        cancelToken: cancelToken,
-      );
-      if (response.statusCode! >= 200 || response.statusCode! <= 205) {
-        if (kDebugMode) {
-          log(response.data.toString());
-          print(response);
-        }
-        return right(converter(response.data));
-      } else {
-        return left(response.data['message']);
+    var response = await client.get(
+      url,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: _headers,
+      ),
+      cancelToken: cancelToken,
+    );
+    if (response.statusCode! >= 200 || response.statusCode! <= 205) {
+      if (kDebugMode) {
+        log(response.data.toString());
+        print(response);
       }
+      return right(converter(response.data));
+    } else {
+      return left(response.data['message']);
+    }
     // } on DioException catch (e) {
     //   if (e.type == DioExceptionType.cancel) {
     //     return left('cancel');

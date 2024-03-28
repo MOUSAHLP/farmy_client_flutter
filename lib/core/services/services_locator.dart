@@ -3,6 +3,7 @@ import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/bloc/conditions_bloc/conditions_bloc.dart';
+import 'package:pharma/bloc/contact_us_bloc/contact_us_bloc.dart';
 import 'package:pharma/bloc/faq_bloc/faq_bloc.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
@@ -117,5 +118,8 @@ class ServicesLocator {
 
     /// Who We Are Screen
     sl.registerFactory(() => WhoWeAreBloc());
+
+    /// Contact Us
+    sl.registerFactory(() => ContactUsBloc());
   }
 }

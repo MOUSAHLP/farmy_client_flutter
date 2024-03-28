@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pharma/bloc/my_order_bloc/my_order_state.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -15,23 +16,26 @@ import '../../../resources/assets_manager.dart';
 
 class CardDetailsOrderNotInstall extends StatelessWidget {
   final ProductResponse product;
-
+  final MyOrderBloc myOrderBloc;
   final Function? onTapDelete;
   final Color? cardColor;
   final bool isEdit;
   final int idBasket;
+  final int index;
 
-  const CardDetailsOrderNotInstall(
-      {super.key,
-      required this.product,
-      this.onTapDelete,
-      this.cardColor,
-      this.isEdit=false,
-      required this.idBasket});
+  const CardDetailsOrderNotInstall({
+    super.key,
+    required this.product,
+    this.onTapDelete,
+    this.cardColor,
+    this.isEdit = false,
+    required this.idBasket,
+    required this.index,
+    required this.myOrderBloc,
+  });
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 37),
       child: Container(
@@ -48,9 +52,12 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const SizedBox(width: 10,),
-            isEdit? buildCounterWidget(context):const SizedBox(),
-
+            const SizedBox(
+              width: 10,
+            ),
+            isEdit
+                ? buildCounterWidget(context, myOrderBloc)
+                : const SizedBox(),
             if (onTapDelete != null)
               Expanded(
                 child: SizedBox(
@@ -96,42 +103,40 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount:  product.attributeList.length,
+                      itemCount: product.attributeList.length,
                       physics: const NeverScrollableScrollPhysics(),
-
-                      itemBuilder: (context, index) =>Padding(
-                          padding: const EdgeInsets.symmetric(vertical:2),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-
-                                product.attributeList[index].value,
-                                style: getRegularStyle(
-                                  color: ColorManager.grayForMessage,
-                                  fontSize: FontSizeApp.s15,
-                                )!
-                                    .copyWith(height: 1),
-                              ),
-                              product.attributeList.length-1!=index?Text(
-                                "/",
-                                style: getRegularStyle(
-                                  color: ColorManager.grayForMessage,
-                                  fontSize: FontSizeApp.s15,
-                                )!
-                                    .copyWith(height: 1),
-                              ):const SizedBox()
-
-                            ],
-                          )) ,),
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              product.attributeList[index].value,
+                              style: getRegularStyle(
+                                color: ColorManager.grayForMessage,
+                                fontSize: FontSizeApp.s15,
+                              )!
+                                  .copyWith(height: 1),
+                            ),
+                            product.attributeList.length - 1 != index
+                                ? Text(
+                                    "/",
+                                    style: getRegularStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: FontSizeApp.s15,
+                                    )!
+                                        .copyWith(height: 1),
+                                  )
+                                : const SizedBox()
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                                  product.price ??""
-                                     ,
+                      Text(product.price ?? "",
                           style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: FontSizeApp.s15)!
@@ -158,7 +163,7 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                   height: 120.h,
                   color: ColorManager.grayForPlaceholder,
                   child: CachedImage(
-                    imageUrl: product.image??"",
+                    imageUrl: product.image ?? "",
                   ),
                 ),
               ),
@@ -168,83 +173,70 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
       ),
     );
   }
-  Column buildCounterWidget(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        10.verticalSpace,
-        Expanded(
-          flex: 3,
-          child: InkWell(
-            child: Container(
-              width: 30.h,
-              decoration: BoxDecoration(boxShadow: [
-                ColorManager.shadowGaryDown,
-              ], color: Colors.white),
-              child: Padding(
-                  padding: EdgeInsets.all(6.w),
-                  child: SvgPicture.asset(IconsManager.add)),
+
+  Widget buildCounterWidget(BuildContext context, MyOrderBloc myOrderBloc) {
+    return BlocBuilder<MyOrderBloc, MyOrderState>(
+      bloc: myOrderBloc,
+      builder: (context, state) => Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          10.verticalSpace,
+          Expanded(
+            flex: 3,
+            child: InkWell(
+              child: Container(
+                width: 30.h,
+                decoration: BoxDecoration(boxShadow: [
+                  ColorManager.shadowGaryDown,
+                ], color: Colors.white),
+                child: Padding(
+                    padding: EdgeInsets.all(6.w),
+                    child: SvgPicture.asset(IconsManager.add)),
+              ),
+              onTap: () {
+                context.read<MyOrderBloc>().add(AddCountOrder(product.id ?? 0));
+              },
             ),
-            onTap: () {
-              context
-                  .read<MyOrderBloc>()
-                  .add(AddCountOrder(product.id ?? 0));
-            },
           ),
-        ),
-        Expanded(
-          flex: 3,
-          child: SizedBox(
-            height: 30,
-            width: 30,
-            child: Center(
+
+          /// TODO
+          Expanded(
+            flex: 3,
+            child: SizedBox(
+              height: 30,
+              width: 30,
+              child: Center(
                 child: Text(
-                  context
-                      .read<MyOrderBloc>()
-                      .countsProducts(product.id ?? 0,idBasket)
-                      .toString(),
-                  style: getRegularStyle(color: Colors.black, fontSize: 15.sp,),
-                )),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: InkWell(
-            child: Container(
-              width: 30.h,
-              decoration: BoxDecoration(boxShadow: [
-                ColorManager.shadowGaryDown,
-              ], color: Colors.white),
-              child: Padding(
-                  padding: EdgeInsets.all(8.w),
-                  child: SvgPicture.asset(IconsManager.remove)),
+
+                  myOrderBloc.state.quantityInBasket[index].quantity.toString(),
+                  style: getRegularStyle(
+                    color: Colors.black,
+                    fontSize: 15.sp,
+                  ),
+                ),
+              ),
             ),
-            onTap: () {
-              if (context
-                  .read<MyOrderBloc>()
-                  .countsProducts(product.id,idBasket) ==
-                  0) {
-                // showDialog(
-                //   context: context,
-                //   builder: (BuildContext context1) {
-                //     return BlocProvider.value(
-                //         value: BlocProvider.of<MyOrderBloc>(context),
-                //         child:    DeleteProductDialog(
-                //             product :
-                //             product));
-                //
-                //   },
-                // );
-              } else {
-                context
-                    .read<MyOrderBloc>()
-                    .add(MinusCountOrder(product.id ?? 0));
-              }
-            },
           ),
-        ),
-        10.verticalSpace,
-      ],
+          Expanded(
+            flex: 3,
+            child: InkWell(
+              child: Container(
+                width: 30.h,
+                decoration: BoxDecoration(boxShadow: [
+                  ColorManager.shadowGaryDown,
+                ], color: Colors.white),
+                child: Padding(
+                    padding: EdgeInsets.all(8.w),
+                    child: SvgPicture.asset(IconsManager.remove)),
+              ),
+              onTap: () {
+                context.read<MyOrderBloc>().add(MinusCountOrder(product.id ?? 0));
+              },
+            ),
+          ),
+          10.verticalSpace,
+        ],
+      ),
     );
   }
 }

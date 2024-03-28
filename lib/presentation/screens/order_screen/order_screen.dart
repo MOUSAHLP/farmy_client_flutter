@@ -22,10 +22,10 @@ import '../base_screen/base_screen.dart';
 import '../guest_screen/guest_screen.dart';
 
 class OrderScreen extends StatelessWidget {
-   OrderScreen({super.key});
+  const OrderScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (context) {
         if (sl<AuthenticationBloc>().loggedIn) {
@@ -45,8 +45,8 @@ class OrderScreenBody extends StatefulWidget {
   State<OrderScreenBody> createState() => _OrderScreenBodyState();
 }
 
-class _OrderScreenBodyState extends State<OrderScreenBody> with TickerProviderStateMixin {
-
+class _OrderScreenBodyState extends State<OrderScreenBody>
+    with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -77,9 +77,7 @@ class _OrderScreenBodyState extends State<OrderScreenBody> with TickerProviderSt
                     if (state.successDelete) {
                       context.read<MyOrderBloc>().add(GetMyOrder());
                     }
-                  },
-
-                builder: (context, state) {
+                  }, builder: (context, state) {
                     if (state.screenStates == ScreenStates.loading) {
                       return const BuildShimmerOrders();
                     } else if (state.screenStates == ScreenStates.error) {
@@ -88,77 +86,83 @@ class _OrderScreenBodyState extends State<OrderScreenBody> with TickerProviderSt
                           onTap: () {
                             context.read<MyOrderBloc>().add(GetMyOrder());
                           },
-                            titleError: state.error,
+                          titleError: state.error,
                         ),
                       );
                     } else if (state.screenStates == ScreenStates.success) {
-                      return Column(
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 1.sw,
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    ColorManager.shadowGaryDown,
-                                  ],
-                                  color: Colors.white,
-                                ),
-                                child: TabBar(
-                                  controller:
-                                  context.read<MyOrderBloc>().tabController,
-                                  tabs: [
-                                    Tab(
-                                      child: FittedBox(
-                                          child: Text(AppLocalizations.of(context)!.current_requests)),
-                                    ),
-                                    Tab(
-                                      child: FittedBox(
-                                          child: Text(AppLocalizations.of(context)!.baskets_are_not_required)),
-                                    ),
-                                  ],
-                                  unselectedLabelColor: ColorManager.grayForMessage,
-                                  labelColor: ColorManager.primaryGreen,
-                                  onTap: (v) {
-                                    context
-                                        .read<MyOrderBloc>()
-                                        .add(TapOnPressed(v));
-                                  },
-                                  labelStyle: getBoldStyle(
-                                      color: ColorManager.grayForMessage,
-                                      fontSize: 14),
-                                  indicatorPadding: const EdgeInsets.only(
-                                      bottom: 10.0, left: 30, right: 30),
-                                  indicator: const BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: ColorManager.primaryGreen,
-                                        width: 2.0,
-                                      ),
-                                    ),
-                                  ),
+                      return Column(children: [
+                        Container(
+                          height: 50,
+                          width: 1.sw,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              ColorManager.shadowGaryDown,
+                            ],
+                            color: Colors.white,
+                          ),
+                          child: TabBar(
+                            controller:
+                                context.read<MyOrderBloc>().tabController,
+                            tabs: [
+                              Tab(
+                                child: FittedBox(
+                                    child: Text(AppLocalizations.of(context)!
+                                        .current_requests)),
+                              ),
+                              Tab(
+                                child: FittedBox(
+                                    child: Text(AppLocalizations.of(context)!
+                                        .baskets_are_not_required)),
+                              ),
+                            ],
+                            unselectedLabelColor: ColorManager.grayForMessage,
+                            labelColor: ColorManager.primaryGreen,
+                            onTap: (v) {
+                              context.read<MyOrderBloc>().add(TapOnPressed(v));
+                            },
+                            labelStyle: getBoldStyle(
+                                color: ColorManager.grayForMessage,
+                                fontSize: 14),
+                            indicatorPadding: const EdgeInsets.only(
+                                bottom: 10.0, left: 30, right: 30),
+                            indicator: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: ColorManager.primaryGreen,
+                                  width: 2.0,
                                 ),
                               ),
-                              state.indexTap==0?
-                              Expanded(child: BodyOrders(state: state,)):
-                              Expanded(
+                            ),
+                          ),
+                        ),
+                        state.indexTap == 0
+                            ? Expanded(
+                                child: BodyOrders(
+                                state: state,
+                              ))
+                            : Expanded(
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding:
-                                      const EdgeInsets.only(left:37 ,right: 37,top: 15),
+                                      padding: const EdgeInsets.only(
+                                          left: 37, right: 37, top: 15),
                                       child: Text(
-                                        AppLocalizations.of(context)!.place_orders,
+                                        AppLocalizations.of(context)!
+                                            .place_orders,
                                         style: getRegularStyle(
                                           color: ColorManager.grayForMessage,
                                           fontSize: 11,
                                         ),
                                       ),
-                                    ),   Expanded(child: BodyBasketNotInstall(state: state,)),
+                                    ),
+                                    Expanded(
+                                        child: BodyBasketNotInstall(
+                                      state: state,
+                                    )),
                                   ],
                                 ),
                               )
-                            ])
-                         ;
+                      ]);
                     } else {
                       return const Text("");
                     }
@@ -167,60 +171,53 @@ class _OrderScreenBodyState extends State<OrderScreenBody> with TickerProviderSt
           ),
         ],
       ),
-
     );
   }
 }
 
 class BodyOrders extends StatelessWidget {
-   BodyOrders({
-    super.key
-    ,
-    required this.state
-  });
+  BodyOrders({super.key, required this.state});
+
   MyOrderState state;
 
   @override
   Widget build(BuildContext context) {
     return CustomOverscrollIndicator(
-        child: state.myOrderList.isNotEmpty?RefreshIndicator(
-          onRefresh: () async {
-            context.read<MyOrderBloc>().add(GetMyOrder());
-          },
-          child: ListView.builder(
-            itemBuilder: (context, index) => CardOrder(
-                myOrder: state.myOrderList[index]),
-            itemCount: state.myOrderList.length,
-          ),
-        ) : CustomNoData(
-          noDataStatment:
-          AppLocalizations.of(context)!.no_order,
-        ),
-      );
+      child: state.myOrderList.isNotEmpty
+          ? RefreshIndicator(
+              onRefresh: () async {
+                context.read<MyOrderBloc>().add(GetMyOrder());
+              },
+              child: ListView.builder(
+                itemBuilder: (context, index) =>
+                    CardOrder(myOrder: state.myOrderList[index]),
+                itemCount: state.myOrderList.length,
+              ),
+            )
+          : CustomNoData(
+              noDataStatment: AppLocalizations.of(context)!.no_order,
+            ),
+    );
   }
 }
+
 class BodyBasketNotInstall extends StatelessWidget {
-  BodyBasketNotInstall({
-    super.key
-    ,
-    required this.state
-  });
+  BodyBasketNotInstall({super.key, required this.state});
+
   MyOrderState state;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MyOrderBloc, MyOrderState>(
-
-  builder: (context, state) {
-    return CustomOverscrollIndicator(
-        child: ListView.builder(
-
-          itemBuilder: (context, index) => BasketNotInstallCard(
-              myOrder: state.basketModel.basketList[index]),
-          itemCount: state.basketModel.basketList.length,
-        ),
-      );
-  },
-);
+      builder: (context, state) {
+        return CustomOverscrollIndicator(
+          child: ListView.builder(
+            itemBuilder: (context, index) => BasketNotInstallCard(
+                myOrder: state.basketModel.basketList[index]),
+            itemCount: state.basketModel.basketList.length,
+          ),
+        );
+      },
+    );
   }
 }

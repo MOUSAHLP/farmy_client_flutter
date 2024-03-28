@@ -7,21 +7,33 @@ abstract class MyOrderEvent {
 class GetMyOrder extends MyOrderEvent {
   GetMyOrder();
 }
+
 class DeleteOrder extends MyOrderEvent {
   int id;
+
   DeleteOrder({required this.id});
 }
+
 class TapOnPressed extends MyOrderEvent {
   int index;
+
   TapOnPressed(this.index);
 }
+
 class DeleteBasket extends MyOrderEvent {
   int idBasket;
+
   DeleteBasket({required this.idBasket});
 }
+
 class ShowBasket extends MyOrderEvent {
   List<Product> idProducts;
-  ShowBasket({required this.idProducts});
+  int idBasket;
+
+  ShowBasket({
+    required this.idProducts,
+    required this.idBasket,
+  });
 }
 
 class AddCountOrder extends MyOrderEvent {
@@ -41,9 +53,10 @@ class DeleteProductOrder extends MyOrderEvent {
 
   DeleteProductOrder(this.id);
 }
-class PaymentProcessBasket extends MyOrderEvent {
 
-int id;
+class PaymentProcessBasket extends MyOrderEvent {
+  int id;
+
   PaymentProcessBasket(this.id);
 }
 

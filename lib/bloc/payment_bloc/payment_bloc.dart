@@ -98,14 +98,13 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           emit(state.copyWith(
               deliveryMethodChosenList: mutableChosenDeliveryMethodList,
               deliveryCost:
-                  int.parse(event.deliveryMethodData!.deliveryPrice!)));
+                  event.deliveryMethodData!.deliveryPrice!));
         }
         if (event is GetInvoicesDetails) {
+
           emit(state.copyWith(screenState: ScreenStates.loading));
-          PaymentProcessParams paymentProcessParms =
-              PaymentProcessParams(productInBasketList: event.productList!);
-          (await paymentRepo.getInvoiceDetails(
-                  paymentProcessParms, event.invoicesParams))
+          PaymentProcessParams paymentProcessParams = PaymentProcessParams(productInBasketList: event.productList!);
+          (await paymentRepo.getInvoiceDetails(paymentProcessParams, event.invoicesParams))
               .fold(
             (l) => emit(state.copyWith(screenState: ScreenStates.error)),
             (r) => emit(
@@ -119,8 +118,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
           emit(state.copyWith(
               completePaymentStates: CompletePaymentStates.loading));
-          PaymentProcessParams paymentProcessParams =
-              PaymentProcessParams(productInBasketList: event.productList);
+          PaymentProcessParams paymentProcessParams = PaymentProcessParams(productInBasketList: event.productList);
           (await paymentRepo.createOrder(
             paymentProcessParams,
             event.invoicesParams,
@@ -140,6 +138,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
             ),
           );
         }
+
         if (event is GetInitializeInvoice) {
           emit(state.copyWith(paymentProcessResponse: event.initializeInvoice));
         }

@@ -48,7 +48,7 @@ class RewardsPointsHistoryBloc
           (r) {
             emit(
               state.copyWith(
-                  rewardsPointsHistorySuccess: true, rewardHistoryModel: r),
+                  rewardsPointsHistorySuccess: true, rewardsUsedPointsModel: r),
             );
           },
         );

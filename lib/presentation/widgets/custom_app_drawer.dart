@@ -89,7 +89,7 @@ class CustomAppDrawer extends StatelessWidget {
                           buildElevatedButton(
                               AppLocalizations.of(context)!.connect_with_us,
                               () {
-                            AppRouter.push(context, const ContactUsScreen());
+                            AppRouter.push(context,  ContactUsScreen());
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.join_our_team, () {

@@ -43,6 +43,7 @@ class ApiConst {
 
   /// who_we_are
   static const String getWhoWeAre = "/who_we_are";
+  static const String contactUs = "/contact_us";
 
   /// favorite
   static const String getFavorite = "/getFavorit";
@@ -77,7 +78,7 @@ class ApiConst {
   static const String getRewardsGuide = "/reward/guide/rewards";
   static const String getRewardsMemberShipGuide = "/reward/guide/memberships";
   static const String getRewardsPointHistoryExpired = "/reward/points/expired";
-  static const String getRewardsPointHistoryUsed = "/reward/used";
+  static const String getRewardsPointHistoryUsed = "/reward/purchases";
   static const String getRewardsPointHistoryValid = "/reward/points/valid";
   static const String getRewardMyCoupons = "/reward/coupons";
   static const String getRewardActivityCoupons = "/reward/achievements/not-done";

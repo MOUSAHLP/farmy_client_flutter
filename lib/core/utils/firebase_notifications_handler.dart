@@ -24,8 +24,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 class FirebaseNotificationsHandler {
-  static final FirebaseNotificationsHandler _firebase =
-      FirebaseNotificationsHandler._internal();
+  static final FirebaseNotificationsHandler _firebase = FirebaseNotificationsHandler._internal();
 
   factory FirebaseNotificationsHandler() {
     return _firebase;

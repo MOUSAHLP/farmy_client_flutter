@@ -3,6 +3,7 @@ import 'package:pharma/core/utils/api_const.dart';
 import 'package:pharma/data/data_resource/remote_resource/api_handler/base_api_client.dart';
 import 'package:pharma/models/home_response.dart';
 import 'package:pharma/models/reward/reward_activity_coupons_model.dart';
+import 'package:pharma/models/reward/reward_history_point_used_model.dart';
 import 'package:pharma/models/reward/reward_my_coupons_model.dart';
 import 'package:pharma/models/reward/reward_guide_model.dart';
 import 'package:pharma/models/reward/reward_history_model.dart';
@@ -37,8 +38,7 @@ class RewardsRepo {
         });
   }
 
-  static Future<Either<String, RewardHistoryModel>>
-      getRewardHistoryPointsExpired() {
+  static Future<Either<String, RewardHistoryModel>> getRewardHistoryPointsExpired() {
     return BaseApiClient.get<RewardHistoryModel>(
         url: ApiConst.getRewardsPointHistoryExpired,
         converter: (e) {
@@ -46,16 +46,15 @@ class RewardsRepo {
         });
   }
 
-  static Future<Either<String, RewardHistoryModel>>   getRewardHistoryPointsUsed() {
-    return BaseApiClient.get<RewardHistoryModel>(
+  static Future<Either<String, RewardsUsedPointsModel>>   getRewardHistoryPointsUsed() {
+    return BaseApiClient.get<RewardsUsedPointsModel>(
         url: ApiConst.getRewardsPointHistoryUsed,
         converter: (e) {
-          return RewardHistoryModel.fromJson(e);
+          return RewardsUsedPointsModel.fromJson(e);
         });
   }
 
-  static Future<Either<String, RewardHistoryModel>>
-      getRewardHistoryPointsValid() {
+  static Future<Either<String, RewardHistoryModel>> getRewardHistoryPointsValid() {
     return BaseApiClient.get<RewardHistoryModel>(
         url: ApiConst.getRewardsPointHistoryValid,
         converter: (e) {

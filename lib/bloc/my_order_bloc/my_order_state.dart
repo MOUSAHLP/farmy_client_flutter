@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:pharma/models/my_order_response.dart';
+import 'package:pharma/models/params/product_model.dart';
 
 import '../../core/app_enum.dart';
 import '../../models/basket_model.dart';
@@ -26,27 +27,33 @@ class MyOrderState extends Equatable {
   String errorDelete;
   bool check;
   int totalPrice;
+  List<Product> quantityInBasket;
+  int idBasket;
+
   MyOrderState({
     this.screenStates = ScreenStates.loading,
-   this.myOrderList=const [],
-   this.productList=const [],
-   this.productListp=const [],
-    this.isLoading=false,
-    this.isLoadingDelete=false,
-    this.isLoadingConfirm=false,
-    this.isErrorDelete=false,
-    this.isErrorConfirm=false,
-    this.success=false,
-    this.successDelete=false,
-    this.successConfirm=false,
-    this.error='',
-    this.errorDelete='',
-   required this.basketModel,
-    this.indexTap=0,
+    this.myOrderList = const [],
+    this.productList = const [],
+    this.productListp = const [],
+    this.isLoading = false,
+    this.isLoadingDelete = false,
+    this.isLoadingConfirm = false,
+    this.isErrorDelete = false,
+    this.isErrorConfirm = false,
+    this.success = false,
+    this.successDelete = false,
+    this.successConfirm = false,
+    this.error = '',
+    this.errorDelete = '',
+    required this.basketModel,
+    this.indexTap = 0,
     this.check = false,
     this.totalPrice = 0,
+    this.quantityInBasket = const [],
     this.paymentProcessResponse,
+    this.idBasket = 0,
   });
+
   MyOrderState copyWith({
     ScreenStates? screenStates,
     bool? isLoading,
@@ -62,59 +69,64 @@ class MyOrderState extends Equatable {
     List<MyOrderResponse>? myOrderList,
     List<ProductResponse>? productList,
     List<ProductResponse>? productListp,
+    List<Product>? quantityInBasket,
     int? totalPrice,
     BasketModel? basketModel,
     int? indexTap,
     bool? check,
     PaymentProcessResponse? paymentProcessResponse,
-  }){
+    int? idBasket,
+  }) {
     return MyOrderState(
-      myOrderList:myOrderList??this.myOrderList,
-      productList:productList??this.productList,
-      productListp:productListp??this.productListp,
+      myOrderList: myOrderList ?? this.myOrderList,
+      productList: productList ?? this.productList,
+      productListp: productListp ?? this.productListp,
       screenStates: screenStates ?? this.screenStates,
-      isLoading: isLoading??false,
-      isLoadingDelete: isLoadingDelete??false,
-      isLoadingConfirm: isLoadingConfirm??false,
-      isErrorDelete: isErrorDelete??false,
-      isErrorConfirm: isErrorConfirm??false,
-      error: error??'',
-      errorDelete: errorDelete??'',
-      success: success??false,
-      successDelete: successDelete??false,
-      successConfirm: successConfirm??false,
-      basketModel: basketModel??this.basketModel,
-        indexTap:indexTap??this.indexTap,
+      isLoading: isLoading ?? false,
+      isLoadingDelete: isLoadingDelete ?? false,
+      isLoadingConfirm: isLoadingConfirm ?? false,
+      isErrorDelete: isErrorDelete ?? false,
+      isErrorConfirm: isErrorConfirm ?? false,
+      error: error ?? '',
+      errorDelete: errorDelete ?? '',
+      success: success ?? false,
+      successDelete: successDelete ?? false,
+      successConfirm: successConfirm ?? false,
+      basketModel: basketModel ?? this.basketModel,
+      indexTap: indexTap ?? this.indexTap,
       check: check ?? this.check,
       totalPrice: totalPrice ?? this.totalPrice,
       paymentProcessResponse:
-      paymentProcessResponse ?? this.paymentProcessResponse,
-
+          paymentProcessResponse ?? this.paymentProcessResponse,
+      quantityInBasket: quantityInBasket ?? this.quantityInBasket,
+      idBasket: idBasket ?? this.idBasket,
     );
   }
+
   @override
   // TODO: implement props
   List<Object?> get props => [
-    identityHashCode(this),
-    screenStates,
-    isLoading,
-    isLoadingDelete,
-    isLoadingConfirm,
-    isErrorDelete,
-    isErrorConfirm,
-    success,
-    successDelete,
-    successConfirm,
-    error,
-    errorDelete,
-    myOrderList,
-    productList,
-    productListp,
-    basketModel,
-    indexTap,
-    check,
-    totalPrice
-    ,  paymentProcessResponse,
-  ];
+        identityHashCode(this),
+        screenStates,
+        isLoading,
+        isLoadingDelete,
+        isLoadingConfirm,
+        isErrorDelete,
+        isErrorConfirm,
+        success,
+        successDelete,
+        successConfirm,
+        error,
+        errorDelete,
+        myOrderList,
+        productList,
+        productListp,
+        basketModel,
+        indexTap,
+        check,
+        totalPrice,
+        paymentProcessResponse,
+        quantityInBasket,
+        idBasket,
+      ];
 }
-

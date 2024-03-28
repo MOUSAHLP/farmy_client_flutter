@@ -83,7 +83,14 @@ class BasketNotInstallCard extends StatelessWidget {
                             fillColor: ColorManager.yellow,
                             labelColor: Colors.white,
                             onTap: () {
-                              AppRouter.push(context, OrderNotInstallDetailsScreen(id:  myOrder.products,isEdit: true,idBasket:  myOrder.id,));
+                              AppRouter.push(
+                                context,
+                                OrderNotInstallDetailsScreen(
+                                  id: myOrder.products,
+                                  isEdit: true,
+                                  idBasket: myOrder.id,
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -98,9 +105,11 @@ class BasketNotInstallCard extends StatelessWidget {
                             borderColor: ColorManager.primaryGreen,
                             isFilled: true,
                             onTap: () {
-                              context
-                                  .read<MyOrderBloc>()
-                                  .add(DeleteBasket(idBasket: myOrder.id ));
+                              context.read<MyOrderBloc>().add(
+                                    DeleteBasket(
+                                      idBasket: myOrder.id,
+                                    ),
+                                  );
                             },
                           ),
                         ),

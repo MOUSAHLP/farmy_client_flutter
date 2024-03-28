@@ -8,8 +8,7 @@ import 'package:pharma/models/params/payment_process_parms.dart';
 import '../../models/payment_process_response.dart';
 
 class PaymentRepo {
-  Future<Either<String, PaymentProcessResponse>> getInvoiceDetails(
-      PaymentProcessParams paymentProcessParms, InvoicesParams invoicesParams) {
+  Future<Either<String, PaymentProcessResponse>> getInvoiceDetails(PaymentProcessParams paymentProcessParms, InvoicesParams invoicesParams) {
     return BaseApiClient.post<PaymentProcessResponse>(
         formData: paymentProcessParms.toJsonWithParams(invoicesParams),
         url: ApiConst.getPaymentDetails,

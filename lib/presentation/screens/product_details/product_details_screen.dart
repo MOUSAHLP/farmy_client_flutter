@@ -373,8 +373,7 @@ class ProductDetailsBody extends StatelessWidget {
                                             context
                                                 .read<BasketBloc>()
                                                 .add(buildAddToBasket(state));
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
+                                            ScaffoldMessenger.of(context).showSnackBar(
                                               SnackBar(
                                                 duration:
                                                     const Duration(seconds: 1),

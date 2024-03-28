@@ -2,8 +2,8 @@
 class DeliveryMethodResponse {
   int id;
   String? deliveryName;
-  String? deliveryTime;
-  String? deliveryPrice;
+  int? deliveryTime;
+  int? deliveryPrice;
   int? totalPrice;
 
   DeliveryMethodResponse({

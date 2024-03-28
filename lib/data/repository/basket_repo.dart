@@ -16,17 +16,15 @@ class BasketRepo {
           return PaymentProcessResponse.fromJson(e["data"]);
         });
   }
- static Future<Either<String, PaymentProcessResponse>> getPaymentDetailBasket(
-     List<ProductResponse> paymentProcessParams) {
-    print("paymentProcessParams");
-    print(ProductResponse.toJsonCardList(paymentProcessParams));
+
+  static Future<Either<String, PaymentProcessResponse>> getPaymentDetailBasket(List<ProductResponse> paymentProcessParams) {
     return BaseApiClient.post<PaymentProcessResponse>(
         formData: {
-          "products":ProductResponse.toJsonCardList(paymentProcessParams)},
+          "products": ProductResponse.toJsonCardList(paymentProcessParams),
+        },
         url: ApiConst.getPaymentDetails,
         converter: (e) {
           return PaymentProcessResponse.fromJson(e["data"]);
         });
   }
 }
-  
