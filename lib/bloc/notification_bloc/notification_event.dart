@@ -3,7 +3,8 @@ abstract class NotificationEvent {
 }
 
 class GetNotificationList extends NotificationEvent {
-  GetNotificationList();
+  int type;
+  GetNotificationList(this.type);
 }
 class SetNotificationEnable extends NotificationEvent {
   int id;

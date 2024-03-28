@@ -287,5 +287,6 @@
   "field_is_required": "Field is required",
   "my_coupon":"MyCoupon",
   "all_products" : "All Products",
-  "noResult": "There are no search results"
+  "noResult": "There are no search results",
+  "no_notifications": "There are no notifications"
 }

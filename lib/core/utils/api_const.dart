@@ -69,7 +69,7 @@ class ApiConst {
   static String getTrackOrderDetails(int id) => "/orders/order-status/$id";
 
   ///notification
-  static const String getNotifications = "/notifications";
+  static  String getNotifications(int type) => "/notifications?type=$type";
 
   /// Rewards
   static const String getAllRewards = "/rewards";

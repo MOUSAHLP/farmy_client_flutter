@@ -42,14 +42,14 @@ class CustomInvoicesContainer extends StatelessWidget {
 
                 valueOfLabel: getAddress(invoiceModel.userAddress!),
               ),
-              CustomInvoicesRow(
-                label: AppLocalizations.of(context)!.products_Price,
-                valueOfLabel: "test qmar",
-              ),
-              CustomInvoicesRow(
-                label: AppLocalizations.of(context)!.price_of_Returned_Products,
-                valueOfLabel: "test qmar",
-              ),
+              // CustomInvoicesRow(
+              //   label: AppLocalizations.of(context)!.products_Price,
+              //   valueOfLabel: "test qmar",
+              // ),
+              // CustomInvoicesRow(
+              //   label: AppLocalizations.of(context)!.price_of_Returned_Products,
+              //   valueOfLabel: "test qmar",
+              // ),
               CustomInvoicesRow(
                 label: AppLocalizations.of(context)!.rebates_Value,
                 valueOfLabel: invoiceModel.couponDiscount.toString(),
