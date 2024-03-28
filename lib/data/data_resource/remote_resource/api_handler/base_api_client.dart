@@ -31,63 +31,62 @@ class BaseApiClient {
     // client.options.connectTimeout = const Duration(seconds: 5);
   }
 
-  static Future<Either<String, T>> post<T>({
-    required String url,
-    dynamic formData,
-    Map<String, dynamic>? queryParameters,
-    required T Function(dynamic) converter,
-    bool isToken = false,
-    dynamic returnOnError,
-  }) async {
-    // try {
-    print("formData formData formData formData formData ");
-    print(formData);
-    var response = await client.post(
-      url,
-      queryParameters: queryParameters,
-      data: formData,
-      onSendProgress: (int sent, int total) {
+  static Future<Either<String, T>> post<T>(
+      {required String url,
+      dynamic formData,
+      Map<String, dynamic>? queryParameters,
+      required T Function(dynamic) converter,
+      bool isToken = false,
+      dynamic returnOnError}) async {
+    try {
+      print("formData formData formData formData formData ");
+      print(formData);
+      var response = await client.post(
+        url,
+        queryParameters: queryParameters,
+        data: formData,
+        onSendProgress: (int sent, int total) {
+          if (kDebugMode) {
+            print(
+                'progress: ${(sent / total * 100).toStringAsFixed(0)}% ($sent/$total)');
+          }
+        },
+        options: Options(
+          headers: _headers,
+        ),
+      );
+      print(response);
+      if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
+          (response.data['error'].toString() != 'true')) {
         if (kDebugMode) {
-          print(
-              'progress: ${(sent / total * 100).toStringAsFixed(0)}% ($sent/$total)');
+          log(response.data.toString());
         }
-      },
-      options: Options(
-        headers: _headers,
-      ),
-    );
-    print(response);
-    if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
-        (response.data['error'].toString() != 'true')) {
+        if (isToken) {
+          // DataStore.instance.setToken(response.headers['Authorization']!.first);
+        }
+        return right(converter(response.data));
+      } else {
+        return left(response.data['message']);
+      }
+    } on DioException catch (e) {
+      Map dioError = DioErrorsHandler.onError(e);
       if (kDebugMode) {
-        log(response.data.toString());
+        print(e);
       }
-      if (isToken) {
-        // DataStore.instance.setToken(response.headers['Authorization']!.first);
+      return left(returnOnError ?? dioError["message"] ?? '');
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
       }
-      return right(converter(response.data));
-    } else {
-      return left(response.data['message']);
+      return left("");
     }
-    // } on DioException catch (e) {
-    //   Map dioError = DioErrorsHandler.onError(e);
-    //   if (kDebugMode) {
-    //     print(e);
-    //   }
-    //   return left(returnOnError ?? dioError["message"] ?? '');
-    // } catch (e) {
-    //   if (kDebugMode) {
-    //     print(e);
-    //   }
-    //   return left("");
-    // }
   }
 
   static Future<Either<String, T>> put<T>(
       {required String url,
       FormData? formData,
       Map<String, dynamic>? queryParameters,
-      required T Function(dynamic) converter,
+        required T Function(dynamic) converter,
       dynamic returnOnError}) async {
     try {
       var response = await client.put(

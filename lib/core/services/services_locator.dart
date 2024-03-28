@@ -8,6 +8,8 @@ import 'package:pharma/bloc/faq_bloc/faq_bloc.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/home_bloc/home_bloc.dart';
 import 'package:pharma/bloc/home_section_all_products_bloc/home_section_all_products_bloc.dart';
+import 'package:pharma/bloc/invoices_bloc/invoices_bloc.dart';
+import 'package:pharma/bloc/join_our_team_bloc/join_our_team_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/onboarding_bloc/onboarding_bloc.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
@@ -118,6 +120,12 @@ class ServicesLocator {
 
     /// Who We Are Screen
     sl.registerFactory(() => WhoWeAreBloc());
+
+    ///join our team jobs
+    sl.registerFactory(() => JoinOurTeamBloc());
+
+    /// invoices
+    sl.registerFactory(() => InvoicesBloc());
 
     /// Contact Us
     sl.registerFactory(() => ContactUsBloc());

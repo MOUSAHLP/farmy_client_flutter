@@ -4,9 +4,13 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/all_invoices/widgets/custom_invoices_row.dart';
 import 'package:pharma/translations.dart';
 
-class CustomInvoicesContiner extends StatelessWidget {
-  const CustomInvoicesContiner({super.key});
+import '../../../../core/utils/formatter.dart';
+import '../../../../models/invoice_model.dart';
+import '../../../../models/user_address_response.dart';
 
+class CustomInvoicesContainer extends StatelessWidget {
+  const CustomInvoicesContainer({super.key ,required this.invoiceModel});
+ final InvoiceModel invoiceModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,41 +30,57 @@ class CustomInvoicesContiner extends StatelessWidget {
             children: [
               CustomInvoicesRow(
                 label: AppLocalizations.of(context)!.order_Number,
-                valueOfLabel: "456123456",
+                valueOfLabel: invoiceModel.orderNumber.toString(),
                 colorText: ColorManager.primaryGreen,
               ),
               CustomInvoicesRow(
                 label: AppLocalizations.of(context)!.order_Date,
-                valueOfLabel: "456123456",
+                valueOfLabel: Formatter.formatDateOnly(context, invoiceModel.date)??"" ,
               ),
               CustomInvoicesRow(
                 label: AppLocalizations.of(context)!.site,
-                valueOfLabel: "456123456",
+
+                valueOfLabel: getAddress(invoiceModel.userAddress!),
               ),
-              CustomInvoicesRow(
-                label: AppLocalizations.of(context)!.products_Price,
-                valueOfLabel: "456123456",
-              ),
-              CustomInvoicesRow(
-                label: AppLocalizations.of(context)!.price_of_Returned_Products,
-                valueOfLabel: "456123456",
-              ),
+              // CustomInvoicesRow(
+              //   label: AppLocalizations.of(context)!.products_Price,
+              //   valueOfLabel: "test qmar",
+              // ),
+              // CustomInvoicesRow(
+              //   label: AppLocalizations.of(context)!.price_of_Returned_Products,
+              //   valueOfLabel: "test qmar",
+              // ),
               CustomInvoicesRow(
                 label: AppLocalizations.of(context)!.rebates_Value,
-                valueOfLabel: "456123456",
+                valueOfLabel: invoiceModel.couponDiscount.toString(),
               ),
               CustomInvoicesRow(
                 label: AppLocalizations.of(context)!.delivery_Price,
-                valueOfLabel: "456123456",
+                valueOfLabel: invoiceModel.deliveryFee.toString(),
               ),
               CustomInvoicesRow(
                 label: AppLocalizations.of(context)!.total_price,
-                valueOfLabel: "456123456",
+                valueOfLabel: invoiceModel.total.toString(),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+  String getAddress(UserAddressModel userAddressModel) {
+    final name = userAddressModel.name;
+    final area = userAddressModel.area;
+    final street = userAddressModel.street;
+    final building = userAddressModel.building;
+    final floor = userAddressModel.floor;
+
+    final namePart = name != null ? "$name - " : "";
+    final areaPart = area != null ? "$area - " : "";
+    final streetPart = street != null ? "$street - " : "";
+    final buildingPart = building != null ? "$building - " : "";
+    final floorPart = floor != null ? "$floor " : "";
+
+    return "$namePart$areaPart$streetPart$buildingPart$floorPart".trimRight();
   }
 }

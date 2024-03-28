@@ -2,14 +2,13 @@ class ApiConst {
   static const String baseUrl =
       "https://control.farmy.peaklink.site/public/api";
 
-  // static const String baseUrl = "http://10.0.2.2:8000/api";
-
   ///Auth
   static const String login = "/auth/login";
   static const String logout = "/auth/logout";
   static const String generateOtp = "/auth/generate-otp";
   static const String verifyOtp = "/auth/verify-otp";
   static const String changePassword = "/auth/change-password";
+  static const String resetPassword = "/change_password";
 
   static const String signUp = "/users";
   static const String updateProfile = "/update_profile";
@@ -71,7 +70,7 @@ class ApiConst {
   static String getTrackOrderDetails(int id) => "/orders/order-status/$id";
 
   ///notification
-  static const String getNotifications = "/";
+  static  String getNotifications(int type) => "/notifications?type=$type";
 
   /// Rewards
   static const String getAllRewards = "/rewards";
@@ -84,4 +83,10 @@ class ApiConst {
   static const String getRewardActivityCoupons = "/reward/achievements/not-done";
   static const String getRewardsRankUser = "/reward/user-statistics";
   static const String getRewardsOfferCoupon = "/reward/coupons/fixed-value";
+  ///setting
+  static const String getJoinOurTeamJobs = "/join-our-team/jobs";
+  static const String addJoinOurTeamJobs = "/join-our-team";
+  static const String getInvoices = "/invoices/get_invoices";
+
+
 }

@@ -15,9 +15,11 @@ class CustomInvoicesRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(valueOfLabel==null||valueOfLabel==""||valueOfLabel=="null") return SizedBox();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
@@ -28,11 +30,13 @@ class CustomInvoicesRow extends StatelessWidget {
           const SizedBox(
             width: 3,
           ),
-          Text(
-            valueOfLabel,
-            style: getBoldStyle(
-                color: colorText ?? ColorManager.grayForMessage,
-                fontSize: FontSizeApp.s13),
+          Expanded(
+            child: Text(
+              valueOfLabel,
+              style: getBoldStyle(
+                  color: colorText ?? ColorManager.grayForMessage,
+                  fontSize: FontSizeApp.s13),
+            ),
           ),
         ],
       ),

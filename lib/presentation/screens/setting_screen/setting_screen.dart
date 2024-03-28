@@ -58,7 +58,7 @@ class SettingScreen extends StatelessWidget {
                             title: AppLocalizations.of(context)!.change_Password,
                             onTap: () {
                               AppRouter.push(
-                                  context, const ChangePasswordScreen());
+                                  context,  ChangePasswordScreen());
                             }),
                       ),
                       const Divider(),
