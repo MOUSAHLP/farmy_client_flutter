@@ -18,11 +18,20 @@ class CardNotification extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 17),
         child: Column(
           children: [
-            Text(notificationModel.data?.body??"",
-              style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 14),
-              textAlign: TextAlign.end,),
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
 
+              children: [
+                Expanded(
+                  child: Text(notificationModel.data?.body??"",
+                    style: getBoldStyle(color: ColorManager.grayForMessage,fontSize: 14),
+                    textAlign: TextAlign.start,),
+                ),
+              ],
+
+            ),
+            Row(
+mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(Formatter.formatDateOnly(context, notificationModel.createdAt)??"" ,style: getLightStyle(color:ColorManager.grayForMessage ),)
               ],

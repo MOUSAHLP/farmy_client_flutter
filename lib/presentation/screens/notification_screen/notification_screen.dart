@@ -137,7 +137,6 @@ class _NotificationScreenBodyState extends State<NotificationScreenBody>
                           if(state is NotificationSuccess) {
                             return Column(
                               children: [
-
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
