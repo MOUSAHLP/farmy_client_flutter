@@ -120,10 +120,19 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           (await paymentRepo.getInvoiceDetails(
                   paymentProcessParams, event.invoicesParams))
               .fold(
-            (l) => emit(state.copyWith(screenState: ScreenStates.error,errorMessage: l)),
+            (l) => emit(
+              state.copyWith(
+                screenState: ScreenStates.error,
+                errorMessage: l,
+                couponCode: "",
+                couponId: "",
+              ),
+            ),
             (r) => emit(
               state.copyWith(
-                  screenState: ScreenStates.success, paymentProcessResponse: r),
+                screenState: ScreenStates.success,
+                paymentProcessResponse: r,
+              ),
             ),
           );
         }
@@ -180,7 +189,8 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         if (event is GetCoupon) {
           emit(
             state.copyWith(
-                couponId: event.couponId.toString(), couponCode: event.couponCode),
+                couponId: event.couponId.toString(),
+                couponCode: event.couponCode),
           );
         }
       },
