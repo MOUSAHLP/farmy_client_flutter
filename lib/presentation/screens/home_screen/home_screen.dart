@@ -17,6 +17,7 @@ import 'package:pharma/presentation/screens/home_screen/widgets/cutsom_home_shim
 import 'package:pharma/presentation/screens/home_screen/widgets/home_category.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/home_section.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
+import 'package:pharma/presentation/widgets/dialogs/time_work_dialog.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../base_screen/base_screen.dart';
@@ -33,9 +34,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    Future.delayed(
+      Duration.zero,
+      () => checkIsOpening(context) ? null: TimeWorkDialog().openDialog(context) ,
+    ); // import 'dart:async';
+
     return BaseScreenScaffold(
-      // key: widget.scaffoldKey,
-      // drawer: const CustomAppDrawer(),
       body: Column(
         children: [
           BlocBuilder<HomeBloc, HomeState>(
@@ -50,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       titleError: state.error),
                 );
-              } else if (state.screenState == ScreenState.success || state.screenState == ScreenState.loadMoreData) {
+              } else if (state.screenState == ScreenState.success ||
+                  state.screenState == ScreenState.loadMoreData) {
                 context.read<LocationBloc>().state.addressCurrent = context
                     .read<HomeBloc>()
                     .homePageDynamicModel!
@@ -68,8 +73,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               },
                             )
                           : const SizedBox(),
-                       if(checkIsOpening(context))
-                       const CustomDeliveryService(),
+                      if (checkIsOpening(context))
+                        const CustomDeliveryService(),
                       //// ==================== making dynamic content ==================== ////
                       Expanded(
                         child: ListView(
@@ -94,24 +99,35 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
                                   return Column(
                                     children: [
-                                      if (homePageDynamicModel[index].type == "category")
+                                      if (homePageDynamicModel[index].type ==
+                                          "category")
                                         HomeCategory(
-                                          title: homePageDynamicModel[index].title!,
-                                          categoriesList: homePageDynamicModel[index].categoryContent!,
+                                          title: homePageDynamicModel[index]
+                                              .title!,
+                                          categoriesList:
+                                              homePageDynamicModel[index]
+                                                  .categoryContent!,
                                         ),
-                                      if (homePageDynamicModel[index].type == "section")
+                                      if (homePageDynamicModel[index].type ==
+                                          "section")
                                         HomeSection(
-                                          title: homePageDynamicModel[index].title!,
-                                          sectionId: homePageDynamicModel[index].id!,
-                                          list: homePageDynamicModel[index].sectionContent!,
+                                          title: homePageDynamicModel[index]
+                                              .title!,
+                                          sectionId:
+                                              homePageDynamicModel[index].id!,
+                                          list: homePageDynamicModel[index]
+                                              .sectionContent!,
                                         ),
-
-                                      if (homePageDynamicModel[index].type == "slider")
+                                      if (homePageDynamicModel[index].type ==
+                                          "slider")
                                         Padding(
-                                          padding:  const EdgeInsets.only(top: 10,bottom: 10),
+                                          padding: const EdgeInsets.only(
+                                              top: 10, bottom: 10),
                                           child: CustomHomeCursel(
                                             verticalPadding: 0,
-                                            bannerList: homePageDynamicModel[index].sliderContent,
+                                            bannerList:
+                                                homePageDynamicModel[index]
+                                                    .sliderContent,
                                             height: 164.h,
                                           ),
                                         ),
@@ -140,9 +156,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     );
   }
+
   bool checkIsOpening(BuildContext context) {
     DateTime dateTime = DateTime.now();
     List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
+    print("============== End Time ===================");
+    print(dateTime.hour);
+    print(endTime[0]);
     if (int.parse(endTime[0]) > dateTime.hour) {
       return true;
     } else if (int.parse(endTime[0]) == dateTime.hour) {

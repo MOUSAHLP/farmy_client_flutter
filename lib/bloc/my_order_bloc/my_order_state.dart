@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:pharma/models/my_order_response.dart';
 import 'package:pharma/models/params/product_model.dart';
+import 'package:pharma/models/reward/reward_coupons_fixed_value.dart';
 
 import '../../core/app_enum.dart';
 import '../../models/basket_model.dart';
@@ -29,6 +30,7 @@ class MyOrderState extends Equatable {
   int totalPrice;
   List<Product> quantityInBasket;
   int idBasket;
+  final RewardCouponsFixedValueModel? rewardCouponsFixedValueModel;
 
   MyOrderState({
     this.screenStates = ScreenStates.loading,
@@ -52,6 +54,8 @@ class MyOrderState extends Equatable {
     this.quantityInBasket = const [],
     this.paymentProcessResponse,
     this.idBasket = 0,
+    this.rewardCouponsFixedValueModel,
+
   });
 
   MyOrderState copyWith({
@@ -76,6 +80,8 @@ class MyOrderState extends Equatable {
     bool? check,
     PaymentProcessResponse? paymentProcessResponse,
     int? idBasket,
+    RewardCouponsFixedValueModel? rewardCouponsFixedValueModel,
+
   }) {
     return MyOrderState(
       myOrderList: myOrderList ?? this.myOrderList,
@@ -100,7 +106,9 @@ class MyOrderState extends Equatable {
           paymentProcessResponse ?? this.paymentProcessResponse,
       quantityInBasket: quantityInBasket ?? this.quantityInBasket,
       idBasket: idBasket ?? this.idBasket,
-    );
+      rewardCouponsFixedValueModel:
+      rewardCouponsFixedValueModel ?? this.rewardCouponsFixedValueModel,
+      );
   }
 
   @override
@@ -128,5 +136,7 @@ class MyOrderState extends Equatable {
         paymentProcessResponse,
         quantityInBasket,
         idBasket,
-      ];
+    rewardCouponsFixedValueModel,
+
+  ];
 }

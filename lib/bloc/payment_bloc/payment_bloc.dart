@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pharma/core/app_enum.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
+import 'package:pharma/data/data_resource/local_resource/datastore_keys.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
+import 'package:pharma/models/basket_model.dart';
 import 'package:pharma/models/delivery_changes_response.dart';
 import 'package:pharma/models/delivery_attributes_response.dart';
 import 'package:pharma/models/delivery_response.dart';
@@ -10,6 +13,7 @@ import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/params/payment_process_parms.dart';
 import 'package:pharma/models/payment_process_response.dart';
 import 'package:pharma/models/product_response.dart';
+import 'package:pharma/models/reward/reward_coupons_fixed_value.dart';
 
 part 'payment_event.dart';
 
@@ -17,6 +21,9 @@ part 'payment_state.dart';
 
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   PaymentRepo paymentRepo;
+  BasketModel basketModelStore =
+      DataStore.instance.dynamicData<BasketModel>(DataStoreKeys.basket) ??
+          BasketModel(basketList: []);
 
   PaymentBloc({required this.paymentRepo})
       : super(
@@ -35,15 +42,18 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         if (event is OrderEvent) {
           emit(state.copyWith(orderState: event.orderStates));
         }
+
         if (event is ChoosePaymentStatusEvent) {
           emit(state.copyWith(paymentState: event.paymentState));
         }
+
         if (event is AddToChosenAttributeList) {
           List<DeliveryAttributesResponse> mutableChosenAttributeList =
               List.from(state.attributeChosenList);
           mutableChosenAttributeList.add(event.attributeData!);
           emit(state.copyWith(attributeChosenList: mutableChosenAttributeList));
         }
+
         if (event is RemoveFromChosenList) {
           List<DeliveryAttributesResponse> mutableChosenAttributeList =
               List.from(state.attributeChosenList);
@@ -51,6 +61,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
               .removeWhere((element) => element.id == event.attributeData!.id);
           emit(state.copyWith(attributeChosenList: mutableChosenAttributeList));
         }
+
         if (event is AddChangeAttributeList) {
           /// todo : change DeliveryAttributesResponse to changeResponse
           List<DeliveryAttributesResponse> mutableChangeList =
@@ -84,6 +95,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
               .removeWhere((element) => element.id == event.attributeData!.id);
           emit(state.copyWith(attributeChosenList: mutableChangeList));
         }
+
         if (event is ToggleDeliveryMethod) {
           List<DeliveryMethodResponse> mutableChosenDeliveryMethodList =
               List.from(state.deliveryMethodChosenList);
@@ -97,28 +109,32 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           }
           emit(state.copyWith(
               deliveryMethodChosenList: mutableChosenDeliveryMethodList,
-              deliveryCost:
-                  event.deliveryMethodData!.deliveryPrice!));
+              deliveryCost: event.deliveryMethodData!.deliveryPrice!));
         }
-        if (event is GetInvoicesDetails) {
 
+        if (event is GetInvoicesDetails) {
           emit(state.copyWith(screenState: ScreenStates.loading));
-          PaymentProcessParams paymentProcessParams = PaymentProcessParams(productInBasketList: event.productList!);
-          (await paymentRepo.getInvoiceDetails(paymentProcessParams, event.invoicesParams))
+          PaymentProcessParams paymentProcessParams =
+              PaymentProcessParams(productInBasketList: event.productList!);
+
+          (await paymentRepo.getInvoiceDetails(
+                  paymentProcessParams, event.invoicesParams))
               .fold(
-            (l) => emit(state.copyWith(screenState: ScreenStates.error)),
+            (l) => emit(state.copyWith(screenState: ScreenStates.error,errorMessage: l)),
             (r) => emit(
               state.copyWith(
                   screenState: ScreenStates.success, paymentProcessResponse: r),
             ),
           );
         }
+
         if (event is CreateOrder) {
           // List<int?> ids = state.deliveryChangesList.map((e) => e.id).toList();
 
           emit(state.copyWith(
               completePaymentStates: CompletePaymentStates.loading));
-          PaymentProcessParams paymentProcessParams = PaymentProcessParams(productInBasketList: event.productList);
+          PaymentProcessParams paymentProcessParams =
+              PaymentProcessParams(productInBasketList: event.productList);
           (await paymentRepo.createOrder(
             paymentProcessParams,
             event.invoicesParams,
@@ -126,30 +142,46 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
             state.deliveryChangesList.map((e) => e.id).toList(),
           ))
               .fold(
-            (l) => emit(
-              state.copyWith(
-                  completePaymentStates: CompletePaymentStates.error,
-                  errorMessage: l),
-            ),
-            (r) => emit(
+                  (l) => emit(
+                        state.copyWith(
+                            completePaymentStates: CompletePaymentStates.error,
+                            errorMessage: l),
+                      ), (r) {
+            if (event.idBasket != null) {
+              basketModelStore.basketList
+                  .removeWhere((element) => element.id == event.idBasket);
+              DataStore.instance
+                  .setDynamicData(DataStoreKeys.basket, basketModelStore);
+            }
+            return emit(
               state.copyWith(
                   completePaymentStates: CompletePaymentStates.complete,
                   orderId: r["id"]),
-            ),
-          );
+            );
+          });
         }
 
         if (event is GetInitializeInvoice) {
           emit(state.copyWith(paymentProcessResponse: event.initializeInvoice));
         }
+
         if (event is GetTimeEvent) {
           emit(state.copyWith(time: event.time));
         }
+
         if (event is SelectedMinutesEvents) {
           emit(state.copyWith(isExpandedMinutes: !event.isExpandedMinutes));
         }
+
         if (event is SelectedHoursEvents) {
           emit(state.copyWith(isExpandedHours: !event.isExpandedHour));
+        }
+
+        if (event is GetCoupon) {
+          emit(
+            state.copyWith(
+                couponId: event.couponId.toString(), couponCode: event.couponCode),
+          );
         }
       },
     );

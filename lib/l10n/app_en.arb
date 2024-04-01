@@ -288,5 +288,7 @@
   "my_coupon":"MyCoupon",
   "all_products" : "All Products",
   "noResult": "There are no search results",
-  "no_notifications": "There are no notifications"
+  "no_notifications": "There are no notifications",
+  "we_are_now_out_of_business_hours": "We are now out of business hours",
+  "you_cannot_order_now": "You cannot order now, but you can schedule your order for later or save the order in drafts"
 }

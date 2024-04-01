@@ -17,6 +17,8 @@ class PaymentState extends Equatable {
   final String? minutes;
   final bool isExpandedMinutes;
   final bool isExpandedHours;
+  final String? couponId;
+  final String? couponCode;
 
   const PaymentState({
     this.orderId,
@@ -35,6 +37,8 @@ class PaymentState extends Equatable {
     this.isExpandedHours = false,
     this.hour,
     this.minutes,
+    this.couponId,
+    this.couponCode,
   });
 
   PaymentState copyWith({
@@ -53,6 +57,8 @@ class PaymentState extends Equatable {
     String? time,
     bool? isExpandedMinutes,
     bool? isExpandedHours,
+    String? couponId,
+    String? couponCode,
   }) {
     return PaymentState(
       orderId: orderId,
@@ -72,6 +78,8 @@ class PaymentState extends Equatable {
       time: time ?? this.time,
       isExpandedMinutes: isExpandedMinutes ?? this.isExpandedMinutes,
       isExpandedHours: isExpandedHours ?? this.isExpandedHours,
+      couponId: couponId ?? this.couponId,
+      couponCode: couponCode ?? this.couponCode,
     );
   }
 
@@ -92,5 +100,7 @@ class PaymentState extends Equatable {
         time,
         isExpandedMinutes,
         isExpandedHours,
+        couponCode,
+        couponId,
       ];
 }

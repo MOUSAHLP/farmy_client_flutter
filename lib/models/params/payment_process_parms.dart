@@ -15,11 +15,14 @@ class PaymentProcessParams {
   }
 
   Map<String, dynamic> toJsonWithParams(InvoicesParams invoicesParams) {
+
     return {
       "user_address_id": invoicesParams.userAddressId,
       "delivery_method_id": invoicesParams.deliveryMethodId,
       "notes": invoicesParams.notes,
-      "products": ProductResponse.toJsonCardList(productInBasketList)
+      "products": ProductResponse.toJsonCardList(productInBasketList),
+      "coupon_code": invoicesParams.couponCode,
+      "coupon_id": invoicesParams.couponId,
     };
   }
 
@@ -33,11 +36,13 @@ class PaymentProcessParams {
       "user_address_id": invoicesParams.userAddressId,
       "delivery_method_id": invoicesParams.deliveryMethodId,
       "notes": "${invoicesParams.notes} ",
-      "start_time":invoicesParams.time,
+      "start_time": invoicesParams.time,
       "products": ProductResponse.toJsonCardList(productInBasketList),
       "delivery_attributes": toJsonCardList(deliveryAttributesList),
       "payment_method_id": 1,
       "changes": deliveryChangesList,
+      "coupon_code": invoicesParams.couponCode,
+      "coupon_id": invoicesParams.couponId,
       // "changes": List<int>.from(deliveryChangesList!.map((x) => x)),
     };
   }

@@ -2,10 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/basket_repo.dart';
+import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/params/get_basket_params.dart';
 import 'package:pharma/models/params/payment_process_parms.dart';
 import 'package:pharma/models/payment_process_response.dart';
 import 'package:pharma/models/product_response.dart';
+import 'package:pharma/models/reward/reward_coupons_fixed_value.dart';
 
 import '../../data/data_resource/local_resource/data_store.dart';
 import '../../data/data_resource/local_resource/datastore_keys.dart';
@@ -70,11 +72,21 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       }
       if (event is PaymentProcess) {
         emit(state.copyWith(screenState: ScreenState.loading));
-        PaymentProcessParams paymentProcessParms =
+        PaymentProcessParams paymentProcessParams =
             PaymentProcessParams(productInBasketList: state.productList!);
-        (await basketRepo.getPaymentDetails(paymentProcessParms)).fold(
+        var response = await PaymentRepo.getRewardCouponFixedValue();
+        response.fold(
+          (l) => null,
+          (r) => emit(
+            state.copyWith(
+              rewardCouponsFixedValueModel: r,
+            ),
+          ),
+        );
+        (await basketRepo.getPaymentDetails(paymentProcessParams)).fold(
           (l) => emit(
-              state.copyWith(screenState: ScreenState.error, errorMessage: l)),
+            state.copyWith(screenState: ScreenState.error, errorMessage: l),
+          ),
           (r) => emit(
             state.copyWith(
                 screenState: ScreenState.success, paymentProcessResponse: r),
@@ -119,13 +131,18 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       }
       if (event is SaveBasket) {
         state.productList?.forEach((element) {
-          idProducts.add(Product(productId: element.id, quantity: element.quantity??0));
+          idProducts.add(
+              Product(productId: element.id, quantity: element.quantity ?? 0));
         });
-          int idBasket = basketModelStore.basketList.isNotEmpty? basketModelStore.basketList.last.id!:0;
+        int idBasket = basketModelStore.basketList.isNotEmpty
+            ? basketModelStore.basketList.last.id!
+            : 0;
 
-      int idBasket1=idBasket+1;
-        basketModelStore.basketList.add(GetBasketParams(products: idProducts, id: idBasket1));
-        DataStore.instance.setDynamicData(DataStoreKeys.basket, basketModelStore);
+        int idBasket1 = idBasket + 1;
+        basketModelStore.basketList
+            .add(GetBasketParams(products: idProducts, id: idBasket1));
+        DataStore.instance
+            .setDynamicData(DataStoreKeys.basket, basketModelStore);
         state.productList?.clear();
         idProducts = [];
         emit(state.copyWith(productList: []));

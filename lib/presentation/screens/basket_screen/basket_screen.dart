@@ -48,6 +48,8 @@ class BasketScreen extends StatelessWidget {
                         AppRouter.push(
                             context,
                             PaymentScreen(
+                              rewardCouponsFixedValueModel:
+                                  state.rewardCouponsFixedValueModel!,
                               paymentProcessResponse:
                                   state.paymentProcessResponse!,
                             ));
@@ -93,9 +95,9 @@ class BasketScreen extends StatelessWidget {
                               child: ListView.builder(
                                 padding: EdgeInsets.zero,
                                 itemBuilder: (context, index) {
-                                  return  CardBasket(
+                                  return CardBasket(
                                     productAddedToBasketDetails:
-                                    state.productList![index],
+                                        state.productList![index],
                                   );
                                 },
                                 itemCount: state.productList!.length,
@@ -181,9 +183,9 @@ class BasketScreen extends StatelessWidget {
                                                     ColorManager.primaryGreen,
                                                 labelColor: Colors.white,
                                                 onTap: () {
-
-
-                                                 AppRouter.pushReplacement(context, const HomeScreen());
+                                                  AppRouter.pushReplacement(
+                                                      context,
+                                                      const HomeScreen());
                                                   // SystemNavigator.pop();
                                                 },
                                               ),
@@ -193,13 +195,14 @@ class BasketScreen extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: CustomButton(
-                                                label:"حفظ المسودة",
+                                                label: "حفظ المسودة",
                                                 fillColor:
-                                                ColorManager.primaryGreen,
+                                                    ColorManager.primaryGreen,
                                                 labelColor: Colors.white,
                                                 onTap: () {
                                                   context
-                                                      .read<BasketBloc>().add(SaveBasket());
+                                                      .read<BasketBloc>()
+                                                      .add(SaveBasket());
                                                 },
                                               ),
                                             ),

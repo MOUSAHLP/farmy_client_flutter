@@ -36,7 +36,8 @@ class OrderNotInstallDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return sl<MyOrderBloc>()..add(ShowBasket(idProducts: id,idBasket: idBasket));
+        return sl<MyOrderBloc>()
+          ..add(ShowBasket(idProducts: id, idBasket: idBasket));
       },
       child: OrderDetailsBody(id: id, isEdit: isEdit, idBasket: idBasket),
     );
@@ -88,11 +89,14 @@ class OrderDetailsBody extends StatelessWidget {
                 }
                 if (state.successConfirm) {
                   AppRouter.push(
-                      context,
-                      PaymentScreen(
-                        paymentProcessResponse: state.paymentProcessResponse!,
-                        myOrderBloc: context.read<MyOrderBloc>(),
-                      ),);
+                    context,
+                    PaymentScreen(
+                      rewardCouponsFixedValueModel: state.rewardCouponsFixedValueModel!,
+                      paymentProcessResponse: state.paymentProcessResponse!,
+                      myOrderBloc: context.read<MyOrderBloc>(),
+                      idBasket: idBasket,
+                    ),
+                  );
                 }
               },
               builder: (context, state) {
@@ -179,9 +183,16 @@ class OrderDetailsBody extends StatelessWidget {
                                             ? Expanded(
                                                 child: CustomButton(
                                                   label: "تثبيت الطلب ",
-                                                  fillColor: ColorManager.primaryGreen,
+                                                  fillColor:
+                                                      ColorManager.primaryGreen,
                                                   onTap: () {
-                                                    context.read<MyOrderBloc>().add(PaymentProcessBasket(idBasket,),);
+                                                    context
+                                                        .read<MyOrderBloc>()
+                                                        .add(
+                                                          PaymentProcessBasket(
+                                                            idBasket,
+                                                          ),
+                                                        );
                                                     // context.read<DetailsOrderBloc>().add(EditDetailsOrder(id:id));
                                                   },
                                                 ),

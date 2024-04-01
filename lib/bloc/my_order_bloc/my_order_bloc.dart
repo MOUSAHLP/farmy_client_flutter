@@ -4,6 +4,7 @@ import 'package:pharma/bloc/my_order_bloc/my_order_event.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_state.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/my_order_repository.dart';
+import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/basket_model.dart';
 import 'package:pharma/models/my_order_response.dart';
 import 'package:pharma/models/params/product_model.dart';
@@ -181,15 +182,21 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
                 productInBasket.quantity;
           }
         }
-        var response =
-            await BasketRepo.getPaymentDetailBasket(productDetailsList);
+        var res = await PaymentRepo.getRewardCouponFixedValue();
+        res.fold(
+              (l) => null,
+              (r) => emit(
+            state.copyWith(
+              rewardCouponsFixedValueModel: r,
+            ),
+          ),
+        );
+        var response = await BasketRepo.getPaymentDetailBasket(productDetailsList);
         response.fold(
           (l) => emit(
             state.copyWith(error: l),
           ),
           (r) {
-            basketModelStore.basketList.removeWhere((element) => element.id == event.id);
-            DataStore.instance .setDynamicData(DataStoreKeys.basket, basketModelStore);
             emit(
               state.copyWith(
                 paymentProcessResponse: r,

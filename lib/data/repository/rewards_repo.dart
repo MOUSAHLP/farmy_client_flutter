@@ -21,13 +21,13 @@ class RewardsRepo {
         });
   }
 
-  static Future<Either<String, RewardGuideModel>> getRewardGuide() {
-    return BaseApiClient.get<RewardGuideModel>(
-        url: ApiConst.getRewardsGuide,
-        converter: (e) {
-          return RewardGuideModel.fromJson(e);
-        });
-  }
+    static Future<Either<String, RewardGuideModel>> getRewardGuide() {
+      return BaseApiClient.get<RewardGuideModel>(
+          url: ApiConst.getRewardsGuide,
+          converter: (e) {
+            return RewardGuideModel.fromJson(e);
+          });
+    }
 
   static Future<Either<String, RewardMembershipGuideModel>>
       getRewardMemberShipGuide() {

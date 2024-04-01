@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +16,7 @@ import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/delivery_response.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/payment_process_response.dart';
+import 'package:pharma/models/reward/reward_coupons_fixed_value.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -24,6 +26,7 @@ import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/location_screen.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_bill_details_row.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_date_picker.dart';
+import 'package:pharma/presentation/screens/payment/widgets/custom_discount_code_container.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_note_on_the_order_continer.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_order_type_continer.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
@@ -34,17 +37,23 @@ import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/presentation/widgets/select_location.dart';
 import 'package:pharma/translations.dart';
 import 'widgets/custom_change_on_the_order_container.dart';
-import 'widgets/custom_discount_code_container.dart';
+import 'widgets/custom_discount_id_container.dart';
 import 'widgets/custom_payment_status_container.dart';
 
 class PaymentScreen extends StatelessWidget {
   final PaymentProcessResponse paymentProcessResponse;
-
-  PaymentScreen(
-      {super.key, required this.paymentProcessResponse, this.myOrderBloc});
-
   final PaymentBloc paymentBloc = PaymentBloc(paymentRepo: PaymentRepo());
   final MyOrderBloc? myOrderBloc;
+  final int? idBasket;
+  final RewardCouponsFixedValueModel rewardCouponsFixedValueModel;
+
+  PaymentScreen({
+    super.key,
+    required this.paymentProcessResponse,
+    this.myOrderBloc,
+    this.idBasket,
+    required this.rewardCouponsFixedValueModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +62,8 @@ class PaymentScreen extends StatelessWidget {
     return PaymentBody(
       paymentBloc: paymentBloc,
       myOrderBloc: myOrderBloc,
+      idBasket: idBasket,
+      rewardCouponsFixedValueModel: rewardCouponsFixedValueModel,
     );
   }
 }
@@ -60,8 +71,16 @@ class PaymentScreen extends StatelessWidget {
 class PaymentBody extends StatelessWidget {
   final PaymentBloc paymentBloc;
   final MyOrderBloc? myOrderBloc;
+  final int? idBasket;
+  final RewardCouponsFixedValueModel rewardCouponsFixedValueModel;
 
-  PaymentBody({super.key, required this.paymentBloc, this.myOrderBloc});
+  PaymentBody({
+    super.key,
+    required this.paymentBloc,
+    this.myOrderBloc,
+    this.idBasket,
+    required this.rewardCouponsFixedValueModel,
+  });
 
   final Duration animationDuration = const Duration(milliseconds: 500);
 
@@ -73,7 +92,6 @@ class PaymentBody extends StatelessWidget {
       child: BlocConsumer<PaymentBloc, PaymentState>(
         bloc: paymentBloc,
         listener: (context, state) {
-          // log(state.toString());
           if (state.screenState == ScreenStates.loading) {
             LoadingDialog().openDialog(context);
           }
@@ -82,7 +100,7 @@ class PaymentBody extends StatelessWidget {
           }
           if (state.screenState == ScreenStates.error) {
             LoadingDialog().closeDialog(context);
-            ErrorDialog.openDialog(context, "some thing went wrong");
+            ErrorDialog.openDialog(context,state.errorMessage);
           }
           if (state.completePaymentStates == CompletePaymentStates.complete) {
             LoadingDialog().closeDialog(context);
@@ -243,11 +261,11 @@ class PaymentBody extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            //  todo
+
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 21,
-                                vertical: 12,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 21.w,
+                                vertical: 12.h,
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,13 +274,13 @@ class PaymentBody extends StatelessWidget {
                                     AppLocalizations.of(context)!.hasm_code,
                                     style: getBoldStyle(
                                       color: ColorManager.primaryGreen,
-                                      fontSize: FontSizeApp.s14,
+                                      fontSize: FontSizeApp.s14.sp,
                                     ),
                                   ),
-                                  const SizedBox(height: 8),
+                                  SizedBox(height: 8.h),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 5,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 5.w,
                                     ),
                                     child: Row(
                                       crossAxisAlignment:
@@ -270,15 +288,27 @@ class PaymentBody extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: CustomDiscountCodeContainer(
+                                            idBasket: idBasket,
+                                            paymentBloc: paymentBloc,
+                                            myOrderBloc: myOrderBloc,
+                                            notesText: noteController.text,
+                                            rewardCouponsFixedValueModel:
+                                                rewardCouponsFixedValueModel,
                                             imageUrl: ImageManager.codeDiscount,
                                             subjectText:
                                                 AppLocalizations.of(context)!
-                                                    .hasm_code,
+                                                    .redeem_points,
                                           ),
                                         ),
-                                        const SizedBox(width: 4),
+                                        SizedBox(width: 4.w),
                                         Expanded(
-                                          child: CustomDiscountCodeContainer(
+                                          child: CustomDiscountIdContainer(
+                                            myOrderBloc: myOrderBloc,
+                                            paymentBloc: paymentBloc,
+                                            idBasket: idBasket,
+                                            notesText: noteController.text,
+                                            rewardCouponsFixedValueModel:
+                                                rewardCouponsFixedValueModel,
                                             isReplacePoint: true,
                                             imageUrl: ImageManager.replacePoint,
                                             subjectText:
@@ -609,7 +639,7 @@ class PaymentBody extends StatelessWidget {
                             const SizedBox(height: 50),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -626,18 +656,20 @@ class PaymentBody extends StatelessWidget {
                             )
                           : AppValueConst.defaultInvoiceValue.toString(),
                   onCompletePayment: () {
-                    if(myOrderBloc!.productDetailsList.isNotEmpty) {
+                    if (myOrderBloc != null) {
                       paymentBloc.add(
                         CreateOrder(
-                          productList:myOrderBloc!.productDetailsList,
+                          idBasket,
+                          productList: myOrderBloc!.productDetailsList,
                           invoicesParams: InvoicesParams(
+                            couponId: state.couponId,
                             time: state.time,
                             notes: noteController.text,
                             deliveryMethodId:
-                            state.deliveryMethodChosenList.isNotEmpty
-                            // ToDo deliveryMethodChosenList[0].id ??? 0
-                                ? state.deliveryMethodChosenList[0].id
-                                : 0,
+                                state.deliveryMethodChosenList.isNotEmpty
+                                    // ToDo deliveryMethodChosenList[0].id ??? 0
+                                    ? state.deliveryMethodChosenList[0].id
+                                    : 0,
                             userAddressId: context
                                 .read<LocationBloc>()
                                 .state
@@ -646,18 +678,23 @@ class PaymentBody extends StatelessWidget {
                           ),
                         ),
                       );
-                    }else {
+                    } else {
                       paymentBloc.add(
                         CreateOrder(
-                          productList: context.read<BasketBloc>().state.productList!,
+
+                          idBasket,
+                          productList:
+                              context.read<BasketBloc>().state.productList!,
                           invoicesParams: InvoicesParams(
+                            couponId: state.couponId,
+
                             time: state.time,
                             notes: noteController.text,
                             deliveryMethodId:
-                            state.deliveryMethodChosenList.isNotEmpty
-                            // ToDo deliveryMethodChosenList[0].id ??? 0
-                                ? state.deliveryMethodChosenList[0].id
-                                : 0,
+                                state.deliveryMethodChosenList.isNotEmpty
+                                    // ToDo deliveryMethodChosenList[0].id ??? 0
+                                    ? state.deliveryMethodChosenList[0].id
+                                    : 0,
                             userAddressId: context
                                 .read<LocationBloc>()
                                 .state
@@ -700,18 +737,13 @@ class PaymentBody extends StatelessWidget {
       image: ImageManager.dateTimeImage,
       text: "${item.deliveryName} (${item.deliveryTime} دقيقة) ",
       onTap: () {
-        print('==========================');
-        print(context.read<BasketBloc>().state.productList);
         if (!state.deliveryMethodChosenList
             .any((element) => element.id == item.id)) {
           if (context.read<LocationBloc>().state.addressCurrent.latitude !=
               null) {
             paymentBloc.add(ToggleDeliveryMethod(deliveryMethodData: item));
-            // print('==========================');
-            // print(context.read<BasketBloc>().state.productList);
-            // print(myOrderBloc!.productDetailsList);
-            // print('==========================');
-            if(myOrderBloc!.productDetailsList.isNotEmpty){
+            if (myOrderBloc != null &&
+                myOrderBloc.productDetailsList.isNotEmpty) {
               paymentBloc.add(
                 GetInvoicesDetails(
                   invoicesParams: InvoicesParams(
@@ -720,19 +752,19 @@ class PaymentBody extends StatelessWidget {
                     deliveryMethodId: item.id,
                     userAddressId: locationState.addressCurrent.id!,
                   ),
-                  productList: myOrderBloc.productDetailsList
+                  productList: myOrderBloc.productDetailsList,
                 ),
               );
-            }else{
+            } else {
               paymentBloc.add(
                 GetInvoicesDetails(
-                    invoicesParams: InvoicesParams(
-                      time: state.time,
-                      notes: noteController.text,
-                      deliveryMethodId: item.id,
-                      userAddressId: locationState.addressCurrent.id!,
-                    ),
-                    productList: context.read<BasketBloc>().state.productList,
+                  invoicesParams: InvoicesParams(
+                    time: state.time,
+                    notes: noteController.text,
+                    deliveryMethodId: item.id,
+                    userAddressId: locationState.addressCurrent.id!,
+                  ),
+                  productList: context.read<BasketBloc>().state.productList,
                 ),
               );
             }
@@ -761,11 +793,7 @@ class PaymentBody extends StatelessWidget {
               .openingTimes!
               .endTime)
           .split(":");
-      print('=================== Current Time =============================');
-      print(dateTime.hour);
-      print('====================== End Time ==============================');
-      print(endTime[0]);
-      print('==============================================================');
+
       if (int.parse(endTime[0]) > dateTime.hour) {
         return true;
       } else if (int.parse(endTime[0]) == dateTime.hour) {

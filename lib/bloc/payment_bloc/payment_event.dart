@@ -36,8 +36,10 @@ class GetInvoicesDetails extends PaymentEvent {
   final InvoicesParams invoicesParams;
   final List<ProductResponse>? productList;
 
-  const GetInvoicesDetails(
-      {required this.invoicesParams, required this.productList});
+  const GetInvoicesDetails({
+    required this.invoicesParams,
+    required this.productList,
+  });
 }
 
 class RemoveFromChosenList extends PaymentEvent {
@@ -93,8 +95,10 @@ class ToggleDeliveryMethod extends PaymentEvent {
 class CreateOrder extends PaymentEvent {
   final InvoicesParams invoicesParams;
   final List<ProductResponse> productList;
+  final int? idBasket;
 
-  const CreateOrder({
+  const CreateOrder(
+    this.idBasket, {
     required this.invoicesParams,
     required this.productList,
   });
@@ -117,13 +121,20 @@ class GetTimeEvent extends PaymentEvent {
 }
 
 class SelectedMinutesEvents extends PaymentEvent {
-  final bool isExpandedMinutes ;
+  final bool isExpandedMinutes;
 
   const SelectedMinutesEvents(this.isExpandedMinutes);
 }
 
 class SelectedHoursEvents extends PaymentEvent {
-  final bool isExpandedHour ;
+  final bool isExpandedHour;
 
   const SelectedHoursEvents(this.isExpandedHour);
+}
+
+class GetCoupon extends PaymentEvent {
+  final String? couponId;
+  final String? couponCode;
+
+  const GetCoupon(this.couponId, this.couponCode);
 }

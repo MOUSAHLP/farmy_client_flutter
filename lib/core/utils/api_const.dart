@@ -65,6 +65,7 @@ class ApiConst {
   static String getDetailsOrder(int id) => "/orders/order-details/$id";
   static String deleteOrder(int id) => "/orders/$id";
   static String showBasket = "/get-cart-products-info";
+  static String showRate = "/get-rates";
 
   /// track order
   static String getTrackOrderDetails(int id) => "/orders/order-status/$id";
@@ -83,6 +84,8 @@ class ApiConst {
   static const String getRewardActivityCoupons = "/reward/achievements/not-done";
   static const String getRewardsRankUser = "/reward/user-statistics";
   static const String getRewardsOfferCoupon = "/reward/coupons/fixed-value";
+
+
   ///setting
   static const String getJoinOurTeamJobs = "/join-our-team/jobs";
   static const String addJoinOurTeamJobs = "/join-our-team";

@@ -294,6 +294,8 @@
   "all_products" : "جميع النتجات",
   "field_is_required": "الحقل مطلوب",
   "noResult": "لا يوجد نتائج بحث",
-  "no_notifications": "لا يوجد اشعارات"
+  "no_notifications": "لا يوجد اشعارات",
+  "we_are_now_out_of_business_hours": "نحن الآن خارج ساعات العمل",
+  "you_cannot_order_now": "لا يمكنك الطلب الآن, ولكن يمكنك جدولة طلبك لوقت لاحق أو حفظ الطلب في المسودات"
 
 }

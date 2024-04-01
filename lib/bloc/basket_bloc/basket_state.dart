@@ -7,6 +7,7 @@ class BasketState extends Equatable {
   final ScreenState? screenState;
   final String? errorMessage;
   final bool isClear;
+  final RewardCouponsFixedValueModel? rewardCouponsFixedValueModel;
 
   const BasketState({
     this.productList = const [],
@@ -15,6 +16,7 @@ class BasketState extends Equatable {
     this.screenState,
     this.paymentProcessResponse,
     this.isClear = false,
+    this.rewardCouponsFixedValueModel,
   });
 
   BasketState copyWith({
@@ -24,15 +26,19 @@ class BasketState extends Equatable {
     String? errorMessage,
     PaymentProcessResponse? paymentProcessResponse,
     bool? isClear,
+    RewardCouponsFixedValueModel? rewardCouponsFixedValueModel,
   }) {
     return BasketState(
-        errorMessage: errorMessage ?? "",
-        paymentProcessResponse:
-            paymentProcessResponse ?? this.paymentProcessResponse,
-        addToBasketState: addToBasketState ?? addToBasketState,
-        productList: productList ?? this.productList,
-        screenState: screenState ?? ScreenState.initialized,
-        isClear: isClear ?? false);
+      errorMessage: errorMessage ?? "",
+      paymentProcessResponse:
+          paymentProcessResponse ?? this.paymentProcessResponse,
+      addToBasketState: addToBasketState ?? addToBasketState,
+      productList: productList ?? this.productList,
+      screenState: screenState ?? ScreenState.initialized,
+      isClear: isClear ?? false,
+      rewardCouponsFixedValueModel:
+          rewardCouponsFixedValueModel ?? this.rewardCouponsFixedValueModel,
+    );
   }
 
   @override
@@ -43,6 +49,8 @@ class BasketState extends Equatable {
         screenState,
         paymentProcessResponse,
         errorMessage,
-        isClear
-      ];
+        isClear,
+    rewardCouponsFixedValueModel,
+
+  ];
 }

@@ -10,11 +10,8 @@ class ImageManager {
   static const String menuImage = "$imagePath/menu.png";
   static const String location = "$imagePath/location.png";
   static const String goForAllAdress = "$imagePath/go_for_adress.png";
-  static const String categoryPlaceHolder =
-      "$imagePath/alternative_category_image.png";
-  static const String advertismentPlaceHolder =
-      "$imagePath/slider_alternative.png";
-
+  static const String categoryPlaceHolder = "$imagePath/alternative_category_image.png";
+  static const String advertismentPlaceHolder = "$imagePath/slider_alternative.png";
   static const String placeholderLogo = "$imagePath/app_logo.png";
 
 
@@ -24,15 +21,10 @@ class ImageManager {
   static const String basketIcon = "$imagePath/basket_icon.svg";
   static const String profileIcon = "$imagePath/profile_icon.svg";
   static const String myOrder = "$imagePath/my_order.svg";
-
   static const String status_1 = "$imagePath/status_1.svg";
   static const String status_2 = "$imagePath/status_2.svg";
   static const String status_3 = "$imagePath/status_3.svg";
-
   static const String subtract = "$imagePath/subtract.png";
-
-
-
   static const String dateTimeImage = "$imagePath/date_time.png";
   static const String farmySmile = "$imagePath/farmy_smile.png";
   static const String onBoarding1 = "$imagePath/onborading1.png";
@@ -66,6 +58,7 @@ class ImageManager {
   static const String innerShadowBox = "$imagePath/innerShadowBox.png";
   static const String innerShadowCircle = "$imagePath/innerShadowCircle.png";
   static const String arrowBack = "$imagePath/arrow_back.svg";
+  static const String timeWork = "$imagePath/timeWork.svg";
 }
 
 class IconsManager {
