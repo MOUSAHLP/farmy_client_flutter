@@ -47,15 +47,19 @@ class ProductResponse {
             quantity: json["quantity"] != null ? int.parse(json["quantity"]) : null,
             description: json["description"],
             discountStatus: json["discount_status"],
-            discountValue: json["discount_status"] != 0
-                ? getDiscountedPrice(json["price"], json["discount"])
-                : json["discount"],
+            discountValue:
+            json["discount_status"] != 0
+                ? getDiscountedPrice(json["price"].toString(), json["discount"].toString())
+                :
+            json["discount"],
             sellerName: json["seller"] == null ? null : json["seller"]["name"],
             nameOfProduct: json["name"],
             price: json["price"],
-            discount: json["discount_status"] != 0
-                ? getDiscountedPrice(json["price"], json["discount"])
-                : json["discount"],
+            discount:
+            // json["discount_status"] != 0
+            //     ? getDiscountedPrice(json["price"], json["discount"])
+            //     :
+            json["discount"],
             attributeList: json["attributes"] == null
                 ? []
                 : List<AttributeResponse>.from(json["attributes"].map((x) => AttributeResponse.fromJson(x))),
@@ -88,11 +92,11 @@ class ProductResponse {
 
   static String getDiscountedPrice(String price, String discount) {
     int originalPrice = int.parse(price);
-    int discountPrcie = int.parse(discount);
+    int discountPrice = int.parse(discount);
 
-    int percantge = (((discountPrcie * 100) / originalPrice)).round();
+    int  percentage = ((originalPrice * 100) / discountPrice).round();
 
-    return percantge.toString();
+    return  percentage.toString();
   }
 
   static List<ProductResponse> listFromJson(List<dynamic>? json) {
