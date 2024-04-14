@@ -23,10 +23,8 @@ class RewardsActivityTicketMyCoupon extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) => RewardsActivityTicketBox(
           text: rewardsActivityAndOffersBloc.state.rewardMyCouponsModel!.data[index].description,
-          imageText: rewardsActivityAndOffersBloc
-              .state.rewardMyCouponsModel!.data[index].couponType.name,
-          imagePath: rewardsActivityAndOffersBloc
-              .state.rewardMyCouponsModel!.data[index].couponType.image,
+          imageText: rewardsActivityAndOffersBloc.state.rewardMyCouponsModel!.data[index].couponType.name,
+          imagePath: rewardsActivityAndOffersBloc.state.rewardMyCouponsModel!.data[index].couponType.image,
           child: RewardsActivityTicketContent(
             code: rewardsActivityAndOffersBloc
                 .state.rewardMyCouponsModel!.data[index].couponCode,

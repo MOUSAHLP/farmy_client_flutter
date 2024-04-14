@@ -40,10 +40,10 @@ class RewardsActivityTicketBox extends StatelessWidget {
                   children: [
                     SvgPicture.network(
                       imagePath,
-                      colorFilter: const ColorFilter.mode(
-                       ColorManager.grayForMessage,
-                        BlendMode.srcIn,
-                      ),
+                      // colorFilter: const ColorFilter.mode(
+                      //  ColorManager.grayForMessage,
+                      //   BlendMode.srcIn,
+                      // ),
                     ),
                     Text(
                       imageText,

@@ -20,15 +20,14 @@ class CustomDeliveryService extends StatelessWidget {
   Widget build(BuildContext context) {
     return sl<AuthenticationBloc>().loggedIn
         ? Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 13,
+            padding:  EdgeInsets.symmetric(
+              horizontal: 13.w,
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
                 padding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
                 alignment: Alignment.center,
-                height: 61.h,
                 color: ColorManager.lightGray,
                 child: RichText(
                   textAlign: TextAlign.center,

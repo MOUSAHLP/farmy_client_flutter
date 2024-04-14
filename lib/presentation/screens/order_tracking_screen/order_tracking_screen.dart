@@ -24,9 +24,7 @@ class OrderTrackingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = TrackingBloc()
-      ..setOrderId(orderId)
-      ..add(const GetOrderStatus());
+    final bloc = TrackingBloc()..setOrderId(orderId)..add(const GetOrderStatus());
     FirebaseNotificationsHandler().bloc = bloc;
 
     return Scaffold(

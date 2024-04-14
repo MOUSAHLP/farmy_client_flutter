@@ -4,6 +4,7 @@ import 'package:pharma/presentation/resources/style_app.dart';
 
 class CustomContactContainer extends StatelessWidget {
   final String contactImage;
+
   const CustomContactContainer({super.key, required this.contactImage});
 
   @override
@@ -26,12 +27,16 @@ class CustomContactContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal:20.0),
-                child: Text("0936252114",
-                    maxLines: 2,
-                    style: getBoldStyle(color: ColorManager.grayForMessage)!
-                        .copyWith(overflow: TextOverflow.ellipsis),
-                textAlign: TextAlign.start),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  "0936252114",
+                  maxLines: 2,
+                  style: getBoldStyle(color: ColorManager.grayForMessage)!
+                      .copyWith(
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
               ),
             ],
           ),

@@ -42,7 +42,8 @@ class CustomProductCard extends StatelessWidget {
         alignment: AlignmentDirectional.topEnd,
         children: [
           SizedBox(
-            width: 163.w,
+            width: 164.w,
+            height: 218.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -61,7 +62,7 @@ class CustomProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 7),
+                      padding:  EdgeInsets.symmetric(vertical: 7.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -136,7 +137,7 @@ class CustomProductCard extends StatelessWidget {
                           //   ),
                           // ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 7),
+                            padding:  EdgeInsets.only(top: 3.h),
                             child: Row(
                               children: [
                                 Text(
@@ -168,7 +169,7 @@ class CustomProductCard extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 0),
+                            padding:  EdgeInsets.only(top: 10.h, bottom: 0),
                             child: Row(
                               children: [
                                 if (productInfo.price != null)
@@ -207,7 +208,7 @@ class CustomProductCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 74,
+                      height: 55.h,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [

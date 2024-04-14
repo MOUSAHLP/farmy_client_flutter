@@ -27,8 +27,7 @@ class HomeRepo {
         });
   }
 
-  Future<Either<String, List<HomePageDynamicModel>>>
-      getHomeDynamicDataPagenation(int page) {
+  Future<Either<String, List<HomePageDynamicModel>>> getHomeDynamicDataPagination(int page) {
     return BaseApiClient.get<List<HomePageDynamicModel>>(
         url: "${ApiConst.getHomeDynamicData}?page=$page",
         converter: (e) {

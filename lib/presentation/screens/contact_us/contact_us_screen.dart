@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/contact_us_bloc/contact_us_bloc.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/app_validators.dart';
 import 'package:pharma/core/launcher.dart';
 import 'package:pharma/core/services/services_locator.dart';
@@ -13,6 +14,7 @@ import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_a
 import 'package:pharma/presentation/screens/contact_us/widgets/custom_contact_continer.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_button.dart';
+import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/translations.dart';
 
 class ContactUsScreen extends StatelessWidget {
@@ -27,6 +29,15 @@ class ContactUsScreen extends StatelessWidget {
       lazy: true,
       create: (BuildContext context) => sl<ContactUsBloc>(),
       child: BlocConsumer<ContactUsBloc, ContactUsState>(
+        listener: (context, state) {
+          if (state.isSuccess) {
+            LoadingDialog().closeDialog(context);
+            AppRouter.pop(context);
+          }
+          if (state.isLoading) {
+            LoadingDialog().openDialog(context);
+          }
+        },
         builder: (context, state) => SafeArea(
           child: Scaffold(
             body: Column(
@@ -107,9 +118,8 @@ class ContactUsScreen extends StatelessWidget {
                           child: CustomButton(
                             onTap: () {
                               if (AppValidators.validateEmailFields(
-                                      context, emailController.text) !=
-                                  AppLocalizations.of(context)!
-                                      .emailIsNotValid) {
+                                      context, emailController.text) ==
+                                  null) {
                                 context.read<ContactUsBloc>().add(
                                       SentInfo(
                                         email: emailController.text,
@@ -123,7 +133,10 @@ class ContactUsScreen extends StatelessWidget {
                                     content: Container(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        "${AppValidators.validateEmailFields(context, emailController.text)}",
+                                        textAlign: TextAlign.center,
+                                        state.isError.isEmpty
+                                            ? "!!! Error \nPlease Enter Email"
+                                            : state.isError,
                                         style: getRegularStyle(
                                           color: ColorManager.white,
                                           fontSize: FontSizeApp.s14,
@@ -172,10 +185,7 @@ class ContactUsScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-
-                        SizedBox(
-                          height: 10.h,
-                        )
+                        SizedBox(height: 10.h)
                       ],
                     ),
                   ),
@@ -184,26 +194,7 @@ class ContactUsScreen extends StatelessWidget {
             ),
           ),
         ),
-        listener: (context, state) {
-          if (state.isSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                duration: const Duration(seconds: 1),
-                content: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    state.isError,
-                    style: getRegularStyle(
-                      color: ColorManager.white,
-                      fontSize: FontSizeApp.s14,
-                    ),
-                  ),
-                ),
-                backgroundColor: ColorManager.primaryGreen,
-              ),
-            );
-          }
-        },
+
       ),
     );
   }

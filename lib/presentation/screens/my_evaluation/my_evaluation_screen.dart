@@ -7,6 +7,7 @@ import 'package:pharma/bloc/my_rates/my_rates_bloc.dart';
 import 'package:pharma/bloc/my_rates/my_rates_event.dart';
 import 'package:pharma/bloc/my_rates/my_rates_state.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -77,9 +78,7 @@ class MyEvaluationScreen extends StatelessWidget {
                                         CustomDetailsEvaluationsRow(
                                           label: AppLocalizations.of(context)!
                                               .order_Date,
-                                          valueOfLabel:
-                                          "${state.getUserRatesModel!
-                                              .data[index].createdAt}",
+                                          valueOfLabel: Formatter.formatDate(state.getUserRatesModel!.data[index].createdAt),
                                         ),
                                         CustomDetailsEvaluationsRow(
                                           label: AppLocalizations.of(context)!
@@ -136,7 +135,7 @@ class MyEvaluationScreen extends StatelessWidget {
                 ),
               );
             } else{
-              return const SizedBox();
+              return const Scaffold(body: SizedBox());
             }
           },
           listener: (context, state) {

@@ -95,9 +95,7 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
                   shrinkWrap: true,
                   children: [
                     SizedBox(height: 10.h),
-                    if (context
-                            .read<RewardsActivityAndOffersBloc>()
-                            .currentScreen ==
+                    if (context.read<RewardsActivityAndOffersBloc>().currentScreen ==
                         RewardsActivityStateEnum.activity) ...[
                       RewardsActivityContainer(
                         rewardsActivityAndOffersBloc:

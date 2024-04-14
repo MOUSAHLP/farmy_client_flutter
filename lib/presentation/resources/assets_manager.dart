@@ -38,7 +38,7 @@ class ImageManager {
   static const String welcome = "$imagePath/welcome.png";
   static const String emoji = "$imagePath/emoji.png";
   static const String logoAboutApp = "$imagePath/logo.png";
-  static const String flagOfSyria = "$imagePath/flag_of_syria.png";
+  static const String flagOfSyria = "$imagePath/flag-of-syria.png";
   static const String listOfTypeJoinUs = "$imagePath/list_type_join_us.png";
   static const String dropDown = "$imagePath/iconDropDown.svg";
   static const String dropUp = "$imagePath/iconDropUp.svg";

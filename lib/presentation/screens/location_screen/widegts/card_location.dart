@@ -15,7 +15,7 @@ class CardLocation extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 17,vertical: 5),
+      padding:  EdgeInsets.symmetric(horizontal: 17.w,vertical: 5.h),
       child: Container(
         width: 1.sw-50,
         decoration: const BoxDecoration(

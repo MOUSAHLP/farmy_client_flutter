@@ -63,22 +63,7 @@ class ProductDetailsBody extends StatelessWidget {
             listener: (context, state) {
               if (state.addToBasketState ==
                   AddToBasketState.successAddedToBasket) {
-                // ScaffoldMessenger.of(context).showSnackBar(
-                //   SnackBar(
-                //     duration: const Duration(seconds: 1),
-                //     content: Container(
-                //       alignment: Alignment.center,
-                //       child: Text(
-                //         AppLocalizations.of(context)!.added_to_basket,
-                //         style: getRegularStyle(
-                //           color: ColorManager.white,
-                //           fontSize: FontSizeApp.s14,
-                //         ),
-                //       ),
-                //     ),
-                //     backgroundColor: ColorManager.primaryGreen,
-                //   ),
-                // );
+
                 AppRouter.pushReplacement(
                   context,
                   const HomeScreen(),

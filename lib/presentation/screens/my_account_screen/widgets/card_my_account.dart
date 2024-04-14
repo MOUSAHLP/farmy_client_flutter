@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
@@ -31,21 +32,26 @@ class CardMyAccount extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: getBoldStyle(color: Colors.black, fontSize: 13),
+                        style: getBoldStyle(
+                          color: Colors.black,
+                          fontSize: 13.sp,
+                        ),
                       ),
                       Text(
                         details,
                         style: getBoldStyle(
-                            color: ColorManager.grayForMessage, fontSize: 10),
+                          color: ColorManager.grayForMessage,
+                          fontSize: 10.sp,
+                        ),
                       )
                     ],
                   ),
                 ),
                 InkWell(
                   onTap: onTap,
-                  child: const Icon(
+                  child: Icon(
                     Icons.arrow_forward_ios,
-                    size: 20,
+                    size: 15.h,
                     color: ColorManager.grayForMessage,
                   ),
                 )

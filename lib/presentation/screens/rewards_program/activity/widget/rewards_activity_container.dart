@@ -100,8 +100,7 @@ class RewardsActivityContainer extends StatelessWidget {
             ],
           ),
         ),
-        itemCount: rewardsActivityAndOffersBloc
-            .state.rewardCouponsActivityModel!.data.length,
+        itemCount: rewardsActivityAndOffersBloc.state.rewardCouponsActivityModel!.data.length,
       );
     }
     return const Center(

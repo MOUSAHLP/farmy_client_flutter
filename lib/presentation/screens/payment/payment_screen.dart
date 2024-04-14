@@ -100,13 +100,15 @@ class PaymentBody extends StatelessWidget {
           }
           if (state.screenState == ScreenStates.error) {
             LoadingDialog().closeDialog(context);
-            ErrorDialog.openDialog(context,state.errorMessage);
+            ErrorDialog.openDialog(context, state.errorMessage);
           }
           if (state.completePaymentStates == CompletePaymentStates.complete) {
             LoadingDialog().closeDialog(context);
             ConfirmPaymentOrderDialog.openDialog(
-                context, AppLocalizations.of(context)!.orderSuccesfulyComplete,
-                orderId: state.orderId!);
+              context,
+              AppLocalizations.of(context)!.orderSuccesfulyComplete,
+              orderId: state.orderId!,
+            );
             context.read<BasketBloc>().add(ClearBasket());
           }
           if (state.completePaymentStates == CompletePaymentStates.loading) {
@@ -681,13 +683,11 @@ class PaymentBody extends StatelessWidget {
                     } else {
                       paymentBloc.add(
                         CreateOrder(
-
                           idBasket,
                           productList:
                               context.read<BasketBloc>().state.productList!,
                           invoicesParams: InvoicesParams(
                             couponId: state.couponId,
-
                             time: state.time,
                             notes: noteController.text,
                             deliveryMethodId:

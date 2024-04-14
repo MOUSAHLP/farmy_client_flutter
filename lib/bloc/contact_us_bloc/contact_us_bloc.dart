@@ -27,7 +27,7 @@ class ContactUsBloc extends Bloc<ContactUsEvent, ContactUsState> {
             state.copyWith(isError: l),
           ),
           (r) => emit(
-            state.copyWith(isSuccess: true, isError: r.message),
+            state.copyWith(isSuccess: true, isError: r.message,isLoading: false),
           ),
         );
       }

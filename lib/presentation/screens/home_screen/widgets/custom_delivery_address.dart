@@ -25,9 +25,8 @@ class CustomDeliveryAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.only(
-        start: 13,
-        end: 13,
-        bottom: 10.h,
+        start: 13.w,
+        end: 13.w,
       ),
       child: InkWell(
         onTap: () {
@@ -36,7 +35,9 @@ class CustomDeliveryAddress extends StatelessWidget {
         child: BlocBuilder<LocationBloc, LocationState>(
           builder: (context, state) => Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(
+                10.0.r,
+              ),
               border: const Border(
                 left: BorderSide(
                   color: ColorManager.grayForMessage,
@@ -52,21 +53,19 @@ class CustomDeliveryAddress extends StatelessWidget {
                 ), // White border at the bottom
               ),
             ),
-            width: 1.sw,
-            height: 61,
+            height: 61.h,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 21),
+              padding: EdgeInsets.symmetric(
+                horizontal: 21.h,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
                     ImageManager.location,
-                    height: 30,
-                    width: 30,
+                    height: 25.h,
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
+                  SizedBox(width: 7.w),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -83,9 +82,7 @@ class CustomDeliveryAddress extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 4,
-                        ),
+                        SizedBox(height: 5.h),
                         Row(
                           children: [
                             Expanded(
@@ -120,18 +117,19 @@ class CustomDeliveryAddress extends StatelessWidget {
   }
 
   String getAddress(UserAddressModel userAddressModel) {
-    final name = userAddressModel.name;
+    final address = userAddressModel.adress;
     final area = userAddressModel.area;
     final street = userAddressModel.street;
     final building = userAddressModel.building;
     final floor = userAddressModel.floor;
 
-    final namePart = name != null ? "$name - " : "";
+    final addressPart = address != null ? "$address - " : "";
     final areaPart = area != null ? "$area - " : "";
     final streetPart = street != null ? "$street - " : "";
     final buildingPart = building != null ? "$building - " : "";
     final floorPart = floor != null ? "$floor " : "";
 
-    return "$namePart$areaPart$streetPart$buildingPart$floorPart".trimRight();
+    return "$addressPart$areaPart$streetPart$buildingPart$floorPart"
+        .trimRight();
   }
 }

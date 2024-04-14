@@ -40,7 +40,7 @@ class AddLocationScreen extends StatelessWidget {
           ErrorDialog.openDialog(context, state.error);
         }
         if (state.success) {
-            AppRouter.push(context, const HomeScreen());
+          AppRouter.push(context, const HomeScreen());
         }
       }, builder: (context, state) {
         AddAddressParams address = context.read<LocationBloc>().address;
@@ -51,11 +51,13 @@ class AddLocationScreen extends StatelessWidget {
               key: _formKey,
               child: Column(children: [
                 CustomAppBarScreen(
-                    sectionName:
-                        AppLocalizations.of(context)!.favorite_addresses),
+                  sectionName: AppLocalizations.of(context)!.favorite_addresses,
+                ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 14, horizontal: 21),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 14.h,
+                    horizontal: 21.w,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -70,15 +72,19 @@ class AddLocationScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      isFirst?const SizedBox(
-                        height: 14,
-                      ):const SizedBox(),
+                      isFirst
+                          ? const SizedBox(
+                              height: 14,
+                            )
+                          : const SizedBox(),
                       isFirst
                           ? const SizedBox()
                           : InkWell(
                               onTap: () {
                                 AppRouter.push(
-                                    context, const SelectLocationFromMap());
+                                  context,
+                                   SelectLocationFromMap(),
+                                );
                               },
                               child: Row(
                                 children: [
@@ -125,10 +131,10 @@ class AddLocationScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                    InputFieldAuth(
+                      const SizedBox(
+                        height: 14,
+                      ),
+                      InputFieldAuth(
                           color: ColorManager.grayForm,
                           width: 1.sw,
                           hintText: AppLocalizations.of(context)!.address,
@@ -174,18 +180,18 @@ class AddLocationScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: InputFieldAuth(
-                                color: ColorManager.grayForm,
-                                width: 1.sw,
-                                hintText: AppLocalizations.of(context)!
-                                    .entrance_number,
-                                onChange: (value) {
-                                  address.buildingNumber = value;
-                                },
-                                // validator: (value) {
-                                //   return AppValidators.validateNameFields(
-                                //       context, value);
-                                // }
-                                ),
+                              color: ColorManager.grayForm,
+                              width: 1.sw,
+                              hintText:
+                                  AppLocalizations.of(context)!.entrance_number,
+                              onChange: (value) {
+                                address.buildingNumber = value;
+                              },
+                              // validator: (value) {
+                              //   return AppValidators.validateNameFields(
+                              //       context, value);
+                              // }
+                            ),
                           ),
                           const SizedBox(
                             width: 13,
@@ -200,7 +206,9 @@ class AddLocationScreen extends StatelessWidget {
                                 },
                                 validator: (value) {
                                   return AppValidators.validateNameFields(
-                                      context, value);
+                                    context,
+                                    value,
+                                  );
                                 }),
                           ),
                         ],
@@ -209,20 +217,20 @@ class AddLocationScreen extends StatelessWidget {
                         height: 9,
                       ),
                       InputFieldAuth(
-                          minLines: 5,
-                          maxLines: 5,
-                          height: 100,
-                          color: ColorManager.grayForm,
-                          width: 1.sw,
-                          hintText: "name",
-                          onChange: (value) {
-                            address.name = value;
-                          },
-                          // validator: (value) {
-                          //   return AppValidators.validateNameFields(
-                          //       context, value);
-                          // }
-                          ),
+                        minLines: 5,
+                        maxLines: 5,
+                        height: 100,
+                        color: ColorManager.grayForm,
+                        width: 1.sw,
+                        hintText: AppLocalizations.of(context)!.more_details,
+                        onChange: (value) {
+                          address.name = value;
+                        },
+                        // validator: (value) {
+                        //   return AppValidators.validateNameFields(
+                        //       context, value);
+                        // }
+                      ),
                       const SizedBox(
                         height: 9,
                       ),
@@ -239,7 +247,10 @@ class AddLocationScreen extends StatelessWidget {
                                       .add(AddUserAddress(address: address));
                                 } else {
                                   ErrorDialog.openDialog(
-                                      context, "يجب تحديد الموقع على الخريطة");
+                                    context,
+                                    AppLocalizations.of(context)!
+                                        .the_location_must_be_marked_on_the_map,
+                                  );
                                 }
                               }
                             }),

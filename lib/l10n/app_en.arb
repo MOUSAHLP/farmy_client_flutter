@@ -290,5 +290,14 @@
   "noResult": "There are no search results",
   "no_notifications": "There are no notifications",
   "we_are_now_out_of_business_hours": "We are now out of business hours",
-  "you_cannot_order_now": "You cannot order now, but you can schedule your order for later or save the order in drafts"
+  "you_cannot_order_now": "You cannot order now, but you can schedule your order for later or save the order in drafts",
+  "more_details": "More Details",
+  "the_location_must_be_marked_on_the_map": "The location must be marked on the map",
+  "pleas_selected_marker": "Pleas Selected Marker",
+  "hi": "Hi",
+  "main_address": "Main Current Address",
+  "favorite_address": "Favorite Address"
+
+
+
 }

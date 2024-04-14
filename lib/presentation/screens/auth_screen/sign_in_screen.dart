@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/bloc/authentication_bloc/authentication_event.dart';
+import 'package:pharma/bloc/authentication_bloc/authentication_state.dart';
+import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
+import 'package:pharma/core/app_enum.dart';
+import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/core/app_validators.dart';
+import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/core/utils/firebase_notifications_handler.dart';
+import 'package:pharma/models/params/login_params.dart';
+import 'package:pharma/presentation/resources/assets_manager.dart';
+import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/resources/font_app.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/screens/location_first_screen/location_first_screen.dart';
+import 'package:pharma/presentation/widgets/password_input_field_auth.dart';
+import 'package:pharma/translations.dart';
 import ' widgets/button_auth.dart';
 import ' widgets/input_field_auth.dart';
-import '../../../bloc/authentication_bloc/authentication_event.dart';
-import '../../../bloc/authentication_bloc/authentication_state.dart';
-import '../../../bloc/authentication_bloc/authertication_bloc.dart';
-import '../../../core/app_enum.dart';
-import '../../../core/app_router/app_router.dart';
-import '../../../core/app_validators.dart';
-import '../../../core/services/services_locator.dart';
-import '../../../models/params/login_params.dart';
-import '../../../translations.dart';
-import '../../resources/assets_manager.dart';
-import '../../resources/style_app.dart';
-import '../../widgets/password_input_field_auth.dart';
-import '../location_first_screen/location_first_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -51,16 +56,18 @@ class SignInBody extends StatelessWidget {
             const SizedBox(
               height: 93,
             ),
-            Text(AppLocalizations.of(context)!.sign_in,
-                style: getBoldStyle(color: Colors.white, fontSize: 29)),
-            const SizedBox(
-              height: 58,
+            Text(
+              AppLocalizations.of(context)!.sign_in,
+              style: getBoldStyle(
+                color: Colors.white,
+                fontSize: 29.0.sp,
+              ),
             ),
+            SizedBox(height: 58.0.h),
             InputFieldAuth(
               icon: Image.asset(
                 ImageManager.flagOfSyria,
-                height: 20,
-                width: 20,
+                height: 20.0.h,
               ),
               keyboardType: TextInputType.phone,
               isPhone: true,
@@ -68,12 +75,12 @@ class SignInBody extends StatelessWidget {
               hintText: AppLocalizations.of(context)!.hint_phone,
               validator: (value) {
                 return AppValidators.validatePhoneFields(
-                    context, phoneController.text);
+                  context,
+                  phoneController.text,
+                );
               },
             ),
-            const SizedBox(
-              height: 24,
-            ),
+            SizedBox(height: 24.h),
             PasswordInputFieldAuth(
               controller: passwordController,
               hintText: AppLocalizations.of(context)!.password,
@@ -82,49 +89,63 @@ class SignInBody extends StatelessWidget {
               //       context, passwordController.text);
               // },
             ),
-            const SizedBox(
-              height: 31,
-            ),
+            SizedBox(height: 31.0.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(AppLocalizations.of(context)!.forget_password,
-                    style: getSemiBoldStyle(color: Colors.white)),
-                SizedBox(width: 4,),
+                Text(
+                  AppLocalizations.of(context)!.forget_password,
+                  style: getSemiBoldStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(width: 5.w),
                 InkWell(
                   onTap: () {
-                    context
-                        .read<AuthenticationBloc>()
-                        .add(TapOnPressed(ScreensAuth.phoneNumberScreen));
+                    context.read<AuthenticationBloc>().add(
+                          TapOnPressed(
+                            ScreensAuth.phoneNumberScreen,
+                          ),
+                        );
                   },
-                  child: Text(AppLocalizations.of(context)!.reset_password,
-                      style: getSemiBoldStyle(color: Colors.yellow)),
+                  child: Text(
+                    AppLocalizations.of(context)!.reset_password,
+                    style: TextStyle(
+                      fontSize: FontSizeApp.s14.sp,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.yellow,
+                      decoration: TextDecoration.underline,
+                      decorationColor: ColorManager.yellow,
+                    ),
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 64),
             ButtonAuth(
                 label: AppLocalizations.of(context)!.sign_in,
-                onTap: () {
+                onTap: () async {
                   if (_formKey.currentState!.validate()) {
+                    String? token = await FirebaseNotificationsHandler().refreshFcmToken();
                     sl<AuthenticationBloc>().add(
                       Login(
                         loginParams: LoginParams(
                           phone: phoneController.text,
                           password: passwordController.text,
+                          deviceToken: token,
                         ),
                       ),
                     );
                   }
                   // AppRouter.push(context, const MainScreen(),);
                 }),
-            const SizedBox(height: 13),
+            SizedBox(height: 13.h),
             ButtonAuth(
                 label: AppLocalizations.of(context)!.back,
                 onTap: () {
                   AppRouter.pop(context);
                 }),
-            const SizedBox(height: 13)
+            SizedBox(height: 13.h),
           ],
         ),
       ),

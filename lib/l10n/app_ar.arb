@@ -135,6 +135,7 @@
   "farmy_wallet": "محفظة فارمي",
   "payment_statment": "قد يختلف شكل المنتج النهائي و السعر حسب الوزن !",
   "adress": "العنوان",
+  "main_address": "العنوان الحالي الرئيسي",
   "redeem_points": "استبدال النقاط",
   "conduction": "التوصيل",
   "delivery_to": "التوصيل إلى:",
@@ -296,6 +297,12 @@
   "noResult": "لا يوجد نتائج بحث",
   "no_notifications": "لا يوجد اشعارات",
   "we_are_now_out_of_business_hours": "نحن الآن خارج ساعات العمل",
-  "you_cannot_order_now": "لا يمكنك الطلب الآن, ولكن يمكنك جدولة طلبك لوقت لاحق أو حفظ الطلب في المسودات"
+  "you_cannot_order_now": "لا يمكنك الطلب الآن, ولكن يمكنك جدولة طلبك لوقت لاحق أو حفظ الطلب في المسودات",
+  "more_details": "تفاصيل إضافية",
+  "the_location_must_be_marked_on_the_map": "يجب تحديد الموقع على الخريطة",
+  "pleas_selected_marker": "الرجاء تحديد موقع",
+  "hi": "مرحباً",
+  "favorite_address": "العناوين المفضّلة"
+
 
 }

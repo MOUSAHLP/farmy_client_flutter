@@ -110,15 +110,17 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           }
         }, (r) {
           add(GetUserAddress());
-          if(event.id==state.addressCurrent.id) {
-            emit(state.copyWith(successDelete: true,addressCurrent: UserAddressModel()));
-          }else{
+          if (event.id == state.addressCurrent.id) {
+            emit(state.copyWith(
+                successDelete: true, addressCurrent: UserAddressModel()));
+          } else {
             emit(state.copyWith(successDelete: true));
           }
         });
       }
     });
   }
+
   List<UserAddressModel> refreshShowingTasks(String? keyword,
       {int? selectedDayIndex}) {
     List<UserAddressModel> dayTasks = [...userAddressList];
