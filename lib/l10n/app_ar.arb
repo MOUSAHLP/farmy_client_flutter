@@ -290,7 +290,7 @@
   "delivery_service_is_available_from_now_on":"خدمة التوصيل متوفرة من الساعة",
   "in_the_morning_until_noon":"صباحاً حتى الساعة",
   "in_the_evening_it_is_possible_to_choose_to_order_now_and_have_it_delivered_in_the_morning":"مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً",
-  "baskets_are_not_required": "سلات غير مطلوبة",
+  "baskets_are_not_required": "مسودة الطلبات",
    "my_coupon":"كوبوناتي",
   "all_products" : "جميع النتجات",
   "field_is_required": "الحقل مطلوب",

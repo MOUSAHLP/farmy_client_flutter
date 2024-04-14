@@ -11,4 +11,11 @@ class FAQRepo {
           return FAQModel.fromJson(e);
         });
   }
+  static Future<Either<String, FAQModel>> getAbout() {
+    return BaseApiClient.get<FAQModel>(
+        url: ApiConst.getAbout,
+        converter: (e) {
+          return FAQModel.fromJson(e);
+        });
+  }
 }

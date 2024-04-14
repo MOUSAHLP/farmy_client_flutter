@@ -39,6 +39,7 @@ class ApiConst {
 
   /// faq_questions
   static const String getFaqQuestions = "/faq_questions";
+  static const String getAbout = "/about_the_app";
 
   /// who_we_are
   static const String getWhoWeAre = "/who_we_are";
