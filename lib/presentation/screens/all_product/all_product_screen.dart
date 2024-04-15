@@ -235,72 +235,75 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                                 index],
                                                       ),
                                                       isAdd[index]!
-                                                          ? Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
-                                                                          8.0),
-                                                                  child: Container(
-                                                                      color: Colors
-                                                                          .green,
-                                                                      width: 20,
-                                                                      height:
-                                                                          20,
-                                                                      child: Center(
-                                                                          child:
-                                                                              Text("1",style: getBoldStyle(color: Colors.white),))),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: (){
-                                                                    if (context
-                                                                        .read<BasketBloc>()
-                                                                        .mutableProducts
-                                                                        .any((element) =>
-                                                                    element.id ==
-                                                                        state
-                                                                            .productsList[
-                                                                        index]
-                                                                            .id)) {
-                                                                      context
-                                                                          .read<BasketBloc>()
-                                                                          .add(DeleteProduct(
-                                                                          state
-                                                                              .productsList[
-                                                                          index]
-                                                                              .id));
-                                                                      setState(() {
-                                                                        isAdd[index] =
-                                                                        !isAdd[index]!;
-                                                                      });
-                                                                    }
-                                                                  },
-                                                                  child: Padding(
+                                                          ? Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Padding(
                                                                     padding:
                                                                         const EdgeInsets
                                                                             .all(
                                                                             8.0),
                                                                     child: Container(
-                                                                      color: Colors
-                                                                          .red,
-                                                                      width: 20,
-                                                                      height:
-                                                                      20,
-                                                                      child: const Icon(Icons
-                                                                          .remove,color: Colors.white
-                                                                      ,size: 20),
+                                                                        color: Colors
+                                                                            .green,
+                                                                        width: 20,
+                                                                        height:
+                                                                            20,
+                                                                        child: Center(
+                                                                            child:
+                                                                                Text("1",style: getBoldStyle(color: Colors.white),))),
+                                                                  ),
+                                                                  InkWell(
+                                                                    onTap: (){
+                                                                      if (context
+                                                                          .read<BasketBloc>()
+                                                                          .mutableProducts
+                                                                          .any((element) =>
+                                                                      element.id ==
+                                                                          state
+                                                                              .productsList[
+                                                                          index]
+                                                                              .id)) {
+                                                                        context
+                                                                            .read<BasketBloc>()
+                                                                            .add(DeleteProduct(
+                                                                            state
+                                                                                .productsList[
+                                                                            index]
+                                                                                .id));
+                                                                        setState(() {
+                                                                          isAdd[index] =
+                                                                          !isAdd[index]!;
+                                                                        });
+                                                                      }
+                                                                    },
+                                                                    child: Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .all(
+                                                                              8.0),
+                                                                      child: Container(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        width: 20,
+                                                                        height:
+                                                                        20,
+                                                                        child: const Icon(Icons
+                                                                            .remove,color: Colors.white
+                                                                        ,size: 20),
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            )
+                                                                ],
+                                                              ),
+                                                          )
                                                           : SizedBox()
                                                     ],
                                                   ),
@@ -315,7 +318,7 @@ class _AllLProductBodyState extends State<AllProductBody>
                                             child: InkWell(
                                               child: Container(
                                                 height: 40,
-                                                width: 200,
+                                                width: 1.sw-100,
                                                 decoration: BoxDecoration(
                                                   color: ColorManager.primaryGreen,
                                                   borderRadius: BorderRadius.circular(6)
@@ -330,7 +333,7 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                           .length
                                                           .toString(),style: getBoldStyle(color: Colors.white)),
                                                       const SizedBox(width: 10,),
-                                                      Text("عرض السلة",style: getBoldStyle(color: Colors.white)),
+                                                      Text(AppLocalizations.of(context)!.view_basket,style: getBoldStyle(color: Colors.white)),
                                                     ],
                                                   ),
                                                 ),
