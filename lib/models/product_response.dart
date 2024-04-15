@@ -89,16 +89,31 @@ class ProductResponse {
         ? []
         : basketList.map((value) => ProductResponse.toJsonCard(value)).toList();
   }
-
+  //
+  // static String getDiscountedPrice(String price, String discount) {
+  //   print("getDiscountedPrice");
+  //   print(price);
+  //   print(discount);
+  //   int originalPrice = int.parse(price);
+  //   int discountPrice = int.parse(discount);
+  //
+  //   int  percentage = ((originalPrice * 100) / discountPrice).round();
+  //
+  //   return  percentage.toString();
+  // }
   static String getDiscountedPrice(String price, String discount) {
-    int originalPrice = int.parse(price);
-    int discountPrice = int.parse(discount);
 
-    int  percentage = ((originalPrice * 100) / discountPrice).round();
+    int originalPrice = int.tryParse(price) ?? 0;
+    int discountPrice = int.tryParse(discount) ?? 0;
 
-    return  percentage.toString();
+    if (discountPrice <= 0) {
+      return "Invalid discount";
+    }
+
+    double percentage = ((originalPrice * 100) / discountPrice);
+
+    return percentage.toStringAsFixed(0);
   }
-
   static List<ProductResponse> listFromJson(List<dynamic>? json) {
     return json == null
         ? []

@@ -179,6 +179,24 @@ AppRouter.pop(context);
                                      },
                                    ),
                                  ),
+                                 isEdit?SizedBox(): const SizedBox(
+                                   width: 16,
+                                 ),
+                                 isEdit?SizedBox(): Expanded(
+                                   child: CustomButton(
+                                     label:"تنزيل  pdf ",
+                                     fillColor:
+                                    Colors.white,
+                                     isFilled: true,
+                                     borderColor:ColorManager.primaryGreen ,
+                                     labelColor: ColorManager.primaryGreen,
+                                     onTap: () {
+
+AppRouter.pop(context);
+                                            // SystemNavigator.pop();
+                                     },
+                                   ),
+                                 ),
                                ],
                              ),
                            ),

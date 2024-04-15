@@ -24,9 +24,16 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
     int totalProduct=0;
     for (int i = 0; i < productDetailsList.length; i++) {
       totalTax+=productDetailsList[i].product?.tax??0;
+      print("productDetailsList[i].product!.priceproductDetailsList[i].product!.price");
+      print(productDetailsList[i].product!.price);
+      print(productDetailsList[i].quantity!);
       totalProduct += (int.parse(productDetailsList[i].product!.price??"0") * productDetailsList[i].quantity!);
     }
+    print("======totalProduct========");
+    print(totalProduct);
+    print(totalTax);
     sum=totalProduct+totalTax;
+    print(sum);
     return sum;
   }
   DetailsOrderBloc() : super(DetailsOrderState()) {
