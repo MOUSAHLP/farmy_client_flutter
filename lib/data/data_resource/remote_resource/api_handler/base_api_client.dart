@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
@@ -22,8 +23,12 @@ class BaseApiClient {
   BaseApiClient() {
     client.interceptors.add(LogInterceptor());
     if (kDebugMode) {
-      // client.interceptors.add(PrettyDioLogger(
-      //     requestHeader: true, responseHeader: true, request: true));
+      client.interceptors.add(PrettyDioLogger(
+          error: true,
+          requestBody: true,
+          requestHeader: true,
+          // responseHeader: true,
+          request: true));
     }
     client.interceptors.add(ClientInterceptor());
     client.options.baseUrl = ApiConst.baseUrl;
