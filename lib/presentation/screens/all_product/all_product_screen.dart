@@ -6,16 +6,20 @@ import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/models/sub_category_response.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
 import 'package:pharma/presentation/widgets/custom_no_dataa.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/presentation/widgets/custom_product_shimmer.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../bloc/basket_bloc/basket_bloc.dart';
+import '../../../models/product_response.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_app_bar_screen.dart';
+import '../basket_screen/basket_screen.dart';
 
-class AllProductScreen extends StatelessWidget {
+class AllProductScreen extends StatefulWidget {
   final List<SubCategoryResponse>? subCategoryList;
   int index;
 
@@ -23,11 +27,18 @@ class AllProductScreen extends StatelessWidget {
       {super.key, required this.subCategoryList, required this.index});
 
   @override
+  State<AllProductScreen> createState() => _AllProductScreenState();
+}
+
+class _AllProductScreenState extends State<AllProductScreen> {
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<ProductsBloc>()
-        ..add(GetProductsBySubCategoryId(id: subCategoryList![index].id!)),
-      child: AllProductBody(subCategoryList: subCategoryList, index: index),
+        ..add(GetProductsBySubCategoryId(
+            id: widget.subCategoryList![widget.index].id!)),
+      child: AllProductBody(
+          subCategoryList: widget.subCategoryList, index: widget.index),
     );
   }
 }
@@ -46,13 +57,17 @@ class AllProductBody extends StatefulWidget {
 class _AllLProductBodyState extends State<AllProductBody>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  late Map<int, bool> isAdd;
 
   @override
   void initState() {
     _tabController =
         TabController(length: widget.subCategoryList!.length, vsync: this);
+    isAdd = {};
     super.initState();
   }
+
+  bool x = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +81,6 @@ class _AllLProductBodyState extends State<AllProductBody>
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // const CustomBackToPrevios(
-                  //   sectionName: "فليفلة",
-                  // ),
                   CustomAppBarScreen(
                       sectionName: widget
                           .subCategoryList![widget.index].subCategoryName!),
@@ -103,44 +115,231 @@ class _AllLProductBodyState extends State<AllProductBody>
                             ? const CustomProductShimmer()
                             : state.screenState == ScreenState.success
                                 ? state.productsList.isNotEmpty
-                                    ? GridView.builder(
-                                        padding:  EdgeInsets.symmetric(
-                                          vertical: 8.h,
-                                          horizontal: 5.w,
-                                        ),
-                                        itemCount: state.productsList.length,
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                          // childAspectRatio: 15 / 2,
-                                          crossAxisCount: 2,
-                                          mainAxisSpacing: 26,
-                                          mainAxisExtent: 232,
-                                        ),
-                                        itemBuilder: (context, index) {
-                                          return Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                AppRouter.push(
-                                                  context,
-                                                  ProductDetailsScreen(
-                                                    id: state
-                                                        .productsList[index].id,
-                                                  ),
-                                                );
-                                              },
-                                              child: CustomProductCard(
-                                                productInfo:
-                                                    state.productsList[index],
-                                                // isDisCount: (state
-                                                //             .productsList[
-                                                //                 index]
-                                                //             .discountStatus ==
-                                                //         "0")
-                                                //     ? false
-                                                //     : true
-                                              ),
+                                    ? Stack(
+                                        alignment: Alignment.bottomCenter,
+                                        children: [
+                                          GridView.builder(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 8.h,
+                                              horizontal: 5.w,
                                             ),
-                                          );
-                                        },
+                                            itemCount:
+                                                state.productsList.length,
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              // childAspectRatio: 15 / 2,
+                                              crossAxisCount: 2,
+                                              mainAxisSpacing: 26,
+                                              mainAxisExtent: 232,
+                                            ),
+                                            itemBuilder: (context, index) {
+                                              isAdd.putIfAbsent(
+                                                  index, () => context
+                                                  .read<BasketBloc>()
+                                                  .mutableProducts
+                                                  .any((element) =>
+                                              element.id ==
+                                                  state
+                                                      .productsList[
+                                                  index]
+                                                      .id));
+                                              return Center(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    if (context
+                                                            .read<BasketBloc>()
+                                                            .mutableProducts.isEmpty) {
+                                                      AppRouter.push(
+                                                        context,
+                                                        ProductDetailsScreen(
+                                                          id: state
+                                                              .productsList[
+                                                                  index]
+                                                              .id,
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      if (!context
+                                                          .read<BasketBloc>()
+                                                          .mutableProducts
+                                                          .any((element) =>
+                                                      element.id ==
+                                                          state
+                                                              .productsList[
+                                                          index]
+                                                              .id)) {
+                                                        context
+                                                            .read<BasketBloc>()
+                                                            .add(AddToBasket(
+                                                                product: [
+                                                                  ProductResponse(
+                                                                    quantity: state
+                                                                        .productsList[
+                                                                            index]
+                                                                        .quantity,
+                                                                    image: state
+                                                                        .productsList[
+                                                                            index]
+                                                                        .image,
+                                                                    id: state
+                                                                        .productsList[
+                                                                            index]
+                                                                        .id,
+                                                                    discountValue: state
+                                                                        .productsList[
+                                                                            index]
+                                                                        .discountValue,
+                                                                    discountStatus: state
+                                                                        .productsList[
+                                                                            index]
+                                                                        .discountStatus,
+                                                                    availabilityOfProduct: state
+                                                                        .productsList[
+                                                                            index]
+                                                                        .availabilityOfProduct,
+                                                                    nameOfProduct: state
+                                                                        .productsList[
+                                                                            index]
+                                                                        .nameOfProduct,
+                                                                    price: state
+                                                                        .productsList[
+                                                                            index]
+                                                                        .price,
+                                                                    sellerName: state
+                                                                        .productsList[
+                                                                            index]
+                                                                        .sellerName,
+                                                                  )
+                                                                ]));
+                                                        setState(() {
+                                                          isAdd[index] =
+                                                              !isAdd[index]!;
+                                                        });
+                                                      }
+                                                    }
+                                                  },
+                                                  onLongPress: (){
+                                                    AppRouter.push(
+                                                      context,
+                                                      ProductDetailsScreen(
+                                                        id: state
+                                                            .productsList[
+                                                        index]
+                                                            .id,
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Stack(
+                                                    alignment: Alignment.center,
+                                                    children: [
+                                                      CustomProductCard(
+                                                        productInfo:
+                                                            state.productsList[
+                                                                index],
+                                                      ),
+                                                      isAdd[index]!
+                                                          ? Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(
+                                                                          8.0),
+                                                                  child: Container(
+                                                                      color: Colors
+                                                                          .green,
+                                                                      width: 20,
+                                                                      height:
+                                                                          20,
+                                                                      child: Center(
+                                                                          child:
+                                                                              Text("1",style: getBoldStyle(color: Colors.white),))),
+                                                                ),
+                                                                InkWell(
+                                                                  onTap: (){
+                                                                    if (context
+                                                                        .read<BasketBloc>()
+                                                                        .mutableProducts
+                                                                        .any((element) =>
+                                                                    element.id ==
+                                                                        state
+                                                                            .productsList[
+                                                                        index]
+                                                                            .id)) {
+                                                                      context
+                                                                          .read<BasketBloc>()
+                                                                          .add(DeleteProduct(
+                                                                          state
+                                                                              .productsList[
+                                                                          index]
+                                                                              .id));
+                                                                      setState(() {
+                                                                        isAdd[index] =
+                                                                        !isAdd[index]!;
+                                                                      });
+                                                                    }
+                                                                  },
+                                                                  child: Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                    child: Container(
+                                                                      color: Colors
+                                                                          .red,
+                                                                      width: 20,
+                                                                      height:
+                                                                      20,
+                                                                      child: Icon(Icons
+                                                                          .remove,color: Colors.white
+                                                                      ,size: 20),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            )
+                                                          : SizedBox()
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: InkWell(
+                                              child: Container(
+                                                height: 40,
+                                                width: 200,
+                                                color: ColorManager.primaryGreen,
+
+                                                child: Center(
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Text(context
+                                                          .read<BasketBloc>()
+                                                          .mutableProducts
+                                                          .length
+                                                          .toString(),style: getBoldStyle(color: Colors.white)),
+                                                      const SizedBox(width: 10,),
+                                                      Text("عرض السلة",style: getBoldStyle(color: Colors.white)),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              onTap: (){
+                                                AppRouter.push(context, const BasketScreen());
+                                              },
+                                            ),
+                                          )
+                                        ],
                                       )
                                     : CustomNoData(
                                         noDataStatment:
