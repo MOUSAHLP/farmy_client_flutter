@@ -107,7 +107,7 @@ class ProductResponse {
     int discountPrice = int.tryParse(discount) ?? 0;
 
     if (discountPrice <= 0) {
-      return "Invalid discount";
+      return "";
     }
 
     double percentage = ((originalPrice * 100) / discountPrice);

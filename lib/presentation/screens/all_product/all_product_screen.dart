@@ -67,7 +67,7 @@ class _AllLProductBodyState extends State<AllProductBody>
     super.initState();
   }
 
-  bool x = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -173,10 +173,7 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                             .add(AddToBasket(
                                                                 product: [
                                                                   ProductResponse(
-                                                                    quantity: state
-                                                                        .productsList[
-                                                                            index]
-                                                                        .quantity,
+                                                                    quantity: 1,
                                                                     image: state
                                                                         .productsList[
                                                                             index]
@@ -296,7 +293,7 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                                       width: 20,
                                                                       height:
                                                                       20,
-                                                                      child: Icon(Icons
+                                                                      child: const Icon(Icons
                                                                           .remove,color: Colors.white
                                                                       ,size: 20),
                                                                     ),
@@ -311,14 +308,18 @@ class _AllLProductBodyState extends State<AllProductBody>
                                               );
                                             },
                                           ),
-                                          Padding(
+                                          context
+                                              .read<BasketBloc>()
+                                              .mutableProducts.isNotEmpty?  Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               child: Container(
                                                 height: 40,
                                                 width: 200,
-                                                color: ColorManager.primaryGreen,
-
+                                                decoration: BoxDecoration(
+                                                  color: ColorManager.primaryGreen,
+                                                  borderRadius: BorderRadius.circular(6)
+                                                ),
                                                 child: Center(
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -338,7 +339,7 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                 AppRouter.push(context, const BasketScreen());
                                               },
                                             ),
-                                          )
+                                          ):const SizedBox()
                                         ],
                                       )
                                     : CustomNoData(
