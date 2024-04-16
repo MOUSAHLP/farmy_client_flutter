@@ -1,5 +1,4 @@
 import '../../models/invoice_model.dart';
-import '../../models/notification_model.dart';
 abstract class InvoicesState {}
 
 class InvoicesLoading extends InvoicesState {}

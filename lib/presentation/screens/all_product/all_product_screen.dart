@@ -21,9 +21,9 @@ import '../basket_screen/basket_screen.dart';
 
 class AllProductScreen extends StatefulWidget {
   final List<SubCategoryResponse>? subCategoryList;
-  int index;
+ final int index;
 
-  AllProductScreen(
+ const AllProductScreen(
       {super.key, required this.subCategoryList, required this.index});
 
   @override
@@ -55,14 +55,14 @@ class AllProductBody extends StatefulWidget {
 }
 
 class _AllLProductBodyState extends State<AllProductBody>
-    with TickerProviderStateMixin {
-  late TabController _tabController;
+  {
+  // late TabController _tabController;
   late Map<int, bool> isAdd;
 
   @override
   void initState() {
-    _tabController =
-        TabController(length: widget.subCategoryList!.length, vsync: this);
+    // _tabController =
+    //     TabController(length: widget.subCategoryList!.length, vsync: this);
     isAdd = {};
     super.initState();
   }

@@ -303,7 +303,9 @@
   "pleas_selected_marker": "الرجاء تحديد موقع",
   "hi": "مرحباً",
   "favorite_address": "العناوين المفضّلة",
-  "view_basket": "عرض السلة"
+  "view_basket": "عرض السلة",
+  "download_pdf": "تنزيل  pdf",
+  "save_edits": "حفظ التعديلات"
 
 
 }

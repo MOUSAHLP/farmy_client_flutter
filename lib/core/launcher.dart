@@ -4,10 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-//launchUrl(
-// Uri.parse(vendor.companyProfile??''),
-// mode: LaunchMode.externalApplication
-// );
+
 
 Future<void> launchSocial(String url) async {
   try {

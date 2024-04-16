@@ -15,11 +15,11 @@ class MyOrderRepository {
       },
     );
   }
-  static Future<Either<String, List<OrderDetailsModel>>> getDetailsOrder(int id) {
-    return BaseApiClient.get<List<OrderDetailsModel>>(
+  static Future<Either<String, DetailsResponse>> getDetailsOrder(int id) {
+    return BaseApiClient.get<DetailsResponse>(
       url: ApiConst.getDetailsOrder(id),
       converter: (e) {
-        return OrderDetailsModel.listFromJson(e["data"]["order_details"]);
+        return DetailsResponse.fromJson(e["data"]);
       },
     );
   }

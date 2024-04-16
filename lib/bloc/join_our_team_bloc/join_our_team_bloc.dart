@@ -1,9 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:pharma/bloc/faq_bloc/faq_event.dart';
-import 'package:pharma/bloc/faq_bloc/faq_state.dart';
 import 'package:pharma/core/app_enum.dart';
-import 'package:pharma/data/repository/faq_repo.dart';
-import 'package:pharma/models/faq_model.dart';
 
 import '../../data/repository/join_our_team_repo.dart';
 import '../../models/join_team_jobs.dart';

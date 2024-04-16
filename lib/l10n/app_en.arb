@@ -297,7 +297,9 @@
   "hi": "Hi",
   "main_address": "Main Current Address",
   "favorite_address": "Favorite Address",
-  "view_basket": "View basket"
+  "view_basket": "View basket",
+  "download_pdf": "Download pdf",
+  "save_edits": "Save edits"
 
 
 

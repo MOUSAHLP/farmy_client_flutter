@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:pharma/bloc/my_rates/my_rates_event.dart';
 import 'package:pharma/models/get_user_rates_model.dart';
 
 class MyRatesState extends Equatable {

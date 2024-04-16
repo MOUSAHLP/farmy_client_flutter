@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_bloc.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/reward/reward_coupons_fixed_value.dart';
-import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
-import 'package:pharma/presentation/resources/font_app.dart';
-import 'package:pharma/presentation/resources/style_app.dart';
 
 class CustomDiscountCodeContainer extends StatelessWidget {
   final String subjectText;
