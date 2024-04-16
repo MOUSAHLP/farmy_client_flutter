@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 
 import '../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../bloc/basket_bloc/basket_bloc.dart';
 import '../../bloc/home_bloc/home_bloc.dart';
 import '../../core/services/services_locator.dart';
 import '../../translations.dart';
@@ -118,13 +119,33 @@ class _BottomBarState extends State<BottomBar> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  ImageManager.basketIcon,
-                  height: 25,
-                  width: 25,
-                  color: context.read<HomeBloc>().currentIndex == 2
-                      ? ColorManager.primaryGreen
-                      : ColorManager.greyForUnSelectedItem,
+                Stack(
+                  children: [
+                    SvgPicture.asset(
+                      ImageManager.basketIcon,
+                      height: 25,
+                      width: 25,
+                      color: context.read<HomeBloc>().currentIndex == 2
+                          ? ColorManager.primaryGreen
+                          : ColorManager.greyForUnSelectedItem,
+                    ),
+                    context
+                        .read<BasketBloc>()
+                        .mutableProducts
+                        .isNotEmpty? Container(
+                        decoration:  BoxDecoration(
+                          color:context.read<HomeBloc>().currentIndex == 2?Colors.white: ColorManager.primaryGreen,
+                          shape: BoxShape.circle
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(context
+                              .read<BasketBloc>()
+                              .mutableProducts
+                              .length
+                              .toString(),style: getBoldStyle(color:context.read<HomeBloc>().currentIndex == 2?ColorManager.primaryGreen:Colors.white),),
+                        )):SizedBox()
+                  ],
                 ),
                 Text(
                   AppLocalizations.of(context)!.basket,
