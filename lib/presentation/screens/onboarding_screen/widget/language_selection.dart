@@ -33,7 +33,7 @@ class LanguageSelection extends StatelessWidget {
                 children: [
                   const SizedBox(height: 50),
                   Image.asset(
-                    ImageManager.onBoarding1,
+                    ImageManager.onBoarding2,
                     fit: BoxFit.fill,
                     width: 1.sw,
                   ),
