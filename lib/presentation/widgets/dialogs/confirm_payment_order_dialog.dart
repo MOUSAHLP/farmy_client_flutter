@@ -17,9 +17,6 @@ import '../../../core/app_router/app_router.dart';
 class ConfirmPaymentOrderDialog {
   static void openDialog(BuildContext context, String? message,
       {required int orderId}) {
-    print("orderId orderId orderId orderId orderId orderId ");
-    print(orderId);
-    print("orderId orderId orderId orderId orderId orderId ");
     dialogTransitionBuilder(
         context,
         _ConfirmPaymentOrderDialogBody(

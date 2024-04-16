@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 
+import '../../../bloc/home_bloc/home_bloc.dart';
+import '../../../core/app_router/app_router.dart';
 import '../../widgets/bottom_bar.dart';
 import '../../widgets/custom_app_bar_screen.dart';
 import '../../widgets/custom_app_drawer.dart';
+import '../../widgets/dialogs/will_pop_scope_handler.dart';
 import '../home_screen/widgets/custom_app_bar.dart';
 
 class BaseScreenScaffold extends StatelessWidget {
@@ -37,8 +42,10 @@ class BaseScreenScaffold extends StatelessWidget {
       onWillPop: () async {
         if (scaffoldKey.currentState?.isDrawerOpen == true) {
         scaffoldKey.currentState?.closeDrawer();
-        } else {}
-        return true;
+        } else {
+            WillPopScopeHandler.handle(context);
+        }
+        return false;
       },
       child: Scaffold(
         key:scaffoldKey,
