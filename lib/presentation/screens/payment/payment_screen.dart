@@ -103,7 +103,7 @@ class PaymentBody extends StatelessWidget {
           }
           if (state.completePaymentStates == CompletePaymentStates.complete) {
             LoadingDialog().closeDialog(context);
-            ConfirmPaymentOrderDialog.openDialog(
+            ConfirmPaymentOrderDialog().openDialog(
               context,
               AppLocalizations.of(context)!.orderSuccesfulyComplete,
               orderId: state.orderId!,
