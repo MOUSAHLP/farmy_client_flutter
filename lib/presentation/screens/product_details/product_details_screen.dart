@@ -81,208 +81,98 @@ class ProductDetailsBody extends StatelessWidget {
                       ? const CustomLoading()
                       : state.screenState == ScreenState.success
                           ? Expanded(
-                              child: ListView(
+                              child: Stack(
+                                alignment: Alignment.bottomCenter,
                                 children: [
-                                  ProductImage(
-                                      productImage:
-                                          state.productDetailsResponse.image ??
-                                              ""),
-                                  AboutProductAndAmountSection(
-                                    productDetails:
-                                        state.productDetailsResponse,
-                                    quantity: quantity ?? 0,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  ListView(
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 45,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              AppLocalizations.of(context)!
-                                                  .price,
-                                              style: getBoldStyle(
-                                                color:
-                                                    ColorManager.primaryGreen,
-                                                fontSize: FontSizeApp.s15,
-                                              ),
+                                      ProductImage(
+                                          productImage:
+                                              state.productDetailsResponse.image ??
+                                                  ""),
+                                      AboutProductAndAmountSection(
+                                        productDetails:
+                                            state.productDetailsResponse,
+                                        quantity: quantity ?? 0,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 45,
                                             ),
-                                            state.productDetailsResponse
-                                                        .price !=
-                                                    null
-                                                ? Text(
-                                                    "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  AppLocalizations.of(context)!
+                                                      .price,
+                                                  style: getBoldStyle(
+                                                    color:
+                                                        ColorManager.primaryGreen,
+                                                    fontSize: FontSizeApp.s15,
+                                                  ),
+                                                ),
+                                                state.productDetailsResponse
+                                                            .price !=
+                                                        null
+                                                    ? Text(
+                                                        "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
+                                                        style: getBoldStyle(
+                                                          color: ColorManager
+                                                              .primaryGreen,
+                                                          fontSize: FontSizeApp.s15,
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
+                                              ],
+                                            ),
+                                          ),
+                                          state.productDetailsResponse
+                                                  .relatedProducts!.isNotEmpty
+                                              ? Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                    25.w,
+                                                    20.h,
+                                                    10.w,
+                                                    0,
+                                                  ),
+                                                  child: Text(
+                                                    AppLocalizations.of(context)!
+                                                        .related_products,
                                                     style: getBoldStyle(
-                                                      color: ColorManager
-                                                          .primaryGreen,
+                                                      color: ColorManager.black,
                                                       fontSize: FontSizeApp.s15,
                                                     ),
-                                                  )
-                                                : const SizedBox(),
-                                          ],
-                                        ),
-                                      ),
-                                      state.productDetailsResponse
-                                              .relatedProducts!.isNotEmpty
-                                          ? Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                25.w,
-                                                20.h,
-                                                10.w,
-                                                0,
-                                              ),
-                                              child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .related_products,
-                                                style: getBoldStyle(
-                                                  color: ColorManager.black,
-                                                  fontSize: FontSizeApp.s15,
-                                                ),
-                                              ),
-                                            )
-                                          : const SizedBox(),
-                                      state.productDetailsResponse
-                                              .relatedProducts!.isNotEmpty
-                                          ? SizedBox(
-                                              height: 260.h,
-                                              width: 1.sw,
-                                              child: ListView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                itemCount: state
-                                                    .productDetailsResponse
-                                                    .relatedProducts!
-                                                    .length,
-                                                itemBuilder: (context, index) {
-                                                  var targetId = state
-                                                      .productDetailsResponse
-                                                      .relatedProducts![index]
-                                                      .id;
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                      8.0,
-                                                    ),
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        AppRouter
-                                                            .pushReplacement(
-                                                          context,
-                                                          ProductDetailsScreen(
-                                                            quantity: state
-                                                                .productDetailsResponse
-                                                                .relatedProducts![
-                                                                    index]
-                                                                .quantity,
-                                                            id: state
-                                                                .productDetailsResponse
-                                                                .relatedProducts![
-                                                                    index]
-                                                                .id,
-                                                          ),
-                                                        );
-                                                      },
-                                                      child: Stack(
-                                                        children: [
-                                                          CustomProductCard(
-                                                            productInfo: state
-                                                                .productDetailsResponse
-                                                                .relatedProducts![index],
-                                                          ),
-                                                          CustomAmount(
-                                                            quantityString: state
-                                                                        .listRelatedProduct ==
-                                                                    null
-                                                                ? 0.toString()
-                                                                : state.listRelatedProduct!
-                                                                        .any(
-                                                                    (element) =>
-                                                                        element
-                                                                            .id ==
-                                                                        targetId,
-                                                                  )
-                                                                    ? state
-                                                                        .listRelatedProduct!
-                                                                        .firstWhere(
-                                                                          (element) =>
-                                                                              element.id ==
-                                                                              targetId,
-                                                                        )
-                                                                        .quantity
-                                                                        .toString()
-                                                                    : 0.toString(),
-                                                            addEvent:
-                                                                AddQuantityRelatedToOrder(
-                                                              state.productDetailsResponse
-                                                                      .relatedProducts![
-                                                                  index],
-                                                              index,
-                                                            ),
-                                                            removeEvent:
-                                                                RemoveQuantityRelatedToOrder(
-                                                              state.productDetailsResponse
-                                                                      .relatedProducts![
-                                                                  index],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            )
-                                          : const SizedBox(),
-                                      state.productDetailsResponse
-                                              .similarProducts!.isNotEmpty
-                                          ? Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                25.w,
-                                                20.h,
-                                                10.w,
-                                                0,
-                                              ),
-                                              child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .similar_products,
-                                                style: getBoldStyle(
-                                                  color: ColorManager.black,
-                                                  fontSize: FontSizeApp.s15,
-                                                ),
-                                              ),
-                                            )
-                                          : const SizedBox(),
-                                      state.productDetailsResponse
-                                              .similarProducts!.isNotEmpty
-                                          ? SizedBox(
-                                              height: 260.h,
-                                              width: 1.sw,
-                                              child: ListView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                itemCount: state
-                                                    .productDetailsResponse
-                                                    .similarProducts!
-                                                    .length,
-                                                itemBuilder: (context, index) {
-                                                  var targetId = state
-                                                      .productDetailsResponse
-                                                      .similarProducts![index]
-                                                      .id;
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                      8.0,
-                                                    ),
-                                                    child: Stack(
-                                                      children: [
-                                                        GestureDetector(
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                          state.productDetailsResponse
+                                                  .relatedProducts!.isNotEmpty
+                                              ? SizedBox(
+                                                  height: 260.h,
+                                                  width: 1.sw,
+                                                  child: ListView.builder(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: state
+                                                        .productDetailsResponse
+                                                        .relatedProducts!
+                                                        .length,
+                                                    itemBuilder: (context, index) {
+                                                      var targetId = state
+                                                          .productDetailsResponse
+                                                          .relatedProducts![index]
+                                                          .id;
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsets.all(
+                                                          8.0,
+                                                        ),
+                                                        child: GestureDetector(
                                                           onTap: () {
                                                             AppRouter
                                                                 .pushReplacement(
@@ -290,111 +180,230 @@ class ProductDetailsBody extends StatelessWidget {
                                                               ProductDetailsScreen(
                                                                 quantity: state
                                                                     .productDetailsResponse
-                                                                    .similarProducts![
+                                                                    .relatedProducts![
                                                                         index]
                                                                     .quantity,
                                                                 id: state
                                                                     .productDetailsResponse
-                                                                    .similarProducts![
+                                                                    .relatedProducts![
                                                                         index]
                                                                     .id,
                                                               ),
                                                             );
                                                           },
-                                                          child:
+                                                          child: Stack(
+                                                            children: [
                                                               CustomProductCard(
-                                                            productInfo: state
-                                                                .productDetailsResponse
-                                                                .similarProducts![index],
-                                                          ),
-                                                        ),
-                                                        CustomAmount(
-                                                          quantityString: state
-                                                                      .listSimilarProduct ==
-                                                                  null
-                                                              ? 0.toString()
-                                                              : state.listSimilarProduct!
-                                                                      .any(
-                                                                  (element) =>
-                                                                      element
-                                                                          .id ==
-                                                                      targetId,
-                                                                )
-                                                                  ? state
-                                                                      .listSimilarProduct!
-                                                                      .firstWhere(
+                                                                productInfo: state
+                                                                    .productDetailsResponse
+                                                                    .relatedProducts![index],
+                                                              ),
+                                                              CustomAmount(
+                                                                quantityString: state
+                                                                            .listRelatedProduct ==
+                                                                        null
+                                                                    ? 0.toString()
+                                                                    : state.listRelatedProduct!
+                                                                            .any(
                                                                         (element) =>
-                                                                            element.id ==
+                                                                            element
+                                                                                .id ==
                                                                             targetId,
                                                                       )
-                                                                      .quantity
-                                                                      .toString()
-                                                                  : 0.toString(),
-                                                          addEvent:
-                                                              AddQuantitySimilarToOrder(
-                                                            state.productDetailsResponse
-                                                                    .similarProducts![
-                                                                index],
-                                                            index,
-                                                          ),
-                                                          removeEvent:
-                                                              RemoveQuantitySimilarToOrder(
-                                                            state.productDetailsResponse
-                                                                    .similarProducts![
-                                                                index],
+                                                                        ? state
+                                                                            .listRelatedProduct!
+                                                                            .firstWhere(
+                                                                              (element) =>
+                                                                                  element.id ==
+                                                                                  targetId,
+                                                                            )
+                                                                            .quantity
+                                                                            .toString()
+                                                                        : 0.toString(),
+                                                                addEvent:
+                                                                    AddQuantityRelatedToOrder(
+                                                                  state.productDetailsResponse
+                                                                          .relatedProducts![
+                                                                      index],
+                                                                  index,
+                                                                ),
+                                                                removeEvent:
+                                                                    RemoveQuantityRelatedToOrder(
+                                                                  state.productDetailsResponse
+                                                                          .relatedProducts![
+                                                                      index],
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            )
-                                          : const SizedBox(),
-                                      CustomAppButton(
-                                        ontap: () {
-                                          if (sl<AuthenticationBloc>()
-                                              .loggedIn) {
-                                            context
-                                                .read<BasketBloc>()
-                                                .add(buildAddToBasket(state));
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                duration:
-                                                    const Duration(seconds: 1),
-                                                content: Container(
-                                                  alignment: Alignment.center,
+                                                      );
+                                                    },
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                          state.productDetailsResponse
+                                                  .similarProducts!.isNotEmpty
+                                              ? Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                    25.w,
+                                                    20.h,
+                                                    10.w,
+                                                    0,
+                                                  ),
                                                   child: Text(
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .added_to_basket,
-                                                    style: getRegularStyle(
-                                                      color: ColorManager.white,
-                                                      fontSize: FontSizeApp.s14,
+                                                    AppLocalizations.of(context)!
+                                                        .similar_products,
+                                                    style: getBoldStyle(
+                                                      color: ColorManager.black,
+                                                      fontSize: FontSizeApp.s15,
                                                     ),
                                                   ),
-                                                ),
-                                                backgroundColor:
-                                                    ColorManager.primaryGreen,
-                                              ),
-                                            );
-                                          } else {
-                                            ErrorDialog.openDialog(
-                                              context,
-                                              AppLocalizations.of(context)!
-                                                  .no_add_basket,
-                                            );
-                                          }
-                                        },
-                                        myText: AppLocalizations.of(context)!
-                                            .add_to_basket,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 74,
-                                          vertical: 10,
-                                        ),
-                                      ),
+                                                )
+                                              : const SizedBox(),
+                                          state.productDetailsResponse
+                                                  .similarProducts!.isNotEmpty
+                                              ? SizedBox(
+                                                  height: 260.h,
+                                                  width: 1.sw,
+                                                  child: ListView.builder(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: state
+                                                        .productDetailsResponse
+                                                        .similarProducts!
+                                                        .length,
+                                                    itemBuilder: (context, index) {
+                                                      var targetId = state
+                                                          .productDetailsResponse
+                                                          .similarProducts![index]
+                                                          .id;
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsets.all(
+                                                          8.0,
+                                                        ),
+                                                        child: Stack(
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                AppRouter
+                                                                    .pushReplacement(
+                                                                  context,
+                                                                  ProductDetailsScreen(
+                                                                    quantity: state
+                                                                        .productDetailsResponse
+                                                                        .similarProducts![
+                                                                            index]
+                                                                        .quantity,
+                                                                    id: state
+                                                                        .productDetailsResponse
+                                                                        .similarProducts![
+                                                                            index]
+                                                                        .id,
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child:
+                                                                  CustomProductCard(
+                                                                productInfo: state
+                                                                    .productDetailsResponse
+                                                                    .similarProducts![index],
+                                                              ),
+                                                            ),
+                                                            CustomAmount(
+                                                              quantityString: state
+                                                                          .listSimilarProduct ==
+                                                                      null
+                                                                  ? 0.toString()
+                                                                  : state.listSimilarProduct!
+                                                                          .any(
+                                                                      (element) =>
+                                                                          element
+                                                                              .id ==
+                                                                          targetId,
+                                                                    )
+                                                                      ? state
+                                                                          .listSimilarProduct!
+                                                                          .firstWhere(
+                                                                            (element) =>
+                                                                                element.id ==
+                                                                                targetId,
+                                                                          )
+                                                                          .quantity
+                                                                          .toString()
+                                                                      : 0.toString(),
+                                                              addEvent:
+                                                                  AddQuantitySimilarToOrder(
+                                                                state.productDetailsResponse
+                                                                        .similarProducts![
+                                                                    index],
+                                                                index,
+                                                              ),
+                                                              removeEvent:
+                                                                  RemoveQuantitySimilarToOrder(
+                                                                state.productDetailsResponse
+                                                                        .similarProducts![
+                                                                    index],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+
+                                        ],
+                                      )
+                                      ,SizedBox(
+                                        height: 25,
+                                      )
                                     ],
-                                  )
+                                  ),
+                                  CustomAppButton(
+                                    ontap: () {
+                                      if (sl<AuthenticationBloc>()
+                                          .loggedIn) {
+                                        context
+                                            .read<BasketBloc>()
+                                            .add(buildAddToBasket(state));
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            duration:
+                                            const Duration(seconds: 1),
+                                            content: Container(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                AppLocalizations.of(
+                                                    context)!
+                                                    .added_to_basket,
+                                                style: getRegularStyle(
+                                                  color: ColorManager.white,
+                                                  fontSize: FontSizeApp.s14,
+                                                ),
+                                              ),
+                                            ),
+                                            backgroundColor:
+                                            ColorManager.primaryGreen,
+                                          ),
+                                        );
+                                      } else {
+                                        ErrorDialog.openDialog(
+                                          context,
+                                          AppLocalizations.of(context)!
+                                              .no_add_basket,
+                                        );
+                                      }
+                                    },
+                                    myText: AppLocalizations.of(context)!
+                                        .add_to_basket,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 74,
+                                      vertical: 10,
+                                    ),
+                                  ),
                                 ],
                               ),
                             )
