@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharma/bloc/authentication_bloc/authentication_event.dart';
 import 'package:pharma/bloc/authentication_bloc/authentication_state.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';

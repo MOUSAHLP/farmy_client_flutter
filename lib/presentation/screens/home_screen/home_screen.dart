@@ -90,13 +90,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   .homePageDynamicModel!
                                   .length,
                               itemBuilder: (context, index) {
-                                return BlocBuilder<LanguageBloc, LanguageState>(
-                                    builder: (context, languageState) {
-                                  List<HomePageDynamicModel>
-                                      homePageDynamicModel = context
-                                          .read<HomeBloc>()
-                                          .homePageDynamicModel!;
-
+                                return BlocBuilder<LanguageBloc, LanguageState>(builder: (context, languageState) {List<HomePageDynamicModel>homePageDynamicModel = context.read<HomeBloc>().homePageDynamicModel!;
                                   return Column(
                                     children: [
                                       if (homePageDynamicModel[index].type ==

@@ -44,39 +44,43 @@ class ProductResponse {
         ? ProductResponse(
             id: json["id"],
             tax: json["tax"] != null ? int.parse(json["tax"]) : null,
-            quantity: json["quantity"] != null ? int.parse(json["quantity"]) : null,
+            quantity:
+                json["quantity"] != null ? int.parse(json["quantity"]) : null,
             description: json["description"],
             discountStatus: json["discount_status"],
-            discountValue:
-            json["discount_status"] != 0
-                ? getDiscountedPrice(json["price"].toString(), json["discount"].toString())
-                :
-            json["discount"],
+            discountValue: json["discount_status"] != 0
+                ? getDiscountedPrice(
+                    json["price"].toString(), json["discount"].toString())
+                : json["discount"],
             sellerName: json["seller"] == null ? null : json["seller"]["name"],
             nameOfProduct: json["name"],
             price: json["price"],
             discount:
-            // json["discount_status"] != 0
-            //     ? getDiscountedPrice(json["price"], json["discount"])
-            //     :
-            json["discount"],
+                // json["discount_status"] != 0
+                //     ? getDiscountedPrice(json["price"], json["discount"])
+                //     :
+                json["discount"],
             attributeList: json["attributes"] == null
                 ? []
-                : List<AttributeResponse>.from(json["attributes"].map((x) => AttributeResponse.fromJson(x))),
+                : List<AttributeResponse>.from(json["attributes"]
+                    .map((x) => AttributeResponse.fromJson(x))),
             image: json["image"],
             isFavorite: json["is_favorite"] ?? false,
             relatedProducts: json["related_products"] == null
                 ? []
-                : List<ProductResponse>.from(json["related_products"].map((x) => ProductResponse.fromJson(x))),
+                : List<ProductResponse>.from(json["related_products"]
+                    .map((x) => ProductResponse.fromJson(x))),
             similarProducts: json["similar_products"] == null
                 ? []
-                : List<ProductResponse>.from(json["similar_products"].map((x) => ProductResponse.fromJson(x))))
+                : List<ProductResponse>.from(json["similar_products"]
+                    .map((x) => ProductResponse.fromJson(x))))
         : ProductResponse(
             id: 0,
           );
   }
 
-  static Map<String, dynamic> toJsonCard(ProductResponse productDetailsResponse) {
+  static Map<String, dynamic> toJsonCard(
+      ProductResponse productDetailsResponse) {
     return {
       "product_id": productDetailsResponse.id,
       "quantity": productDetailsResponse.quantity
@@ -89,6 +93,7 @@ class ProductResponse {
         ? []
         : basketList.map((value) => ProductResponse.toJsonCard(value)).toList();
   }
+
   //
   // static String getDiscountedPrice(String price, String discount) {
   //   print("getDiscountedPrice");
@@ -102,18 +107,24 @@ class ProductResponse {
   //   return  percentage.toString();
   // }
   static String getDiscountedPrice(String price, String discount) {
-
     int originalPrice = int.tryParse(price) ?? 0;
     int discountPrice = int.tryParse(discount) ?? 0;
+
+    print('================================');
+    print(discountPrice / 100);
+    print(originalPrice);
+    print((((discountPrice / 100) * originalPrice) - originalPrice).abs());
+    print('================================');
 
     if (discountPrice <= 0) {
       return "Invalid discount";
     }
 
-    double percentage = ((originalPrice * 100) / discountPrice);
+    double percentage = (((discountPrice / 100) * originalPrice) - originalPrice).abs();
 
     return percentage.toStringAsFixed(0);
   }
+
   static List<ProductResponse> listFromJson(List<dynamic>? json) {
     return json == null
         ? []

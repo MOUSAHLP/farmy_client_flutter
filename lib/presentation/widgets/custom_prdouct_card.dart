@@ -141,7 +141,7 @@ class CustomProductCard extends StatelessWidget {
                             child: Row(
                               children: [
                                 Text(
-                                  productInfo.discountValue ?? "",
+                                  productInfo.price ?? "",
                                   style: getRegularStyle(
                                     color: ColorManager.grayForMessage,
                                     fontSize: FontSizeApp.s12,
@@ -176,7 +176,7 @@ class CustomProductCard extends StatelessWidget {
                                   Text(
                                     Formatter.formatPrice(
                                       int.tryParse(
-                                            productInfo.price ?? "0",
+                                            productInfo.discountValue ?? "0",
                                           ) ??
                                           0,
                                     ),

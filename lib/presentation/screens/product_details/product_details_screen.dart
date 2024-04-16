@@ -88,8 +88,7 @@ class ProductDetailsBody extends StatelessWidget {
                                           state.productDetailsResponse.image ??
                                               ""),
                                   AboutProductAndAmountSection(
-                                    productDetails:
-                                        state.productDetailsResponse,
+                                    productDetails: state.productDetailsResponse,
                                     quantity: quantity ?? 0,
                                   ),
                                   Column(
@@ -117,7 +116,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                         .price !=
                                                     null
                                                 ? Text(
-                                                    "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
+                                                    "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.discountValue!)!)} ${AppLocalizations.of(context)!.curruncy}",
                                                     style: getBoldStyle(
                                                       color: ColorManager
                                                           .primaryGreen,
