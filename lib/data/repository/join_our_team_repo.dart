@@ -1,11 +1,8 @@
 
 
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:pharma/core/utils/api_const.dart';
 import 'package:pharma/data/data_resource/remote_resource/api_handler/base_api_client.dart';
-import 'package:pharma/models/faq_model.dart';
 
 import '../../models/join_team_jobs.dart';
 import '../../models/params/join_team_params.dart';

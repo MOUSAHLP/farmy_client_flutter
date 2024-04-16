@@ -21,9 +21,9 @@ import '../basket_screen/basket_screen.dart';
 
 class AllProductScreen extends StatefulWidget {
   final List<SubCategoryResponse>? subCategoryList;
-  int index;
+ final int index;
 
-  AllProductScreen(
+ const AllProductScreen(
       {super.key, required this.subCategoryList, required this.index});
 
   @override
@@ -55,19 +55,19 @@ class AllProductBody extends StatefulWidget {
 }
 
 class _AllLProductBodyState extends State<AllProductBody>
-    with TickerProviderStateMixin {
-  late TabController _tabController;
+  {
+  // late TabController _tabController;
   late Map<int, bool> isAdd;
 
   @override
   void initState() {
-    _tabController =
-        TabController(length: widget.subCategoryList!.length, vsync: this);
+    // _tabController =
+    //     TabController(length: widget.subCategoryList!.length, vsync: this);
     isAdd = {};
     super.initState();
   }
 
-  bool x = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -173,10 +173,7 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                             .add(AddToBasket(
                                                                 product: [
                                                                   ProductResponse(
-                                                                    quantity: state
-                                                                        .productsList[
-                                                                            index]
-                                                                        .quantity,
+                                                                    quantity: 1,
                                                                     image: state
                                                                         .productsList[
                                                                             index]
@@ -238,72 +235,75 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                                 index],
                                                       ),
                                                       isAdd[index]!
-                                                          ? Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
-                                                                          8.0),
-                                                                  child: Container(
-                                                                      color: Colors
-                                                                          .green,
-                                                                      width: 20,
-                                                                      height:
-                                                                          20,
-                                                                      child: Center(
-                                                                          child:
-                                                                              Text("1",style: getBoldStyle(color: Colors.white),))),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: (){
-                                                                    if (context
-                                                                        .read<BasketBloc>()
-                                                                        .mutableProducts
-                                                                        .any((element) =>
-                                                                    element.id ==
-                                                                        state
-                                                                            .productsList[
-                                                                        index]
-                                                                            .id)) {
-                                                                      context
-                                                                          .read<BasketBloc>()
-                                                                          .add(DeleteProduct(
-                                                                          state
-                                                                              .productsList[
-                                                                          index]
-                                                                              .id));
-                                                                      setState(() {
-                                                                        isAdd[index] =
-                                                                        !isAdd[index]!;
-                                                                      });
-                                                                    }
-                                                                  },
-                                                                  child: Padding(
+                                                          ? Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Padding(
                                                                     padding:
                                                                         const EdgeInsets
                                                                             .all(
                                                                             8.0),
                                                                     child: Container(
-                                                                      color: Colors
-                                                                          .red,
-                                                                      width: 20,
-                                                                      height:
-                                                                      20,
-                                                                      child: Icon(Icons
-                                                                          .remove,color: Colors.white
-                                                                      ,size: 20),
+                                                                        color: Colors
+                                                                            .green,
+                                                                        width: 20,
+                                                                        height:
+                                                                            20,
+                                                                        child: Center(
+                                                                            child:
+                                                                                Text("1",style: getBoldStyle(color: Colors.white),))),
+                                                                  ),
+                                                                  InkWell(
+                                                                    onTap: (){
+                                                                      if (context
+                                                                          .read<BasketBloc>()
+                                                                          .mutableProducts
+                                                                          .any((element) =>
+                                                                      element.id ==
+                                                                          state
+                                                                              .productsList[
+                                                                          index]
+                                                                              .id)) {
+                                                                        context
+                                                                            .read<BasketBloc>()
+                                                                            .add(DeleteProduct(
+                                                                            state
+                                                                                .productsList[
+                                                                            index]
+                                                                                .id));
+                                                                        setState(() {
+                                                                          isAdd[index] =
+                                                                          !isAdd[index]!;
+                                                                        });
+                                                                      }
+                                                                    },
+                                                                    child: Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .all(
+                                                                              8.0),
+                                                                      child: Container(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        width: 20,
+                                                                        height:
+                                                                        20,
+                                                                        child: const Icon(Icons
+                                                                            .remove,color: Colors.white
+                                                                        ,size: 20),
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            )
+                                                                ],
+                                                              ),
+                                                          )
                                                           : SizedBox()
                                                     ],
                                                   ),
@@ -311,14 +311,18 @@ class _AllLProductBodyState extends State<AllProductBody>
                                               );
                                             },
                                           ),
-                                          Padding(
+                                          context
+                                              .read<BasketBloc>()
+                                              .mutableProducts.isNotEmpty?  Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               child: Container(
                                                 height: 40,
-                                                width: 200,
-                                                color: ColorManager.primaryGreen,
-
+                                                width: 1.sw-100,
+                                                decoration: BoxDecoration(
+                                                  color: ColorManager.primaryGreen,
+                                                  borderRadius: BorderRadius.circular(6)
+                                                ),
                                                 child: Center(
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -329,7 +333,7 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                           .length
                                                           .toString(),style: getBoldStyle(color: Colors.white)),
                                                       const SizedBox(width: 10,),
-                                                      Text("عرض السلة",style: getBoldStyle(color: Colors.white)),
+                                                      Text(AppLocalizations.of(context)!.view_basket,style: getBoldStyle(color: Colors.white)),
                                                     ],
                                                   ),
                                                 ),
@@ -338,7 +342,7 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                 AppRouter.push(context, const BasketScreen());
                                               },
                                             ),
-                                          )
+                                          ):const SizedBox()
                                         ],
                                       )
                                     : CustomNoData(

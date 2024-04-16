@@ -15,17 +15,30 @@ import 'package:pharma/translations.dart';
 import '../../../core/app_router/app_router.dart';
 
 class ConfirmPaymentOrderDialog {
-  static void openDialog(BuildContext context, String? message,
+
+  static final ConfirmPaymentOrderDialog _loadingDialog = ConfirmPaymentOrderDialog._internal();
+
+  factory ConfirmPaymentOrderDialog() {
+    return _loadingDialog;
+  }
+
+  ConfirmPaymentOrderDialog._internal();
+  bool _isShown = false;
+  void closeDialog(BuildContext context) {
+    if (_isShown) {
+      AppRouter.pop(context);
+      _isShown = false;
+    }
+  }
+   void openDialog(BuildContext context, String? message,
       {required int orderId}) {
-    print("orderId orderId orderId orderId orderId orderId ");
-    print(orderId);
-    print("orderId orderId orderId orderId orderId orderId ");
+    _isShown = true;
     dialogTransitionBuilder(
         context,
         _ConfirmPaymentOrderDialogBody(
           message: message!,
           orderId: orderId,
-        ));
+        )).whenComplete(() => _isShown = false);
   }
 }
 
@@ -97,6 +110,7 @@ class _ConfirmPaymentOrderDialogBodyState
                     label: AppLocalizations.of(context)!.order_Tracking,
                     fillColor: ColorManager.lightGreen,
                     onTap: () {
+                      ConfirmPaymentOrderDialog().closeDialog(context);
                       AppRouter.pushReplacement(context,
                           OrderTrackingScreen(orderId: widget.orderId));
                     },

@@ -16,14 +16,14 @@ class SlideItem extends StatelessWidget {
         return const LanguageSelection();
       case 1:
         return OnBoardingBody(
-          image: ImageManager.onBoarding1,
+          image: ImageManager.onBoarding3,
           imageSlide: ImageManager.slide1,
           text: AppLocalizations.of(context)!.onBoarding1,
           index: index,
         );
       case 2:
         return OnBoardingBody(
-          image: ImageManager.onBoarding2,
+          image: ImageManager.onBoarding3,
           imageSlide: ImageManager.slide2,
           text: AppLocalizations.of(context)!.onBoarding2,
           index: index,

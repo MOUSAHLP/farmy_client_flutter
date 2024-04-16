@@ -135,7 +135,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
               Product(productId: element.id, quantity: element.quantity ?? 0));
         });
         int idBasket = basketModelStore.basketList.isNotEmpty
-            ? basketModelStore.basketList.last.id!
+            ? basketModelStore.basketList.last.id
             : 0;
 
         int idBasket1 = idBasket + 1;

@@ -22,11 +22,11 @@ class OnBoardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<BoardingBody> boardBody = [
       BoardingBody(
-          image: ImageManager.onBoarding1,
+          image: ImageManager.onBoarding3,
           imageSlide: ImageManager.slide1,
           text: ""),
       BoardingBody(
-        image: ImageManager.onBoarding1,
+        image: ImageManager.onBoarding3,
         imageSlide: ImageManager.slide1,
         text: AppLocalizations.of(context)!.onBoarding1,
       ),
@@ -36,7 +36,7 @@ class OnBoardingView extends StatelessWidget {
         text: AppLocalizations.of(context)!.onBoarding2,
       ),
       BoardingBody(
-        image: ImageManager.onBoarding3,
+        image: ImageManager.onBoarding1,
         imageSlide: ImageManager.slide3,
         text: AppLocalizations.of(context)!.onBoarding3,
       ),

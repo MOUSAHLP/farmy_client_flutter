@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 part of 'basket_bloc.dart';
 
 class BasketEvent extends Equatable {
@@ -19,21 +19,21 @@ class AddToBasket extends BasketEvent {
 class PaymentProcess extends BasketEvent {}
 
 class AddCount extends BasketEvent {
-  int id;
+ final int id;
 
-  AddCount(this.id);
+ const AddCount(this.id);
 }
 
 class MinusCount extends BasketEvent {
-  int id;
+ final int id;
 
-  MinusCount(this.id);
+ const MinusCount(this.id);
 }
 
 class DeleteProduct extends BasketEvent {
-  int id;
+ final int id;
 
-  DeleteProduct(this.id);
+const  DeleteProduct(this.id);
 }
 
 class ClearBasket extends BasketEvent{}

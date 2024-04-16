@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:pharma/core/utils/firebase_notifications_handler.dart';
 import 'package:pharma/models/profile_model.dart';
 import '../../core/utils/api_const.dart';
 import '../../models/login_response.dart';

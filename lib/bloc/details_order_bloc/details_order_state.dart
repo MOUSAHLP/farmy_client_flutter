@@ -5,11 +5,11 @@ import '../../models/order_details_model.dart';
 
 class DetailsOrderState extends Equatable {
   ScreenStates screenStates;
-
   bool isLoading;
   bool isLoadingEdite;
   int totalPrice;
   String error;
+  String urlPdf;
   String errorEdit;
   final bool success;
   final bool successEdit;
@@ -23,6 +23,7 @@ class DetailsOrderState extends Equatable {
     this.successEdit = false,
     this.totalPrice = 0,
     this.error = '',
+    this.urlPdf = '',
     this.errorEdit = '',
     this.productList = const [],
   });
@@ -35,6 +36,7 @@ class DetailsOrderState extends Equatable {
     bool? successEdit,
     int? totalPrice,
     String? error,
+    String? urlPdf,
     String? errorEdit,
     List<OrderDetailsModel>? productList,
   }) {
@@ -45,6 +47,7 @@ class DetailsOrderState extends Equatable {
       success: success ?? false,
       successEdit: successEdit ?? false,
       error: error ?? '',
+      urlPdf: urlPdf ?? this.urlPdf,
       errorEdit: errorEdit ?? '',
       productList: productList ?? this.productList,
       totalPrice: totalPrice ?? this.totalPrice,
@@ -62,6 +65,7 @@ class DetailsOrderState extends Equatable {
         error,
         errorEdit,
         productList,
-        totalPrice
+        totalPrice,
+    urlPdf
       ];
 }

@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,7 +103,7 @@ class PaymentBody extends StatelessWidget {
           }
           if (state.completePaymentStates == CompletePaymentStates.complete) {
             LoadingDialog().closeDialog(context);
-            ConfirmPaymentOrderDialog.openDialog(
+            ConfirmPaymentOrderDialog().openDialog(
               context,
               AppLocalizations.of(context)!.orderSuccesfulyComplete,
               orderId: state.orderId!,

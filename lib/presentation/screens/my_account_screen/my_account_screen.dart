@@ -12,7 +12,6 @@ import 'package:pharma/presentation/screens/delete_account/delete_account_screen
 import 'package:pharma/presentation/screens/delivery_addresses/delivery_addresses.dart';
 import 'package:pharma/presentation/screens/electronic_payment_screen/electronic_payment_screen.dart';
 import 'package:pharma/presentation/screens/guest_screen/guest_screen.dart';
-import 'package:pharma/presentation/screens/location_screen/location_screen.dart';
 import 'package:pharma/presentation/screens/my_account_screen/widgets/card_my_account.dart';
 import 'package:pharma/presentation/screens/my_evaluation/my_evaluation_screen.dart';
 import 'package:pharma/presentation/screens/personal_details_screen/personal_details_screen.dart';

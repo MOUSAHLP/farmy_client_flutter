@@ -6,7 +6,6 @@ import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
-import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
 import 'package:pharma/presentation/screens/location_screen/add_location_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/widegts/card_location.dart';
 import 'package:pharma/presentation/screens/location_screen/widegts/search_address.dart';

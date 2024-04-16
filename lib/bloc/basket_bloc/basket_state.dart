@@ -8,7 +8,7 @@ class BasketState extends Equatable {
   final String? errorMessage;
   final bool isClear;
   final RewardCouponsFixedValueModel? rewardCouponsFixedValueModel;
-
+  final Map<int, bool>? isAdd;
   const BasketState({
     this.productList = const [],
     this.addToBasketState,
@@ -17,6 +17,7 @@ class BasketState extends Equatable {
     this.paymentProcessResponse,
     this.isClear = false,
     this.rewardCouponsFixedValueModel,
+    this.isAdd=const{}
   });
 
   BasketState copyWith({
@@ -27,6 +28,7 @@ class BasketState extends Equatable {
     PaymentProcessResponse? paymentProcessResponse,
     bool? isClear,
     RewardCouponsFixedValueModel? rewardCouponsFixedValueModel,
+    Map<int, bool>? isAdd
   }) {
     return BasketState(
       errorMessage: errorMessage ?? "",
@@ -38,6 +40,7 @@ class BasketState extends Equatable {
       isClear: isClear ?? false,
       rewardCouponsFixedValueModel:
           rewardCouponsFixedValueModel ?? this.rewardCouponsFixedValueModel,
+      isAdd: isAdd??this.isAdd
     );
   }
 
@@ -51,6 +54,7 @@ class BasketState extends Equatable {
         errorMessage,
         isClear,
     rewardCouponsFixedValueModel,
+    isAdd
 
   ];
 }

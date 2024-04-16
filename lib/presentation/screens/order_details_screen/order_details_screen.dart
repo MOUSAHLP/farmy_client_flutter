@@ -7,6 +7,7 @@ import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/screens/order_details_screen/widgets/card_details_order.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../bloc/details_order_bloc/details_order_bloc.dart';
 import '../../../bloc/details_order_bloc/details_order_state.dart';
 import '../../../core/services/services_locator.dart';
@@ -20,26 +21,29 @@ import '../../widgets/dialogs/loading_dialog.dart';
 import '../base_screen/base_screen.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
- final int id;
- final bool isEdit;
-  const OrderDetailsScreen({super.key,required this.id,this.isEdit=false});
+  final int id;
+  final bool isEdit;
+  final bool isDelivery;
+
+  const OrderDetailsScreen({super.key, required this.id, this.isEdit = false,this.isDelivery=false});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return sl<DetailsOrderBloc>()
-          ..add(ShowDetailsOrder(id:id));
+        return sl<DetailsOrderBloc>()..add(ShowDetailsOrder(id: id));
       },
-      child:  OrderDetailsBody(id: id,isEdit: isEdit),
+      child: OrderDetailsBody(id: id, isEdit: isEdit,isDelivery: isDelivery),
     );
   }
 }
 
 class OrderDetailsBody extends StatelessWidget {
-final int id;
-final bool isEdit;
-   OrderDetailsBody({super.key,required this.id,this.isEdit=false});
+  final int id;
+  final bool isEdit;
+  final bool isDelivery;
+
+ const OrderDetailsBody({super.key, required this.id, this.isEdit = false,this.isDelivery=false});
 
   @override
   Widget build(BuildContext context) {
@@ -49,15 +53,10 @@ final bool isEdit;
       body: SafeArea(
         child: Column(
           children: [
-            // CustomAppBar( ),
-            // CustomAppBarScreen(
-            //     sectionName: AppLocalizations.of(context)!.order_details),
             Padding(
-              padding:
-              const EdgeInsets.symmetric(horizontal: 21),
+              padding: const EdgeInsets.symmetric(horizontal: 21),
               child: Text(
-                AppLocalizations.of(context)!
-                    .payment_statment,
+                AppLocalizations.of(context)!.payment_statment,
                 style: getRegularStyle(
                   color: ColorManager.grayForMessage,
                   fontSize: FontSizeApp.s16,
@@ -71,150 +70,163 @@ final bool isEdit;
                 } else {
                   LoadingDialog().closeDialog(context);
                 }
-                if (state.errorEdit!="") {
+                if (state.errorEdit != "") {
                   ErrorDialog.openDialog(context, state.errorEdit);
                 }
-                if (state.successEdit) {
-                }
+                if (state.successEdit) {}
               },
-              builder:(context, state)
-              {
-                if(state.screenStates==ScreenStates.loading) {
-                  return const Expanded(child: Center(child: CircularProgressIndicator(color: ColorManager.primaryGreen,)));
-                } else if(state.screenStates==ScreenStates.error) {
+              builder: (context, state) {
+                if (state.screenStates == ScreenStates.loading) {
+                  return const Expanded(
+                      child: Center(
+                          child: CircularProgressIndicator(
+                    color: ColorManager.primaryGreen,
+                  )));
+                } else if (state.screenStates == ScreenStates.error) {
                   return Expanded(
-                    child: CustomErrorScreen(onTap: () {
-                      context.read<DetailsOrderBloc>().add(ShowDetailsOrder(id:id));
-                    },
-                      titleError: state.error,),
+                    child: CustomErrorScreen(
+                      onTap: () {
+                        context
+                            .read<DetailsOrderBloc>()
+                            .add(ShowDetailsOrder(id: id));
+                      },
+                      titleError: state.error,
+                    ),
                   );
                 }
-               return Expanded(
-                 child: Column(
-                   children: [
-                     Expanded(
+                return Expanded(
+                  child: Column(
+                    children: [
+                      Expanded(
                         child: CustomOverscrollIndicator(
                           child: ListView.builder(
                             itemBuilder: (context, index) => CardDetailsOrder(
-                                product: state.productList[index],isEdit: isEdit),
-                            itemCount:  state.productList.length,
+                                product: state.productList[index],
+                                isEdit: isEdit),
+                            itemCount: state.productList.length,
                           ),
                         ),
                       ),
-                     state.productList.isEmpty
-                         ? const SizedBox()
-                         : Container(
-                       width: 1.sw,
-                       decoration: BoxDecoration(
-                           color: Colors.white,
-                           borderRadius: const BorderRadius.only(
-                               topLeft: Radius.circular(22),
-                               topRight: Radius.circular(22)),
-                           boxShadow: [ColorManager.shadowGaryUp]),
-                       child: Column(
-                         mainAxisSize: MainAxisSize.min,
-                         children: [
-                           const SizedBox(
-                             height: 9,
-                           ),
-                           Text(
-                               AppLocalizations.of(context)!
-                                   .totalPrice,
-                               style: getBoldStyle(
-                                   color:
-                                   ColorManager.grayForMessage,
-                                   fontSize: 14)),
-                           Row(
-                             mainAxisAlignment:
-                             MainAxisAlignment.center,
-                             children: [
-                               Text(
-                             state.totalPrice.toString(),
-                                   style: getBoldStyle(
-                                       color:
-                                       ColorManager.primaryGreen,
-                                       fontSize: 24)),
-                               const SizedBox(
-                                 width: 2,
-                               ),
-                               Text(
-                                   AppLocalizations.of(context)!
-                                       .curruncy,
-                                   style: getBoldStyle(
-                                       color: ColorManager
-                                           .primaryGreen,
-                                       fontSize: 15)!
-                                       .copyWith(height: 1))
-                             ],
-                           ),
-                           Padding(
-                             padding: const EdgeInsets.symmetric(
-                                 horizontal: 27, vertical: 9),
-                             child: Row(
-                               children: [
-                                isEdit? Expanded(
-                                   child: CustomButton(
-                                     label: "حفظ التعديلات",
-                                     fillColor:
-                                     ColorManager.primaryGreen,
-                                     onTap: () {
-                                       context.read<DetailsOrderBloc>().add(EditDetailsOrder(id:id));
+                      state.productList.isEmpty
+                          ? const SizedBox()
+                          : Container(
+                              width: 1.sw,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(22),
+                                      topRight: Radius.circular(22)),
+                                  boxShadow: [ColorManager.shadowGaryUp]),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const SizedBox(
+                                    height: 9,
+                                  ),
+                                  Text(AppLocalizations.of(context)!.totalPrice,
+                                      style: getBoldStyle(
+                                          color: ColorManager.grayForMessage,
+                                          fontSize: 14)),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(state.totalPrice.toString(),
+                                          style: getBoldStyle(
+                                              color: ColorManager.primaryGreen,
+                                              fontSize: 24)),
+                                      const SizedBox(
+                                        width: 2,
+                                      ),
+                                      Text(
+                                          AppLocalizations.of(context)!
+                                              .curruncy,
+                                          style: getBoldStyle(
+                                                  color:
+                                                      ColorManager.primaryGreen,
+                                                  fontSize: 15)!
+                                              .copyWith(height: 1))
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 27, vertical: 9),
+                                    child: Row(
+                                      children: [
+                                        isEdit
+                                            ? Expanded(
+                                                child: CustomButton(
+                                                  label: AppLocalizations.of(context)!.save_edits,
+                                                  fillColor:
+                                                      ColorManager.primaryGreen,
+                                                  onTap: () {
+                                                    context
+                                                        .read<
+                                                            DetailsOrderBloc>()
+                                                        .add(EditDetailsOrder(
+                                                            id: id));
+                                                  },
+                                                ),
+                                              )
+                                            : const SizedBox(),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        Expanded(
+                                          child: CustomButton(
+                                            label:AppLocalizations.of(context)!.back,
+                                            fillColor:
+                                                ColorManager.primaryGreen,
+                                            labelColor: Colors.white,
+                                            onTap: () {
+                                              AppRouter.pop(context);
 
-                                     },
-                                   ),
-                                 ):const SizedBox(),
-                                 const SizedBox(
-                                   width: 16,
-                                 ),
-                                 Expanded(
-                                   child: CustomButton(
-                                     label:"رجوع",
-                                     fillColor:
-                                     ColorManager.primaryGreen,
-                                     labelColor: Colors.white,
-                                     onTap: () {
+                                            },
+                                          ),
+                                        ),
+                                        isEdit
+                                            ? const SizedBox()
+                                            : const SizedBox(
+                                                width: 16,
+                                              ),
 
-AppRouter.pop(context);
-                                            // SystemNavigator.pop();
-                                     },
-                                   ),
-                                 ),
-                                 isEdit?SizedBox(): const SizedBox(
-                                   width: 16,
-                                 ),
-                                 isEdit?SizedBox(): Expanded(
-                                   child: CustomButton(
-                                     label:"تنزيل  pdf ",
-                                     fillColor:
-                                    Colors.white,
-                                     isFilled: true,
-                                     borderColor:ColorManager.primaryGreen ,
-                                     labelColor: ColorManager.primaryGreen,
-                                     onTap: () {
+                                        !isDelivery? const SizedBox()
+                                            : Expanded(
+                                                child: CustomButton(
+                                                  label: AppLocalizations.of(context)!.download_pdf,
+                                                  fillColor: Colors.white,
+                                                  isFilled: true,
+                                                  borderColor:
+                                                      ColorManager.primaryGreen,
+                                                  labelColor:
+                                                      ColorManager.primaryGreen,
+                                                  onTap: () {
+                                                    launchUrl(
+                                                        Uri.parse(
+                                                            state.urlPdf ),
+                                                        mode: LaunchMode
+                                                            .externalApplication);
 
-AppRouter.pop(context);
-                                            // SystemNavigator.pop();
-                                     },
-                                   ),
-                                 ),
-                               ],
-                             ),
-                           ),
-                           const SizedBox(
-                             height: 9,
-                           ),
-                         ],
-                       ),
-                     )
-                   ],
-                 ),
-               );
+                                                  },
+                                                ),
+                                              ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 9,
+                                  ),
+                                ],
+                              ),
+                            )
+                    ],
+                  ),
+                );
               },
             )
           ],
         ),
       ),
-    //  drawer: const CustomAppDrawer(),
+      //  drawer: const CustomAppDrawer(),
     );
   }
 }

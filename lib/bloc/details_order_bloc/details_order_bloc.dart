@@ -39,17 +39,15 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
         response.fold((l) {
           emit(state.copyWith(screenStates: ScreenStates.error));
         }, (r) {
-          productDetailsList=r;
-          emit(state.copyWith(screenStates: ScreenStates.success,productList:r,totalPrice: finalPrice() ));
+          productDetailsList=r.homeCategoriesList??[];
+          emit(state.copyWith(screenStates: ScreenStates.success,productList:productDetailsList,
+              totalPrice: finalPrice(),urlPdf: r.pdfUrl ),
+          );
         });
       }
       if (event is AddCount) {
         int index1 =
         productDetailsList.indexWhere((element) => element.id == event.id);
-        print("roductDetailsList[index1].quantity!");
-        print(productDetailsList[index1].quantity!);
-        print("productDetailsList[index1].product!.quantity!");
-        print(productDetailsList[index1].product!.quantity!);
         if(productDetailsList[index1].quantity! < productDetailsList[index1].product!.quantity!) {
           productDetailsList[index1].quantity =
               productDetailsList[index1].quantity! + 1;

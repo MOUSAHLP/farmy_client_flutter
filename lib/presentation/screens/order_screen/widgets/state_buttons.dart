@@ -155,6 +155,7 @@ class StateButtons extends StatelessWidget {
                       context,
                       OrderDetailsScreen(
                         id: id,
+                        isDelivery: true,
                       ));
                 },
               ),

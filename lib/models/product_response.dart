@@ -117,7 +117,7 @@ class ProductResponse {
     print('================================');
 
     if (discountPrice <= 0) {
-      return "Invalid discount";
+      return "";
     }
 
     double percentage = (((discountPrice / 100) * originalPrice) - originalPrice).abs();
