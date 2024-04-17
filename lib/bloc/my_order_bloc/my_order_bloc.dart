@@ -20,7 +20,9 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
   List<ProductResponse> productDetailsListFinal = [];
   int sum = 0;
   late TabController tabController;
-  BasketModel basketModelStore = DataStore.instance.dynamicData<BasketModel>(DataStoreKeys.basket) ?? BasketModel(basketList: []);
+  BasketModel basketModelStore =
+      DataStore.instance.dynamicData<BasketModel>(DataStoreKeys.basket) ??
+          BasketModel(basketList: []);
 
   int finalPrice() {
     int totalTax = 0;
@@ -31,9 +33,9 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
       totalProduct += (int.parse(productDetailsList[i].price ?? "0") *
           productInBasketList[reversedIndex].quantity);
     }
-    print("====================total");
-    print(totalTax);
-    print(totalProduct);
+    // print("====================total");
+    // print(totalTax);
+    // print(totalProduct);
     sum = totalProduct + totalTax;
     return sum;
   }
@@ -79,7 +81,6 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
             emit(
                 state.copyWith(indexTap: index, basketModel: basketModelStore));
             break;
-
           default:
             break;
         }
@@ -187,14 +188,15 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
         }
         var res = await PaymentRepo.getRewardCouponFixedValue();
         res.fold(
-              (l) => null,
-              (r) => emit(
+          (l) => null,
+          (r) => emit(
             state.copyWith(
               rewardCouponsFixedValueModel: r,
             ),
           ),
         );
-        var response = await BasketRepo.getPaymentDetailBasket(productDetailsList);
+        var response =
+            await BasketRepo.getPaymentDetailBasket(productDetailsList);
         response.fold(
           (l) => emit(
             state.copyWith(error: l),

@@ -37,7 +37,8 @@ class CardBasket extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 5),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.h, vertical: 5),
                     child: buildCounterWidget(context),
                   ),
                   // const Spacer(),
@@ -75,40 +76,45 @@ class CardBasket extends StatelessWidget {
                             : const SizedBox(),
                         SizedBox(
                           height: 25,
-
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            itemCount:  productAddedToBasketDetails.attributeList.length,
+                            itemCount: productAddedToBasketDetails
+                                .attributeList.length,
                             physics: const NeverScrollableScrollPhysics(),
-
-                            itemBuilder: (context, index) =>Padding(
-                              padding: const EdgeInsets.symmetric(vertical:2),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                Text(
+                            itemBuilder: (context, index) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      productAddedToBasketDetails
+                                          .attributeList[index].value,
+                                      style: getRegularStyle(
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s15,
+                                      )!
+                                          .copyWith(height: 1),
+                                    ),
                                     productAddedToBasketDetails
-                                        .attributeList[index].value,
-                                    style: getRegularStyle(
-                                      color: ColorManager.grayForMessage,
-                                      fontSize: FontSizeApp.s15,
-                                    )!
-                                        .copyWith(height: 1),
-                                  ),
-                                  productAddedToBasketDetails.attributeList.length-1!=index?Text(
-                                   "/",
-                                    style: getRegularStyle(
-                                      color: ColorManager.grayForMessage,
-                                      fontSize: FontSizeApp.s15,
-                                    )!
-                                        .copyWith(height: 1),
-                                  ):SizedBox()
-
-                                ],
-                              )) ,),
+                                                    .attributeList.length -
+                                                1 !=
+                                            index
+                                        ? Text(
+                                            "/",
+                                            style: getRegularStyle(
+                                              color:
+                                                  ColorManager.grayForMessage,
+                                              fontSize: FontSizeApp.s15,
+                                            )!
+                                                .copyWith(height: 1),
+                                          )
+                                        : SizedBox()
+                                  ],
+                                )),
+                          ),
                         ),
-
                         productAddedToBasketDetails.discountValue != null
                             ? Text(
                                 productAddedToBasketDetails.discountValue ?? '',
@@ -130,7 +136,9 @@ class CardBasket extends StatelessWidget {
                                     Formatter.formatPrice(int.tryParse(context
                                             .read<BasketBloc>()
                                             .productPrice(
-                                                productAddedToBasketDetails.id ?? 0)
+                                                productAddedToBasketDetails
+                                                        .id ??
+                                                    0)
                                             .toString()) ??
                                         0),
                                     style: getBoldStyle(
@@ -147,7 +155,8 @@ class CardBasket extends StatelessWidget {
                                   if (productAddedToBasketDetails.price != null)
                                     Text(AppLocalizations.of(context)!.curruncy,
                                         style: getBoldStyle(
-                                                color: ColorManager.primaryGreen,
+                                                color:
+                                                    ColorManager.primaryGreen,
                                                 fontSize: FontSizeApp.s10)!
                                             .copyWith(height: 1))
                                 ],
@@ -172,16 +181,21 @@ class CardBasket extends StatelessWidget {
               ),
             ),
             InkWell(
-                onTap: (){
-                  context.read<BasketBloc>().add(
-                      DeleteProduct(productAddedToBasketDetails.id ?? 0));
+                onTap: () {
+                  context
+                      .read<BasketBloc>()
+                      .add(DeleteProduct(productAddedToBasketDetails.id ?? 0));
                 },
                 child: Container(
                     width: 30.h,
                     decoration: BoxDecoration(boxShadow: [
                       ColorManager.shadowGaryDown,
                     ], color: Colors.white),
-                    child: const Icon(Icons.clear, color: Colors.red,size: 30,)))
+                    child: const Icon(
+                      Icons.clear,
+                      color: Colors.red,
+                      size: 30,
+                    )))
           ],
         ),
       ),
@@ -196,6 +210,11 @@ class CardBasket extends StatelessWidget {
         Expanded(
           flex: 3,
           child: InkWell(
+            onLongPress: () => context.read<BasketBloc>().add(
+                  LongAddCount(
+                    productAddedToBasketDetails.id ?? 0,
+                  ),
+                ),
             child: Container(
               width: 30.h,
               decoration: BoxDecoration(boxShadow: [

@@ -111,6 +111,17 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
             duration: const Duration(milliseconds: 200),
             firstChild: const SizedBox(),
             secondChild: Container(
+              decoration: BoxDecoration(
+                border: const Border(
+                  right: BorderSide(),
+                  left: BorderSide(),
+                  bottom: BorderSide(),
+                ),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10.0.r),
+                  bottomRight: Radius.circular(10.0.r),
+                ),
+              ),
               height: 180.h,
               alignment: Alignment.center,
               child: ListView.separated(
@@ -124,32 +135,30 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                         widget.paymentBloc.add(
                           GetCoupon(
                               widget
-                                  .rewardCouponsFixedValueModel!.data[index].id.toString(),
+                                  .rewardCouponsFixedValueModel!.data[index].id
+                                  .toString(),
                               ""),
                         );
                         if (widget.myOrderBloc != null) {
                           widget.paymentBloc.add(
                             GetInvoicesDetails(
-                              productList:
-                                  widget.myOrderBloc!.productDetailsList,
+                              productList: widget.myOrderBloc!.productDetailsList,
                               invoicesParams: InvoicesParams(
                                 couponId: widget.rewardCouponsFixedValueModel!
                                     .data[index].id
                                     .toString(),
                                 time: widget.paymentBloc.state.time,
                                 notes: widget.notesText,
-                                deliveryMethodId: widget.paymentBloc.state
-                                        .deliveryMethodChosenList.isNotEmpty
-                                    // ToDo deliveryMethodChosenList[0].id ??? 0
-                                    ? widget.paymentBloc.state
-                                        .deliveryMethodChosenList[0].id
-                                    : 0,
+                                deliveryMethodId:
+                                     widget.paymentBloc.state.deliveryMethodChosenList[widget.paymentBloc.state.id!].id
+                                    ,
                                 userAddressId: context
                                     .read<LocationBloc>()
                                     .state
                                     .addressCurrent
                                     .id!,
                               ),
+
                             ),
                           );
                         } else {
@@ -163,12 +172,9 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                                     .toString(),
                                 time: widget.paymentBloc.state.time,
                                 notes: widget.notesText,
-                                deliveryMethodId: widget.paymentBloc.state
-                                        .deliveryMethodChosenList.isNotEmpty
-                                    // ToDo deliveryMethodChosenList[0].id ??? 0
-                                    ? widget.paymentBloc.state
-                                        .deliveryMethodChosenList[0].id
-                                    : 0,
+                                deliveryMethodId:
+                                widget.paymentBloc.state.deliveryMethodChosenList[widget.paymentBloc.state.id!].id
+                                ,
                                 userAddressId: context
                                     .read<LocationBloc>()
                                     .state

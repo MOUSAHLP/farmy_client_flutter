@@ -131,6 +131,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
               state.copyWith(
                 screenState: ScreenStates.success,
                 paymentProcessResponse: r,
+                id: event.id,
               ),
             ),
           );

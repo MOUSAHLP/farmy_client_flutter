@@ -35,10 +35,12 @@ class AddToChosenAttributeList extends PaymentEvent {
 class GetInvoicesDetails extends PaymentEvent {
   final InvoicesParams invoicesParams;
   final List<ProductResponse>? productList;
+  final int ?id;
 
   const GetInvoicesDetails({
     required this.invoicesParams,
     required this.productList,
+     this.id,
   });
 }
 

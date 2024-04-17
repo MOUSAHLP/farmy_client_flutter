@@ -16,11 +16,11 @@ class InvociesResponse {
 
   factory InvociesResponse.formJson(Map<String, dynamic> json) {
     return InvociesResponse(
-        subTotal: json["subtotal"],
-        coponValue: json["coupon_value"],
-        deliveryValue: json["delivery_price"],
-        tax: json["tax"],
-        total: json["total"]);
+      subTotal: json["subtotal"],
+      coponValue: json["coupon_price"],
+      deliveryValue: json["delivery_price"],
+      tax: json["tax"],
+      total: json["total"],
+    );
   }
 }
-

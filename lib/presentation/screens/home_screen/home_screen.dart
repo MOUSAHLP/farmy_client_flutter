@@ -34,10 +34,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(
-      Duration.zero,
-      () => checkIsOpening(context) ? null: TimeWorkDialog().openDialog(context) ,
-    ); // import 'dart:async';
+
 
     return BaseScreenScaffold(
       body: Column(
@@ -54,13 +51,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       titleError: state.error),
                 );
-              } else if (state.screenState == ScreenState.success ||
-                  state.screenState == ScreenState.loadMoreData) {
+              } else if (state.screenState == ScreenState.success || state.screenState == ScreenState.loadMoreData) {
                 context.read<LocationBloc>().state.addressCurrent = context
                     .read<HomeBloc>()
                     .homePageDynamicModel!
                     .last
                     .userAddressModel!;
+                Future.delayed(
+                  Duration.zero,
+                      () => checkIsOpening(context) ? null: TimeWorkDialog().openDialog(context) ,
+                );
                 return Expanded(
                   child: Column(
                     children: [
@@ -154,6 +154,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool checkIsOpening(BuildContext context) {
     DateTime dateTime = DateTime.now();
     List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
+    print("======================================================================");
+    print(dateTime.hour);
+    print("======================================================================");
+    print(endTime[0]);
+    print("======================================================================");
     if (int.parse(endTime[0]) > dateTime.hour) {
       return true;
     } else if (int.parse(endTime[0]) == dateTime.hour) {

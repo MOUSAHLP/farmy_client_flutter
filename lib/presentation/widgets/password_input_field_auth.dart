@@ -58,103 +58,110 @@ class _PasswordInputFieldAuthState extends State<PasswordInputFieldAuth> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: widget.height,
-          width: 1.sw - 100,
-          decoration: BoxDecoration(
-            // boxShadow: ColorManager.boxShadow,
-            border: Border.all(color: Colors.transparent, width: 1),
-            borderRadius: const BorderRadiusDirectional.all(
-              Radius.circular(12),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: widget.height,
+            width: 1.sw - 100,
+            decoration: BoxDecoration(
+              // boxShadow: ColorManager.boxShadow,
+              border: Border.all(color: Colors.transparent, width: 1),
+              borderRadius: const BorderRadiusDirectional.all(
+                Radius.circular(12),
+              ),
+              color: Colors.white,
             ),
-            color: Colors.white,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0.0),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                  child: SvgPicture.asset(
-                    widget.icon ?? "",
-                    height: 20,
-                    width: 20,
-                    // color:widget.fillIconColor ,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                    child: SvgPicture.asset(
+                      widget.icon ?? "",
+                      height: 20,
+                      width: 20,
+                      // color:widget.fillIconColor ,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: TextFormField(
-                    style: widget.textStyle,
-                    controller: widget.controller,
-                    onChanged: widget.onChange,
-                    obscureText: obscure,
-                    validator: (value) {
-                      if (widget.validator == null) return null;
-                      validateField(value);
-                      return widget.validator!(value);
-                    },
-                    decoration: InputDecoration(
-                      fillColor: const Color(0xFFEEF6F6),
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      hintText: widget.withLabel ? null : widget.hintText,
-                      label: widget.withLabel
-                          ? Text(
-                              widget.hintText!,
-                              style: const TextStyle(
-                                  color: ColorManager.grayForSearchProduct,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          : null,
-                      errorStyle: const TextStyle(
-                        fontSize: 0,
-                        height: 0.1,
-                      ),
-                      suffixIcon: GestureDetector(
-                        onTap: () => toggleObscure(),
-                        child: Icon(
-                          Icons.remove_red_eye,
-                          color:
-                              obscure ? Colors.grey : ColorManager.primaryGreen,
+                  Expanded(
+                    child: TextFormField(
+
+                      style: widget.textStyle,
+                      controller: widget.controller,
+                      onChanged: widget.onChange,
+                      obscureText: obscure,
+                      validator: (value) {
+                        if (widget.validator == null) return null;
+                        validateField(value);
+                        return widget.validator!(value);
+                      },
+                      decoration: InputDecoration(
+                        fillColor: const Color(0xFFEEF6F6),
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        hintText: widget.withLabel ? null : widget.hintText,
+                        label: widget.withLabel
+                            ? Text(
+                                widget.hintText!,
+                                style: const TextStyle(
+                                    color: ColorManager.grayForSearchProduct,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            : null,
+                        errorStyle: const TextStyle(
+                          fontSize: 0,
+                          height: 0.1,
                         ),
-                      ),
-                      contentPadding: widget.contentPadding,
-                      hintStyle: getBoldStyle(
-                        color: ColorManager.grayForSearchProduct,
-                      ),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(28.0)),
-                        borderSide: BorderSide.none,
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(28.0)),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(28.0)),
-                        borderSide: BorderSide.none,
+                        // suffixIcon: GestureDetector(
+                        //   onTap: () => toggleObscure(),
+                        //   child: Icon(
+                        //     Icons.remove_red_eye,
+                        //     color: obscure
+                        //         ? Colors.grey
+                        //         : ColorManager.primaryGreen,
+                        //   ),
+                        // ),
+                        contentPadding: widget.contentPadding,
+                        hintStyle: getBoldStyle(
+
+                          color: ColorManager.grayForSearchProduct,
+                        ),
+                        hintTextDirection:TextDirection.rtl ,
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                          borderSide: BorderSide.none,
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        if (widget.errorMessage != null || validationErrorMessage != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 4.0, right: 18, left: 18),
-            child: Text(
-              widget.errorMessage ?? validationErrorMessage ?? '',
-              style: getBoldStyle(
-                color: ColorManager.redForFavorite,
+                ],
               ),
             ),
           ),
-      ],
+          if (widget.errorMessage != null || validationErrorMessage != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0, right: 18, left: 18),
+              child: Text(
+                widget.errorMessage ?? validationErrorMessage ?? '',
+                style: getBoldStyle(
+                  color: ColorManager.redForFavorite,
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

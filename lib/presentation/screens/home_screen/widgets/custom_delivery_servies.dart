@@ -20,8 +20,10 @@ class CustomDeliveryService extends StatelessWidget {
   Widget build(BuildContext context) {
     return sl<AuthenticationBloc>().loggedIn
         ? Padding(
-            padding:  EdgeInsets.symmetric(
-              horizontal: 13.w,
+            padding:  EdgeInsetsDirectional.only(
+              start: 13.w,
+              end: 13.w,
+              top: 13.h,
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),

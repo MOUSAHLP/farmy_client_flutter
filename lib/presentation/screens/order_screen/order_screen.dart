@@ -90,7 +90,8 @@ class _OrderScreenBodyState extends State<OrderScreenBody>
                         ),
                       );
                     } else if (state.screenStates == ScreenStates.success) {
-                      return Column(children: [
+                      return Column(
+                          children: [
                         Container(
                           height: 50,
                           width: 1.sw,
@@ -101,18 +102,25 @@ class _OrderScreenBodyState extends State<OrderScreenBody>
                             color: Colors.white,
                           ),
                           child: TabBar(
+                            indicatorSize: TabBarIndicatorSize.tab,
                             controller:
                                 context.read<MyOrderBloc>().tabController,
                             tabs: [
                               Tab(
                                 child: FittedBox(
-                                    child: Text(AppLocalizations.of(context)!
-                                        .current_requests)),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .current_requests,
+                                  ),
+                                ),
                               ),
                               Tab(
                                 child: FittedBox(
-                                    child: Text(AppLocalizations.of(context)!
-                                        .baskets_are_not_required)),
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .baskets_are_not_required,
+                                  ),
+                                ),
                               ),
                             ],
                             unselectedLabelColor: ColorManager.grayForMessage,
@@ -123,8 +131,11 @@ class _OrderScreenBodyState extends State<OrderScreenBody>
                             labelStyle: getBoldStyle(
                                 color: ColorManager.grayForMessage,
                                 fontSize: 14),
-                            indicatorPadding: const EdgeInsets.only(
-                                bottom: 10.0, left: 30, right: 30),
+                            indicatorPadding: EdgeInsets.only(
+                              bottom: 10.0.h,
+                              left: 30.w,
+                              right: 30.w,
+                            ),
                             indicator: const BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
@@ -138,14 +149,18 @@ class _OrderScreenBodyState extends State<OrderScreenBody>
                         state.indexTap == 0
                             ? Expanded(
                                 child: BodyOrders(
-                                state: state,
-                              ))
+                                  state: state,
+                                ),
+                              )
                             : Expanded(
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 37, right: 37, top: 15),
+                                      padding: EdgeInsets.only(
+                                        left: 37.w,
+                                        right: 37.w,
+                                        top: 15.h,
+                                      ),
                                       child: Text(
                                         AppLocalizations.of(context)!
                                             .place_orders,
@@ -189,6 +204,9 @@ class BodyOrders extends StatelessWidget {
                 context.read<MyOrderBloc>().add(GetMyOrder());
               },
               child: ListView.builder(
+                padding: EdgeInsetsDirectional.only(
+                  top: 26.h,
+                ),
                 itemBuilder: (context, index) =>
                     CardOrder(myOrder: state.myOrderList[index]),
                 itemCount: state.myOrderList.length,

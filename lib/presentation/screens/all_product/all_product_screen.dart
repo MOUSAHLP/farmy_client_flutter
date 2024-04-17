@@ -21,9 +21,9 @@ import '../basket_screen/basket_screen.dart';
 
 class AllProductScreen extends StatefulWidget {
   final List<SubCategoryResponse>? subCategoryList;
- final int index;
+  final int index;
 
- const AllProductScreen(
+  const AllProductScreen(
       {super.key, required this.subCategoryList, required this.index});
 
   @override
@@ -54,8 +54,7 @@ class AllProductBody extends StatefulWidget {
   State<AllProductBody> createState() => _AllLProductBodyState();
 }
 
-class _AllLProductBodyState extends State<AllProductBody>
-  {
+class _AllLProductBodyState extends State<AllProductBody> {
   // late TabController _tabController;
   late Map<int, bool> isAdd;
 
@@ -66,8 +65,6 @@ class _AllLProductBodyState extends State<AllProductBody>
     isAdd = {};
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -134,21 +131,23 @@ class _AllLProductBodyState extends State<AllProductBody>
                                             ),
                                             itemBuilder: (context, index) {
                                               isAdd.putIfAbsent(
-                                                  index, () => context
-                                                  .read<BasketBloc>()
-                                                  .mutableProducts
-                                                  .any((element) =>
-                                              element.id ==
-                                                  state
-                                                      .productsList[
-                                                  index]
-                                                      .id));
+                                                  index,
+                                                  () => context
+                                                      .read<BasketBloc>()
+                                                      .mutableProducts
+                                                      .any((element) =>
+                                                          element.id ==
+                                                          state
+                                                              .productsList[
+                                                                  index]
+                                                              .id));
                                               return Center(
                                                 child: InkWell(
                                                   onTap: () {
                                                     if (context
-                                                            .read<BasketBloc>()
-                                                            .mutableProducts.isEmpty) {
+                                                        .read<BasketBloc>()
+                                                        .mutableProducts
+                                                        .isEmpty) {
                                                       AppRouter.push(
                                                         context,
                                                         ProductDetailsScreen(
@@ -163,11 +162,11 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                           .read<BasketBloc>()
                                                           .mutableProducts
                                                           .any((element) =>
-                                                      element.id ==
-                                                          state
-                                                              .productsList[
-                                                          index]
-                                                              .id)) {
+                                                              element.id ==
+                                                              state
+                                                                  .productsList[
+                                                                      index]
+                                                                  .id)) {
                                                         context
                                                             .read<BasketBloc>()
                                                             .add(AddToBasket(
@@ -215,13 +214,12 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                       }
                                                     }
                                                   },
-                                                  onLongPress: (){
+                                                  onLongPress: () {
                                                     AppRouter.push(
                                                       context,
                                                       ProductDetailsScreen(
                                                         id: state
-                                                            .productsList[
-                                                        index]
+                                                            .productsList[index]
                                                             .id,
                                                       ),
                                                     );
@@ -236,8 +234,10 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                       ),
                                                       isAdd[index]!
                                                           ? Padding(
-                                                            padding: const EdgeInsets.all(8.0),
-                                                            child: Row(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
                                                                         .spaceBetween,
@@ -251,59 +251,60 @@ class _AllLProductBodyState extends State<AllProductBody>
                                                                             .all(
                                                                             8.0),
                                                                     child: Container(
-                                                                        color: Colors
-                                                                            .green,
+                                                                        color: Colors.green,
                                                                         width: 20,
-                                                                        height:
-                                                                            20,
+                                                                        height: 20,
                                                                         child: Center(
-                                                                            child:
-                                                                                Text("1",style: getBoldStyle(color: Colors.white),))),
+                                                                            child: Text(
+                                                                          "1",
+                                                                          style:
+                                                                              getBoldStyle(color: Colors.white),
+                                                                        ))),
                                                                   ),
                                                                   InkWell(
-                                                                    onTap: (){
+                                                                    onTap: () {
                                                                       if (context
-                                                                          .read<BasketBloc>()
+                                                                          .read<
+                                                                              BasketBloc>()
                                                                           .mutableProducts
                                                                           .any((element) =>
-                                                                      element.id ==
-                                                                          state
-                                                                              .productsList[
-                                                                          index]
-                                                                              .id)) {
-                                                                        context
-                                                                            .read<BasketBloc>()
-                                                                            .add(DeleteProduct(
-                                                                            state
-                                                                                .productsList[
-                                                                            index]
-                                                                                .id));
-                                                                        setState(() {
+                                                                              element.id ==
+                                                                              state.productsList[index].id)) {
+                                                                        context.read<BasketBloc>().add(DeleteProduct(state
+                                                                            .productsList[index]
+                                                                            .id));
+                                                                        setState(
+                                                                            () {
                                                                           isAdd[index] =
-                                                                          !isAdd[index]!;
+                                                                              !isAdd[index]!;
                                                                         });
                                                                       }
                                                                     },
-                                                                    child: Padding(
-                                                                      padding:
-                                                                          const EdgeInsets
-                                                                              .all(
-                                                                              8.0),
-                                                                      child: Container(
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .all(
+                                                                          8.0),
+                                                                      child:
+                                                                          Container(
                                                                         color: Colors
                                                                             .red,
-                                                                        width: 20,
+                                                                        width:
+                                                                            20,
                                                                         height:
-                                                                        20,
-                                                                        child: const Icon(Icons
-                                                                            .remove,color: Colors.white
-                                                                        ,size: 20),
+                                                                            20,
+                                                                        child: const Icon(
+                                                                            Icons
+                                                                                .remove,
+                                                                            color:
+                                                                                Colors.white,
+                                                                            size: 20),
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
-                                                          )
+                                                            )
                                                           : SizedBox()
                                                     ],
                                                   ),
@@ -312,37 +313,59 @@ class _AllLProductBodyState extends State<AllProductBody>
                                             },
                                           ),
                                           context
-                                              .read<BasketBloc>()
-                                              .mutableProducts.isNotEmpty?  Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: InkWell(
-                                              child: Container(
-                                                height: 40,
-                                                width: 1.sw-100,
-                                                decoration: BoxDecoration(
-                                                  color: ColorManager.primaryGreen,
-                                                  borderRadius: BorderRadius.circular(6)
-                                                ),
-                                                child: Center(
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text(context
-                                                          .read<BasketBloc>()
-                                                          .mutableProducts
-                                                          .length
-                                                          .toString(),style: getBoldStyle(color: Colors.white)),
-                                                      const SizedBox(width: 10,),
-                                                      Text(AppLocalizations.of(context)!.view_basket,style: getBoldStyle(color: Colors.white)),
-                                                    ],
+                                                  .read<BasketBloc>()
+                                                  .mutableProducts
+                                                  .isNotEmpty
+                                              ? Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: InkWell(
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 1.sw - 100,
+                                                      decoration: BoxDecoration(
+                                                          color: ColorManager
+                                                              .primaryGreen,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(6)),
+                                                      child: Center(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                                context
+                                                                    .read<
+                                                                        BasketBloc>()
+                                                                    .mutableProducts
+                                                                    .length
+                                                                    .toString(),
+                                                                style: getBoldStyle(
+                                                                    color: Colors
+                                                                        .white)),
+                                                            const SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text(
+                                                                AppLocalizations.of(
+                                                                        context)!
+                                                                    .view_basket,
+                                                                style: getBoldStyle(
+                                                                    color: Colors
+                                                                        .white)),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      AppRouter.push(context,
+                                                          const BasketScreen());
+                                                    },
                                                   ),
-                                                ),
-                                              ),
-                                              onTap: (){
-                                                AppRouter.push(context, const BasketScreen());
-                                              },
-                                            ),
-                                          ):const SizedBox()
+                                                )
+                                              : const SizedBox()
                                         ],
                                       )
                                     : CustomNoData(

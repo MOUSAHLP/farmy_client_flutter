@@ -82,7 +82,7 @@ class SignInBody extends StatelessWidget {
             SizedBox(height: 24.h),
             PasswordInputFieldAuth(
               controller: passwordController,
-              hintText: AppLocalizations.of(context)!.password,
+              hintText: AppLocalizations.of(context)!.password,contentPadding: EdgeInsets.only(right: 13.w),
               // validator: (value) {
               //   return AppValidators.validatePasswordFields(
               //       context, passwordController.text);

@@ -120,7 +120,7 @@ class SignUpScreen extends StatelessWidget {
                         height: 21,
                       ),
                       PasswordInputFieldAuth(
-                          hintText: AppLocalizations.of(context)!.password,
+                          hintText: AppLocalizations.of(context)!.password,contentPadding: EdgeInsets.only(right: 13.w),
                           onChange: (value) {
                             context
                                 .read<AuthenticationBloc>()
@@ -136,7 +136,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       PasswordInputFieldAuth(
                           hintText:
-                              AppLocalizations.of(context)!.confirm_password,
+                              AppLocalizations.of(context)!.confirm_password,contentPadding: EdgeInsets.only(right: 13.w),
                           onChange: (value) {
                             context
                                 .read<AuthenticationBloc>()

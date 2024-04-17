@@ -73,6 +73,7 @@ class PaymentBody extends StatelessWidget {
   final int? idBasket;
   final RewardCouponsFixedValueModel rewardCouponsFixedValueModel;
 
+
   PaymentBody({
     super.key,
     required this.paymentBloc,
@@ -196,9 +197,9 @@ class PaymentBody extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  for (var item in state.paymentProcessResponse!
-                                      .deliveryMethodList!) ...[
-                                    if (item.deliveryName == "طلب مجدول") ...[
+                                  for (var item in state.paymentProcessResponse!.deliveryMethodList!) ...[
+                                    if (item.deliveryName!.contains("مجدول") &&
+                                        !checkIsOpening(context)) ...[
                                       if (checkIsOpening(context)) ...[
                                         BlocBuilder<LocationBloc,
                                             LocationState>(
@@ -214,7 +215,8 @@ class PaymentBody extends StatelessWidget {
                                         ),
                                       ]
                                     ],
-                                    if (item.deliveryName != "طلب مجدول") ...[
+                                    if (!item.deliveryName!
+                                        .contains("مجدول")) ...[
                                       BlocBuilder<LocationBloc, LocationState>(
                                         builder: (context, locationState) {
                                           return buildCustomOrderTypeContainer(
@@ -289,6 +291,7 @@ class PaymentBody extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: CustomDiscountCodeContainer(
+
                                             idBasket: idBasket,
                                             paymentBloc: paymentBloc,
                                             myOrderBloc: myOrderBloc,
@@ -657,6 +660,10 @@ class PaymentBody extends StatelessWidget {
                             )
                           : AppValueConst.defaultInvoiceValue.toString(),
                   onCompletePayment: () {
+                    print('@@@@@@@@@@@@@@@@');
+                    print(state.id);
+                    print('@@@@@@@@@@@@@@@@');
+
                     if (myOrderBloc != null) {
                       paymentBloc.add(
                         CreateOrder(
@@ -666,11 +673,7 @@ class PaymentBody extends StatelessWidget {
                             couponId: state.couponId,
                             time: state.time,
                             notes: noteController.text,
-                            deliveryMethodId:
-                                state.deliveryMethodChosenList.isNotEmpty
-                                    // ToDo deliveryMethodChosenList[0].id ??? 0
-                                    ? state.deliveryMethodChosenList[0].id
-                                    : 0,
+                            deliveryMethodId: state.deliveryMethodChosenList[state.id!].id,
                             userAddressId: context
                                 .read<LocationBloc>()
                                 .state
@@ -725,24 +728,18 @@ class PaymentBody extends StatelessWidget {
   ) {
     return CustomOrderTypeContainer(
       idMethodeType: item.id,
-      isChosenLocation:
-          context.read<LocationBloc>().state.addressCurrent.latitude != null,
+      isChosenLocation: context.read<LocationBloc>().state.addressCurrent.latitude != null,
       userAddressId: locationState.addressCurrent.id ?? 0,
       deliveryField: item,
-      isSelected: state.deliveryMethodChosenList
-          .any((element) => element.id == item.id),
-      deliveryCost:
-          "${AppLocalizations.of(context)!.delivery_cost} ${item.deliveryPrice} ل.س ",
+      isSelected: state.deliveryMethodChosenList.any((element) => element.id == item.id),
+      deliveryCost: "${AppLocalizations.of(context)!.delivery_cost} ${item.deliveryPrice} ل.س ",
       image: ImageManager.dateTimeImage,
       text: "${item.deliveryName} (${item.deliveryTime} دقيقة) ",
       onTap: () {
-        if (!state.deliveryMethodChosenList
-            .any((element) => element.id == item.id)) {
-          if (context.read<LocationBloc>().state.addressCurrent.latitude !=
-              null) {
+        if (!state.deliveryMethodChosenList.any((element) => element.id == item.id)) {
+          if (context.read<LocationBloc>().state.addressCurrent.latitude != null) {
             paymentBloc.add(ToggleDeliveryMethod(deliveryMethodData: item));
-            if (myOrderBloc != null &&
-                myOrderBloc.productDetailsList.isNotEmpty) {
+            if (myOrderBloc != null && myOrderBloc.productDetailsList.isNotEmpty) {
               paymentBloc.add(
                 GetInvoicesDetails(
                   invoicesParams: InvoicesParams(
@@ -752,6 +749,7 @@ class PaymentBody extends StatelessWidget {
                     userAddressId: locationState.addressCurrent.id!,
                   ),
                   productList: myOrderBloc.productDetailsList,
+                  id: item.id,
                 ),
               );
             } else {
@@ -764,6 +762,8 @@ class PaymentBody extends StatelessWidget {
                     userAddressId: locationState.addressCurrent.id!,
                   ),
                   productList: context.read<BasketBloc>().state.productList,
+                  id: item.id,
+
                 ),
               );
             }

@@ -195,7 +195,7 @@ class BasketScreen extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: CustomButton(
-                                                label: "حفظ المسودة",
+                                                label: "حفظ كمسودة",
                                                 fillColor:
                                                     ColorManager.primaryGreen,
                                                 labelColor: Colors.white,

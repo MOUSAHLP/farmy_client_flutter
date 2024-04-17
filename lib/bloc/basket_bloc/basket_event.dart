@@ -23,6 +23,12 @@ class AddCount extends BasketEvent {
 
  const AddCount(this.id);
 }
+class LongAddCount extends BasketEvent {
+  final int id;
+
+  const LongAddCount(this.id);
+}
+
 
 class MinusCount extends BasketEvent {
  final int id;

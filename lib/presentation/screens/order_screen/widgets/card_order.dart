@@ -20,29 +20,42 @@ class CardOrder extends StatelessWidget {
       child: Container(
         width: 1.sw,
         decoration: BoxDecoration(
-            boxShadow: [ColorManager.shadowGaryRightDown],
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(6)),
+          boxShadow: [ColorManager.shadowGaryRightDown],
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+        ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: 16.h,
+          ),
           child: Column(
             children: [
               RowOrder(
-                  title: AppLocalizations.of(context)!.order_Number,
-                  details: myOrder.orderNumber.toString()),
-              const SizedBox(height: 5,),
+                title: AppLocalizations.of(context)!.order_Number,
+                details: myOrder.orderNumber.toString(),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
               RowOrder(
                   title: AppLocalizations.of(context)!.address,
                   details: getAddress(myOrder.userAddress!)),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               RowOrder(
                   title: AppLocalizations.of(context)!.delivery_Type,
                   details: myOrder.deliveryMethod?.name ?? ""),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               RowOrder(
                   title: AppLocalizations.of(context)!.expected_Time,
                   details: myOrder.expectedTime.toString() ?? ""),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               myOrder.total != null
                   ? Row(
                       children: [
@@ -69,8 +82,10 @@ class CardOrder extends StatelessWidget {
                       ],
                     )
                   : const SizedBox(),
-              const SizedBox(height: 5,),
-              Text(myOrder.status??""),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(myOrder.status ?? ""),
               StateButtons(
                 status: myOrder.status ?? "",
                 id: myOrder.id,

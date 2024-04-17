@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pharma/core/app_enum.dart';
@@ -51,6 +53,11 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
 
   BasketBloc({required this.basketRepo}) : super(const BasketState()) {
     on<BasketEvent>((event, emit) async {
+      emit(
+        state.copyWith(
+          productList: mutableProducts,
+        ),
+      );
       if (event is AddToBasket) {
         mutableProducts = List.from(state.productList!);
         for (var x in event.product) {
@@ -103,6 +110,26 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
             productList: mutableProducts,
           ),
         );
+      }
+
+      if (event is LongAddCount) {
+        int index1 = mutableProducts.indexWhere((element) => element.id == event.id);
+        int tmp = mutableProducts[index1].quantity ?? 0;
+        if (index1 != -1) {
+          // Retrieve the current quantity
+          int tmp = mutableProducts[index1].quantity ?? 0;
+          // If the onTap event is true
+
+            tmp = tmp + 8;
+            mutableProducts[index1].quantity = tmp;
+            // Update the state with the modified product list
+            emit(
+              state.copyWith(
+                productList: mutableProducts,
+              ),
+            );
+
+        }
       }
       if (event is MinusCount) {
         int index1 =

@@ -90,34 +90,40 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          alignment: Alignment.center,
-          height: widget.height,
-          width: (widget.width ?? 1.sw - 100).clamp(
-            0.0,
-            double.infinity,
-          ),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: widget.borderColor ?? Colors.transparent,
-              width: 1,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            alignment: Alignment.center,
+            height: widget.height,
+            width: (widget.width ?? 1.sw - 100).clamp(
+              0.0,
+              double.infinity,
             ),
-            borderRadius: BorderRadiusDirectional.all(
-              widget.angelRadios ?? const Radius.circular(12),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: widget.borderColor ?? Colors.transparent,
+                width: 1,
+              ),
+              borderRadius: BorderRadiusDirectional.all(
+                widget.angelRadios ?? const Radius.circular(12),
+              ),
+              color: widget.color ?? Colors.white,
             ),
-            color: widget.color ?? Colors.white,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: SizedBox(
-                  height: 40.h,
-                  child: Directionality(
-                    textDirection: TextDirection.ltr,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0.w,
+                  ),
+                  child: widget.icon,
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: 40.h,
                     child: TextFormField(
                       initialValue: widget.initValue,
                       keyboardType: widget.keyboardType,
@@ -149,7 +155,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
                             : null,
                         prefixIcon: widget.isPhone
                             ? SizedBox(
-                                width:0.0.w,
+                                width: 0.0.w,
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
@@ -201,29 +207,24 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8.0.w,
-                ),
-                child: widget.icon,
-              ),
-            ],
-          ),
-        ),
-        if (widget.errorMessage != null || validationErrorMessage != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 6.0, right: 18, left: 18),
-            child: Text(
-              widget.errorMessage ?? validationErrorMessage ?? '',
-              style: getBoldStyle(
-                color: ColorManager.redForFavorite,
-                fontSize: FontSizeApp.s12.sp,
-              )!
-                  .copyWith(height: 1),
+
+              ],
             ),
           ),
-      ],
+          if (widget.errorMessage != null || validationErrorMessage != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 6.0, right: 18, left: 18),
+              child: Text(
+                widget.errorMessage ?? validationErrorMessage ?? '',
+                style: getBoldStyle(
+                  color: ColorManager.redForFavorite,
+                  fontSize: FontSizeApp.s12.sp,
+                )!
+                    .copyWith(height: 1),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
