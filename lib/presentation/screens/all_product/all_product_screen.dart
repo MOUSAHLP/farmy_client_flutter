@@ -143,7 +143,7 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                               .id));
                                               return Center(
                                                 child: InkWell(
-                                                  onTap: () {
+                                                  onLongPress: () {
                                                     if (context
                                                         .read<BasketBloc>()
                                                         .mutableProducts
@@ -214,7 +214,7 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                       }
                                                     }
                                                   },
-                                                  onLongPress: () {
+                                                  onTap: () {
                                                     AppRouter.push(
                                                       context,
                                                       ProductDetailsScreen(
