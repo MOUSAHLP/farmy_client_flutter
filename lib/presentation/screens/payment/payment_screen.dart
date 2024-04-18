@@ -73,7 +73,6 @@ class PaymentBody extends StatelessWidget {
   final int? idBasket;
   final RewardCouponsFixedValueModel rewardCouponsFixedValueModel;
 
-
   PaymentBody({
     super.key,
     required this.paymentBloc,
@@ -126,7 +125,7 @@ class PaymentBody extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 150),
+                  padding: EdgeInsets.only(bottom: 150.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -137,13 +136,15 @@ class PaymentBody extends StatelessWidget {
                         child: ListView(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 21),
+                              padding: EdgeInsetsDirectional.only(
+                                top: 12.h,
+                              ),
                               child: Text(
+                                textAlign: TextAlign.center,
                                 AppLocalizations.of(context)!.payment_statment,
                                 style: getRegularStyle(
                                   color: ColorManager.grayForMessage,
-                                  fontSize: FontSizeApp.s16,
+                                  fontSize: FontSizeApp.s15.sp,
                                 ),
                               ),
                             ),
@@ -197,7 +198,8 @@ class PaymentBody extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  for (var item in state.paymentProcessResponse!.deliveryMethodList!) ...[
+                                  for (var item in state.paymentProcessResponse!
+                                      .deliveryMethodList!) ...[
                                     if (item.deliveryName!.contains("مجدول") &&
                                         !checkIsOpening(context)) ...[
                                       if (checkIsOpening(context)) ...[
@@ -291,7 +293,6 @@ class PaymentBody extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: CustomDiscountCodeContainer(
-
                                             idBasket: idBasket,
                                             paymentBloc: paymentBloc,
                                             myOrderBloc: myOrderBloc,
@@ -660,9 +661,6 @@ class PaymentBody extends StatelessWidget {
                             )
                           : AppValueConst.defaultInvoiceValue.toString(),
                   onCompletePayment: () {
-                    print('@@@@@@@@@@@@@@@@');
-                    print(state.id);
-                    print('@@@@@@@@@@@@@@@@');
 
                     if (myOrderBloc != null) {
                       paymentBloc.add(
@@ -673,7 +671,8 @@ class PaymentBody extends StatelessWidget {
                             couponId: state.couponId,
                             time: state.time,
                             notes: noteController.text,
-                            deliveryMethodId: state.deliveryMethodChosenList[state.id!].id,
+                            deliveryMethodId:
+                                state.deliveryMethodChosenList[state.id!].id,
                             userAddressId: context
                                 .read<LocationBloc>()
                                 .state
@@ -686,8 +685,7 @@ class PaymentBody extends StatelessWidget {
                       paymentBloc.add(
                         CreateOrder(
                           idBasket,
-                          productList:
-                              context.read<BasketBloc>().state.productList!,
+                          productList: context.read<BasketBloc>().state.productList!,
                           invoicesParams: InvoicesParams(
                             couponId: state.couponId,
                             time: state.time,
@@ -728,18 +726,24 @@ class PaymentBody extends StatelessWidget {
   ) {
     return CustomOrderTypeContainer(
       idMethodeType: item.id,
-      isChosenLocation: context.read<LocationBloc>().state.addressCurrent.latitude != null,
+      isChosenLocation:
+          context.read<LocationBloc>().state.addressCurrent.latitude != null,
       userAddressId: locationState.addressCurrent.id ?? 0,
       deliveryField: item,
-      isSelected: state.deliveryMethodChosenList.any((element) => element.id == item.id),
-      deliveryCost: "${AppLocalizations.of(context)!.delivery_cost} ${item.deliveryPrice} ل.س ",
+      isSelected: state.deliveryMethodChosenList
+          .any((element) => element.id == item.id),
+      deliveryCost:
+          "${AppLocalizations.of(context)!.delivery_cost} ${item.deliveryPrice} ل.س ",
       image: ImageManager.dateTimeImage,
       text: "${item.deliveryName} (${item.deliveryTime} دقيقة) ",
       onTap: () {
-        if (!state.deliveryMethodChosenList.any((element) => element.id == item.id)) {
-          if (context.read<LocationBloc>().state.addressCurrent.latitude != null) {
+        if (!state.deliveryMethodChosenList
+            .any((element) => element.id == item.id)) {
+          if (context.read<LocationBloc>().state.addressCurrent.latitude !=
+              null) {
             paymentBloc.add(ToggleDeliveryMethod(deliveryMethodData: item));
-            if (myOrderBloc != null && myOrderBloc.productDetailsList.isNotEmpty) {
+            if (myOrderBloc != null &&
+                myOrderBloc.productDetailsList.isNotEmpty) {
               paymentBloc.add(
                 GetInvoicesDetails(
                   invoicesParams: InvoicesParams(
@@ -763,7 +767,6 @@ class PaymentBody extends StatelessWidget {
                   ),
                   productList: context.read<BasketBloc>().state.productList,
                   id: item.id,
-
                 ),
               );
             }

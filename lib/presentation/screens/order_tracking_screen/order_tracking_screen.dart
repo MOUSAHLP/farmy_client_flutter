@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_state.dart';
-import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/firebase_notifications_handler.dart';
 import 'package:pharma/models/track_model.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
@@ -14,19 +13,23 @@ import 'package:pharma/presentation/screens/order_tracking_screen/widgets/order_
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+  import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../translations.dart';
 import '../../widgets/custom_app_bar_screen.dart';
 import '../../widgets/custom_button.dart';
-import '../home_screen/home_screen.dart';
+import 'package:web_socket_channel/status.dart' as status;
 
 class OrderTrackingScreen extends StatelessWidget {
   final int orderId;
-  const OrderTrackingScreen({super.key, required this.orderId});
+  final channel = WebSocketChannel.connect(Uri.parse('ws://example.com'));
+
+  OrderTrackingScreen({super.key, required this.orderId});
 
   @override
   Widget build(BuildContext context) {
-    final bloc = TrackingBloc()..setOrderId(orderId)..add(const GetOrderStatus());
+    final bloc = TrackingBloc()
+      ..setOrderId(orderId)
+      ..add(const GetOrderStatus());
     FirebaseNotificationsHandler().bloc = bloc;
 
     return Scaffold(
@@ -115,7 +118,17 @@ class OrderTrackingScreen extends StatelessWidget {
                                   CustomButton(
                                     label: AppLocalizations.of(context)!
                                         .track_your_order_on_the_map,
-                                    onTap: () {},
+                                    onTap: () async {
+                                      await channel.ready;
+                                      channel.stream.listen((message) {
+                                        channel.sink.add('received!');
+                                        channel.sink.close(status.goingAway);
+                                      });
+                                      // AppRouter.push(
+                                      //   context,
+                                      //   const TrackingScreen(),
+                                      // );
+                                    },
                                   ),
                                   const SizedBox(
                                     height: 16,

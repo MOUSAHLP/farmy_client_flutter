@@ -12,6 +12,7 @@ import '../../../bloc/invoices_bloc/invoices_state.dart';
 import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../../widgets/custom_loading_widget.dart';
+
 class AllInvoicesScreen extends StatelessWidget {
   const AllInvoicesScreen({super.key});
 
@@ -19,18 +20,15 @@ class AllInvoicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<InvoicesBloc>(
       create: (context) {
-
         if (sl<AuthenticationBloc>().loggedIn) {
-          return   sl<InvoicesBloc>()
-            ..add(GetInvoicesList());
+          return sl<InvoicesBloc>()..add(GetInvoicesList());
         }
         return sl<InvoicesBloc>();
-
       },
-    child:const AllInvoicesBody() ,);
+      child: const AllInvoicesBody(),
+    );
   }
 }
-
 
 class AllInvoicesBody extends StatelessWidget {
   const AllInvoicesBody({super.key});
@@ -42,41 +40,47 @@ class AllInvoicesBody extends StatelessWidget {
         body: Column(
           children: [
             CustomAppBarScreen(
-                sectionName: AppLocalizations.of(context)!.all_Invoices),
-            sl<AuthenticationBloc>().loggedIn ?Expanded(
-              child: BlocBuilder<InvoicesBloc,InvoicesState>(
-                builder: (context, state) {
-                  if(state is InvoicesLoading) {
-                    return const Center(child: CustomLoadingWidget());
-                  }
-                  if(state is InvoicesError) {
-                    return Center(
-                      child: CustomErrorScreen(
-                        onTap: () {
-
-                          context.read<InvoicesBloc>().add(GetInvoicesList());
-                        },
-                      ),
-                    );
-                  }
-                   if(state is InvoicesSuccess) {
-                     return  ListView
-                         .builder(
-                       padding: const EdgeInsets.symmetric(vertical: 29),
-                       itemCount: state.vendorsList.length,
-                       itemBuilder: (context, index) {
-                         return  Padding(
-                           padding: const EdgeInsets.symmetric(vertical: 15),
-                           child: CustomInvoicesContainer(invoiceModel: state.vendorsList[index]),
-                         );
-                       },
-                     ) ;
-                   }
-                   else {
-                     return const SizedBox();
-                   }},
-              ),
-            ): const GuestScreen()
+              sectionName: AppLocalizations.of(context)!.all_Invoices,
+            ),
+            sl<AuthenticationBloc>().loggedIn
+                ? Expanded(
+                    child: BlocBuilder<InvoicesBloc, InvoicesState>(
+                      builder: (context, state) {
+                        if (state is InvoicesLoading) {
+                          return const Center(child: CustomLoadingWidget());
+                        }
+                        if (state is InvoicesError) {
+                          return Center(
+                            child: CustomErrorScreen(
+                              onTap: () {
+                                context
+                                    .read<InvoicesBloc>()
+                                    .add(GetInvoicesList());
+                              },
+                            ),
+                          );
+                        }
+                        if (state is InvoicesSuccess) {
+                          return ListView.builder(
+                            padding: const EdgeInsets.symmetric(vertical: 29),
+                            itemCount: state.vendorsList.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                child: CustomInvoicesContainer(
+                                  invoiceModel: state.vendorsList[index],
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                    ),
+                  )
+                : const GuestScreen()
           ],
         ),
       ),

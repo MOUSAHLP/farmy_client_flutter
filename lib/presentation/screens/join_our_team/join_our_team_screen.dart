@@ -32,7 +32,9 @@ class JoinOurTeamScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<JoinOurTeamBloc>(
         lazy: true,
-        create: (context) => sl<JoinOurTeamBloc>()..add(GetJoinOurTeam()),
+        create: (context) =>
+        sl<JoinOurTeamBloc>()
+          ..add(GetJoinOurTeam()),
         child: JoinOurTeamBody());
   }
 }
@@ -84,25 +86,31 @@ class JoinOurTeamBody extends StatelessWidget {
                   if (state.screenStates == ScreenStates.success) {
                     return SingleChildScrollView(
                       child: Padding(
-                        padding:  EdgeInsets.symmetric(
-                          vertical: 18.h,
-                          horizontal: 21.w,
+                        padding: EdgeInsetsDirectional.only(
+                          top: 18.h,
+                          bottom: 18.h,
                         ),
                         child: Form(
                           key: _formKey,
                           child: Column(
                             children: [
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .join_Our_Team_Statment,
-                                style: getUnderBoldStyle(
-                                  color: ColorManager.grayForMessage,
-                                  fontSize: FontSizeApp.s14.sp,
+                              Padding(
+                                padding: EdgeInsetsDirectional.only(
+                                  start: 10.w,
+                                ),
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .join_Our_Team_Statment,
+                                  style: getUnderBoldStyle(
+                                    color: ColorManager.grayForMessage,
+                                    fontSize: FontSizeApp.s14.sp,
+                                  ),
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                   vertical: 27.h,
+                                  horizontal: 20.w,
                                 ),
                                 child: Container(
                                   decoration: BoxDecoration(boxShadow: [
@@ -126,30 +134,36 @@ class JoinOurTeamBody extends StatelessWidget {
                                       }),
                                 ),
                               ),
-                              Container(
-                                decoration: BoxDecoration(boxShadow: [
-                                  BoxShadow(
-                                      offset: const Offset(0, 5),
-                                      blurRadius: 10,
-                                      spreadRadius: -2,
-                                      color:
-                                          ColorManager.black.withOpacity(0.18))
-                                ]),
-                                child: InputFieldAuth(
-                                  width: 1.sw,
-                                  hintText: AppLocalizations.of(context)!
-                                      .contact_Number,
-                                  controller: phoneController,
-                                  keyboardType: TextInputType.phone,
-                                  validator: (value) {
-                                    return AppValidators.validatePhoneFields(
-                                        context, phoneController.text);
-                                  },
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 20.w,
+                                ),
+                                child: Container(
+                                  decoration: BoxDecoration(boxShadow: [
+                                    BoxShadow(
+                                        offset: const Offset(0, 5),
+                                        blurRadius: 10,
+                                        spreadRadius: -2,
+                                        color: ColorManager.black
+                                            .withOpacity(0.18))
+                                  ]),
+                                  child: InputFieldAuth(
+                                    width: 1.sw,
+                                    hintText: AppLocalizations.of(context)!
+                                        .contact_Number,
+                                    controller: phoneController,
+                                    keyboardType: TextInputType.phone,
+                                    validator: (value) {
+                                      return AppValidators.validatePhoneFields(
+                                          context, phoneController.text);
+                                    },
+                                  ),
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                   vertical: 27.h,
+                                  horizontal: 20.w,
                                 ),
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -170,7 +184,6 @@ class JoinOurTeamBody extends StatelessWidget {
                                     readOnly: true,
                                     hintText: AppLocalizations.of(context)!
                                         .choose_The_Right_job_For_You,
-
                                     suffixIcon: GestureDetector(
                                       onTap: () {
                                         showDialog(
@@ -178,9 +191,9 @@ class JoinOurTeamBody extends StatelessWidget {
                                           builder: (_) {
                                             return CustomSelectJobDialog(
                                               jobs: context
-                                                      .read<JoinOurTeamBloc>()
-                                                      .jobs
-                                                      ?.data ??
+                                                  .read<JoinOurTeamBloc>()
+                                                  .jobs
+                                                  ?.data ??
                                                   [],
                                               onChanged: (value) {
                                                 jobController.text = value!;
@@ -194,8 +207,6 @@ class JoinOurTeamBody extends StatelessWidget {
                                         padding: const EdgeInsets.all(10.0),
                                         child: SvgPicture.asset(
                                           ImageManager.dropDown,
-
-
                                         ),
                                       ),
                                     ),
@@ -209,14 +220,14 @@ class JoinOurTeamBody extends StatelessWidget {
                                   onTap: () {
                                     if (_formKey.currentState!.validate()) {
                                       context.read<JoinOurTeamBloc>().add(
-                                            AddJoinOurTeam(
-                                              joinTeamParams: JoinTeamParams(
-                                                phone: phoneController.text,
-                                                name: nameController.text,
-                                                job: jobController.text,
-                                              ),
-                                            ),
-                                          );
+                                        AddJoinOurTeam(
+                                          joinTeamParams: JoinTeamParams(
+                                            phone: phoneController.text,
+                                            name: nameController.text,
+                                            job: jobController.text,
+                                          ),
+                                        ),
+                                      );
                                     }
                                   },
                                   label: AppLocalizations.of(context)!.register,
