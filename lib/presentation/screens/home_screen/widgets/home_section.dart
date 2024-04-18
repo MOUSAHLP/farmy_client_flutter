@@ -114,9 +114,9 @@ class _HomeSectionState extends State<HomeSection> {
                                 id: widget.list[
                                 index]
                                     .id,
-                                discountValue: widget.list[
+                                discountPrice: widget.list[
                                 index]
-                                    .discountValue,
+                                    .discountPrice,
                                 discountStatus: widget.list[
                                 index]
                                     .discountStatus,
