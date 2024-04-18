@@ -126,7 +126,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     List<UserAddressModel> dayTasks = [...userAddressList];
     dayTasks.removeWhere((task) {
       if (keyword != null &&
-          !(task.name!.toLowerCase().contains(keyword.toLowerCase())))
+          !(task.area!.toLowerCase().contains(keyword.toLowerCase())))
         return true;
       return false;
     });
