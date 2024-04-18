@@ -2,32 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
+import 'package:pharma/bloc/location_bloc/location_event.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
+import 'package:pharma/core/app_enum.dart';
+import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/screens/location_screen/add_location_screen.dart';
+import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
+import 'package:pharma/presentation/widgets/custom_button.dart';
+import 'package:pharma/translations.dart';
 
-import '../../../bloc/location_bloc/location_event.dart';
-import '../../../core/app_enum.dart';
-import '../../../core/app_router/app_router.dart';
-import '../../../core/services/services_locator.dart';
-import '../../../translations.dart';
-import '../../resources/color_manager.dart';
-import '../../resources/style_app.dart';
-import '../../widgets/custom_app_bar_screen.dart';
-import '../../widgets/custom_button.dart';
-import '../location_screen/add_location_screen.dart';
 
-class LocationSecondScreen extends StatelessWidget {
-  const LocationSecondScreen({super.key});
+class TrackingScreen extends StatelessWidget {
+  const TrackingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: SelectLocationFromMapBody(),
+      child: TrackingScreenFromMapBody(),
     );
   }
 }
 
-class SelectLocationFromMapBody extends StatelessWidget {
-  const SelectLocationFromMapBody({super.key});
+class TrackingScreenFromMapBody extends StatelessWidget {
+  const TrackingScreenFromMapBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +49,16 @@ class SelectLocationFromMapBody extends StatelessWidget {
                     children: [
                       CustomAppBarScreen(
                         sectionName:
-                            AppLocalizations.of(context)!.delivery_Address,
+                        AppLocalizations.of(context)!.delivery_Address,
                       ),
-                      const SizedBox(height: 60),
-                      const LinearProgressIndicator(
-                        backgroundColor: ColorManager.primaryGreen,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+
+                      const Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: ColorManager.primaryGreen,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
                       ),
-                      const SizedBox(height: 40),
-                      Text(
-                        AppLocalizations.of(context)!.locating_your_position,
-                        style: getBoldStyle(
-                            color: ColorManager.primaryGreen, fontSize: 16),
-                      )
+
                     ],
                   ),
                 );
@@ -87,7 +84,7 @@ class SelectLocationFromMapBody extends StatelessWidget {
                       onMapCreated: (GoogleMapController controller) {
                         context.read<LocationBloc>().mapController = controller;
                         LatLng location =
-                            LatLng(state.latitude, state.longitude);
+                        LatLng(state.latitude, state.longitude);
                         controller.animateCamera(
                             CameraUpdate.newLatLngZoom(location, 14));
                       },
@@ -99,17 +96,17 @@ class SelectLocationFromMapBody extends StatelessWidget {
                     ),
                     CustomAppBarScreen(
                         sectionName:
-                            AppLocalizations.of(context)!.delivery_Address),
+                        AppLocalizations.of(context)!.delivery_Address),
                     Positioned(
                         top: 100,
                         right: 50,
                         left: 50,
                         child: Center(
                             child: Text(
-                          AppLocalizations.of(context)!.choose_the_Address,
-                          style: getBoldStyle(
-                              color: ColorManager.primaryGreen, fontSize: 28),
-                        ))),
+                              AppLocalizations.of(context)!.choose_the_Address,
+                              style: getBoldStyle(
+                                  color: ColorManager.primaryGreen, fontSize: 28),
+                            ))),
                     Positioned(
                         bottom: 100,
                         right: 50,

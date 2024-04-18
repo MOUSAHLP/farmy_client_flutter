@@ -15,22 +15,25 @@ import 'package:pharma/translations.dart';
 import '../../../core/app_router/app_router.dart';
 
 class ConfirmPaymentOrderDialog {
-
-  static final ConfirmPaymentOrderDialog _loadingDialog = ConfirmPaymentOrderDialog._internal();
+  static final ConfirmPaymentOrderDialog _loadingDialog =
+      ConfirmPaymentOrderDialog._internal();
 
   factory ConfirmPaymentOrderDialog() {
     return _loadingDialog;
   }
 
   ConfirmPaymentOrderDialog._internal();
+
   bool _isShown = false;
+
   void closeDialog(BuildContext context) {
     if (_isShown) {
       AppRouter.pop(context);
       _isShown = false;
     }
   }
-   void openDialog(BuildContext context, String? message,
+
+  void openDialog(BuildContext context, String? message,
       {required int orderId}) {
     _isShown = true;
     dialogTransitionBuilder(

@@ -44,9 +44,14 @@ TextStyle? getUnderBoldStyle(
 
 // bold style
 TextStyle? getBoldStyle(
-
     {double fontSize = FontSizeApp.s12, required Color color, double? height}) {
   return _getTextStyle(fontSize, FontWeightApp.morebold, color, height: height);
+}
+
+// bold style
+TextStyle? getBold2Style(
+    {double fontSize = FontSizeApp.s12, required Color color, double? height}) {
+  return _getTextStyle(fontSize, FontWeightApp.bold, color, height: height);
 }
 
 //morbold
