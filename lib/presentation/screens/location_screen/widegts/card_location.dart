@@ -39,7 +39,7 @@ class CardLocation extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                  Text(userAddressModel.name??"",style:getBoldStyle(color:ColorManager.grayForMessage,fontSize: 14) ,maxLines: 2,overflow: TextOverflow.ellipsis),
+                  Text(userAddressModel.area??"",style:getBoldStyle(color:ColorManager.grayForMessage,fontSize: 14) ,maxLines: 2,overflow: TextOverflow.ellipsis),
                   Text("${userAddressModel.area??""} - ${userAddressModel.street??""} - ${userAddressModel.building??""} - ${userAddressModel.floor??""}",style:getBoldStyle(color:ColorManager.grayForSearchProduct,fontSize: 12) ,maxLines: 2,overflow: TextOverflow.ellipsis),
                 ],),
               ),

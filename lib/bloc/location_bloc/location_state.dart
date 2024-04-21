@@ -1,27 +1,25 @@
 import 'package:equatable/equatable.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../core/app_enum.dart';
 import '../../models/user_address_response.dart';
 
 class LocationState extends Equatable {
   ScreenStates screenStates;
-
   bool isLoading;
   String error;
   final bool success;
   final double latitude;
   final double longitude;
-
   bool isLoadingDelete;
   String errorDelete;
   bool successDelete;
-
   bool isLoadingFavorite;
   String errorFavorite;
   bool successFavorite;
-
   List<UserAddressModel> userAddressList;
   UserAddressModel addressCurrent;
+  LatLng? location;
 
   LocationState({
     this.screenStates = ScreenStates.loading,
@@ -38,6 +36,7 @@ class LocationState extends Equatable {
     this.isLoadingFavorite = false,
     this.errorFavorite = '',
     this.successFavorite = false,
+    this.location,
   });
 
   LocationState copyWith({
@@ -55,6 +54,7 @@ class LocationState extends Equatable {
     bool? isLoadingFavorite,
     String? errorFavorite,
     bool? successFavorite,
+    LatLng? location,
   }) {
     return LocationState(
       screenStates: screenStates ?? ScreenStates.initialized,
@@ -71,6 +71,7 @@ class LocationState extends Equatable {
       isLoadingFavorite: isLoadingFavorite ?? false,
       errorFavorite: errorFavorite ?? '',
       successFavorite: successFavorite ?? false,
+      location: location ?? this.location,
       //Favorite
     );
   }
@@ -89,9 +90,10 @@ class LocationState extends Equatable {
         isLoadingDelete,
         errorDelete,
         successDelete,
-    isLoadingFavorite,
-    errorFavorite,
-    successFavorite
+        isLoadingFavorite,
+        errorFavorite,
+        successFavorite,
+        location,
       ];
 }
 

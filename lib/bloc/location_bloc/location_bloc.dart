@@ -21,6 +21,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   );
   List<UserAddressModel> userAddressList = [];
   final AddAddressParams address = AddAddressParams();
+
   // UserAddressModel addressCurrent = UserAddressModel();
   LocationBloc() : super(LocationState(addressCurrent: UserAddressModel())) {
     on<LocationEvent>((event, emit) async {
@@ -117,6 +118,10 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
             emit(state.copyWith(successDelete: true));
           }
         });
+      }
+
+      if (event is UpdateLocation) {
+        emit(state.copyWith(location: LatLng(event.lat, event.long)));
       }
     });
   }

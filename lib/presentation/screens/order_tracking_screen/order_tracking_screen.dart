@@ -1,34 +1,45 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_state.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/firebase_notifications_handler.dart';
 import 'package:pharma/models/track_model.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/order_tracking_screen/widgets/order_status_container.dart';
+import 'package:pharma/presentation/screens/order_tracking_screen/widgets/tracking_screen.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-  import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../translations.dart';
 import '../../widgets/custom_app_bar_screen.dart';
 import '../../widgets/custom_button.dart';
-import 'package:web_socket_channel/status.dart' as status;
 
-class OrderTrackingScreen extends StatelessWidget {
+
+class OrderTrackingScreen extends StatefulWidget {
   final int orderId;
-  final channel = WebSocketChannel.connect(Uri.parse('ws://example.com'));
 
-  OrderTrackingScreen({super.key, required this.orderId});
+  const OrderTrackingScreen({super.key, required this.orderId});
+
+  @override
+  State<OrderTrackingScreen> createState() => _OrderTrackingScreenState();
+}
+
+class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
+  _OrderTrackingScreenState();
+
+
 
   @override
   Widget build(BuildContext context) {
+
     final bloc = TrackingBloc()
-      ..setOrderId(orderId)
+      ..setOrderId(widget.orderId)
       ..add(const GetOrderStatus());
     FirebaseNotificationsHandler().bloc = bloc;
 
@@ -119,15 +130,11 @@ class OrderTrackingScreen extends StatelessWidget {
                                     label: AppLocalizations.of(context)!
                                         .track_your_order_on_the_map,
                                     onTap: () async {
-                                      await channel.ready;
-                                      channel.stream.listen((message) {
-                                        channel.sink.add('received!');
-                                        channel.sink.close(status.goingAway);
-                                      });
-                                      // AppRouter.push(
-                                      //   context,
-                                      //   const TrackingScreen(),
-                                      // );
+                                      setState(() {});
+                                      AppRouter.push(
+                                        context,
+                                         TrackingScreen(),
+                                      );
                                     },
                                   ),
                                   const SizedBox(
@@ -148,6 +155,7 @@ class OrderTrackingScreen extends StatelessWidget {
                                       }
                                     },
                                   ),
+
                                 ],
                               ),
                             ),
@@ -158,7 +166,6 @@ class OrderTrackingScreen extends StatelessWidget {
                         ],
                       );
                     }
-
                     return const CustomLoadingWidget();
                   }),
             ),
@@ -168,3 +175,7 @@ class OrderTrackingScreen extends StatelessWidget {
     );
   }
 }
+
+
+
+
