@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/translations.dart';
 
 import '../../../bloc/rate_bloc/rate_bloc.dart';
 import '../../../bloc/rate_bloc/rate_event.dart';
@@ -49,7 +50,7 @@ class RateOrderScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "تم تسليم طلبك",
+                          AppLocalizations.of(context)!. your_order_has_been_delivered,
                           textAlign: TextAlign.center,
                           style: getBoldStyle(
                               fontSize: 28.sp,
@@ -66,7 +67,7 @@ class RateOrderScreen extends StatelessWidget {
                                   color: ColorManager.grayForMessage),
                             ),
                             Text(
-                              "شكرا لتسوقك مع فارمي",
+                              AppLocalizations.of(context)!.thank_you_for_shopping_from_farmy,
                               textAlign: TextAlign.center,
                               style: getBoldStyle(
                                   fontSize: 28.sp,
@@ -78,7 +79,7 @@ class RateOrderScreen extends StatelessWidget {
                     ),
                     10.verticalSpace,
                     Text(
-                      "قم بتقييم الطلب الآن وأحصل على نقاط إضافية",
+                      AppLocalizations.of(context)!.rate_the_order_now_and_get_extra_points,
                       textAlign: TextAlign.center,
                       style: getSemiBoldStyle(
                           fontSize: 18.sp, color: ColorManager.primaryGreen),
