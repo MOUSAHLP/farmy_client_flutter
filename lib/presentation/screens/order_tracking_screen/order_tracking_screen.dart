@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_state.dart';
@@ -15,11 +15,11 @@ import 'package:pharma/presentation/screens/order_tracking_screen/widgets/order_
 import 'package:pharma/presentation/screens/order_tracking_screen/widgets/tracking_screen.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
+import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../translations.dart';
 import '../../widgets/custom_app_bar_screen.dart';
 import '../../widgets/custom_button.dart';
-
 
 class OrderTrackingScreen extends StatefulWidget {
   final int orderId;
@@ -33,11 +33,8 @@ class OrderTrackingScreen extends StatefulWidget {
 class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
   _OrderTrackingScreenState();
 
-
-
   @override
   Widget build(BuildContext context) {
-
     final bloc = TrackingBloc()
       ..setOrderId(widget.orderId)
       ..add(const GetOrderStatus());
@@ -130,10 +127,30 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                     label: AppLocalizations.of(context)!
                                         .track_your_order_on_the_map,
                                     onTap: () async {
+                                      LoadingDialog().openDialog(context);
+
+                                      await context
+                                          .read<LocationBloc>()
+                                          .getPosition();
+                                      print(
+                                        context
+                                            .read<LocationBloc>()
+                                            .latitudeCurrent,
+                                      );
+                                      LoadingDialog().closeDialog(context);
+
                                       setState(() {});
                                       AppRouter.push(
                                         context,
-                                         TrackingScreen(),
+                                        TrackingScreen(
+                                          lat: context
+                                              .read<LocationBloc>()
+                                              .latitudeCurrent!,
+                                          long: context
+                                              .read<LocationBloc>()
+                                              .longitudeCurrent!,
+                                          orderId: widget.orderId,
+                                        ),
                                       );
                                     },
                                   ),
@@ -155,7 +172,6 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                       }
                                     },
                                   ),
-
                                 ],
                               ),
                             ),
@@ -175,7 +191,3 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     );
   }
 }
-
-
-
-

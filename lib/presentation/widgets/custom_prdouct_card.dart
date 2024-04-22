@@ -176,7 +176,7 @@ class CustomProductCard extends StatelessWidget {
                                   Text(
                                     Formatter.formatPrice(
                                       int.tryParse(
-                                        productInfo.discount=="0"?productInfo.price??"":  productInfo.discountValue ?? "0",
+                                        productInfo.discount=="0"?productInfo.price??"":  productInfo.discountPrice ?? "0",
                                           ) ??
                                           0,
                                     ),

@@ -52,8 +52,7 @@ class BasketNotInstallCard extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        RowOrder(
-                            title: "id basket", details: myOrder.id.toString()),
+
                         const SizedBox(height: 10),
                       ],
                     ),
@@ -64,17 +63,6 @@ class BasketNotInstallCard extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        // Expanded(
-                        //   child: CustomButton(
-                        //     height: 38,
-                        //     radius: 6,
-                        //     label: AppLocalizations.of(context)!.install,
-                        //     fillColor: ColorManager.yellow,
-                        //     labelColor: Colors.white,
-                        //     onTap: () {},
-                        //   ),
-                        // ),
-                        // const SizedBox(width: 3),
                         Expanded(
                           child: CustomButton(
                             height: 38,
