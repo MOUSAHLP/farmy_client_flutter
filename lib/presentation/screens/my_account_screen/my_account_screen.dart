@@ -22,6 +22,7 @@ import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../data/data_resource/local_resource/data_store.dart';
 import '../base_screen/base_screen.dart';
+import '../rate_order/rate_order_screen.dart';
 
 class MyAccountScreen extends StatelessWidget {
   const MyAccountScreen({super.key});
