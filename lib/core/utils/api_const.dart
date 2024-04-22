@@ -67,6 +67,8 @@ class ApiConst {
   static String deleteOrder(int id) => "/orders/$id";
   static String showBasket = "/get-cart-products-info";
   static String showRate = "/get-rates";
+  static String rateAttribute = "/get-order-rate-attributes";
+  static String submitRate(int id) => "/orders/update-rate/$id";
 
   /// track order
   static String getTrackOrderDetails(int id) => "/orders/order-status/$id";

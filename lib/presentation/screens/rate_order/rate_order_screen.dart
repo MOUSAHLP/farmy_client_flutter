@@ -1,110 +1,212 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/models/rate_attribute.dart';
+import 'package:pharma/presentation/screens/rate_order/widget/custom_rate_cause.dart';
+import 'package:pharma/presentation/widgets/custom_loading.dart';
 
 import '../../../bloc/rate_bloc/rate_bloc.dart';
 import '../../../bloc/rate_bloc/rate_event.dart';
 import '../../../bloc/rate_bloc/rate_state.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../translations.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
+import '../../widgets/custom_button.dart';
 import '../../widgets/custom_rating.dart';
+import '../auth_screen/ widgets/input_field_auth.dart';
 
-class RateOrderScreen extends StatelessWidget {
-  const RateOrderScreen({super.key});
+class RateOrderScreen extends StatefulWidget {
+  final int orderId;
+  RateOrderScreen({Key? key, required this.orderId}) : super(key: key);
+
+  @override
+  _RateOrderScreenState createState() => _RateOrderScreenState();
+}
+
+class _RateOrderScreenState extends State<RateOrderScreen> {
+  List<RateAttribute> attributeList = [];
+  List<RateAttribute> selectedAttribute = [];
+  RateBloc rateBloc = RateBloc();
+  bool showTextField = false;
+  double rate = 0.0;
+  TextEditingController causeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    rateBloc.add(GetRateAttribute());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: BlocProvider<RateBloc>(
-        create: (BuildContext context) => sl<RateBloc>(),
-        child: SizedBox(
-          width: 1.sw,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 8,
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.only(start: 12.w),
-                    child: Image.asset(
-                      ImageManager.rate,
-                      fit: BoxFit.cover,
-                      width: 0.5.sw,
-                    ),
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: Padding(
+                padding: EdgeInsetsDirectional.only(start: 12.w),
+                child: Image.asset(
+                  ImageManager.rate,
+                  fit: BoxFit.cover,
+                  width: 0.35.sw,
                 ),
               ),
-              Expanded(
-                flex: 7,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.order_delivered_successfully,
+                  textAlign: TextAlign.center,
+                  style: getBoldStyle(
+                      fontSize: 28.sp, color: ColorManager.grayForMessage),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "تم تسليم طلبك",
-                          textAlign: TextAlign.center,
-                          style: getBoldStyle(
-                              fontSize: 28.sp,
-                              color: ColorManager.grayForMessage),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "(:  ",
-                              textAlign: TextAlign.center,
-                              style: getBoldStyle(
-                                  fontSize: 28.sp,
-                                  color: ColorManager.grayForMessage),
-                            ),
-                            Text(
-                              "شكرا لتسوقك مع فارمي",
-                              textAlign: TextAlign.center,
-                              style: getBoldStyle(
-                                  fontSize: 28.sp,
-                                  color: ColorManager.grayForMessage),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    10.verticalSpace,
                     Text(
-                      "قم بتقييم الطلب الآن وأحصل على نقاط إضافية",
+                      "(:  ",
                       textAlign: TextAlign.center,
-                      style: getSemiBoldStyle(
-                          fontSize: 18.sp, color: ColorManager.primaryGreen),
+                      style: getBoldStyle(
+                          fontSize: 28.sp, color: ColorManager.grayForMessage),
                     ),
-                    BlocBuilder<RateBloc, RateState>(builder: (context, state) {
-                      return CustomRating(
-                        rate: 2,
-                        itemSize: 40.w,
-                        padding: const EdgeInsetsDirectional.only(
-                            end: 20, top: 20, bottom: 20),
-                        onRatingUpdate: (double value) {
-                          context.read<RateBloc>().add(SubmitRate(rate: value));
-                        },
-                      );
-                    }),
-                    25.verticalSpace,
-                    InkWell(
-                        onTap: () => Navigator.pop(context),
-                        customBorder: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100)),
-                        child: SvgPicture.asset(IconsManager.close)),
+                    Text(
+                      AppLocalizations.of(context)!
+                          .thanks_for_shopping_in_farmy,
+                      textAlign: TextAlign.center,
+                      style: getBoldStyle(
+                          fontSize: 22.sp, color: ColorManager.grayForMessage),
+                    ),
                   ],
                 ),
+              ],
+            ),
+            10.verticalSpace,
+            Text(
+              AppLocalizations.of(context)!.rate_order_and_get_points,
+              textAlign: TextAlign.center,
+              style: getSemiBoldStyle(
+                  fontSize: 18.sp, color: ColorManager.primaryGreen),
+            ),
+            CustomRating(
+              rate: rate,
+              itemSize: 40.w,
+              padding: const EdgeInsetsDirectional.only(
+                  end: 20, top: 20, bottom: 20),
+              onRatingUpdate: (double value) {
+                rate = value;
+                // context.read<RateBloc>().add(SubmitRate(rate: value));
+              },
+            ),
+            25.verticalSpace,
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Text(
+                AppLocalizations.of(context)!
+                    .what_do_you_think_to_get_better_experience,
+                textAlign: TextAlign.end,
+                style: getSemiBoldStyle(
+                    fontSize: 18.sp, color: ColorManager.grayForMessage),
               ),
-            ],
-          ),
+            ),
+            BlocConsumer(
+              bloc: rateBloc,
+              listener: (context, state) {
+                if (state is SuccessGetRateAttribute) {
+                  attributeList = state.attributeList ?? [];
+                }
+                if (state is FailGetRateAttribute) {}
+              },
+              builder: (context, state) {
+                return state is LoadingGetRateAttribute
+                    ? const CustomLoading()
+                    : Wrap(
+                        children: attributeList
+                            .map((e) => CustomRateCause(
+                                  onTab: () {
+                                    if (selectedAttribute.contains(e)) {
+                                      selectedAttribute.remove(e);
+                                    } else {
+                                      selectedAttribute.add(e);
+                                    }
+                                    if (selectedAttribute.any((element) =>
+                                        element.hasInput == true)) {
+                                      showTextField = true;
+                                    } else {
+                                      showTextField = false;
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  selectedAttribute: selectedAttribute,
+                                  rateAttribute: e,
+                                ))
+                            .toList(),
+                      );
+              },
+            ),
+            showTextField
+                ? Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: TextFormField(
+                      controller: causeController,
+                      maxLines: 4,
+                      decoration: InputDecoration(
+                        filled: true,
+                        isDense: true,
+                        fillColor: ColorManager.lightGray,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: ColorManager.lightGreen),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: ColorManager.lightGreen),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: ColorManager.lightGreen),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            25.verticalSpace,
+            BlocConsumer(
+              bloc: rateBloc,
+              listener: (context, state) {},
+              builder: (context, state) {
+                return CustomButton(
+                  label: AppLocalizations.of(context)!.confirm,
+                  onTap: () {
+                    rateBloc.add(SubmitRate(
+                        orderId: widget.orderId,
+                        rate: rate,
+                        selectedAttribute: selectedAttribute
+                            .map((e) => SelectedRateAttribute(
+                                id: e.id,
+                                input: e.hasInput ? causeController.text : ""))
+                            .toList()));
+                  },
+                );
+              },
+            )
+          ],
         ),
       ),
     );
