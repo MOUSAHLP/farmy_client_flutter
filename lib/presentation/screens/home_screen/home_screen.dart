@@ -21,7 +21,12 @@ import 'package:pharma/presentation/widgets/dialogs/time_work_dialog.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../base_screen/base_screen.dart';
-
+import '../../../bloc/basket_bloc/basket_bloc.dart';
+import '../../resources/color_manager.dart';
+import 'package:pharma/translations.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/core/app_router/app_router.dart';
+import '../basket_screen/basket_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -77,62 +82,121 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         const CustomDeliveryService(),
                       //// ==================== making dynamic content ==================== ////
                       Expanded(
-                        child: ListView(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          controller: context.read<HomeBloc>().scrollController,
-                          shrinkWrap: true,
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
                           children: [
-                            ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
+                            ListView(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              controller: context.read<HomeBloc>().scrollController,
                               shrinkWrap: true,
-                              itemCount: context
-                                  .read<HomeBloc>()
-                                  .homePageDynamicModel!
-                                  .length,
-                              itemBuilder: (context, index) {
-                                return BlocBuilder<LanguageBloc, LanguageState>(builder: (context, languageState) {List<HomePageDynamicModel>homePageDynamicModel = context.read<HomeBloc>().homePageDynamicModel!;
-                                  return Column(
-                                    children: [
-                                      if (homePageDynamicModel[index].type ==
-                                          "category")
-                                        HomeCategory(
-                                          title: homePageDynamicModel[index]
-                                              .title!,
-                                          categoriesList:
-                                              homePageDynamicModel[index]
-                                                  .categoryContent!,
-                                        ),
-                                      if (homePageDynamicModel[index].type ==
-                                          "section")
-                                        HomeSection(
-                                          title: homePageDynamicModel[index]
-                                              .title!,
-                                          sectionId:
-                                              homePageDynamicModel[index].id!,
-                                          list: homePageDynamicModel[index]
-                                              .sectionContent!,
-                                        ),
-                                      if (homePageDynamicModel[index].type ==
-                                          "slider")
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 10, bottom: 10),
-                                          child: CustomHomeCursel(
-                                            verticalPadding: 0,
-                                            bannerList:
-                                                homePageDynamicModel[index]
-                                                    .sliderContent,
-                                            height: 164.h,
-                                          ),
-                                        ),
-                                    ],
-                                  );
-                                });
-                              },
-                            ),
+                              children: [
+                                ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: context
+                                      .read<HomeBloc>()
+                                      .homePageDynamicModel!
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    return BlocBuilder<LanguageBloc, LanguageState>(builder: (context, languageState) {List<HomePageDynamicModel>homePageDynamicModel = context.read<HomeBloc>().homePageDynamicModel!;
+                                      return Column(
+                                        children: [
+                                          if (homePageDynamicModel[index].type ==
+                                              "category")
+                                            HomeCategory(
+                                              title: homePageDynamicModel[index]
+                                                  .title!,
+                                              categoriesList:
+                                                  homePageDynamicModel[index]
+                                                      .categoryContent!,
+                                            ),
+                                          if (homePageDynamicModel[index].type ==
+                                              "section")
+                                            HomeSection(
+                                              title: homePageDynamicModel[index]
+                                                  .title!,
+                                              sectionId:
+                                                  homePageDynamicModel[index].id!,
+                                              list: homePageDynamicModel[index]
+                                                  .sectionContent!,
+                                            ),
+                                          if (homePageDynamicModel[index].type ==
+                                              "slider")
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10, bottom: 10),
+                                              child: CustomHomeCursel(
+                                                verticalPadding: 0,
+                                                bannerList:
+                                                    homePageDynamicModel[index]
+                                                        .sliderContent,
+                                                height: 164.h,
+                                              ),
+                                            ),
+                                        ],
+                                      );
+                                    });
+                                  },
+                                ),
 
-                            // loading and no data
-                            context.read<HomeBloc>().buildListViewFooter(),
+                                // loading and no data
+                                context.read<HomeBloc>().buildListViewFooter(),
+                              ],
+                            ),
+                            context
+                                .read<BasketBloc>()
+                                .mutableProducts
+                                .isNotEmpty
+                                ? Padding(
+                              padding:
+                              const EdgeInsets.all(20.0),
+                              child: InkWell(
+                                child: Container(
+                                  height: 40,
+                                  width: 1.sw - 100,
+                                  decoration: BoxDecoration(
+                                      color: ColorManager
+                                          .primaryGreen,
+                                      borderRadius:
+                                      BorderRadius
+                                          .circular(6)),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text(
+                                            context
+                                                .read<
+                                                BasketBloc>()
+                                                .mutableProducts
+                                                .length
+                                                .toString(),
+                                            style: getBoldStyle(
+                                                color: Colors
+                                                    .white)),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                            AppLocalizations.of(
+                                                context)!
+                                                .view_basket,
+                                            style: getBoldStyle(
+                                                color: Colors
+                                                    .white)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  AppRouter.push(context,
+                                      const BasketScreen());
+                                },
+                              ),
+                            )
+                                : const SizedBox()
                           ],
                         ),
                       ),
