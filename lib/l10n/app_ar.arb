@@ -306,9 +306,10 @@
   "view_basket": "عرض السلة",
   "download_pdf": "تنزيل  pdf",
   "save_edits": "حفظ التعديلات",
-  "your_order_has_been_delivered": "تم تسليم طلبك",
-  "thank_you_for_shopping_from_farmy": "شكرا لتسوقك مع فارمي",
-  "rate_the_order_now_and_get_extra_points": "قم بتقييم الطلب الآن وأحصل على نقاط إضافية"
+  "order_delivered_successfully":"تم تسليم طلبك",
+   "thanks_for_shopping_in_farmy": "شكرا لتسوقك مع فارمي",
+   "rate_order_and_get_points":"قم بتقييم الطلب الآن وأحصل على نقاط إضافية",
+   "what_do_you_think_to_get_better_experience":"ما الذي يحتاج برأيك إلى تحسين للحصول على تجربة أفضل؟"
 
 
 }
