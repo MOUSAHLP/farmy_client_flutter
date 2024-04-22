@@ -671,13 +671,8 @@ class PaymentBody extends StatelessWidget {
                             couponId: state.couponId,
                             time: state.time,
                             notes: noteController.text,
-                            deliveryMethodId:
-                                state.deliveryMethodChosenList[state.id!].id,
-                            userAddressId: context
-                                .read<LocationBloc>()
-                                .state
-                                .addressCurrent
-                                .id!,
+                            deliveryMethodId: state.deliveryMethodChosenList[state.id!].id,
+                            userAddressId: context.read<LocationBloc>().state.addressCurrent.id!,
                           ),
                         ),
                       );

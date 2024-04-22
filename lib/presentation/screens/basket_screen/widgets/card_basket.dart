@@ -115,9 +115,9 @@ class CardBasket extends StatelessWidget {
                                 )),
                           ),
                         ),
-                        productAddedToBasketDetails.discountPrice != null
+                        productAddedToBasketDetails.discountValue != null
                             ? Text(
-                                productAddedToBasketDetails.price ?? '',
+                                productAddedToBasketDetails.discountValue ?? '',
                                 style: getRegularStyle(
                                         color: ColorManager.grayForMessage,
                                         fontSize: FontSizeApp.s12)!

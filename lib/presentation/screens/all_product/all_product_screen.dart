@@ -143,7 +143,7 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                               .id));
                                               return Center(
                                                 child: InkWell(
-                                                  onLongPress: () {
+                                                  onTap: () {
                                                     if (context
                                                         .read<BasketBloc>()
                                                         .mutableProducts
@@ -181,10 +181,10 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                                         .productsList[
                                                                             index]
                                                                         .id,
-                                                                    discountPrice: state
+                                                                    discountValue: state
                                                                         .productsList[
                                                                             index]
-                                                                        .discountPrice,
+                                                                        .discountValue,
                                                                     discountStatus: state
                                                                         .productsList[
                                                                             index]
@@ -214,7 +214,7 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                       }
                                                     }
                                                   },
-                                                  onTap: () {
+                                                  onLongPress: () {
                                                     AppRouter.push(
                                                       context,
                                                       ProductDetailsScreen(
@@ -336,9 +336,12 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                                AppLocalizations.of(
-                                                                    context)!
-                                                                    .view_basket,
+                                                                context
+                                                                    .read<
+                                                                        BasketBloc>()
+                                                                    .mutableProducts
+                                                                    .length
+                                                                    .toString(),
                                                                 style: getBoldStyle(
                                                                     color: Colors
                                                                         .white)),
@@ -346,32 +349,12 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                               width: 10,
                                                             ),
                                                             Text(
-                                                                "( ${context.read<BasketBloc>().finalPrice().toString()} ${AppLocalizations.of(context)!.curruncy} ) ",
+                                                                AppLocalizations.of(
+                                                                        context)!
+                                                                    .view_basket,
                                                                 style: getBoldStyle(
                                                                     color: Colors
                                                                         .white)),
-                                                            Container
-                                                              (
-
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.all(8.0),
-                                                                child: Text(
-                                                                    context
-                                                                        .read<
-                                                                        BasketBloc>()
-                                                                        .mutableProducts
-                                                                        .length
-                                                                        .toString(),
-                                                                    style: getBoldStyle(
-                                                                        color: Colors
-                                                                            .white)),
-                                                              ),
-                                                              decoration: BoxDecoration(
-                                                                  shape: BoxShape.circle,
-                                                                  color: Colors.red
-                                                              ),
-                                                            ),
-
                                                           ],
                                                         ),
                                                       ),

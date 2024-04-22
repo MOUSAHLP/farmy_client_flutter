@@ -71,6 +71,7 @@ class SelectLocationFromMapBody extends StatelessWidget {
                   child: Text("error"),
                 );
               }
+
               return SafeArea(
                 child: Stack(
                   children: [

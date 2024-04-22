@@ -122,7 +122,6 @@ class OrderDetailsBody extends StatelessWidget {
                       Expanded(
                         child: CustomOverscrollIndicator(
                           child: ListView.builder(
-
                             itemBuilder: (context, index) =>
                                 CardDetailsOrderNotInstall(
                               myOrderBloc: context.read<MyOrderBloc>(),

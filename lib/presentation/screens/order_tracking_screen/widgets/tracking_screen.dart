@@ -1,134 +1,141 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_event.dart';
-import 'package:pharma/bloc/location_bloc/location_state.dart';
-import 'package:pharma/core/app_enum.dart';
-import 'package:pharma/core/app_router/app_router.dart';
-import 'package:pharma/core/services/services_locator.dart';
-import 'package:pharma/presentation/resources/color_manager.dart';
-import 'package:pharma/presentation/resources/style_app.dart';
-import 'package:pharma/presentation/screens/location_screen/add_location_screen.dart';
-import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
-import 'package:pharma/presentation/widgets/custom_button.dart';
-import 'package:pharma/translations.dart';
+import 'package:pharma/models/tracking_model.dart';
+import 'package:socket_io_client/socket_io_client.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
 
-
-class TrackingScreen extends StatelessWidget {
+class TrackingScreen extends StatefulWidget {
   const TrackingScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const SafeArea(
-      child: TrackingScreenFromMapBody(),
-    );
-  }
+  State<TrackingScreen> createState() => _TrackingScreenState();
 }
 
-class TrackingScreenFromMapBody extends StatelessWidget {
-  const TrackingScreenFromMapBody({super.key});
+class _TrackingScreenState extends State<TrackingScreen> {
+  double x = 33.33353973430781;
+  double y = 36.249999;
+
+  final Completer<GoogleMapController> _controller = Completer();
+  // static const LatLng sourceLocation = LatLng(37.33500926, -122.03272188);
+  static const LatLng destination = LatLng(33.33353973430781, 36.249999);
+  StreamSocket streamSocket = StreamSocket();
+  List<LatLng> polylineCoordinates = [];
+
+  @override
+  void initState() {
+    // context.read<LocationBloc>().state.addressCurrent.longitude!;
+    getPolyPoints();
+    getCurrentLocation();
+    // connectAndListen();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          BlocConsumer<LocationBloc, LocationState>(
-            bloc: sl<LocationBloc>()..add(CurrentLocation()),
-            listener: (context, state) {
-              if (state is ExitLocation) {
-                AppRouter.pop(context);
-              }
-            },
-            builder: (context, state) {
-              if (state.screenStates == ScreenStates.loading) {
-                return Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      CustomAppBarScreen(
-                        sectionName:
-                        AppLocalizations.of(context)!.delivery_Address,
-                      ),
-
-                      const Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: ColorManager.primaryGreen,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      ),
-
-                    ],
-                  ),
-                );
-              }
-              if (state.screenStates == ScreenStates.error) {
-                return const Center(
-                  child: Text("error"),
-                );
-              }
-              return SafeArea(
-                child: Stack(
-                  children: [
-                    GoogleMap(
-                      zoomControlsEnabled: false,
-                      mapType: MapType.normal,
-                      markers: {
-                        context.read<LocationBloc>().markerLocation,
-                      },
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(state.latitude, state.longitude),
-                        zoom: 18,
-                      ),
-                      onMapCreated: (GoogleMapController controller) {
-                        context.read<LocationBloc>().mapController = controller;
-                        LatLng location =
-                        LatLng(state.latitude, state.longitude);
-                        controller.animateCamera(
-                            CameraUpdate.newLatLngZoom(location, 14));
-                      },
-                      onTap: (LatLng tappedLocation) {
-                        context
-                            .read<LocationBloc>()
-                            .add(ChangeLocationMarker(tappedLocation));
-                      },
-                    ),
-                    CustomAppBarScreen(
-                        sectionName:
-                        AppLocalizations.of(context)!.delivery_Address),
-                    Positioned(
-                        top: 100,
-                        right: 50,
-                        left: 50,
-                        child: Center(
-                            child: Text(
-                              AppLocalizations.of(context)!.choose_the_Address,
-                              style: getBoldStyle(
-                                  color: ColorManager.primaryGreen, fontSize: 28),
-                            ))),
-                    Positioned(
-                        bottom: 100,
-                        right: 50,
-                        left: 50,
-                        child: Center(
-                          child: CustomButton(
-                              label: AppLocalizations.of(context)!.confirm,
-                              onTap: () {
-                                AppRouter.push(
-                                    context,
-                                    AddLocationScreen(
-                                      isFirst: true,
-                                    ));
-                              }),
-                        ))
-                  ],
-                ),
-              );
-            },
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: LatLng(
+            x,
+            y,
           ),
-        ],
+          zoom: 13.5,
+        ),
+        markers: {
+          Marker(
+            markerId: const MarkerId("currentLocation"),
+            position: LatLng(
+              x,
+              y,
+            ),
+          ),
+          const Marker(
+            markerId: MarkerId("destination"),
+            position: destination,
+          ),
+        },
+        onMapCreated: (mapController) {
+          _controller.complete(mapController);
+        },
+        polylines: {
+          Polyline(
+            polylineId: const PolylineId("route"),
+            points: polylineCoordinates,
+            color: const Color(0xFF7B61FF),
+            width: 6,
+          ),
+        },
       ),
     );
+  }
+
+  void getPolyPoints() async {
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyAX8XoECKD0-gnAaah67gR4akbUodB_8Ww", // Your Google Map Key
+      const PointLatLng(33.33353973430781, 36.241999),
+      const PointLatLng(33.33353973430781, 36.249999),
+    );
+    if (result.points.isNotEmpty) {
+      for (var point in result.points) {
+        polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        );
+      }
+      setState(() {});
+    }
+    // print('@@@@@@@@@@@@@');
+    // print(polylineCoordinates);
+    // print('@@@@@@@@@@@@@@');
+  }
+
+  void getCurrentLocation() async {
+    IO.Socket socket = IO.io(
+      "ws://farmy.tracking.peaklink.site:3000?order_id=242",
+      OptionBuilder().setTransports(['websocket']).build(),
+    );
+    GoogleMapController googleMapController = await _controller.future;
+
+    socket.onConnect((_) {
+      print('connect');
+    });
+
+    socket.on("track_242", (data) {
+      final GetUserRatesModel userModel = GetUserRatesModel.fromJson(data);
+      streamSocket.addResponse(userModel);
+      x = userModel.lat;
+      y = userModel.long;
+      googleMapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            zoom: 13.5,
+            target: LatLng(
+              userModel.lat,
+              userModel.long,
+            ),
+          ),
+        ),
+      );
+      setState(() {});
+    });
+    socket.onDisconnect((_) => print('disconnect'));
+  }
+}
+
+class StreamSocket {
+  final _socketResponse = StreamController<GetUserRatesModel>();
+
+  void Function(GetUserRatesModel) get addResponse => _socketResponse.sink.add;
+
+  Stream<GetUserRatesModel> get getResponse => _socketResponse.stream;
+
+  void dispose() {
+    _socketResponse.close();
   }
 }

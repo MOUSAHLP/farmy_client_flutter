@@ -10,7 +10,7 @@ class ProductResponse {
   String? availabilityOfProduct;
   String? sellerName;
   String? discountStatus;
-  String? discountPrice;
+  String? discountValue;
   String? image;
   String? description;
   bool? isDiscount;
@@ -30,7 +30,7 @@ class ProductResponse {
       this.availabilityOfProduct,
       this.sellerName,
       this.discountStatus,
-      this.discountPrice,
+      this.discountValue,
       this.isDiscount,
       this.image,
       this.description,
@@ -48,14 +48,17 @@ class ProductResponse {
                 json["quantity"] != null ? int.parse(json["quantity"]) : null,
             description: json["description"],
             discountStatus: json["discount_status"],
-            discountPrice: json["discount"] != "0"
+            discountValue: json["discount_status"] != 0
                 ? getDiscountedPrice(
                     json["price"].toString(), json["discount"].toString())
-                : json["price"],
+                : json["discount"],
             sellerName: json["seller"] == null ? null : json["seller"]["name"],
             nameOfProduct: json["name"],
             price: json["price"],
             discount:
+                // json["discount_status"] != 0
+                //     ? getDiscountedPrice(json["price"], json["discount"])
+                //     :
                 json["discount"],
             attributeList: json["attributes"] == null
                 ? []

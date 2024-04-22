@@ -12,7 +12,6 @@ import '../../../bloc/my_order_bloc/my_order_bloc.dart';
 import '../../../bloc/my_order_bloc/my_order_event.dart';
 import '../../../bloc/my_order_bloc/my_order_state.dart';
 import '../../../core/services/services_locator.dart';
-import '../../../models/params/get_basket_params.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/style_app.dart';
 import '../../widgets/custom_error_screen.dart';
@@ -229,12 +228,10 @@ class BodyBasketNotInstall extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MyOrderBloc, MyOrderState>(
       builder: (context, state) {
-
         return CustomOverscrollIndicator(
           child: ListView.builder(
-
             itemBuilder: (context, index) => BasketNotInstallCard(
-                myOrder: state.basketModel.basketList.reversed.toList()[index]),
+                myOrder: state.basketModel.basketList[index]),
             itemCount: state.basketModel.basketList.length,
           ),
         );

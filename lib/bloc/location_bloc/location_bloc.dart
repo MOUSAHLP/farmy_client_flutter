@@ -21,6 +21,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   );
   List<UserAddressModel> userAddressList = [];
   final AddAddressParams address = AddAddressParams();
+
   // UserAddressModel addressCurrent = UserAddressModel();
   LocationBloc() : super(LocationState(addressCurrent: UserAddressModel())) {
     on<LocationEvent>((event, emit) async {
@@ -118,6 +119,10 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           }
         });
       }
+
+      if (event is UpdateLocation) {
+        emit(state.copyWith(location: LatLng(event.lat, event.long)));
+      }
     });
   }
 
@@ -126,7 +131,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     List<UserAddressModel> dayTasks = [...userAddressList];
     dayTasks.removeWhere((task) {
       if (keyword != null &&
-          !(task.area!.toLowerCase().contains(keyword.toLowerCase())))
+          !(task.name!.toLowerCase().contains(keyword.toLowerCase())))
         return true;
       return false;
     });

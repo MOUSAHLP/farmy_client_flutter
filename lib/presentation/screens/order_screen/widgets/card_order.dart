@@ -85,7 +85,7 @@ class CardOrder extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              // Text(myOrder.status ?? ""),
+              Text(myOrder.status ?? ""),
               StateButtons(
                 status: myOrder.status ?? "",
                 id: myOrder.id,
