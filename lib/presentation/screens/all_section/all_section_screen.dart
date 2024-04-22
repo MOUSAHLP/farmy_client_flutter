@@ -12,6 +12,11 @@ import 'package:pharma/presentation/widgets/custom_category_shimmer.dart';
 import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../bloc/basket_bloc/basket_bloc.dart';
+import '../../../core/app_router/app_router.dart';
+import '../../resources/style_app.dart';
+import '../basket_screen/basket_screen.dart';
+
 class ALlSectionScreen extends StatelessWidget {
   const ALlSectionScreen({Key? key}) : super(key: key);
 
@@ -101,22 +106,81 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                         height: 10,
                       ),
                       Expanded(
-                        child: IndexedStack(
-                          index: tabController.index,
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
                           children: [
-                            if (state.categoriesList.isNotEmpty)
-                              CustomCategoryScreen(
-                                categoriesList: state.categoriesList,
-                                tabController: tabController,
+                            IndexedStack(
+                              index: tabController.index,
+                              children: [
+                                if (state.categoriesList.isNotEmpty)
+                                  CustomCategoryScreen(
+                                    categoriesList: state.categoriesList,
+                                    tabController: tabController,
+                                  ),
+                                ...state.categoriesList.map((title) {
+                                  return state.screenState == ScreenState.loading
+                                      ? const CustomCategoryShimmer()
+                                      : CustomSubCategoryScreen(
+                                          subCategoriesList: state.subCategoryList,
+                                          tabController: tabController,
+                                        );
+                                }).toList()
+                              ],
+                            ),
+                            context
+                                .read<BasketBloc>()
+                                .mutableProducts
+                                .isNotEmpty
+                                ? Padding(
+                              padding:
+                              const EdgeInsets.all(20.0),
+                              child: InkWell(
+                                child: Container(
+                                  height: 40,
+                                  width: 1.sw - 100,
+                                  decoration: BoxDecoration(
+                                      color: ColorManager
+                                          .primaryGreen,
+                                      borderRadius:
+                                      BorderRadius
+                                          .circular(6)),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text(
+                                            context
+                                                .read<
+                                                BasketBloc>()
+                                                .mutableProducts
+                                                .length
+                                                .toString(),
+                                            style: getBoldStyle(
+                                                color: Colors
+                                                    .white)),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                            AppLocalizations.of(
+                                                context)!
+                                                .view_basket,
+                                            style: getBoldStyle(
+                                                color: Colors
+                                                    .white)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  AppRouter.push(context,
+                                      const BasketScreen());
+                                },
                               ),
-                            ...state.categoriesList.map((title) {
-                              return state.screenState == ScreenState.loading
-                                  ? const CustomCategoryShimmer()
-                                  : CustomSubCategoryScreen(
-                                      subCategoriesList: state.subCategoryList,
-                                      tabController: tabController,
-                                    );
-                            }).toList()
+                            )
+                                : const SizedBox()
                           ],
                         ),
                       ),
