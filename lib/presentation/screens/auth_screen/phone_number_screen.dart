@@ -83,7 +83,7 @@ class _PhoneNumberBodyState extends State<PhoneNumberBody>
                 InputFieldAuth(
                   keyboardType: TextInputType.phone,
                   controller: phoneController,
-                    hintText: AppLocalizations.of(context)!.phone,
+                    hintText: AppLocalizations.of(context)!.hint_phone,
                     isPhone: true,
                     icon: Image.asset(
                       ImageManager.flagOfSyria,
@@ -131,8 +131,10 @@ class _PhoneNumberBodyState extends State<PhoneNumberBody>
                   height: 13,
                 ),
                 ButtonAuth(
-                    label: AppLocalizations.of(context)!.resend,
+                    label: AppLocalizations.of(context)!.back,
                     onTap: () {
+                      context.read<AuthenticationBloc>().add(
+                          TapOnPressed(ScreensAuth.signInScreen));
                     }),
                 const SizedBox(
                   height: 13,

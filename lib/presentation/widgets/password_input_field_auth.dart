@@ -116,18 +116,17 @@ class _PasswordInputFieldAuthState extends State<PasswordInputFieldAuth> {
                           fontSize: 0,
                           height: 0.1,
                         ),
-                        // suffixIcon: GestureDetector(
-                        //   onTap: () => toggleObscure(),
-                        //   child: Icon(
-                        //     Icons.remove_red_eye,
-                        //     color: obscure
-                        //         ? Colors.grey
-                        //         : ColorManager.primaryGreen,
-                        //   ),
-                        // ),
+                        suffixIcon: GestureDetector(
+                          onTap: () => toggleObscure(),
+                          child: Icon(
+                            Icons.remove_red_eye,
+                            color: obscure
+                                ? Colors.grey
+                                : ColorManager.primaryGreen,
+                          ),
+                        ),
                         contentPadding: widget.contentPadding,
                         hintStyle: getBoldStyle(
-
                           color: ColorManager.grayForSearchProduct,
                         ),
                         hintTextDirection:TextDirection.rtl ,
