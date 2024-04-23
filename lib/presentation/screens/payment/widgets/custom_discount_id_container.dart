@@ -150,9 +150,9 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                                 time: widget.paymentBloc.state.time,
                                 notes: widget.notesText,
                                 deliveryMethodId:
-                                     widget.paymentBloc.state.deliveryMethodChosenList[widget.paymentBloc.state.id!].id
-                                    ,
-                                userAddressId: context
+                                widget.paymentBloc.state.id!
+,
+                                  userAddressId: context
                                     .read<LocationBloc>()
                                     .state
                                     .addressCurrent
@@ -173,7 +173,7 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                                 time: widget.paymentBloc.state.time,
                                 notes: widget.notesText,
                                 deliveryMethodId:
-                                widget.paymentBloc.state.deliveryMethodChosenList[widget.paymentBloc.state.id!].id
+                                widget.paymentBloc.state.id!
                                 ,
                                 userAddressId: context
                                     .read<LocationBloc>()

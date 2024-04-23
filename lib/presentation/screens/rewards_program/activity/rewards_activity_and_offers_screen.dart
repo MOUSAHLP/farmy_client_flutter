@@ -18,8 +18,7 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RewardsActivityAndOffersBloc,
-        RewardsActivityAndOffersState>(
+    return BlocBuilder<RewardsActivityAndOffersBloc, RewardsActivityAndOffersState>(
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(

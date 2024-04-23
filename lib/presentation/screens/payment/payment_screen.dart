@@ -663,6 +663,11 @@ class PaymentBody extends StatelessWidget {
                   onCompletePayment: () {
 
                     if (myOrderBloc != null) {
+                      print('@@@@@@@@@@@@@@@@@@@@@@@');
+                      print(                   state.id
+                      );
+                      print('=====================');
+
                       paymentBloc.add(
                         CreateOrder(
                           idBasket,
@@ -671,7 +676,7 @@ class PaymentBody extends StatelessWidget {
                             couponId: state.couponId,
                             time: state.time,
                             notes: noteController.text,
-                            deliveryMethodId: state.deliveryMethodChosenList[state.id!].id,
+                            deliveryMethodId: state.id!,
                             userAddressId: context.read<LocationBloc>().state.addressCurrent.id!,
                           ),
                         ),
@@ -686,10 +691,7 @@ class PaymentBody extends StatelessWidget {
                             time: state.time,
                             notes: noteController.text,
                             deliveryMethodId:
-                                state.deliveryMethodChosenList.isNotEmpty
-                                    // ToDo deliveryMethodChosenList[0].id ??? 0
-                                    ? state.deliveryMethodChosenList[0].id
-                                    : 0,
+                            state.id!,
                             userAddressId: context
                                 .read<LocationBloc>()
                                 .state

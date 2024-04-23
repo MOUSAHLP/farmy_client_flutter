@@ -5,6 +5,7 @@ class RewardsRankUserModel {
   final int statusCode;
   final List<Rank> ranks;
 
+
   RewardsRankUserModel({
     required this.status,
     required this.message,

@@ -34,21 +34,21 @@ class RewardsPointsHistoryBloc
         );
       }
       if (event is GetRewardsPointsHistoryUsed) {
-        emit(
-          state.copyWith(rewardsPointsHistoryLoading: true),
-        );
+        emit(state.copyWith(rewardsPointsHistoryLoading: true));
         var response = await RewardsRepo.getRewardHistoryPointsUsed();
         response.fold(
           (l) {
-
             emit(
               state.copyWith(rewardsPointsHistoryError: l),
             );
           },
           (r) {
+            print('=@@@@@@@@@@@@@@@@@@@@@@@@');
             emit(
               state.copyWith(
-                  rewardsPointsHistorySuccess: true, rewardsUsedPointsModel: r),
+                rewardsPointsHistorySuccess: true,
+                rewardsUsedPointsModel: r,
+              ),
             );
           },
         );
@@ -71,10 +71,10 @@ class RewardsPointsHistoryBloc
             );
           },
         );
-      }  if(event is ChangeStatusScreen ){
-        emit(state.copyWith(rewardsPointsHistorySuccess: false));
       }
-      else if (event is ChangeTabPointsRewardsEvent) {
+      if (event is ChangeStatusScreen) {
+        emit(state.copyWith(rewardsPointsHistorySuccess: false));
+      } else if (event is ChangeTabPointsRewardsEvent) {
         currentScreen = event.currentScreen;
         emit(
           state.copyWith(rewardsPointsStateEnum: currentScreen),

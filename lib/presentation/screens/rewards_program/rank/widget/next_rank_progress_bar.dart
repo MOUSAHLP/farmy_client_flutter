@@ -55,9 +55,12 @@ class NextRankProgressBar extends StatelessWidget {
                         child: LinearProgressIndicator(
                           color: ColorManager.primaryGreen,
                           value: calculateTheValueOfProgressToTheNextLevel(
-                            currentPoint: state.rewardsRankUserModel!.data.userRank.limit,
-                            nextPoint: state.rewardsRankUserModel!.data.userNextRank.limit,
-                            userPoint: state.rewardsRankUserModel!.data.userPoints,
+                            currentPoint:
+                                state.rewardsRankUserModel!.data.userRank.limit,
+                            nextPoint: state
+                                .rewardsRankUserModel!.data.userNextRank.limit,
+                            userPoint:
+                                state.rewardsRankUserModel!.data.userPoints,
                           ),
                           minHeight: 24.h,
                           borderRadius: BorderRadius.circular(
@@ -69,8 +72,13 @@ class NextRankProgressBar extends StatelessWidget {
                   ],
                 ),
               ),
+              if(state.rewardsRankUserModel!.data.userNextRank.limit!=0)
               Text(
-                "100,000${AppLocalizations.of(context)!.sp_remaining_to_get_the_next_level} الرتبة الذهبية",
+                "${calculateTheValueOfProgressToTheNextLevel(
+                  currentPoint: state.rewardsRankUserModel!.data.userRank.limit,
+                  nextPoint: state.rewardsRankUserModel!.data.userNextRank.limit,
+                  userPoint: state.rewardsRankUserModel!.data.userPoints,
+                ).abs()}${AppLocalizations.of(context)!.sp_remaining_to_get_the_next_level} الرتبة الذهبية",
                 style: getRegularStyle(
                   color: ColorManager.grayForMessage,
                   fontSize: FontSizeApp.s13.sp,
@@ -89,6 +97,6 @@ class NextRankProgressBar extends StatelessWidget {
     required int nextPoint,
     required int userPoint,
   }) {
-    return (userPoint-currentPoint) / (nextPoint - currentPoint);
+    return (userPoint - currentPoint) / (nextPoint - currentPoint);
   }
 }

@@ -106,6 +106,6 @@ mixin Formatter {
     DateFormat dateFormat = DateFormat('hh');
     DateTime dateTime = DateFormat('HH').parse(hour.toString());
     int hour_2 = int.parse(dateFormat.format(dateTime)[1]);
-    return hour_2.toString();
+    return hour.toString();
   }
 }

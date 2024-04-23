@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/models/tracking_model.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/screens/rate_order/rate_order_screen.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
@@ -33,6 +35,9 @@ class _TrackingScreenState extends State<TrackingScreen> {
   StreamSocket streamSocket = StreamSocket();
   List<LatLng> polylineCoordinates = [];
   PolylinePoints polylinePoints = PolylinePoints();
+  late IO.Socket socket;
+
+  late GoogleMapController googleMapController;
 
   @override
   void initState() {
@@ -42,13 +47,22 @@ class _TrackingScreenState extends State<TrackingScreen> {
   }
 
   @override
+  void dispose() {
+    socket.close();
+    googleMapController.dispose();
+
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
           target: LatLng(
-            x,
-            y,
+            widget.lat,
+            widget.long,
           ),
           zoom: 11.5,
         ),
@@ -108,11 +122,11 @@ class _TrackingScreenState extends State<TrackingScreen> {
     print(widget.long);
     print(widget.lat);
     print('@@@@@@@@@@@@@@@@@@');
-    IO.Socket socket = IO.io(
+    socket = IO.io(
       "ws://farmy.tracking.peaklink.site:3000?order_id=${widget.orderId}",
       OptionBuilder().setTransports(['websocket']).build(),
     );
-    GoogleMapController googleMapController = await _controller.future;
+    googleMapController = await _controller.future;
     socket.onConnect((_) {
       print('connect');
     });
@@ -120,7 +134,14 @@ class _TrackingScreenState extends State<TrackingScreen> {
     socket.on("track_${widget.orderId}", (data) {
       final GetUserRatesModel userModel = GetUserRatesModel.fromJson(data);
       // Check if the coordinates have changed
-
+      if (userModel.status.contains("Deliverd")) {
+        socket.close();
+        googleMapController.dispose();
+        AppRouter.pushReplacement(
+          context,
+          RateOrderScreen(orderId: widget.orderId),
+        );
+      }
       x = userModel.lat;
       y = userModel.long;
       print('####');

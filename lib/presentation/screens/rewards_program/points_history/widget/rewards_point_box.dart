@@ -41,8 +41,7 @@ class RewardsPointHistoryBox extends StatelessWidget {
             children: [
               RewardsPointPoint(
                 color: colorPoints,
-                point: rewardsPointsHistoryBloc
-                    .state.rewardHistoryModel!.data[index].points,
+                point: rewardsPointsHistoryBloc.state.rewardHistoryModel!.data[index].points,
               ),
               Expanded(
                 child: Padding(

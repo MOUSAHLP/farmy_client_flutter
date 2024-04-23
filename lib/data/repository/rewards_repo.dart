@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:pharma/core/utils/api_const.dart';
 import 'package:pharma/data/data_resource/remote_resource/api_handler/base_api_client.dart';
 import 'package:pharma/models/home_response.dart';
+import 'package:pharma/models/params/rewards_by_coupon_params.dart';
 import 'package:pharma/models/reward/reward_activity_coupons_model.dart';
 import 'package:pharma/models/reward/reward_history_point_used_model.dart';
 import 'package:pharma/models/reward/reward_my_coupons_model.dart';
@@ -10,6 +11,8 @@ import 'package:pharma/models/reward/reward_history_model.dart';
 import 'package:pharma/models/reward/reward_membership_guide_model.dart';
 import 'package:pharma/models/reward/reward_offers_coupons_model.dart';
 import 'package:pharma/models/reward/reward_rank_user_model.dart';
+
+import '../../models/reward/reward_buy_coupon_model.dart';
 
 /// TODO Needs to edit
 class RewardsRepo {
@@ -21,13 +24,13 @@ class RewardsRepo {
         });
   }
 
-    static Future<Either<String, RewardGuideModel>> getRewardGuide() {
-      return BaseApiClient.get<RewardGuideModel>(
-          url: ApiConst.getRewardsGuide,
-          converter: (e) {
-            return RewardGuideModel.fromJson(e);
-          });
-    }
+  static Future<Either<String, RewardGuideModel>> getRewardGuide() {
+    return BaseApiClient.get<RewardGuideModel>(
+        url: ApiConst.getRewardsGuide,
+        converter: (e) {
+          return RewardGuideModel.fromJson(e);
+        });
+  }
 
   static Future<Either<String, RewardMembershipGuideModel>>
       getRewardMemberShipGuide() {
@@ -38,7 +41,8 @@ class RewardsRepo {
         });
   }
 
-  static Future<Either<String, RewardHistoryModel>> getRewardHistoryPointsExpired() {
+  static Future<Either<String, RewardHistoryModel>>
+      getRewardHistoryPointsExpired() {
     return BaseApiClient.get<RewardHistoryModel>(
         url: ApiConst.getRewardsPointHistoryExpired,
         converter: (e) {
@@ -46,7 +50,8 @@ class RewardsRepo {
         });
   }
 
-  static Future<Either<String, RewardsUsedPointsModel>>   getRewardHistoryPointsUsed() {
+  static Future<Either<String, RewardsUsedPointsModel>>
+      getRewardHistoryPointsUsed() {
     return BaseApiClient.get<RewardsUsedPointsModel>(
         url: ApiConst.getRewardsPointHistoryUsed,
         converter: (e) {
@@ -54,7 +59,8 @@ class RewardsRepo {
         });
   }
 
-  static Future<Either<String, RewardHistoryModel>> getRewardHistoryPointsValid() {
+  static Future<Either<String, RewardHistoryModel>>
+      getRewardHistoryPointsValid() {
     return BaseApiClient.get<RewardHistoryModel>(
         url: ApiConst.getRewardsPointHistoryValid,
         converter: (e) {
@@ -87,11 +93,22 @@ class RewardsRepo {
         });
   }
 
-  static Future<Either<String, RewardsOffersModel>> getRewardOffersCouponUser() {
+  static Future<Either<String, RewardsOffersModel>>
+      getRewardOffersCouponUser() {
     return BaseApiClient.get<RewardsOffersModel>(
         url: ApiConst.getRewardsOfferCoupon,
         converter: (e) {
           return RewardsOffersModel.fromJson(e);
+        });
+  }
+
+  static Future<Either<String, BuyCouponModel>> buyCoupon(
+      {required BuyCouponParams buyCouponParams}) {
+    return BaseApiClient.post<BuyCouponModel>(
+        formData: buyCouponParams.toJson(),
+        url: ApiConst.buyCoupon,
+        converter: (e) {
+          return BuyCouponModel.fromJson(e);
         });
   }
 }

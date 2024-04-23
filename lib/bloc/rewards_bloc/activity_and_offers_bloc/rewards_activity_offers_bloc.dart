@@ -3,6 +3,7 @@ import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activi
 import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_state.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/rewards_repo.dart';
+import 'package:pharma/models/params/rewards_by_coupon_params.dart';
 
 class RewardsActivityAndOffersBloc
     extends Bloc<RewardsActivityAndOffersEvent, RewardsActivityAndOffersState> {
@@ -28,6 +29,25 @@ class RewardsActivityAndOffersBloc
               emit(state.copyWith(
                   rewardCouponsActivityModel: r,
                   rewardsActivityAndOffersSuccess: true));
+            },
+          );
+        }
+
+        if (event is BuyCoupon) {
+
+          emit(state.copyWith(rewardsActivityAndOffersLoading: true));
+
+          var response = await RewardsRepo.buyCoupon(buyCouponParams: event.buyCouponParams);
+          response.fold(
+            (l) {
+              emit(state.copyWith(rewardsActivityAndOffersError: l,rewardsActivityAndOffersSuccess: true));
+            },
+            (r) {
+              emit(
+                state.copyWith(
+                  rewardsActivityAndOffersSuccess: true,
+                ),
+              );
             },
           );
         }

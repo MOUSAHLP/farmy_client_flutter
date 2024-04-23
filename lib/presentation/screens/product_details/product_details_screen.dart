@@ -120,7 +120,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                             .price !=
                                                         null
                                                     ? Text(
-                                                        "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
+                                                        "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.discountPrice!)!)} ${AppLocalizations.of(context)!.curruncy}",
                                                         style: getBoldStyle(
                                                           color: ColorManager
                                                               .primaryGreen,
