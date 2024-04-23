@@ -39,14 +39,14 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   int productPrice(int id) {
     int index = mutableProducts.indexWhere((element) => element.id == id);
     return (mutableProducts[index].quantity! *
-        int.parse(mutableProducts[index].price ?? ''));
+        int.parse(mutableProducts[index].discountPrice ?? ''));
   }
 
   int finalPrice() {
     int sum = 0;
     for (int i = 0; i < mutableProducts.length; i++) {
       sum += (mutableProducts[i].quantity! *
-          int.parse(mutableProducts[i].price ?? ''));
+          int.parse(mutableProducts[i].discountPrice ?? '0'));
     }
     return sum;
   }

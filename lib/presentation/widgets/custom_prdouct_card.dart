@@ -62,7 +62,7 @@ class CustomProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
-                      padding:  EdgeInsets.symmetric(vertical: 7.h),
+                      padding: EdgeInsets.symmetric(vertical: 7.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -136,47 +136,54 @@ class CustomProductCard extends StatelessWidget {
                           //     ],
                           //   ),
                           // ),
-                          productInfo.discount=="0"?SizedBox():    Padding(
-                            padding:  EdgeInsets.only(top: 3.h),
-                            child: Row(
-                              children: [
-                                Text(
-                                  productInfo.price ?? "",
-                                  style: getRegularStyle(
-                                    color: ColorManager.grayForMessage,
-                                    fontSize: FontSizeApp.s12,
-                                  )!
-                                      .copyWith(
-                                    decoration: TextDecoration.lineThrough,
-                                    height: 1,
+                          productInfo.discount == "0"
+                              ? const SizedBox()
+                              : Padding(
+                                  padding: EdgeInsets.only(top: 3.h),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        productInfo.price ?? "",
+                                        style: getRegularStyle(
+                                          color: ColorManager.grayForMessage,
+                                          fontSize: FontSizeApp.s12,
+                                        )!
+                                            .copyWith(
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          height: 1,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 1,
+                                      ),
+                                      Text(
+                                        AppLocalizations.of(context)!.curruncy,
+                                        style: getRegularStyle(
+                                          color: ColorManager.grayForMessage,
+                                          fontSize: FontSizeApp.s13,
+                                        )!
+                                            .copyWith(
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          height: 1,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  width: 1,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.curruncy,
-                                  style: getRegularStyle(
-                                    color: ColorManager.grayForMessage,
-                                    fontSize: FontSizeApp.s13,
-                                  )!
-                                      .copyWith(
-                                    decoration: TextDecoration.lineThrough,
-                                    height: 1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           Padding(
-                            padding:  EdgeInsets.only(top: 10.h, bottom: 0),
+                            padding: EdgeInsets.only(top: 10.h, bottom: 0),
                             child: Row(
                               children: [
                                 if (productInfo.price != null)
                                   Text(
                                     Formatter.formatPrice(
                                       int.tryParse(
-                                        productInfo.discount=="0"?productInfo.price??"":  productInfo.discountValue ?? "0",
+                                            productInfo.discount == "0"
+                                                ? productInfo.price ?? ""
+                                                : productInfo.discountPrice ??
+                                                    "0",
                                           ) ??
                                           0,
                                     ),
@@ -241,7 +248,7 @@ class CustomProductCard extends StatelessWidget {
             ),
           ),
           // productInfo.discount != null||
-              productInfo.discount!="0"
+          productInfo.discount != "0"
               ? ClipRRect(
                   borderRadius: const BorderRadiusDirectional.only(
                     topEnd: Radius.circular(6),

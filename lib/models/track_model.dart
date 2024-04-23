@@ -1,5 +1,5 @@
 class TrackingModel {
-  int? driverPhone;
+  String? driverPhone;
   int? status;
 
   TrackingModel({this.driverPhone, this.status});

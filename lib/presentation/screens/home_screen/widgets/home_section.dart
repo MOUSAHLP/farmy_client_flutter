@@ -80,7 +80,7 @@ class _HomeSectionState extends State<HomeSection> {
                     widget.list[index]
                         .id));
                 return GestureDetector(
-                  onTap: () {
+                  onLongPress: () {
 
                     if (context
                         .read<BasketBloc>()
@@ -114,9 +114,9 @@ class _HomeSectionState extends State<HomeSection> {
                                 id: widget.list[
                                 index]
                                     .id,
-                                discountValue: widget.list[
+                                discountPrice: widget.list[
                                 index]
-                                    .discountValue,
+                                    .discountPrice,
                                 discountStatus: widget.list[
                                 index]
                                     .discountStatus,
@@ -142,7 +142,7 @@ class _HomeSectionState extends State<HomeSection> {
                     }
 
                   },
-                  onLongPress: (){
+                  onTap: (){
                     AppRouter.push(
                       context,
                       ProductDetailsScreen(

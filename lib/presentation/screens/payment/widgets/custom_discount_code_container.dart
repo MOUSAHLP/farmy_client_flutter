@@ -50,9 +50,8 @@ class CustomDiscountCodeContainer extends StatelessWidget {
                   time: paymentBloc.state.time,
                   notes: notesText,
                   deliveryMethodId:
-                      paymentBloc.state.deliveryMethodChosenList.isNotEmpty
-                          ? paymentBloc.state.deliveryMethodChosenList[0].id
-                          : 0,
+                  paymentBloc.state.id!,
+
                   userAddressId:
                       context.read<LocationBloc>().state.addressCurrent.id!,
                 ),
@@ -67,10 +66,7 @@ class CustomDiscountCodeContainer extends StatelessWidget {
                   time: paymentBloc.state.time,
                   notes: notesText,
                   deliveryMethodId:
-                      paymentBloc.state.deliveryMethodChosenList.isNotEmpty
-                          // ToDo deliveryMethodChosenList[0].id ??? 0
-                          ? paymentBloc.state.deliveryMethodChosenList[0].id
-                          : 0,
+                  paymentBloc.state.id!,
                   userAddressId:
                       context.read<LocationBloc>().state.addressCurrent.id!,
                 ),

@@ -87,7 +87,7 @@ class FirebaseNotificationsHandler {
         if (message.data["order_status"] != null && bloc != null) {
           // update the tracking screen
           TrackingModel trackingModel = TrackingModel(
-              driverPhone: int.parse(message.data["driver_phone"].toString()),
+              driverPhone: message.data["driver_phone"].toString(),
               status: int.parse(message.data["order_status"].toString()));
 
           bloc!.add(UpdateOrderStatus(

@@ -86,7 +86,8 @@ class ApiConst {
   static const String getRewardMyCoupons = "/reward/coupons";
   static const String getRewardActivityCoupons = "/reward/achievements/not-done";
   static const String getRewardsRankUser = "/reward/user-statistics";
-  static const String getRewardsOfferCoupon = "/reward/coupons/fixed-value";
+  static const String getRewardsOfferCoupon = "/reward/coupons/offers";
+  static const String buyCoupon = "/reward/coupons/buy";
 
 
   ///setting

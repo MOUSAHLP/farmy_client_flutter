@@ -46,13 +46,6 @@ class CustomDeliveryService extends StatelessWidget {
                     ],
                   ),
                 ),
-                // child: Text(
-                //   "خدمة التوصيل متوفرة من الساعة ${context.read<SettingBloc>().settingModel!.data!.openingTimes!.startTime} مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً",
-                //   textAlign: TextAlign.center,
-                //   style: getBoldStyle(
-                //     color: ColorManager.grayForMessage,
-                //   ),
-                // ),
               ),
             ),
           )

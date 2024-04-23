@@ -28,9 +28,8 @@ class RewardsActivityTicketBuyOffers extends StatelessWidget {
           imagePath: rewardsActivityAndOffersBloc
               .state.rewardsOffersModel!.data[index].couponType.image,
           child: RewardsActivityTicketBuyContent(
-            point: rewardsActivityAndOffersBloc
-                .state.rewardsOffersModel!.data[index].price
-                .toString(),
+            point: rewardsActivityAndOffersBloc.state.rewardsOffersModel!.data[index].price.toString(),
+            idCoupon: rewardsActivityAndOffersBloc.state.rewardsOffersModel!.data[index].id,
           ),
         ),
       );

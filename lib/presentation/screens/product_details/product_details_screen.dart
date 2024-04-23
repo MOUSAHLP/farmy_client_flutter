@@ -120,7 +120,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                             .price !=
                                                         null
                                                     ? Text(
-                                                        "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
+                                                        "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.discountPrice!)!)} ${AppLocalizations.of(context)!.curruncy}",
                                                         style: getBoldStyle(
                                                           color: ColorManager
                                                               .primaryGreen,
@@ -437,7 +437,7 @@ class ProductDetailsBody extends StatelessWidget {
             quantity: tmp.quantity,
             image: tmp.image,
             id: tmp.id,
-            discountValue: tmp.discountValue,
+            discountPrice: tmp.discountPrice,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,
             nameOfProduct: tmp.nameOfProduct,
@@ -454,7 +454,7 @@ class ProductDetailsBody extends StatelessWidget {
             quantity: tmp.quantity,
             image: tmp.image,
             id: tmp.id,
-            discountValue: tmp.discountValue,
+            discountPrice: tmp.discountPrice,
             discountStatus: tmp.discountStatus,
             availabilityOfProduct: tmp.availabilityOfProduct,
             nameOfProduct: tmp.nameOfProduct,
@@ -476,7 +476,7 @@ class ProductDetailsBody extends StatelessWidget {
             state.productDetailsResponse.availabilityOfProduct,
         attributeList: state.productDetailsResponse.attributeList,
         description: state.productDetailsResponse.description,
-        discountValue: state.productDetailsResponse.discountValue,
+        discountPrice: state.productDetailsResponse.discountPrice,
         id: state.productDetailsResponse.id,
         image: state.productDetailsResponse.image,
         quantity: state.quntity,

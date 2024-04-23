@@ -87,8 +87,7 @@ class SelectLocationFromMapBody extends StatelessWidget {
                       ),
                       onMapCreated: (GoogleMapController controller) {
                         context.read<LocationBloc>().mapController = controller;
-                        LatLng location =
-                            LatLng(state.latitude, state.longitude);
+                        LatLng location = LatLng(state.latitude, state.longitude);
                         controller.animateCamera(
                             CameraUpdate.newLatLngZoom(location, 14));
                       },
