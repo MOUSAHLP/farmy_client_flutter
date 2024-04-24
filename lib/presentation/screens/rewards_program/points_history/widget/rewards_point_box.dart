@@ -42,8 +42,7 @@ class RewardsPointHistoryBox extends StatelessWidget {
             children: [
               RewardsPointPoint(
                 color: colorPoints,
-                point: rewardsPointsHistoryBloc
-                    .state.rewardHistoryModel!.data[index].points,
+                point: rewardsPointsHistoryBloc.state.rewardHistoryModel!.data[index].points,
               ),
               Expanded(
                 child: Padding(
@@ -63,32 +62,27 @@ class RewardsPointHistoryBox extends StatelessWidget {
                         ),
                         RewardsPointRow(
                           text: AppLocalizations.of(context)!.expiry_date,
-                          date: Formatter.formatDate(
-                            rewardsPointsHistoryBloc.state.rewardHistoryModel!
-                                .data[index].createdAt,
+                          date: Formatter.formatDate(rewardsPointsHistoryBloc.state.rewardHistoryModel!.data[index].createdAt,
                           ),
                           expired: rewardsPointsHistoryBloc
                               .state.rewardHistoryModel!.data[index].expired,
                         ),
-                      ] else ...[
-                        RewardsPointRow(
-                          expired: rewardsPointsHistoryBloc
-                              .state.rewardHistoryModel!.data[index].expired,
-                          text: AppLocalizations.of(context)!.date_of_use,
-                          date: Formatter.formatDate(
-                            rewardsPointsHistoryBloc.state.rewardHistoryModel!
-                                .data[index].createdAt,
-                          ),
-                        ),
+                      ]
+                      else ...[
                         RewardsPointRow(
                           expired: false,
                           text: AppLocalizations.of(context)!.date_of_earn,
                           date: Formatter.formatDate(
-                            rewardsPointsHistoryBloc.state.rewardHistoryModel!
-                                .data[index].createdAt,
+                            rewardsPointsHistoryBloc.state.rewardHistoryModel!.data[index].createdAt,
                           ),
                         ),
-                      ]
+                        RewardsPointRow(
+                          expired: true,
+                          text: AppLocalizations.of(context)!.expiry_date,
+                          date: Formatter.formatDate(rewardsPointsHistoryBloc.state.rewardHistoryModel!.data[index].expireAt,
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),

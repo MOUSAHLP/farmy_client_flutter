@@ -200,9 +200,7 @@ class PaymentBody extends StatelessWidget {
                                   const SizedBox(height: 4),
                                   for (var item in state.paymentProcessResponse!
                                       .deliveryMethodList!) ...[
-                                    if (item.deliveryName!.contains("مجدول") &&
-                                        !checkIsOpening(context)) ...[
-                                      if (checkIsOpening(context)) ...[
+                                    if (item.deliveryName!.contains("مجدول") && !checkIsOpening(context)) ...[
                                         BlocBuilder<LocationBloc,
                                             LocationState>(
                                           builder: (context, locationState) {
@@ -215,7 +213,6 @@ class PaymentBody extends StatelessWidget {
                                             );
                                           },
                                         ),
-                                      ]
                                     ],
                                     if (!item.deliveryName!
                                         .contains("مجدول")) ...[

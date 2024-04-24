@@ -60,8 +60,7 @@ class CardOrder extends StatelessWidget {
                   ? Row(
                       children: [
                         Text(
-                            AppLocalizations.of(context)!
-                                .total_Price_with_Delivery,
+                            AppLocalizations.of(context)!.total_Price_with_Delivery,
                             style: getBoldStyle(
                                 color: Colors.black, fontSize: 11)),
                         Padding(

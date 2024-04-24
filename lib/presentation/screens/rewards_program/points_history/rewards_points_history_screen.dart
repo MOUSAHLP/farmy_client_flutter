@@ -108,8 +108,7 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                   if (context.read<RewardsPointsHistoryBloc>().currentScreen == RewardsPointsStateEnum.earnedPoints) ...[
                     RewardsPointHistoryBox(
                       colorPoints: ColorManager.primaryGreen,
-                      rewardsPointsHistoryBloc:
-                          context.read<RewardsPointsHistoryBloc>(),
+                      rewardsPointsHistoryBloc: context.read<RewardsPointsHistoryBloc>(),
                     ),
                   ] else if (context.read<RewardsPointsHistoryBloc>().currentScreen == RewardsPointsStateEnum.endedPoints) ...[
                     RewardsPointHistoryBox(

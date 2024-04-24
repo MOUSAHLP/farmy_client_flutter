@@ -119,8 +119,8 @@ class _TrackingScreenState extends State<TrackingScreen> {
   void getCurrentLocation() async {
     print('@@@@@@@@@@@@@@@@@@');
     print(widget.orderId);
-    print(widget.long);
     print(widget.lat);
+    print(widget.long);
     print('@@@@@@@@@@@@@@@@@@');
     socket = IO.io(
       "ws://farmy.tracking.peaklink.site:3000?order_id=${widget.orderId}",
@@ -151,7 +151,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
       googleMapController.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
-            zoom: 15,
+            zoom: 16,
             target: LatLng(
               x,
               y,

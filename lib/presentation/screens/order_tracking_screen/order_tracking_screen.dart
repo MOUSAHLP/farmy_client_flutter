@@ -129,17 +129,8 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                         .track_your_order_on_the_map,
                                     onTap: () async {
                                       LoadingDialog().openDialog(context);
-
-                                      await context
-                                          .read<LocationBloc>()
-                                          .getPosition();
-                                      print(
-                                        context
-                                            .read<LocationBloc>()
-                                            .latitudeCurrent,
-                                      );
+                                      await context.read<LocationBloc>().getPosition();
                                       LoadingDialog().closeDialog(context);
-
                                       setState(() {});
                                       AppRouter.push(
                                         context,
