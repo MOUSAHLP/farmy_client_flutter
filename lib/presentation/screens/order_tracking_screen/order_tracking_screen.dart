@@ -158,7 +158,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  CustomButton(
+                                  trackingModel.driverPhone!=null?   CustomButton(
                                     label: AppLocalizations.of(context)!
                                         .contact_delivery_driver,
                                     isFilled: true,
@@ -166,13 +166,15 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                     fillColor: Colors.white,
                                     labelColor: ColorManager.primaryGreen,
                                     onTap: () async {
+                                      print("trackingModel.driverPhone");
+                                      print(trackingModel.driverPhone);
                                       Uri url = Uri.parse(
                                           "tel://${trackingModel.driverPhone}");
                                       if (await canLaunchUrl(url)) {
                                          launchPhoneCall("${trackingModel.driverPhone}");
                                       }
                                     },
-                                  ),
+                                  ):SizedBox(),
                                 ],
                               ),
                             ),
