@@ -105,8 +105,7 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   SizedBox(height: 10.h),
-                  if (context.read<RewardsPointsHistoryBloc>().currentScreen ==
-                      RewardsPointsStateEnum.earnedPoints) ...[
+                  if (context.read<RewardsPointsHistoryBloc>().currentScreen == RewardsPointsStateEnum.earnedPoints) ...[
                     RewardsPointHistoryBox(
                       colorPoints: ColorManager.primaryGreen,
                       rewardsPointsHistoryBloc:
@@ -115,11 +114,9 @@ class RewardsPointsHistoryScreen extends StatelessWidget {
                   ] else if (context.read<RewardsPointsHistoryBloc>().currentScreen == RewardsPointsStateEnum.endedPoints) ...[
                     RewardsPointHistoryBox(
                       colorPoints: ColorManager.redForFavorite,
-                      rewardsPointsHistoryBloc:
-                          context.read<RewardsPointsHistoryBloc>(),
+                      rewardsPointsHistoryBloc: context.read<RewardsPointsHistoryBloc>(),
                     )
                   ] else ...[
-
                     RewardsPointHistoryBox(
                       isOffers: true,
                       colorPoints: ColorManager.primaryGreen,

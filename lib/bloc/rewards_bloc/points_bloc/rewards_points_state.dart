@@ -5,6 +5,7 @@ import 'package:pharma/models/reward/reward_history_point_used_model.dart';
 
 class RewardsPointsHistoryState extends Equatable {
   final bool rewardsPointsHistorySuccess;
+  final bool rewardsUsedPoints;
   final String rewardsPointsHistoryError;
   final bool rewardsPointsHistoryLoading;
   final RewardHistoryModel? rewardHistoryModel;
@@ -18,10 +19,12 @@ class RewardsPointsHistoryState extends Equatable {
     required this.rewardsPointsStateEnum,
     this.rewardHistoryModel,
     this.rewardsUsedPointsModel,
+    required this.rewardsUsedPoints,
   });
 
   RewardsPointsHistoryState copyWith({
     bool? rewardsPointsHistorySuccess,
+    bool? rewardsUsedPoints,
     bool? rewardsPointsHistoryLoading,
     String? rewardsPointsHistoryError,
     RewardHistoryModel? rewardHistoryModel,
@@ -38,8 +41,8 @@ class RewardsPointsHistoryState extends Equatable {
       rewardHistoryModel: rewardHistoryModel ?? this.rewardHistoryModel,
       rewardsUsedPointsModel:
           rewardsUsedPointsModel ?? this.rewardsUsedPointsModel,
-      rewardsPointsStateEnum:
-          rewardsPointsStateEnum ?? this.rewardsPointsStateEnum,
+      rewardsPointsStateEnum: rewardsPointsStateEnum ?? this.rewardsPointsStateEnum,
+      rewardsUsedPoints: rewardsUsedPoints ?? this.rewardsUsedPoints,
     );
   }
 
@@ -51,5 +54,6 @@ class RewardsPointsHistoryState extends Equatable {
         rewardHistoryModel,
         rewardsPointsStateEnum,
         rewardsUsedPointsModel,
+    rewardsUsedPoints,
       ];
 }

@@ -21,15 +21,16 @@ class RewardHistoryModel {
 }
 
 class Datum {
+
   final int id;
-  final String userId;
-  final int points;
-  final int usedPoints;
-  final int achievementId;
-  final DateTime createdAt;
+  final dynamic userId;
+  final dynamic points;
+  final dynamic usedPoints;
+  final dynamic achievementId;
+  final dynamic createdAt;
   final dynamic usedAt;
-  final DateTime expireAt;
-  final bool expired;
+  final dynamic expireAt;
+  final dynamic expired;
 
   Datum({
     required this.id,

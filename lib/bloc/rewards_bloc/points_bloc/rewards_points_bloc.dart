@@ -12,12 +12,16 @@ class RewardsPointsHistoryBloc
       : super(const RewardsPointsHistoryState(
           rewardsPointsHistorySuccess: false,
           rewardsPointsHistoryLoading: false,
+          rewardsUsedPoints: false,
           rewardsPointsHistoryError: '',
           rewardsPointsStateEnum: RewardsPointsStateEnum.earnedPoints,
         )) {
     on<RewardsPointsEvent>((event, emit) async {
       if (event is GetRewardsPointsHistoryExpired) {
-        emit(state.copyWith(rewardsPointsHistoryLoading: true));
+        emit(state.copyWith(
+          rewardsPointsHistoryLoading: true,
+          rewardsUsedPoints: false,
+        ));
         var response = await RewardsRepo.getRewardHistoryPointsExpired();
         response.fold(
           (l) {
@@ -28,13 +32,19 @@ class RewardsPointsHistoryBloc
           (r) {
             emit(
               state.copyWith(
-                  rewardsPointsHistorySuccess: true, rewardHistoryModel: r),
+                rewardsPointsHistorySuccess: true,
+                rewardHistoryModel: r,
+              ),
             );
           },
         );
       }
+
       if (event is GetRewardsPointsHistoryUsed) {
-        emit(state.copyWith(rewardsPointsHistoryLoading: true));
+        emit(state.copyWith(
+          rewardsPointsHistoryLoading: true,
+          rewardsUsedPoints: false,
+        ));
         var response = await RewardsRepo.getRewardHistoryPointsUsed();
         response.fold(
           (l) {
@@ -46,17 +56,21 @@ class RewardsPointsHistoryBloc
             print('=@@@@@@@@@@@@@@@@@@@@@@@@');
             emit(
               state.copyWith(
-                rewardsPointsHistorySuccess: true,
                 rewardsUsedPointsModel: r,
+                rewardsPointsHistorySuccess: true,
+                rewardsUsedPoints: true,
               ),
             );
           },
         );
       }
+
       if (event is GetRewardsPointsHistoryValid) {
-        emit(
-          state.copyWith(rewardsPointsHistoryLoading: true),
-        );
+        emit(state.copyWith(
+          rewardsPointsHistoryLoading: true,
+          rewardsUsedPointsModel: null,
+          rewardsUsedPoints: false,
+        ));
         var response = await RewardsRepo.getRewardHistoryPointsValid();
         response.fold(
           (l) {
@@ -67,11 +81,14 @@ class RewardsPointsHistoryBloc
           (r) {
             emit(
               state.copyWith(
-                  rewardsPointsHistorySuccess: true, rewardHistoryModel: r),
+                rewardsPointsHistorySuccess: true,
+                rewardHistoryModel: r,
+              ),
             );
           },
         );
       }
+
       if (event is ChangeStatusScreen) {
         emit(state.copyWith(rewardsPointsHistorySuccess: false));
       } else if (event is ChangeTabPointsRewardsEvent) {
