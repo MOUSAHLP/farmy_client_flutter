@@ -15,6 +15,7 @@ import '../../../bloc/location_bloc/location_event.dart';
 import '../../../bloc/location_bloc/location_state.dart';
 import '../../../core/app_validators.dart';
 import '../../../models/params/add_address_params.dart';
+import '../../resources/font_app.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
 import '../home_screen/home_screen.dart';
@@ -40,6 +41,26 @@ class AddLocationScreen extends StatelessWidget {
           ErrorDialog.openDialog(context, state.error);
         }
         if (state.success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              duration:
+              const Duration(seconds: 1),
+              content: Container(
+                alignment: Alignment.center,
+                child: Text(
+                  AppLocalizations.of(
+                      context)!
+                      .address_add,
+                  style: getRegularStyle(
+                    color: ColorManager.white,
+                    fontSize: FontSizeApp.s14,
+                  ),
+                ),
+              ),
+              backgroundColor:
+              ColorManager.primaryGreen,
+            ),
+          );
           AppRouter.push(context, const HomeScreen());
         }
       }, builder: (context, state) {

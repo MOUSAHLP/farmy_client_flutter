@@ -180,7 +180,9 @@ class LocationScreenBody extends StatelessWidget {
                     labelColor: ColorManager.primaryGreen,
                   ),
                   SizedBox(height: 16.h),
-                  CustomButton(label: AppLocalizations.of(context)!.done),
+                  CustomButton(label: AppLocalizations.of(context)!.done,onTap: (){
+                    AppRouter.pop(context);
+                  }),
                 ],
               ),
             )

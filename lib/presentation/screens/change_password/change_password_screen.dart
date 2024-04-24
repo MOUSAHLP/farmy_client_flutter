@@ -72,7 +72,7 @@ class ChangePasswordBody extends StatelessWidget {
                               AppLocalizations.of(context)!.previous_Password,
                           controller: oldPasswordController,
                           validator: (value) {
-                            return AppValidators.validateNameFields(
+                            return AppValidators.validatePasswordFields(
                                 context, value);
                           },
 
@@ -83,8 +83,8 @@ class ChangePasswordBody extends StatelessWidget {
                             labelName: AppLocalizations.of(context)!.new_password,
                             controller: passwordController,
                             validator: (value) {
-                              // return AppValidators.validatePasswordFields(
-                              //     context, value);
+                              return AppValidators.validatePasswordFields(
+                                  context, value);
                             },
                           ),
                         ),
@@ -95,8 +95,8 @@ class ChangePasswordBody extends StatelessWidget {
                                 AppLocalizations.of(context)!.confirm_password,
                             controller: repeatPasswordController,
                             validator: (value){
-                              // return AppValidators.validateRepeatPasswordFields(
-                              //     context, passwordController.text, value);
+                              return AppValidators.validateRepeatPasswordFields(
+                                  context, passwordController.text, value);
                             },
                           ),
                         ),

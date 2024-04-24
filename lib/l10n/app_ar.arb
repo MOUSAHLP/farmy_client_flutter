@@ -309,7 +309,8 @@
   "order_delivered_successfully":"تم تسليم طلبك",
    "thanks_for_shopping_in_farmy": "شكرا لتسوقك مع فارمي",
    "rate_order_and_get_points":"قم بتقييم الطلب الآن وأحصل على نقاط إضافية",
-   "what_do_you_think_to_get_better_experience":"ما الذي يحتاج برأيك إلى تحسين للحصول على تجربة أفضل؟"
+   "what_do_you_think_to_get_better_experience":"ما الذي يحتاج برأيك إلى تحسين للحصول على تجربة أفضل؟",
+  "address_add": "تم اضافة العنوان"
 
 
 }
