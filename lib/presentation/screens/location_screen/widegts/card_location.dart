@@ -6,7 +6,10 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 
 import '../../../../bloc/location_bloc/location_event.dart';
+import '../../../../core/app_router/app_router.dart';
 import '../../../../models/user_address_response.dart';
+import '../../../../translations.dart';
+import '../../../widgets/custom_button.dart';
 
 class CardLocation extends StatelessWidget {
   const CardLocation({super.key,required this.userAddressModel});
@@ -46,7 +49,71 @@ class CardLocation extends StatelessWidget {
             ),
             InkWell(
                 onTap: (){
-                  context.read<LocationBloc>().add(DeleteUserAddress(id: userAddressModel.id??0));
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {  return AlertDialog(
+                    title: Material(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      color: Colors.transparent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IntrinsicWidth(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.delete_site,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                    style: getBoldStyle(
+                                        color: ColorManager.grayForMessage, fontSize: 15),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 20,),
+                          SizedBox(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: CustomButton(
+                                    label: AppLocalizations.of(context)!.confirm,
+                                    fillColor: ColorManager.primaryGreen,
+                                    onTap: () {
+                                      context.read<LocationBloc>().add(DeleteUserAddress(id: userAddressModel.id??0));
+                                      AppRouter.pop(context);
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 28,
+                                ),
+                                Expanded(
+                                  child: CustomButton(
+                                    label: AppLocalizations.of(context)!.back,
+                                    fillColor: Colors.white,
+                                    onTap: () {
+                                      AppRouter.pop(context);
+                                    },
+                                    isFilled: true,
+                                    labelColor: ColorManager.primaryGreen,
+                                    borderColor: ColorManager.primaryGreen,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );});
+
+
                 },
                 child: const Icon(Icons.clear,color: Colors.red,)),
           ],

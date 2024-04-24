@@ -10,6 +10,9 @@ import 'package:socket_io_client/socket_io_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
 
+import '../../../../translations.dart';
+import '../../../widgets/custom_app_bar_screen.dart';
+
 class TrackingScreen extends StatefulWidget {
   final double lat;
   final double long;
@@ -57,42 +60,53 @@ class _TrackingScreenState extends State<TrackingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(
-            widget.lat,
-            widget.long,
-          ),
-          zoom: 11.5,
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            CustomAppBarScreen(
+              sectionName: AppLocalizations.of(context)!.track_Order,
+            ),
+            Expanded(
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(
+                    widget.lat,
+                    widget.long,
+                  ),
+                  zoom: 11.5,
+                ),
+                markers: {
+                  Marker(
+                    markerId: const MarkerId("destination"),
+                    position: LatLng(
+                      widget.lat,
+                      widget.long,
+                    ),
+                  ),
+                  Marker(
+                    markerId: const MarkerId("currentLocation"),
+                    position: LatLng(
+                      x,
+                      y,
+                    ),
+                  ),
+                },
+                onMapCreated: (mapController) {
+                  _controller.complete(mapController);
+                },
+                polylines: {
+                  Polyline(
+                    polylineId: const PolylineId("route"),
+                    points: polylineCoordinates,
+                    color: ColorManager.primaryGreen,
+                    width: 4,
+                  ),
+                },
+              ),
+            ),
+          ],
         ),
-        markers: {
-          Marker(
-            markerId: const MarkerId("destination"),
-            position: LatLng(
-              widget.lat,
-              widget.long,
-            ),
-          ),
-          Marker(
-            markerId: const MarkerId("currentLocation"),
-            position: LatLng(
-              x,
-              y,
-            ),
-          ),
-        },
-        onMapCreated: (mapController) {
-          _controller.complete(mapController);
-        },
-        polylines: {
-          Polyline(
-            polylineId: const PolylineId("route"),
-            points: polylineCoordinates,
-            color: ColorManager.primaryGreen,
-            width: 4,
-          ),
-        },
       ),
     );
   }

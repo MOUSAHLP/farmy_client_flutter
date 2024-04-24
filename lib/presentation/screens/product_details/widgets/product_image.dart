@@ -74,28 +74,28 @@ class ProductImage extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 31,
-                width: 31,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      spreadRadius: 0,
-                      blurRadius: 10,
-                      color: Colors.black.withOpacity(0.5),
-                      offset: const Offset(3, 3),
-                    )
-                  ],
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.share_outlined,
-                    color: ColorManager.primaryGreen,
-                  ),
-                ),
-              ),
+              // Container(
+              //   height: 31,
+              //   width: 31,
+              //   decoration: BoxDecoration(
+              //     boxShadow: [
+              //       BoxShadow(
+              //         spreadRadius: 0,
+              //         blurRadius: 10,
+              //         color: Colors.black.withOpacity(0.5),
+              //         offset: const Offset(3, 3),
+              //       )
+              //     ],
+              //     shape: BoxShape.circle,
+              //     color: Colors.white,
+              //   ),
+              //   child: const Center(
+              //     child: Icon(
+              //       Icons.share_outlined,
+              //       color: ColorManager.primaryGreen,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         )

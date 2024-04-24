@@ -6,6 +6,7 @@ import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/payment/widgets/selected_continer.dart';
+import 'package:pharma/translations.dart';
 
 import '../../../../bloc/payment_bloc/payment_bloc.dart';
 
@@ -114,7 +115,7 @@ class CustomOrderTypeContainer extends StatelessWidget {
                     fontSize: FontSizeApp.s14),
               )
             : Text(
-                "please chose you location",
+                AppLocalizations.of(context)!.please_choose_your_location,
                 style: getBoldStyle(
                         color: ColorManager.redForFavorite,
                         fontSize: FontSizeApp.s14)!

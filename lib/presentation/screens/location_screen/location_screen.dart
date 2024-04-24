@@ -154,7 +154,9 @@ class LocationScreenBody extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                CustomButton(label: AppLocalizations.of(context)!.done),
+                CustomButton(label: AppLocalizations.of(context)!.done,onTap: (){
+                  AppRouter.pop(context);
+                }),
               ],
             ),
           )

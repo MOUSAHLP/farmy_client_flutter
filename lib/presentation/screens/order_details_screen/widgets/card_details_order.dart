@@ -128,7 +128,7 @@ class CardDetailsOrder extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                                  product.product!.discountPrice ??""
+                                  product.product?.discountPrice ??""
                                      ,
                           style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
