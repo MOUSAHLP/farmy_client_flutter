@@ -22,7 +22,8 @@ class RewardsPointHistoryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (rewardsPointsHistoryBloc.state.rewardsPointsHistorySuccess) {
-      return ListView.separated(
+      if(!rewardsPointsHistoryBloc.state.rewardsUsedPoints) {
+        return ListView.separated(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) => Container(
@@ -41,7 +42,8 @@ class RewardsPointHistoryBox extends StatelessWidget {
             children: [
               RewardsPointPoint(
                 color: colorPoints,
-                point: rewardsPointsHistoryBloc.state.rewardHistoryModel!.data[index].points,
+                point: rewardsPointsHistoryBloc
+                    .state.rewardHistoryModel!.data[index].points,
               ),
               Expanded(
                 child: Padding(
@@ -100,7 +102,59 @@ class RewardsPointHistoryBox extends StatelessWidget {
         itemCount:
             rewardsPointsHistoryBloc.state.rewardHistoryModel!.data.length,
       );
+      }
+      if(rewardsPointsHistoryBloc.state.rewardsUsedPoints) {
+        return ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) => Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: PaddingApp.p16,
+              vertical: PaddingApp.p8,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(RadiusApp.r5),
+              color: Colors.white,
+              boxShadow: [
+                ColorManager.shadowGaryDown,
+              ],
+            ),
+            child: Row(
+              children: [
+                RewardsPointPoint(
+                  color: colorPoints,
+                  point: rewardsPointsHistoryBloc.state.rewardsUsedPointsModel!.data[index].points,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: PaddingApp.p8,
+                    ),
+                    child: Column(
+                      children: [
+                          RewardsPointRow(
+                            expired: false,
+                            text: AppLocalizations.of(context)!.date_of_use,
+                            date: Formatter.formatDate(rewardsPointsHistoryBloc.state.rewardsUsedPointsModel!.data[index].user.createdAt,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          separatorBuilder: (context, index) => const SizedBox(
+            height: 10,
+          ),
+          itemCount:
+          rewardsPointsHistoryBloc.state.rewardsUsedPointsModel!.data.length,
+        );
+      }
     }
+
+
     return const Center(
       child: CircularProgressIndicator(
         color: ColorManager.primaryGreen,
