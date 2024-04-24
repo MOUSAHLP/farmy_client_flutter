@@ -39,7 +39,7 @@ class BodyFavorite extends StatelessWidget {
                                     .favoriteListProducts[index]
                                     .id ??
                                 0,
-                            quantity: context.read<FavoriteBloc>().favoriteListProducts[index].quantity,
+                            //quantity: context.read<FavoriteBloc>().favoriteListProducts[index].quantity,
                           ),
                         );
                       },

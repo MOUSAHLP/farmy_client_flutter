@@ -217,7 +217,7 @@ class SearchVendorBody extends StatelessWidget {
                                             ProductDetailsScreen(
                                               id: state.vendorsList[index]
                                                   .id ,
-                                              quantity: state.vendorsList[index].quantity,
+                                              //quantity: state.vendorsList[index].quantity,
                                             ),
                                           );
                                         },
