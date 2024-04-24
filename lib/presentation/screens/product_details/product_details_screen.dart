@@ -27,12 +27,12 @@ import '../../widgets/custom_error_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final int? id;
-  final int? quantity;
+  // final int? quantity;
 
   const ProductDetailsScreen({
     super.key,
     required this.id,
-    this.quantity,
+    // this.quantity,
   });
 
   @override
@@ -43,16 +43,18 @@ class ProductDetailsScreen extends StatelessWidget {
           GetProductDetailsById(id: id!),
         ),
       child: ProductDetailsBody(
-        quantity: quantity,
+        //quantity: quantity,
       ),
     );
   }
 }
 
 class ProductDetailsBody extends StatelessWidget {
-  final int? quantity;
+ // final int? quantity;
 
-  const ProductDetailsBody({super.key, this.quantity});
+  const ProductDetailsBody({super.key,
+    // this.quantity
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +95,8 @@ class ProductDetailsBody extends StatelessWidget {
                                       AboutProductAndAmountSection(
                                         productDetails:
                                             state.productDetailsResponse,
-                                        quantity: quantity ?? 0,
+                                        quantity:   state.productDetailsResponse.quantity
+                                            ?? 0,
                                       ),
                                       Column(
                                         crossAxisAlignment:
@@ -178,11 +181,11 @@ class ProductDetailsBody extends StatelessWidget {
                                                                 .pushReplacement(
                                                               context,
                                                               ProductDetailsScreen(
-                                                                quantity: state
-                                                                    .productDetailsResponse
-                                                                    .relatedProducts![
-                                                                        index]
-                                                                    .quantity,
+                                                                // quantity: state
+                                                                //     .productDetailsResponse
+                                                                //     .relatedProducts![
+                                                                //         index]
+                                                                //     .quantity,
                                                                 id: state
                                                                     .productDetailsResponse
                                                                     .relatedProducts![
@@ -291,11 +294,11 @@ class ProductDetailsBody extends StatelessWidget {
                                                                     .pushReplacement(
                                                                   context,
                                                                   ProductDetailsScreen(
-                                                                    quantity: state
-                                                                        .productDetailsResponse
-                                                                        .similarProducts![
-                                                                            index]
-                                                                        .quantity,
+                                                                    // quantity: state
+                                                                    //     .productDetailsResponse
+                                                                    //     .similarProducts![
+                                                                    //         index]
+                                                                    //     .quantity,
                                                                     id: state
                                                                         .productDetailsResponse
                                                                         .similarProducts![

@@ -111,6 +111,9 @@ class AboutProductAndAmountSection extends StatelessWidget {
                 height: 38,
                 myIcon: Icons.add,
                 onTap: () {
+                  print("state.quntity");
+                  print(state.quntity);
+                  print(quantity);
                   if (state.quntity! < quantity) {
                     context.read<ProductdetailsBloc>().add(
                           AddQuntityToOrder(

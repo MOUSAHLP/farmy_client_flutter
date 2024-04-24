@@ -147,7 +147,7 @@ class _HomeSectionState extends State<HomeSection> {
                       context,
                       ProductDetailsScreen(
                         id: widget.list[index].id,
-                        quantity: widget.list[index].quantity ?? 0,
+                        //quantity: widget.list[index].quantity ?? 0,
                       ),
                     );
 
