@@ -311,6 +311,7 @@
    "rate_order_and_get_points":"قم بتقييم الطلب الآن وأحصل على نقاط إضافية",
    "what_do_you_think_to_get_better_experience":"ما الذي يحتاج برأيك إلى تحسين للحصول على تجربة أفضل؟",
   "address_add": "تم اضافة العنوان",
-  "delete_site": "هل تريد حذف الموقع؟"
+  "delete_site": "هل تريد حذف الموقع؟",
+  "please_choose_your_location": "يرجى اختيار موقعك"
 
 }
