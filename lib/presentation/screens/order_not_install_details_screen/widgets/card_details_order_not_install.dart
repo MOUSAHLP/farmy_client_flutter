@@ -136,7 +136,7 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(product.price ?? "",
+                      Text(product.discountPrice ?? "",
                           style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: FontSizeApp.s15)!

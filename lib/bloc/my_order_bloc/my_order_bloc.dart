@@ -33,7 +33,6 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
       totalProduct += (int.parse(productDetailsList[i].price ?? "0") *
           productInBasketList[reversedIndex].quantity);
     }
-
     sum = totalProduct + totalTax;
     return sum;
   }
