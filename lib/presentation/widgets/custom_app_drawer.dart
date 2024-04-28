@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:pharma/bloc/my_order_bloc/my_order_bloc.dart';
+import 'package:pharma/bloc/my_order_bloc/my_order_event.dart';
 import 'package:pharma/presentation/screens/all_invoices/all_invoices_screen.dart';
 import 'package:pharma/presentation/screens/contact_us/contact_us_screen.dart';
 import 'package:pharma/presentation/screens/join_our_team/join_our_team_screen.dart';
+import 'package:pharma/presentation/screens/order_history/order_history_screen.dart';
 import 'package:pharma/presentation/screens/setting_screen/setting_screen.dart';
 import 'package:pharma/presentation/screens/who_we_are/who_we_are_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
@@ -23,7 +26,6 @@ class CustomAppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         Drawer(
@@ -47,15 +49,19 @@ class CustomAppDrawer extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                             child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Center(
-                                    child: SvgPicture.asset(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Center(
+                                child: SvgPicture.asset(
                                   IconsManager.logoApp,
                                   width: 50,
                                   height: 50,
                                   colorFilter: const ColorFilter.mode(
-                                      Color(0xff99B990), BlendMode.srcIn),
-                                ))),
+                                    Color(0xff99B990),
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 24,
@@ -81,24 +87,47 @@ class CustomAppDrawer extends StatelessWidget {
                           ),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.settings, () {
-                            AppRouter.push(context, const SettingScreen());
+                            AppRouter.push(
+                              context,
+                              const SettingScreen(),
+                            );
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.all_invoices, () {
-                            AppRouter.push(context, const AllInvoicesScreen());
+                            AppRouter.push(
+                              context,
+                              const AllInvoicesScreen(),
+                            );
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.connect_with_us,
                               () {
-                            AppRouter.push(context,  ContactUsScreen());
+                            AppRouter.push(
+                              context,
+                              ContactUsScreen(),
+                            );
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.join_our_team, () {
-                            AppRouter.push(context, const JoinOurTeamScreen());
+                            AppRouter.push(
+                              context,
+                              const JoinOurTeamScreen(),
+                            );
+                          }),
+                          buildElevatedButton(
+                              AppLocalizations.of(context)!.order_archive, () {
+                            context.read<MyOrderBloc>().add(GetOrderHistory());
+                            AppRouter.push(
+                              context,
+                              const OrderHistoryScreen(),
+                            );
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.who_are_we, () {
-                            AppRouter.push(context, const WhoWeAreScreen());
+                            AppRouter.push(
+                              context,
+                              const WhoWeAreScreen(),
+                            );
                           }),
                           sl<AuthenticationBloc>().loggedIn
                               ? buildElevatedButton(
@@ -108,17 +137,16 @@ class CustomAppDrawer extends StatelessWidget {
                               : buildElevatedButton(
                                   AppLocalizations.of(context)!.sign_in, () {
                                   AppRouter.pushReplacement(
-                                      context, const AccountScreen());
+                                    context,
+                                    const AccountScreen(),
+                                  );
                                 }),
                           const SizedBox(height: 20),
-
-                          // const SizedBox(width:20),
                         ],
                       ),
                     ),
                   ),
                 ),
-
                 // version
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),

@@ -11,6 +11,7 @@ import '../../models/product_response.dart';
 class MyOrderState extends Equatable {
   ScreenStates screenStates;
   List<MyOrderResponse> myOrderList;
+  List<MyOrderResponse> myOrderHistoryList;
   List<ProductResponse> productList;
   List<ProductResponse> productListp;
   final PaymentProcessResponse? paymentProcessResponse;
@@ -35,6 +36,7 @@ class MyOrderState extends Equatable {
   MyOrderState({
     this.screenStates = ScreenStates.loading,
     this.myOrderList = const [],
+    this.myOrderHistoryList = const [],
     this.productList = const [],
     this.productListp = const [],
     this.isLoading = false,
@@ -55,7 +57,6 @@ class MyOrderState extends Equatable {
     this.paymentProcessResponse,
     this.idBasket = 0,
     this.rewardCouponsFixedValueModel,
-
   });
 
   MyOrderState copyWith({
@@ -71,6 +72,7 @@ class MyOrderState extends Equatable {
     String? error,
     String? errorDelete,
     List<MyOrderResponse>? myOrderList,
+    List<MyOrderResponse>? myOrderHistoryList,
     List<ProductResponse>? productList,
     List<ProductResponse>? productListp,
     List<Product>? quantityInBasket,
@@ -81,10 +83,10 @@ class MyOrderState extends Equatable {
     PaymentProcessResponse? paymentProcessResponse,
     int? idBasket,
     RewardCouponsFixedValueModel? rewardCouponsFixedValueModel,
-
   }) {
     return MyOrderState(
       myOrderList: myOrderList ?? this.myOrderList,
+      myOrderHistoryList: myOrderHistoryList ?? this.myOrderHistoryList,
       productList: productList ?? this.productList,
       productListp: productListp ?? this.productListp,
       screenStates: screenStates ?? this.screenStates,
@@ -107,8 +109,8 @@ class MyOrderState extends Equatable {
       quantityInBasket: quantityInBasket ?? this.quantityInBasket,
       idBasket: idBasket ?? this.idBasket,
       rewardCouponsFixedValueModel:
-      rewardCouponsFixedValueModel ?? this.rewardCouponsFixedValueModel,
-      );
+          rewardCouponsFixedValueModel ?? this.rewardCouponsFixedValueModel,
+    );
   }
 
   @override
@@ -136,7 +138,7 @@ class MyOrderState extends Equatable {
         paymentProcessResponse,
         quantityInBasket,
         idBasket,
-    rewardCouponsFixedValueModel,
-
-  ];
+        rewardCouponsFixedValueModel,
+        myOrderHistoryList,
+        ];
 }

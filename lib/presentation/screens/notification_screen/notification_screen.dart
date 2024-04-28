@@ -29,12 +29,10 @@ class NotificationScreen extends StatelessWidget {
         child: const NotificationScreenBody(),
         create: (context) {
           if (sl<AuthenticationBloc>().loggedIn) {
-            return   sl<NotificationBloc>()
-              ..add(GetNotificationList(3));
+            return sl<NotificationBloc>()..add(GetNotificationList(3));
           }
           return sl<NotificationBloc>();
-
-          });
+        });
   }
 }
 
@@ -65,121 +63,136 @@ class _NotificationScreenBodyState extends State<NotificationScreenBody>
                 sectionName: AppLocalizations.of(context)!.notification),
             sl<AuthenticationBloc>().loggedIn
                 ? Expanded(
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 1,
-                      ),
-                      Container(
-                        height: 50,
-                        width: 1.sw,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            ColorManager.shadowGaryDown,
-                          ],
-                          color: Colors.white,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 1,
                         ),
-                        child: TabBar(
-                          controller:
-                          context
-                              .read<NotificationBloc>()
-                              .tabController,
-                          tabs: [
-                            Tab(
-                              child: FittedBox(
-                                  child: Text(AppLocalizations.of(context)!
-                                      .app_Notifications)),
-                            ),
-                            Tab(
-                              child: FittedBox(
-                                  child: Text(AppLocalizations.of(context)!
-                                      .offers_Notifications)),
-                            ),
-                          ],
-                          unselectedLabelColor: ColorManager.grayForMessage,
-                          labelColor: ColorManager.primaryGreen,
-                          onTap: (v) {
-                            context
-                                .read<NotificationBloc>()
-                                .add(TapOnPressedNotification(v));
-                          },
-                          labelStyle: getBoldStyle(
-                              color: ColorManager.grayForMessage,
-                              fontSize: 14),
-                          indicatorPadding: const EdgeInsets.only(
-                              bottom: 10.0, left: 30, right: 30),
-                          indicator: const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: ColorManager.primaryGreen,
-                                width: 2.0,
+                        Container(
+                          height: 50,
+                          width: 1.sw,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              ColorManager.shadowGaryDown,
+                            ],
+                            color: Colors.white,
+                          ),
+                          child: TabBar(
+                            controller:
+                                context.read<NotificationBloc>().tabController,
+                            tabs: [
+                              Tab(
+                                child: FittedBox(
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .app_Notifications,
+                                  ),
+                                ),
+                              ),
+                              Tab(
+                                child: FittedBox(
+                                    child: Text(AppLocalizations.of(context)!
+                                        .offers_Notifications)),
+                              ),
+                            ],
+                            unselectedLabelColor: ColorManager.grayForMessage,
+                            labelColor: ColorManager.primaryGreen,
+                            onTap: (v) {
+                              context
+                                  .read<NotificationBloc>()
+                                  .add(TapOnPressedNotification(v));
+                            },
+                            labelStyle: getBoldStyle(
+                                color: ColorManager.grayForMessage,
+                                fontSize: 14),
+                            indicatorPadding: const EdgeInsets.only(
+                                bottom: 10.0, left: 30, right: 30),
+                            indicator: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: ColorManager.primaryGreen,
+                                  width: 2.0,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-
-                      const Divider(),
-                      Expanded(
-                        child: BlocConsumer<NotificationBloc,NotificationState>(
-                          listener: (context, state) {
-
-                            if (state.isLoadingDelet ) {
-                              LoadingDialog().openDialog(context);
-                            } else {
-                              LoadingDialog().closeDialog(context);
-                            }
-                            if (state.errorDelet!="") {
-                              ErrorDialog.openDialog(context,state.errorDelet);
-                            }
-                            if(state.successDelet){
-                            }
-
-                          },
-                        builder: (context, state) {
-
-                          if(state.screenStates==ScreenStates.loading) {
-                            return const Center(child: CustomLoadingWidget());
-                          }
-                          if(state.screenStates==ScreenStates.error) {
-                            return Center(
-                              child: CustomErrorScreen(
-                                onTap: () {
-                                  context.read<NotificationBloc>().add(GetNotificationList(3));
-                                },
-                              ),
-                            );
-                          }
-                          if(state.screenStates==ScreenStates.success) {
-                            return Column(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 28),
-                                    child: state.allNotificationList.isNotEmpty? ListView.builder(
-                                      itemBuilder: (context, index) =>
-                                       Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 8),
-                                        child: CardNotification(notificationModel:state.allNotificationList[index]),
-                                      ),
-                                      itemCount: state.allNotificationList.length,
-                                    )
-                                     :  CustomNoData(noDataStatment: AppLocalizations.of(context)!.no_notifications,)
+                        const Divider(),
+                        Expanded(
+                          child:
+                              BlocConsumer<NotificationBloc, NotificationState>(
+                            listener: (context, state) {
+                              if (state.isLoadingDelet) {
+                                LoadingDialog().openDialog(context);
+                              } else {
+                                LoadingDialog().closeDialog(context);
+                              }
+                              if (state.errorDelet != "") {
+                                ErrorDialog.openDialog(
+                                    context, state.errorDelet);
+                              }
+                              if (state.successDelet) {}
+                            },
+                            builder: (context, state) {
+                              if (state.screenStates == ScreenStates.loading) {
+                                return const Center(
+                                    child: CustomLoadingWidget());
+                              }
+                              if (state.screenStates == ScreenStates.error) {
+                                return Center(
+                                  child: CustomErrorScreen(
+                                    onTap: () {
+                                      context
+                                          .read<NotificationBloc>()
+                                          .add(GetNotificationList(3));
+                                    },
                                   ),
-                                )
-                              ],
-                            );
-                          }
-                          else {
-                            return const SizedBox();
-                          }
-                        },
-            ),
-                      ),
-                    ],
-                  ),
-                ) : const GuestScreen(),
+                                );
+                              }
+                              if (state.screenStates == ScreenStates.success) {
+                                return Column(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                          padding:  EdgeInsets.symmetric(
+                                              horizontal: 20.h,
+                                          ),
+                                          child: state.allNotificationList
+                                                  .isNotEmpty
+                                              ? ListView.builder(
+                                                  itemBuilder:
+                                                      (context, index) =>
+                                                          Padding(
+                                                    padding:  EdgeInsets
+                                                        .symmetric(vertical: 5.h,horizontal: 4.w),
+                                                    child: CardNotification(
+                                                        notificationModel: state
+                                                                .allNotificationList[
+                                                            index]),
+                                                  ),
+                                                  itemCount: state
+                                                      .allNotificationList
+                                                      .length,
+                                                )
+                                              : CustomNoData(
+                                                  noDataStatment:
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .no_notifications,
+                                                )),
+                                    )
+                                  ],
+                                );
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const GuestScreen(),
           ],
         ),
       ),

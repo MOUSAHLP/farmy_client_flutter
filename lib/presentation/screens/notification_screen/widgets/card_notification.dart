@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/notification_bloc/notification_bloc.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -38,13 +39,17 @@ class CardNotification extends StatelessWidget {
 
   Widget buildCard(context) {
     return Container(
-      decoration: BoxDecoration(
+      alignment: Alignment.center,
+      height: 60.h,
+
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0.r),
         color: Colors.white,
         boxShadow: [ColorManager.shadowGaryDown],
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 17),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

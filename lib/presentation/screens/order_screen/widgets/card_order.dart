@@ -35,48 +35,57 @@ class CardOrder extends StatelessWidget {
                 title: AppLocalizations.of(context)!.order_Number,
                 details: myOrder.orderNumber.toString(),
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5),
               RowOrder(
                   title: AppLocalizations.of(context)!.address,
                   details: getAddress(myOrder.userAddress!)),
-              const SizedBox(
-                height: 5,
-              ),
+              SizedBox(height: 5.h),
               RowOrder(
-                  title: AppLocalizations.of(context)!.delivery_Type,
-                  details: myOrder.deliveryMethod?.name ?? ""),
-              const SizedBox(
-                height: 5,
+                title: AppLocalizations.of(context)!.delivery_Type,
+                details: myOrder.deliveryMethod?.name ?? "",
               ),
-              RowOrder(
+              SizedBox(height: 5.h),
+              if (!myOrder.status!.contains("Deliverd") &&
+                  !myOrder.status!.contains("Canceled")) ...[
+                RowOrder(
                   title: AppLocalizations.of(context)!.expected_Time,
-                  details: myOrder.expectedTime.toString() ?? ""),
-              const SizedBox(
-                height: 5,
-              ),
+                  details: myOrder.expectedTime.toString() ?? "",
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+              ],
               myOrder.total != null
                   ? Row(
                       children: [
                         Text(
-                            AppLocalizations.of(context)!.total_Price_with_Delivery,
-                            style: getBoldStyle(
-                                color: Colors.black, fontSize: 11)),
+                          AppLocalizations.of(context)!
+                              .total_Price_with_Delivery,
+                          style: getBoldStyle(
+                            color: Colors.black,
+                            fontSize: 11.sp,
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 2),
-                          child: Text(":",
-                              style: getBoldStyle(
-                                  color: Colors.black, fontSize: 11)),
+                          child: Text(
+                            ":",
+                            style: getBoldStyle(
+                              color: Colors.black,
+                              fontSize: 11.sp,
+                            ),
+                          ),
                         ),
                         Expanded(
                           child: Text(
-                              "${myOrder.total ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
-                              style: getBoldStyle(
-                                  color: ColorManager.primaryGreen,
-                                  fontSize: 15),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis),
+                            "${myOrder.total ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
+                            style: getBoldStyle(
+                              color: ColorManager.primaryGreen,
+                              fontSize: 15.sp,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     )

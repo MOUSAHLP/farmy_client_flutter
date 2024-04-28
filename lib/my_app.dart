@@ -9,6 +9,7 @@ import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
+import 'package:pharma/bloc/my_order_bloc/my_order_bloc.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_event.dart';
@@ -60,9 +61,8 @@ class _MyAppState extends State<MyApp> {
               create: (BuildContext context) => sl<FavoriteBloc>(),
             ),
             BlocProvider(create: (BuildContext context) => sl<PaymentBloc>()),
-            BlocProvider(
-                create: (BuildContext context) =>
-                    sl<TrackingBloc>()..add(const GetOrderStatus())),
+            BlocProvider(create: (BuildContext context) => sl<MyOrderBloc>()),
+            BlocProvider(create: (BuildContext context) => sl<TrackingBloc>()..add(const GetOrderStatus())),
           ],
           child: OverlaySupport.global(
             child: GestureDetector(

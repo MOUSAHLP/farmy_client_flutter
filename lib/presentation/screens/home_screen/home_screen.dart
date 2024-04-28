@@ -218,11 +218,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool checkIsOpening(BuildContext context) {
     DateTime dateTime = DateTime.now();
     List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
-    print("======================================================================");
-    print(dateTime.hour);
-    print("======================================================================");
-    print(endTime[0]);
-    print("======================================================================");
+    // print("======================================================================");
+    // print(dateTime.hour);
+    // print("======================================================================");
+    // print(endTime[0]);
+    // print("======================================================================");
     if (int.parse(endTime[0]) > dateTime.hour) {
       return true;
     } else if (int.parse(endTime[0]) == dateTime.hour) {

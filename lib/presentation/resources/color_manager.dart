@@ -43,6 +43,7 @@ class ColorManager {
 
   static const greyForUnSelectedItem = Color(0xffD6D3D3);
   //box-shadow: 0px 0px 4px 0px #0000001A;
+
   static BoxShadow shadowGaryDown = BoxShadow(
     color: const Color(0xFF000000).withOpacity(0.18),
     offset: const Offset(0, 2),
@@ -74,6 +75,7 @@ class ColorManager {
     offset: const Offset(0, -3),
     blurRadius: 4.0,
   );
+
   static BoxShadow shadowGaryRightDown = BoxShadow(
     color: const Color(0xFF000000).withOpacity(0.1),
     offset: const Offset(1, 1),

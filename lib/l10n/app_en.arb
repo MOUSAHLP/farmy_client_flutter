@@ -260,6 +260,7 @@
   "rewards_guide":"Rewards Guide",
   "levels_and_benefits":"levels",
   "note":"note",
+  "order_archive": "Order Archive",
   "all_points_expire_in_period":"All points expire within a period",
   "all_points_will_expire_after_period":"From the date of obtaining them, it will not be possible to exchange the points after the expiration of their validity period.",
   "added_to_basket": "Added to basket",
