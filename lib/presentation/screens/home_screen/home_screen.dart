@@ -29,9 +29,6 @@ import 'package:pharma/core/app_router/app_router.dart';
 import '../basket_screen/basket_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
-  // final GlobalKey<ScaffoldState> scaffoldKey;
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -191,6 +188,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   ),
                                 ),
                                 onTap: () {
+                                  context.read<HomeBloc>().currentIndex = 2;
                                   AppRouter.push(context,
                                       const BasketScreen());
                                 },

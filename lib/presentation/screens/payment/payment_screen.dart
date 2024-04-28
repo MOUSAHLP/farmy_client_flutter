@@ -35,6 +35,7 @@ import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/presentation/widgets/select_location.dart';
 import 'package:pharma/translations.dart';
+import '../../../bloc/home_bloc/home_bloc.dart';
 import 'widgets/custom_change_on_the_order_container.dart';
 import 'widgets/custom_discount_id_container.dart';
 import 'widgets/custom_payment_status_container.dart';
@@ -698,6 +699,7 @@ class PaymentBody extends StatelessWidget {
                     }
                   },
                   onCompleteShopping: () {
+                    context.read<HomeBloc>().currentIndex = 2;
                     AppRouter.pushReplacement(context, const HomeScreen());
                   },
                 ),

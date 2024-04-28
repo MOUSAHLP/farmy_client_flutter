@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pharma/core/app_router/dialog_transition_builder.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
@@ -12,6 +13,7 @@ import 'package:pharma/presentation/widgets/custom_button.dart';
 import 'package:pharma/presentation/widgets/dialogs/custom_dialog.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../core/app_router/app_router.dart';
 
 class ConfirmPaymentOrderDialog {
@@ -130,6 +132,7 @@ class _ConfirmPaymentOrderDialogBodyState
                     fillColor: ColorManager.white,
                     label: AppLocalizations.of(context)!.exit,
                     onTap: () {
+                      context.read<HomeBloc>().currentIndex = 2;
                       AppRouter.pushAndRemoveAllStack(
                         context,
                         const HomeScreen(),
