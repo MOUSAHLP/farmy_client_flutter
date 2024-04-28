@@ -165,13 +165,13 @@ class ContactUsScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(
-                          AppLocalizations.of(context)!.on_the_next_number,
-                          style: getBoldStyle(
-                            color: ColorManager.grayForMessage,
-                            fontSize: FontSizeApp.s15.sp,
-                          ),
-                        ),
+                        // Text(
+                        //   AppLocalizations.of(context)!.on_the_next_number,
+                        //   style: getBoldStyle(
+                        //     color: ColorManager.grayForMessage,
+                        //     fontSize: FontSizeApp.s15.sp,
+                        //   ),
+                        // ),
                         Padding(
                           padding: EdgeInsets.symmetric(
                             vertical: 12.h,
