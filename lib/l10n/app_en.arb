@@ -186,7 +186,7 @@
   "email_with_at": "Email @ ...",
   "write_message_notes_question_here": "Write your message, feedback, or inquiry here...",
   "sent": "Send",
-  "you_can_connect_directly": "You can contact our customer service department directly",
+  "you_can_connect_directly": "You can contact our customer service department directly On the next numbe",
   "on_the_next_number": "On the next number",
   "or_via_whatsup": "Or via Whatsapp",
   "contact_us": "Contact Us",
@@ -307,7 +307,8 @@
  "what_do_you_think_to_get_better_experience":"What do you think needs improvement for a better experience?",
   "address_add": "Address has been added",
   "delete_site": "Do you want to delete the site?",
-  "please_choose_your_location": "please choose your location"
+  "please_choose_your_location": "please choose your location",
+  "store_is_closed": "The store is closed. You can schedule an order or place an order during working hours"
 
 
 

@@ -75,6 +75,7 @@ class ApiConst {
 
   ///notification
   static  String getNotifications(int type) => "/notifications?type=$type";
+  static  String deleteNotifications(int id) => "/notifications/$id";
 
   /// Rewards
   static const String getAllRewards = "/rewards";

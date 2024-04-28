@@ -10,6 +10,15 @@ class NotificationRepository {
           return NotificationModel.listFromJson(e["data"]);
         });
   }
+  static Future<Either<String, bool>> deleteNotification( int id) {
+    return BaseApiClient.delete<bool>(
+      url: ApiConst.deleteNotifications(id),
+      converter: (e) {
+        return true;
+      },
+
+    );
+  }
 
 
 }

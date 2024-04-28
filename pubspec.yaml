@@ -76,6 +76,7 @@ dependencies:
 #  location: ^5.0.2+1
   flutter_polyline_points: ^2.0.0
   http: ^1.0.0
+  flutter_slidable:
 
 
 

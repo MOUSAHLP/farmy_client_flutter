@@ -7,11 +7,11 @@ String getAddress(UserAddressModel userAddressModel) {
   final building = userAddressModel.building;
   final floor = userAddressModel.floor;
 
-  final namePart = name != null ? "$name - " : "";
+  final namePart = name != null ? "$name  " : "";
   final areaPart = area != null ? "$area - " : "";
   final streetPart = street != null ? "$street - " : "";
   final buildingPart = building != null ? "$building - " : "";
-  final floorPart = floor != null ? "$floor " : "";
+  final floorPart = floor != null ? "$floor - " : "";
 
-  return "$namePart$areaPart$streetPart$buildingPart$floorPart".trimRight();
+  return "$areaPart$streetPart$buildingPart$floorPart$namePart".trimRight();
 }

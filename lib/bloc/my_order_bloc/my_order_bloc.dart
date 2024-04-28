@@ -216,6 +216,14 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
         emit(state.copyWith(
             productList: productDetailsList, totalPrice: finalPrice()));
       }
+      if(event is AddProductToBasket){
+        print("event.id");
+        print(event.id);
+        emit(state.copyWith(
+            idBasket: event.id));
+
+      }
     });
+
   }
 }

@@ -63,26 +63,28 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                 )),
             child: Row(
               children: [
-                SizedBox(
-                  width: 15.w,
-                ),
+                // SizedBox(
+                //   width: 15.w,
+                // ),
                 Image.asset(
                   widget.imageUrl,
                   height: 39.h,
                   width: 39.w,
                 ),
-                SizedBox(
-                  width: 8.w,
-                ),
+                // SizedBox(
+                //   width: 8.w,
+                // ),
                 Expanded(
-                  child: Text(
-                    widget.subjectText,
-                    style: getBoldStyle(
-                            color: ColorManager.grayForMessage,
-                            fontSize: FontSizeApp.s10.sp)!
-                        .copyWith(height: 1),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  child: FittedBox(
+                    child: Text(
+                      widget.subjectText,
+                      style: getBoldStyle(
+                              color: ColorManager.grayForMessage,
+                              fontSize: FontSizeApp.s10.sp)!
+                          .copyWith(height: 1),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 widget.isReplacePoint == true

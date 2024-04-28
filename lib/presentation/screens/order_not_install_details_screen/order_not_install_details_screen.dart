@@ -6,10 +6,12 @@ import 'package:pharma/bloc/my_order_bloc/my_order_state.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/models/params/product_model.dart';
+import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/order_not_install_details_screen/widgets/card_details_order_not_install.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import '../../../bloc/my_order_bloc/my_order_bloc.dart';
+import '../../../bloc/setting_bloc/setting_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../translations.dart';
 import '../../resources/color_manager.dart';
@@ -18,6 +20,8 @@ import '../../resources/style_app.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/dialogs/error_dialog.dart';
 import '../../widgets/dialogs/loading_dialog.dart';
+import '../../widgets/dialogs/time_work_dialog.dart';
+import '../../widgets/dialogs/time_work_not_install_dialog.dart';
 import '../base_screen/base_screen.dart';
 import '../payment/payment_screen.dart';
 
@@ -64,9 +68,6 @@ class OrderDetailsBody extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // CustomAppBar( ),
-            // CustomAppBarScreen(
-            //     sectionName: AppLocalizations.of(context)!.order_details),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 21),
               child: Text(
@@ -91,7 +92,8 @@ class OrderDetailsBody extends StatelessWidget {
                   AppRouter.push(
                     context,
                     PaymentScreen(
-                      rewardCouponsFixedValueModel: state.rewardCouponsFixedValueModel!,
+                      rewardCouponsFixedValueModel:
+                          state.rewardCouponsFixedValueModel!,
                       paymentProcessResponse: state.paymentProcessResponse!,
                       myOrderBloc: context.read<MyOrderBloc>(),
                       idBasket: idBasket,
@@ -122,7 +124,6 @@ class OrderDetailsBody extends StatelessWidget {
                       Expanded(
                         child: CustomOverscrollIndicator(
                           child: ListView.builder(
-
                             itemBuilder: (context, index) =>
                                 CardDetailsOrderNotInstall(
                               myOrderBloc: context.read<MyOrderBloc>(),
@@ -187,15 +188,15 @@ class OrderDetailsBody extends StatelessWidget {
                                                   fillColor:
                                                       ColorManager.primaryGreen,
                                                   onTap: () {
-                                                    context
+                                                    checkIsOpening(context)==false ? context
                                                         .read<MyOrderBloc>()
                                                         .add(
-                                                          PaymentProcessBasket(
-                                                            idBasket,
-                                                          ),
-                                                        );
-                                                    // context.read<DetailsOrderBloc>().add(EditDetailsOrder(id:id));
-                                                  },
+                                                      PaymentProcessBasket(
+                                                        idBasket,
+                                                      ),
+                                                    ): TimeWorkNotInstallDialog().openDialog(context) ;
+
+                                                    },
                                                 ),
                                               )
                                             : const SizedBox(),
@@ -214,6 +215,24 @@ class OrderDetailsBody extends StatelessWidget {
                                             },
                                           ),
                                         ),
+                                        // const SizedBox(
+                                        //   width: 16,
+                                        // ),
+                                        // Expanded(
+                                        //   child: CustomButton(
+                                        //     label: "اضافة منتجات",
+                                        //     fillColor:
+                                        //         ColorManager.primaryGreen,
+                                        //     labelColor: Colors.white,
+                                        //     onTap: () {
+                                        //       print(id);
+                                        //       context.read<MyOrderBloc>().add(
+                                        //           AddProductToBasket(idBasket));
+                                        //       AppRouter.push(
+                                        //           context, HomeScreen());
+                                        //     },
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -233,5 +252,24 @@ class OrderDetailsBody extends StatelessWidget {
       ),
       //  drawer: const CustomAppDrawer(),
     );
+  }
+  bool checkIsOpening(BuildContext context) {
+    DateTime dateTime = DateTime.now();
+    List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
+    print("======================================================================");
+    print(dateTime.hour);
+    print("======================================================================");
+    print(endTime[0]);
+    print("======================================================================");
+    if (int.parse(endTime[0]) > dateTime.hour) {
+      return true;
+    } else if (int.parse(endTime[0]) == dateTime.hour) {
+      if (int.parse(endTime[1]) > dateTime.minute) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+    return false;
   }
 }

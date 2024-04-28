@@ -191,8 +191,8 @@
   "leave_message_to_contact": "اترك لنا رسالتك هنا وسيتم التواصل معك تبعاً لطلبك في أقرب وقت.",
   "email_with_at": "الايميل @ ....",
   "write_message_notes_question_here": "اكتب رسالتك, ملاحظاتك, أو استفسارك هنا ...",
-  "sent": "ارسال",
-  "you_can_connect_directly": "ويمكنك التواصل مع قسم خدمة العملاء مباشرة",
+  "sent": "إرسال",
+  "you_can_connect_directly": "ويمكنك التواصل مع قسم خدمة العملاء مباشرة على الرقم التالي",
   "on_the_next_number": "على الرقم التالي",
   "or_via_whatsup": "أو عبر تطبيق Whatsapp",
   "contact_us": "تواصل معنا",
@@ -293,7 +293,7 @@
   "in_the_evening_it_is_possible_to_choose_to_order_now_and_have_it_delivered_in_the_morning":"مساءً, من الممكن اختيار الطلب الآن والتوصيل صباحاً",
   "baskets_are_not_required": "مسودة الطلبات",
    "my_coupon":"كوبوناتي",
-  "all_products" : "جميع النتجات",
+  "all_products" : "جميع المنتجات",
   "field_is_required": "الحقل مطلوب",
   "noResult": "لا يوجد نتائج بحث",
   "no_notifications": "لا يوجد اشعارات",
@@ -313,6 +313,7 @@
    "what_do_you_think_to_get_better_experience":"ما الذي يحتاج برأيك إلى تحسين للحصول على تجربة أفضل؟",
   "address_add": "تم اضافة العنوان",
   "delete_site": "هل تريد حذف الموقع؟",
-  "please_choose_your_location": "يرجى اختيار موقعك"
+  "please_choose_your_location": "يرجى اختيار موقعك",
+  "store_is_closed": "المتجر مغلق، يمكنك جدولة الطلب  أو تثبيت الطلب ضمن أوقات الدوام "
 
 }

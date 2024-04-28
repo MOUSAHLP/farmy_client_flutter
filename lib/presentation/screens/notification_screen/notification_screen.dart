@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/guest_screen/guest_screen.dart';
 import 'package:pharma/presentation/screens/notification_screen/widgets/card_notification.dart';
@@ -16,6 +17,8 @@ import '../../resources/style_app.dart';
 import '../../widgets/custom_error_screen.dart';
 import '../../widgets/custom_loading_widget.dart';
 import '../../widgets/custom_no_dataa.dart';
+import '../../widgets/dialogs/error_dialog.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -96,8 +99,6 @@ class _NotificationScreenBodyState extends State<NotificationScreenBody>
                           unselectedLabelColor: ColorManager.grayForMessage,
                           labelColor: ColorManager.primaryGreen,
                           onTap: (v) {
-                            print("===========v");
-                            print(v);
                             context
                                 .read<NotificationBloc>()
                                 .add(TapOnPressedNotification(v));
@@ -120,12 +121,27 @@ class _NotificationScreenBodyState extends State<NotificationScreenBody>
 
                       const Divider(),
                       Expanded(
-                        child: BlocBuilder<NotificationBloc,NotificationState>(
+                        child: BlocConsumer<NotificationBloc,NotificationState>(
+                          listener: (context, state) {
+
+                            if (state.isLoadingDelet ) {
+                              LoadingDialog().openDialog(context);
+                            } else {
+                              LoadingDialog().closeDialog(context);
+                            }
+                            if (state.errorDelet!="") {
+                              ErrorDialog.openDialog(context,state.errorDelet);
+                            }
+                            if(state.successDelet){
+                            }
+
+                          },
                         builder: (context, state) {
-                          if(state is NotificationLoading) {
+
+                          if(state.screenStates==ScreenStates.loading) {
                             return const Center(child: CustomLoadingWidget());
                           }
-                          if(state is NotificationError) {
+                          if(state.screenStates==ScreenStates.error) {
                             return Center(
                               child: CustomErrorScreen(
                                 onTap: () {
@@ -134,23 +150,20 @@ class _NotificationScreenBodyState extends State<NotificationScreenBody>
                               ),
                             );
                           }
-                          if(state is NotificationSuccess) {
+                          if(state.screenStates==ScreenStates.success) {
                             return Column(
                               children: [
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 28),
-                                    child: context
-                                        .read<NotificationBloc>().listNotification.isNotEmpty? ListView.builder(
+                                    child: state.allNotificationList.isNotEmpty? ListView.builder(
                                       itemBuilder: (context, index) =>
                                        Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 8),
-                                        child: CardNotification(notificationModel: context
-                                            .read<NotificationBloc>().listNotification[index]),
+                                        child: CardNotification(notificationModel:state.allNotificationList[index]),
                                       ),
-                                      itemCount: context
-                                          .read<NotificationBloc>().listNotification.length,
+                                      itemCount: state.allNotificationList.length,
                                     )
                                      :  CustomNoData(noDataStatment: AppLocalizations.of(context)!.no_notifications,)
                                   ),
@@ -158,7 +171,9 @@ class _NotificationScreenBodyState extends State<NotificationScreenBody>
                               ],
                             );
                           }
-                          else return SizedBox();
+                          else {
+                            return const SizedBox();
+                          }
                         },
             ),
                       ),
