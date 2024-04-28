@@ -42,8 +42,9 @@ class RewardsGuideScreen extends StatelessWidget {
                           fontSize: FontSizeApp.s14),
                       tabs: [
                         Tab(
-                          child:
-                              Text(AppLocalizations.of(context)!.rewards_guide),
+                          child: Text(
+                            AppLocalizations.of(context)!.rewards_guide,
+                          ),
                         ),
                         Tab(
                           child: Text(
@@ -53,10 +54,12 @@ class RewardsGuideScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  body:  TabBarView(
+                  body: TabBarView(
                     children: [
-                      RewardsGuideWidget(rewardsRankAndGuideBloc: rewardsRankAndGuideBloc),
-                      MembershipLevelsWidget(rewardsRankAndGuideBloc: rewardsRankAndGuideBloc),
+                      RewardsGuideWidget(
+                          rewardsRankAndGuideBloc: rewardsRankAndGuideBloc),
+                      MembershipLevelsWidget(
+                          rewardsRankAndGuideBloc: rewardsRankAndGuideBloc),
                     ],
                   ),
                 ),

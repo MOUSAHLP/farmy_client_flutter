@@ -186,6 +186,6 @@ class MyAccountScreen extends StatelessWidget {
             : const Center(
                 child: CircularProgressIndicator(
                 color: ColorManager.primaryGreen,
-              )));
+              ),),);
   }
 }

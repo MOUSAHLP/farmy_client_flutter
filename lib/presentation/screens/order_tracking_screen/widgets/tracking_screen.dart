@@ -68,6 +68,9 @@ class _TrackingScreenState extends State<TrackingScreen> {
             ),
             Expanded(
               child: GoogleMap(
+                zoomControlsEnabled: true,
+                zoomGesturesEnabled: true,
+                scrollGesturesEnabled: true,
                 initialCameraPosition: CameraPosition(
                   target: LatLng(
                     widget.lat,
