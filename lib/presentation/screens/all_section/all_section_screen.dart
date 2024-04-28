@@ -12,6 +12,7 @@ import 'package:pharma/presentation/widgets/custom_category_shimmer.dart';
 import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
 import 'package:pharma/translations.dart';
 import '../../../bloc/basket_bloc/basket_bloc.dart';
+import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../core/app_router/app_router.dart';
 import '../../resources/style_app.dart';
 import '../basket_screen/basket_screen.dart';
@@ -174,6 +175,7 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                                   ),
                                 ),
                                 onTap: () {
+                                  context.read<HomeBloc>().currentIndex = 2;
                                   AppRouter.push(context,
                                       const BasketScreen());
                                 },

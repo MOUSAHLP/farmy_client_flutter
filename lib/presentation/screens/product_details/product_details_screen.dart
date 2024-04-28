@@ -22,6 +22,7 @@ import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
 import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:pharma/translations.dart';
 
+import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../widgets/custom_app_bar_screen.dart';
 import '../../widgets/custom_error_screen.dart';
 
@@ -65,7 +66,7 @@ class ProductDetailsBody extends StatelessWidget {
             listener: (context, state) {
               if (state.addToBasketState ==
                   AddToBasketState.successAddedToBasket) {
-
+                context.read<HomeBloc>().currentIndex = 0;
                 AppRouter.pushReplacement(
                   context,
                   const HomeScreen(),

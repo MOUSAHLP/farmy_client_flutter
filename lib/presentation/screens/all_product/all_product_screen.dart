@@ -14,6 +14,7 @@ import 'package:pharma/presentation/widgets/custom_product_shimmer.dart';
 import 'package:pharma/translations.dart';
 
 import '../../../bloc/basket_bloc/basket_bloc.dart';
+import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../models/product_response.dart';
 import '../../resources/color_manager.dart';
 import '../../widgets/custom_app_bar_screen.dart';
@@ -403,6 +404,7 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                       ),
                                                     ),
                                                     onTap: () {
+                                                      context.read<HomeBloc>().currentIndex = 2;
                                                       AppRouter.push(context,
                                                           const BasketScreen());
                                                     },

@@ -18,6 +18,7 @@ import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:pharma/translations.dart';
 
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../base_screen/base_screen.dart';
 import '../guest_screen/guest_screen.dart';
@@ -183,6 +184,7 @@ class BasketScreen extends StatelessWidget {
                                                     ColorManager.primaryGreen,
                                                 labelColor: Colors.white,
                                                 onTap: () {
+                                                  context.read<HomeBloc>().currentIndex = 0;
                                                   AppRouter.pushReplacement(
                                                       context,
                                                       const HomeScreen());
