@@ -340,7 +340,7 @@ class PaymentBody extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "لقد حصلت على حسم 5000 ل.س من مجمل الفاتورة",
+                                  "// ToDoلقد حصلت على حسم 5000 ل.س من مجمل الفاتورة ",
                                   style: getBoldStyle(
                                     color: ColorManager.redForFavorite,
                                     fontSize: 15,
@@ -572,27 +572,20 @@ class PaymentBody extends StatelessWidget {
                               child: Column(
                                 children: [
                                   CustomBillDetailsRow(
-                                    subStatusBill: AppLocalizations.of(context)!
-                                        .total_amount,
-                                    price: state.paymentProcessResponse!
-                                                .invoicesResponse!.subTotal !=
-                                            null
-                                        ? Formatter.formatPrice(
-                                            state.paymentProcessResponse!
-                                                .invoicesResponse!.subTotal!,
-                                          )
-                                        : AppValueConst.defaultInvoiceValue
-                                            .toString(),
+                                    subStatusBill: AppLocalizations.of(context)!.total_amount,
+                                    price: state.paymentProcessResponse!.invoicesResponse!.subTotal != null
+                                        ? Formatter.formatPrice(state.paymentProcessResponse!.invoicesResponse!.subTotal!)
+                                        : AppValueConst.defaultInvoiceValue.toString(),
                                   ),
                                   CustomBillDetailsRow(
                                     subStatusBill:
                                         AppLocalizations.of(context)!.hasm_code,
                                     price: state.paymentProcessResponse!
-                                                .invoicesResponse!.coponValue !=
+                                                .invoicesResponse!.couponValue !=
                                             null
                                         ? Formatter.formatPrice(
                                             state.paymentProcessResponse!
-                                                .invoicesResponse!.coponValue!,
+                                                .invoicesResponse!.couponValue!,
                                           )
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
@@ -622,6 +615,12 @@ class PaymentBody extends StatelessWidget {
                                             .toString(),
                                   ),
                                   CustomBillDetailsRow(
+                                    subStatusBill: AppLocalizations.of(context)!.additional_discount,
+                                    price: state.paymentProcessResponse!.invoicesResponse!.extraDiscount != null
+                                        ? Formatter.formatPrice(state.paymentProcessResponse!.invoicesResponse!.extraDiscount!)
+                                        : AppValueConst.defaultInvoiceValue.toString(),
+                                  ),
+                                  CustomBillDetailsRow(
                                     colorText: ColorManager.primaryGreen,
                                     subStatusBill:
                                         AppLocalizations.of(context)!.total,
@@ -634,7 +633,7 @@ class PaymentBody extends StatelessWidget {
                                           )
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),

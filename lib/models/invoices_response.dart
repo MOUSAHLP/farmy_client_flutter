@@ -1,26 +1,29 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class InvociesResponse {
+class InvoicesResponse {
   int? total;
-  int? coponValue;
+  int? couponValue;
   int? deliveryValue;
   int? tax;
   int? subTotal;
+  int? extraDiscount;
 
-  InvociesResponse({
+  InvoicesResponse({
     this.total,
-    this.coponValue,
+    this.couponValue,
     this.deliveryValue,
     this.tax,
     this.subTotal,
+    this.extraDiscount,
   });
 
-  factory InvociesResponse.formJson(Map<String, dynamic> json) {
-    return InvociesResponse(
+  factory InvoicesResponse.formJson(Map<String, dynamic> json) {
+    return InvoicesResponse(
       subTotal: json["subtotal"],
-      coponValue: json["coupon_price"],
+      couponValue: json["coupon_price"],
       deliveryValue: json["delivery_price"],
       tax: json["tax"],
       total: json["total"],
+      extraDiscount: json["extra_discount"],
     );
   }
 }

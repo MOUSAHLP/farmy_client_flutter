@@ -31,7 +31,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
               deliveryChangesResponse: [],
               deliveryAttributeList: [],
               deliveryMethodList: [],
-              invoicesResponse: InvociesResponse(),
+              invoicesResponse: InvoicesResponse(),
               userAddressList: [],
             ),
           ),
