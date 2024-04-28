@@ -298,8 +298,7 @@ class PaymentBody extends StatelessWidget {
                                                 rewardCouponsFixedValueModel,
                                             imageUrl: ImageManager.codeDiscount,
                                             subjectText:
-                                                AppLocalizations.of(context)!
-                                                    .redeem_points,
+                                            AppLocalizations.of(context)!.redeem_points,
                                           ),
                                         ),
                                         SizedBox(width: 4.w),
