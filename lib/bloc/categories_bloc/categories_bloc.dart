@@ -33,7 +33,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           tabs.insert(
             0,
             const Tab(
-              text: "جميع النتجات",
+              text: "جميع المنتجات",
             ),
           );
           emit(
