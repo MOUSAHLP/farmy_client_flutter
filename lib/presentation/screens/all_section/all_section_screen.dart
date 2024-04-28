@@ -11,7 +11,6 @@ import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/presentation/widgets/custom_category_shimmer.dart';
 import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
 import 'package:pharma/translations.dart';
-
 import '../../../bloc/basket_bloc/basket_bloc.dart';
 import '../../../core/app_router/app_router.dart';
 import '../../resources/style_app.dart';

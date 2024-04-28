@@ -9,7 +9,6 @@ import 'package:pharma/presentation/screens/rate_order/rate_order_screen.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
-
 import '../../../../translations.dart';
 import '../../../widgets/custom_app_bar_screen.dart';
 

@@ -6,7 +6,7 @@ import 'package:pharma/models/invoices_response.dart';
 import 'package:pharma/models/user_address_response.dart';
 
 class PaymentProcessResponse {
-  InvociesResponse? invoicesResponse;
+  InvoicesResponse? invoicesResponse;
   List<DeliveryMethodResponse>? deliveryMethodList;
   List<DeliveryAttributesResponse>? deliveryAttributeList;
   List<DeliveryChangesResponse> deliveryChangesResponse;
@@ -23,7 +23,7 @@ class PaymentProcessResponse {
   factory PaymentProcessResponse.fromJson(Map<String, dynamic> json) {
     return PaymentProcessResponse(
       userAddressList: UserAddressModel.listFromJson(json["user_address"]),
-      invoicesResponse: InvociesResponse.formJson(json["invoice"]),
+      invoicesResponse: InvoicesResponse.formJson(json["invoice"]),
       deliveryMethodList: DeliveryMethodResponse.listFromJson(json["delivery_methods"]),
       deliveryAttributeList: DeliveryAttributesResponse.listFromJson(json["delivery_attributes"]),
       deliveryChangesResponse: DeliveryChangesResponse.listFromJson(json["changes"]),
