@@ -1,16 +1,20 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/models/tracking_model.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/resources/font_app.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
+import 'package:pharma/presentation/screens/order_screen/order_screen.dart';
 import 'package:pharma/presentation/screens/rate_order/rate_order_screen.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
 import '../../../../translations.dart';
-import '../../../widgets/custom_app_bar_screen.dart';
 
 class TrackingScreen extends StatefulWidget {
   final double lat;
@@ -51,8 +55,6 @@ class _TrackingScreenState extends State<TrackingScreen> {
   @override
   void dispose() {
     socket.close();
-    googleMapController.dispose();
-
     // TODO: implement dispose
     super.dispose();
   }
@@ -61,11 +63,25 @@ class _TrackingScreenState extends State<TrackingScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            AppLocalizations.of(context)!.track_Order,
+            style: getBoldStyle(
+              color: ColorManager.grayForMessage,
+              fontSize: FontSizeApp.s15.sp,
+            ),
+          ),
+          leading: IconButton(
+              onPressed: () {
+                AppRouter.pushReplacement(
+                  context,
+                  const OrderScreen(),
+                );
+              },
+              icon: const Icon(Icons.arrow_back)),
+        ),
         body: Column(
           children: [
-            CustomAppBarScreen(
-              sectionName: AppLocalizations.of(context)!.track_Order,
-            ),
             Expanded(
               child: GoogleMap(
                 zoomControlsEnabled: true,
