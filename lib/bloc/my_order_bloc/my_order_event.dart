@@ -60,11 +60,7 @@ class PaymentProcessBasket extends MyOrderEvent {
   PaymentProcessBasket(this.id);
 }
 
-class AddProductToBasket extends MyOrderEvent {
-  int id;
 
-  AddProductToBasket(this.id);
-}
 
 class GetOrderHistory extends MyOrderEvent {
   GetOrderHistory();

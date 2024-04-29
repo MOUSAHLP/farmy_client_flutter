@@ -162,6 +162,8 @@ class _BottomBarState extends State<BottomBar> {
             onTap: () {
               setState(() {
                 context.read<HomeBloc>().currentIndex = 3;
+                context.read<BasketBloc>().add(
+                    SaveIdToBasket(0));
                 AppRouter.pushAndRemoveAllStack(
                     context, children[context.read<HomeBloc>().currentIndex]);
               });

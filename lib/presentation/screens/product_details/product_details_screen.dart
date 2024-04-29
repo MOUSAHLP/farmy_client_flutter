@@ -368,11 +368,39 @@ class ProductDetailsBody extends StatelessWidget {
                                   ),
                                   CustomAppButton(
                                     ontap: () {
-                                      if (sl<AuthenticationBloc>()
+                                        if (sl<AuthenticationBloc>()
                                           .loggedIn) {
-                                        context
-                                            .read<BasketBloc>()
-                                            .add(buildAddToBasket(state));
+                                          if(context.read<BasketBloc>().state.idbasket!=0){
+                                            context
+                                                .read<BasketBloc>()
+                                                .add(buildAddToBasketNot(state));
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                duration:
+                                                const Duration(seconds: 1),
+                                                content: Container(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                 "تمت الاضافة الى المسودة",
+                                                    style: getRegularStyle(
+                                                      color: ColorManager.white,
+                                                      fontSize: FontSizeApp.s14,
+                                                    ),
+                                                  ),
+                                                ),
+                                                backgroundColor:
+                                                ColorManager.primaryGreen,
+                                              ),
+                                            );
+                                            context.read<HomeBloc>().currentIndex = 0;
+
+                                            AppRouter.push(context, HomeScreen());
+                                          }
+                                          else {
+                                          context
+                                              .read<BasketBloc>()
+                                              .add(buildAddToBasket(state));
+
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(
                                             duration:
@@ -392,7 +420,7 @@ class ProductDetailsBody extends StatelessWidget {
                                             backgroundColor:
                                             ColorManager.primaryGreen,
                                           ),
-                                        );
+                                        );}
                                       } else {
                                         ErrorDialog.openDialog(
                                           context,
@@ -401,7 +429,7 @@ class ProductDetailsBody extends StatelessWidget {
                                         );
                                       }
                                     },
-                                    myText: AppLocalizations.of(context)!
+                                    myText:context.read<BasketBloc>().state.idbasket!=0?"اضافة الى المسودة": AppLocalizations.of(context)!
                                         .add_to_basket,
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 74,
@@ -489,6 +517,65 @@ class ProductDetailsBody extends StatelessWidget {
     );
     return AddToBasket(
       product: A,
+    );
+  }
+  AddProductToBasket buildAddToBasketNot(ProductdetailsState state) {
+    List<ProductResponse> A = [];
+    if (state.listSimilarProduct != null) {
+      for (var tmp in state.listSimilarProduct!) {
+        A.add(
+          ProductResponse(
+            quantity: tmp.quantity,
+            image: tmp.image,
+            id: tmp.id,
+            discountPrice: tmp.discountPrice,
+            discountStatus: tmp.discountStatus,
+            availabilityOfProduct: tmp.availabilityOfProduct,
+            nameOfProduct: tmp.nameOfProduct,
+            price: tmp.price,
+            sellerName: tmp.sellerName,
+          ),
+        );
+      }
+    }
+    if (state.listRelatedProduct != null) {
+      for (var tmp in state.listRelatedProduct!) {
+        A.add(
+          ProductResponse(
+            quantity: tmp.quantity,
+            image: tmp.image,
+            id: tmp.id,
+            discountPrice: tmp.discountPrice,
+            discountStatus: tmp.discountStatus,
+            availabilityOfProduct: tmp.availabilityOfProduct,
+            nameOfProduct: tmp.nameOfProduct,
+            price: tmp.price,
+            sellerName: tmp.sellerName,
+          ),
+        );
+      }
+    }
+    A.add(
+      ProductResponse(
+        similarProducts: state.productDetailsResponse.similarProducts,
+        sellerName: state.productDetailsResponse.sellerName,
+        relatedProducts: state.productDetailsResponse.relatedProducts,
+        price: state.productDetailsResponse.price,
+        nameOfProduct: state.productDetailsResponse.nameOfProduct,
+        isDiscount: state.productDetailsResponse.isDiscount,
+        availabilityOfProduct:
+            state.productDetailsResponse.availabilityOfProduct,
+        attributeList: state.productDetailsResponse.attributeList,
+        description: state.productDetailsResponse.description,
+        discountPrice: state.productDetailsResponse.discountPrice,
+        id: state.productDetailsResponse.id,
+        image: state.productDetailsResponse.image,
+        quantity: state.quntity,
+        discountStatus: state.productDetailsResponse.discountStatus,
+      ),
+    );
+    return AddProductToBasket(
+     A,
     );
   }
 }

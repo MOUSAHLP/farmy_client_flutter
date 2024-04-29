@@ -118,7 +118,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
                 productList: r,
                 totalPrice: finalPrice(),
                 productListp: r,
-                quantityInBasket: productInBasketList.reversed.toList(),
+                quantityInBasket: productInBasketList.toList(),
               ),
             );
           },
@@ -142,7 +142,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
           state.copyWith(
             productList: productDetailsList,
             totalPrice: finalPrice(),
-            quantityInBasket: productInBasketList.reversed.toList(),
+            quantityInBasket: productInBasketList.toList(),
           ),
         );
       }
@@ -163,7 +163,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
           state.copyWith(
             productList: productDetailsList,
             totalPrice: finalPrice(),
-            quantityInBasket: productInBasketList.reversed.toList(),
+            quantityInBasket: productInBasketList.toList(),
           ),
         );
       }
@@ -215,11 +215,6 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
         sum = 0;
         emit(state.copyWith(
             productList: productDetailsList, totalPrice: finalPrice()));
-      }
-      if (event is AddProductToBasket) {
-        print("event.id");
-        print(event.id);
-        emit(state.copyWith(idBasket: event.id));
       }
 
       if (event is GetOrderHistory) {
