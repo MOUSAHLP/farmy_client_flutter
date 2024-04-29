@@ -116,8 +116,7 @@ class _ConfirmPaymentOrderDialogBodyState
                     fillColor: ColorManager.lightGreen,
                     onTap: () {
                       ConfirmPaymentOrderDialog().closeDialog(context);
-                      AppRouter.pushReplacement(context,
-                          OrderTrackingScreen(orderId: widget.orderId));
+                      AppRouter.pushReplacement(context, OrderTrackingScreen(orderId: widget.orderId,expectedTime: 30,));
                     },
                   ),
                 ),

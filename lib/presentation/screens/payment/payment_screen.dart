@@ -658,13 +658,7 @@ class PaymentBody extends StatelessWidget {
                             )
                           : AppValueConst.defaultInvoiceValue.toString(),
                   onCompletePayment: () {
-
                     if (myOrderBloc != null) {
-                      print('@@@@@@@@@@@@@@@@@@@@@@@');
-                      print(                   state.id
-                      );
-                      print('=====================');
-
                       paymentBloc.add(
                         CreateOrder(
                           idBasket,

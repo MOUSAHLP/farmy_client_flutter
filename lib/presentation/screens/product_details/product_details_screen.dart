@@ -97,8 +97,7 @@ class ProductDetailsBody extends StatelessWidget {
                                       InkWell(
                                         onTap: () => showGeneralDialog(
                                           context: context,
-                                          pageBuilder: (context2, animation,
-                                                  secondaryAnimation) =>
+                                          pageBuilder: (context2, animation, secondaryAnimation) =>
                                               GestureDetector(
                                             onTap: () {
                                               AppRouter.pop(context);

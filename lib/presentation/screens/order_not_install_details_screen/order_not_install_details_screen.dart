@@ -93,7 +93,8 @@ class OrderDetailsBody extends StatelessWidget {
                   AppRouter.push(
                     context,
                     PaymentScreen(
-                      rewardCouponsFixedValueModel: state.rewardCouponsFixedValueModel!,
+                      rewardCouponsFixedValueModel:
+                          state.rewardCouponsFixedValueModel!,
                       paymentProcessResponse: state.paymentProcessResponse!,
                       myOrderBloc: context.read<MyOrderBloc>(),
                       idBasket: idBasket,
@@ -142,9 +143,10 @@ class OrderDetailsBody extends StatelessWidget {
                               width: 1.sw,
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(22),
-                                      topRight: Radius.circular(22)),
+                                  borderRadius:  BorderRadius.only(
+                                    topLeft: Radius.circular(22.0.r),
+                                    topRight: Radius.circular(22.0.r),
+                                  ),
                                   boxShadow: [ColorManager.shadowGaryUp]),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -152,10 +154,13 @@ class OrderDetailsBody extends StatelessWidget {
                                   const SizedBox(
                                     height: 9,
                                   ),
-                                  Text(AppLocalizations.of(context)!.totalPrice,
-                                      style: getBoldStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: 14)),
+                                  Text(
+                                    AppLocalizations.of(context)!.totalPrice,
+                                    style: getBoldStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -169,27 +174,29 @@ class OrderDetailsBody extends StatelessWidget {
                                       Text(
                                         AppLocalizations.of(context)!.curruncy,
                                         style: getBoldStyle(
-                                                color:
-                                                    ColorManager.primaryGreen,
-                                                fontSize: 15)!
+                                          color: ColorManager.primaryGreen,
+                                          fontSize: 15.sp,
+                                        )!
                                             .copyWith(height: 1),
                                       )
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 27, vertical: 9),
+                                    padding: EdgeInsetsDirectional.symmetric(
+                                      horizontal: 27.h,
+                                      vertical: 9.w,
+                                    ),
                                     child: Row(
                                       children: [
                                         isEdit
                                             ? Expanded(
                                                 child: CustomButton(
-                                                  label: "تثبيت الطلب ",
+                                                  label: "تثبيت الطلب",
                                                   fillColor:
                                                       ColorManager.primaryGreen,
                                                   onTap: () {
                                                     checkIsOpening(context) ==
-                                                            false
+                                                            true
                                                         ? context
                                                             .read<MyOrderBloc>()
                                                             .add(

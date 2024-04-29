@@ -66,8 +66,8 @@ class BasketNotInstallCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomButton(
-                            height: 38,
-                            radius: 6,
+                            height: 38.h,
+                            radius: 6.w,
                             label: AppLocalizations.of(context)!.edit_Orders,
                             fillColor: ColorManager.yellow,
                             labelColor: Colors.white,

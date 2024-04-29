@@ -11,10 +11,11 @@ import '../../order_details_screen/order_details_screen.dart';
 import '../../order_tracking_screen/order_tracking_screen.dart';
 
 class StateButtons extends StatelessWidget {
-  const StateButtons({Key? key, required this.status, required this.id})
+  const StateButtons({Key? key, required this.status, required this.id, required this.expectedTime})
       : super(key: key);
   final String status;
   final int id;
+  final int expectedTime;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,7 @@ class StateButtons extends StatelessWidget {
                   return AppRouter.push(
                     context,
                     OrderDetailsScreen(
+
                       id: id,
                       isEdit: true,
                     ),
@@ -94,6 +96,7 @@ class StateButtons extends StatelessWidget {
                   return AppRouter.push(
                     context,
                     OrderDetailsScreen(
+
                       id: id,
                     ),
                   );
@@ -115,6 +118,7 @@ class StateButtons extends StatelessWidget {
                   return AppRouter.push(
                     context,
                     OrderDetailsScreen(
+
                       id: id,
                     ),
                   );
@@ -135,6 +139,7 @@ class StateButtons extends StatelessWidget {
                   AppRouter.push(
                     context,
                     OrderTrackingScreen(
+                      expectedTime:expectedTime,
                       orderId: id,
                     ),
                   );

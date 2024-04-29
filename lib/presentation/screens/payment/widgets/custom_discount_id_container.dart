@@ -170,9 +170,7 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                                     .toString(),
                                 time: widget.paymentBloc.state.time,
                                 notes: widget.notesText,
-                                deliveryMethodId:
-                                widget.paymentBloc.state.id!
-                                ,
+                                deliveryMethodId: widget.paymentBloc.state.id!,
                                 userAddressId: context
                                     .read<LocationBloc>()
                                     .state
