@@ -482,7 +482,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                 ColorManager.primaryGreen,
                                           ),
                                         );
-                                      } else {
+                                      }} else {
                                         ErrorDialog.openDialog(
                                           context,
                                           AppLocalizations.of(context)!
@@ -495,9 +495,8 @@ class ProductDetailsBody extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 74,
                                       vertical: 10,
-                                    ),
-                                  ),
-                                ],
+                                    ),)
+                               ],
                               ),
                             )
                           : state.screenState == ScreenState.error
@@ -580,4 +579,64 @@ class ProductDetailsBody extends StatelessWidget {
       product: A,
     );
   }
+  AddProductToBasket buildAddToBasketNot(ProductdetailsState state) {
+    List<ProductResponse> A = [];
+    if (state.listSimilarProduct != null) {
+      for (var tmp in state.listSimilarProduct!) {
+        A.add(
+          ProductResponse(
+            quantity: tmp.quantity,
+            image: tmp.image,
+            id: tmp.id,
+            discountPrice: tmp.discountPrice,
+            discountStatus: tmp.discountStatus,
+            availabilityOfProduct: tmp.availabilityOfProduct,
+            nameOfProduct: tmp.nameOfProduct,
+            price: tmp.price,
+            sellerName: tmp.sellerName,
+          ),
+        );
+      }
+    }
+    if (state.listRelatedProduct != null) {
+      for (var tmp in state.listRelatedProduct!) {
+        A.add(
+          ProductResponse(
+            quantity: tmp.quantity,
+            image: tmp.image,
+            id: tmp.id,
+            discountPrice: tmp.discountPrice,
+            discountStatus: tmp.discountStatus,
+            availabilityOfProduct: tmp.availabilityOfProduct,
+            nameOfProduct: tmp.nameOfProduct,
+            price: tmp.price,
+            sellerName: tmp.sellerName,
+          ),
+        );
+      }
+    }
+    A.add(
+      ProductResponse(
+        similarProducts: state.productDetailsResponse.similarProducts,
+        sellerName: state.productDetailsResponse.sellerName,
+        relatedProducts: state.productDetailsResponse.relatedProducts,
+        price: state.productDetailsResponse.price,
+        nameOfProduct: state.productDetailsResponse.nameOfProduct,
+        isDiscount: state.productDetailsResponse.isDiscount,
+        availabilityOfProduct:
+            state.productDetailsResponse.availabilityOfProduct,
+        attributeList: state.productDetailsResponse.attributeList,
+        description: state.productDetailsResponse.description,
+        discountPrice: state.productDetailsResponse.discountPrice,
+        id: state.productDetailsResponse.id,
+        image: state.productDetailsResponse.image,
+        quantity: state.quntity,
+        discountStatus: state.productDetailsResponse.discountStatus,
+      ),
+    );
+    return AddProductToBasket(
+      A,
+    );
+  }
 }
+

@@ -210,7 +210,7 @@ class OrderDetailsBody extends StatelessWidget {
                                                         : TimeWorkNotInstallDialog()
                                                             .openDialog(
                                                                 context);
-                                                  }},
+                                                  },
                                                 ),
                                               )
                                             : const SizedBox(),
@@ -293,5 +293,5 @@ class OrderDetailsBody extends StatelessWidget {
       return false;
     }
     return false;
-  }
+  }}
 
