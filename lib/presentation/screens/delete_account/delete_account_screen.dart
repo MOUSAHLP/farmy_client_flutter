@@ -75,6 +75,8 @@ class DeleteAccountScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 19, vertical: 24),
                             child: InputFieldAuth(
+                                textDirection: TextDirection.ltr,
+
                                 controller: reasonController,
                                 maxLines: 5,
                                 minLines: 5,
@@ -103,8 +105,10 @@ class DeleteAccountScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 40, vertical: 19),
-                            child: InputFieldAuth(
-                              keyboardType: TextInputType.phone,
+                            child: InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
+                                keyboardType: TextInputType.phone,
                                 controller: phoneController,
                                 angelRadios: const Radius.circular(6),
                                 color: const Color.fromRGBO(228, 228, 228, 1),
@@ -131,8 +135,10 @@ class DeleteAccountScreen extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 40),
-                            child: InputFieldAuth(
-                                controller: passwordController,
+                            child: InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
+                              controller: passwordController,
                                 angelRadios: const Radius.circular(6),
                                 color: const Color.fromRGBO(228, 228, 228, 1),
                                 textStyle: getUnderBoldStyle(

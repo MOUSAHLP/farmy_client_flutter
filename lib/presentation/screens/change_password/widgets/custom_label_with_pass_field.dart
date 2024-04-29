@@ -30,6 +30,8 @@ class CustomLabelWithPassField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 11),
           child: InputFieldAuth(
+            textDirection: TextDirection.ltr,
+
             controller: controller,
             color: ColorManager.grayForm,
             width: 1.sw,

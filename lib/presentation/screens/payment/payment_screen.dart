@@ -233,42 +233,43 @@ class PaymentBody extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            // محفظة فارمي
+                            // Padding(
+                            //   padding: const EdgeInsets.symmetric(
+                            //     horizontal: 21,
+                            //   ),
+                              // child: Column(
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   children: [
+                              //     Text(
+                              //       AppLocalizations.of(context)!.payment,
+                              //       style: getBoldStyle(
+                              //         color: ColorManager.grayForMessage,
+                              //         fontSize: FontSizeApp.s14,
+                              //       ),
+                              //     ),
+                                  // const SizedBox(height: 4),
+                                  // CustomPaymentStatusContainer(
+                                  //   image: ImageManager.farmySmile,
+                                  //   text: AppLocalizations.of(context)!
+                                  //       .cash_payment,
+                                  //   paymentState: PaymentStates.cashPayment,
+                                  // ),
+                                  // const SizedBox(height: 12),
+                                  // CustomPaymentStatusContainer(
+                                  //   image: ImageManager.farmySmile,
+                                  //   text: AppLocalizations.of(context)!
+                                  //       .farmy_wallet,
+                                  //   paymentState: PaymentStates.farmyWallet,
+                                  // ),
+                                // ],
+                              // ),
+                            // ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 21,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!.payment,
-                                    style: getBoldStyle(
-                                      color: ColorManager.grayForMessage,
-                                      fontSize: FontSizeApp.s14,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  CustomPaymentStatusContainer(
-                                    image: ImageManager.farmySmile,
-                                    text: AppLocalizations.of(context)!
-                                        .cash_payment,
-                                    paymentState: PaymentStates.cashPayment,
-                                  ),
-                                  const SizedBox(height: 12),
-                                  CustomPaymentStatusContainer(
-                                    image: ImageManager.farmySmile,
-                                    text: AppLocalizations.of(context)!
-                                        .farmy_wallet,
-                                    paymentState: PaymentStates.farmyWallet,
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 21.w,
-                                vertical: 12.h,
+                              padding: EdgeInsetsDirectional.only(
+                                start: 21.w,
+                                end: 21.w,
+                                bottom: 12.h,
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -340,7 +341,7 @@ class PaymentBody extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "// ToDoلقد حصلت على حسم 5000 ل.س من مجمل الفاتورة ",
+                                  "// ToDo ل.س من مجمل الفاتورة ",
                                   style: getBoldStyle(
                                     color: ColorManager.redForFavorite,
                                     fontSize: 15,
@@ -349,9 +350,9 @@ class PaymentBody extends StatelessWidget {
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 21,
-                                vertical: 12,
+                              padding:  EdgeInsets.symmetric(
+                                horizontal: 21.w,
+                                vertical: 12.h,
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -365,14 +366,14 @@ class PaymentBody extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   InputFieldAuth(
+                                    textDirection: TextDirection.rtl,
                                     controller: noteController,
                                     maxLines: 5,
                                     minLines: 5,
                                     height: .30.sw,
                                     width: 1.sw,
                                     color: ColorManager.lightGray,
-                                    hintText:
-                                        AppLocalizations.of(context)!.add_notes,
+                                    hintText: AppLocalizations.of(context)!.add_notes,
                                     hintStyle: getRegularStyle(
                                       color: ColorManager.grayForMessage,
                                     ),
@@ -657,13 +658,7 @@ class PaymentBody extends StatelessWidget {
                             )
                           : AppValueConst.defaultInvoiceValue.toString(),
                   onCompletePayment: () {
-
                     if (myOrderBloc != null) {
-                      print('@@@@@@@@@@@@@@@@@@@@@@@');
-                      print(                   state.id
-                      );
-                      print('=====================');
-
                       paymentBloc.add(
                         CreateOrder(
                           idBasket,

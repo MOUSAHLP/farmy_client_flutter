@@ -64,6 +64,8 @@ class SignInBody extends StatelessWidget {
             ),
             SizedBox(height: 58.0.h),
             InputFieldAuth(
+              textDirection: TextDirection.ltr,
+
               icon: Image.asset(
                 ImageManager.flagOfSyria,
                 height: 20.0.h,

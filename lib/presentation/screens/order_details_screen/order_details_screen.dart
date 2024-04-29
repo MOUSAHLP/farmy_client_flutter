@@ -25,7 +25,8 @@ class OrderDetailsScreen extends StatelessWidget {
   final bool isEdit;
   final bool isDelivery;
 
-  const OrderDetailsScreen({super.key, required this.id, this.isEdit = false,this.isDelivery=false});
+
+  const OrderDetailsScreen({super.key, required this.id, this.isEdit = false,this.isDelivery=false,});
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +205,8 @@ class OrderDetailsBody extends StatelessWidget {
                                                         Uri.parse(
                                                             state.urlPdf ),
                                                         mode: LaunchMode
-                                                            .externalApplication);
+                                                            .externalApplication,
+                                                    );
 
                                                   },
                                                 ),

@@ -123,7 +123,9 @@ class JoinOurTeamBody extends StatelessWidget {
                                       ),
                                     )
                                   ]),
-                                  child: InputFieldAuth(
+                                  child: InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
                                       width: 1.sw,
                                       hintText: AppLocalizations.of(context)!
                                           .full_name,
@@ -147,7 +149,9 @@ class JoinOurTeamBody extends StatelessWidget {
                                         color: ColorManager.black
                                             .withOpacity(0.18))
                                   ]),
-                                  child: InputFieldAuth(
+                                  child: InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
                                     width: 1.sw,
                                     hintText: AppLocalizations.of(context)!
                                         .contact_Number,
@@ -178,7 +182,9 @@ class JoinOurTeamBody extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  child: InputFieldAuth(
+                                  child: InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
                                     controller: jobController,
                                     width: 1.sw,
                                     readOnly: true,

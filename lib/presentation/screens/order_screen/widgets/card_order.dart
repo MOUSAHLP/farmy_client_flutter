@@ -97,6 +97,7 @@ class CardOrder extends StatelessWidget {
               StateButtons(
                 status: myOrder.status ?? "",
                 id: myOrder.id,
+                expectedTime: myOrder.expectedTime,
               )
             ],
           ),

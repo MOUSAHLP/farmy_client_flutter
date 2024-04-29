@@ -31,11 +31,12 @@ class OrderNotInstallDetailsScreen extends StatelessWidget {
   final int idBasket;
   final bool isEdit;
 
-  const OrderNotInstallDetailsScreen(
-      {super.key,
-      required this.id,
-      this.isEdit = false,
-      required this.idBasket});
+  const OrderNotInstallDetailsScreen({
+    super.key,
+    required this.id,
+    this.isEdit = false,
+    required this.idBasket,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -143,9 +144,10 @@ class OrderDetailsBody extends StatelessWidget {
                               width: 1.sw,
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(22),
-                                      topRight: Radius.circular(22)),
+                                  borderRadius:  BorderRadius.only(
+                                    topLeft: Radius.circular(22.0.r),
+                                    topRight: Radius.circular(22.0.r),
+                                  ),
                                   boxShadow: [ColorManager.shadowGaryUp]),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -153,10 +155,13 @@ class OrderDetailsBody extends StatelessWidget {
                                   const SizedBox(
                                     height: 9,
                                   ),
-                                  Text(AppLocalizations.of(context)!.totalPrice,
-                                      style: getBoldStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: 14)),
+                                  Text(
+                                    AppLocalizations.of(context)!.totalPrice,
+                                    style: getBoldStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -170,16 +175,18 @@ class OrderDetailsBody extends StatelessWidget {
                                       Text(
                                         AppLocalizations.of(context)!.curruncy,
                                         style: getBoldStyle(
-                                                color:
-                                                    ColorManager.primaryGreen,
-                                                fontSize: 15)!
+                                          color: ColorManager.primaryGreen,
+                                          fontSize: 15.sp,
+                                        )!
                                             .copyWith(height: 1),
                                       )
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 27, vertical: 9),
+                                    padding: EdgeInsetsDirectional.symmetric(
+                                      horizontal: 27.h,
+                                      vertical: 9.w,
+                                    ),
                                     child: Row(
                                       children: [
                                         isEdit
@@ -191,15 +198,19 @@ class OrderDetailsBody extends StatelessWidget {
                                                   onTap: () {
                                                     context.read<BasketBloc>().add(
                                                         SaveIdToBasket(0));
-                                                    checkIsOpening(context)==false ? context
-                                                        .read<MyOrderBloc>()
-                                                        .add(
-                                                      PaymentProcessBasket(
-                                                        idBasket,
-                                                      ),
-                                                    ): TimeWorkNotInstallDialog().openDialog(context) ;
-
-                                                    },
+                                                    checkIsOpening(context) ==
+                                                            true
+                                                        ? context
+                                                            .read<MyOrderBloc>()
+                                                            .add(
+                                                              PaymentProcessBasket(
+                                                                idBasket,
+                                                              ),
+                                                            )
+                                                        : TimeWorkNotInstallDialog()
+                                                            .openDialog(
+                                                                context);
+                                                  }},
                                                 ),
                                               )
                                             : const SizedBox(),
@@ -258,14 +269,20 @@ class OrderDetailsBody extends StatelessWidget {
       //  drawer: const CustomAppDrawer(),
     );
   }
+
   bool checkIsOpening(BuildContext context) {
     DateTime dateTime = DateTime.now();
-    List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
-    print("======================================================================");
+    List<String> endTime =
+        (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime)
+            .split(":");
+    print(
+        "======================================================================");
     print(dateTime.hour);
-    print("======================================================================");
+    print(
+        "======================================================================");
     print(endTime[0]);
-    print("======================================================================");
+    print(
+        "======================================================================");
     if (int.parse(endTime[0]) > dateTime.hour) {
       return true;
     } else if (int.parse(endTime[0]) == dateTime.hour) {
@@ -277,4 +294,4 @@ class OrderDetailsBody extends StatelessWidget {
     }
     return false;
   }
-}
+

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/location_bloc/location_bloc.dart';
+import 'package:pharma/bloc/location_bloc/location_event.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_state.dart';
@@ -24,8 +25,10 @@ import '../../widgets/custom_button.dart';
 
 class OrderTrackingScreen extends StatefulWidget {
   final int orderId;
+  final int expectedTime;
 
-  const OrderTrackingScreen({super.key, required this.orderId});
+  const OrderTrackingScreen(
+      {super.key, required this.orderId, required this.expectedTime});
 
   @override
   State<OrderTrackingScreen> createState() => _OrderTrackingScreenState();
@@ -40,6 +43,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
       ..setOrderId(widget.orderId)
       ..add(const GetOrderStatus());
     FirebaseNotificationsHandler().bloc = bloc;
+    context.read<LocationBloc>().add(CurrentLocation());
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -84,7 +88,7 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                 Expanded(
                                   child: FittedBox(
                                     child: Text(
-                                      "15 إلى 20 دقيقة",
+                                      "${widget.expectedTime} إلى ${widget.expectedTime + 10}دقيقة ",
                                       style: getRegularStyle(
                                         color: ColorManager.grayForMessage,
                                         fontSize: 14,
@@ -128,19 +132,18 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                     label: AppLocalizations.of(context)!
                                         .track_your_order_on_the_map,
                                     onTap: () async {
-                                      LoadingDialog().openDialog(context);
-                                      await context.read<LocationBloc>().getPosition();
-                                      LoadingDialog().closeDialog(context);
-                                      setState(() {});
+
                                       AppRouter.push(
                                         context,
                                         TrackingScreen(
                                           lat: context
                                               .read<LocationBloc>()
-                                              .latitudeCurrent!,
+                                              .state
+                                              .latitude,
                                           long: context
                                               .read<LocationBloc>()
-                                              .longitudeCurrent!,
+                                              .state
+                                              .longitude,
                                           orderId: widget.orderId,
                                         ),
                                       );
@@ -149,23 +152,25 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  trackingModel.driverPhone!=null?   CustomButton(
-                                    label: AppLocalizations.of(context)!
-                                        .contact_delivery_driver,
-                                    isFilled: true,
-                                    borderColor: ColorManager.primaryGreen,
-                                    fillColor: Colors.white,
-                                    labelColor: ColorManager.primaryGreen,
-                                    onTap: () async {
-                                      print("trackingModel.driverPhone");
-                                      print(trackingModel.driverPhone);
-                                      Uri url = Uri.parse(
-                                          "tel://${trackingModel.driverPhone}");
-                                      if (await canLaunchUrl(url)) {
-                                         launchPhoneCall("${trackingModel.driverPhone}");
-                                      }
-                                    },
-                                  ):SizedBox(),
+                                  trackingModel.driverPhone != null
+                                      ? CustomButton(
+                                          label: AppLocalizations.of(context)!
+                                              .contact_delivery_driver,
+                                          isFilled: true,
+                                          borderColor:
+                                              ColorManager.primaryGreen,
+                                          fillColor: Colors.white,
+                                          labelColor: ColorManager.primaryGreen,
+                                          onTap: () async {
+                                            Uri url = Uri.parse(
+                                                "tel://${trackingModel.driverPhone}");
+                                            if (await canLaunchUrl(url)) {
+                                              launchPhoneCall(
+                                                  "${trackingModel.driverPhone}");
+                                            }
+                                          },
+                                        )
+                                      : const SizedBox(),
                                 ],
                               ),
                             ),

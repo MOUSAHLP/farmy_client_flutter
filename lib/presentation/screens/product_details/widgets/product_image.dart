@@ -5,6 +5,7 @@ import 'package:pharma/presentation/widgets/cached_image.dart';
 
 class ProductImage extends StatelessWidget {
   final String productImage;
+
   const ProductImage({super.key, required this.productImage});
 
   @override
@@ -38,20 +39,24 @@ class ProductImage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(0),
               child: CachedImage(
-                  fit: BoxFit.cover,
-                  imageSize: ImageSize.large,
-                  imageUrl: productImage),
+                fit: BoxFit.cover,
+                imageSize: ImageSize.small,
+                imageUrl: productImage,
+              ),
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          padding: EdgeInsets.symmetric(
+            horizontal: 15.w,
+            vertical: 15.h,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: 31,
-                width: 31,
+                height: 31.h,
+                width: 31.w,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,

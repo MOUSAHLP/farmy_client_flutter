@@ -63,17 +63,13 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                 )),
             child: Row(
               children: [
-                // SizedBox(
-                //   width: 15.w,
-                // ),
+
                 Image.asset(
                   widget.imageUrl,
                   height: 39.h,
                   width: 39.w,
                 ),
-                // SizedBox(
-                //   width: 8.w,
-                // ),
+
                 Expanded(
                   child: FittedBox(
                     child: Text(
@@ -174,9 +170,7 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                                     .toString(),
                                 time: widget.paymentBloc.state.time,
                                 notes: widget.notesText,
-                                deliveryMethodId:
-                                widget.paymentBloc.state.id!
-                                ,
+                                deliveryMethodId: widget.paymentBloc.state.id!,
                                 userAddressId: context
                                     .read<LocationBloc>()
                                     .state
@@ -195,18 +189,18 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                             style: TextStyle(
                                 color: ColorManager.primaryGreen,
                                 fontSize: 14.sp,
-                                fontWeight: FontWeight.w800),
+                                fontWeight: FontWeight.w800,),
                             children: [
                               TextSpan(
                                 text:
-                                    "${widget.rewardCouponsFixedValueModel!.data[index].value}",
+                                    "${widget.rewardCouponsFixedValueModel!.data[index].price}",
                               ),
                               const TextSpan(
                                 text: " نقطة = ",
                               ),
                               TextSpan(
                                 text:
-                                    "${widget.rewardCouponsFixedValueModel!.data[index].price}",
+                                    "${widget.rewardCouponsFixedValueModel!.data[index].value}",
                               ),
                               const TextSpan(
                                 text: " ل.س",
