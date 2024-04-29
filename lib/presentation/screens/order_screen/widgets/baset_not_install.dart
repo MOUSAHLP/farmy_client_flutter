@@ -55,6 +55,10 @@ class BasketNotInstallCard extends StatelessWidget {
                           details: myOrder.products.length.toString(),
                         ),
                         SizedBox(height: 15.0.h),
+                        RowOrder(
+                            title:"رقم السلة",
+                            details: myOrder.id.toString()),
+                        const SizedBox(height: 10),
                       ],
                     ),
                   ),

@@ -45,3 +45,11 @@ const  DeleteProduct(this.id);
 class ClearBasket extends BasketEvent{}
 class SaveBasket extends BasketEvent{}
 
+class SaveIdToBasket extends BasketEvent {
+  int id;
+  SaveIdToBasket(this.id);
+}
+class AddProductToBasket extends BasketEvent {
+  final List<ProductResponse> product;
+  AddProductToBasket(this.product);
+}

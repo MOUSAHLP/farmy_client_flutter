@@ -7,6 +7,7 @@ class BasketState extends Equatable {
   final ScreenState? screenState;
   final String? errorMessage;
   final bool isClear;
+  final int idbasket;
   final RewardCouponsFixedValueModel? rewardCouponsFixedValueModel;
   final Map<int, bool>? isAdd;
   const BasketState({
@@ -16,6 +17,7 @@ class BasketState extends Equatable {
     this.screenState,
     this.paymentProcessResponse,
     this.isClear = false,
+    this.idbasket = 0,
     this.rewardCouponsFixedValueModel,
     this.isAdd=const{}
   });
@@ -27,6 +29,7 @@ class BasketState extends Equatable {
     String? errorMessage,
     PaymentProcessResponse? paymentProcessResponse,
     bool? isClear,
+    int? idbasket,
     RewardCouponsFixedValueModel? rewardCouponsFixedValueModel,
     Map<int, bool>? isAdd
   }) {
@@ -40,7 +43,8 @@ class BasketState extends Equatable {
       isClear: isClear ?? false,
       rewardCouponsFixedValueModel:
           rewardCouponsFixedValueModel ?? this.rewardCouponsFixedValueModel,
-      isAdd: isAdd??this.isAdd
+      isAdd: isAdd??this.isAdd,
+      idbasket: idbasket??this.idbasket,
     );
   }
 
@@ -54,7 +58,8 @@ class BasketState extends Equatable {
         errorMessage,
         isClear,
     rewardCouponsFixedValueModel,
-    isAdd
+    isAdd,
+    idbasket
 
   ];
 }

@@ -10,6 +10,7 @@ import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/order_not_install_details_screen/widgets/card_details_order_not_install.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
+import '../../../bloc/basket_bloc/basket_bloc.dart';
 import '../../../bloc/my_order_bloc/my_order_bloc.dart';
 import '../../../bloc/setting_bloc/setting_bloc.dart';
 import '../../../core/services/services_locator.dart';
@@ -191,10 +192,12 @@ class OrderDetailsBody extends StatelessWidget {
                                         isEdit
                                             ? Expanded(
                                                 child: CustomButton(
-                                                  label: "تثبيت الطلب",
+                                                  label:AppLocalizations.of(context)!.install,
                                                   fillColor:
                                                       ColorManager.primaryGreen,
                                                   onTap: () {
+                                                    context.read<BasketBloc>().add(
+                                                        SaveIdToBasket(0));
                                                     checkIsOpening(context) ==
                                                             true
                                                         ? context
@@ -216,34 +219,36 @@ class OrderDetailsBody extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: CustomButton(
-                                            label: "رجوع",
+                                            label: AppLocalizations.of(context)!.back,
                                             fillColor:
                                                 ColorManager.primaryGreen,
                                             labelColor: Colors.white,
                                             onTap: () {
+                                              context.read<BasketBloc>().add(
+                                                  SaveIdToBasket(0));
                                               AppRouter.pop(context);
                                               // SystemNavigator.pop();
                                             },
                                           ),
                                         ),
-                                        // const SizedBox(
-                                        //   width: 16,
-                                        // ),
-                                        // Expanded(
-                                        //   child: CustomButton(
-                                        //     label: "اضافة منتجات",
-                                        //     fillColor:
-                                        //         ColorManager.primaryGreen,
-                                        //     labelColor: Colors.white,
-                                        //     onTap: () {
-                                        //       print(id);
-                                        //       context.read<MyOrderBloc>().add(
-                                        //           AddProductToBasket(idBasket));
-                                        //       AppRouter.push(
-                                        //           context, HomeScreen());
-                                        //     },
-                                        //   ),
-                                        // ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        Expanded(
+                                          child: CustomButton(
+                                            label: AppLocalizations.of(context)!.add_product,
+                                            fillColor:
+                                                ColorManager.primaryGreen,
+                                            labelColor: Colors.white,
+                                            onTap: () {
+
+                                              context.read<BasketBloc>().add(
+                                                  SaveIdToBasket(idBasket));
+                                              AppRouter.push(
+                                                  context, const HomeScreen());
+                                            },
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -288,5 +293,5 @@ class OrderDetailsBody extends StatelessWidget {
       return false;
     }
     return false;
-  }
-}
+  }}
+

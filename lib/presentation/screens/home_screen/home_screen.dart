@@ -16,9 +16,11 @@ import 'package:pharma/presentation/screens/home_screen/widgets/custom_home_curs
 import 'package:pharma/presentation/screens/home_screen/widgets/cutsom_home_shimmer.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/home_category.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/home_section.dart';
+import 'package:pharma/presentation/screens/order_screen/order_screen.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/dialogs/time_work_dialog.dart';
 import '../../../bloc/authentication_bloc/authertication_bloc.dart';
+import '../../../bloc/my_order_bloc/my_order_bloc.dart';
 import '../../../core/services/services_locator.dart';
 import '../base_screen/base_screen.dart';
 import '../../../bloc/basket_bloc/basket_bloc.dart';
@@ -36,6 +38,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    print("context.read<MyOrderBloc>().state.idBasket");
+    print(context.read<BasketBloc>().state.idbasket);
+
     return BaseScreenScaffold(
       body: Column(
         children: [
@@ -138,7 +143,54 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 context.read<HomeBloc>().buildListViewFooter(),
                               ],
                             ),
-                            context
+                            context.read<BasketBloc>().state.idbasket!=0?
+                            Padding(
+                              padding:
+                              const EdgeInsets.all(20.0),
+                              child: InkWell(
+                                child: Container(
+                                  height: 40,
+                                  width: 1.sw - 100,
+                                  decoration: BoxDecoration(
+                                      color: ColorManager
+                                          .primaryGreen,
+                                      borderRadius:
+                                      BorderRadius
+                                          .circular(6)),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text(
+                                            context
+                                                .read<
+                                                BasketBloc>()
+                                                .countProduct(context.read<BasketBloc>().state.idbasket).toString(),
+                                            style: getBoldStyle(
+                                                color: Colors
+                                                    .white)),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(AppLocalizations.of(context)!.view_draft_items,
+                                            style: getBoldStyle(
+                                                color: Colors
+                                                    .white)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  context.read<BasketBloc>().add(
+                                      SaveIdToBasket(0));
+                                  context.read<HomeBloc>().currentIndex = 3;
+                                  AppRouter.push(context,
+                                      const OrderScreen());
+                                },
+                              ),
+                            ):context
                                 .read<BasketBloc>()
                                 .mutableProducts
                                 .isNotEmpty
