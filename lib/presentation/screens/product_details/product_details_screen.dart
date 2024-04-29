@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +18,7 @@ import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/about_product_and_amount_section.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/custom_amount.dart';
 import 'package:pharma/presentation/screens/product_details/widgets/product_image.dart';
+import 'package:pharma/presentation/widgets/cached_image.dart';
 import 'package:pharma/presentation/widgets/custom_app_button.dart';
 import 'package:pharma/presentation/widgets/custom_loading.dart';
 import 'package:pharma/presentation/widgets/custom_prdouct_card.dart';
@@ -28,6 +31,7 @@ import '../../widgets/custom_error_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final int? id;
+
   // final int? quantity;
 
   const ProductDetailsScreen({
@@ -43,17 +47,18 @@ class ProductDetailsScreen extends StatelessWidget {
         ..add(
           GetProductDetailsById(id: id!),
         ),
-      child: ProductDetailsBody(
-        //quantity: quantity,
-      ),
+      child: const ProductDetailsBody(
+          //quantity: quantity,
+          ),
     );
   }
 }
 
 class ProductDetailsBody extends StatelessWidget {
- // final int? quantity;
+  // final int? quantity;
 
-  const ProductDetailsBody({super.key,
+  const ProductDetailsBody({
+    super.key,
     // this.quantity
   });
 
@@ -89,15 +94,66 @@ class ProductDetailsBody extends StatelessWidget {
                                 children: [
                                   ListView(
                                     children: [
-                                      ProductImage(
-                                          productImage:
-                                              state.productDetailsResponse.image ??
-                                                  ""),
+                                      InkWell(
+                                        onTap: () => showGeneralDialog(
+                                          context: context,
+                                          pageBuilder: (context2, animation,
+                                                  secondaryAnimation) =>
+                                              GestureDetector(
+                                            onTap: () {
+                                              AppRouter.pop(context);
+                                            },
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                BackdropFilter(
+                                                  filter: ImageFilter.blur(
+                                                    sigmaX: 10,
+                                                    sigmaY: 10,
+                                                  ),
+                                                  child: Container(
+                                                    color: Colors.black
+                                                        .withOpacity(0.3),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                    right: 20.w,
+                                                    left: 20.w,
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      20.0.r,
+                                                    ),
+                                                    child: CachedImage(
+                                                      fit: BoxFit.cover,
+                                                      imageSize:
+                                                          ImageSize.small,
+                                                      imageUrl: state
+                                                              .productDetailsResponse
+                                                              .image ??
+                                                          "",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        child: ProductImage(
+                                          productImage: state
+                                                  .productDetailsResponse
+                                                  .image ??
+                                              "",
+                                        ),
+                                      ),
                                       AboutProductAndAmountSection(
                                         productDetails:
                                             state.productDetailsResponse,
-                                        quantity:   state.productDetailsResponse.quantity
-                                            ?? 0,
+                                        quantity: state.productDetailsResponse
+                                                .quantity ??
+                                            0,
                                       ),
                                       Column(
                                         crossAxisAlignment:
@@ -109,14 +165,15 @@ class ProductDetailsBody extends StatelessWidget {
                                             ),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   AppLocalizations.of(context)!
                                                       .price,
                                                   style: getBoldStyle(
-                                                    color:
-                                                        ColorManager.primaryGreen,
+                                                    color: ColorManager
+                                                        .primaryGreen,
                                                     fontSize: FontSizeApp.s15,
                                                   ),
                                                 ),
@@ -128,7 +185,8 @@ class ProductDetailsBody extends StatelessWidget {
                                                         style: getBoldStyle(
                                                           color: ColorManager
                                                               .primaryGreen,
-                                                          fontSize: FontSizeApp.s15,
+                                                          fontSize:
+                                                              FontSizeApp.s15,
                                                         ),
                                                       )
                                                     : const SizedBox(),
@@ -145,7 +203,8 @@ class ProductDetailsBody extends StatelessWidget {
                                                     0,
                                                   ),
                                                   child: Text(
-                                                    AppLocalizations.of(context)!
+                                                    AppLocalizations.of(
+                                                            context)!
                                                         .related_products,
                                                     style: getBoldStyle(
                                                       color: ColorManager.black,
@@ -166,14 +225,17 @@ class ProductDetailsBody extends StatelessWidget {
                                                         .productDetailsResponse
                                                         .relatedProducts!
                                                         .length,
-                                                    itemBuilder: (context, index) {
+                                                    itemBuilder:
+                                                        (context, index) {
                                                       var targetId = state
                                                           .productDetailsResponse
-                                                          .relatedProducts![index]
+                                                          .relatedProducts![
+                                                              index]
                                                           .id;
                                                       return Padding(
                                                         padding:
-                                                            const EdgeInsets.all(
+                                                            const EdgeInsets
+                                                                .all(
                                                           8.0,
                                                         ),
                                                         child: GestureDetector(
@@ -206,20 +268,18 @@ class ProductDetailsBody extends StatelessWidget {
                                                                 quantityString: state
                                                                             .listRelatedProduct ==
                                                                         null
-                                                                    ? 0.toString()
+                                                                    ? 0
+                                                                        .toString()
                                                                     : state.listRelatedProduct!
                                                                             .any(
                                                                         (element) =>
-                                                                            element
-                                                                                .id ==
+                                                                            element.id ==
                                                                             targetId,
                                                                       )
                                                                         ? state
                                                                             .listRelatedProduct!
                                                                             .firstWhere(
-                                                                              (element) =>
-                                                                                  element.id ==
-                                                                                  targetId,
+                                                                              (element) => element.id == targetId,
                                                                             )
                                                                             .quantity
                                                                             .toString()
@@ -256,7 +316,8 @@ class ProductDetailsBody extends StatelessWidget {
                                                     0,
                                                   ),
                                                   child: Text(
-                                                    AppLocalizations.of(context)!
+                                                    AppLocalizations.of(
+                                                            context)!
                                                         .similar_products,
                                                     style: getBoldStyle(
                                                       color: ColorManager.black,
@@ -277,14 +338,17 @@ class ProductDetailsBody extends StatelessWidget {
                                                         .productDetailsResponse
                                                         .similarProducts!
                                                         .length,
-                                                    itemBuilder: (context, index) {
+                                                    itemBuilder:
+                                                        (context, index) {
                                                       var targetId = state
                                                           .productDetailsResponse
-                                                          .similarProducts![index]
+                                                          .similarProducts![
+                                                              index]
                                                           .id;
                                                       return Padding(
                                                         padding:
-                                                            const EdgeInsets.all(
+                                                            const EdgeInsets
+                                                                .all(
                                                           8.0,
                                                         ),
                                                         child: Stack(
@@ -358,30 +422,28 @@ class ProductDetailsBody extends StatelessWidget {
                                                   ),
                                                 )
                                               : const SizedBox(),
-
                                         ],
-                                      )
-                                      ,SizedBox(
+                                      ),
+                                      SizedBox(
                                         height: 25,
                                       )
                                     ],
                                   ),
                                   CustomAppButton(
                                     ontap: () {
-                                      if (sl<AuthenticationBloc>()
-                                          .loggedIn) {
+                                      if (sl<AuthenticationBloc>().loggedIn) {
                                         context
                                             .read<BasketBloc>()
                                             .add(buildAddToBasket(state));
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
                                           SnackBar(
                                             duration:
-                                            const Duration(seconds: 1),
+                                                const Duration(seconds: 1),
                                             content: Container(
                                               alignment: Alignment.center,
                                               child: Text(
-                                                AppLocalizations.of(
-                                                    context)!
+                                                AppLocalizations.of(context)!
                                                     .added_to_basket,
                                                 style: getRegularStyle(
                                                   color: ColorManager.white,
@@ -390,7 +452,7 @@ class ProductDetailsBody extends StatelessWidget {
                                               ),
                                             ),
                                             backgroundColor:
-                                            ColorManager.primaryGreen,
+                                                ColorManager.primaryGreen,
                                           ),
                                         );
                                       } else {

@@ -35,7 +35,7 @@ class InputFieldAuth extends StatefulWidget {
     this.inputFormatters,
     this.icon,
     this.validator,
-    this.isPhone = false,
+    this.isPhone = false, required this.textDirection,
   }) : super(key: key);
 
   final String? hintText;
@@ -66,6 +66,7 @@ class InputFieldAuth extends StatefulWidget {
   final Color? color;
   final String? Function(String?)? validator;
   final bool isPhone;
+  final TextDirection textDirection;
 
   @override
   State<InputFieldAuth> createState() => _InputFieldAuthState();
@@ -91,7 +92,7 @@ class _InputFieldAuthState extends State<InputFieldAuth> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.ltr,
+      textDirection: widget.textDirection,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

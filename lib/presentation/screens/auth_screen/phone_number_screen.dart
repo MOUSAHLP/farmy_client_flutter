@@ -81,7 +81,9 @@ class _PhoneNumberBodyState extends State<PhoneNumberBody>
                   height: 58,
                 ),
                 InputFieldAuth(
-                  keyboardType: TextInputType.phone,
+                    textDirection: TextDirection.ltr,
+
+                    keyboardType: TextInputType.phone,
                   controller: phoneController,
                     hintText: AppLocalizations.of(context)!.hint_phone,
                     isPhone: true,

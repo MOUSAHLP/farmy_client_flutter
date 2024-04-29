@@ -30,11 +30,12 @@ class OrderNotInstallDetailsScreen extends StatelessWidget {
   final int idBasket;
   final bool isEdit;
 
-  const OrderNotInstallDetailsScreen(
-      {super.key,
-      required this.id,
-      this.isEdit = false,
-      required this.idBasket});
+  const OrderNotInstallDetailsScreen({
+    super.key,
+    required this.id,
+    this.isEdit = false,
+    required this.idBasket,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -92,8 +93,7 @@ class OrderDetailsBody extends StatelessWidget {
                   AppRouter.push(
                     context,
                     PaymentScreen(
-                      rewardCouponsFixedValueModel:
-                          state.rewardCouponsFixedValueModel!,
+                      rewardCouponsFixedValueModel: state.rewardCouponsFixedValueModel!,
                       paymentProcessResponse: state.paymentProcessResponse!,
                       myOrderBloc: context.read<MyOrderBloc>(),
                       idBasket: idBasket,
@@ -188,15 +188,19 @@ class OrderDetailsBody extends StatelessWidget {
                                                   fillColor:
                                                       ColorManager.primaryGreen,
                                                   onTap: () {
-                                                    checkIsOpening(context)==false ? context
-                                                        .read<MyOrderBloc>()
-                                                        .add(
-                                                      PaymentProcessBasket(
-                                                        idBasket,
-                                                      ),
-                                                    ): TimeWorkNotInstallDialog().openDialog(context) ;
-
-                                                    },
+                                                    checkIsOpening(context) ==
+                                                            false
+                                                        ? context
+                                                            .read<MyOrderBloc>()
+                                                            .add(
+                                                              PaymentProcessBasket(
+                                                                idBasket,
+                                                              ),
+                                                            )
+                                                        : TimeWorkNotInstallDialog()
+                                                            .openDialog(
+                                                                context);
+                                                  },
                                                 ),
                                               )
                                             : const SizedBox(),
@@ -253,14 +257,20 @@ class OrderDetailsBody extends StatelessWidget {
       //  drawer: const CustomAppDrawer(),
     );
   }
+
   bool checkIsOpening(BuildContext context) {
     DateTime dateTime = DateTime.now();
-    List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
-    print("======================================================================");
+    List<String> endTime =
+        (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime)
+            .split(":");
+    print(
+        "======================================================================");
     print(dateTime.hour);
-    print("======================================================================");
+    print(
+        "======================================================================");
     print(endTime[0]);
-    print("======================================================================");
+    print(
+        "======================================================================");
     if (int.parse(endTime[0]) > dateTime.hour) {
       return true;
     } else if (int.parse(endTime[0]) == dateTime.hour) {

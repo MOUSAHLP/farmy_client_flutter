@@ -158,7 +158,9 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
             Expanded(
               flex: 2,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(
+                  6.0.r,
+                ),
                 child: Container(
                   height: 120.h,
                   color: ColorManager.grayForPlaceholder,
@@ -207,7 +209,6 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
               width: 30,
               child: Center(
                 child: Text(
-
                   myOrderBloc.state.quantityInBasket[index].quantity.toString(),
                   style: getRegularStyle(
                     color: Colors.black,
@@ -230,7 +231,9 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                     child: SvgPicture.asset(IconsManager.remove)),
               ),
               onTap: () {
-                context.read<MyOrderBloc>().add(MinusCountOrder(product.id ?? 0));
+                context
+                    .read<MyOrderBloc>()
+                    .add(MinusCountOrder(product.id ?? 0));
               },
             ),
           ),

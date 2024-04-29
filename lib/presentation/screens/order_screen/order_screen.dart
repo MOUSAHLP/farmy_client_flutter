@@ -92,93 +92,97 @@ class _OrderScreenBodyState extends State<OrderScreenBody>
                       );
                     } else if (state.screenStates == ScreenStates.success) {
                       return Column(
-                          children: [
-                        Container(
-                          height: 50,
-                          width: 1.sw,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              ColorManager.shadowGaryDown,
-                            ],
-                            color: Colors.white,
-                          ),
-                          child: TabBar(
-                            indicatorSize: TabBarIndicatorSize.tab,
-                            controller:
-                                context.read<MyOrderBloc>().tabController,
-                            tabs: [
-                              Tab(
-                                child: FittedBox(
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .current_requests,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 1.sw,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                ColorManager.shadowGaryDown,
+                              ],
+                              color: Colors.white,
+                            ),
+                            child: TabBar(
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              controller:
+                                  context.read<MyOrderBloc>().tabController,
+                              tabs: [
+                                Tab(
+                                  child: FittedBox(
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .current_requests,
+                                    ),
+                                  ),
+                                ),
+                                Tab(
+                                  child: FittedBox(
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .baskets_are_not_required,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              unselectedLabelColor: ColorManager.grayForMessage,
+                              labelColor: ColorManager.primaryGreen,
+                              onTap: (v) {
+                                context
+                                    .read<MyOrderBloc>()
+                                    .add(TapOnPressed(v));
+                              },
+                              labelStyle: getBoldStyle(
+                                  color: ColorManager.grayForMessage,
+                                  fontSize: 14),
+                              indicatorPadding: EdgeInsets.only(
+                                bottom: 10.0.h,
+                                left: 30.w,
+                                right: 30.w,
+                              ),
+                              indicator: const BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: ColorManager.primaryGreen,
+                                    width: 2.0,
                                   ),
                                 ),
                               ),
-                              Tab(
-                                child: FittedBox(
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .baskets_are_not_required,
-                                  ),
-                                ),
-                              ),
-                            ],
-                            unselectedLabelColor: ColorManager.grayForMessage,
-                            labelColor: ColorManager.primaryGreen,
-                            onTap: (v) {
-                              context.read<MyOrderBloc>().add(TapOnPressed(v));
-                            },
-                            labelStyle: getBoldStyle(
-                                color: ColorManager.grayForMessage,
-                                fontSize: 14),
-                            indicatorPadding: EdgeInsets.only(
-                              bottom: 10.0.h,
-                              left: 30.w,
-                              right: 30.w,
-                            ),
-                            indicator: const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: ColorManager.primaryGreen,
-                                  width: 2.0,
-                                ),
-                              ),
                             ),
                           ),
-                        ),
-                        state.indexTap == 0
-                            ? Expanded(
-                                child: BodyOrders(
-                                  state: state,
-                                ),
-                              )
-                            : Expanded(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 37.w,
-                                        right: 37.w,
-                                        top: 15.h,
-                                      ),
-                                      child: Text(
-                                        AppLocalizations.of(context)!
-                                            .place_orders,
-                                        style: getRegularStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: 11,
+                          state.indexTap == 0
+                              ? Expanded(
+                                  child: BodyOrders(
+                                    state: state,
+                                  ),
+                                )
+                              : Expanded(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 37.w,
+                                          right: 37.w,
+                                          top: 15.h,
+                                        ),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .place_orders,
+                                          style: getRegularStyle(
+                                            color: ColorManager.grayForMessage,
+                                            fontSize: 11,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Expanded(
+                                      Expanded(
                                         child: BodyBasketNotInstall(
-                                      state: state,
-                                    )),
-                                  ],
-                                ),
-                              )
-                      ]);
+                                          state: state,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                        ],
+                      );
                     } else {
                       return const Text("");
                     }
@@ -192,9 +196,9 @@ class _OrderScreenBodyState extends State<OrderScreenBody>
 }
 
 class BodyOrders extends StatelessWidget {
-  BodyOrders({super.key, required this.state});
+  const BodyOrders({super.key, required this.state});
 
-  MyOrderState state;
+  final MyOrderState state;
 
   @override
   Widget build(BuildContext context) {
@@ -221,20 +225,19 @@ class BodyOrders extends StatelessWidget {
 }
 
 class BodyBasketNotInstall extends StatelessWidget {
-  BodyBasketNotInstall({super.key, required this.state});
+  const BodyBasketNotInstall({super.key, required this.state});
 
-  MyOrderState state;
+  final MyOrderState state;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MyOrderBloc, MyOrderState>(
       builder: (context, state) {
-
         return CustomOverscrollIndicator(
           child: ListView.builder(
-
             itemBuilder: (context, index) => BasketNotInstallCard(
-                myOrder: state.basketModel.basketList.reversed.toList()[index]),
+              myOrder: state.basketModel.basketList.reversed.toList()[index],
+            ),
             itemCount: state.basketModel.basketList.length,
           ),
         );

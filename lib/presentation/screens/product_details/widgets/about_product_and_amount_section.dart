@@ -13,6 +13,7 @@ import '../../../../bloc/favorite_bloc/favorite_event.dart';
 import '../../../../bloc/favorite_bloc/favorite_state.dart';
 import '../../../../models/product_response.dart';
 import '../../../widgets/favorite_heart.dart';
+import '../../../widgets/favorite_heart.dart';
 import 'card_attributes.dart';
 
 class AboutProductAndAmountSection extends StatelessWidget {

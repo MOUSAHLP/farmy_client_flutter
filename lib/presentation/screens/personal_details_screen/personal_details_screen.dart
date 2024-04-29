@@ -74,6 +74,8 @@ class EditProfileBody extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: InputFieldAuth(
+                                      textDirection: TextDirection.ltr,
+
                                       controller: context
                                           .read<ProfileBloc>()
                                           .fNameController,
@@ -95,6 +97,8 @@ class EditProfileBody extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: InputFieldAuth(
+                                      textDirection: TextDirection.ltr,
+
                                       controller: context
                                           .read<ProfileBloc>()
                                           .lNameController,
@@ -306,6 +310,8 @@ class EditProfileBody extends StatelessWidget {
                               ),
                               SizedBox(height: 15.h),
                               InputFieldAuth(
+                                textDirection: TextDirection.ltr,
+
                                 readOnly: true,
                                 controller:
                                     context.read<ProfileBloc>().phoneController,
@@ -333,6 +339,8 @@ class EditProfileBody extends StatelessWidget {
                               ),
                               SizedBox(height: 15.h),
                               InputFieldAuth(
+                                textDirection: TextDirection.ltr,
+
                                 controller:
                                     context.read<ProfileBloc>().emailController,
                                 color: ColorManager.grayForm,
@@ -394,7 +402,9 @@ class EditProfileBody extends StatelessWidget {
                                                           vertical: 27.h,
                                                         ),
                                                         child: InputFieldAuth(
-                                                            color: ColorManager
+                                                          textDirection: TextDirection.ltr,
+
+                                                          color: ColorManager
                                                                 .grayForm,
                                                             width: 1.sw,
                                                             hintText:

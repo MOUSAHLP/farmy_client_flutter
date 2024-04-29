@@ -55,22 +55,31 @@ class ProductResponse {
             sellerName: json["seller"] == null ? null : json["seller"]["name"],
             nameOfProduct: json["name"],
             price: json["price"],
-            discount:
-                json["discount"],
+            discount: json["discount"],
             attributeList: json["attributes"] == null
                 ? []
-                : List<AttributeResponse>.from(json["attributes"]
-                    .map((x) => AttributeResponse.fromJson(x))),
+                : List<AttributeResponse>.from(
+                    json["attributes"].map(
+                      (x) => AttributeResponse.fromJson(x),
+                    ),
+                  ),
             image: json["image"],
             isFavorite: json["is_favorite"] ?? false,
             relatedProducts: json["related_products"] == null
                 ? []
-                : List<ProductResponse>.from(json["related_products"]
-                    .map((x) => ProductResponse.fromJson(x))),
+                : List<ProductResponse>.from(
+                    json["related_products"].map(
+                      (x) => ProductResponse.fromJson(x),
+                    ),
+                  ),
             similarProducts: json["similar_products"] == null
                 ? []
-                : List<ProductResponse>.from(json["similar_products"]
-                    .map((x) => ProductResponse.fromJson(x))))
+                : List<ProductResponse>.from(
+                    json["similar_products"].map(
+                      (x) => ProductResponse.fromJson(x),
+                    ),
+                  ),
+          )
         : ProductResponse(
             id: 0,
           );
@@ -107,17 +116,18 @@ class ProductResponse {
     int originalPrice = int.tryParse(price) ?? 0;
     int discountPrice = int.tryParse(discount) ?? 0;
 
-    print('================================');
-    print(discountPrice / 100);
-    print(originalPrice);
-    print((((discountPrice / 100) * originalPrice) - originalPrice).abs());
-    print('================================');
+    // print('================================');
+    // print(discountPrice / 100);
+    // print(originalPrice);
+    // print((((discountPrice / 100) * originalPrice) - originalPrice).abs());
+    // print('================================');
 
     if (discountPrice <= 0) {
       return "";
     }
 
-    double percentage = (((discountPrice / 100) * originalPrice) - originalPrice).abs();
+    double percentage =
+        (((discountPrice / 100) * originalPrice) - originalPrice).abs();
 
     return percentage.toStringAsFixed(0);
   }

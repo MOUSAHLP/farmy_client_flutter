@@ -27,33 +27,34 @@ class BasketNotInstallCard extends StatelessWidget {
           Container(
             width: 1.sw,
             decoration: BoxDecoration(
-                boxShadow: [ColorManager.shadowGaryRightDown],
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6)),
+              boxShadow: [ColorManager.shadowGaryRightDown],
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(
+                6.0.r,
+              ),
+            ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: EdgeInsets.symmetric(
+                vertical: 16.h,
+              ),
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.0.w,
+                    ),
                     child: Column(
                       children: [
                         RowOrder(
-                            title:
-                                AppLocalizations.of(context)!.type_of_request,
-                            details: "سلة غير مثبتة"),
-                        const SizedBox(
-                          height: 5,
+                          title: AppLocalizations.of(context)!.type_of_request,
+                          details: "سلة غير مثبتة",
                         ),
+                        SizedBox(height: 5.h),
                         RowOrder(
-                            title:
-                                AppLocalizations.of(context)!.number_of_orders,
-                            details: myOrder.products.length.toString()),
-                        const SizedBox(
-                          height: 5,
+                          title: AppLocalizations.of(context)!.number_of_orders,
+                          details: myOrder.products.length.toString(),
                         ),
-
-                        const SizedBox(height: 10),
+                        SizedBox(height: 15.0.h),
                       ],
                     ),
                   ),
@@ -85,8 +86,8 @@ class BasketNotInstallCard extends StatelessWidget {
                         const SizedBox(width: 3),
                         Expanded(
                           child: CustomButton(
-                            height: 38,
-                            radius: 6,
+                            height: 38.0.h,
+                            radius: 6.0.h,
                             label: AppLocalizations.of(context)!.delete_Order,
                             fillColor: Colors.white,
                             labelColor: ColorManager.primaryGreen,
@@ -109,9 +110,10 @@ class BasketNotInstallCard extends StatelessWidget {
             ),
           ),
           PositionedDirectional(
-              top: 20,
-              end: 20,
-              child: SvgPicture.asset(IconsManager.basketNotInstall))
+            top: 20.h,
+            end: 20.w,
+            child: SvgPicture.asset(IconsManager.basketNotInstall),
+          )
         ],
       ),
     );

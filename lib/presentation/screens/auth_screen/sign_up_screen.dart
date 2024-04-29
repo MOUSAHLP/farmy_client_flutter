@@ -55,7 +55,9 @@ class SignUpScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                child: InputFieldAuth(
+                                child: InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
                                     hintText:
                                         AppLocalizations.of(context)!.fName,
                                     onChange: (value) {
@@ -75,6 +77,8 @@ class SignUpScreen extends StatelessWidget {
                               const SizedBox(width: 10),
                               Expanded(
                                 child: InputFieldAuth(
+                                    textDirection: TextDirection.ltr,
+
                                     hintText:
                                         AppLocalizations.of(context)!.lName,
                                     onChange: (value) {
@@ -98,6 +102,8 @@ class SignUpScreen extends StatelessWidget {
                         height: 21,
                       ),
                       InputFieldAuth(
+                          textDirection: TextDirection.ltr,
+
                           hintText: AppLocalizations.of(context)!.hint_phone,
                           keyboardType: TextInputType.phone,
                           isPhone: true,

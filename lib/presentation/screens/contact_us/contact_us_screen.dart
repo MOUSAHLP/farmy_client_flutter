@@ -70,7 +70,9 @@ class ContactUsScreen extends StatelessWidget {
                             horizontal: 20.w,
                             vertical: 10.h,
                           ),
-                          child: InputFieldAuth(
+                          child: InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
                             controller: emailController,
                             textAlign: TextAlign.start,
                             angelRadios: Radius.circular(
@@ -97,6 +99,8 @@ class ContactUsScreen extends StatelessWidget {
                             horizontal: 20.w,
                           ),
                           child: InputFieldAuth(
+                            textDirection: TextDirection.ltr,
+
                             controller: notesController,
                             maxLines: 5,
                             minLines: 5,

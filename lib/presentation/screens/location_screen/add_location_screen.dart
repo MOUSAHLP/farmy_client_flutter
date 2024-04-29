@@ -127,6 +127,8 @@ class AddLocationScreen extends StatelessWidget {
                               ),
                             ),
                       InputFieldAuth(
+                        textDirection: TextDirection.ltr,
+
                         color: ColorManager.grayForm,
                         width: 1.sw,
                         hintText: AppLocalizations.of(context)!.area,
@@ -155,7 +157,9 @@ class AddLocationScreen extends StatelessWidget {
                       const SizedBox(
                         height: 14,
                       ),
-                      InputFieldAuth(
+                      InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
                           color: ColorManager.grayForm,
                           width: 1.sw,
                           hintText: AppLocalizations.of(context)!.address,
@@ -169,7 +173,9 @@ class AddLocationScreen extends StatelessWidget {
                       const SizedBox(
                         height: 9,
                       ),
-                      InputFieldAuth(
+                      InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
                           color: ColorManager.grayForm,
                           width: 1.sw,
                           hintText: AppLocalizations.of(context)!.street,
@@ -183,7 +189,9 @@ class AddLocationScreen extends StatelessWidget {
                       const SizedBox(
                         height: 9,
                       ),
-                      InputFieldAuth(
+                      InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
                           color: ColorManager.grayForm,
                           width: 1.sw,
                           hintText: AppLocalizations.of(context)!.build,
@@ -201,6 +209,8 @@ class AddLocationScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: InputFieldAuth(
+                              textDirection: TextDirection.ltr,
+
                               color: ColorManager.grayForm,
                               width: 1.sw,
                               hintText:
@@ -218,7 +228,9 @@ class AddLocationScreen extends StatelessWidget {
                             width: 13,
                           ),
                           Expanded(
-                            child: InputFieldAuth(
+                            child: InputFieldAuth(                    textDirection: TextDirection.ltr,
+
+
                                 color: ColorManager.grayForm,
                                 width: 1.sw,
                                 hintText: AppLocalizations.of(context)!.floor,
@@ -238,6 +250,8 @@ class AddLocationScreen extends StatelessWidget {
                         height: 9,
                       ),
                       InputFieldAuth(
+                        textDirection: TextDirection.ltr,
+
                         minLines: 5,
                         maxLines: 5,
                         height: 100,
