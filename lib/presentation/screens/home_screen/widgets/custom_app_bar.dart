@@ -126,7 +126,6 @@ class CustomAppBar extends StatelessWidget {
             ),
             InkWell(
               onTap: (){
-                print('pppppppppp');
                 AppRouter.push(context, const SearchProduct());
               },
               child: Container(

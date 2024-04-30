@@ -227,7 +227,7 @@ class CardBasket extends StatelessWidget {
             onTap: () {
               context
                   .read<BasketBloc>()
-                  .add(AddCount(productAddedToBasketDetails.id ?? 0));
+                  .add(AddCount(productAddedToBasketDetails.id,null));
             },
           ),
         ),

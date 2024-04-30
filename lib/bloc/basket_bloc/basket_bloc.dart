@@ -27,6 +27,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       DataStore.instance.dynamicData<BasketModel>(DataStoreKeys.basket) ??
           BasketModel(basketList: []);
   List<Product> idProducts = [];
+
   int countsProducts(int id) {
     if (mutableProducts.any((element) => element.id == id)) {
       int index = mutableProducts.indexWhere((element) => element.id == id);
@@ -49,11 +50,12 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     }
     return sum;
   }
+
   int countProduct(int id) {
-    GetBasketParams? basketItem = basketModelStore.basketList.firstWhere((element) => element.id == id);
+    GetBasketParams? basketItem =
+        basketModelStore.basketList.firstWhere((element) => element.id == id);
     return basketItem.products.length;
   }
-
 
   BasketBloc({required this.basketRepo}) : super(const BasketState()) {
     on<BasketEvent>((event, emit) async {
@@ -105,34 +107,37 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         );
       }
       if (event is AddCount) {
-        int index1 =
-            mutableProducts.indexWhere((element) => element.id == event.id);
-        mutableProducts[index1].quantity =
-            mutableProducts[index1].quantity! + 1;
-        emit(
-          state.copyWith(
-            productList: mutableProducts,
-          ),
-        );
+        int index1 = mutableProducts.indexWhere((element) => element.id == event.id);
+        if (index1 != -1) {
+          mutableProducts[index1].quantity = mutableProducts[index1].quantity! + 1;
+          emit(
+            state.copyWith(
+              productList: mutableProducts,
+            ),
+          );
+        }else {
+          event.productResponse!.quantity = 1;
+          add(AddToBasket(product:[event.productResponse!] ));
+        }
       }
 
       if (event is LongAddCount) {
-        int index1 = mutableProducts.indexWhere((element) => element.id == event.id);
+        int index1 =
+            mutableProducts.indexWhere((element) => element.id == event.id);
         int tmp = mutableProducts[index1].quantity ?? 0;
         if (index1 != -1) {
           // Retrieve the current quantity
           int tmp = mutableProducts[index1].quantity ?? 0;
           // If the onTap event is true
 
-            tmp = tmp + 8;
-            mutableProducts[index1].quantity = tmp;
-            // Update the state with the modified product list
-            emit(
-              state.copyWith(
-                productList: mutableProducts,
-              ),
-            );
-
+          tmp = tmp + 8;
+          mutableProducts[index1].quantity = tmp;
+          // Update the state with the modified product list
+          emit(
+            state.copyWith(
+              productList: mutableProducts,
+            ),
+          );
         }
       }
       if (event is MinusCount) {
@@ -186,7 +191,8 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       if (event is AddProductToBasket) {
         GetBasketParams? basket;
         try {
-          basket = basketModelStore.basketList.firstWhere((basket) => basket.id == state.idbasket);
+          basket = basketModelStore.basketList
+              .firstWhere((basket) => basket.id == state.idbasket);
         } catch (e) {
           print("Basket not found in the list.");
         }
@@ -195,18 +201,22 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           for (int i = 0; i < event.product.length; i++) {
             Product? existingProduct;
             try {
-              existingProduct = basket.products.firstWhere((product) => product.productId == event.product[i].id);
+              existingProduct = basket.products.firstWhere(
+                  (product) => product.productId == event.product[i].id);
             } catch (e) {
               existingProduct == null;
             }
-            if (existingProduct !=null) {
-              existingProduct.quantity = existingProduct.quantity + (event.product[i].quantity ?? 1);
+            if (existingProduct != null) {
+              existingProduct.quantity =
+                  existingProduct.quantity + (event.product[i].quantity ?? 1);
             } else {
-
-              basket.products.add(Product(productId: event.product[i].id, quantity: event.product[i].quantity ?? 1));
+              basket.products.add(Product(
+                  productId: event.product[i].id,
+                  quantity: event.product[i].quantity ?? 1));
             }
           }
-          DataStore.instance.setDynamicData(DataStoreKeys.basket, basketModelStore);
+          DataStore.instance
+              .setDynamicData(DataStoreKeys.basket, basketModelStore);
           emit(state.copyWith(idbasket: state.idbasket));
         }
       }
