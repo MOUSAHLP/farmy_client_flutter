@@ -24,78 +24,86 @@ class CustomInvoicesContainer extends StatelessWidget {
         start: 15.w,
         end: 27.w,
       ),
-      child: Container(
-        width: 1.sw,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
-            7.0.r,
-          ),
-          color: ColorManager.white,
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 5),
-              blurRadius: 10,
-              spreadRadius: -3,
-              color: ColorManager.black.withOpacity(0.18),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Column(
-            children: [
-              CustomInvoicesRow(
-                textStyle:getBoldStyle(
-                  color: ColorManager.primaryGreen,
-                  fontSize: FontSizeApp.s13.sp,
+      child: Stack(
+        alignment: AlignmentDirectional.topEnd,
+        children: [
+          Container(
+            width: 1.sw,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                7.0.r,
+              ),
+              color: ColorManager.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 5),
+                  blurRadius: 10,
+                  spreadRadius: -3,
+                  color: ColorManager.black.withOpacity(0.18),
                 ),
-                label: "${AppLocalizations.of(context)!.order_Number} :",
-                valueOfLabel: invoiceModel.orderNumber.toString(),
-                colorText: ColorManager.primaryGreen,
-              ),
-              CustomInvoicesRow(
-                label: AppLocalizations.of(context)!.order_Date,
-                valueOfLabel: Formatter.formatDateOnlyNumbers(context, invoiceModel.date) ?? "",
-              ),
-              CustomInvoicesRow(
-                label: AppLocalizations.of(context)!.site,
-                valueOfLabel: getAddress(invoiceModel.userAddress!),
-              ),
-              CustomInvoicesRow(
-                label: AppLocalizations.of(context)!.rebates_Value,
-                valueOfLabel: invoiceModel.couponDiscount.toString(),
-              ),
-              CustomInvoicesRow(
-                label: AppLocalizations.of(context)!.delivery_Price,
-                valueOfLabel: invoiceModel.deliveryFee.toString(),
-              ),
-              CustomInvoicesRow(
-                label: AppLocalizations.of(context)!.total_price,
-                valueOfLabel: invoiceModel.total.toString(),
-              ),
-              SizedBox(height: 10,),
-              CustomButton(
-                width: 1.sw-200,
-                label: AppLocalizations.of(context)!.download_pdf,
-                fillColor: ColorManager.primaryGreen,
-                isFilled: true,
-                borderColor:
-                ColorManager.primaryGreen,
-                labelColor:
-                Colors.white,
-                onTap: () {
-                  launchUrl(
-                    Uri.parse(
-                        invoiceModel.pdfUrl??"" ),
-                    mode: LaunchMode
-                        .externalApplication,
-                  );
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Column(
+                children: [
+                  CustomInvoicesRow(
+                    textStyle:getBoldStyle(
+                      color: ColorManager.primaryGreen,
+                      fontSize: FontSizeApp.s13.sp,
+                    ),
+                    label: "${AppLocalizations.of(context)!.order_Number} :",
+                    valueOfLabel: invoiceModel.orderNumber.toString(),
+                    colorText: ColorManager.primaryGreen,
+                  ),
+                  CustomInvoicesRow(
+                    label: AppLocalizations.of(context)!.order_Date,
+                    valueOfLabel: Formatter.formatDateOnlyNumbers(context, invoiceModel.date) ?? "",
+                  ),
+                  CustomInvoicesRow(
+                    label: AppLocalizations.of(context)!.site,
+                    valueOfLabel: getAddress(invoiceModel.userAddress!),
+                  ),
+                  CustomInvoicesRow(
+                    label: AppLocalizations.of(context)!.rebates_Value,
+                    valueOfLabel: invoiceModel.couponDiscount.toString(),
+                  ),
+                  CustomInvoicesRow(
+                    label: AppLocalizations.of(context)!.delivery_Price,
+                    valueOfLabel: invoiceModel.deliveryFee.toString(),
+                  ),
+                  CustomInvoicesRow(
+                    label: AppLocalizations.of(context)!.total_price,
+                    valueOfLabel: invoiceModel.total.toString(),
+                  ),
 
-                },
-              )
-            ],
+                ],
+              ),
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomButton(
+              width: 70,
+              label: AppLocalizations.of(context)!.download_pdf,
+              fillColor: ColorManager.primaryGreen,
+              isFilled: true,
+              borderColor:
+              ColorManager.primaryGreen,
+              labelColor:
+              Colors.white,
+              onTap: () {
+                launchUrl(
+                  Uri.parse(
+                      invoiceModel.pdfUrl??"" ),
+                  mode: LaunchMode
+                      .externalApplication,
+                );
+
+              },
+            ),
+          )
+        ],
       ),
     );
   }
