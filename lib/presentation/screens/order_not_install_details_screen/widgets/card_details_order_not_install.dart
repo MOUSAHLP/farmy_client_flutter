@@ -10,6 +10,7 @@ import 'package:pharma/presentation/widgets/cached_image.dart';
 
 import '../../../../bloc/my_order_bloc/my_order_bloc.dart';
 import '../../../../bloc/my_order_bloc/my_order_event.dart';
+import '../../../../core/utils/formatter.dart';
 import '../../../../models/product_response.dart';
 import '../../../../translations.dart';
 import '../../../resources/assets_manager.dart';
@@ -136,13 +137,12 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(product.discountPrice ?? "",
+                      Text(Formatter.formatPrice(int.parse(product.discountPrice??"0")) ,
                           style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: FontSizeApp.s15)!
                               .copyWith(height: 1)),
                       const SizedBox(width: 1),
-                      //todo caruncy
                       if (product.price != null)
                         Text(AppLocalizations.of(context)!.curruncy,
                             style: getBoldStyle(
