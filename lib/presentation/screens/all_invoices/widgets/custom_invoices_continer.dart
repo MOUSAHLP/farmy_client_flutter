@@ -85,6 +85,7 @@ class CustomInvoicesContainer extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: CustomButton(
               width: 70,
+              height: 40,
               label: AppLocalizations.of(context)!.download_pdf,
               fillColor: ColorManager.primaryGreen,
               isFilled: true,
