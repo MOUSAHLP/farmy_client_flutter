@@ -9,6 +9,7 @@ import 'package:pharma/presentation/widgets/cached_image.dart';
 
 import '../../../../bloc/details_order_bloc/details_order_bloc.dart';
 import '../../../../bloc/details_order_bloc/details_order_event.dart';
+import '../../../../core/utils/formatter.dart';
 import '../../../../models/order_details_model.dart';
 import '../../../../translations.dart';
 import '../../../resources/assets_manager.dart';
@@ -128,7 +129,7 @@ class CardDetailsOrder extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                                  product.product?.discountPrice ??""
+                          Formatter.formatPrice(int.parse(product.product?.discountPrice??""))
                                      ,
                           style: getBoldStyle(
                                   color: ColorManager.primaryGreen,

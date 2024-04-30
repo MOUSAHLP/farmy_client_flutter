@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../bloc/details_order_bloc/details_order_bloc.dart';
 import '../../../bloc/details_order_bloc/details_order_state.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/formatter.dart';
 import '../../../translations.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_app.dart';
@@ -131,7 +132,7 @@ class OrderDetailsBody extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(state.totalPrice.toString(),
+                                      Text(Formatter.formatPrice(state.totalPrice),
                                           style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
                                               fontSize: 24)),
