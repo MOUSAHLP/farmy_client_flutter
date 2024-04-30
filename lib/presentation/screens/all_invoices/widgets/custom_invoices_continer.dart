@@ -5,10 +5,12 @@ import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/all_invoices/widgets/custom_invoices_row.dart';
 import 'package:pharma/translations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/utils/formatter.dart';
 import '../../../../models/invoice_model.dart';
 import '../../../../models/user_address_response.dart';
+import '../../../widgets/custom_button.dart';
 
 class CustomInvoicesContainer extends StatelessWidget {
   const CustomInvoicesContainer({super.key, required this.invoiceModel});
@@ -71,6 +73,26 @@ class CustomInvoicesContainer extends StatelessWidget {
                 label: AppLocalizations.of(context)!.total_price,
                 valueOfLabel: invoiceModel.total.toString(),
               ),
+              SizedBox(height: 10,),
+              CustomButton(
+                width: 1.sw-200,
+                label: AppLocalizations.of(context)!.download_pdf,
+                fillColor: ColorManager.primaryGreen,
+                isFilled: true,
+                borderColor:
+                ColorManager.primaryGreen,
+                labelColor:
+                Colors.white,
+                onTap: () {
+                  launchUrl(
+                    Uri.parse(
+                        invoiceModel.pdfUrl??"" ),
+                    mode: LaunchMode
+                        .externalApplication,
+                  );
+
+                },
+              )
             ],
           ),
         ),
