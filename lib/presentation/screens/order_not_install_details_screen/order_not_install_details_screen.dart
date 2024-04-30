@@ -11,9 +11,11 @@ import 'package:pharma/presentation/screens/order_not_install_details_screen/wid
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import '../../../bloc/basket_bloc/basket_bloc.dart';
+import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../bloc/my_order_bloc/my_order_bloc.dart';
 import '../../../bloc/setting_bloc/setting_bloc.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/formatter.dart';
 import '../../../translations.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/font_app.dart';
@@ -165,7 +167,7 @@ class OrderDetailsBody extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(state.totalPrice.toString(),
+                                      Text(Formatter.formatPrice(state.totalPrice),
                                           style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
                                               fontSize: 24)),
@@ -241,7 +243,7 @@ class OrderDetailsBody extends StatelessWidget {
                                                 ColorManager.primaryGreen,
                                             labelColor: Colors.white,
                                             onTap: () {
-
+                                              context.read<HomeBloc>().currentIndex = 0;
                                               context.read<BasketBloc>().add(
                                                   SaveIdToBasket(idBasket));
                                               AppRouter.push(

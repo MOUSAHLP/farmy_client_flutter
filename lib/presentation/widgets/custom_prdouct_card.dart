@@ -81,61 +81,11 @@ class CustomProductCard extends StatelessWidget {
                                             .copyWith(height: 1),
                                       )
                                     : const SizedBox(),
-                                // const SizedBox(
-                                //   height: 4,
-                                // ),
-                                // productInfo.sellerName != null
-                                //     ? Text(
-                                //         "(${productInfo.sellerName!})",
-                                //         style: getBoldStyle(
-                                //           color: ColorManager.primaryGreen,
-                                //           fontSize: FontSizeApp.s10,
-                                //         )!
-                                //             .copyWith(
-                                //           height: 1,
-                                //         ),
-                                //       )
-                                //     : const SizedBox(),
+
                               ],
                             ),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(bottom: 4),
-                          //   child: Row(
-                          //     children: [
-                          // todo wazn
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       "400 غ",
-                          //       style: getRegularStyle(
-                          //               color: ColorManager.grayForMessage,
-                          //               fontSize: FontSizeApp.s13)!
-                          //           .copyWith(height: 1),
-                          //     ),
-                          //     Text(
-                          //       " / ",
-                          //       style: getRegularStyle(
-                          //               color: ColorManager.grayForMessage,
-                          //               fontSize: FontSizeApp.s13)!
-                          //           .copyWith(height: 1),
-                          //     ),
-                          //   ],
-                          // ),
-                          // if (productInfo.quantity != null)
-                          //   Text(
-                          //     "${productInfo.quantity} قطعة",
-                          //     style: getRegularStyle(
-                          //       color: ColorManager.grayForMessage,
-                          //       fontSize: FontSizeApp.s10,
-                          //     )!
-                          //         .copyWith(
-                          //       height: 1,
-                          //     ),
-                          //   ),
-                          //     ],
-                          //   ),
-                          // ),
+
                           productInfo.discount == "0"
                               ? const SizedBox()
                               : Padding(
@@ -143,7 +93,7 @@ class CustomProductCard extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        productInfo.price ?? "",
+                                        Formatter.formatPrice(int.parse(productInfo.price??"0")),
                                         style: getRegularStyle(
                                           color: ColorManager.grayForMessage,
                                           fontSize: FontSizeApp.s12,

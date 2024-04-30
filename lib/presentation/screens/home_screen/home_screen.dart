@@ -186,6 +186,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   context.read<BasketBloc>().add(
                                       SaveIdToBasket(0));
                                   context.read<HomeBloc>().currentIndex = 3;
+                                  context.read<MyOrderBloc>().state.indexTap= 0;
                                   AppRouter.push(context,
                                       const OrderScreen());
                                 },

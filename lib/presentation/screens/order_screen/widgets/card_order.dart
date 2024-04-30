@@ -7,6 +7,7 @@ import 'package:pharma/presentation/screens/order_screen/widgets/row_order.dart'
 import 'package:pharma/presentation/screens/order_screen/widgets/state_buttons.dart';
 import 'package:pharma/translations.dart';
 import '../../../../core/get_address.dart';
+import '../../../../core/utils/formatter.dart';
 
 class CardOrder extends StatelessWidget {
   const CardOrder({super.key, required this.myOrder});
@@ -78,7 +79,7 @@ class CardOrder extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            "${myOrder.total ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
+                            "${Formatter.formatPrice(myOrder.total??0) ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
                             style: getBoldStyle(
                               color: ColorManager.primaryGreen,
                               fontSize: 15.sp,
