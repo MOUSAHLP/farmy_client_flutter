@@ -9,6 +9,7 @@ class InvoiceModel {
   int? couponDiscount;
   int? subTotal;
   int? total;
+  String? pdfUrl;
 
   InvoiceModel({
     required this.id,
@@ -20,6 +21,7 @@ class InvoiceModel {
     this.couponDiscount,
     this.subTotal,
     this.total,
+    this.pdfUrl
   });
 
   factory InvoiceModel.fromJson(Map<String, dynamic> json) =>
@@ -32,6 +34,7 @@ class InvoiceModel {
         couponDiscount: json["coupon_discount"],
         subTotal: json["sub_total"],
         total: json["total"],
+          pdfUrl: json['pdf_url']
       );
 
   static List<InvoiceModel> listFromJson( List<dynamic> json){
