@@ -130,53 +130,80 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                   if (widget.rewardCouponsFixedValueModel!.data.isNotEmpty) {
                     return InkWell(
                       onTap: () {
-                        widget.paymentBloc.add(
-                          GetCoupon(
-                              widget
-                                  .rewardCouponsFixedValueModel!.data[index].id
-                                  .toString(),
-                              ""),
-                        );
-                        if (widget.myOrderBloc != null) {
+                        if( widget.paymentBloc.state.id!=null) {
                           widget.paymentBloc.add(
-                            GetInvoicesDetails(
-                              productList: widget.myOrderBloc!.productDetailsList,
-                              invoicesParams: InvoicesParams(
-                                couponId: widget.rewardCouponsFixedValueModel!
-                                    .data[index].id
+                            GetCoupon(
+                                widget
+                                    .rewardCouponsFixedValueModel!.data[index]
+                                    .id
                                     .toString(),
-                                time: widget.paymentBloc.state.time,
-                                notes: widget.notesText,
-                                deliveryMethodId:
-                                widget.paymentBloc.state.id!
-,
-                                  userAddressId: context
-                                    .read<LocationBloc>()
-                                    .state
-                                    .addressCurrent
-                                    .id!,
-                              ),
-
-                            ),
+                                ""),
                           );
-                        } else {
-                          widget.paymentBloc.add(
-                            GetInvoicesDetails(
-                              productList:
-                                  context.read<BasketBloc>().state.productList!,
-                              invoicesParams: InvoicesParams(
-                                couponId: widget.rewardCouponsFixedValueModel!
-                                    .data[index].id
-                                    .toString(),
-                                time: widget.paymentBloc.state.time,
-                                notes: widget.notesText,
-                                deliveryMethodId: widget.paymentBloc.state.id!,
-                                userAddressId: context
-                                    .read<LocationBloc>()
-                                    .state
-                                    .addressCurrent
-                                    .id!,
+                          if (widget.myOrderBloc != null) {
+                            widget.paymentBloc.add(
+                              GetInvoicesDetails(
+                                productList: widget.myOrderBloc!
+                                    .productDetailsList,
+                                invoicesParams: InvoicesParams(
+                                  couponId: widget.rewardCouponsFixedValueModel!
+                                      .data[index].id
+                                      .toString(),
+                                  time: widget.paymentBloc.state.time,
+                                  notes: widget.notesText,
+                                  deliveryMethodId:
+                                  widget.paymentBloc.state.id!
+                                  ,
+                                  userAddressId: context
+                                      .read<LocationBloc>()
+                                      .state
+                                      .addressCurrent
+                                      .id!,
+                                ),
+
                               ),
+                            );
+                          } else {
+                            widget.paymentBloc.add(
+                              GetInvoicesDetails(
+                                productList:
+                                context
+                                    .read<BasketBloc>()
+                                    .state
+                                    .productList!,
+                                invoicesParams: InvoicesParams(
+                                  couponId: widget.rewardCouponsFixedValueModel!
+                                      .data[index].id
+                                      .toString(),
+                                  time: widget.paymentBloc.state.time,
+                                  notes: widget.notesText,
+                                  deliveryMethodId: widget.paymentBloc.state
+                                      .id!,
+                                  userAddressId: context
+                                      .read<LocationBloc>()
+                                      .state
+                                      .addressCurrent
+                                      .id!,
+                                ),
+                              ),
+                            );
+                          }
+                        }else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration:
+                              const Duration(seconds: 1),
+                              content: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "الرجاء اختيار نوع الطلب",
+                                  style: getRegularStyle(
+                                    color: ColorManager.white,
+                                    fontSize: FontSizeApp.s14,
+                                  ),
+                                ),
+                              ),
+                              backgroundColor:
+                              ColorManager.primaryGreen,
                             ),
                           );
                         }

@@ -96,27 +96,27 @@ class CustomAppBar extends StatelessWidget {
                       ],
                     ),
                   ),
-                   Expanded(
+                   const Expanded(
                     flex: 1,
-                    child:
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            var settingModel = context.read<SettingBloc>().settingModel;
-                            if (settingModel != null) {
-                              openWhatsApp(settingModel.data!.phone??"", context);
-                            }
-                          },
-                          child: Image.asset(
-                            ImageManager.contactUs,
-                            height: 20,
-                            width: 20,
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: SizedBox.shrink(),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     GestureDetector(
+                    //       onTap: () async {
+                    //         var settingModel = context.read<SettingBloc>().settingModel;
+                    //         if (settingModel != null) {
+                    //           openWhatsApp(settingModel.data!.phone??"", context);
+                    //         }
+                    //       },
+                    //       child: Image.asset(
+                    //         ImageManager.contactUs,
+                    //         height: 20,
+                    //         width: 20,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ),
                 ],
               ),

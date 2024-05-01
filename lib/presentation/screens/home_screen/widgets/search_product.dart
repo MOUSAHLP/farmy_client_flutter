@@ -396,7 +396,7 @@ class SearchVendorBody extends StatelessWidget {
                                   child: Container(
                                     height: 50,
                                     width:
-                                    MediaQuery.of(context).size.width - 100,
+                                        MediaQuery.of(context).size.width - 100,
                                     decoration: const BoxDecoration(
                                       color: ColorManager.grayForSearch,
                                     ),
@@ -417,15 +417,15 @@ class SearchVendorBody extends StatelessWidget {
                                             },
                                             decoration: InputDecoration(
                                               fillColor:
-                                              ColorManager.grayForSearch,
+                                                  ColorManager.grayForSearch,
                                               hintText:
-                                              AppLocalizations.of(context)!
-                                                  .searchForProduct,
+                                                  AppLocalizations.of(context)!
+                                                      .searchForProduct,
                                               floatingLabelBehavior:
-                                              FloatingLabelBehavior.never,
+                                                  FloatingLabelBehavior.never,
                                               contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 0),
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 0),
                                               labelStyle: getRegularStyle(
                                                   color: Colors.white),
                                               hintStyle: getBoldStyle(
@@ -437,13 +437,13 @@ class SearchVendorBody extends StatelessWidget {
                                                 borderSide: BorderSide.none,
                                               ),
                                               enabledBorder:
-                                              const OutlineInputBorder(
+                                                  const OutlineInputBorder(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(28.0)),
                                                 borderSide: BorderSide.none,
                                               ),
                                               focusedBorder:
-                                              const OutlineInputBorder(
+                                                  const OutlineInputBorder(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(28.0)),
                                                 borderSide: BorderSide.none,
@@ -487,237 +487,237 @@ class SearchVendorBody extends StatelessWidget {
             Expanded(
               child: BlocBuilder<SearchBloc, SearchState>(
                   builder: (context, state) {
-                    if (state.screenStates == ScreenStates.loading &&
-                        context.read<SearchBloc>().isFirstLoading) {
-                      return const Center(
-                          child: CircularProgressIndicator(
-                            color: ColorManager.primaryGreen,
-                          ));
-                    } else if (state.screenStates == ScreenStates.error) {
-                      return Center(
-                        child: Text(state.error),
-                      );
-                    } else if (state.screenStates == ScreenStates.initialized) {
-                      return const SizedBox();
-                    } else {
-                      return state.vendorsList.isEmpty
-                          ? whenSearchResultEmpty(context)
-                          : LazyLoadScrollView(
-                        onEndOfPage: () {
-                          if (context.read<SearchBloc>().isLast == false) {
-                            context
-                                .read<SearchBloc>()
-                                .add(SearchCategoryPage());
-                          }
-                        },
-                        isLoading: !context.read<SearchBloc>().isLast,
-                        child: ListView.builder(
-                          itemCount: state.vendorsList.length,
-                          itemBuilder: (context, index) {
-                            // print('===========================');
-                            // print(state.vendorsList[index].id);
-                            // print('===========================');
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 11.h,
-                                horizontal: 37.w,
-                              ),
-                              child: Stack(
-                                alignment: AlignmentDirectional.topEnd,
-                                children: [
-                                  Container(
-                                    height: 115.h,
-                                    width: 1.sw,
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        ColorManager.shadowGaryDown
-                                      ],
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(
-                                        6.0.r,
+                if (state.screenStates == ScreenStates.loading &&
+                    context.read<SearchBloc>().isFirstLoading) {
+                  return const Center(
+                      child: CircularProgressIndicator(
+                    color: ColorManager.primaryGreen,
+                  ));
+                } else if (state.screenStates == ScreenStates.error) {
+                  return Center(
+                    child: Text(state.error),
+                  );
+                } else if (state.screenStates == ScreenStates.initialized) {
+                  return const SizedBox();
+                } else {
+                  return state.vendorsList.isEmpty
+                      ? whenSearchResultEmpty(context)
+                      : LazyLoadScrollView(
+                          onEndOfPage: () {
+                            if (context.read<SearchBloc>().isLast == false) {
+                              context
+                                  .read<SearchBloc>()
+                                  .add(SearchCategoryPage());
+                            }
+                          },
+                          isLoading: !context.read<SearchBloc>().isLast,
+                          child: ListView.builder(
+                            itemCount: state.vendorsList.length,
+                            itemBuilder: (context, index) {
+                              // print('===========================');
+                              // print(state.vendorsList[index].id);
+                              // print('===========================');
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 11.h,
+                                  horizontal: 37.w,
+                                ),
+                                child: Stack(
+                                  alignment: AlignmentDirectional.topEnd,
+                                  children: [
+                                    Container(
+                                      height: 115.h,
+                                      width: 1.sw,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          ColorManager.shadowGaryDown
+                                        ],
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(
+                                          6.0.r,
+                                        ),
                                       ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.end,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 15.w,
-                                            vertical: 5.h,
-                                          ),
-                                          child: buildCounterWidget(
-                                            context,
-                                            context
-                                                .read<SearchBloc>()
-                                                .state
-                                                .vendorsList[index],
-                                          ),
-                                        ),
-                                        // const Spacer(),
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                            children: [
-                                              state.vendorsList[index]
-                                                  .nameOfProduct !=
-                                                  null
-                                                  ? Text(
-                                                state.vendorsList[index]
-                                                    .nameOfProduct ??
-                                                    "",
-                                                style: getBoldStyle(
-                                                  color: ColorManager
-                                                      .black,
-                                                  fontSize: FontSizeApp
-                                                      .s10.sp,
-                                                )?.copyWith(
-                                                  height: 2,
-                                                  overflow:
-                                                  TextOverflow.fade,
-                                                ),
-                                                maxLines: 1,
-                                              )
-                                                  : const SizedBox(),
-                                              state.vendorsList[index]
-                                                  .sellerName !=
-                                                  null ||
-                                                  state.vendorsList[index]
-                                                      .sellerName !=
-                                                      ""
-                                                  ? Text(
-                                                "( ${state.vendorsList[index].sellerName.toString()} )",
-                                                style: getBoldStyle(
-                                                  color: ColorManager
-                                                      .primaryGreen,
-                                                  fontSize: FontSizeApp
-                                                      .s10.sp,
-                                                )?.copyWith(
-                                                  height: 2,
-                                                  overflow:
-                                                  TextOverflow.fade,
-                                                ),
-                                                maxLines: 1,
-                                              )
-                                                  : const SizedBox(),
-                                              state.vendorsList[index]
-                                                  .discountPrice !=
-                                                  null
-                                                  ? Text(
-                                                state.vendorsList[index]
-                                                    .price ??
-                                                    '',
-                                                style: getRegularStyle(
-                                                  color: ColorManager
-                                                      .grayForMessage,
-                                                  fontSize: FontSizeApp
-                                                      .s12.sp,
-                                                )!
-                                                    .copyWith(
-                                                  decoration:
-                                                  TextDecoration
-                                                      .lineThrough,
-                                                  overflow:
-                                                  TextOverflow.fade,
-                                                  height: 1.h,
-                                                ),
-                                                maxLines: 1,
-                                              )
-                                                  : const SizedBox(),
-                                              state.vendorsList[index]
-                                                  .price !=
-                                                  null
-                                                  ? Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .end,
-                                                children: [
-                                                  Text(
-                                                    Formatter
-                                                        .formatPrice(
-                                                      int.tryParse(
-                                                        state.vendorsList[index].discount ==
-                                                            "0"
-                                                            ? state.vendorsList[index].price ??
-                                                            ""
-                                                            : state.vendorsList[index].discountPrice ??
-                                                            "0",
-                                                      ) ??
-                                                          0,
-                                                    ),
-                                                    style: getBoldStyle(
-                                                      color: ColorManager
-                                                          .primaryGreen,
-                                                      fontSize:
-                                                      FontSizeApp
-                                                          .s15.sp,
-                                                    )!
-                                                        .copyWith(
-                                                      height: 2.h,
-                                                      overflow:
-                                                      TextOverflow
-                                                          .fade,
-                                                    ),
-                                                    maxLines: 1,
-                                                  ),
-                                                  SizedBox(width: 1.w),
-                                                  //todo caruncy
-                                                  if (state
-                                                      .vendorsList[
-                                                  index]
-                                                      .price !=
-                                                      null)
-                                                    Text(
-                                                      AppLocalizations.of(
-                                                          context)!
-                                                          .curruncy,
-                                                      style:
-                                                      getBoldStyle(
-                                                        color: ColorManager
-                                                            .primaryGreen,
-                                                        fontSize:
-                                                        FontSizeApp
-                                                            .s10.sp,
-                                                      )!
-                                                          .copyWith(
-                                                        height: 1.h,
-                                                      ),
-                                                    )
-                                                ],
-                                              )
-                                                  : const SizedBox(),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(width: 19),
-                                        ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(6),
-                                          child: Container(
-                                            height: 115,
-                                            width: 115,
-                                            color: ColorManager
-                                                .grayForPlaceholder,
-                                            child: CachedImage(
-                                              imageUrl: state
-                                                  .vendorsList[index].image,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 15.w,
+                                              vertical: 5.h,
+                                            ),
+                                            child: buildCounterWidget(
+                                              context,
+                                              context
+                                                  .read<SearchBloc>()
+                                                  .state
+                                                  .vendorsList[index],
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          // const Spacer(),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                state.vendorsList[index]
+                                                            .nameOfProduct !=
+                                                        null
+                                                    ? Text(
+                                                        state.vendorsList[index]
+                                                                .nameOfProduct ??
+                                                            "",
+                                                        style: getBoldStyle(
+                                                          color: ColorManager
+                                                              .black,
+                                                          fontSize: FontSizeApp
+                                                              .s10.sp,
+                                                        )?.copyWith(
+                                                          height: 2,
+                                                          overflow:
+                                                              TextOverflow.fade,
+                                                        ),
+                                                        maxLines: 1,
+                                                      )
+                                                    : const SizedBox(),
+                                                state.vendorsList[index]
+                                                                .sellerName !=
+                                                            null ||
+                                                        state.vendorsList[index]
+                                                                .sellerName !=
+                                                            ""
+                                                    ? Text(
+                                                        "( ${state.vendorsList[index].sellerName.toString()} )",
+                                                        style: getBoldStyle(
+                                                          color: ColorManager
+                                                              .primaryGreen,
+                                                          fontSize: FontSizeApp
+                                                              .s10.sp,
+                                                        )?.copyWith(
+                                                          height: 2,
+                                                          overflow:
+                                                              TextOverflow.fade,
+                                                        ),
+                                                        maxLines: 1,
+                                                      )
+                                                    : const SizedBox(),
+                                                state.vendorsList[index]
+                                                            .discountPrice !=
+                                                        null
+                                                    ? Text(
+                                                        state.vendorsList[index]
+                                                                .price ??
+                                                            '',
+                                                        style: getRegularStyle(
+                                                          color: ColorManager
+                                                              .grayForMessage,
+                                                          fontSize: FontSizeApp
+                                                              .s12.sp,
+                                                        )!
+                                                            .copyWith(
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .lineThrough,
+                                                          overflow:
+                                                              TextOverflow.fade,
+                                                          height: 1.h,
+                                                        ),
+                                                        maxLines: 1,
+                                                      )
+                                                    : const SizedBox(),
+                                                state.vendorsList[index]
+                                                            .price !=
+                                                        null
+                                                    ? Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Text(
+                                                            Formatter
+                                                                .formatPrice(
+                                                              int.tryParse(
+                                                                    state.vendorsList[index].discount ==
+                                                                            "0"
+                                                                        ? state.vendorsList[index].price ??
+                                                                            ""
+                                                                        : state.vendorsList[index].discountPrice ??
+                                                                            "0",
+                                                                  ) ??
+                                                                  0,
+                                                            ),
+                                                            style: getBoldStyle(
+                                                              color: ColorManager
+                                                                  .primaryGreen,
+                                                              fontSize:
+                                                                  FontSizeApp
+                                                                      .s15.sp,
+                                                            )!
+                                                                .copyWith(
+                                                              height: 2.h,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .fade,
+                                                            ),
+                                                            maxLines: 1,
+                                                          ),
+                                                          SizedBox(width: 1.w),
+                                                          //todo caruncy
+                                                          if (state
+                                                                  .vendorsList[
+                                                                      index]
+                                                                  .price !=
+                                                              null)
+                                                            Text(
+                                                              AppLocalizations.of(
+                                                                      context)!
+                                                                  .curruncy,
+                                                              style:
+                                                                  getBoldStyle(
+                                                                color: ColorManager
+                                                                    .primaryGreen,
+                                                                fontSize:
+                                                                    FontSizeApp
+                                                                        .s10.sp,
+                                                              )!
+                                                                      .copyWith(
+                                                                height: 1.h,
+                                                              ),
+                                                            )
+                                                        ],
+                                                      )
+                                                    : const SizedBox(),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 19),
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            child: Container(
+                                              height: 115,
+                                              width: 115,
+                                              color: ColorManager
+                                                  .grayForPlaceholder,
+                                              child: CachedImage(
+                                                imageUrl: state
+                                                    .vendorsList[index].image,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    }
-                  }),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                }
+              }),
             )
           ],
         ),
@@ -773,10 +773,10 @@ class SearchVendorBody extends StatelessWidget {
               flex: 3,
               child: InkWell(
                 onLongPress: () => context.read<BasketBloc>().add(
-                  LongAddCount(
-                    productAddedToBasketDetails.id,
-                  ),
-                ),
+                      LongAddCount(
+                        productAddedToBasketDetails.id,
+                      ),
+                    ),
                 child: Container(
                   width: 30.h,
                   decoration: BoxDecoration(
@@ -796,9 +796,9 @@ class SearchVendorBody extends StatelessWidget {
                 ),
                 onTap: () {
                   context.read<BasketBloc>().add(
-                    AddCount(productAddedToBasketDetails.id,
-                        productAddedToBasketDetails),
-                  );
+                        AddCount(productAddedToBasketDetails.id,
+                            productAddedToBasketDetails),
+                      );
                 },
               ),
             ),
@@ -809,15 +809,15 @@ class SearchVendorBody extends StatelessWidget {
                 width: 30,
                 child: Center(
                     child: Text(
-                      context
-                          .read<BasketBloc>()
-                          .countsProducts(productAddedToBasketDetails.id)
-                          .toString(),
-                      style: getRegularStyle(
-                        color: Colors.black,
-                        fontSize: 15.sp,
-                      ),
-                    )),
+                  context
+                      .read<BasketBloc>()
+                      .countsProducts(productAddedToBasketDetails.id)
+                      .toString(),
+                  style: getRegularStyle(
+                    color: Colors.black,
+                    fontSize: 15.sp,
+                  ),
+                )),
               ),
             ),
             Expanded(
@@ -842,24 +842,24 @@ class SearchVendorBody extends StatelessWidget {
                 ),
                 onTap: () {
                   if (context
-                      .read<BasketBloc>()
-                      .countsProducts(productAddedToBasketDetails.id) ==
+                          .read<BasketBloc>()
+                          .countsProducts(productAddedToBasketDetails.id) ==
                       1) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return ConfirmDeleteProductDialog(
                           productAddedToBasketDetails:
-                          productAddedToBasketDetails,
+                              productAddedToBasketDetails,
                         );
                       },
                     );
                   } else {
                     context.read<BasketBloc>().add(
-                      MinusCount(
-                        productAddedToBasketDetails.id,
-                      ),
-                    );
+                          MinusCount(
+                            productAddedToBasketDetails.id,
+                          ),
+                        );
                   }
                 },
               ),

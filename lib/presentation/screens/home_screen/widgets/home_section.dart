@@ -81,7 +81,6 @@ class _HomeSectionState extends State<HomeSection> {
                         .id));
                 return GestureDetector(
                   onLongPress: () {
-
                     if (context
                         .read<BasketBloc>()
                         .mutableProducts.isEmpty) {

@@ -9,6 +9,8 @@ import 'package:pharma/models/delivery_response.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
 import 'package:pharma/models/reward/reward_coupons_fixed_value.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/resources/font_app.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
 
 class CustomDiscountCodeContainer extends StatelessWidget {
   final String subjectText;
@@ -38,38 +40,54 @@ class CustomDiscountCodeContainer extends StatelessWidget {
       child: TextFormField(
         textAlignVertical: TextAlignVertical.top,
         onFieldSubmitted: (value) {
-          paymentBloc.add(
-            GetCoupon("", value),
-          );
-          if (myOrderBloc != null) {
+          if (paymentBloc.state.id != null) {
             paymentBloc.add(
-              GetInvoicesDetails(
-                productList: myOrderBloc!.productDetailsList,
-                invoicesParams: InvoicesParams(
-                  couponCode: value,
-                  time: paymentBloc.state.time,
-                  notes: notesText,
-                  deliveryMethodId:
-                  paymentBloc.state.id!,
-
-                  userAddressId:
-                      context.read<LocationBloc>().state.addressCurrent.id!,
-                ),
-              ),
+              GetCoupon("", value),
             );
-          } else {
-            paymentBloc.add(
-              GetInvoicesDetails(
-                productList: context.read<BasketBloc>().state.productList!,
-                invoicesParams: InvoicesParams(
-                  couponCode: value,
-                  time: paymentBloc.state.time,
-                  notes: notesText,
-                  deliveryMethodId:
-                  paymentBloc.state.id!,
-                  userAddressId:
-                      context.read<LocationBloc>().state.addressCurrent.id!,
+            if (myOrderBloc != null) {
+              paymentBloc.add(
+                GetInvoicesDetails(
+                  productList: myOrderBloc!.productDetailsList,
+                  invoicesParams: InvoicesParams(
+                    couponCode: value,
+                    time: paymentBloc.state.time,
+                    notes: notesText,
+                    deliveryMethodId: paymentBloc.state.id!,
+                    userAddressId:
+                        context.read<LocationBloc>().state.addressCurrent.id!,
+                  ),
                 ),
+              );
+            } else {
+              paymentBloc.add(
+                GetInvoicesDetails(
+                  productList: context.read<BasketBloc>().state.productList!,
+                  invoicesParams: InvoicesParams(
+                    couponCode: value,
+                    time: paymentBloc.state.time,
+                    notes: notesText,
+                    deliveryMethodId: paymentBloc.state.id!,
+                    userAddressId:
+                        context.read<LocationBloc>().state.addressCurrent.id!,
+                  ),
+                ),
+              );
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                duration: const Duration(seconds: 1),
+                content: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "الرجاء اختيار نوع الطلب",
+                    style: getRegularStyle(
+                      color: ColorManager.white,
+                      fontSize: FontSizeApp.s14,
+                    ),
+                  ),
+                ),
+                backgroundColor: ColorManager.primaryGreen,
               ),
             );
           }

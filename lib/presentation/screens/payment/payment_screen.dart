@@ -337,11 +337,13 @@ class PaymentBody extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 5.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                if(state.paymentProcessResponse!.invoicesResponse!.couponValue!=0)
                                 Text(
-                                  "// ToDo ل.س من مجمل الفاتورة ",
+                                  " لقد حصلت على حسم ${state.paymentProcessResponse!.invoicesResponse!.couponValue} ل.س من مجمل الفاتورة",
                                   style: getBoldStyle(
                                     color: ColorManager.redForFavorite,
                                     fontSize: 15,
