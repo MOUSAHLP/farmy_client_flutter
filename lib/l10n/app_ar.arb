@@ -317,6 +317,10 @@
   "please_choose_your_location": "يرجى اختيار موقعك",
   "store_is_closed": "المتجر مغلق، يمكنك جدولة الطلب  أو تثبيت الطلب ضمن أوقات الدوام ",
   "add_product": "اضافة منتجات",
-  "view_draft_items": "عرض عناصر المسودة"
+  "view_draft_items": "عرض عناصر المسودة",
+  "view_code":"عرض كود تأكيد الطلب",
+  "order_verify_code":"رمز التحقق من الطلب",
+  "order_verify_code_desc":"يرجى تزويد عامل التوصيل بالرمز \n لإتمام عملية التوصيل",
+  "rate_order":"قيّم الطلب"
 
 }

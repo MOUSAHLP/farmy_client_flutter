@@ -218,9 +218,11 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
       }
       if (event is GetOrderHistory) {
         emit(state.copyWith(screenStates: ScreenStates.loading));
+        print("000000000000000000000");
         final response = await MyOrderRepository.getMyOrderHistory();
+        print("11111111111111111111");
         response.fold((l) {
-
+        print("22222222222222222");
           emit(
             state.copyWith(screenStates: ScreenStates.error, error: l),
           );

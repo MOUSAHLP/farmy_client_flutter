@@ -73,6 +73,7 @@ class ApiConst {
 
   /// track order
   static String getTrackOrderDetails(int id) => "/orders/order-status/$id";
+  static String getOrderVerifyCode(int id) => "/displyCodeExists/$id";
 
   ///notification
   static  String getNotifications(int type) => "/notifications?type=$type";

@@ -1,9 +1,14 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/models/track_model.dart';
+
+import '../../main.dart';
+import '../../presentation/screens/order_tracking_screen/order_verify_code.dart';
 
 void notificationTapBackground(NotificationResponse notificationResponse) {
   if (kDebugMode) {
@@ -66,8 +71,18 @@ class FirebaseNotificationsHandler {
         '@drawable/ic_stat_ic_notification');
     var ios = const DarwinInitializationSettings();
     var platform = InitializationSettings(android: android, iOS: ios);
+
     flutterLocalNotificationsPlugin.initialize(platform,
-        onDidReceiveBackgroundNotificationResponse: notificationTapBackground);
+        onDidReceiveNotificationResponse: (payload) {
+      if (newMessage != null && newMessage!.data["status"] == "3") {
+        navigatorKey.currentState!.push(MaterialPageRoute(
+          builder: (context) {
+            return OrderVerifyCode(
+                orderId: int.parse(newMessage!.data["order_id"]));
+          },
+        ));
+      }
+    }, onDidReceiveBackgroundNotificationResponse: notificationTapBackground);
 
     await _firebaseMessaging.setForegroundNotificationPresentationOptions(
       alert: true,
@@ -77,11 +92,11 @@ class FirebaseNotificationsHandler {
     _firebaseMessaging.requestPermission(sound: true, alert: true, badge: true);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (kDebugMode) {
-        print('OpenedApp');
-      }
-      // newMessage = message;
+      print("hereeeeeeeeeeeeeeee");
+      print('OpenedApp ${message.data["body"]}');
       RemoteNotification? notification = message.notification;
+      newMessage = message;
+      print("new Message::: ${newMessage}");
 
       if (notification != null) {
         if (message.data["order_status"] != null && bloc != null) {
@@ -93,6 +108,14 @@ class FirebaseNotificationsHandler {
           bloc!.add(UpdateOrderStatus(
               orderId: int.parse(message.data["order_id"].toString()),
               trackingModel: trackingModel));
+        } else if (message.data["status"] != null &&
+            message.data["status"] == 3) {
+          print("yesssssssssssssssss");
+          navigatorKey.currentState!.push(MaterialPageRoute(
+            builder: (context) {
+              return OrderVerifyCode(orderId: message.data["id"]);
+            },
+          ));
         }
 
         flutterLocalNotificationsPlugin
@@ -123,16 +146,29 @@ class FirebaseNotificationsHandler {
       if (kDebugMode) {
         print('background not terminated');
       }
+      navigatorKey.currentState!.push(MaterialPageRoute(
+        builder: (context) {
+          return OrderVerifyCode(orderId: int.parse(message.data["order_id"]));
+        },
+      ));
       // processMessage(message);
     });
 
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) {
+      //App Closed
       if (kDebugMode) {
         print("FirebaseMessaging.getInitialMessage");
       }
-      if (message != null) {
+      if (message != null && message.data["status"] == "3") {
+        navigatorKey.currentState!.push(MaterialPageRoute(
+          builder: (context) {
+            return OrderVerifyCode(
+                orderId: int.parse(message.data["order_id"]));
+          },
+        ));
+
         // processMessage(message);
       }
     });

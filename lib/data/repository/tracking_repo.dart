@@ -11,4 +11,12 @@ class TrackingRepo {
           return TrackingModel.fromJson(e["data"]);
         });
   }
+
+  static Future<Either<String, String>> getOrderVerify(int id) {
+    return BaseApiClient.get<String>(
+        url: ApiConst.getOrderVerifyCode(id),
+        converter: (e) {
+          return e;
+        });
+  }
 }

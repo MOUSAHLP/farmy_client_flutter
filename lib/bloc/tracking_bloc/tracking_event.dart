@@ -17,3 +17,8 @@ class UpdateOrderStatus extends TrackingEvent {
   TrackingModel trackingModel;
   UpdateOrderStatus({required this.orderId, required this.trackingModel});
 }
+
+class GetVerifyCode extends TrackingEvent {
+  int orderId;
+  GetVerifyCode({required this.orderId});
+}

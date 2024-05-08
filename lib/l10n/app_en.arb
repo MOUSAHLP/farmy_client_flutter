@@ -311,7 +311,11 @@
   "please_choose_your_location": "please choose your location",
   "store_is_closed": "The store is closed. You can schedule an order or place an order during working hours",
   "add_product": "Add products",
-  "view_draft_items": "View draft items"
+  "view_draft_items": "View draft items",
+  "view_code":"View Code",
+  "order_verify_code":"Order Verify Code",
+  "order_verify_code_desc":"Please provide the delivery man with the code Complete implementation",
+  "rate_order":"Rate order"
 
 
 

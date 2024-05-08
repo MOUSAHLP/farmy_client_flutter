@@ -13,3 +13,13 @@ class TrackingError extends TrackingState {
 
   TrackingError(this.error);
 }
+
+class GetVerifyCodeLoading extends TrackingState{}
+class GetVerifyCodeSuccess extends TrackingState{
+  final String code;
+  GetVerifyCodeSuccess({required this.code});
+}
+class GetVerifyCodeError extends TrackingState{
+  String error;
+  GetVerifyCodeError(this.error);
+}

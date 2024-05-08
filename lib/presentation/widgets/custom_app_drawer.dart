@@ -116,7 +116,7 @@ class CustomAppDrawer extends StatelessWidget {
                           }),
                           buildElevatedButton(
                               AppLocalizations.of(context)!.order_archive, () {
-                            context.read<MyOrderBloc>().add(GetOrderHistory());
+
                             AppRouter.push(
                               context,
                               const OrderHistoryScreen(),
