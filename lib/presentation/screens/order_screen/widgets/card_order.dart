@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/models/my_order_response.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/row_order.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/state_buttons.dart';
+import 'package:pharma/presentation/screens/rate_order/rate_order_screen.dart';
 import 'package:pharma/translations.dart';
 import '../../../../core/get_address.dart';
 import '../../../../core/utils/formatter.dart';
@@ -31,6 +34,8 @@ class CardOrder extends StatelessWidget {
             vertical: 16.h,
           ),
           child: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               RowOrder(
                 title: AppLocalizations.of(context)!.order_Number,
@@ -79,7 +84,7 @@ class CardOrder extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            "${Formatter.formatPrice(myOrder.total??0) ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
+                            "${Formatter.formatPrice(myOrder.total ?? 0) ?? ""}  ${AppLocalizations.of(context)!.curruncy}",
                             style: getBoldStyle(
                               color: ColorManager.primaryGreen,
                               fontSize: 15.sp,
@@ -94,7 +99,37 @@ class CardOrder extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              // Text(myOrder.status ?? ""),
+             if(myOrder.status=="Deliverd")
+              myOrder.rate != null && myOrder.rate != 0.0
+                  ? RatingBar.builder(
+                      ignoreGestures: true,
+                      itemSize: 22,
+                      initialRating: myOrder.rate ?? 0.0,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      // itemPadding: const EdgeInsets.symmetric(horizontal: 22.0),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (value) {},
+                    )
+                  : GestureDetector(
+                onTap: () {
+                  AppRouter.push(context,RateOrderScreen(orderId: myOrder.id));
+                },
+                    child: Text(AppLocalizations.of(context)!.rate_order,
+                        style:const TextStyle(
+                          fontSize: 16,
+                          color: ColorManager.gold,
+                          fontWeight: FontWeight.bold
+                        )),
+                  ),
+              const SizedBox(
+                height: 10,
+              ),
               StateButtons(
                 status: myOrder.status ?? "",
                 id: myOrder.id,

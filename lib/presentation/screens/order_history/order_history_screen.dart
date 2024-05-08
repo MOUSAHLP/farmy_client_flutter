@@ -15,9 +15,20 @@ import '../../../core/services/services_locator.dart';
 import '../../widgets/custom_no_dataa.dart';
 import '../guest_screen/guest_screen.dart';
 
-class OrderHistoryScreen extends StatelessWidget {
-  const OrderHistoryScreen({super.key});
+class OrderHistoryScreen extends StatefulWidget {
+  const OrderHistoryScreen({Key? key}) : super(key: key);
 
+  @override
+  _OrderHistoryScreenState createState() => _OrderHistoryScreenState();
+}
+
+class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<MyOrderBloc>().add(GetOrderHistory());
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,24 +44,25 @@ class OrderHistoryScreen extends StatelessWidget {
             Expanded(
               child: sl<AuthenticationBloc>().loggedIn
                   ? BlocBuilder<MyOrderBloc, MyOrderState>(
-                      builder: (context, state) {
-                        if (state.screenStates == ScreenStates.loading) {
-                          return const BuildShimmerOrders();
-                        } else if (state.screenStates == ScreenStates.success) {
-                          return Column(
-                            children: [
-                              Expanded(
-                                child: BodyOrders(
-                                  state: state,
-                                ),
-                              )
-                            ],
-                          );
-                        } else {
-                          return const Text("");
-                        }
-                      },
-                    )
+                builder: (context, state) {
+                  print("state::::: ${state.screenStates}");
+                  if (state.screenStates == ScreenStates.loading) {
+                    return const BuildShimmerOrders();
+                  } else if (state.screenStates == ScreenStates.success) {
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: BodyOrders(
+                            state: state,
+                          ),
+                        )
+                      ],
+                    );
+                  } else {
+                    return const Text("");
+                  }
+                },
+              )
                   : const GuestScreen(),
             ),
           ],
@@ -59,6 +71,7 @@ class OrderHistoryScreen extends StatelessWidget {
     );
   }
 }
+
 
 class BodyOrders extends StatelessWidget {
   const BodyOrders({super.key, required this.state});

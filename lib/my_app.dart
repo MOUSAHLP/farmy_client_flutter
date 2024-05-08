@@ -16,6 +16,7 @@ import 'package:pharma/bloc/setting_bloc/setting_event.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/main.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/splash_screen/splash_screen.dart';
@@ -41,6 +42,7 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       minTextAdapt: true,
       designSize: MediaQuery.of(context).size,
+
       builder: (context, ctx) {
         return MultiBlocProvider(
           providers: [
@@ -78,6 +80,7 @@ class _MyAppState extends State<MyApp> {
                   builder: (context, state) {
                 if (true) {
                   return MaterialApp(
+                      navigatorKey: navigatorKey,
                       debugShowCheckedModeBanner: false,
                       title: 'Farmy',
                       locale: Locale(DataStore.instance.lang),

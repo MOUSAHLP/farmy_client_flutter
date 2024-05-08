@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/models/rate_attribute.dart';
 import 'package:pharma/presentation/screens/rate_order/widget/custom_rate_cause.dart';
 import 'package:pharma/presentation/widgets/custom_loading.dart';
+import 'package:pharma/presentation/widgets/custom_loading_widget.dart';
 
+import '../../../bloc/my_order_bloc/my_order_bloc.dart';
+import '../../../bloc/my_order_bloc/my_order_event.dart';
 import '../../../bloc/rate_bloc/rate_bloc.dart';
 import '../../../bloc/rate_bloc/rate_event.dart';
 import '../../../bloc/rate_bloc/rate_state.dart';
@@ -18,7 +23,9 @@ import '../../resources/font_app.dart';
 import '../../resources/style_app.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_rating.dart';
+import '../../widgets/dialogs/loading_dialog.dart';
 import '../auth_screen/ widgets/input_field_auth.dart';
+import '../order_screen/order_screen.dart';
 
 class RateOrderScreen extends StatefulWidget {
   final int orderId;
@@ -127,7 +134,26 @@ class _RateOrderScreenState extends State<RateOrderScreen> {
               },
               builder: (context, state) {
                 return state is LoadingGetRateAttribute
-                    ? const CustomLoading()
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        width: 1.sw,
+                        child: Wrap(
+                          alignment: WrapAlignment.start,
+                          children: [1, 2, 3, 4, 5]
+                              .map((e) => Container(
+                                    width: 0.25.sw,
+                                    height: 0.05.sh,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 10),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        color: ColorManager.lightGray,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  ))
+                              .toList(),
+                        ).animate().shimmer(),
+                      )
                     : Wrap(
                         children: attributeList
                             .map((e) => CustomRateCause(
@@ -189,7 +215,17 @@ class _RateOrderScreenState extends State<RateOrderScreen> {
             25.verticalSpace,
             BlocConsumer(
               bloc: rateBloc,
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state is LoadingRateState) {
+                  LoadingDialog().openDialog(context);
+                } else if (state is SuccessRateState) {
+                  LoadingDialog().closeDialog(context);
+
+                  AppRouter.pushReplacement(context, OrderScreen());
+                } else if (state is FailRateState) {
+                  LoadingDialog().closeDialog(context);
+                }
+              },
               builder: (context, state) {
                 return CustomButton(
                   label: AppLocalizations.of(context)!.confirm,
@@ -205,7 +241,19 @@ class _RateOrderScreenState extends State<RateOrderScreen> {
                   },
                 );
               },
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
+              child: InkWell(
+                  onTap: () {
+                    AppRouter.pop(context);
+                  },
+                  child: const Icon(
+                    Icons.cancel_outlined,
+                    size: 50,
+                    color: ColorManager.grayForSearch,
+                  )),
+            ),
           ],
         ),
       ),
@@ -234,6 +282,7 @@ class _RateOrderScreenState extends State<RateOrderScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 22),
                 child: Row(

@@ -21,7 +21,10 @@ import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../translations.dart';
 import '../../widgets/custom_app_bar_screen.dart';
+import '../../widgets/custom_app_button.dart';
 import '../../widgets/custom_button.dart';
+import '../auth_screen/ widgets/button_auth.dart';
+import 'order_verify_code.dart';
 
 class OrderTrackingScreen extends StatefulWidget {
   final int orderId;
@@ -48,13 +51,13 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            CustomAppBarScreen(
-              sectionName: AppLocalizations.of(context)!.track_Order,
-            ),
-            Expanded(
-              child: BlocConsumer<TrackingBloc, TrackingState>(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              CustomAppBarScreen(
+                sectionName: AppLocalizations.of(context)!.track_Order,
+              ),
+              BlocConsumer<TrackingBloc, TrackingState>(
                   bloc: bloc,
                   listener: (context, state) {},
                   builder: (context, state) {
@@ -128,11 +131,27 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  CustomButton(
+                                    fillColor: ColorManager.white,
+                                    labelColor: ColorManager.primaryGreen,
+                                    borderColor: ColorManager.primaryGreen,
+                                    label: AppLocalizations.of(context)!.view_code,
+                                    isFilled: true,
+                                    onTap: () {
+                                      AppRouter.push(
+                                          context,  OrderVerifyCode(orderId: widget.orderId,));
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
                                   CustomButton(
                                     label: AppLocalizations.of(context)!
                                         .track_your_order_on_the_map,
                                     onTap: () async {
-
                                       AppRouter.push(
                                         context,
                                         TrackingScreen(
@@ -183,8 +202,8 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                     }
                     return const CustomLoadingWidget();
                   }),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

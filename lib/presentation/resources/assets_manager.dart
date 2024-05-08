@@ -73,6 +73,7 @@ class IconsManager {
   static const String remove = "$iconPath/remove.svg";
   static const String locationIcon = "$iconPath/location_icon.png";
   static const String locationIconApp = "$iconPath/location_icon_app.png";
+  static const String successIcon = "$iconPath/success.png";
 }
 
 class LottieManager {

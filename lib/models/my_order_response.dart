@@ -15,6 +15,7 @@ class MyOrderResponse {
   DeliveryMethodModel? deliveryMethod;
   PaymentMethodModel? paymentMethod;
   int expectedTime;
+  double? rate;
 
   MyOrderResponse({
     this.orderNumber,
@@ -27,6 +28,7 @@ class MyOrderResponse {
     this.deliveryMethod,
     this.paymentMethod,
     required this.expectedTime,
+    this.rate
   });
 
   factory MyOrderResponse.fromJson(Map<String, dynamic> json) {
@@ -40,6 +42,7 @@ class MyOrderResponse {
       total: json["total"],
       date: json["date"],
       deliveryMethod: DeliveryMethodModel.fromJson(json['delivery_method']),
+      rate:double.parse(json["rate"].toString())
     );
   }
 

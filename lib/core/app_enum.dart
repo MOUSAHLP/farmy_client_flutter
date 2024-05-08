@@ -15,7 +15,7 @@ enum ScreenState { initialized, loadMoreData, loading, success, error }
 
 enum ScreenStates { initialized, loading, error, success }
 
-final navigatorKey = GlobalKey<NavigatorState>();
+// final navigatorKey = GlobalKey<NavigatorState>();
 
 enum OrderStates {
   normalOrder,

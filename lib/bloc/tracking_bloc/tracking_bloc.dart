@@ -34,6 +34,18 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
             emit(TrackingSuccess());
           }
         }
+        if (event is GetVerifyCode) {
+          emit(GetVerifyCodeLoading());
+          var response = await TrackingRepo.getOrderVerify(event.orderId);
+          response.fold(
+            (l) {
+              emit(GetVerifyCodeError(l));
+            },
+            (r) {
+              emit(GetVerifyCodeSuccess(code: r));
+            },
+          );
+        }
       },
     );
   }
