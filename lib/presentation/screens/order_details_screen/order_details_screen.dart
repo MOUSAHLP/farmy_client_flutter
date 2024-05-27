@@ -26,8 +26,12 @@ class OrderDetailsScreen extends StatelessWidget {
   final bool isEdit;
   final bool isDelivery;
 
-
-  const OrderDetailsScreen({super.key, required this.id, this.isEdit = false,this.isDelivery=false,});
+  const OrderDetailsScreen({
+    super.key,
+    required this.id,
+    this.isEdit = false,
+    this.isDelivery = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,7 @@ class OrderDetailsScreen extends StatelessWidget {
       create: (context) {
         return sl<DetailsOrderBloc>()..add(ShowDetailsOrder(id: id));
       },
-      child: OrderDetailsBody(id: id, isEdit: isEdit,isDelivery: isDelivery),
+      child: OrderDetailsBody(id: id, isEdit: isEdit, isDelivery: isDelivery),
     );
   }
 }
@@ -45,7 +49,11 @@ class OrderDetailsBody extends StatelessWidget {
   final bool isEdit;
   final bool isDelivery;
 
- const OrderDetailsBody({super.key, required this.id, this.isEdit = false,this.isDelivery=false});
+  const OrderDetailsBody(
+      {super.key,
+      required this.id,
+      this.isEdit = false,
+      this.isDelivery = false});
 
   @override
   Widget build(BuildContext context) {
@@ -125,14 +133,20 @@ class OrderDetailsBody extends StatelessWidget {
                                   const SizedBox(
                                     height: 9,
                                   ),
-                                  Text(AppLocalizations.of(context)!.totalPrice,
-                                      style: getBoldStyle(
-                                          color: ColorManager.grayForMessage,
-                                          fontSize: 14)),
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .total_price_without_delivery_with_tax,
+                                    style: getBoldStyle(
+                                      color: ColorManager.grayForMessage,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(Formatter.formatPrice(state.totalPrice),
+                                      Text(
+                                          Formatter.formatPrice(
+                                              state.totalPrice),
                                           style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
                                               fontSize: 24)),
@@ -157,7 +171,9 @@ class OrderDetailsBody extends StatelessWidget {
                                         isEdit
                                             ? Expanded(
                                                 child: CustomButton(
-                                                  label: AppLocalizations.of(context)!.save_edits,
+                                                  label: AppLocalizations.of(
+                                                          context)!
+                                                      .save_edits,
                                                   fillColor:
                                                       ColorManager.primaryGreen,
                                                   onTap: () {
@@ -175,13 +191,13 @@ class OrderDetailsBody extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: CustomButton(
-                                            label:AppLocalizations.of(context)!.back,
+                                            label: AppLocalizations.of(context)!
+                                                .back,
                                             fillColor:
                                                 ColorManager.primaryGreen,
                                             labelColor: Colors.white,
                                             onTap: () {
                                               AppRouter.pop(context);
-
                                             },
                                           ),
                                         ),
@@ -190,11 +206,13 @@ class OrderDetailsBody extends StatelessWidget {
                                             : const SizedBox(
                                                 width: 16,
                                               ),
-
-                                        !isDelivery? const SizedBox()
+                                        !isDelivery
+                                            ? const SizedBox()
                                             : Expanded(
                                                 child: CustomButton(
-                                                  label: AppLocalizations.of(context)!.download_pdf,
+                                                  label: AppLocalizations.of(
+                                                          context)!
+                                                      .download_pdf,
                                                   fillColor: Colors.white,
                                                   isFilled: true,
                                                   borderColor:
@@ -203,12 +221,10 @@ class OrderDetailsBody extends StatelessWidget {
                                                       ColorManager.primaryGreen,
                                                   onTap: () {
                                                     launchUrl(
-                                                        Uri.parse(
-                                                            state.urlPdf ),
-                                                        mode: LaunchMode
-                                                            .externalApplication,
+                                                      Uri.parse(state.urlPdf),
+                                                      mode: LaunchMode
+                                                          .externalApplication,
                                                     );
-
                                                   },
                                                 ),
                                               ),
