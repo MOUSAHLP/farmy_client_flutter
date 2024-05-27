@@ -81,6 +81,10 @@ class _LoadingDialogBody extends StatelessWidget {
                 ),
                 SizedBox(height: 26.h),
                 CustomAppButton(
+                  colors: <Color>[
+                    ColorManager.primaryGreen,
+                    ColorManager.softGreen,
+                  ],
                   padding: EdgeInsetsDirectional.symmetric(horizontal: 110.w),
                   myText: AppLocalizations.of(context)!.done,
                   ontap: () {

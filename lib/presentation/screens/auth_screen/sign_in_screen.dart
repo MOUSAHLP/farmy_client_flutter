@@ -53,7 +53,7 @@ class SignInBody extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 93,
+              height: 80,
             ),
             Text(
               AppLocalizations.of(context)!.sign_in,
@@ -122,7 +122,7 @@ class SignInBody extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 64),
+             SizedBox(height: 55.h),
             ButtonAuth(
                 label: AppLocalizations.of(context)!.sign_in,
                 onTap: () async {

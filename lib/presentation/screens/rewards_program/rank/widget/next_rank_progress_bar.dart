@@ -72,18 +72,18 @@ class NextRankProgressBar extends StatelessWidget {
                   ],
                 ),
               ),
-              if(state.rewardsRankUserModel!.data.userNextRank.limit!=0)
-              Text(
-                "${calculateTheValueOfProgressToTheNextLevel(
-                  currentPoint: state.rewardsRankUserModel!.data.userRank.limit,
-                  nextPoint: state.rewardsRankUserModel!.data.userNextRank.limit,
-                  userPoint: state.rewardsRankUserModel!.data.userPoints,
-                ).abs()}${AppLocalizations.of(context)!.sp_remaining_to_get_the_next_level}",
-                style: getRegularStyle(
-                  color: ColorManager.grayForMessage,
-                  fontSize: FontSizeApp.s13.sp,
+              if (state.rewardsRankUserModel!.data.userNextRank.limit != 0)
+                Text(
+                  "${calculateTheValueOfProgressToTheNextLevelText(
+                    nextPoint:
+                        state.rewardsRankUserModel!.data.userNextRank.limit,
+                    userPoint: state.rewardsRankUserModel!.data.userPoints,
+                  ).abs()}${AppLocalizations.of(context)!.sp_remaining_to_get_the_next_level}",
+                  style: getRegularStyle(
+                    color: ColorManager.grayForMessage,
+                    fontSize: FontSizeApp.s13.sp,
+                  ),
                 ),
-              ),
             ],
           );
         }
@@ -98,5 +98,12 @@ class NextRankProgressBar extends StatelessWidget {
     required int userPoint,
   }) {
     return (userPoint - currentPoint) / (nextPoint - currentPoint);
+  }
+
+  int calculateTheValueOfProgressToTheNextLevelText({
+    required int nextPoint,
+    required int userPoint,
+  }) {
+    return (nextPoint - userPoint);
   }
 }

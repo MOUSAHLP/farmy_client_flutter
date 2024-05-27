@@ -31,6 +31,7 @@ import '../../widgets/custom_error_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final int? id;
+
   // final int? quantity;
 
   const ProductDetailsScreen({
@@ -96,7 +97,8 @@ class ProductDetailsBody extends StatelessWidget {
                                       InkWell(
                                         onTap: () => showGeneralDialog(
                                           context: context,
-                                          pageBuilder: (context2, animation, secondaryAnimation) =>
+                                          pageBuilder: (context2, animation,
+                                                  secondaryAnimation) =>
                                               GestureDetector(
                                             onTap: () {
                                               AppRouter.pop(context);
@@ -119,19 +121,22 @@ class ProductDetailsBody extends StatelessWidget {
                                                     right: 20.w,
                                                     left: 20.w,
                                                   ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      20.0.r,
-                                                    ),
-                                                    child: CachedImage(
-                                                      fit: BoxFit.cover,
-                                                      imageSize:
-                                                          ImageSize.small,
-                                                      imageUrl: state
-                                                              .productDetailsResponse
-                                                              .image ??
-                                                          "",
+                                                  child: SizedBox(
+                                                    height: 180.h,
+                                                    width: double.infinity,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                        20.0.r,
+                                                      ),
+                                                      child: CachedImage(
+                                                        fit: BoxFit.cover,
+                                                        imageSize: ImageSize.small,
+                                                        imageUrl: state
+                                                                .productDetailsResponse
+                                                                .image ??
+                                                            "",
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -420,69 +425,74 @@ class ProductDetailsBody extends StatelessWidget {
                                                   ),
                                                 )
                                               : const SizedBox(),
-
                                         ],
                                       ),
-                                      SizedBox(
+                                     const SizedBox(
                                         height: 25,
                                       )
                                     ],
                                   ),
                                   CustomAppButton(
                                     ontap: () {
-                                        if (sl<AuthenticationBloc>()
-                                          .loggedIn) {
-                                          if(context.read<BasketBloc>().state.idbasket!=0){
-                                            context
+                                      if (sl<AuthenticationBloc>().loggedIn) {
+                                        if (context
                                                 .read<BasketBloc>()
-                                                .add(buildAddToBasketNot(state));
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                duration:
-                                                const Duration(seconds: 1),
-                                                content: Container(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                 "تمت الاضافة الى المسودة",
-                                                    style: getRegularStyle(
-                                                      color: ColorManager.white,
-                                                      fontSize: FontSizeApp.s14,
-                                                    ),
+                                                .state
+                                                .idbasket !=
+                                            0) {
+                                          context
+                                              .read<BasketBloc>()
+                                              .add(buildAddToBasketNot(state));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              duration:
+                                                  const Duration(seconds: 1),
+                                              content: Container(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  "تمت الاضافة الى المسودة",
+                                                  style: getRegularStyle(
+                                                    color: ColorManager.white,
+                                                    fontSize: FontSizeApp.s14,
                                                   ),
                                                 ),
-                                                backgroundColor:
-                                                ColorManager.primaryGreen,
                                               ),
-                                            );
-                                            context.read<HomeBloc>().currentIndex = 0;
+                                              backgroundColor: ColorManager.primaryGreen,
+                                            ),
+                                          );
+                                          context
+                                              .read<HomeBloc>()
+                                              .currentIndex = 0;
 
-                                            AppRouter.push(context, HomeScreen());
-                                          }
-                                          else {
+                                          AppRouter.push(context, HomeScreen());
+                                        } else {
                                           context
                                               .read<BasketBloc>()
                                               .add(buildAddToBasket(state));
 
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            duration:
-                                                const Duration(seconds: 1),
-                                            content: Container(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .added_to_basket,
-                                                style: getRegularStyle(
-                                                  color: ColorManager.white,
-                                                  fontSize: FontSizeApp.s14,
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              duration:
+                                                  const Duration(seconds: 1),
+                                              content: Container(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .added_to_basket,
+                                                  style: getRegularStyle(
+                                                    color: ColorManager.white,
+                                                    fontSize: FontSizeApp.s14,
+                                                  ),
                                                 ),
                                               ),
+                                              backgroundColor:
+                                                  ColorManager.primaryGreen,
                                             ),
-                                            backgroundColor:
-                                                ColorManager.primaryGreen,
-                                          ),
-                                        );
-                                      }} else {
+                                          );
+                                        }
+                                      } else {
                                         ErrorDialog.openDialog(
                                           context,
                                           AppLocalizations.of(context)!
@@ -490,13 +500,17 @@ class ProductDetailsBody extends StatelessWidget {
                                         );
                                       }
                                     },
-                                    myText: AppLocalizations.of(context)!
-                                        .add_to_basket,
+                                    myText: AppLocalizations.of(context)!.add_to_basket,
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 74,
                                       vertical: 10,
-                                    ),)
-                               ],
+                                    ),
+                                    colors:  <Color>[
+                                      ColorManager.primaryGreen.withOpacity(0.9),
+                                      ColorManager.softGreen.withOpacity(0.9)
+                                    ],
+                                  ),
+                                ],
                               ),
                             )
                           : state.screenState == ScreenState.error
@@ -579,6 +593,7 @@ class ProductDetailsBody extends StatelessWidget {
       product: A,
     );
   }
+
   AddProductToBasket buildAddToBasketNot(ProductdetailsState state) {
     List<ProductResponse> A = [];
     if (state.listSimilarProduct != null) {
@@ -639,4 +654,3 @@ class ProductDetailsBody extends StatelessWidget {
     );
   }
 }
-

@@ -25,15 +25,27 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
           BasketModel(basketList: []);
 
   int finalPrice() {
-    int totalTax = 0;
+    double totalTax = 0;
     int totalProduct = 0;
     for (int i = 0; i < productDetailsList.length; i++) {
+
       int reversedIndex = productInBasketList.length - 1 - i;
-      totalTax += productDetailsList[i].tax ?? 0;
-      totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") *
-          productInBasketList[reversedIndex].quantity);
+
+
+      // totalTax += (productDetailsList[i].tax ?? 0 *  int.parse(productDetailsList[i].discountPrice ?? "0"))/100;
+
+
+      totalTax += ((productDetailsList[i].tax ?? 0)/100) * int.parse(productDetailsList[i].discountPrice ?? "0");
+      print('#########');
+      print("discountPrice : ${int.parse(productDetailsList[i].discountPrice ?? "0")}");
+      print("tax : ${productDetailsList[i].tax ?? 0}");
+      print("totalTax : $totalTax");
+      print('#########');
+      totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") * productInBasketList[i].quantity);
     }
-    sum = totalProduct + totalTax;
+    print('##################');
+    print(totalTax);
+    sum = totalProduct + totalTax.toInt();
     return sum;
   }
 

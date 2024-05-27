@@ -47,13 +47,13 @@ class ClearBasket extends BasketEvent {}
 class SaveBasket extends BasketEvent {}
 
 class SaveIdToBasket extends BasketEvent {
-  int id;
+   final int id;
 
-  SaveIdToBasket(this.id);
+  const SaveIdToBasket(this.id);
 }
 
 class AddProductToBasket extends BasketEvent {
   final List<ProductResponse> product;
 
-  AddProductToBasket(this.product);
+  const AddProductToBasket(this.product);
 }

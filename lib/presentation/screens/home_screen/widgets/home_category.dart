@@ -32,7 +32,8 @@ class HomeCategory extends StatelessWidget {
           child: CustomSectionName(
             sectionName: title[appLang] ?? AppLocalizations.of(context)!.sections,
             onTap: () {
-              AppRouter.push(context, const ALlSectionScreen());
+
+              AppRouter.push(context,  ALlSectionScreen(categoriesList: categoriesList,));
             },
           ),
         ),
@@ -51,7 +52,10 @@ class HomeCategory extends StatelessWidget {
             itemBuilder: (context, index) {
               return CustomCategory(
                 onTap: () {
-                  AppRouter.push(context, const ALlSectionScreen());
+
+                  AppRouter.push(context,  ALlSectionScreen(
+                    categoriesList: categoriesList,
+                  ));
                 },
                 categoryImage: categoriesList[index].imageUrl,
                 categoryName: categoriesList[index].name != null

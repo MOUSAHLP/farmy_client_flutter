@@ -272,6 +272,8 @@
   "pleaseLogIn": "Please login to add items to your favorites",
   "returned": "Returned",
   "totalPrice": "Total price + delivery price + discount",
+  "totalPrice2": "Total price",
+  "total_price_without_delivery_with_tax": "Total Price Without Delivery With Tax",
   "minutes": "Minutes",
   "hour": "Hour",
   "select_hour": "Select Hour",

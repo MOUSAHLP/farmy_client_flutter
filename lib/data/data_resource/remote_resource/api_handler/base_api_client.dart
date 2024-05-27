@@ -23,12 +23,14 @@ class BaseApiClient {
   BaseApiClient() {
     client.interceptors.add(LogInterceptor());
     if (kDebugMode) {
-      client.interceptors.add(PrettyDioLogger(
+      client.interceptors.add(
+        PrettyDioLogger(
           error: true,
           requestBody: true,
           requestHeader: true,
-          // responseHeader: true,
-          request: true));
+          request: true,
+        ),
+      );
     }
     client.interceptors.add(ClientInterceptor());
     client.options.baseUrl = ApiConst.baseUrl;
@@ -91,7 +93,7 @@ class BaseApiClient {
       {required String url,
       FormData? formData,
       Map<String, dynamic>? queryParameters,
-        required T Function(dynamic) converter,
+      required T Function(dynamic) converter,
       dynamic returnOnError}) async {
     try {
       var response = await client.put(
@@ -138,23 +140,23 @@ class BaseApiClient {
     CancelToken? cancelToken,
   }) async {
     try {
-    var response = await client.get(
-      url,
-      queryParameters: queryParameters,
-      options: Options(
-        headers: _headers,
-      ),
-      cancelToken: cancelToken,
-    );
-    if (response.statusCode! >= 200 || response.statusCode! <= 205) {
-      if (kDebugMode) {
-        log(response.data.toString());
-        print(response);
+      var response = await client.get(
+        url,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: _headers,
+        ),
+        cancelToken: cancelToken,
+      );
+      if (response.statusCode! >= 200 || response.statusCode! <= 205) {
+        if (kDebugMode) {
+          log(response.data.toString());
+          print(response);
+        }
+        return right(converter(response.data));
+      } else {
+        return left(response.data['message']);
       }
-      return right(converter(response.data));
-    } else {
-      return left(response.data['message']);
-    }
     } on DioException catch (e) {
       if (e.type == DioExceptionType.cancel) {
         return left('cancel');

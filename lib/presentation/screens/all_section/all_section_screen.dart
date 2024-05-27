@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/all_section/widgets/custom_category_screen.dart';
 import 'package:pharma/presentation/screens/all_section/widgets/custom_sub_category_screen.dart';
@@ -18,18 +19,27 @@ import '../../resources/style_app.dart';
 import '../basket_screen/basket_screen.dart';
 
 class ALlSectionScreen extends StatelessWidget {
-  const ALlSectionScreen({Key? key}) : super(key: key);
+  final List<CategoriesResponse> categoriesList;
+
+  const ALlSectionScreen({Key? key, required this.categoriesList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => sl<CategoriesBloc>()..add(GetCaegoriesEvent()),
-        child: const ALlSectionScreenBody());
+        child: ALlSectionScreenBody(
+          categoriesList: categoriesList,
+        )
+    );
   }
 }
 
 class ALlSectionScreenBody extends StatefulWidget {
-  const ALlSectionScreenBody({Key? key}) : super(key: key);
+  final List<CategoriesResponse> categoriesList;
+
+  const ALlSectionScreenBody({Key? key, required this.categoriesList})
+      : super(key: key);
 
   @override
   State<ALlSectionScreenBody> createState() {
@@ -39,8 +49,20 @@ class ALlSectionScreenBody extends StatefulWidget {
 
 class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
     with TickerProviderStateMixin {
+  late List<Widget> tabs ;
   @override
   Widget build(BuildContext context) {
+    tabs = widget.categoriesList.map((categoryList) {
+      return Tab(
+        text: categoryList.name,
+      );
+    }).toList();
+    tabs.insert(
+      0,
+      const Tab(
+        text: "جميع المنتجات",
+      ),
+    );
     return BlocConsumer<CategoriesBloc, CategoriesState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -50,7 +72,8 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
 
         return SafeArea(
           child: Scaffold(
-            body: (state.screenState == ScreenState.loading && state.tabs.isEmpty)
+            body: (state.screenState == ScreenState.loading &&
+                    state.tabs.isEmpty)
                 ? const CustomLoadingWidget()
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -81,8 +104,7 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                                   .read<CategoriesBloc>()
                                   .add(AllProductsPageEvent());
                             }
-                          } else if (state.previousSubCategoryIndex ==
-                              index) {
+                          } else if (state.previousSubCategoryIndex == index) {
                             context.read<CategoriesBloc>().add(
                                   SubCategoryPageEvent(
                                     tabIndex: index,
@@ -100,7 +122,7 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                             }
                           }
                         },
-                        tabs: state.tabs,
+                        tabs: tabs,
                       ),
                       const SizedBox(
                         height: 10,
@@ -112,75 +134,74 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                             IndexedStack(
                               index: tabController.index,
                               children: [
-                                if (state.categoriesList.isNotEmpty)
+                                if (widget.categoriesList.isNotEmpty)
                                   CustomCategoryScreen(
-                                    categoriesList: state.categoriesList,
+                                    categoriesList: widget.categoriesList,
                                     tabController: tabController,
                                   ),
-                                ...state.categoriesList.map((title) {
-                                  return state.screenState == ScreenState.loading
+                                ...widget.categoriesList.map((title) {
+                                  return state.screenState ==
+                                          ScreenState.loading
                                       ? const CustomCategoryShimmer()
                                       : CustomSubCategoryScreen(
-                                          subCategoriesList: state.subCategoryList,
+                                          subCategoriesList:
+                                              state.subCategoryList,
                                           tabController: tabController,
                                         );
                                 }).toList()
                               ],
                             ),
                             context
-                                .read<BasketBloc>()
-                                .mutableProducts
-                                .isNotEmpty
+                                    .read<BasketBloc>()
+                                    .mutableProducts
+                                    .isNotEmpty
                                 ? Padding(
-                              padding:
-                              const EdgeInsets.all(20.0),
-                              child: InkWell(
-                                child: Container(
-                                  height: 40,
-                                  width: 1.sw - 100,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager
-                                          .primaryGreen,
-                                      borderRadius:
-                                      BorderRadius
-                                          .circular(6)),
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment
-                                          .center,
-                                      children: [
-                                        Text(
-                                            context
-                                                .read<
-                                                BasketBloc>()
-                                                .mutableProducts
-                                                .length
-                                                .toString(),
-                                            style: getBoldStyle(
-                                                color: Colors
-                                                    .white)),
-                                        const SizedBox(
-                                          width: 10,
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: InkWell(
+                                      child: Container(
+                                        height: 40,
+                                        width: 1.sw - 100,
+                                        decoration: BoxDecoration(
+                                            color: ColorManager.primaryGreen,
+                                            borderRadius:
+                                                BorderRadius.circular(6)),
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                context
+                                                    .read<BasketBloc>()
+                                                    .mutableProducts
+                                                    .length
+                                                    .toString(),
+                                                style: getBoldStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .view_basket,
+                                                style: getBoldStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        Text(
-                                            AppLocalizations.of(
-                                                context)!
-                                                .view_basket,
-                                            style: getBoldStyle(
-                                                color: Colors
-                                                    .white)),
-                                      ],
+                                      ),
+                                      onTap: () {
+                                        context.read<HomeBloc>().currentIndex =
+                                            2;
+                                        AppRouter.push(
+                                            context, const BasketScreen());
+                                      },
                                     ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  context.read<HomeBloc>().currentIndex = 2;
-                                  AppRouter.push(context,
-                                      const BasketScreen());
-                                },
-                              ),
-                            )
+                                  )
                                 : const SizedBox()
                           ],
                         ),

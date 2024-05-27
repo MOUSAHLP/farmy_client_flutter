@@ -6,17 +6,21 @@ import 'package:pharma/presentation/resources/style_app.dart';
 
 class CustomAppButton extends StatelessWidget {
   final EdgeInsetsGeometry padding;
-  final Function ()ontap;
+  final Function() ontap;
   final String myText;
   final double? width;
   final double? height;
-  const CustomAppButton(
-      {super.key,
-      required this.padding,  
-      required this.myText,
-      required this.ontap,
-      this.width,
-      this.height});
+  final List<Color> colors;
+
+  const CustomAppButton({
+    super.key,
+    required this.padding,
+    required this.myText,
+    required this.ontap,
+    this.width,
+    this.height,
+    required this.colors,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +30,14 @@ class CustomAppButton extends StatelessWidget {
         padding: padding,
         child: Container(
           width: width ?? 1.sw,
-          height: height ?? 47,
+          height: height ?? 47.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            gradient: const LinearGradient(
+            gradient:  LinearGradient(
+
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: <Color>[ColorManager.primaryGreen, ColorManager.softGreen],
+              colors: colors,
             ),
           ),
           child: Center(

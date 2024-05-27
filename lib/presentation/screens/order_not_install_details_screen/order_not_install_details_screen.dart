@@ -146,7 +146,7 @@ class OrderDetailsBody extends StatelessWidget {
                               width: 1.sw,
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius:  BorderRadius.only(
+                                  borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(22.0.r),
                                     topRight: Radius.circular(22.0.r),
                                   ),
@@ -158,7 +158,7 @@ class OrderDetailsBody extends StatelessWidget {
                                     height: 9,
                                   ),
                                   Text(
-                                    AppLocalizations.of(context)!.totalPrice,
+                                    AppLocalizations.of(context)!.total_price_without_delivery_with_tax,
                                     style: getBoldStyle(
                                       color: ColorManager.grayForMessage,
                                       fontSize: 14.sp,
@@ -167,10 +167,13 @@ class OrderDetailsBody extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(Formatter.formatPrice(state.totalPrice),
-                                          style: getBoldStyle(
-                                              color: ColorManager.primaryGreen,
-                                              fontSize: 24)),
+                                      Text(
+                                        Formatter.formatPrice(state.totalPrice),
+                                        style: getBoldStyle(
+                                          color: ColorManager.primaryGreen,
+                                          fontSize: 24.sp,
+                                        ),
+                                      ),
                                       const SizedBox(
                                         width: 2,
                                       ),
@@ -194,12 +197,17 @@ class OrderDetailsBody extends StatelessWidget {
                                         isEdit
                                             ? Expanded(
                                                 child: CustomButton(
-                                                  label:AppLocalizations.of(context)!.install,
+                                                  label: AppLocalizations.of(
+                                                          context)!
+                                                      .install,
                                                   fillColor:
                                                       ColorManager.primaryGreen,
                                                   onTap: () {
-                                                    context.read<BasketBloc>().add(
-                                                        SaveIdToBasket(0));
+                                                    context
+                                                        .read<BasketBloc>()
+                                                        .add(
+                                                            const SaveIdToBasket(
+                                                                0));
                                                     checkIsOpening(context) ==
                                                             true
                                                         ? context
@@ -221,13 +229,15 @@ class OrderDetailsBody extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: CustomButton(
-                                            label: AppLocalizations.of(context)!.back,
+                                            label: AppLocalizations.of(context)!
+                                                .back,
                                             fillColor:
                                                 ColorManager.primaryGreen,
                                             labelColor: Colors.white,
                                             onTap: () {
-                                              context.read<BasketBloc>().add(
-                                                  SaveIdToBasket(0));
+                                              context
+                                                  .read<BasketBloc>()
+                                                  .add(const SaveIdToBasket(0));
                                               AppRouter.pop(context);
                                               // SystemNavigator.pop();
                                             },
@@ -238,12 +248,15 @@ class OrderDetailsBody extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: CustomButton(
-                                            label: AppLocalizations.of(context)!.add_product,
+                                            label: AppLocalizations.of(context)!
+                                                .add_product,
                                             fillColor:
                                                 ColorManager.primaryGreen,
                                             labelColor: Colors.white,
                                             onTap: () {
-                                              context.read<HomeBloc>().currentIndex = 0;
+                                              context
+                                                  .read<HomeBloc>()
+                                                  .currentIndex = 0;
                                               context.read<BasketBloc>().add(
                                                   SaveIdToBasket(idBasket));
                                               AppRouter.push(
@@ -295,5 +308,5 @@ class OrderDetailsBody extends StatelessWidget {
       return false;
     }
     return false;
-  }}
-
+  }
+}

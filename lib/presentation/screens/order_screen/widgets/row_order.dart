@@ -25,7 +25,7 @@ class RowOrder extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2),
           child: Text(
-            ":",
+            ": ",
             style: getBoldStyle(
               color: Colors.black,
               fontSize: 11.sp,

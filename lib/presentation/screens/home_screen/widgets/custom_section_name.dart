@@ -7,6 +7,7 @@ import 'package:pharma/translations.dart';
 class CustomSectionName extends StatelessWidget {
   final String sectionName;
   final Function()? onTap;
+
   const CustomSectionName(
       {super.key, required this.sectionName, required this.onTap});
 
@@ -23,9 +24,11 @@ class CustomSectionName extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Text(
-AppLocalizations.of(context)!.show_more,
+            AppLocalizations.of(context)!.show_more,
             style: getBoldStyle(
-                color: ColorManager.grayForMessage, fontSize: FontSizeApp.s13),
+              color: ColorManager.grayForMessage,
+              fontSize: FontSizeApp.s13,
+            ),
           ),
         )
       ],

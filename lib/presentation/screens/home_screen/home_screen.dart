@@ -29,8 +29,10 @@ import 'package:pharma/translations.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import '../basket_screen/basket_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -56,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       titleError: state.error),
                 );
-              } else if (state.screenState == ScreenState.success || state.screenState == ScreenState.loadMoreData) {
+              } else if (state.screenState == ScreenState.success ||
+                  state.screenState == ScreenState.loadMoreData) {
                 context.read<LocationBloc>().state.addressCurrent = context
                     .read<HomeBloc>()
                     .homePageDynamicModel!
@@ -64,7 +67,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     .userAddressModel!;
                 Future.delayed(
                   Duration.zero,
-                      () => checkIsOpening(context) ? null: TimeWorkDialog().openDialog(context) ,
+                  () => checkIsOpening(context)
+                      ? null
+                      : TimeWorkDialog().openDialog(context),
                 );
                 return Expanded(
                   child: Column(
@@ -87,7 +92,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           children: [
                             ListView(
                               physics: const AlwaysScrollableScrollPhysics(),
-                              controller: context.read<HomeBloc>().scrollController,
+                              controller:
+                                  context.read<HomeBloc>().scrollController,
                               shrinkWrap: true,
                               children: [
                                 ListView.builder(
@@ -98,10 +104,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       .homePageDynamicModel!
                                       .length,
                                   itemBuilder: (context, index) {
-                                    return BlocBuilder<LanguageBloc, LanguageState>(builder: (context, languageState) {List<HomePageDynamicModel>homePageDynamicModel = context.read<HomeBloc>().homePageDynamicModel!;
+                                    return BlocBuilder<LanguageBloc,
+                                            LanguageState>(
+                                        builder: (context, languageState) {
+                                      List<HomePageDynamicModel>
+                                          homePageDynamicModel = context
+                                              .read<HomeBloc>()
+                                              .homePageDynamicModel!;
                                       return Column(
                                         children: [
-                                          if (homePageDynamicModel[index].type ==
+                                          if (homePageDynamicModel[index]
+                                                  .type ==
                                               "category")
                                             HomeCategory(
                                               title: homePageDynamicModel[index]
@@ -110,17 +123,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                   homePageDynamicModel[index]
                                                       .categoryContent!,
                                             ),
-                                          if (homePageDynamicModel[index].type ==
+                                          if (homePageDynamicModel[index]
+                                                  .type ==
                                               "section")
                                             HomeSection(
                                               title: homePageDynamicModel[index]
                                                   .title!,
                                               sectionId:
-                                                  homePageDynamicModel[index].id!,
+                                                  homePageDynamicModel[index]
+                                                      .id!,
                                               list: homePageDynamicModel[index]
                                                   .sectionContent!,
                                             ),
-                                          if (homePageDynamicModel[index].type ==
+                                          if (homePageDynamicModel[index]
+                                                  .type ==
                                               "slider")
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -143,109 +159,117 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 context.read<HomeBloc>().buildListViewFooter(),
                               ],
                             ),
-                            context.read<BasketBloc>().state.idbasket!=0?
-                            Padding(
-                              padding:
-                              const EdgeInsets.all(20.0),
-                              child: InkWell(
-                                child: Container(
-                                  height: 40,
-                                  width: 1.sw - 100,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager
-                                          .primaryGreen,
-                                      borderRadius:
-                                      BorderRadius
-                                          .circular(6)),
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment
-                                          .center,
-                                      children: [
-                                        Text(
-                                            context
-                                                .read<
-                                                BasketBloc>()
-                                                .countProduct(context.read<BasketBloc>().state.idbasket).toString(),
-                                            style: getBoldStyle(
-                                                color: Colors
-                                                    .white)),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(AppLocalizations.of(context)!.view_draft_items,
-                                            style: getBoldStyle(
-                                                color: Colors
-                                                    .white)),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  context.read<BasketBloc>().add(
-                                      SaveIdToBasket(0));
-                                  context.read<HomeBloc>().currentIndex = 3;
-                                  context.read<MyOrderBloc>().state.indexTap= 0;
-                                  AppRouter.push(context,
-                                      const OrderScreen());
-                                },
-                              ),
-                            ):context
-                                .read<BasketBloc>()
-                                .mutableProducts
-                                .isNotEmpty
+                            context.read<BasketBloc>().state.idbasket != 0
                                 ? Padding(
-                              padding:
-                              const EdgeInsets.all(20.0),
-                              child: InkWell(
-                                child: Container(
-                                  height: 40,
-                                  width: 1.sw - 100,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager
-                                          .primaryGreen,
-                                      borderRadius:
-                                      BorderRadius
-                                          .circular(6)),
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment
-                                          .center,
-                                      children: [
-                                        Text(
-                                            context
-                                                .read<
-                                                BasketBloc>()
-                                                .mutableProducts
-                                                .length
-                                                .toString(),
-                                            style: getBoldStyle(
-                                                color: Colors
-                                                    .white)),
-                                        const SizedBox(
-                                          width: 10,
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: InkWell(
+                                      child: Container(
+                                        height: 40,
+                                        width: 1.sw - 100,
+                                        decoration: BoxDecoration(
+                                            color: ColorManager.primaryGreen,
+                                            borderRadius:
+                                                BorderRadius.circular(6)),
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                  context
+                                                      .read<BasketBloc>()
+                                                      .countProduct(context
+                                                          .read<BasketBloc>()
+                                                          .state
+                                                          .idbasket)
+                                                      .toString(),
+                                                  style: getBoldStyle(
+                                                      color: Colors.white)),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                  AppLocalizations.of(context)!
+                                                      .view_draft_items,
+                                                  style: getBoldStyle(
+                                                      color: Colors.white)),
+                                            ],
+                                          ),
                                         ),
-                                        Text(
-                                            AppLocalizations.of(
-                                                context)!
-                                                .view_basket,
-                                            style: getBoldStyle(
-                                                color: Colors
-                                                    .white)),
-                                      ],
+                                      ),
+                                      onTap: () {
+                                        context
+                                            .read<BasketBloc>()
+                                            .add(SaveIdToBasket(0));
+                                        context.read<HomeBloc>().currentIndex =
+                                            3;
+                                        context
+                                            .read<MyOrderBloc>()
+                                            .state
+                                            .indexTap = 0;
+                                        AppRouter.push(
+                                            context, const OrderScreen());
+                                      },
                                     ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  context.read<HomeBloc>().currentIndex = 2;
-                                  AppRouter.push(context,
-                                      const BasketScreen());
-                                },
-                              ),
-                            )
-                                : const SizedBox()
+                                  )
+                                : context
+                                        .read<BasketBloc>()
+                                        .mutableProducts
+                                        .isNotEmpty
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsetsDirectional.only(
+                                          start: 74,
+                                          end: 74,
+                                          bottom: 10,
+                                          top: 10,
+                                        ),
+                                        child: InkWell(
+                                          child: Container(
+                                            width: 1.sw,
+                                            height: 47.h,
+                                            decoration: BoxDecoration(
+                                              color: ColorManager.primaryGreen
+                                                  .withOpacity(.9),
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                            child: Center(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                      context
+                                                          .read<BasketBloc>()
+                                                          .mutableProducts
+                                                          .length
+                                                          .toString(),
+                                                      style: getBoldStyle(
+                                                          color: Colors.white)),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .view_basket,
+                                                      style: getBoldStyle(
+                                                          color: Colors.white)),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            context
+                                                .read<HomeBloc>()
+                                                .currentIndex = 2;
+                                            AppRouter.push(
+                                                context, const BasketScreen());
+                                          },
+                                        ),
+                                      )
+                                    : const SizedBox()
                           ],
                         ),
                       ),
@@ -266,7 +290,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   bool checkIsOpening(BuildContext context) {
     DateTime dateTime = DateTime.now();
-    List<String> endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
+    List<String> endTime =
+        (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime)
+            .split(":");
     // print("======================================================================");
     // print(dateTime.hour);
     // print("======================================================================");

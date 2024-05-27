@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_bloc.dart';
+import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/row_order.dart';
+import 'package:pharma/presentation/widgets/dialogs/time_work_not_install_dialog.dart';
 import 'package:pharma/translations.dart';
 import '../../../../bloc/my_order_bloc/my_order_event.dart';
 import '../../../../models/params/get_basket_params.dart';
@@ -52,12 +55,10 @@ class BasketNotInstallCard extends StatelessWidget {
                         SizedBox(height: 5.h),
                         RowOrder(
                           title: AppLocalizations.of(context)!.number_of_orders,
-                          details: myOrder.products.length.toString(),
+                          details: "${myOrder.products.length} طلبات",
                         ),
-                        SizedBox(height: 15.0.h),
-                        RowOrder(
-                            title:"رقم السلة",
-                            details: myOrder.id.toString()),
+                        SizedBox(height: 10.0.h),
+
                         const SizedBox(height: 10),
                       ],
                     ),
@@ -87,6 +88,7 @@ class BasketNotInstallCard extends StatelessWidget {
                             },
                           ),
                         ),
+
                         const SizedBox(width: 3),
                         Expanded(
                           child: CustomButton(
@@ -121,5 +123,30 @@ class BasketNotInstallCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  bool checkIsOpening(BuildContext context) {
+    DateTime dateTime = DateTime.now();
+    List<String> endTime =
+        (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime)
+            .split(":");
+    print(
+        "======================================================================");
+    print(dateTime.hour);
+    print(
+        "======================================================================");
+    print(endTime[0]);
+    print(
+        "======================================================================");
+    if (int.parse(endTime[0]) > dateTime.hour) {
+      return true;
+    } else if (int.parse(endTime[0]) == dateTime.hour) {
+      if (int.parse(endTime[1]) > dateTime.minute) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+    return false;
   }
 }
