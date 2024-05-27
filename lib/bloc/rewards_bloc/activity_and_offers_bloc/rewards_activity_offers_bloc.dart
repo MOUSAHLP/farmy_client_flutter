@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_event.dart';
 import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_state.dart';
@@ -14,6 +16,7 @@ class RewardsActivityAndOffersBloc
           rewardsActivityStateEnum: RewardsActivityStateEnum.activity,
           rewardsActivityAndOffersSuccess: false,
           rewardsActivityAndOffersLoading: false,
+          rewardsActivityAndOffersHasError: false,
           rewardsActivityAndOffersError: '',
         )) {
     on<RewardsActivityAndOffersEvent>(
@@ -34,13 +37,20 @@ class RewardsActivityAndOffersBloc
         }
 
         if (event is BuyCoupon) {
+          log("BuyCoupon");
+          emit(state.copyWith(
+              rewardsActivityAndOffersLoading: true,
+              rewardsActivityAndOffersHasError: false));
 
-          emit(state.copyWith(rewardsActivityAndOffersLoading: true));
-
-          var response = await RewardsRepo.buyCoupon(buyCouponParams: event.buyCouponParams);
+          var response = await RewardsRepo.buyCoupon(
+              buyCouponParams: event.buyCouponParams);
           response.fold(
             (l) {
-              emit(state.copyWith(rewardsActivityAndOffersError: l,rewardsActivityAndOffersSuccess: true));
+              print("l : $l");
+              emit(state.copyWith(
+                  rewardsActivityAndOffersError: l,
+                  rewardsActivityAndOffersHasError: true,
+                  rewardsActivityAndOffersSuccess: true));
             },
             (r) {
               emit(

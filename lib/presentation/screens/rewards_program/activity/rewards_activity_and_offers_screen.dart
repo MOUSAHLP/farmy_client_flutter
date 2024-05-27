@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,14 +14,26 @@ import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewa
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_row.dart';
 import 'package:pharma/translations.dart';
+import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
 
 class RewardsActivityAndOffersScreen extends StatelessWidget {
   const RewardsActivityAndOffersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RewardsActivityAndOffersBloc, RewardsActivityAndOffersState>(
+    return BlocConsumer<RewardsActivityAndOffersBloc,
+        RewardsActivityAndOffersState>(
+      listener: (context, state) {
+        print(state.rewardsActivityAndOffersError);
+        print(
+            "state state state state state state state state state state state state");
+        if (state.rewardsActivityAndOffersHasError) {
+          // LoadingDialog().closeDialog(context);
+          ErrorDialog.openDialog(context, state.rewardsActivityAndOffersError);
+        }
+      },
       builder: (context, state) {
+        log("state $state");
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: PaddingApp.p16.w,
@@ -31,7 +45,9 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        context.read<RewardsActivityAndOffersBloc>().add(GetActivityRewards());
+                        context
+                            .read<RewardsActivityAndOffersBloc>()
+                            .add(GetActivityRewards());
                         context.read<RewardsActivityAndOffersBloc>().add(
                               ChangeTabActivityEvent(
                                 currentScreen:
@@ -51,7 +67,9 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        context.read<RewardsActivityAndOffersBloc>().add(GetOffersRewards());
+                        context
+                            .read<RewardsActivityAndOffersBloc>()
+                            .add(GetOffersRewards());
                         context.read<RewardsActivityAndOffersBloc>().add(
                               ChangeTabActivityEvent(
                                 currentScreen: RewardsActivityStateEnum.offers,
@@ -70,7 +88,9 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        context.read<RewardsActivityAndOffersBloc>().add(GetMyCouponRewards());
+                        context
+                            .read<RewardsActivityAndOffersBloc>()
+                            .add(GetMyCouponRewards());
                         context.read<RewardsActivityAndOffersBloc>().add(
                               ChangeTabActivityEvent(
                                 currentScreen:
@@ -94,7 +114,9 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
                   shrinkWrap: true,
                   children: [
                     SizedBox(height: 10.h),
-                    if (context.read<RewardsActivityAndOffersBloc>().currentScreen ==
+                    if (context
+                            .read<RewardsActivityAndOffersBloc>()
+                            .currentScreen ==
                         RewardsActivityStateEnum.activity) ...[
                       RewardsActivityContainer(
                         rewardsActivityAndOffersBloc:

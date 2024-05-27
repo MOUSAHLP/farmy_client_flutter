@@ -6,6 +6,7 @@ import 'package:pharma/models/reward/reward_offers_coupons_model.dart';
 
 class RewardsActivityAndOffersState extends Equatable {
   final bool rewardsActivityAndOffersSuccess;
+  final bool rewardsActivityAndOffersHasError;
   final String rewardsActivityAndOffersError;
   final bool rewardsActivityAndOffersLoading;
   final RewardMyCouponsModel? rewardMyCouponsModel;
@@ -16,6 +17,7 @@ class RewardsActivityAndOffersState extends Equatable {
   const RewardsActivityAndOffersState({
     required this.rewardsActivityAndOffersSuccess,
     required this.rewardsActivityAndOffersLoading,
+    required this.rewardsActivityAndOffersHasError,
     required this.rewardsActivityAndOffersError,
     required this.rewardsActivityStateEnum,
     this.rewardMyCouponsModel,
@@ -26,6 +28,7 @@ class RewardsActivityAndOffersState extends Equatable {
   RewardsActivityAndOffersState copyWith({
     bool? rewardsActivityAndOffersSuccess,
     bool? rewardsActivityAndOffersLoading,
+    bool? rewardsActivityAndOffersHasError,
     String? rewardsActivityAndOffersError,
     RewardMyCouponsModel? rewardMyCouponsModel,
     RewardCouponsActivityModel? rewardCouponsActivityModel,
@@ -37,6 +40,8 @@ class RewardsActivityAndOffersState extends Equatable {
           this.rewardsActivityAndOffersLoading,
       rewardsActivityAndOffersSuccess: rewardsActivityAndOffersSuccess ??
           this.rewardsActivityAndOffersSuccess,
+      rewardsActivityAndOffersHasError: rewardsActivityAndOffersHasError ??
+          this.rewardsActivityAndOffersHasError,
       rewardsActivityAndOffersError:
           rewardsActivityAndOffersError ?? this.rewardsActivityAndOffersError,
       rewardCouponsActivityModel:
@@ -52,6 +57,7 @@ class RewardsActivityAndOffersState extends Equatable {
   List<Object?> get props => [
         rewardsActivityAndOffersSuccess,
         rewardsActivityAndOffersLoading,
+        rewardsActivityAndOffersHasError,
         rewardsActivityAndOffersError,
         rewardMyCouponsModel,
         rewardsOffersModel,
