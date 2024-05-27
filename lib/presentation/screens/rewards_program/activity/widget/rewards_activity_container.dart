@@ -42,8 +42,8 @@ class RewardsActivityContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                rewardsActivityAndOffersBloc.state.rewardCouponsActivityModel!
-                    .data[index].achievement,
+                rewardsActivityAndOffersBloc
+                    .state.rewardCouponsActivityModel!.data[index].achievement,
                 style: getUnderBoldStyle(
                   color: ColorManager.grayForMessage,
                   fontSize: FontSizeApp.s14.sp,
@@ -63,8 +63,8 @@ class RewardsActivityContainer extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                rewardsActivityAndOffersBloc.state.rewardCouponsActivityModel!
-                    .data[index].description,
+                rewardsActivityAndOffersBloc
+                    .state.rewardCouponsActivityModel!.data[index].description,
                 style: getRegularStyle(
                     color: ColorManager.grayForMessage,
                     fontSize: FontSizeApp.s14),
@@ -78,11 +78,8 @@ class RewardsActivityContainer extends StatelessWidget {
                 children: [
                   for (int i = 0;
                       i <
-                          rewardsActivityAndOffersBloc
-                              .state
-                              .rewardCouponsActivityModel!
-                              .data[index]
-                              .segments;
+                          rewardsActivityAndOffersBloc.state
+                              .rewardCouponsActivityModel!.data[index].segments;
                       i++) ...[
                     RewardsProgressContainer(
                       active: rewardsActivityAndOffersBloc
@@ -100,7 +97,8 @@ class RewardsActivityContainer extends StatelessWidget {
             ],
           ),
         ),
-        itemCount: rewardsActivityAndOffersBloc.state.rewardCouponsActivityModel!.data.length,
+        itemCount: rewardsActivityAndOffersBloc
+            .state.rewardCouponsActivityModel!.data.length,
       );
     }
     return const Center(
