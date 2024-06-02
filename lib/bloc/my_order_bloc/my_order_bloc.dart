@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_event.dart';
@@ -28,20 +30,20 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
     double totalTax = 0;
     int totalProduct = 0;
     for (int i = 0; i < productDetailsList.length; i++) {
-
       int reversedIndex = productInBasketList.length - 1 - i;
-
 
       // totalTax += (productDetailsList[i].tax ?? 0 *  int.parse(productDetailsList[i].discountPrice ?? "0"))/100;
 
-
-      totalTax += ((productDetailsList[i].tax ?? 0)/100) * int.parse(productDetailsList[i].discountPrice ?? "0");
+      totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
+          int.parse(productDetailsList[i].discountPrice ?? "0");
       print('#########');
-      print("discountPrice : ${int.parse(productDetailsList[i].discountPrice ?? "0")}");
+      print(
+          "discountPrice : ${int.parse(productDetailsList[i].discountPrice ?? "0")}");
       print("tax : ${productDetailsList[i].tax ?? 0}");
       print("totalTax : $totalTax");
       print('#########');
-      totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") * productInBasketList[i].quantity);
+      totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") *
+          productInBasketList[i].quantity);
     }
     print('##################');
     print(totalTax);
@@ -108,7 +110,6 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
             .products) {
           productInBasketList.add(product);
         }
-
         emit(state.copyWith(screenStates: ScreenStates.loading));
         List<int> listIdProduct = [];
 
@@ -186,6 +187,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
               .any((element) => element.id == productInBasket.productId)) {
             int indexProductDetailsList = productDetailsList.indexWhere(
                 (element) => element.id == productInBasket.productId);
+
             int indexProductInBasketList = productInBasketList.indexWhere(
                 (element) =>
                     element.productId ==
@@ -204,6 +206,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
             ),
           ),
         );
+
         var response =
             await BasketRepo.getPaymentDetailBasket(productDetailsList);
         response.fold(
@@ -234,7 +237,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
         final response = await MyOrderRepository.getMyOrderHistory();
         print("11111111111111111111");
         response.fold((l) {
-        print("22222222222222222");
+          print("22222222222222222");
           emit(
             state.copyWith(screenStates: ScreenStates.error, error: l),
           );
