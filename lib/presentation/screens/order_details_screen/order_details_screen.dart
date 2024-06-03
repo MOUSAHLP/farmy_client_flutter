@@ -210,6 +210,7 @@ class OrderDetailsBody extends StatelessWidget {
                                             ? const SizedBox()
                                             : Expanded(
                                                 child: CustomButton(
+
                                                   label: AppLocalizations.of(
                                                           context)!
                                                       .download_pdf,

@@ -7,8 +7,8 @@ import 'package:pharma/models/payment_process_response.dart';
 import '../../models/product_response.dart';
 
 class BasketRepo {
-  Future<Either<String, PaymentProcessResponse>> getPaymentDetails(
-      PaymentProcessParams paymentProcessParams) {
+
+  Future<Either<String, PaymentProcessResponse>> getPaymentDetails(PaymentProcessParams paymentProcessParams) {
     return BaseApiClient.post<PaymentProcessResponse>(
         formData: paymentProcessParams.toJson(),
         url: ApiConst.getPaymentDetails,
@@ -27,4 +27,5 @@ class BasketRepo {
           return PaymentProcessResponse.fromJson(e["data"]);
         });
   }
+
 }

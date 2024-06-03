@@ -85,8 +85,7 @@ class ProductResponse {
           );
   }
 
-  static Map<String, dynamic> toJsonCard(
-      ProductResponse productDetailsResponse) {
+  static Map<String, dynamic> toJsonCard(ProductResponse productDetailsResponse) {
     return {
       "product_id": productDetailsResponse.id,
       "quantity": productDetailsResponse.quantity

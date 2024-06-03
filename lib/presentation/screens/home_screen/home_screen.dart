@@ -40,8 +40,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    print("context.read<MyOrderBloc>().state.idBasket");
-    print(context.read<BasketBloc>().state.idbasket);
+
 
     return BaseScreenScaffold(
       body: Column(
@@ -58,8 +57,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       titleError: state.error),
                 );
-              } else if (state.screenState == ScreenState.success ||
-                  state.screenState == ScreenState.loadMoreData) {
+              } else if (state.screenState == ScreenState.success || state.screenState == ScreenState.loadMoreData) {
                 context.read<LocationBloc>().state.addressCurrent = context
                     .read<HomeBloc>()
                     .homePageDynamicModel!
@@ -290,9 +288,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   bool checkIsOpening(BuildContext context) {
     DateTime dateTime = DateTime.now();
-    List<String> endTime =
-        (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime)
-            .split(":");
+    List<String> endTime = [];
+    if(context.read<SettingBloc>().settingModel!=null) {
+       endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
+    }
     // print("======================================================================");
     // print(dateTime.hour);
     // print("======================================================================");

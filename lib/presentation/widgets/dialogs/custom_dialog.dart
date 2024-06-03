@@ -20,6 +20,7 @@ class CustomDialog extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 Container(
+
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadiusDirectional.all(
                       Radius.circular(20),
@@ -28,7 +29,7 @@ class CustomDialog extends StatelessWidget {
                     border: Border.all(color: Colors.white),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: content,
                   ),
                 ),

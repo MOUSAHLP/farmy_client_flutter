@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
+import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
@@ -15,6 +16,7 @@ import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/bloc/setting_bloc/setting_event.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_bloc.dart';
 import 'package:pharma/bloc/tracking_bloc/tracking_event.dart';
+import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
 import 'package:pharma/main.dart';
 import 'package:pharma/presentation/screens/auth_screen/account_screen.dart';
@@ -42,7 +44,6 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       minTextAdapt: true,
       designSize: MediaQuery.of(context).size,
-
       builder: (context, ctx) {
         return MultiBlocProvider(
           providers: [
@@ -64,7 +65,15 @@ class _MyAppState extends State<MyApp> {
             ),
             BlocProvider(create: (BuildContext context) => sl<PaymentBloc>()),
             BlocProvider(create: (BuildContext context) => sl<MyOrderBloc>()),
-            BlocProvider(create: (BuildContext context) => sl<TrackingBloc>()..add(const GetOrderStatus())),
+            BlocProvider(
+                create: (BuildContext context) =>
+                    sl<TrackingBloc>()..add(const GetOrderStatus())),
+            BlocProvider(
+                create: (BuildContext context) =>
+                    sl<CategoriesBloc>()..add(GetCaegoriesEvent())),
+            BlocProvider(
+                create: (BuildContext context) =>
+                    sl<AuthenticationBloc>()..add(AppStarted())),
           ],
           child: OverlaySupport.global(
             child: GestureDetector(
@@ -77,8 +86,7 @@ class _MyAppState extends State<MyApp> {
                 }
               },
               child: BlocBuilder<LanguageBloc, LanguageState>(
-                  builder: (context, state) {
-                if (true) {
+                builder: (context, state) {
                   return MaterialApp(
                       navigatorKey: navigatorKey,
                       debugShowCheckedModeBanner: false,
@@ -91,32 +99,31 @@ class _MyAppState extends State<MyApp> {
                         GlobalCupertinoLocalizations.delegate,
                         GlobalWidgetsLocalizations.delegate,
                       ],
-                      home:
-                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                        bloc: sl<AuthenticationBloc>()..add(AppStarted()),
+                      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        // bloc: sl<AuthenticationBloc>()..add(AppStarted()),
                         builder: (context, state) {
                           switch (state.authenticationScreen) {
-                            case AuthenticationScreenStates
-                                  .authenticationAuthenticated:
+                            case AuthenticationScreenStates.authenticationAuthenticated:
+                              print('HomeScreen');
                               return const HomeScreen();
-
                             case AuthenticationScreenStates
                                   .authenticationUnauthenticated:
+                              print('OnBoardingView');
                               return const OnBoardingView();
-
                             case AuthenticationScreenStates
                                   .authenticationLoggedOut:
+                              print('AccountScreen');
                               return const AccountScreen();
-
                             default:
+                              print('SplashScrfhfdhfdhdeen');
                               return const SplashScreen();
                           }
                         },
                       )
                       // home:  NotificationScreen(),
                       );
-                }
-              }),
+                },
+              ),
             ),
           ),
         );

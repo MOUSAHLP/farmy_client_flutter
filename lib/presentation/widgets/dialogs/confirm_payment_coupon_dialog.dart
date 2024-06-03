@@ -17,15 +17,15 @@ import 'package:pharma/translations.dart';
 import '../../../bloc/home_bloc/home_bloc.dart';
 import '../../../core/app_router/app_router.dart';
 
-class ConfirmPaymentOrderDialog {
-  static final ConfirmPaymentOrderDialog _loadingDialog =
-      ConfirmPaymentOrderDialog._internal();
+class ConfirmPaymentCouponDialog {
+  static final ConfirmPaymentCouponDialog _loadingDialog =
+      ConfirmPaymentCouponDialog._internal();
 
-  factory ConfirmPaymentOrderDialog() {
+  factory ConfirmPaymentCouponDialog() {
     return _loadingDialog;
   }
 
-  ConfirmPaymentOrderDialog._internal();
+  ConfirmPaymentCouponDialog._internal();
 
   bool _isShown = false;
 
@@ -36,24 +36,21 @@ class ConfirmPaymentOrderDialog {
     }
   }
 
-  void openDialog(BuildContext context, String? message, String? supMessage, {required Function() onTap}) {
+  void openDialog(BuildContext context, String? message,) {
     _isShown = true;
     dialogTransitionBuilder(
-        context,
-        _ConfirmPaymentOrderDialogBody(
-          message: message!,
-          supMessage: supMessage!,
-          onTap: onTap,
-        )).whenComplete(() => _isShown = false);
+      context,
+      _ConfirmPaymentOrderDialogBody(
+        message: message!,
+      ),
+    ).whenComplete(() => _isShown = false);
   }
 }
 
 class _ConfirmPaymentOrderDialogBody extends StatefulWidget {
   final String message;
-  final String supMessage;
-  final Function() onTap;
 
-  const _ConfirmPaymentOrderDialogBody({required this.message, required this.onTap, required this.supMessage});
+  const _ConfirmPaymentOrderDialogBody({required this.message});
 
   @override
   State<_ConfirmPaymentOrderDialogBody> createState() =>
@@ -94,21 +91,17 @@ class _ConfirmPaymentOrderDialogBodyState
               },
             ),
           ),
-          SizedBox(height: 6.h),
-          Text(
-            widget.message,
-            style: getBoldStyle(
-              color: ColorManager.grayForSearchProduct,
-              fontSize: FontSizeApp.s12.sp,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 10,
             ),
-          ),
-          SizedBox(height: 10.h),
-          Text(
-            textAlign: TextAlign.center,
-            widget.supMessage,
-            style: getBoldStyle(
-              color: ColorManager.grayForSearchProduct,
-              fontSize: FontSizeApp.s12.sp,
+            child: Text(
+              widget.message,
+              style: getBoldStyle(
+                color: ColorManager.primaryGreen,
+                fontSize: FontSizeApp.s14,
+              ),
             ),
           ),
           Padding(
@@ -117,38 +110,21 @@ class _ConfirmPaymentOrderDialogBodyState
               children: [
                 Expanded(
                   child: CustomButton(
-                    label: AppLocalizations.of(context)!.confirm,
+                    label: AppLocalizations.of(context)!.done,
                     fillColor: ColorManager.lightGreen,
-                    onTap: widget.onTap,
-                    // onTap: () {
-                    //   ConfirmPaymentOrderDialog().closeDialog(context);
-                    // },
+                    onTap: () {
+                      ConfirmPaymentCouponDialog().closeDialog(context);
+                    },
                   ),
                 ),
                 const SizedBox(
                   width: 16,
                 ),
-                Expanded(
-                  child: CustomButton(
-                    borderColor: ColorManager.primaryGreen,
-                    labelColor: ColorManager.primaryGreen,
-                    isFilled: true,
-                    fillColor: ColorManager.white,
-                    label: AppLocalizations.of(context)!.back,
-                    onTap: () {
-                      context.read<HomeBloc>().currentIndex = 0;
-                      AppRouter.pushAndRemoveAllStack(
-                        context,
-                        const HomeScreen(),
-                      );
-                    },
-                  ),
-                ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 5,
+           SizedBox(
+            height: 5.h,
           ),
         ],
       ),

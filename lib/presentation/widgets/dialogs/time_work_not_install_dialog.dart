@@ -11,13 +11,14 @@ import '../../../core/app_router/app_router.dart';
 import '../../../translations.dart';
 
 class TimeWorkNotInstallDialog {
-  static final TimeWorkNotInstallDialog _loadingDialog = TimeWorkNotInstallDialog._internal();
+ final Function() onTap;
+  static final TimeWorkNotInstallDialog _loadingDialog = TimeWorkNotInstallDialog._internal(onTap: () {  });
 
   factory TimeWorkNotInstallDialog() {
     return _loadingDialog;
   }
 
-  TimeWorkNotInstallDialog._internal();
+  TimeWorkNotInstallDialog._internal({required this.onTap});
 
   bool _isShown = false;
 
@@ -28,15 +29,19 @@ class TimeWorkNotInstallDialog {
     }
   }
 
-  void openDialog(BuildContext context) {
+  void openDialog(BuildContext context,  Function() onTap) {
     _isShown = true;
-    dialogTransitionBuilder(context, const _LoadingDialogBody())
+
+
+    dialogTransitionBuilder(context,  _LoadingDialogBody(onTap:  onTap,))
         .whenComplete(() => _isShown = false);
   }
 }
 
 class _LoadingDialogBody extends StatelessWidget {
-  const _LoadingDialogBody({Key? key}) : super(key: key);
+  final Function() onTap;
+
+  const _LoadingDialogBody({Key? key, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +84,11 @@ class _LoadingDialogBody extends StatelessWidget {
                   ],
                   padding: EdgeInsetsDirectional.symmetric(horizontal: 110.w),
                   myText: AppLocalizations.of(context)!.order_scheduling,
-                  ontap: () {
-                    TimeWorkNotInstallDialog().closeDialog(context);
-                  },
+                  ontap: onTap,
+                  // ontap: () {
+                  //
+                  //   TimeWorkNotInstallDialog().closeDialog(context);
+                  // },
                 ),
               ],
             ),

@@ -79,10 +79,12 @@ class _OrderScreenBodyState extends State<OrderScreenBody>
                     if (state.successDelete) {
                       context.read<MyOrderBloc>().add(GetMyOrder());
                     }
-                  }, builder: (context, state) {
+                  },
+                    builder: (context, state) {
                     if (state.screenStates == ScreenStates.loading) {
                       return const BuildShimmerOrders();
-                    } else if (state.screenStates == ScreenStates.error) {
+                    }
+                    else if (state.screenStates == ScreenStates.error) {
                       return Center(
                         child: CustomErrorScreen(
                           onTap: () {
@@ -91,7 +93,8 @@ class _OrderScreenBodyState extends State<OrderScreenBody>
                           titleError: state.error,
                         ),
                       );
-                    } else if (state.screenStates == ScreenStates.success) {
+                    }
+                    else if (state.screenStates == ScreenStates.success) {
                       return Column(
                         children: [
                           Container(
@@ -105,8 +108,7 @@ class _OrderScreenBodyState extends State<OrderScreenBody>
                             ),
                             child: TabBar(
                               indicatorSize: TabBarIndicatorSize.tab,
-                              controller:
-                                  context.read<MyOrderBloc>().tabController,
+                              controller: context.read<MyOrderBloc>().tabController,
                               tabs: [
                                 Tab(
                                   child: FittedBox(

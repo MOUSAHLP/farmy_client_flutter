@@ -36,7 +36,7 @@ class _AccountScreenState extends State<AccountScreen>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 800),
     );
 
     _animation =

@@ -266,6 +266,10 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
           );
         });
       }
+
+      if(event is ChangStateToSuccessConfirm){
+        emit(state.copyWith(successConfirm: true));
+      }
     });
   }
 }

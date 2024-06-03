@@ -35,24 +35,29 @@ class _CustomSubCategoryScreenState extends State<CustomSubCategoryScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             itemCount: widget.subCategoriesList!.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0,
-                mainAxisExtent: 135,
-                crossAxisCount: 3,
+              crossAxisSpacing: 0,
+              mainAxisSpacing: 0,
+              mainAxisExtent: 135,
+              crossAxisCount: 3,
             ),
             itemBuilder: (context, index) {
               return GestureDetector(
-                  onTap: () {
-                    AppRouter.push(
-                        context,
-                        AllProductScreen(
-                          subCategoryList: widget.subCategoriesList,
-                          index: index,
-                        ));
-                  },
-                  child: CustomCategory(
-                      categoryName:
-                          widget.subCategoriesList![index].subCategoryName!));
+                onTap: () {
+                  AppRouter.push(
+                    context,
+                    AllProductScreen(
+                      subCategoryList: widget.subCategoriesList,
+                      index: index,
+                    ),
+                  );
+                },
+                child: CustomCategory(
+                  categoryName:
+                      widget.subCategoriesList![index].subCategoryName!,
+                  categoryImage:
+                      widget.subCategoriesList![index].subCategoryImage!,
+                ),
+              );
             },
           );
   }

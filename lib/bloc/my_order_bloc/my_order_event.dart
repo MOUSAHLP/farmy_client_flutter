@@ -36,6 +36,10 @@ class ShowBasket extends MyOrderEvent {
   });
 }
 
+class GetCartPrice extends MyOrderEvent {
+  GetCartPrice();
+}
+
 class AddCountOrder extends MyOrderEvent {
   int id;
 
@@ -60,8 +64,10 @@ class PaymentProcessBasket extends MyOrderEvent {
   PaymentProcessBasket(this.id);
 }
 
-
-
 class GetOrderHistory extends MyOrderEvent {
   GetOrderHistory();
+}
+
+class ChangStateToSuccessConfirm extends MyOrderEvent {
+  ChangStateToSuccessConfirm();
 }

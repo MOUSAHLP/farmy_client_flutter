@@ -34,7 +34,6 @@ class CardOrder extends StatelessWidget {
             vertical: 16.h,
           ),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               RowOrder(
@@ -99,38 +98,39 @@ class CardOrder extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-             if(myOrder.status=="Deliverd")
-              myOrder.rate != null && myOrder.rate != 0.0
-                  ? RatingBar.builder(
-                      ignoreGestures: true,
-                      itemSize: 22,
-                      initialRating: myOrder.rate ?? 0.0,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      // itemPadding: const EdgeInsets.symmetric(horizontal: 22.0),
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
+              if (myOrder.status == "Deliverd")
+                myOrder.rate != null && myOrder.rate != 0.0
+                    ? RatingBar.builder(
+                        ignoreGestures: true,
+                        itemSize: 22,
+                        initialRating: myOrder.rate ?? 0.0,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        // itemPadding: const EdgeInsets.symmetric(horizontal: 22.0),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (value) {},
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          AppRouter.push(
+                              context, RateOrderScreen(orderId: myOrder.id));
+                        },
+                        child: Text(AppLocalizations.of(context)!.rate_order,
+                            style: const TextStyle(
+                                fontSize: 16,
+                                color: ColorManager.gold,
+                                fontWeight: FontWeight.bold)),
                       ),
-                      onRatingUpdate: (value) {},
-                    )
-                  : GestureDetector(
-                onTap: () {
-                  AppRouter.push(context,RateOrderScreen(orderId: myOrder.id));
-                },
-                    child: Text(AppLocalizations.of(context)!.rate_order,
-                        style:const TextStyle(
-                          fontSize: 16,
-                          color: ColorManager.gold,
-                          fontWeight: FontWeight.bold
-                        )),
-                  ),
               const SizedBox(
                 height: 10,
               ),
               StateButtons(
+                deliveryType: myOrder.deliveryMethod!.name!,
                 status: myOrder.status ?? "",
                 id: myOrder.id,
                 expectedTime: myOrder.expectedTime,

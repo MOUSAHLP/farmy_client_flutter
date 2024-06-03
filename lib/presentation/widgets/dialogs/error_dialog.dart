@@ -42,6 +42,7 @@ class _ErrorDialogBody extends StatelessWidget {
               vertical: 10,
             ),
             child: Text(
+              textAlign: TextAlign.center,
               (message == null || message!.isEmpty)
                   ? AppLocalizations.of(context)!.error
                   : message!,

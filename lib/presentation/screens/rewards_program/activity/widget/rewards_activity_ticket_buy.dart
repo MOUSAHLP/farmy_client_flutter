@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/rewards_bloc/activity_and_offers_bloc/rewards_activity_offers_bloc.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_box.dart';
@@ -16,6 +17,7 @@ class RewardsActivityTicketBuyOffers extends StatelessWidget {
   Widget build(BuildContext context) {
     if (rewardsActivityAndOffersBloc.state.rewardsOffersModel != null) {
       return ListView.builder(
+        padding: EdgeInsetsDirectional.only(bottom: 10.h),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount:

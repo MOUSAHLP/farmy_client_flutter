@@ -55,9 +55,8 @@ class SignUpScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                child: InputFieldAuth(                    textDirection: TextDirection.ltr,
-
-
+                                child: InputFieldAuth(
+                                    textDirection: TextDirection.ltr,
                                     hintText:
                                         AppLocalizations.of(context)!.fName,
                                     onChange: (value) {
@@ -78,7 +77,6 @@ class SignUpScreen extends StatelessWidget {
                               Expanded(
                                 child: InputFieldAuth(
                                     textDirection: TextDirection.ltr,
-
                                     hintText:
                                         AppLocalizations.of(context)!.lName,
                                     onChange: (value) {
@@ -103,7 +101,6 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       InputFieldAuth(
                           textDirection: TextDirection.ltr,
-
                           hintText: AppLocalizations.of(context)!.hint_phone,
                           keyboardType: TextInputType.phone,
                           isPhone: true,
@@ -126,7 +123,8 @@ class SignUpScreen extends StatelessWidget {
                         height: 21,
                       ),
                       PasswordInputFieldAuth(
-                          hintText: AppLocalizations.of(context)!.password,contentPadding: EdgeInsets.only(right: 13.w),
+                          hintText: AppLocalizations.of(context)!.password,
+                          contentPadding: EdgeInsets.only(right: 13.w),
                           onChange: (value) {
                             context
                                 .read<AuthenticationBloc>()
@@ -142,7 +140,8 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       PasswordInputFieldAuth(
                           hintText:
-                              AppLocalizations.of(context)!.confirm_password,contentPadding: EdgeInsets.only(right: 13.w),
+                              AppLocalizations.of(context)!.confirm_password,
+                          contentPadding: EdgeInsets.only(right: 13.w),
                           onChange: (value) {
                             context
                                 .read<AuthenticationBloc>()
@@ -158,8 +157,8 @@ class SignUpScreen extends StatelessWidget {
                                     .password,
                                 value);
                           }),
-                      const SizedBox(
-                        height: 31,
+                      SizedBox(
+                        height: 15.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -184,11 +183,13 @@ class SignUpScreen extends StatelessWidget {
                             onTap: () {},
                             child: SizedBox(
                               width: 1.sw - 130,
-                              height: 50,
-                              child: Text(AppLocalizations.of(context)!.police,
-                                  style: getSemiBoldStyle(color: Colors.white),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis),
+                              // height: 50,
+                              child: Text(
+                                AppLocalizations.of(context)!.police,
+                                style: getSemiBoldStyle(color: Colors.white),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ),
                         ],

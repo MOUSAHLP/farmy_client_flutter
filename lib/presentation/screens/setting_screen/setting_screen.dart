@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/about_the_app/about_the_app_screen.dart';
@@ -10,7 +11,7 @@ import 'package:pharma/presentation/screens/setting_screen/widgets/faq_screen.da
 import 'package:pharma/presentation/screens/setting_screen/widgets/privacy_policy_screen.dart';
 import 'package:pharma/presentation/widgets/custom_app_bar_screen.dart';
 import 'package:pharma/translations.dart';
-
+import 'package:restart_app/restart_app.dart';
 import '../../../bloc/language_bloc/language_bloc.dart';
 import '../../../bloc/language_bloc/language_event.dart';
 import '../../../bloc/language_bloc/language_state.dart';
@@ -48,18 +49,21 @@ class SettingScreen extends StatelessWidget {
                           Text(
                             AppLocalizations.of(context)!.protection,
                             style: getBoldStyle(
-                                color: ColorManager.grayForMessage, fontSize: 15),
+                              color: ColorManager.grayForMessage,
+                              fontSize: 15.sp,
+                            ),
                           ),
                         ],
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: CardSetting(
-                            title: AppLocalizations.of(context)!.change_Password,
-                            onTap: () {
-                              AppRouter.push(
-                                  context,  ChangePasswordScreen());
-                            }),
+                          title: AppLocalizations.of(context)!.change_Password,
+                          onTap: () {
+                            AppRouter.push(
+                                context, const ChangePasswordScreen());
+                          },
+                        ),
                       ),
                       const Divider(),
                       Row(
@@ -68,7 +72,9 @@ class SettingScreen extends StatelessWidget {
                           Text(
                             AppLocalizations.of(context)!.change_Language,
                             style: getBoldStyle(
-                                color: ColorManager.grayForMessage, fontSize: 15),
+                              color: ColorManager.grayForMessage,
+                              fontSize: 15.sp,
+                            ),
                           ),
                         ],
                       ),
@@ -76,128 +82,148 @@ class SettingScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: BlocBuilder<LanguageBloc, LanguageState>(
                           builder: (context, state) => CardSetting(
-                              title: DataStore.instance.lang == "ar"
-                                  ? "العربية"
-                                  : "English",
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          GestureDetector(
-                                              child: Container(
-                                                height: 43,
-                                                decoration: BoxDecoration(
-                                                    color: ColorManager.lightGray,
-                                                    borderRadius:
-                                                        BorderRadius.circular(6)),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text("English",
-                                                          style: getBoldStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 13,
-                                                          )),
-                                                    ),
-                                                    Radio(
-                                                      fillColor: MaterialStateColor
-                                                          .resolveWith((states) =>
-                                                              ColorManager
-                                                                  .primaryGreen),
-                                                      value: "en",
-                                                      groupValue: context
-                                                          .read<LanguageBloc>()
-                                                          .lang,
-                                                      onChanged: (value) {
-                                                        sl<LanguageBloc>().add(
-                                                            SelectLanguage(
-                                                                value ?? "en"));
-                                                      },
-                                                    ),
-                                                  ],
+                            title: DataStore.instance.lang == "ar"
+                                ? "العربية"
+                                : "English",
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        GestureDetector(
+                                            child: Container(
+                                              height: 43.h,
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.lightGray,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  6.sp,
                                                 ),
                                               ),
-                                              onTap: () {}),
-                                          const SizedBox(
-                                            height: 15,
-                                          ),
-                                          GestureDetector(
-                                              child: Container(
-                                                height: 43,
-                                                decoration: BoxDecoration(
-                                                    color: ColorManager.lightGray,
-                                                    borderRadius:
-                                                        BorderRadius.circular(6)),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text("عربي",
-                                                          style: getBoldStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 13,
-                                                          )),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                      8.0,
                                                     ),
-                                                    Radio(
-                                                      fillColor: MaterialStateColor
-                                                          .resolveWith((states) =>
-                                                              ColorManager
-                                                                  .primaryGreen),
-                                                      value: "ar",
-                                                      groupValue: context
-                                                          .read<LanguageBloc>()
-                                                          .lang,
-                                                      onChanged: (value) {
-                                                        sl<LanguageBloc>().add(
-                                                            SelectLanguage(
-                                                                value ?? "ar"));
-                                                      },
+                                                    child: Text(
+                                                      "English",
+                                                      style: getBoldStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13.sp,
+                                                      ),
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
-                                              onTap: () {}),
-                                          const SizedBox(
-                                            height: 18,
-                                          ),
-                                          SizedBox(
-                                            width: 97,
-                                            child: CustomButton(
-                                              label: AppLocalizations.of(context)!
-                                                  .confirm,
-                                              fillColor:
-                                                  ColorManager.primaryGreen,
-                                              onTap: () {
-                                                sl<LanguageBloc>().add(
-                                                    NewLanguageChange(context
+                                                  ),
+                                                  Radio(
+                                                    fillColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                      (states) => ColorManager
+                                                          .primaryGreen,
+                                                    ),
+                                                    value: "en",
+                                                    groupValue: context
                                                         .read<LanguageBloc>()
-                                                        .lang));
-                                                AppRouter.pop(context);
-                                              },
+                                                        .lang,
+                                                    onChanged: (value) {
+                                                      sl<LanguageBloc>().add(
+                                                        SelectLanguage(
+                                                          value ?? "en",
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
                                             ),
+                                            onTap: () {}),
+                                        SizedBox(height: 15.h),
+                                        GestureDetector(
+                                            child: Container(
+                                              height: 43,
+                                              decoration: BoxDecoration(
+                                                color: ColorManager.lightGray,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  6.r,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                      8.0,
+                                                    ),
+                                                    child: Text(
+                                                      "عربي",
+                                                      style: getBoldStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13.sp,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Radio(
+                                                    fillColor: MaterialStateColor
+                                                        .resolveWith((states) =>
+                                                            ColorManager
+                                                                .primaryGreen),
+                                                    value: "ar",
+                                                    groupValue: context
+                                                        .read<LanguageBloc>()
+                                                        .lang,
+                                                    onChanged: (value) {
+                                                      sl<LanguageBloc>().add(
+                                                        SelectLanguage(
+                                                          value ?? "ar",
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            onTap: () {}),
+                                        const SizedBox(
+                                          height: 18,
+                                        ),
+                                        SizedBox(
+                                          width: 97.w,
+                                          child: CustomButton(
+                                            label: AppLocalizations.of(context)!
+                                                .confirm,
+                                            fillColor:
+                                                ColorManager.primaryGreen,
+                                            onTap: () {
+                                              sl<LanguageBloc>().add(
+                                                NewLanguageChange(
+                                                  context
+                                                      .read<LanguageBloc>()
+                                                      .lang,
+                                                ),
+                                              );
+                                              Restart.restartApp();
+                                            },
                                           ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              }),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ),
                       const Divider(),
@@ -208,7 +234,9 @@ class SettingScreen extends StatelessWidget {
                             AppLocalizations.of(context)!
                                 .privacy_and_Terms_of_Use,
                             style: getBoldStyle(
-                                color: ColorManager.grayForMessage, fontSize: 15),
+                              color: ColorManager.grayForMessage,
+                              fontSize: 15.sp,
+                            ),
                           ),
                         ],
                       ),
@@ -222,31 +250,36 @@ class SettingScreen extends StatelessWidget {
                             }),
                       ),
                       CardSetting(
-                          title: AppLocalizations.of(context)!.privacy_Policy,
-                          onTap: () {
-                            AppRouter.push(context, const PrivacyPolicyScreen());
-                          }),
-                      const SizedBox(
-                        height: 10,
+                        title: AppLocalizations.of(context)!.privacy_Policy,
+                        onTap: () {
+                          AppRouter.push(context, const PrivacyPolicyScreen());
+                        },
                       ),
+                      SizedBox(height: 10.h),
                       const Divider(),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: CardSetting(
-                            title: AppLocalizations.of(context)!
-                                .frequently_Asked_Questions,
-                            onTap: () {
-                              AppRouter.push(context, const FAQScreen());
-                            }),
+                          title: AppLocalizations.of(context)!
+                              .frequently_Asked_Questions,
+                          onTap: () {
+                            AppRouter.push(
+                              context,
+                              const FAQScreen(),
+                            );
+                          },
+                        ),
                       ),
                       CardSetting(
-                          title: AppLocalizations.of(context)!.about_Application,
-                          onTap: () {
-                            AppRouter.push(context, const AboutTheAppcreen());
-                          }),
-                      const SizedBox(
-                        height: 10,
+                        title: AppLocalizations.of(context)!.about_Application,
+                        onTap: () {
+                          AppRouter.push(
+                            context,
+                            const AboutTheAppcreen(),
+                          );
+                        },
                       ),
+                      SizedBox(height: 10.h),
                     ],
                   ),
                 ),

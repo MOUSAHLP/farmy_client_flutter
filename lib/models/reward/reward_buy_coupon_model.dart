@@ -3,20 +3,17 @@
 class BuyCouponModel {
   final String status;
   final String message;
-  final Data data;
   final int statusCode;
 
   BuyCouponModel({
     required this.status,
     required this.message,
-    required this.data,
     required this.statusCode,
   });
 
   factory BuyCouponModel.fromJson(Map<String, dynamic> json) => BuyCouponModel(
     status: json["status"],
     message: json["message"],
-    data: Data.fromJson(json["data"]),
     statusCode: json["statusCode"],
   );
 

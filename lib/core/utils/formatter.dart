@@ -80,7 +80,7 @@ mixin Formatter {
     return false;
   }
 
-  static String formatPrice(int price) {
+  static String formatPrice(dynamic price) {
     final formatter = NumberFormat('#,###.##', 'en_US');
     return formatter.format(price);
   }

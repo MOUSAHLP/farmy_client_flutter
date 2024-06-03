@@ -13,6 +13,7 @@ class RewardsActivityAndOffersBloc
 
   RewardsActivityAndOffersBloc()
       : super(const RewardsActivityAndOffersState(
+          rewardsActivityAndOffersHasSuc: false,
           rewardsActivityStateEnum: RewardsActivityStateEnum.activity,
           rewardsActivityAndOffersSuccess: false,
           rewardsActivityAndOffersLoading: false,
@@ -26,36 +27,67 @@ class RewardsActivityAndOffersBloc
           var response = await RewardsRepo.getRewardActivity();
           response.fold(
             (l) {
-              emit(state.copyWith(rewardsActivityAndOffersError: l));
+              emit(
+                state.copyWith(
+                  rewardsActivityAndOffersError: l,
+                ),
+              );
             },
             (r) {
-              emit(state.copyWith(
+              emit(
+                state.copyWith(
                   rewardCouponsActivityModel: r,
-                  rewardsActivityAndOffersSuccess: true));
+                  rewardsActivityAndOffersSuccess: true,
+                ),
+              );
             },
           );
         }
 
         if (event is BuyCoupon) {
-          log("BuyCoupon");
-          emit(state.copyWith(
+          emit(
+            state.copyWith(
               rewardsActivityAndOffersLoading: true,
-              rewardsActivityAndOffersHasError: false));
+              rewardsActivityAndOffersHasError: false,
+              rewardsActivityAndOffersHasSuc: false,
+                rewardsActivityAndOffersByCouponLoading: true,
+            ),
+          );
 
           var response = await RewardsRepo.buyCoupon(
               buyCouponParams: event.buyCouponParams);
           response.fold(
             (l) {
-              print("l : $l");
-              emit(state.copyWith(
+              emit(
+                state.copyWith(
                   rewardsActivityAndOffersError: l,
                   rewardsActivityAndOffersHasError: true,
-                  rewardsActivityAndOffersSuccess: true));
+                  rewardsActivityAndOffersSuccess: true,
+                  rewardsActivityAndOffersByCouponLoading: false,
+                ),
+              );
+              emit(
+                state.copyWith(
+                  rewardsActivityAndOffersHasError: false,
+                  rewardsActivityAndOffersByCouponLoading: false,
+
+                ),
+              );
             },
             (r) {
               emit(
                 state.copyWith(
                   rewardsActivityAndOffersSuccess: true,
+                  rewardsActivityAndOffersHasSuc: true,
+                  rewardsActivityAndOffersByCouponLoading: false,
+
+                ),
+              );
+              emit(
+                state.copyWith(
+                  rewardsActivityAndOffersHasSuc: false,
+                  rewardsActivityAndOffersByCouponLoading: false,
+
                 ),
               );
             },
@@ -66,7 +98,11 @@ class RewardsActivityAndOffersBloc
           var response = await RewardsRepo.getRewardOffersCouponUser();
           response.fold(
             (l) {
-              emit(state.copyWith(rewardsActivityAndOffersError: l));
+              emit(
+                state.copyWith(
+                  rewardsActivityAndOffersError: l,
+                ),
+              );
             },
             (r) {
               emit(
@@ -78,11 +114,19 @@ class RewardsActivityAndOffersBloc
           );
         }
         if (event is GetMyCouponRewards) {
-          emit(state.copyWith(rewardsActivityAndOffersLoading: true));
+          emit(
+            state.copyWith(
+              rewardsActivityAndOffersLoading: true,
+            ),
+          );
           var response = await RewardsRepo.getRewardMyCoupons();
           response.fold(
             (l) {
-              emit(state.copyWith(rewardsActivityAndOffersError: l));
+              emit(
+                state.copyWith(
+                  rewardsActivityAndOffersError: l,
+                ),
+              );
             },
             (r) {
               emit(state.copyWith(
@@ -92,7 +136,11 @@ class RewardsActivityAndOffersBloc
           );
         } else if (event is ChangeTabActivityEvent) {
           currentScreen = event.currentScreen;
-          emit(state.copyWith(rewardsActivityStateEnum: currentScreen));
+          emit(
+            state.copyWith(
+              rewardsActivityStateEnum: currentScreen,
+            ),
+          );
         }
       },
     );

@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../core/app_enum.dart';
 
 class AuthenticationState extends Equatable {
-  final AuthenticationScreenStates authenticationScreen;
+   AuthenticationScreenStates authenticationScreen;
   ScreensAuth indexTap;
   final String? error;
   final bool isLoading;
