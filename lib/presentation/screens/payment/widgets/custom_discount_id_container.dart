@@ -63,26 +63,26 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                 )),
             child: Row(
               children: [
-
+                SizedBox(width: 22.w,),
                 Image.asset(
                   widget.imageUrl,
-                  height: 39.h,
-                  width: 39.w,
+                  height: 44.h,
+                  width: 44.w,
                 ),
-
-                Expanded(
-                  child: FittedBox(
-                    child: Text(
-                      widget.subjectText,
-                      style: getBoldStyle(
-                              color: ColorManager.grayForMessage,
-                              fontSize: FontSizeApp.s10.sp)!
-                          .copyWith(height: 1),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                SizedBox(width: 18.w,),
+                FittedBox(
+                  child: Text(
+                    widget.subjectText,
+                    style: getBoldStyle(
+                      color: ColorManager.grayForMessage,
+                      fontSize: FontSizeApp.s11.sp,
+                    )!
+                        .copyWith(height: 1),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                const Spacer(),
                 widget.isReplacePoint == true
                     ? Padding(
                         padding: EdgeInsets.symmetric(
@@ -130,11 +130,10 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                   if (widget.rewardCouponsFixedValueModel!.data.isNotEmpty) {
                     return InkWell(
                       onTap: () {
-                        if( widget.paymentBloc.state.id!=null) {
+                        if (widget.paymentBloc.state.id != null) {
                           widget.paymentBloc.add(
                             GetCoupon(
-                                widget
-                                    .rewardCouponsFixedValueModel!.data[index]
+                                widget.rewardCouponsFixedValueModel!.data[index]
                                     .id
                                     .toString(),
                                 ""),
@@ -142,8 +141,8 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                           if (widget.myOrderBloc != null) {
                             widget.paymentBloc.add(
                               GetInvoicesDetails(
-                                productList: widget.myOrderBloc!
-                                    .productDetailsList,
+                                productList:
+                                    widget.myOrderBloc!.productDetailsList,
                                 invoicesParams: InvoicesParams(
                                   couponId: widget.rewardCouponsFixedValueModel!
                                       .data[index].id
@@ -151,22 +150,19 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                                   time: widget.paymentBloc.state.time,
                                   notes: widget.notesText,
                                   deliveryMethodId:
-                                  widget.paymentBloc.state.id!
-                                  ,
+                                      widget.paymentBloc.state.id!,
                                   userAddressId: context
                                       .read<LocationBloc>()
                                       .state
                                       .addressCurrent
                                       .id!,
                                 ),
-
                               ),
                             );
                           } else {
                             widget.paymentBloc.add(
                               GetInvoicesDetails(
-                                productList:
-                                context
+                                productList: context
                                     .read<BasketBloc>()
                                     .state
                                     .productList!,
@@ -176,8 +172,8 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                                       .toString(),
                                   time: widget.paymentBloc.state.time,
                                   notes: widget.notesText,
-                                  deliveryMethodId: widget.paymentBloc.state
-                                      .id!,
+                                  deliveryMethodId:
+                                      widget.paymentBloc.state.id!,
                                   userAddressId: context
                                       .read<LocationBloc>()
                                       .state
@@ -187,11 +183,10 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                               ),
                             );
                           }
-                        }else {
+                        } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              duration:
-                              const Duration(seconds: 1),
+                              duration: const Duration(seconds: 1),
                               content: Container(
                                 alignment: Alignment.center,
                                 child: Text(
@@ -202,8 +197,7 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                                   ),
                                 ),
                               ),
-                              backgroundColor:
-                              ColorManager.primaryGreen,
+                              backgroundColor: ColorManager.primaryGreen,
                             ),
                           );
                         }
@@ -214,9 +208,10 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             style: TextStyle(
-                                color: ColorManager.primaryGreen,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w800,),
+                              color: ColorManager.primaryGreen,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w800,
+                            ),
                             children: [
                               TextSpan(
                                 text:

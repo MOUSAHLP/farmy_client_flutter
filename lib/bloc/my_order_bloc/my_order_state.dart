@@ -26,6 +26,7 @@ class MyOrderState extends Equatable {
   bool successDelete;
   bool successConfirm;
   String error;
+  String coupon;
   String errorDelete;
   bool check;
   int totalPrice;
@@ -49,6 +50,7 @@ class MyOrderState extends Equatable {
     this.successConfirm = false,
     this.error = '',
     this.errorDelete = '',
+    this.coupon = '',
     required this.basketModel,
     this.indexTap = 0,
     this.check = false,
@@ -70,6 +72,7 @@ class MyOrderState extends Equatable {
     bool? successDelete,
     bool? successConfirm,
     String? error,
+    String? coupon,
     String? errorDelete,
     List<MyOrderResponse>? myOrderList,
     List<MyOrderResponse>? myOrderHistoryList,
@@ -103,6 +106,7 @@ class MyOrderState extends Equatable {
       basketModel: basketModel ?? this.basketModel,
       indexTap: indexTap ?? this.indexTap,
       check: check ?? this.check,
+      coupon: coupon ?? this.coupon,
       totalPrice: totalPrice ?? this.totalPrice,
       paymentProcessResponse:
           paymentProcessResponse ?? this.paymentProcessResponse,
@@ -140,5 +144,6 @@ class MyOrderState extends Equatable {
         idBasket,
         rewardCouponsFixedValueModel,
         myOrderHistoryList,
-        ];
+        coupon,
+      ];
 }

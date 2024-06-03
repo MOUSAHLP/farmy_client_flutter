@@ -26,11 +26,10 @@ class CardDetailsOrder extends StatelessWidget {
       required this.product,
       this.onTapDelete,
       this.cardColor,
-      this.isEdit=false});
+      this.isEdit = false});
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 37),
       child: Container(
@@ -47,9 +46,10 @@ class CardDetailsOrder extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const SizedBox(width: 10,),
-            isEdit? buildCounterWidget(context):const SizedBox(),
-
+            const SizedBox(
+              width: 10,
+            ),
+            isEdit ? buildCounterWidget(context) : const SizedBox(),
             if (onTapDelete != null)
               Expanded(
                 child: SizedBox(
@@ -95,16 +95,14 @@ class CardDetailsOrder extends StatelessWidget {
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount:  product.product!.attributeList.length,
+                      itemCount: product.product!.attributeList.length,
                       physics: const NeverScrollableScrollPhysics(),
-
-                      itemBuilder: (context, index) =>Padding(
-                          padding: const EdgeInsets.symmetric(vertical:2),
+                      itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-
                                 product.product!.attributeList[index].value,
                                 style: getRegularStyle(
                                   color: ColorManager.grayForMessage,
@@ -112,25 +110,68 @@ class CardDetailsOrder extends StatelessWidget {
                                 )!
                                     .copyWith(height: 1),
                               ),
-                              product.product!.attributeList.length-1!=index?Text(
-                                "/",
-                                style: getRegularStyle(
-                                  color: ColorManager.grayForMessage,
-                                  fontSize: FontSizeApp.s15,
-                                )!
-                                    .copyWith(height: 1),
-                              ):const SizedBox()
-
+                              product.product!.attributeList.length - 1 != index
+                                  ? Text(
+                                      "/",
+                                      style: getRegularStyle(
+                                        color: ColorManager.grayForMessage,
+                                        fontSize: FontSizeApp.s15,
+                                      )!
+                                          .copyWith(height: 1),
+                                    )
+                                  : const SizedBox()
                             ],
-                          )) ,),
+                          )),
+                    ),
                   ),
-
+                  product.product!.discountStatus == "0"
+                      ? const SizedBox()
+                      : Padding(
+                    padding: EdgeInsets.only(top: 3.h,bottom: 4.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          Formatter.formatPrice(int.parse( product.product!.price??"0")),
+                          style: getRegularStyle(
+                            color: ColorManager.grayForMessage,
+                            fontSize: FontSizeApp.s12,
+                          )!
+                              .copyWith(
+                            decoration:
+                            TextDecoration.lineThrough,
+                            height: 1,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 1,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.curruncy,
+                          style: getRegularStyle(
+                            color: ColorManager.grayForMessage,
+                            fontSize: FontSizeApp.s13,
+                          )!
+                              .copyWith(
+                            decoration:
+                            TextDecoration.lineThrough,
+                            height: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                          Formatter.formatPrice(int.parse(product.product?.discountPrice??""))
-                                     ,
+                          Formatter.formatPrice(
+                            int.parse(
+                              product.product!.discountStatus == "0"
+                                  ? product.product!.price ?? "0"
+                                  : product.product!.discountPrice ?? "0",
+                            ),
+                          ),
                           style: getBoldStyle(
                                   color: ColorManager.primaryGreen,
                                   fontSize: FontSizeApp.s15)!
@@ -157,7 +198,7 @@ class CardDetailsOrder extends StatelessWidget {
                   height: 120.h,
                   color: ColorManager.grayForPlaceholder,
                   child: CachedImage(
-                    imageUrl: product.product?.image??"",
+                    imageUrl: product.product?.image ?? "",
                   ),
                 ),
               ),
@@ -167,6 +208,7 @@ class CardDetailsOrder extends StatelessWidget {
       ),
     );
   }
+
   Column buildCounterWidget(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -185,9 +227,7 @@ class CardDetailsOrder extends StatelessWidget {
                   child: SvgPicture.asset(IconsManager.add)),
             ),
             onTap: () {
-              context
-                  .read<DetailsOrderBloc>()
-                  .add(AddCount(product.id ?? 0));
+              context.read<DetailsOrderBloc>().add(AddCount(product.id ?? 0));
             },
           ),
         ),
@@ -198,12 +238,12 @@ class CardDetailsOrder extends StatelessWidget {
             width: 30,
             child: Center(
                 child: Text(
-                  context
-                      .read<DetailsOrderBloc>()
-                      .countsProducts(product.id ?? 0)
-                      .toString(),
-                  style: getRegularStyle(color: Colors.black, fontSize: 15.sp),
-                )),
+              context
+                  .read<DetailsOrderBloc>()
+                  .countsProducts(product.id ?? 0)
+                  .toString(),
+              style: getRegularStyle(color: Colors.black, fontSize: 15.sp),
+            )),
           ),
         ),
         Expanded(
@@ -220,18 +260,15 @@ class CardDetailsOrder extends StatelessWidget {
             ),
             onTap: () {
               if (context
-                  .read<DetailsOrderBloc>()
-                  .countsProducts(product.id ?? 0) ==
+                      .read<DetailsOrderBloc>()
+                      .countsProducts(product.id ?? 0) ==
                   1) {
                 showDialog(
                   context: context,
                   builder: (BuildContext context1) {
                     return BlocProvider.value(
                         value: BlocProvider.of<DetailsOrderBloc>(context),
-                        child:    DeleteProductDialog(
-                            product :
-                            product.product!));
-
+                        child: DeleteProductDialog(product: product.product!));
                   },
                 );
               } else {

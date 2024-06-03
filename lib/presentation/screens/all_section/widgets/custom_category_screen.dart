@@ -27,10 +27,7 @@ class CustomCategoryScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
             onTap: () {
-              print(index);
-              print("=====================");
-              context.read<CategoriesBloc>().add(GetSubCategoryEvent(
-                  tabIndex: index + 1, categoryId: categoriesList![index].id));
+              context.read<CategoriesBloc>().add(GetSubCategoryEvent(tabIndex: index + 1, categoryId: categoriesList![index].id));
               tabController.animateTo(index + 1);
             },
             child: CustomCategory(

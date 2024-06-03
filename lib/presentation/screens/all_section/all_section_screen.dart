@@ -26,11 +26,8 @@ class ALlSectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => sl<CategoriesBloc>()..add(GetCaegoriesEvent()),
-        child: ALlSectionScreenBody(
-          categoriesList: categoriesList,
-        )
+    return ALlSectionScreenBody(
+      categoriesList: categoriesList,
     );
   }
 }
@@ -66,8 +63,7 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
     return BlocConsumer<CategoriesBloc, CategoriesState>(
       listener: (context, state) {},
       builder: (context, state) {
-        TabController tabController =
-            TabController(length: state.tabs.length, vsync: this);
+        TabController tabController = TabController(length: state.tabs.length, vsync: this);
         tabController.animateTo(state.tabIndex);
 
         return SafeArea(

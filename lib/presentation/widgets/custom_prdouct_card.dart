@@ -86,7 +86,7 @@ class CustomProductCard extends StatelessWidget {
                             ),
                           ),
 
-                          productInfo.discount == "0"
+                          productInfo.discountStatus == "0"
                               ? const SizedBox()
                               : Padding(
                                   padding: EdgeInsets.only(top: 3.h),
@@ -130,7 +130,7 @@ class CustomProductCard extends StatelessWidget {
                                   Text(
                                     Formatter.formatPrice(
                                       int.tryParse(
-                                            productInfo.discount == "0"
+                                            productInfo.discountStatus == "0"
                                                 ? productInfo.price ?? ""
                                                 : productInfo.discountPrice ??
                                                     "0",
@@ -198,7 +198,7 @@ class CustomProductCard extends StatelessWidget {
             ),
           ),
           // productInfo.discount != null||
-          productInfo.discount != "0"
+          productInfo.discountStatus != "0"
               ? ClipRRect(
                   borderRadius: const BorderRadiusDirectional.only(
                     topEnd: Radius.circular(6),

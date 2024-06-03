@@ -24,6 +24,7 @@ class MyOrderRepository {
       },
     );
   }
+
   static Future<Either<String, DetailsResponse>> getDetailsOrder(int id) {
     return BaseApiClient.get<DetailsResponse>(
       url: ApiConst.getDetailsOrder(id),
@@ -33,46 +34,43 @@ class MyOrderRepository {
     );
   }
 
-  static Future<Either<String, String>> deleteOrder( int id) {
+  static Future<Either<String, String>> deleteOrder(int id) {
     return BaseApiClient.delete<String>(
       url: ApiConst.deleteOrder(id),
-
       converter: (e) {
         return e['message'];
       },
-
     );
   }
-  static Future<Either<String, String>> editOrder( int id,List<ProductEditPrams> product) {
-   print("============edit order");
-   print(ProductEditPrams.toJsonCardList(product));
-   print("===============product");
-   print(product);
+
+  static Future<Either<String, String>> editOrder(
+      int id, List<ProductEditPrams> product) {
+    print("============edit order");
+    print(ProductEditPrams.toJsonCardList(product));
+    print("===============product");
+    print(product);
     return BaseApiClient.put<String>(
       url: ApiConst.deleteOrder(id),
-      queryParameters: {
-        "products":ProductEditPrams.toJsonCardList(product)},
+      queryParameters: {"products": ProductEditPrams.toJsonCardList(product)},
       converter: (e) {
         return e['message'];
       },
-
     );
   }
-  static Future<Either<String, List<ProductResponse>>> showBasket( List<int> basketModelStore ) {
-   print("============edit order");
-   print(basketModelStore);
-   print("===============product");
 
+  static Future<Either<String, List<ProductResponse>>> showBasket(
+      List<int> basketModelStore) {
+    print("============edit order");
+    print(basketModelStore);
+    print("===============product");
     return BaseApiClient.post<List<ProductResponse>>(
       url: ApiConst.showBasket,
-      formData:{
-        "products":basketModelStore} ,
-
+      formData: {"products": basketModelStore},
       converter: (e) {
         return ProductResponse.listFromJson(e["data"]);
       },
-
     );
   }
+
 
 }

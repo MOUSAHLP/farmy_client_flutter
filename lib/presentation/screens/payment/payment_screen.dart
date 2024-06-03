@@ -23,6 +23,7 @@ import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/auth_screen/%20widgets/input_field_auth.dart';
 import 'package:pharma/presentation/screens/home_screen/home_screen.dart';
 import 'package:pharma/presentation/screens/location_screen/location_screen.dart';
+import 'package:pharma/presentation/screens/order_screen/order_screen.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_bill_details_row.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_date_picker.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_discount_code_container.dart';
@@ -104,12 +105,13 @@ class PaymentBody extends StatelessWidget {
           }
           if (state.completePaymentStates == CompletePaymentStates.complete) {
             LoadingDialog().closeDialog(context);
-            ConfirmPaymentOrderDialog().openDialog(
-              context,
-              AppLocalizations.of(context)!.orderSuccesfulyComplete,
-              orderId: state.orderId!,
-            );
             context.read<BasketBloc>().add(ClearBasket());
+            ConfirmPaymentOrderDialog().closeDialog(context);
+            context.read<HomeBloc>().currentIndex = 3;
+            AppRouter.push(
+              context,
+              const OrderScreen(),
+            );
           }
           if (state.completePaymentStates == CompletePaymentStates.loading) {
             LoadingDialog().openDialog(context);
@@ -122,6 +124,7 @@ class PaymentBody extends StatelessWidget {
         builder: (context, state) {
           // log("state $state");
           return Scaffold(
+            backgroundColor: Colors.white,
             body: Stack(
               alignment: Alignment.bottomCenter,
               children: [
@@ -201,19 +204,19 @@ class PaymentBody extends StatelessWidget {
                                   const SizedBox(height: 4),
                                   for (var item in state.paymentProcessResponse!
                                       .deliveryMethodList!) ...[
-                                    if (item.deliveryName!.contains("مجدول") && !checkIsOpening(context)) ...[
-                                        BlocBuilder<LocationBloc,
-                                            LocationState>(
-                                          builder: (context, locationState) {
-                                            return buildCustomOrderTypeContainer(
-                                              context,
-                                              locationState,
-                                              item,
-                                              state,
-                                              myOrderBloc,
-                                            );
-                                          },
-                                        ),
+                                    if (item.deliveryName!.contains("مجدول") &&
+                                        !checkIsOpening(context)) ...[
+                                      BlocBuilder<LocationBloc, LocationState>(
+                                        builder: (context, locationState) {
+                                          return buildCustomOrderTypeContainer(
+                                            context,
+                                            locationState,
+                                            item,
+                                            state,
+                                            myOrderBloc,
+                                          );
+                                        },
+                                      ),
                                     ],
                                     if (!item.deliveryName!
                                         .contains("مجدول")) ...[
@@ -238,32 +241,32 @@ class PaymentBody extends StatelessWidget {
                             //   padding: const EdgeInsets.symmetric(
                             //     horizontal: 21,
                             //   ),
-                              // child: Column(
-                              //   crossAxisAlignment: CrossAxisAlignment.start,
-                              //   children: [
-                              //     Text(
-                              //       AppLocalizations.of(context)!.payment,
-                              //       style: getBoldStyle(
-                              //         color: ColorManager.grayForMessage,
-                              //         fontSize: FontSizeApp.s14,
-                              //       ),
-                              //     ),
-                                  // const SizedBox(height: 4),
-                                  // CustomPaymentStatusContainer(
-                                  //   image: ImageManager.farmySmile,
-                                  //   text: AppLocalizations.of(context)!
-                                  //       .cash_payment,
-                                  //   paymentState: PaymentStates.cashPayment,
-                                  // ),
-                                  // const SizedBox(height: 12),
-                                  // CustomPaymentStatusContainer(
-                                  //   image: ImageManager.farmySmile,
-                                  //   text: AppLocalizations.of(context)!
-                                  //       .farmy_wallet,
-                                  //   paymentState: PaymentStates.farmyWallet,
-                                  // ),
-                                // ],
-                              // ),
+                            // child: Column(
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   children: [
+                            //     Text(
+                            //       AppLocalizations.of(context)!.payment,
+                            //       style: getBoldStyle(
+                            //         color: ColorManager.grayForMessage,
+                            //         fontSize: FontSizeApp.s14,
+                            //       ),
+                            //     ),
+                            // const SizedBox(height: 4),
+                            // CustomPaymentStatusContainer(
+                            //   image: ImageManager.farmySmile,
+                            //   text: AppLocalizations.of(context)!
+                            //       .cash_payment,
+                            //   paymentState: PaymentStates.cashPayment,
+                            // ),
+                            // const SizedBox(height: 12),
+                            // CustomPaymentStatusContainer(
+                            //   image: ImageManager.farmySmile,
+                            //   text: AppLocalizations.of(context)!
+                            //       .farmy_wallet,
+                            //   paymentState: PaymentStates.farmyWallet,
+                            // ),
+                            // ],
+                            // ),
                             // ),
                             Padding(
                               padding: EdgeInsetsDirectional.only(
@@ -282,45 +285,29 @@ class PaymentBody extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: 8.h),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 5.w,
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: CustomDiscountCodeContainer(
-                                            idBasket: idBasket,
-                                            paymentBloc: paymentBloc,
-                                            myOrderBloc: myOrderBloc,
-                                            notesText: noteController.text,
-                                            rewardCouponsFixedValueModel:
-                                                rewardCouponsFixedValueModel,
-                                            imageUrl: ImageManager.codeDiscount,
-                                            subjectText:
-                                            AppLocalizations.of(context)!.redeem_points,
-                                          ),
-                                        ),
-                                        SizedBox(width: 4.w),
-                                        Expanded(
-                                          child: CustomDiscountIdContainer(
-                                            myOrderBloc: myOrderBloc,
-                                            paymentBloc: paymentBloc,
-                                            idBasket: idBasket,
-                                            notesText: noteController.text,
-                                            rewardCouponsFixedValueModel:
-                                                rewardCouponsFixedValueModel,
-                                            isReplacePoint: true,
-                                            imageUrl: ImageManager.replacePoint,
-                                            subjectText:
-                                                AppLocalizations.of(context)!
-                                                    .redeem_points,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                  CustomDiscountCodeContainer(
+                                    idBasket: idBasket,
+                                    paymentBloc: paymentBloc,
+                                    myOrderBloc: myOrderBloc,
+                                    notesText: noteController.text,
+                                    rewardCouponsFixedValueModel:
+                                        rewardCouponsFixedValueModel,
+                                    imageUrl: ImageManager.codeDiscount,
+                                    subjectText: AppLocalizations.of(context)!
+                                        .redeem_points,
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  CustomDiscountIdContainer(
+                                    myOrderBloc: myOrderBloc,
+                                    paymentBloc: paymentBloc,
+                                    idBasket: idBasket,
+                                    notesText: noteController.text,
+                                    rewardCouponsFixedValueModel:
+                                        rewardCouponsFixedValueModel,
+                                    isReplacePoint: true,
+                                    imageUrl: ImageManager.replacePoint,
+                                    subjectText: AppLocalizations.of(context)!
+                                        .redeem_points,
                                   ),
                                 ],
                               ),
@@ -341,18 +328,20 @@ class PaymentBody extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                if(state.paymentProcessResponse!.invoicesResponse!.couponValue!=0)
-                                Text(
-                                  " لقد حصلت على حسم ${state.paymentProcessResponse!.invoicesResponse!.couponValue} ل.س من مجمل الفاتورة",
-                                  style: getBoldStyle(
-                                    color: ColorManager.redForFavorite,
-                                    fontSize: 15,
+                                if (state.paymentProcessResponse!
+                                        .invoicesResponse!.couponValue !=
+                                    0)
+                                  Text(
+                                    " لقد حصلت على حسم ${state.paymentProcessResponse!.invoicesResponse!.couponValue} ل.س من مجمل الفاتورة",
+                                    style: getBoldStyle(
+                                      color: ColorManager.redForFavorite,
+                                      fontSize: 15,
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                             Padding(
-                              padding:  EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                 horizontal: 21.w,
                                 vertical: 12.h,
                               ),
@@ -375,7 +364,8 @@ class PaymentBody extends StatelessWidget {
                                     height: .30.sw,
                                     width: 1.sw,
                                     color: ColorManager.lightGray,
-                                    hintText: AppLocalizations.of(context)!.add_notes,
+                                    hintText:
+                                        AppLocalizations.of(context)!.add_notes,
                                     hintStyle: getRegularStyle(
                                       color: ColorManager.grayForMessage,
                                     ),
@@ -575,16 +565,25 @@ class PaymentBody extends StatelessWidget {
                               child: Column(
                                 children: [
                                   CustomBillDetailsRow(
-                                    subStatusBill: AppLocalizations.of(context)!.total_amount,
-                                    price: state.paymentProcessResponse!.invoicesResponse!.subTotal != null
-                                        ? Formatter.formatPrice(state.paymentProcessResponse!.invoicesResponse!.subTotal!)
-                                        : AppValueConst.defaultInvoiceValue.toString(),
+                                    subStatusBill: AppLocalizations.of(context)!
+                                        .total_amount,
+                                    price: state.paymentProcessResponse!
+                                                .invoicesResponse!.subTotal !=
+                                            null
+                                        ? Formatter.formatPrice(state
+                                            .paymentProcessResponse!
+                                            .invoicesResponse!
+                                            .subTotal!)
+                                        : AppValueConst.defaultInvoiceValue
+                                            .toString(),
                                   ),
                                   CustomBillDetailsRow(
                                     subStatusBill:
                                         AppLocalizations.of(context)!.hasm_code,
-                                    price: state.paymentProcessResponse!
-                                                .invoicesResponse!.couponValue !=
+                                    price: state
+                                                .paymentProcessResponse!
+                                                .invoicesResponse!
+                                                .couponValue !=
                                             null
                                         ? Formatter.formatPrice(
                                             state.paymentProcessResponse!
@@ -618,10 +617,19 @@ class PaymentBody extends StatelessWidget {
                                             .toString(),
                                   ),
                                   CustomBillDetailsRow(
-                                    subStatusBill: AppLocalizations.of(context)!.additional_discount,
-                                    price: state.paymentProcessResponse!.invoicesResponse!.extraDiscount != null
-                                        ? Formatter.formatPrice(state.paymentProcessResponse!.invoicesResponse!.extraDiscount!)
-                                        : AppValueConst.defaultInvoiceValue.toString(),
+                                    subStatusBill: AppLocalizations.of(context)!
+                                        .additional_discount,
+                                    price: state
+                                                .paymentProcessResponse!
+                                                .invoicesResponse!
+                                                .extraDiscount !=
+                                            null
+                                        ? Formatter.formatPrice(state
+                                            .paymentProcessResponse!
+                                            .invoicesResponse!
+                                            .extraDiscount!)
+                                        : AppValueConst.defaultInvoiceValue
+                                            .toString(),
                                   ),
                                   CustomBillDetailsRow(
                                     colorText: ColorManager.primaryGreen,
@@ -660,43 +668,96 @@ class PaymentBody extends StatelessWidget {
                             )
                           : AppValueConst.defaultInvoiceValue.toString(),
                   onCompletePayment: () {
-                    if (myOrderBloc != null) {
-                      paymentBloc.add(
-                        CreateOrder(
-                          idBasket,
-                          productList: myOrderBloc!.productDetailsList,
-                          invoicesParams: InvoicesParams(
-                            couponId: state.couponId,
-                            time: state.time,
-                            notes: noteController.text,
-                            deliveryMethodId: state.id!,
-                            userAddressId: context.read<LocationBloc>().state.addressCurrent.id!,
-                          ),
-                        ),
-                      );
-                    } else {
-                      paymentBloc.add(
-                        CreateOrder(
-                          idBasket,
-                          productList: context.read<BasketBloc>().state.productList!,
-                          invoicesParams: InvoicesParams(
-                            couponId: state.couponId,
-                            time: state.time,
-                            notes: noteController.text,
-                            deliveryMethodId:
-                            state.id!,
-                            userAddressId: context
-                                .read<LocationBloc>()
-                                .state
-                                .addressCurrent
-                                .id!,
-                          ),
-                        ),
-                      );
-                    }
+                    // paymentBloc.add(const ProceedToCheckout());
+                    ConfirmPaymentOrderDialog().openDialog(
+                      context,
+                      AppLocalizations.of(context)!
+                          .would_you_like_to_confirm_your_order,
+                      AppLocalizations.of(context)!
+                          .you_can_proceed_with_your_order_after_confirmation_from_my_order_list,
+                      onTap: () {
+                        print('!!!!!!!!');
+                        print(context.read<BasketBloc>().state.productList!);
+                        print('!!!!!!!!!');
+                        if (myOrderBloc != null) {
+                          paymentBloc.add(
+                            CreateOrder(
+                              idBasket,
+                              productList: myOrderBloc!.productDetailsList,
+                              invoicesParams: InvoicesParams(
+                                couponId: state.couponId,
+                                time: state.time,
+                                notes: noteController.text,
+                                deliveryMethodId: state.id!,
+                                userAddressId: context
+                                    .read<LocationBloc>()
+                                    .state
+                                    .addressCurrent
+                                    .id!,
+                              ),
+                            ),
+                          );
+                        } else {
+                          paymentBloc.add(
+                            CreateOrder(
+                              idBasket,
+                              productList:
+                                  context.read<BasketBloc>().state.productList!,
+                              invoicesParams: InvoicesParams(
+                                couponId: state.couponId,
+                                time: state.time,
+                                notes: noteController.text,
+                                deliveryMethodId: state.id!,
+                                userAddressId: context
+                                    .read<LocationBloc>()
+                                    .state
+                                    .addressCurrent
+                                    .id!,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                    // if (myOrderBloc != null) {
+                    //   paymentBloc.add(
+                    //     CreateOrder(
+                    //       idBasket,
+                    //       productList: myOrderBloc!.productDetailsList,
+                    //       invoicesParams: InvoicesParams(
+                    //         couponId: state.couponId,
+                    //         time: state.time,
+                    //         notes: noteController.text,
+                    //         deliveryMethodId: state.id!,
+                    //         userAddressId: context.read<LocationBloc>().state.addressCurrent.id!,
+                    //       ),
+                    //     ),
+                    //   );
+                    // }
+                    // else {
+                    //
+                    //   paymentBloc.add(
+                    //     CreateOrder(
+                    //       idBasket,
+                    //       productList: context.read<BasketBloc>().state.productList!,
+                    //       invoicesParams: InvoicesParams(
+                    //         couponId: state.couponId,
+                    //         time: state.time,
+                    //         notes: noteController.text,
+                    //         deliveryMethodId:
+                    //         state.id!,
+                    //         userAddressId: context
+                    //             .read<LocationBloc>()
+                    //             .state
+                    //             .addressCurrent
+                    //             .id!,
+                    //       ),
+                    //     ),
+                    //   );
+                    // }
                   },
                   onCompleteShopping: () {
-                    context.read<HomeBloc>().currentIndex = 2;
+                    context.read<HomeBloc>().currentIndex = 0;
                     AppRouter.pushReplacement(context, const HomeScreen());
                   },
                 ),

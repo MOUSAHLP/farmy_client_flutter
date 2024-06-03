@@ -35,12 +35,12 @@ class AddToChosenAttributeList extends PaymentEvent {
 class GetInvoicesDetails extends PaymentEvent {
   final InvoicesParams invoicesParams;
   final List<ProductResponse>? productList;
-  final int ?id;
+  final int? id;
 
   const GetInvoicesDetails({
     required this.invoicesParams,
     required this.productList,
-     this.id,
+    this.id,
   });
 }
 
@@ -104,6 +104,10 @@ class CreateOrder extends PaymentEvent {
     required this.invoicesParams,
     required this.productList,
   });
+}
+
+class ProceedToCheckout extends PaymentEvent {
+  const ProceedToCheckout();
 }
 
 class GetInitializeInvoice extends PaymentEvent {

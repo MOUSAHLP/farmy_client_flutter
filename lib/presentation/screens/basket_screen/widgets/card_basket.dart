@@ -110,12 +110,13 @@ class CardBasket extends StatelessWidget {
                                             )!
                                                 .copyWith(height: 1),
                                           )
-                                        : SizedBox()
+                                        : const SizedBox()
                                   ],
-                                )),
+                                ),
+                            ),
                           ),
                         ),
-                        productAddedToBasketDetails.discountPrice != null
+                        productAddedToBasketDetails.discountPrice != null &&  productAddedToBasketDetails.discountStatus != "0"
                             ? Text(
                                 productAddedToBasketDetails.price ?? '',
                                 style: getRegularStyle(
@@ -134,12 +135,7 @@ class CardBasket extends StatelessWidget {
                                 children: [
                                   Text(
                                     Formatter.formatPrice(int.tryParse(context
-                                            .read<BasketBloc>()
-                                            .productPrice(
-                                                productAddedToBasketDetails
-                                                        .id ??
-                                                    0)
-                                            .toString()) ??
+                                            .read<BasketBloc>().productPrice(productAddedToBasketDetails.id).toString()) ??
                                         0),
                                     style: getBoldStyle(
                                             color: ColorManager.primaryGreen,

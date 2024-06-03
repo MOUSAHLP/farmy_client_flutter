@@ -7,6 +7,7 @@ import 'package:pharma/data/repository/my_order_repository.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/basket_model.dart';
 import 'package:pharma/models/my_order_response.dart';
+import 'package:pharma/models/params/get_basket_params.dart';
 import 'package:pharma/models/params/product_model.dart';
 import 'package:pharma/models/product_response.dart';
 import '../../data/data_resource/local_resource/data_store.dart';
@@ -28,23 +29,23 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
     double totalTax = 0;
     int totalProduct = 0;
     for (int i = 0; i < productDetailsList.length; i++) {
-
       int reversedIndex = productInBasketList.length - 1 - i;
-
 
       // totalTax += (productDetailsList[i].tax ?? 0 *  int.parse(productDetailsList[i].discountPrice ?? "0"))/100;
 
-
-      totalTax += ((productDetailsList[i].tax ?? 0)/100) * int.parse(productDetailsList[i].discountPrice ?? "0");
-      print('#########');
-      print("discountPrice : ${int.parse(productDetailsList[i].discountPrice ?? "0")}");
-      print("tax : ${productDetailsList[i].tax ?? 0}");
-      print("totalTax : $totalTax");
-      print('#########');
-      totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") * productInBasketList[i].quantity);
+      if (productDetailsList[i].discountStatus == "0") {
+        totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
+            int.parse(productDetailsList[i].price ?? "0");
+        totalProduct += (int.parse(productDetailsList[i].price ?? "0") *
+            productInBasketList[i].quantity);
+      }
+      if (productDetailsList[i].discountStatus != "0") {
+        totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
+            int.parse(productDetailsList[i].discountPrice ?? "0");
+        totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") *
+            productInBasketList[i].quantity);
+      }
     }
-    print('##################');
-    print(totalTax);
     sum = totalProduct + totalTax.toInt();
     return sum;
   }
@@ -83,12 +84,22 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
         switch (index) {
           case 0:
             tabController.animateTo(index);
-            emit(state.copyWith(indexTap: index, myOrderList: myOrderList));
+            emit(
+              state.copyWith(
+                indexTap: index,
+                myOrderList: myOrderList,
+              ),
+            );
             break;
           case 1:
+            MyOrderBloc().add(GetCartPrice());
             tabController.animateTo(index);
             emit(
-                state.copyWith(indexTap: index, basketModel: basketModelStore));
+              state.copyWith(
+                indexTap: index,
+                basketModel: basketModelStore,
+              ),
+            );
             break;
           default:
             break;
@@ -136,6 +147,22 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
           },
         );
       }
+
+      if (event is GetCartPrice) {
+        Map<String, List<Product>> mp = {};
+        for (var product in basketModelStore.basketList) {
+          mp["${product.id}"] = product.products;
+        }
+        // Print all elements in each entry of the map
+        mp.forEach((key, productList) {
+          print('Products for id $key:');
+          for (var product in productList) {
+            print("${product.productId} : ${product.quantity}"); // Adjust this based on what you want to print about the product
+          }
+        });
+        print(mp);
+      }
+
       if (event is AddCountOrder) {
         if (productInBasketList
             .any((element) => element.productId == event.id)) {
@@ -190,7 +217,6 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
                 (element) =>
                     element.productId ==
                     productDetailsList[indexProductDetailsList].id);
-
             productDetailsList[indexProductDetailsList].quantity =
                 productInBasket.quantity;
           }
@@ -230,11 +256,8 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
       }
       if (event is GetOrderHistory) {
         emit(state.copyWith(screenStates: ScreenStates.loading));
-        print("000000000000000000000");
         final response = await MyOrderRepository.getMyOrderHistory();
-        print("11111111111111111111");
         response.fold((l) {
-        print("22222222222222222");
           emit(
             state.copyWith(screenStates: ScreenStates.error, error: l),
           );

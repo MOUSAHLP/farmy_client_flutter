@@ -38,15 +38,25 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
 
   int productPrice(int id) {
     int index = mutableProducts.indexWhere((element) => element.id == id);
-    return (mutableProducts[index].quantity! *
-        int.parse(mutableProducts[index].discountPrice ?? ''));
+    if (mutableProducts[index].discountStatus == "0") {
+      return (mutableProducts[index].quantity! *
+          int.parse(mutableProducts[index].price ?? ''));
+    } else {
+      return (mutableProducts[index].quantity! *
+          int.parse(mutableProducts[index].discountPrice ?? ''));
+    }
   }
 
   int finalPrice() {
     int sum = 0;
     for (int i = 0; i < mutableProducts.length; i++) {
-      sum += (mutableProducts[i].quantity! *
-          int.parse(mutableProducts[i].discountPrice ?? '0'));
+      if (mutableProducts[i].discountStatus == "0") {
+        sum += (mutableProducts[i].quantity! *
+            int.parse(mutableProducts[i].price ?? '0'));
+      } else {
+        sum += (mutableProducts[i].quantity! *
+            int.parse(mutableProducts[i].discountPrice ?? '0'));
+      }
     }
     return sum;
   }
@@ -107,17 +117,19 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         );
       }
       if (event is AddCount) {
-        int index1 = mutableProducts.indexWhere((element) => element.id == event.id);
+        int index1 =
+            mutableProducts.indexWhere((element) => element.id == event.id);
         if (index1 != -1) {
-          mutableProducts[index1].quantity = mutableProducts[index1].quantity! + 1;
+          mutableProducts[index1].quantity =
+              mutableProducts[index1].quantity! + 1;
           emit(
             state.copyWith(
               productList: mutableProducts,
             ),
           );
-        }else {
+        } else {
           event.productResponse!.quantity = 1;
-          add(AddToBasket(product:[event.productResponse!] ));
+          add(AddToBasket(product: [event.productResponse!]));
         }
       }
 

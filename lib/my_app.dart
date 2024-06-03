@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:pharma/bloc/authentication_bloc/authertication_bloc.dart';
 import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
+import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_bloc.dart';
 import 'package:pharma/bloc/language_bloc/language_state.dart';
@@ -65,6 +66,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (BuildContext context) => sl<PaymentBloc>()),
             BlocProvider(create: (BuildContext context) => sl<MyOrderBloc>()),
             BlocProvider(create: (BuildContext context) => sl<TrackingBloc>()..add(const GetOrderStatus())),
+            BlocProvider(create: (BuildContext context) => sl<CategoriesBloc>()..add(GetCaegoriesEvent())),
           ],
           child: OverlaySupport.global(
             child: GestureDetector(

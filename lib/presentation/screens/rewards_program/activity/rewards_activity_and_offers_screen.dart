@@ -13,6 +13,10 @@ import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewa
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_my_coupon.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/widget/rewards_filter_row.dart';
+import 'package:pharma/presentation/widgets/dialogs/confirm_payment_coupon_dialog.dart';
+import 'package:pharma/presentation/widgets/dialogs/confirm_payment_order_dialog.dart';
+import 'package:pharma/presentation/widgets/dialogs/custom_dialog.dart';
+import 'package:pharma/presentation/widgets/dialogs/loading_dialog.dart';
 import 'package:pharma/translations.dart';
 import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
 
@@ -24,12 +28,20 @@ class RewardsActivityAndOffersScreen extends StatelessWidget {
     return BlocConsumer<RewardsActivityAndOffersBloc,
         RewardsActivityAndOffersState>(
       listener: (context, state) {
-        print(state.rewardsActivityAndOffersError);
-        print(
-            "state state state state state state state state state state state state");
+        if (state.rewardsActivityAndOffersByCouponLoading!=null&&state.rewardsActivityAndOffersByCouponLoading!) {
+          LoadingDialog().openDialog(context);
+        }
+        if (state.rewardsActivityAndOffersByCouponLoading!=null&&!state.rewardsActivityAndOffersByCouponLoading!) {
+          LoadingDialog().closeDialog(context);
+        }
         if (state.rewardsActivityAndOffersHasError) {
-          // LoadingDialog().closeDialog(context);
           ErrorDialog.openDialog(context, state.rewardsActivityAndOffersError);
+        }
+        if (state.rewardsActivityAndOffersHasSuc) {
+          ConfirmPaymentCouponDialog().openDialog(
+            context,
+            AppLocalizations.of(context)!.the_coupon_was_purchased,
+          );
         }
       },
       builder: (context, state) {

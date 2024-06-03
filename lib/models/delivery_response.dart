@@ -2,9 +2,9 @@
 class DeliveryMethodResponse {
   int id;
   String? deliveryName;
-  int? deliveryTime;
+  dynamic deliveryTime;
   int? deliveryPrice;
-  int? totalPrice;
+  dynamic totalPrice;
 
   DeliveryMethodResponse({
     required this.id,

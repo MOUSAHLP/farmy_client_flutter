@@ -203,11 +203,7 @@ class OrderDetailsBody extends StatelessWidget {
                                                   fillColor:
                                                       ColorManager.primaryGreen,
                                                   onTap: () {
-                                                    context
-                                                        .read<BasketBloc>()
-                                                        .add(
-                                                            const SaveIdToBasket(
-                                                                0));
+                                                    context.read<BasketBloc>().add(const SaveIdToBasket(0));
                                                     checkIsOpening(context) ==
                                                             true
                                                         ? context

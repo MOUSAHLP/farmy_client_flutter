@@ -27,7 +27,6 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-
   int index = 0;
 
   @override
@@ -36,7 +35,7 @@ class _BottomBarState extends State<BottomBar> {
       const HomeScreen(),
       const AllFavoritesScreen(),
       const BasketScreen(),
-       const OrderScreen(),
+      const OrderScreen(),
       const MyAccountScreen(),
     ];
 
@@ -129,22 +128,31 @@ class _BottomBarState extends State<BottomBar> {
                           ? ColorManager.primaryGreen
                           : ColorManager.greyForUnSelectedItem,
                     ),
-                    context
-                        .read<BasketBloc>()
-                        .mutableProducts
-                        .isNotEmpty? Container(
-                        decoration:  BoxDecoration(
-                          color:context.read<HomeBloc>().currentIndex == 2?Colors.white: ColorManager.primaryGreen,
-                          shape: BoxShape.circle
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(context
-                              .read<BasketBloc>()
-                              .mutableProducts
-                              .length
-                              .toString(),style: getBoldStyle(color:context.read<HomeBloc>().currentIndex == 2?ColorManager.primaryGreen:Colors.white),),
-                        )):SizedBox()
+                    context.read<BasketBloc>().mutableProducts.isNotEmpty
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color:
+                                    context.read<HomeBloc>().currentIndex == 2
+                                        ? Colors.white
+                                        : ColorManager.primaryGreen,
+                                shape: BoxShape.circle),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                context
+                                    .read<BasketBloc>()
+                                    .mutableProducts
+                                    .length
+                                    .toString(),
+                                style: getBoldStyle(
+                                    color:
+                                        context.read<HomeBloc>().currentIndex ==
+                                                2
+                                            ? ColorManager.primaryGreen
+                                            : Colors.white),
+                              ),
+                            ))
+                        : SizedBox()
                   ],
                 ),
                 Text(
@@ -162,8 +170,7 @@ class _BottomBarState extends State<BottomBar> {
             onTap: () {
               setState(() {
                 context.read<HomeBloc>().currentIndex = 3;
-                context.read<BasketBloc>().add(
-                    SaveIdToBasket(0));
+                context.read<BasketBloc>().add(SaveIdToBasket(0));
                 AppRouter.pushAndRemoveAllStack(
                     context, children[context.read<HomeBloc>().currentIndex]);
               });
@@ -171,7 +178,7 @@ class _BottomBarState extends State<BottomBar> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               SvgPicture.asset(
+                SvgPicture.asset(
                   ImageManager.myOrder,
                   color: context.read<HomeBloc>().currentIndex == 3
                       ? ColorManager.primaryGreen
@@ -180,10 +187,11 @@ class _BottomBarState extends State<BottomBar> {
                 Text(
                   AppLocalizations.of(context)!.my_order,
                   style: getUnderBoldStyle(
-                      color: context.read<HomeBloc>().currentIndex == 3
-                          ? ColorManager.primaryGreen
-                          : ColorManager.greyForUnSelectedItem,
-                      fontSize: FontSizeApp.s12),
+                    color: context.read<HomeBloc>().currentIndex == 3
+                        ? ColorManager.primaryGreen
+                        : ColorManager.greyForUnSelectedItem,
+                    fontSize: FontSizeApp.s12.sp,
+                  ),
                 )
               ],
             ),

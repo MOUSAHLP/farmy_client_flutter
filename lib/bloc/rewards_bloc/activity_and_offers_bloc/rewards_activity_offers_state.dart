@@ -7,8 +7,10 @@ import 'package:pharma/models/reward/reward_offers_coupons_model.dart';
 class RewardsActivityAndOffersState extends Equatable {
   final bool rewardsActivityAndOffersSuccess;
   final bool rewardsActivityAndOffersHasError;
+  final bool rewardsActivityAndOffersHasSuc;
   final String rewardsActivityAndOffersError;
   final bool rewardsActivityAndOffersLoading;
+  final bool? rewardsActivityAndOffersByCouponLoading;
   final RewardMyCouponsModel? rewardMyCouponsModel;
   final RewardCouponsActivityModel? rewardCouponsActivityModel;
   final RewardsOffersModel? rewardsOffersModel;
@@ -18,8 +20,10 @@ class RewardsActivityAndOffersState extends Equatable {
     required this.rewardsActivityAndOffersSuccess,
     required this.rewardsActivityAndOffersLoading,
     required this.rewardsActivityAndOffersHasError,
+    required this.rewardsActivityAndOffersHasSuc,
     required this.rewardsActivityAndOffersError,
     required this.rewardsActivityStateEnum,
+     this.rewardsActivityAndOffersByCouponLoading,
     this.rewardMyCouponsModel,
     this.rewardCouponsActivityModel,
     this.rewardsOffersModel,
@@ -28,6 +32,8 @@ class RewardsActivityAndOffersState extends Equatable {
   RewardsActivityAndOffersState copyWith({
     bool? rewardsActivityAndOffersSuccess,
     bool? rewardsActivityAndOffersLoading,
+    bool? rewardsActivityAndOffersHasSuc,
+    bool? rewardsActivityAndOffersByCouponLoading,
     bool? rewardsActivityAndOffersHasError,
     String? rewardsActivityAndOffersError,
     RewardMyCouponsModel? rewardMyCouponsModel,
@@ -48,8 +54,9 @@ class RewardsActivityAndOffersState extends Equatable {
           rewardCouponsActivityModel ?? this.rewardCouponsActivityModel,
       rewardMyCouponsModel: rewardMyCouponsModel ?? this.rewardMyCouponsModel,
       rewardsOffersModel: rewardsOffersModel ?? this.rewardsOffersModel,
-      rewardsActivityStateEnum:
-          rewardsActivityStateEnum ?? this.rewardsActivityStateEnum,
+      rewardsActivityStateEnum: rewardsActivityStateEnum ?? this.rewardsActivityStateEnum,
+      rewardsActivityAndOffersHasSuc: rewardsActivityAndOffersHasSuc ?? this.rewardsActivityAndOffersHasSuc,
+      rewardsActivityAndOffersByCouponLoading: rewardsActivityAndOffersByCouponLoading ?? this.rewardsActivityAndOffersByCouponLoading,
     );
   }
 
@@ -63,5 +70,7 @@ class RewardsActivityAndOffersState extends Equatable {
         rewardsOffersModel,
         rewardCouponsActivityModel,
         rewardsActivityStateEnum,
+    rewardsActivityAndOffersHasSuc,
+    rewardsActivityAndOffersByCouponLoading,
       ];
 }

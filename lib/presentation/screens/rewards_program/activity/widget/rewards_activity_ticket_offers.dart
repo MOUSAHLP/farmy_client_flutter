@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_box.dart';
 import 'package:pharma/presentation/screens/rewards_program/activity/widget/rewards_activity_ticket_content.dart';
 
@@ -22,6 +23,8 @@ class RewardsActivityTicketOffers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      padding: EdgeInsetsDirectional.only(bottom: 10.h),
+
       itemBuilder: (context, index) => RewardsActivityTicketBox(
         text: text,
         imageText: imageText,

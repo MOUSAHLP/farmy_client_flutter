@@ -22,7 +22,7 @@ enum OrderStates {
   urgentOrder,
 }
 
-enum CompletePaymentStates { complete, loading, initialized, error }
+enum CompletePaymentStates { complete, loading, initialized, error ,done}
 
 enum PaymentStates { cashPayment, farmyWallet }
 

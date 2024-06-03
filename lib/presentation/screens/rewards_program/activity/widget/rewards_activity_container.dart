@@ -20,6 +20,7 @@ class RewardsActivityContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     if (rewardsActivityAndOffersBloc.state.rewardsActivityAndOffersSuccess) {
       return ListView.builder(
+        padding: EdgeInsetsDirectional.only(bottom: 10.h),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) => Container(

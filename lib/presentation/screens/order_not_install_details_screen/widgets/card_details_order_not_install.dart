@@ -137,11 +137,18 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(Formatter.formatPrice(int.parse(product.discountPrice??"0")) ,
-                          style: getBoldStyle(
-                                  color: ColorManager.primaryGreen,
-                                  fontSize: FontSizeApp.s15)!
-                              .copyWith(height: 1)),
+                      Text(
+                        Formatter.formatPrice(
+                          int.parse(
+                            product.discountStatus == "0" ?
+                           product.price ?? "0" : product.discountPrice ?? "0",
+                          ),
+                        ),
+                        style: getBoldStyle(
+                                color: ColorManager.primaryGreen,
+                                fontSize: FontSizeApp.s15)!
+                            .copyWith(height: 1),
+                      ),
                       const SizedBox(width: 1),
                       if (product.price != null)
                         Text(AppLocalizations.of(context)!.curruncy,

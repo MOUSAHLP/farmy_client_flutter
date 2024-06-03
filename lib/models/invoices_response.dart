@@ -3,7 +3,7 @@ class InvoicesResponse {
   int? total;
   int? couponValue;
   int? deliveryValue;
-  int? tax;
+  dynamic tax;
   int? subTotal;
   int? extraDiscount;
 

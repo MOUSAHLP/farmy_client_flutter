@@ -20,6 +20,8 @@ class RewardsActivityTicketMyCoupon extends StatelessWidget {
     if (rewardsActivityAndOffersBloc.state.rewardMyCouponsModel != null) {
       return ListView.separated(
         shrinkWrap: true,
+        padding: EdgeInsetsDirectional.only(bottom: 10.h),
+
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) => RewardsActivityTicketBox(
           text: rewardsActivityAndOffersBloc.state.rewardMyCouponsModel!.data[index].description,
