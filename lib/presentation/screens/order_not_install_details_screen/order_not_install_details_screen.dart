@@ -32,11 +32,13 @@ class OrderNotInstallDetailsScreen extends StatelessWidget {
   final List<Product> id;
   final int idBasket;
   final bool isEdit;
+  final bool instantInstall;
 
   const OrderNotInstallDetailsScreen({
     super.key,
     required this.id,
     this.isEdit = false,
+    this.instantInstall = false,
     required this.idBasket,
   });
 
@@ -47,7 +49,12 @@ class OrderNotInstallDetailsScreen extends StatelessWidget {
         return sl<MyOrderBloc>()
           ..add(ShowBasket(idProducts: id, idBasket: idBasket));
       },
-      child: OrderDetailsBody(id: id, isEdit: isEdit, idBasket: idBasket),
+      child: OrderDetailsBody(
+        id: id,
+        isEdit: isEdit,
+        idBasket: idBasket,
+        instantInstall: instantInstall,
+      ),
     );
   }
 }
@@ -55,17 +62,21 @@ class OrderNotInstallDetailsScreen extends StatelessWidget {
 class OrderDetailsBody extends StatelessWidget {
   final List<Product> id;
   final bool isEdit;
+  final bool instantInstall;
   final int idBasket;
 
   const OrderDetailsBody({
     super.key,
     required this.id,
     this.isEdit = false,
+    this.instantInstall = false,
     required this.idBasket,
   });
 
   @override
   Widget build(BuildContext context) {
+    bool s = true;
+
     return BaseScreenScaffold(
       backgroundColor: Colors.white,
       appbarTitle: AppLocalizations.of(context)!.order_details,
@@ -104,8 +115,20 @@ class OrderDetailsBody extends StatelessWidget {
                     ),
                   );
                 }
+                if (state.quantityInBasket.isNotEmpty && instantInstall && s) {
+                  context.read<BasketBloc>().add(const SaveIdToBasket(0));
+                  checkIsOpening(context) == true
+                      ? context.read<MyOrderBloc>().add(
+                            PaymentProcessBasket(
+                              idBasket,
+                            ),
+                          )
+                      : TimeWorkNotInstallDialog().openDialog(context);
+                  s = false;
+                }
               },
               builder: (context, state) {
+                // if (instantInstall && s) {}
                 if (state.screenStates == ScreenStates.loading) {
                   return const Expanded(
                       child: Center(
@@ -158,7 +181,8 @@ class OrderDetailsBody extends StatelessWidget {
                                     height: 9,
                                   ),
                                   Text(
-                                    AppLocalizations.of(context)!.total_price_without_delivery_with_tax,
+                                    AppLocalizations.of(context)!
+                                        .total_price_without_delivery_with_tax,
                                     style: getBoldStyle(
                                       color: ColorManager.grayForMessage,
                                       fontSize: 14.sp,

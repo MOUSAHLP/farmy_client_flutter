@@ -184,7 +184,9 @@ class BasketScreen extends StatelessWidget {
                                                     ColorManager.primaryGreen,
                                                 labelColor: Colors.white,
                                                 onTap: () {
-                                                  context.read<HomeBloc>().currentIndex = 0;
+                                                  context
+                                                      .read<HomeBloc>()
+                                                      .currentIndex = 0;
                                                   AppRouter.pushReplacement(
                                                       context,
                                                       const HomeScreen());

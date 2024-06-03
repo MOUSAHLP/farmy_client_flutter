@@ -20,7 +20,7 @@ class OrderVerifyCode extends StatefulWidget {
   const OrderVerifyCode({Key? key, required this.orderId}) : super(key: key);
 
   @override
-  _OrderVerifyCodeState createState() => _OrderVerifyCodeState(); 
+  _OrderVerifyCodeState createState() => _OrderVerifyCodeState();
 }
 
 class _OrderVerifyCodeState extends State<OrderVerifyCode> {
