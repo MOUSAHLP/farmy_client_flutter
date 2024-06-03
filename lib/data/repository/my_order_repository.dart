@@ -1,4 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:pharma/models/basket_model.dart';
+import 'package:pharma/models/params/get_basket_params.dart';
+import 'package:pharma/models/params/get_edit_product_params.dart';
 import '../../core/utils/api_const.dart';
 import '../../models/my_order_response.dart';
 import '../../models/order_details_model.dart';
@@ -24,6 +27,7 @@ class MyOrderRepository {
       },
     );
   }
+
   static Future<Either<String, DetailsResponse>> getDetailsOrder(int id) {
     return BaseApiClient.get<DetailsResponse>(
       url: ApiConst.getDetailsOrder(id),
@@ -33,46 +37,58 @@ class MyOrderRepository {
     );
   }
 
-  static Future<Either<String, String>> deleteOrder( int id) {
+  static Future<Either<String, String>> deleteOrder(int id) {
     return BaseApiClient.delete<String>(
       url: ApiConst.deleteOrder(id),
-
       converter: (e) {
         return e['message'];
       },
-
     );
   }
-  static Future<Either<String, String>> editOrder( int id,List<ProductEditPrams> product) {
-   print("============edit order");
-   print(ProductEditPrams.toJsonCardList(product));
-   print("===============product");
-   print(product);
+
+  static Future<Either<String, String>> editOrder(
+      int id, List<ProductEditPrams> product) {
+    print("============edit order");
+    print(ProductEditPrams.toJsonCardList(product));
+    print("===============product");
+    print(product);
     return BaseApiClient.put<String>(
       url: ApiConst.deleteOrder(id),
-      queryParameters: {
-        "products":ProductEditPrams.toJsonCardList(product)},
+      queryParameters: {"products": ProductEditPrams.toJsonCardList(product)},
       converter: (e) {
         return e['message'];
       },
-
     );
   }
-  static Future<Either<String, List<ProductResponse>>> showBasket( List<int> basketModelStore ) {
-   print("============edit order");
-   print(basketModelStore);
-   print("===============product");
+
+  static Future<Either<String, List<ProductResponse>>> showBasket(
+      List<int> basketModelStore) {
+    print("============edit order");
+    print(basketModelStore);
+    print("===============product");
 
     return BaseApiClient.post<List<ProductResponse>>(
       url: ApiConst.showBasket,
-      formData:{
-        "products":basketModelStore} ,
-
+      formData: {"products": basketModelStore},
       converter: (e) {
         return ProductResponse.listFromJson(e["data"]);
       },
-
     );
   }
 
+  static Future<Either<String, Map<String, dynamic>>> getCartPrices(
+      List<GetBasketParams> basket) {
+    var data = {};
+    basket.forEach((element) {
+      data["${element.id}"] = element.products;
+    });
+
+    return BaseApiClient.post<Map<String, dynamic>>(
+      url: ApiConst.getCartPrices,
+      formData: data,
+      converter: (e) {
+        return GetBasketParams.getCartPriceResponse(e["data"]);
+      },
+    );
+  }
 }

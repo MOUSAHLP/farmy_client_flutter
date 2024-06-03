@@ -128,7 +128,6 @@ class OrderDetailsBody extends StatelessWidget {
                 }
               },
               builder: (context, state) {
-                // if (instantInstall && s) {}
                 if (state.screenStates == ScreenStates.loading) {
                   return const Expanded(
                       child: Center(

@@ -36,7 +36,7 @@ class RowOrder extends StatelessWidget {
           child: Text(
             details,
             style: getRegularStyle(
-              color: ColorManager.grayForMessage,
+              color: ColorManager.primaryGreen,
               fontSize: 11.sp,
             ),
             maxLines: 2,
