@@ -67,3 +67,7 @@ class PaymentProcessBasket extends MyOrderEvent {
 class GetOrderHistory extends MyOrderEvent {
   GetOrderHistory();
 }
+
+class ChangStateToSuccessConfirm extends MyOrderEvent {
+  ChangStateToSuccessConfirm();
+}

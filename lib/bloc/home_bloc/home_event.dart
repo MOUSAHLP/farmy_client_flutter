@@ -7,7 +7,9 @@ class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetHomeData extends HomeEvent {}
+class GetHomeData extends HomeEvent {
+
+}
 
 class OnLoadingHomeData extends HomeEvent {}
 

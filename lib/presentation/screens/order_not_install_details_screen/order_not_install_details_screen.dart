@@ -107,8 +107,7 @@ class OrderDetailsBody extends StatelessWidget {
                   AppRouter.push(
                     context,
                     PaymentScreen(
-                      rewardCouponsFixedValueModel:
-                          state.rewardCouponsFixedValueModel!,
+                      rewardCouponsFixedValueModel: state.rewardCouponsFixedValueModel!,
                       paymentProcessResponse: state.paymentProcessResponse!,
                       myOrderBloc: context.read<MyOrderBloc>(),
                       idBasket: idBasket,
@@ -123,7 +122,18 @@ class OrderDetailsBody extends StatelessWidget {
                               idBasket,
                             ),
                           )
-                      : TimeWorkNotInstallDialog().openDialog(context);
+                      : TimeWorkNotInstallDialog().openDialog(
+                          context,
+                          () {
+                            context.read<BasketBloc>().add(const SaveIdToBasket(0));
+                            context.read<MyOrderBloc>().add(
+                              PaymentProcessBasket(
+                                idBasket,
+                              ),
+                            );
+                            s = false;
+                          },
+                        );
                   s = false;
                 }
               },
@@ -227,7 +237,11 @@ class OrderDetailsBody extends StatelessWidget {
                                                   fillColor:
                                                       ColorManager.primaryGreen,
                                                   onTap: () {
-                                                    context.read<BasketBloc>().add(const SaveIdToBasket(0));
+                                                    context
+                                                        .read<BasketBloc>()
+                                                        .add(
+                                                            const SaveIdToBasket(
+                                                                0));
                                                     checkIsOpening(context) ==
                                                             true
                                                         ? context
@@ -239,7 +253,18 @@ class OrderDetailsBody extends StatelessWidget {
                                                             )
                                                         : TimeWorkNotInstallDialog()
                                                             .openDialog(
-                                                                context);
+                                                            context,
+                                                            () {
+                                                              print('###########');
+                                                              context.read<BasketBloc>().add(const SaveIdToBasket(0));
+                                                              context.read<MyOrderBloc>().add(
+                                                                PaymentProcessBasket(
+                                                                  idBasket,
+                                                                ),
+                                                              );
+                                                              s = false;
+                                                            },
+                                                          );
                                                   },
                                                 ),
                                               )

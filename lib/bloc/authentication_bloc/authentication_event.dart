@@ -7,6 +7,7 @@ abstract class AuthenticationEvent {
 }
 
 class AppStarted extends AuthenticationEvent {}
+class ChangeLang extends AuthenticationEvent {}
 
 class LoggedGuest extends AuthenticationEvent {}
 

@@ -1,26 +1,29 @@
 import 'dart:developer';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 import 'package:pharma/core/utils/api_const.dart';
-
 import '../../local_resource/data_store.dart';
 import 'dio_errors_handler.dart';
 import 'interceptors_handler.dart';
 
 class BaseApiClient {
+
   static Dio client = Dio();
   static const String _acceptHeader = 'application/json';
   static CancelToken getTargetCancelToken = CancelToken();
   static final Map<String, String> _headers = {
+    "lang" : DataStore.instance.lang,
     'accept': _acceptHeader,
     'version': DataStore.instance.getVersion ?? "",
     'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
   };
 
   BaseApiClient() {
+    print('@@@@@@@@@@@@@@@@@');
+    print(DataStore.instance.lang);
+    print('@@@@@@@@@@@@@@@@@');
     client.interceptors.add(LogInterceptor());
     if (kDebugMode) {
       client.interceptors.add(

@@ -28,6 +28,7 @@ class AuthenticationBloc
     on<AuthenticationEvent>((event, emit) async {
       final PackageInfo info = await PackageInfo.fromPlatform();
       if (event is AppStarted) {
+        print('!!!!!!!!!!!');
         DataStore.instance.setVersion(info.version);
         final bool hasToken = await userRepository.hasToken();
         await Future.delayed(const Duration(seconds: 3)).then((value) {
@@ -36,8 +37,9 @@ class AuthenticationBloc
             loggedIn = true;
             loginResponse = DataStore.instance.userInfo;
             emit(state.copyWith(
-                authenticationScreenStates:
-                    AuthenticationScreenStates.authenticationAuthenticated));
+                authenticationScreenStates: AuthenticationScreenStates.authenticationAuthenticated,
+            ),
+            );
           }
 
           /// he did not login -> go {as guest or see if he logged out or start from start}
@@ -196,6 +198,9 @@ class AuthenticationBloc
           DataStore.instance.deleteUserInfo();
           emit(state.copyWith(resetPassword: true,authenticationScreenStates: AuthenticationScreenStates.authenticationLoggedOut));
         });
+      }
+      if(event is ChangeLang){
+        emit(state.copyWith(authenticationScreenStates: AuthenticationScreenStates.authenticationInitialized));
       }
     });
   }

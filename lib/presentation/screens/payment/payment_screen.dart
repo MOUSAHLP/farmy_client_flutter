@@ -202,10 +202,8 @@ class PaymentBody extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  for (var item in state.paymentProcessResponse!
-                                      .deliveryMethodList!) ...[
-                                    if (item.deliveryName!.contains("مجدول") &&
-                                        !checkIsOpening(context)) ...[
+                                  for (var item in state.paymentProcessResponse!.deliveryMethodList!) ...[
+                                    if (item.deliveryName!.contains("مجدول") && !checkIsOpening(context)) ...[
                                       BlocBuilder<LocationBloc, LocationState>(
                                         builder: (context, locationState) {
                                           return buildCustomOrderTypeContainer(
@@ -217,9 +215,7 @@ class PaymentBody extends StatelessWidget {
                                           );
                                         },
                                       ),
-                                    ],
-                                    if (!item.deliveryName!
-                                        .contains("مجدول")) ...[
+                                    ] else if (!item.deliveryName!.contains("مجدول") && checkIsOpening(context)) ...[
                                       BlocBuilder<LocationBloc, LocationState>(
                                         builder: (context, locationState) {
                                           return buildCustomOrderTypeContainer(
