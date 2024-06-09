@@ -7,8 +7,10 @@ import 'package:pharma/bloc/my_order_bloc/my_order_bloc.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_state.dart';
 import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/core/app_router/app_router.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
+import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/order_screen/widgets/row_order.dart';
 import 'package:pharma/presentation/screens/payment/payment_screen.dart';
 import 'package:pharma/presentation/widgets/dialogs/error_dialog.dart';
@@ -87,6 +89,41 @@ class BasketNotInstallCard extends StatelessWidget {
                             title:
                                 AppLocalizations.of(context)!.number_of_orders,
                             details: "${myOrder.products.length} طلبات",
+                          ),
+                          SizedBox(height: 10.0.h),
+                          Row(
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .total_price_without_delivery,
+                                style: getBoldStyle(
+                                  color: Colors.black,
+                                  fontSize: 11.sp,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2),
+                                child: Text(
+                                  ":",
+                                  style: getBoldStyle(
+                                    color: Colors.black,
+                                    fontSize: 11.sp,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "${Formatter.formatPrice(myOrder.price)}  ${AppLocalizations.of(context)!.curruncy}",
+                                  style: getBoldStyle(
+                                    color: ColorManager.primaryGreen,
+                                    fontSize: 15.sp,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 10.0.h),
                           const SizedBox(height: 10),

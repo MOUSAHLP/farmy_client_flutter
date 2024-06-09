@@ -1,4 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:pharma/models/basket_model.dart';
+import 'package:pharma/models/params/get_basket_params.dart';
+import 'package:pharma/models/params/get_edit_product_params.dart';
 import '../../core/utils/api_const.dart';
 import '../../models/my_order_response.dart';
 import '../../models/order_details_model.dart';
@@ -72,5 +75,19 @@ class MyOrderRepository {
     );
   }
 
+  static Future<Either<String, Map<String, dynamic>>> getCartPrices(
+      List<GetBasketParams> basket) {
+    var data = {};
+    basket.forEach((element) {
+      data["${element.id}"] = element.products;
+    });
 
+    return BaseApiClient.post<Map<String, dynamic>>(
+      url: ApiConst.getCartPrices,
+      formData: data,
+      converter: (e) {
+        return GetBasketParams.getCartPriceResponse(e["data"]);
+      },
+    );
+  }
 }

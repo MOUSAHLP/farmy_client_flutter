@@ -11,15 +11,29 @@ class GetBasketParams extends Equatable {
   int id;
   @HiveField(1)
   List<Product> products;
+  int price;
+  GetBasketParams({required this.id, this.products = const [], this.price = 0});
 
-  GetBasketParams({required this.id, this.products = const []});
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "idProducts": products,
+        "price": price,
+      };
 
-  Map<String, dynamic> toJson() => {"id": id, "idProducts": products};
+  static Map<String, dynamic> getCartPriceResponse(Map<String, dynamic> json) {
+    Map<String, dynamic> data = {};
+
+    json.keys.forEach((element) {
+      data[element] = json[element];
+    });
+    return data;
+  }
 
   factory GetBasketParams.fromGetExternalVisitsParams(GetBasketParams params) =>
       GetBasketParams(
         id: params.id,
         products: params.products,
+        price: params.price,
       );
 
   GetBasketParams copyWith({
@@ -29,6 +43,7 @@ class GetBasketParams extends Equatable {
     return GetBasketParams(
       id: id ?? 0,
       products: idProducts ?? [],
+      price: price ?? 0,
     );
   }
 
@@ -36,5 +51,6 @@ class GetBasketParams extends Equatable {
   List<Object?> get props => [
         id,
         products,
+        price,
       ];
 }

@@ -51,6 +51,7 @@ class BaseApiClient {
     try {
       print("formData formData formData formData formData ");
       print(formData);
+
       var response = await client.post(
         url,
         queryParameters: queryParameters,
@@ -66,6 +67,7 @@ class BaseApiClient {
         ),
       );
       print(response);
+
       if (((response.statusCode! >= 200 || response.statusCode! <= 205)) &&
           (response.data['error'].toString() != 'true') &&
           (response.data['status'].toString() != 'Error')) {

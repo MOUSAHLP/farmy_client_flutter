@@ -36,17 +36,10 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
 
       totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
           int.parse(productDetailsList[i].discountPrice ?? "0");
-      print('#########');
-      print(
-          "discountPrice : ${int.parse(productDetailsList[i].discountPrice ?? "0")}");
-      print("tax : ${productDetailsList[i].tax ?? 0}");
-      print("totalTax : $totalTax");
-      print('#########');
+
       totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") *
           productInBasketList[i].quantity);
     }
-    print('##################');
-    print(totalTax);
     sum = totalProduct + totalTax.toInt();
     return sum;
   }
@@ -89,8 +82,30 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
             break;
           case 1:
             tabController.animateTo(index);
-            emit(
-                state.copyWith(indexTap: index, basketModel: basketModelStore));
+
+            if (!state.isCartPricesFetched) {
+              emit(state.copyWith(screenStates: ScreenStates.loading));
+              final response = await MyOrderRepository.getCartPrices(
+                  basketModelStore.basketList);
+              response.fold(
+                (l) {
+                  emit(state.copyWith(
+                      screenStates: ScreenStates.error, error: l));
+                },
+                (r) {
+                  for (var e in basketModelStore.basketList) {
+                    e.price = r["${e.id}"] ?? 0;
+                  }
+
+                  emit(state.copyWith(
+                      indexTap: index,
+                      basketModel: basketModelStore,
+                      isCartPricesFetched: true,
+                      screenStates: ScreenStates.success));
+                },
+              );
+            }
+
             break;
           default:
             break;
