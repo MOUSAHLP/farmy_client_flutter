@@ -30,7 +30,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     scrollController.addListener(_scrollListener);
     on<HomeEvent>((event, emit) async {
       if (event is GetHomeData) {
-        print('%%%%%%%%%');
         emit(state.copyWith(screenState: ScreenState.loading));
         (await homeRepo.getHomeDynamicData()).fold(
             (l) => emit(
