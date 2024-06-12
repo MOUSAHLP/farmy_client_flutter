@@ -82,13 +82,13 @@ class BasketNotInstallCard extends StatelessWidget {
                           RowOrder(
                             title:
                                 AppLocalizations.of(context)!.type_of_request,
-                            details: "سلة غير مثبتة",
+                            details: AppLocalizations.of(context)!.basket_not_installed,
                           ),
                           SizedBox(height: 5.h),
                           RowOrder(
                             title:
                                 AppLocalizations.of(context)!.number_of_orders,
-                            details: "${myOrder.products.length} طلبات",
+                            details: "${myOrder.products.length} ${AppLocalizations.of(context)!.order}",
                           ),
                           SizedBox(height: 10.0.h),
                           Row(

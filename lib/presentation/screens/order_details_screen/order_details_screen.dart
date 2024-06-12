@@ -146,7 +146,8 @@ class OrderDetailsBody extends StatelessWidget {
                                     children: [
                                       Text(
                                           Formatter.formatPrice(
-                                              state.totalPrice),
+                                            state.total,
+                                          ),
                                           style: getBoldStyle(
                                               color: ColorManager.primaryGreen,
                                               fontSize: 24)),
@@ -210,7 +211,6 @@ class OrderDetailsBody extends StatelessWidget {
                                             ? const SizedBox()
                                             : Expanded(
                                                 child: CustomButton(
-
                                                   label: AppLocalizations.of(
                                                           context)!
                                                       .download_pdf,

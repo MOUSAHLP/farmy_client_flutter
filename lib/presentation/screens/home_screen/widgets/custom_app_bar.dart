@@ -15,7 +15,6 @@ import 'package:pharma/presentation/screens/home_screen/widgets/search_product.d
 import 'package:pharma/presentation/screens/notification_screen/notification_screen.dart';
 import 'package:pharma/translations.dart';
 
-
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key, this.scaffoldKey});
 
@@ -58,7 +57,7 @@ class CustomAppBar extends StatelessWidget {
                             width: 21,
                           ),
                           onTap: () {
-                                 scaffoldKey?.currentState?.openDrawer();
+                            scaffoldKey?.currentState?.openDrawer();
                           },
                         ),
                         Padding(
@@ -96,7 +95,7 @@ class CustomAppBar extends StatelessWidget {
                       ],
                     ),
                   ),
-                   const Expanded(
+                  const Expanded(
                     flex: 1,
                     child: SizedBox.shrink(),
                     // Row(
@@ -125,31 +124,36 @@ class CustomAppBar extends StatelessWidget {
               height: 10.h,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 AppRouter.push(context, const SearchProduct());
               },
               child: Container(
-                width: 1.sw-50,
+                width: 1.sw - 50,
                 height: 44,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color:ColorManager.grayForSearch,
+                  color: ColorManager.grayForSearch,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
-                      const Icon(Icons.search,color:ColorManager.grayForSearchProduct),
-                     const SizedBox(width: 10,),
-                      Text(AppLocalizations.of(context)!.searchForProduct,
-                      style:  getBoldStyle(
-                        color: ColorManager.grayForSearchProduct,
-                        fontSize: FontSizeApp.s14,
-                      ),)
+                      const Icon(Icons.search,
+                          color: ColorManager.grayForSearchProduct),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.searchForProduct,
+                        style: getBoldStyle(
+                          color: ColorManager.grayForSearchProduct,
+                          fontSize: FontSizeApp.s14,
+                        ),
+                      )
                     ],
                   ),
                 ),
-               ),
+              ),
             )
           ],
         ),

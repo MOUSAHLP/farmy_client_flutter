@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/payment_bloc/payment_bloc.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
@@ -38,11 +39,16 @@ class CustomNoteOnTheOrder extends StatelessWidget {
               const SizedBox(
                 width: 9,
               ),
-              Text(
-                noteText,
-                style: getRegularStyle(
-                    color: ColorManager.grayForMessage,
-                    fontSize: FontSizeApp.s14),
+              Expanded(
+                child: Text(
+                  maxLines:2,
+                  overflow: TextOverflow.ellipsis,
+                  noteText,
+                  style: getRegularStyle(
+                      color: ColorManager.grayForMessage,
+                      fontSize: FontSizeApp.s14.sp,
+                  ),
+                ),
               ),
             ],
           );

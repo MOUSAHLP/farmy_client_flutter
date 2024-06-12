@@ -11,6 +11,7 @@ import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/utils/app_value_const.dart';
 import 'package:pharma/core/utils/formatter.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
 import 'package:pharma/models/delivery_response.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
@@ -202,8 +203,10 @@ class PaymentBody extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  for (var item in state.paymentProcessResponse!.deliveryMethodList!) ...[
-                                    if (item.deliveryName!.contains("مجدول") && !checkIsOpening(context)) ...[
+                                  for (var item in state.paymentProcessResponse!
+                                      .deliveryMethodList!) ...[
+                                    if (item.isSchedule &&
+                                        !checkIsOpening(context)) ...[
                                       BlocBuilder<LocationBloc, LocationState>(
                                         builder: (context, locationState) {
                                           return buildCustomOrderTypeContainer(
@@ -215,7 +218,8 @@ class PaymentBody extends StatelessWidget {
                                           );
                                         },
                                       ),
-                                    ] else if (!item.deliveryName!.contains("مجدول") && checkIsOpening(context)) ...[
+                                    ] else if (!item.isSchedule &&
+                                        checkIsOpening(context)) ...[
                                       BlocBuilder<LocationBloc, LocationState>(
                                         builder: (context, locationState) {
                                           return buildCustomOrderTypeContainer(
@@ -309,16 +313,15 @@ class PaymentBody extends StatelessWidget {
                               ),
                             ),
                             //  todo
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "لا يمكنك استخدام كود الحسم واستبدال النقاط معا (اختر واحدة فقط)",
-                                  style: getRegularStyle(
-                                    color: ColorManager.grayForMessage,
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              AppLocalizations.of(context)!
+                                  .cannot_use_both_code_points,
+                              style: getRegularStyle(
+                                color: ColorManager.grayForMessage,
+                              ),
                             ),
                             SizedBox(height: 5.h),
                             Row(
@@ -331,7 +334,7 @@ class PaymentBody extends StatelessWidget {
                                     " لقد حصلت على حسم ${state.paymentProcessResponse!.invoicesResponse!.couponValue} ل.س من مجمل الفاتورة",
                                     style: getBoldStyle(
                                       color: ColorManager.redForFavorite,
-                                      fontSize: 15,
+                                      fontSize: 15.sp,
                                     ),
                                   ),
                               ],
@@ -351,9 +354,9 @@ class PaymentBody extends StatelessWidget {
                                       fontSize: FontSizeApp.s14,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                   SizedBox(height: 4.h),
                                   InputFieldAuth(
-                                    textDirection: TextDirection.rtl,
+                                    textDirection:DataStore.instance.lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
                                     controller: noteController,
                                     maxLines: 5,
                                     minLines: 5,
@@ -365,14 +368,15 @@ class PaymentBody extends StatelessWidget {
                                     hintStyle: getRegularStyle(
                                       color: ColorManager.grayForMessage,
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
 
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 35),
+                              padding: EdgeInsetsDirectional.symmetric(
+                                horizontal: 35.w,
+                              ),
                               child: Column(
                                 children: [
                                   for (int i = 0;
@@ -533,22 +537,19 @@ class PaymentBody extends StatelessWidget {
                             ),
 
                             Padding(
-                              padding: const EdgeInsets.only(
-                                right: 38,
-                                left: 38,
-                                top: 15,
+                              padding:  EdgeInsets.only(
+                                right: 38.w,
+                                left: 38.w,
+                                top: 15.h,
+                                bottom: 7.h,
                               ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!.invoice,
-                                    style: getUnderBoldStyle(
-                                      color: ColorManager.grayForMessage,
-                                      fontSize: FontSizeApp.s14,
-                                    )!
-                                        .copyWith(height: 1),
-                                  ),
-                                ],
+                              child: Text(
+                                AppLocalizations.of(context)!.invoice,
+                                style: getUnderBoldStyle(
+                                  color: ColorManager.grayForMessage,
+                                  fontSize: FontSizeApp.s14,
+                                )!
+                                    .copyWith(height: 1),
                               ),
                             ),
 
@@ -560,6 +561,7 @@ class PaymentBody extends StatelessWidget {
                               ),
                               child: Column(
                                 children: [
+
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .total_amount,
@@ -588,17 +590,13 @@ class PaymentBody extends StatelessWidget {
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
                                   ),
+
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .deliverycharges,
-                                    price: (
-                                      state
-                                              .paymentProcessResponse!
-                                              .invoicesResponse!
-                                              .deliveryValue ??
-                                          0,
-                                    ).toString(),
+                                    price: state.paymentProcessResponse!.invoicesResponse!.deliveryValue.toString(),
                                   ),
+
                                   CustomBillDetailsRow(
                                     subStatusBill:
                                         AppLocalizations.of(context)!.tax,
@@ -612,6 +610,7 @@ class PaymentBody extends StatelessWidget {
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
                                   ),
+
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .additional_discount,
@@ -627,6 +626,7 @@ class PaymentBody extends StatelessWidget {
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
                                   ),
+
                                   CustomBillDetailsRow(
                                     colorText: ColorManager.primaryGreen,
                                     subStatusBill:
@@ -641,6 +641,7 @@ class PaymentBody extends StatelessWidget {
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
                                   ),
+
                                 ],
                               ),
                             ),
@@ -781,9 +782,10 @@ class PaymentBody extends StatelessWidget {
       isSelected: state.deliveryMethodChosenList
           .any((element) => element.id == item.id),
       deliveryCost:
-          "${AppLocalizations.of(context)!.delivery_cost} ${item.deliveryPrice} ل.س ",
+          "${AppLocalizations.of(context)!.delivery_cost} ${item.deliveryPrice} ${AppLocalizations.of(context)!.curruncy} ",
       image: ImageManager.dateTimeImage,
-      text: "${item.deliveryName} (${item.deliveryTime} دقيقة) ",
+      text:
+          "${item.deliveryName} (${item.deliveryTime} ${AppLocalizations.of(context)!.minutes_2}) ",
       onTap: () {
         if (!state.deliveryMethodChosenList
             .any((element) => element.id == item.id)) {

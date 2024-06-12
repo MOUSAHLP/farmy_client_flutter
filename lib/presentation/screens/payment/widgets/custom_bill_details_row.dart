@@ -39,9 +39,9 @@ class CustomBillDetailsRow extends StatelessWidget {
           ),
           SizedBox(
             width: 1.sw,
-            child: const Divider(
+            child:  Divider(
               thickness: 1,
-              height: 1,
+              height: 7.h,
               indent: 2,
               color: ColorManager.lightGray,
             ),

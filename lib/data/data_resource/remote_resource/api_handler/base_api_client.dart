@@ -14,10 +14,11 @@ class BaseApiClient {
   static const String _acceptHeader = 'application/json';
   static CancelToken getTargetCancelToken = CancelToken();
   static final Map<String, String> _headers = {
-    "lang" : DataStore.instance.lang,
-    'accept': _acceptHeader,
+    'Accept': _acceptHeader,
     'version': DataStore.instance.getVersion ?? "",
     'authorization': 'Bearer ${DataStore.instance.token ?? ''}',
+    'lang' : DataStore.instance.lang,
+
   };
 
   BaseApiClient() {
@@ -141,10 +142,11 @@ class BaseApiClient {
 
   static Future<Either<String, T>> get<T>({
     required String url,
-    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic> ?queryParameters ,
     required T Function(dynamic) converter,
     CancelToken? cancelToken,
   }) async {
+    // queryParameters?['lang']= "ar";
     try {
       var response = await client.get(
         url,

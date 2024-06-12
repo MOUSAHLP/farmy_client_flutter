@@ -56,20 +56,19 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
     }).toList();
     tabs.insert(
       0,
-      const Tab(
-        text: "جميع المنتجات",
+      Tab(
+        text: AppLocalizations.of(context)!.all_products,
       ),
     );
     return BlocConsumer<CategoriesBloc, CategoriesState>(
       listener: (context, state) {},
       builder: (context, state) {
         TabController tabController = TabController(length: state.tabs.length, vsync: this);
-        tabController.animateTo(state.tabIndex);
+        tabController.animateTo(state.tabIndex!);
 
         return SafeArea(
           child: Scaffold(
-            body: (state.screenState == ScreenState.loading &&
-                    state.tabs.isEmpty)
+            body: (state.screenState == ScreenState.loading && state.tabs.isEmpty)
                 ? const CustomLoadingWidget()
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.start,

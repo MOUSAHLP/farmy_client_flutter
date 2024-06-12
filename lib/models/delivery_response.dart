@@ -2,6 +2,7 @@
 class DeliveryMethodResponse {
   int id;
   String? deliveryName;
+  bool isSchedule;
   dynamic deliveryTime;
   int? deliveryPrice;
   dynamic totalPrice;
@@ -12,6 +13,7 @@ class DeliveryMethodResponse {
     this.deliveryTime,
     this.deliveryPrice,
     this.totalPrice,
+    required this.isSchedule,
   });
 
   factory DeliveryMethodResponse.fromJson(Map<String, dynamic> json) {
@@ -21,6 +23,7 @@ class DeliveryMethodResponse {
       deliveryTime: json["time"],
       totalPrice: json["total_price"],
       deliveryPrice: json["price"],
+      isSchedule: json["is_schedule"],
     );
   }
 

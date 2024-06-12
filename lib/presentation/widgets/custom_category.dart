@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -78,7 +79,7 @@ class CustomCategory extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: getBoldStyle(
                 color: ColorManager.black,
-                fontSize: FontSizeApp.s13,
+                fontSize: FontSizeApp.s12.sp,
               )!
                   .copyWith(
                 height: 1,

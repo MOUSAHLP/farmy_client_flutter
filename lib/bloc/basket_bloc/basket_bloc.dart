@@ -1,7 +1,6 @@
-import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/basket_repo.dart';
 import 'package:pharma/data/repository/payment_repo.dart';
@@ -58,8 +57,11 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
             int.parse(mutableProducts[i].discountPrice ?? '0'));
       }
     }
+
     return sum;
   }
+
+
 
   int countProduct(int id) {
     GetBasketParams? basketItem =

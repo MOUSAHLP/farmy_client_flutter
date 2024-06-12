@@ -1,5 +1,6 @@
 {
   "ar": [
+    "add_notes",
     "totalPrice2"
   ]
 }

@@ -2,7 +2,7 @@ part of 'categories_bloc.dart';
 
 class CategoriesState extends Equatable {
   final ScreenState screenState;
-  int tabIndex = 0;
+  late int ?tabIndex ;
   List<CategoriesResponse> categoriesList = [];
   List<Widget> tabs = [];
   int previousSubCategoryIndex = 0;
@@ -11,7 +11,7 @@ class CategoriesState extends Equatable {
 
   CategoriesState(
       {this.screenState = ScreenState.initialized,
-      this.tabIndex = 0,
+       this.tabIndex,
       this.previousSubCategoryIndex = 0,
       this.categoriesList = const [],
       this.subCategoryList = const [],
