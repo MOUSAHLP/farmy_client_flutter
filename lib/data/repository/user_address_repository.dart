@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 
 import '../../core/utils/api_const.dart';
 import '../../models/params/add_address_params.dart';
@@ -11,6 +12,9 @@ class UserAddressRepository {
   static Future<Either<String, List<UserAddressModel>>> getUserAddress() {
     return BaseApiClient.get<List<UserAddressModel>>(
       url: ApiConst.getUserAddresses,
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return UserAddressModel.listFromJson(e["data"]);
       },
@@ -27,6 +31,9 @@ class UserAddressRepository {
     return BaseApiClient.post<UserAddressModel>(
       url: ApiConst.addUserAddresses,
       formData: FormData.fromMap(postParams.toJson()),
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return UserAddressModel.fromJson(e["data"]);
       },
@@ -36,6 +43,9 @@ class UserAddressRepository {
   static Future<Either<String, String>> deleteAddress(int id) {
     return BaseApiClient.delete<String>(
       url: ApiConst.deleteUserAddresses(id),
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return e['message'];
       },
@@ -45,6 +55,9 @@ class UserAddressRepository {
   static Future<Either<String, String>> makeAdressFavorite(int id) {
     return BaseApiClient.post<String>(
       url: ApiConst.makeAdressFavorite(id),
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return e['message'];
       },

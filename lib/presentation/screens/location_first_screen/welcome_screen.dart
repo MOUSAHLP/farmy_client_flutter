@@ -32,9 +32,11 @@ class WelcomeScreen extends StatelessWidget {
               ),
               SvgPicture.asset(IconsManager.logoGreen),
               Text(
-                "فارمي",
+                AppLocalizations.of(context)!.farmy,
                 style: getRegularStyle(
-                    color: ColorManager.primaryGreen, fontSize: 30),
+                  color: ColorManager.primaryGreen,
+                  fontSize: 30,
+                ),
               ),
               Text(
                 AppLocalizations.of(context)!.welcome,

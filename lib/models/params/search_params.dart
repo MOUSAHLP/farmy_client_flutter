@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 
 // ignore: must_be_immutable
 class GetSearchParams extends Equatable {
@@ -11,17 +12,15 @@ class GetSearchParams extends Equatable {
   });
 
   Map<String, dynamic> toJson() => {
-
         "search": textSearch,
         "page": page,
-
+        'lang': DataStore.instance.lang,
       };
 
   factory GetSearchParams.fromGetVendorsParams(GetSearchParams params) =>
       GetSearchParams(
         textSearch: params.textSearch,
         page: params.page,
-
       );
 
   GetSearchParams setNewSortingValue(
@@ -48,7 +47,6 @@ class GetSearchParams extends Equatable {
   GetSearchParams copyWith({
     String? textSearch,
     int? skipCount,
-
   }) {
     return GetSearchParams(
       textSearch: textSearch ?? this.textSearch,

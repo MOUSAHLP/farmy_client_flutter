@@ -68,12 +68,8 @@ class HomeCategory extends StatelessWidget {
                 onTap: () {
                   context.read<CategoriesBloc>().add(
                         GetSubCategoryEvent(
-                          tabIndex: sortCategoriesResponseIndex(
-                                      sortCategoriesResponse(categoriesList))[
-                                  index] +
-                              1,
-                          categoryId:
-                              sortCategoriesResponse(categoriesList)[index].id,
+                          tabIndex: sortCategoriesResponseIndex(sortCategoriesResponse(categoriesList))[index] + 1,
+                          categoryId: sortCategoriesResponse(categoriesList)[index].id,
                         ),
                       );
                   AppRouter.push(
@@ -98,8 +94,7 @@ class HomeCategory extends StatelessWidget {
   }
 }
 
-List<CategoriesResponse> sortCategoriesResponse(
-    List<CategoriesResponse> categoriesResponse) {
+List<CategoriesResponse> sortCategoriesResponse(List<CategoriesResponse> categoriesResponse) {
   int mid = (categoriesResponse.length + 1) ~/ 2;
 
   // تقسيم المصفوفة إلى نصفين

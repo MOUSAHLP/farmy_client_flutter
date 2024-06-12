@@ -152,11 +152,13 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                       ),
                       const SizedBox(width: 1),
                       if (product.price != null)
-                        Text(AppLocalizations.of(context)!.curruncy,
-                            style: getBoldStyle(
-                                    color: ColorManager.primaryGreen,
-                                    fontSize: FontSizeApp.s10)!
-                                .copyWith(height: 1))
+                        Text(
+                          AppLocalizations.of(context)!.curruncy,
+                          style: getBoldStyle(
+                                  color: ColorManager.primaryGreen,
+                                  fontSize: FontSizeApp.s10)!
+                              .copyWith(height: 1),
+                        )
                     ],
                   ),
                 ],
@@ -200,8 +202,9 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                   ColorManager.shadowGaryDown,
                 ], color: Colors.white),
                 child: Padding(
-                    padding: EdgeInsets.all(6.w),
-                    child: SvgPicture.asset(IconsManager.add)),
+                  padding: EdgeInsets.all(6.w),
+                  child: SvgPicture.asset(IconsManager.add),
+                ),
               ),
               onTap: () {
                 context.read<MyOrderBloc>().add(AddCountOrder(product.id ?? 0));

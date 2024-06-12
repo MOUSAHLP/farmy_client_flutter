@@ -1,14 +1,12 @@
-
-
 import 'package:pharma/models/product_response.dart';
 
 
-class DetailsResponse {
-  List<OrderDetailsModel>? homeCategoriesList;
+class DetailsResponse {List<OrderDetailsModel>? homeCategoriesList;
 String? pdfUrl;
+int? total;
   DetailsResponse(
       {this.homeCategoriesList,
-        this.pdfUrl});
+        this.pdfUrl,this.total});
 
   factory DetailsResponse.fromJson(Map<String, dynamic> json) {
     return DetailsResponse(
@@ -16,7 +14,8 @@ String? pdfUrl;
           ? []
           : List<OrderDetailsModel>.from(
           json["order_details"].map((x) => OrderDetailsModel.fromJson(x))),
-      pdfUrl: json['pdf_url']
+      pdfUrl: json['pdf_url'],
+        total: json['total']
     );
   }
 }

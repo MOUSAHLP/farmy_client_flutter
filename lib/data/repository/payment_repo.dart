@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:pharma/core/utils/api_const.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/data/data_resource/remote_resource/api_handler/base_api_client.dart';
 import 'package:pharma/models/delivery_attributes_response.dart';
 import 'package:pharma/models/params/Invoices_params.dart';
@@ -13,6 +14,9 @@ import '../../models/payment_process_response.dart';
       return BaseApiClient.post<PaymentProcessResponse>(
           formData: paymentProcessParams.toJsonWithParams(invoicesParams),
           url: ApiConst.getPaymentDetails,
+          queryParameters: {
+            'lang': DataStore.instance.lang,
+          },
           converter: (e) {
             return PaymentProcessResponse.fromJson(e["data"]);
           });
@@ -26,6 +30,9 @@ import '../../models/payment_process_response.dart';
             paymentProcessParams.productInBasketList,
             deliveryChangesList),
         url: ApiConst.createOrders,
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return e["data"];
         });
@@ -34,6 +41,9 @@ import '../../models/payment_process_response.dart';
   static Future<Either<String, RewardCouponsFixedValueModel>> getRewardCouponFixedValue() {
     return BaseApiClient.get<RewardCouponsFixedValueModel>(
         url: ApiConst.getRewardsOfferCoupon,
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return RewardCouponsFixedValueModel.fromJson(e);
         });

@@ -70,9 +70,8 @@ class ContactUsScreen extends StatelessWidget {
                             horizontal: 20.w,
                             vertical: 10.h,
                           ),
-                          child: InputFieldAuth(                    textDirection: TextDirection.ltr,
-
-
+                          child: InputFieldAuth(
+                            textDirection: TextDirection.ltr,
                             controller: emailController,
                             textAlign: TextAlign.start,
                             angelRadios: Radius.circular(
@@ -100,7 +99,6 @@ class ContactUsScreen extends StatelessWidget {
                           ),
                           child: InputFieldAuth(
                             textDirection: TextDirection.ltr,
-
                             controller: notesController,
                             maxLines: 5,
                             minLines: 5,
@@ -156,8 +154,10 @@ class ContactUsScreen extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 32.w,
+                          padding: EdgeInsetsDirectional.only(
+                            start: 10.w,
+                            end: 10.w,
+                            top: 15.h,
                           ),
                           child: Text(
                             AppLocalizations.of(context)!
@@ -178,7 +178,7 @@ class ContactUsScreen extends StatelessWidget {
                         // ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                            vertical: 12.h,
+                            vertical: 15.h,
                           ),
                           child: InkWell(
                             onTap: () {
@@ -198,7 +198,6 @@ class ContactUsScreen extends StatelessWidget {
             ),
           ),
         ),
-
       ),
     );
   }

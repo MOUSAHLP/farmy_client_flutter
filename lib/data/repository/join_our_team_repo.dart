@@ -2,6 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:pharma/core/utils/api_const.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/data/data_resource/remote_resource/api_handler/base_api_client.dart';
 
 import '../../models/join_team_jobs.dart';
@@ -11,6 +12,9 @@ class JoinTeamRepo {
   static Future<Either<String, JoinOurTeamJobs>> getJoinOurTeamJobs() {
     return BaseApiClient.get<JoinOurTeamJobs>(
         url: ApiConst.getJoinOurTeamJobs,
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return JoinOurTeamJobs.fromJson(e);
         });
@@ -24,6 +28,9 @@ class JoinTeamRepo {
           "name": joinParams.name,
           "phone": joinParams.phone,
           "job": joinParams.job
+        },
+        queryParameters: {
+          'lang': DataStore.instance.lang,
         },
         converter: (e) {
           return "";

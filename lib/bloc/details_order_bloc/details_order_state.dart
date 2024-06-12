@@ -8,6 +8,7 @@ class DetailsOrderState extends Equatable {
   bool isLoading;
   bool isLoadingEdite;
   int totalPrice;
+  int total;
   String error;
   String urlPdf;
   String errorEdit;
@@ -22,6 +23,7 @@ class DetailsOrderState extends Equatable {
     this.success = false,
     this.successEdit = false,
     this.totalPrice = 0,
+    this.total = 0,
     this.error = '',
     this.urlPdf = '',
     this.errorEdit = '',
@@ -35,6 +37,7 @@ class DetailsOrderState extends Equatable {
     bool? success,
     bool? successEdit,
     int? totalPrice,
+    int? total,
     String? error,
     String? urlPdf,
     String? errorEdit,
@@ -51,6 +54,7 @@ class DetailsOrderState extends Equatable {
       errorEdit: errorEdit ?? '',
       productList: productList ?? this.productList,
       totalPrice: totalPrice ?? this.totalPrice,
+      total: total ?? this.total,
     );
   }
 
@@ -66,6 +70,7 @@ class DetailsOrderState extends Equatable {
         errorEdit,
         productList,
         totalPrice,
-    urlPdf
+        urlPdf,
+        total
       ];
 }

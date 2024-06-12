@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/models/basket_model.dart';
 import 'package:pharma/models/params/get_basket_params.dart';
 import 'package:pharma/models/params/get_edit_product_params.dart';
@@ -13,6 +14,9 @@ class MyOrderRepository {
   static Future<Either<String, List<MyOrderResponse>>> getMyOrder() {
     return BaseApiClient.get<List<MyOrderResponse>>(
       url: ApiConst.getMyOrder,
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return MyOrderResponse.listFromJson(e["data"]);
       },
@@ -22,6 +26,9 @@ class MyOrderRepository {
   static Future<Either<String, List<MyOrderResponse>>> getMyOrderHistory() {
     return BaseApiClient.get<List<MyOrderResponse>>(
       url: ApiConst.getMyOrderHistory,
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return MyOrderResponse.listFromJson(e["data"]);
       },
@@ -31,6 +38,9 @@ class MyOrderRepository {
   static Future<Either<String, DetailsResponse>> getDetailsOrder(int id) {
     return BaseApiClient.get<DetailsResponse>(
       url: ApiConst.getDetailsOrder(id),
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return DetailsResponse.fromJson(e["data"]);
       },
@@ -40,6 +50,9 @@ class MyOrderRepository {
   static Future<Either<String, String>> deleteOrder(int id) {
     return BaseApiClient.delete<String>(
       url: ApiConst.deleteOrder(id),
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return e['message'];
       },
@@ -54,7 +67,10 @@ class MyOrderRepository {
     print(product);
     return BaseApiClient.put<String>(
       url: ApiConst.deleteOrder(id),
-      queryParameters: {"products": ProductEditPrams.toJsonCardList(product)},
+      queryParameters: {
+        "products": ProductEditPrams.toJsonCardList(product),
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return e['message'];
       },
@@ -68,6 +84,9 @@ class MyOrderRepository {
     print("===============product");
     return BaseApiClient.post<List<ProductResponse>>(
       url: ApiConst.showBasket,
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       formData: {"products": basketModelStore},
       converter: (e) {
         return ProductResponse.listFromJson(e["data"]);
@@ -85,6 +104,9 @@ class MyOrderRepository {
     return BaseApiClient.post<Map<String, dynamic>>(
       url: ApiConst.getCartPrices,
       formData: data,
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
       converter: (e) {
         return GetBasketParams.getCartPriceResponse(e["data"]);
       },

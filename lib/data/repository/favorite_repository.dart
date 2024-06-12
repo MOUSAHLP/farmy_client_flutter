@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import '../../core/utils/api_const.dart';
 import '../../models/product_response.dart';
 
@@ -8,6 +9,8 @@ class FavoriteRepository {
   static Future<Either<String, List<ProductResponse>>> getFavoriteList() {
     return BaseApiClient.get<List<ProductResponse>>(
         url: ApiConst.getFavorite,
+        queryParameters: {'lang':DataStore.instance.lang},
+
         converter: (e) {
           return ProductResponse.listFromJson(e["data"]);
         });
@@ -17,6 +20,7 @@ class FavoriteRepository {
     return BaseApiClient.post<String>(
         queryParameters: {
           "product_id": idProduct,
+          'lang':DataStore.instance.lang,
         },
         url: ApiConst.addFavorite,
         converter: (e) {
@@ -28,6 +32,8 @@ class FavoriteRepository {
     return BaseApiClient.post<String>(
         queryParameters: {
           "product_id": idProduct,
+          'lang':DataStore.instance.lang,
+
         },
         url: ApiConst.removeFavorite,
         converter: (e) {

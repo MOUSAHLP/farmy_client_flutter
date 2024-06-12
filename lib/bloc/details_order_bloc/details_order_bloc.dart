@@ -81,10 +81,12 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
           productDetailsList = r.homeCategoriesList ?? [];
           emit(
             state.copyWith(
+                total: r.total,
                 screenStates: ScreenStates.success,
                 productList: productDetailsList,
                 totalPrice: finalPrice(),
-                urlPdf: r.pdfUrl),
+                urlPdf: r.pdfUrl,
+            ),
           );
         });
       }

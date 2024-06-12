@@ -1,3 +1,4 @@
+import 'package:pharma/models/invoices_response.dart';
 import 'package:pharma/models/payment_method_model.dart';
 import 'package:pharma/models/user_address_response.dart';
 import 'package:pharma/models/user_model.dart';
@@ -16,6 +17,7 @@ class MyOrderResponse {
   PaymentMethodModel? paymentMethod;
   int expectedTime;
   double? rate;
+  InvoicesResponse ?invoicesResponse; 
 
   MyOrderResponse({
     this.orderNumber,
@@ -28,7 +30,8 @@ class MyOrderResponse {
     this.deliveryMethod,
     this.paymentMethod,
     required this.expectedTime,
-    this.rate
+    this.rate,
+    this.invoicesResponse,
   });
 
   factory MyOrderResponse.fromJson(Map<String, dynamic> json) {
@@ -42,7 +45,8 @@ class MyOrderResponse {
       total: json["total"],
       date: json["date"],
       deliveryMethod: DeliveryMethodModel.fromJson(json['delivery_method']),
-      rate:double.parse(json["rate"].toString())
+      rate:double.parse(json["rate"].toString()),
+      // invoicesResponse: InvoicesResponse.formJson(json["invoice"])
     );
   }
 

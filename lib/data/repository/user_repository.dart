@@ -21,7 +21,10 @@ class UserRepository {
 
     return BaseApiClient.post<LoginResponse>(
         url: ApiConst.login,
-        formData: loginParams?.toJson(),
+        formData: loginParams.toJson(),
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return LoginResponse.fromJson(e['data']);
         });
@@ -43,6 +46,9 @@ class UserRepository {
       String phoneNumber) async {
     return BaseApiClient.post<OtpVerifyResponse>(
         url: ApiConst.generateOtp,
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         formData: {
           "phone": phoneNumber,
         },
@@ -66,6 +72,9 @@ class UserRepository {
     return BaseApiClient.post<bool>(
         url: ApiConst.changePassword,
         formData: forgetPasswordParams.toJson(),
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return true;
         });
@@ -74,6 +83,9 @@ class UserRepository {
   Future<Either<String, bool>> logout() async {
     return BaseApiClient.post<bool>(
         url: ApiConst.logout,
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return true;
         });
@@ -84,6 +96,9 @@ class UserRepository {
     return BaseApiClient.post<bool>(
         url: ApiConst.deleteAccount,
         formData: deleteAccountParams.toJson(),
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return true;
         });
@@ -93,6 +108,9 @@ class UserRepository {
     return BaseApiClient.post<String>(
         url: ApiConst.signUp,
         formData: FormData.fromMap(signUpParams!.toJson()),
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return e['data']['name'];
         });
@@ -106,6 +124,9 @@ class UserRepository {
     return BaseApiClient.post<LoginResponse>(
         url: ApiConst.updateProfile,
         formData: FormData.fromMap(profileModel.toJson()),
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return LoginResponse.fromJson(e['data']);
         });
@@ -114,6 +135,9 @@ class UserRepository {
   static Future<Either<String, ProfileModel>> getProfile() {
     return BaseApiClient.get<ProfileModel>(
         url: ApiConst.profile,
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         converter: (e) {
           return ProfileModel.fromJson(e['data']);
         });
@@ -122,6 +146,9 @@ class UserRepository {
       ResetPasswordParams forgetPasswordParams) async {
     return BaseApiClient.post<bool>(
         url: ApiConst.resetPassword,
+        queryParameters: {
+          'lang': DataStore.instance.lang,
+        },
         formData:  {
             "old_password":forgetPasswordParams.oldPassword,
             "password":forgetPasswordParams.password,

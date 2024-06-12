@@ -110,11 +110,13 @@ class BasketScreen extends StatelessWidget {
                               : Container(
                                   width: 1.sw,
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(22),
-                                          topRight: Radius.circular(22)),
-                                      boxShadow: [ColorManager.shadowGaryUp]),
+                                    color: Colors.white,
+                                    borderRadius:  BorderRadius.only(
+                                      topLeft: Radius.circular(22.r),
+                                      topRight: Radius.circular(22.r),
+                                    ),
+                                    boxShadow: [ColorManager.shadowGaryUp],
+                                  ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -133,13 +135,16 @@ class BasketScreen extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                              Formatter.formatPrice((context
+                                            Formatter.formatPrice(
+                                              context
                                                   .read<BasketBloc>()
-                                                  .finalPrice())),
-                                              style: getBoldStyle(
-                                                  color:
-                                                      ColorManager.primaryGreen,
-                                                  fontSize: 24)),
+                                                  .finalPrice(),
+                                            ),
+                                            style: getBoldStyle(
+                                              color: ColorManager.primaryGreen,
+                                              fontSize: 24.sp,
+                                            ),
+                                          ),
                                           const SizedBox(
                                             width: 2,
                                           ),
@@ -199,7 +204,7 @@ class BasketScreen extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: CustomButton(
-                                                label: "حفظ كمسودة",
+                                                label: AppLocalizations.of(context)!.save_as_draft,
                                                 fillColor:
                                                     ColorManager.primaryGreen,
                                                 labelColor: Colors.white,

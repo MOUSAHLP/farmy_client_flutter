@@ -3,7 +3,6 @@
 
 class DeliveryMethodModel {
   int? id;
-
   String? name;
 
 

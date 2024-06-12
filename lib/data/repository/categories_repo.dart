@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:pharma/core/utils/api_const.dart';
+import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/models/category_by_id_response.dart';
 
@@ -34,7 +35,7 @@ class CategoriesRepo {
     BaseApiClient.getTargetCancelToken = CancelToken();
     return BaseApiClient.get<List<ProductResponse>>(
         cancelToken: BaseApiClient.getTargetCancelToken,
-        queryParameters: {"subCategoryId": id},
+        queryParameters: {"subCategoryId": id,'lang':DataStore.instance.lang},
         url: ApiConst.getProductBySubCategoryId,
         converter: (e) {
           return ProductResponse.listFromJson(e["data"]);

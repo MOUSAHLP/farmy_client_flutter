@@ -12,6 +12,7 @@ import 'package:pharma/presentation/resources/assets_manager.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
+import 'package:pharma/translations.dart';
 
 class CustomDiscountIdContainer extends StatefulWidget {
   final String subjectText;
@@ -190,7 +191,7 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                               content: Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "الرجاء اختيار نوع الطلب",
+                                  AppLocalizations.of(context)!.please_select_an_order_type,
                                   style: getRegularStyle(
                                     color: ColorManager.white,
                                     fontSize: FontSizeApp.s14,
@@ -217,15 +218,15 @@ class _CustomDiscountIdContainerState extends State<CustomDiscountIdContainer> {
                                 text:
                                     "${widget.rewardCouponsFixedValueModel!.data[index].price}",
                               ),
-                              const TextSpan(
-                                text: " نقطة = ",
+                               TextSpan(
+                                text: " ${AppLocalizations.of(context)!.point} = ",
                               ),
                               TextSpan(
                                 text:
                                     "${widget.rewardCouponsFixedValueModel!.data[index].value}",
                               ),
-                              const TextSpan(
-                                text: " ل.س",
+                               TextSpan(
+                                text: " ${AppLocalizations.of(context)!.curruncy}",
                               ),
                             ],
                           ),

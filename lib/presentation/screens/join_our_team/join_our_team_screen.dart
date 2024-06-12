@@ -97,10 +97,10 @@ class JoinOurTeamBody extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsetsDirectional.only(
                                   start: 10.w,
+                                  end: 9.w,
                                 ),
                                 child: Text(
-                                  AppLocalizations.of(context)!
-                                      .join_Our_Team_Statment,
+                                  AppLocalizations.of(context)!.join_Our_Team_Statment,
                                   style: getUnderBoldStyle(
                                     color: ColorManager.grayForMessage,
                                     fontSize: FontSizeApp.s14.sp,
