@@ -10,8 +10,10 @@ import '../../../../core/utils/formatter.dart';
 import '../../../../models/notification_model.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
+
 class CardNotification extends StatelessWidget {
-   CardNotification({Key? key, required this.notificationModel}) : super(key: key);
+  CardNotification({Key? key, required this.notificationModel})
+      : super(key: key);
 
   final NotificationModel notificationModel;
 
@@ -19,7 +21,8 @@ class CardNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
+    return
+    Slidable(
       controller: _slidableController,
       actionPane: const SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
@@ -29,7 +32,9 @@ class CardNotification extends StatelessWidget {
           color: Colors.red,
           icon: Icons.delete,
           onTap: () {
-            context.read<NotificationBloc>().add(DeleteNotification(notificationModel.id));
+            context
+                .read<NotificationBloc>()
+                .add(DeleteNotification(notificationModel.id));
           },
         ),
       ],
@@ -41,8 +46,8 @@ class CardNotification extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       height: 60.h,
-
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0.r),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0.r),
         color: Colors.white,
         boxShadow: [ColorManager.shadowGaryDown],
       ),
@@ -57,7 +62,8 @@ class CardNotification extends StatelessWidget {
                 Expanded(
                   child: Text(
                     notificationModel.data?.body ?? "",
-                    style: getBoldStyle(color: ColorManager.grayForMessage, fontSize: 14),
+                    style: getBoldStyle(
+                        color: ColorManager.grayForMessage, fontSize: 14),
                     textAlign: TextAlign.start,
                   ),
                 ),
@@ -67,7 +73,9 @@ class CardNotification extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  Formatter.formatDateOnly(context, notificationModel.createdAt) ?? "",
+                  Formatter.formatDateOnly(
+                          context, notificationModel.createdAt) ??
+                      "",
                   style: getLightStyle(color: ColorManager.grayForMessage),
                 ),
               ],

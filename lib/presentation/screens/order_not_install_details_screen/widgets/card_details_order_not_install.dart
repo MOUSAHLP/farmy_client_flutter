@@ -140,8 +140,9 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                       Text(
                         Formatter.formatPrice(
                           int.parse(
-                            product.discountStatus == "0" ?
-                           product.price ?? "0" : product.discountPrice ?? "0",
+                            product.discountStatus == "0"
+                                ? product.price ?? "0"
+                                : product.discountPrice ?? "0",
                           ),
                         ),
                         style: getBoldStyle(

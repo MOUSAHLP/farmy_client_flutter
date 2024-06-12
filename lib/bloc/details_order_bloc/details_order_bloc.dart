@@ -24,19 +24,45 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
     int totalProduct = 0;
     for (int i = 0; i < productDetailsList.length; i++) {
       if (productDetailsList[i].product?.discountStatus == "0") {
-        totalTax += ((productDetailsList[i].product?.tax ?? 0) / 100) *
-            int.parse(productDetailsList[i].product?.price ?? "0");
         totalProduct +=
+            (int.parse(productDetailsList[i].product!.price ?? "0") *
+                productDetailsList[i].quantity!);
+        totalTax += ((productDetailsList[i].product?.tax ?? 0) / 100) *
             (int.parse(productDetailsList[i].product!.price ?? "0") *
                 productDetailsList[i].quantity!);
       }
       if (productDetailsList[i].product?.discountStatus != "0") {
-        totalTax += ((productDetailsList[i].product?.tax ?? 0) / 100) *
-            int.parse(productDetailsList[i].product?.price ?? "0");
         totalProduct +=
             (int.parse(productDetailsList[i].product!.discountPrice ?? "0") *
                 productDetailsList[i].quantity!);
+        totalTax += ((productDetailsList[i].product?.tax ?? 0) / 100) *
+            (int.parse(productDetailsList[i].product!.discountPrice ?? "0") *
+                productDetailsList[i].quantity!);
       }
+      print((((productDetailsList[i].product?.tax ?? 0) / 100) *
+                  (int.parse(productDetailsList[i].product!.price ?? "0") *
+                      productDetailsList[i].quantity!))
+              .toString() +
+          "tax%%%");
+      print(((int.parse(productDetailsList[i].product!.price ?? "0") *
+                  productDetailsList[i].quantity!))
+              .toString() +
+          "product%%%");
+      // double totalTax = 0;
+      // int totalProduct = 0;
+      // for (int i = 0; i < productDetailsList.length; i++) {
+      //   int reversedIndex = productInBasketList.length - 1 - i;
+
+      //   // totalTax += (productDetailsList[i].tax ?? 0 *  int.parse(productDetailsList[i].discountPrice ?? "0"))/100;
+      //   totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") *
+      //       productInBasketList[i].quantity);
+
+      //   totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
+      //       (int.parse(productDetailsList[i].discountPrice ?? "0") *
+      //           productInBasketList[i].quantity);
+      // }
+      // sum = totalProduct + totalTax.toInt();
+      // return sum;
     }
 
     sum = totalProduct + totalTax.toInt();

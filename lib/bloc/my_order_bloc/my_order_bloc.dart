@@ -34,11 +34,21 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
 
       // totalTax += (productDetailsList[i].tax ?? 0 *  int.parse(productDetailsList[i].discountPrice ?? "0"))/100;
 
-      totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
-          int.parse(productDetailsList[i].discountPrice ?? "0");
+      if (productDetailsList[i].discountStatus == "1") {
+        totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") *
+            productInBasketList[i].quantity);
 
-      totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") *
-          productInBasketList[i].quantity);
+        totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
+            (int.parse(productDetailsList[i].discountPrice ?? "0") *
+                productInBasketList[i].quantity);
+      } else {
+        totalProduct += (int.parse(productDetailsList[i].price ?? "0") *
+            productInBasketList[i].quantity);
+
+        totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
+            (int.parse(productDetailsList[i].price ?? "0") *
+                productInBasketList[i].quantity);
+      }
     }
     sum = totalProduct + totalTax.toInt();
     return sum;
@@ -120,11 +130,12 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
             state.copyWith(basketModel: basketModelStore, check: !state.check));
       }
       if (event is ShowBasket) {
-        for (var product in basketModelStore.basketList
+        for (var product in basketModelStore.basketList.reversed
             .firstWhere((element) => element.id == event.idBasket)
             .products) {
           productInBasketList.add(product);
         }
+        productInBasketList.sort((a, b) => a.productId.compareTo(b.productId));
         emit(state.copyWith(screenStates: ScreenStates.loading));
         List<int> listIdProduct = [];
 
@@ -267,7 +278,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
         });
       }
 
-      if(event is ChangStateToSuccessConfirm){
+      if (event is ChangStateToSuccessConfirm) {
         emit(state.copyWith(successConfirm: true));
       }
     });

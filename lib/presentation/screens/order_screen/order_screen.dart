@@ -236,7 +236,6 @@ class BodyBasketNotInstall extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MyOrderBloc, MyOrderState>(
       builder: (context, state) {
-        print(state.isCartPricesFetched.toString() + "%%%");
         return CustomOverscrollIndicator(
           child: ListView.builder(
             itemBuilder: (context, index) => BasketNotInstallCard(
