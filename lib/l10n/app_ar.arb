@@ -149,6 +149,7 @@
   "additional_discount": "حسم إضافي",
   "cannot_use_both_code_points": "لا يمكنك استخدام الكود الحسم و استبدال النقاط معاً (اختر واحدة فقط)",
   "reviews": "ملاحظات",
+  "add_notes": "اضف ملاحظاتك هنا ...",
   "please_select_an_order_type": "إضافة ملاحظات على طلبك",
   "invoice": "الفاتورة",
   "normal_request": "طلب عادي",

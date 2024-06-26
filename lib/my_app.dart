@@ -59,7 +59,9 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(
                 create: (BuildContext context) =>
                     sl<HomeBloc>()..add(GetHomeData())),
-            BlocProvider(create: (BuildContext context) => sl<BasketBloc>()..add(BasketInitState())),
+            BlocProvider(
+                create: (BuildContext context) =>
+                    sl<BasketBloc>()..add(BasketInitState())),
             BlocProvider(
               create: (BuildContext context) => sl<FavoriteBloc>(),
             ),

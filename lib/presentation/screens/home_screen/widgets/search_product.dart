@@ -604,8 +604,8 @@ class SearchVendorBody extends StatelessWidget {
                                                       )
                                                     : const SizedBox(),
                                                 state.vendorsList[index]
-                                                            .discountPrice !=
-                                                        null
+                                                            .discountStatus !=
+                                                        "0"
                                                     ? Text(
                                                         state.vendorsList[index]
                                                                 .price ??
@@ -639,7 +639,7 @@ class SearchVendorBody extends StatelessWidget {
                                                             Formatter
                                                                 .formatPrice(
                                                               int.tryParse(
-                                                                    state.vendorsList[index].discount ==
+                                                                    state.vendorsList[index].discountStatus ==
                                                                             "0"
                                                                         ? state.vendorsList[index].price ??
                                                                             ""

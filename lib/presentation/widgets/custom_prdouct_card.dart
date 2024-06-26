@@ -85,7 +85,7 @@ class CustomProductCard extends StatelessWidget {
                             ),
                           ),
                           productInfo.discountStatus == "0" &&
-                                  productInfo.price == ""
+                                  productInfo.price != ""
                               ? const SizedBox()
                               : Padding(
                                   padding: EdgeInsets.only(top: 3.h),

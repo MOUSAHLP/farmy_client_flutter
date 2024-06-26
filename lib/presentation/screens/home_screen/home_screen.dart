@@ -209,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             onTap: () {
                                               context
                                                   .read<BasketBloc>()
-                                                  .add(SaveIdToBasket(0));
+                                                  .add(const SaveIdToBasket(0));
                                               context
                                                   .read<HomeBloc>()
                                                   .currentIndex = 3;
