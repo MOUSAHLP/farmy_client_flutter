@@ -71,7 +71,6 @@ class DataStore {
   Future<void> setVersion(String value) =>
       box.put(DataStoreKeys.version, value);
 
-
   // Future<void> setShowOnborading(bool value) =>
   //     box.put(DataStoreKeys.onBoarding, value);
 
@@ -89,6 +88,9 @@ class DataStore {
       box.put(DataStoreKeys.onBoarding, value);
 
   List<ProductResponse> getLocalBasket() {
+    if (!box.containsKey(DataStoreKeys.localBasket) ||
+        box.get(DataStoreKeys.localBasket) == null) return [];
+
     List<ProductResponse> basketProducts = [];
     for (var element in box.get(DataStoreKeys.localBasket)) {
       basketProducts.add(element);

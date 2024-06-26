@@ -74,11 +74,11 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         ),
       );
       if (event is BasketInitState) {
-        emit(
-          state.copyWith(
-            productList: mutableProducts,
-          ),
-        );
+        // emit(
+        //   state.copyWith(
+        //     productList: mutableProducts,
+        //   ),
+        // );
       }
 
       if (event is AddToBasket) {
