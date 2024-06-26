@@ -9,7 +9,8 @@ class ProductdetailsEvent extends Equatable {
 
 class GetProductDetailsById extends ProductdetailsEvent {
   final int id;
-  const GetProductDetailsById({required this.id});
+  final List<ProductResponse> basketProducts;
+  const GetProductDetailsById({required this.id,required this.basketProducts});
 }
 
 class AddQuntityToOrder extends ProductdetailsEvent {
@@ -22,7 +23,6 @@ class AddQuantityRelatedToOrder extends ProductdetailsEvent {
   final int index;
 
   const AddQuantityRelatedToOrder(this.relatedProduct, this.index);
-
 }
 
 class AddQuantitySimilarToOrder extends ProductdetailsEvent {

@@ -45,7 +45,9 @@ class ProductDetailsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => sl<ProductdetailsBloc>()
         ..add(
-          GetProductDetailsById(id: id!),
+          GetProductDetailsById(
+              id: id!,
+              basketProducts: context.read<BasketBloc>().mutableProducts),
         ),
       child: const ProductDetailsBody(
           //quantity: quantity,
@@ -72,10 +74,10 @@ class ProductDetailsBody extends StatelessWidget {
               if (state.addToBasketState ==
                   AddToBasketState.successAddedToBasket) {
                 context.read<HomeBloc>().currentIndex = 0;
-                AppRouter.pushReplacement(
-                  context,
-                  const HomeScreen(),
-                );
+                // AppRouter.pushReplacement(
+                //   context,
+                //   const HomeScreen(),
+                // );
               }
             },
           )
@@ -131,7 +133,8 @@ class ProductDetailsBody extends StatelessWidget {
                                                       ),
                                                       child: CachedImage(
                                                         fit: BoxFit.cover,
-                                                        imageSize: ImageSize.small,
+                                                        imageSize:
+                                                            ImageSize.small,
                                                         imageUrl: state
                                                                 .productDetailsResponse
                                                                 .image ??
@@ -184,7 +187,7 @@ class ProductDetailsBody extends StatelessWidget {
                                                             .price !=
                                                         null
                                                     ? Text(
-                                                        "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.discountPrice!)!)} ${AppLocalizations.of(context)!.curruncy}",
+                                                        "${Formatter.formatPrice(int.tryParse(state.productDetailsResponse.discountStatus == "1" ? state.productDetailsResponse.discountPrice! : state.productDetailsResponse.price!)!)} ${AppLocalizations.of(context)!.curruncy}",
                                                         style: getBoldStyle(
                                                           color: ColorManager
                                                               .primaryGreen,
@@ -427,7 +430,7 @@ class ProductDetailsBody extends StatelessWidget {
                                               : const SizedBox(),
                                         ],
                                       ),
-                                     const SizedBox(
+                                      const SizedBox(
                                         height: 25,
                                       )
                                     ],
@@ -458,14 +461,15 @@ class ProductDetailsBody extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              backgroundColor: ColorManager.primaryGreen,
+                                              backgroundColor:
+                                                  ColorManager.primaryGreen,
                                             ),
                                           );
                                           context
                                               .read<HomeBloc>()
                                               .currentIndex = 0;
 
-                                          AppRouter.push(context, HomeScreen());
+                                          // AppRouter.push(context, HomeScreen());
                                         } else {
                                           context
                                               .read<BasketBloc>()
@@ -500,13 +504,15 @@ class ProductDetailsBody extends StatelessWidget {
                                         );
                                       }
                                     },
-                                    myText: AppLocalizations.of(context)!.add_to_basket,
+                                    myText: AppLocalizations.of(context)!
+                                        .add_to_basket,
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 74,
                                       vertical: 10,
                                     ),
-                                    colors:  <Color>[
-                                      ColorManager.primaryGreen.withOpacity(0.9),
+                                    colors: <Color>[
+                                      ColorManager.primaryGreen
+                                          .withOpacity(0.9),
                                       ColorManager.softGreen.withOpacity(0.9)
                                     ],
                                   ),

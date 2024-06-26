@@ -15,6 +15,8 @@ class AddToBasket extends BasketEvent {
   });
 }
 
+class BasketInitState extends BasketEvent {}
+
 class PaymentProcess extends BasketEvent {}
 
 class AddCount extends BasketEvent {
@@ -47,7 +49,7 @@ class ClearBasket extends BasketEvent {}
 class SaveBasket extends BasketEvent {}
 
 class SaveIdToBasket extends BasketEvent {
-   final int id;
+  final int id;
 
   const SaveIdToBasket(this.id);
 }

@@ -94,26 +94,34 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
             tabController.animateTo(index);
 
             if (!state.isCartPricesFetched) {
-              emit(state.copyWith(screenStates: ScreenStates.loading));
-              final response = await MyOrderRepository.getCartPrices(
-                  basketModelStore.basketList);
-              response.fold(
-                (l) {
-                  emit(state.copyWith(
-                      screenStates: ScreenStates.error, error: l));
-                },
-                (r) {
-                  for (var e in basketModelStore.basketList) {
-                    e.price = r["${e.id}"] ?? 0;
-                  }
+              if (basketModelStore.basketList.isEmpty) {
+                emit(state.copyWith(
+                    indexTap: index,
+                    basketModel: basketModelStore,
+                    isCartPricesFetched: true,
+                    screenStates: ScreenStates.success));
+              } else {
+                emit(state.copyWith(screenStates: ScreenStates.loading));
+                final response = await MyOrderRepository.getCartPrices(
+                    basketModelStore.basketList);
+                response.fold(
+                  (l) {
+                    emit(state.copyWith(
+                        screenStates: ScreenStates.error, error: l));
+                  },
+                  (r) {
+                    for (var e in basketModelStore.basketList) {
+                      e.price = r["${e.id}"] ?? 0;
+                    }
 
-                  emit(state.copyWith(
-                      indexTap: index,
-                      basketModel: basketModelStore,
-                      isCartPricesFetched: true,
-                      screenStates: ScreenStates.success));
-                },
-              );
+                    emit(state.copyWith(
+                        indexTap: index,
+                        basketModel: basketModelStore,
+                        isCartPricesFetched: true,
+                        screenStates: ScreenStates.success));
+                  },
+                );
+              }
             }
 
             break;

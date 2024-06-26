@@ -107,7 +107,8 @@ class OrderDetailsBody extends StatelessWidget {
                   AppRouter.push(
                     context,
                     PaymentScreen(
-                      rewardCouponsFixedValueModel: state.rewardCouponsFixedValueModel!,
+                      rewardCouponsFixedValueModel:
+                          state.rewardCouponsFixedValueModel!,
                       paymentProcessResponse: state.paymentProcessResponse!,
                       myOrderBloc: context.read<MyOrderBloc>(),
                       idBasket: idBasket,
@@ -125,12 +126,14 @@ class OrderDetailsBody extends StatelessWidget {
                       : TimeWorkNotInstallDialog().openDialog(
                           context,
                           () {
-                            context.read<BasketBloc>().add(const SaveIdToBasket(0));
+                            context
+                                .read<BasketBloc>()
+                                .add(const SaveIdToBasket(0));
                             context.read<MyOrderBloc>().add(
-                              PaymentProcessBasket(
-                                idBasket,
-                              ),
-                            );
+                                  PaymentProcessBasket(
+                                    idBasket,
+                                  ),
+                                );
                             s = false;
                           },
                         );
@@ -254,13 +257,22 @@ class OrderDetailsBody extends StatelessWidget {
                                                             .openDialog(
                                                             context,
                                                             () {
-                                                              print('###########');
-                                                              context.read<BasketBloc>().add(const SaveIdToBasket(0));
-                                                              context.read<MyOrderBloc>().add(
-                                                                PaymentProcessBasket(
-                                                                  idBasket,
-                                                                ),
-                                                              );
+                                                              print(
+                                                                  '###########');
+                                                              context
+                                                                  .read<
+                                                                      BasketBloc>()
+                                                                  .add(
+                                                                      const SaveIdToBasket(
+                                                                          0));
+                                                              context
+                                                                  .read<
+                                                                      MyOrderBloc>()
+                                                                  .add(
+                                                                    PaymentProcessBasket(
+                                                                      idBasket,
+                                                                    ),
+                                                                  );
                                                               s = false;
                                                             },
                                                           );
@@ -290,24 +302,24 @@ class OrderDetailsBody extends StatelessWidget {
                                         const SizedBox(
                                           width: 16,
                                         ),
-                                        Expanded(
-                                          child: CustomButton(
-                                            label: AppLocalizations.of(context)!
-                                                .add_product,
-                                            fillColor:
-                                                ColorManager.primaryGreen,
-                                            labelColor: Colors.white,
-                                            onTap: () {
-                                              context
-                                                  .read<HomeBloc>()
-                                                  .currentIndex = 0;
-                                              context.read<BasketBloc>().add(
-                                                  SaveIdToBasket(idBasket));
-                                              AppRouter.push(
-                                                  context, const HomeScreen());
-                                            },
-                                          ),
-                                        ),
+                                        // Expanded(
+                                        //   child: CustomButton(
+                                        //     label: AppLocalizations.of(context)!
+                                        //         .add_product,
+                                        //     fillColor:
+                                        //         ColorManager.primaryGreen,
+                                        //     labelColor: Colors.white,
+                                        //     onTap: () {
+                                        //       context
+                                        //           .read<HomeBloc>()
+                                        //           .currentIndex = 0;
+                                        //       context.read<BasketBloc>().add(
+                                        //           SaveIdToBasket(idBasket));
+                                        //       AppRouter.push(
+                                        //           context, const HomeScreen());
+                                        //     },
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),

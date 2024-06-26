@@ -5,6 +5,7 @@ import 'package:pharma/bloc/details_order_bloc/details_order_event.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/screens/order_details_screen/widgets/card_details_order.dart';
+import 'package:pharma/presentation/screens/payment/widgets/custom_bill_details_row.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -108,12 +109,73 @@ class OrderDetailsBody extends StatelessWidget {
                   child: Column(
                     children: [
                       Expanded(
-                        child: CustomOverscrollIndicator(
-                          child: ListView.builder(
-                            itemBuilder: (context, index) => CardDetailsOrder(
-                                product: state.productList[index],
-                                isEdit: isEdit),
-                            itemCount: state.productList.length,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) =>
+                                    CardDetailsOrder(
+                                        product: state.productList[index],
+                                        isEdit: isEdit),
+                                itemCount: state.productList.length,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              if (state.invoice != {})
+                                Column(
+                                  children: [
+                                    CustomBillDetailsRow(
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!
+                                              .total_amount,
+                                      price: state.invoice != {}
+                                          ? Formatter.formatPrice(
+                                              state.invoice!["subTotal"]!)
+                                          : "",
+                                    ),
+                                    CustomBillDetailsRow(
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!
+                                              .hasm_code,
+                                      price: Formatter.formatPrice(
+                                          state.invoice!["couponDiscount"]!),
+                                    ),
+                                    CustomBillDetailsRow(
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!
+                                              .deliverycharges,
+                                      price: "${state.invoice!["deliveryFee"]}",
+                                    ),
+                                    CustomBillDetailsRow(
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!.tax,
+                                      price: Formatter.formatPrice(
+                                        state.invoice!["tax"],
+                                      ),
+                                    ),
+                                    CustomBillDetailsRow(
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!
+                                              .additional_discount,
+                                      price: Formatter.formatPrice(
+                                          state.invoice!["extra_discount"]),
+                                    ),
+                                    CustomBillDetailsRow(
+                                      colorText: ColorManager.primaryGreen,
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!.total,
+                                      price: Formatter.formatPrice(
+                                          state.invoice!["total"]),
+                                    ),
+                                  ],
+                                ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -135,7 +197,7 @@ class OrderDetailsBody extends StatelessWidget {
                                   ),
                                   Text(
                                     AppLocalizations.of(context)!
-                                        .total_price_without_delivery_with_tax,
+                                        .order_total_price,
                                     style: getBoldStyle(
                                       color: ColorManager.grayForMessage,
                                       fontSize: 14.sp,

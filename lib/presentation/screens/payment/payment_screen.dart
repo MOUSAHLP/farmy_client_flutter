@@ -354,9 +354,12 @@ class PaymentBody extends StatelessWidget {
                                       fontSize: FontSizeApp.s14,
                                     ),
                                   ),
-                                   SizedBox(height: 4.h),
+                                  SizedBox(height: 4.h),
                                   InputFieldAuth(
-                                    textDirection:DataStore.instance.lang == "ar" ? TextDirection.rtl : TextDirection.ltr,
+                                    textDirection:
+                                        DataStore.instance.lang == "ar"
+                                            ? TextDirection.rtl
+                                            : TextDirection.ltr,
                                     controller: noteController,
                                     maxLines: 5,
                                     minLines: 5,
@@ -537,7 +540,7 @@ class PaymentBody extends StatelessWidget {
                             ),
 
                             Padding(
-                              padding:  EdgeInsets.only(
+                              padding: EdgeInsets.only(
                                 right: 38.w,
                                 left: 38.w,
                                 top: 15.h,
@@ -561,7 +564,6 @@ class PaymentBody extends StatelessWidget {
                               ),
                               child: Column(
                                 children: [
-
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .total_amount,
@@ -590,13 +592,13 @@ class PaymentBody extends StatelessWidget {
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
                                   ),
-
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .deliverycharges,
-                                    price: state.paymentProcessResponse!.invoicesResponse!.deliveryValue.toString(),
+                                    price: state.paymentProcessResponse!
+                                        .invoicesResponse!.deliveryValue
+                                        .toString(),
                                   ),
-
                                   CustomBillDetailsRow(
                                     subStatusBill:
                                         AppLocalizations.of(context)!.tax,
@@ -610,7 +612,6 @@ class PaymentBody extends StatelessWidget {
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
                                   ),
-
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .additional_discount,
@@ -626,7 +627,6 @@ class PaymentBody extends StatelessWidget {
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
                                   ),
-
                                   CustomBillDetailsRow(
                                     colorText: ColorManager.primaryGreen,
                                     subStatusBill:
@@ -641,7 +641,6 @@ class PaymentBody extends StatelessWidget {
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
                                   ),
-
                                 ],
                               ),
                             ),

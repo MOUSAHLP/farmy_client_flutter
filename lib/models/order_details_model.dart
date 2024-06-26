@@ -1,21 +1,39 @@
 import 'package:pharma/models/product_response.dart';
 
+class DetailsResponse {
+  List<OrderDetailsModel>? homeCategoriesList;
+  String? pdfUrl;
+  int? total;
+  int? subTotal;
+  int? deliveryFee;
+  int? extra_discount;
+  int? tax;
+  int? couponDiscount;
 
-class DetailsResponse {List<OrderDetailsModel>? homeCategoriesList;
-String? pdfUrl;
-int? total;
-  DetailsResponse(
-      {this.homeCategoriesList,
-        this.pdfUrl,this.total});
+  DetailsResponse({
+    this.homeCategoriesList,
+    this.pdfUrl,
+    this.total,
+    this.subTotal,
+    this.deliveryFee,
+    this.extra_discount,
+    this.tax,
+    this.couponDiscount,
+  });
 
   factory DetailsResponse.fromJson(Map<String, dynamic> json) {
     return DetailsResponse(
       homeCategoriesList: json["order_details"] == null
           ? []
           : List<OrderDetailsModel>.from(
-          json["order_details"].map((x) => OrderDetailsModel.fromJson(x))),
+              json["order_details"].map((x) => OrderDetailsModel.fromJson(x))),
       pdfUrl: json['pdf_url'],
-        total: json['total']
+      total: json['total'],
+      subTotal: json['sub_total'],
+      deliveryFee: json['delivery_fee'],
+      extra_discount: json['extra_discount'],
+      tax: json['tax'],
+      couponDiscount: json['coupon_discount'],
     );
   }
 }
@@ -35,18 +53,16 @@ class OrderDetailsModel {
     this.status,
     required this.id,
     this.product,
-
   });
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) {
     return OrderDetailsModel(
       id: json["id"],
-      orderNumber: json["order_number"] ,
+      orderNumber: json["order_number"],
       status: json["status"],
-      quantity: int.parse(json["quantity"].toString()) ,
+      quantity: int.parse(json["quantity"].toString()),
       price: json["price"],
-      product:ProductResponse.fromJson(json['product']),
-
+      product: ProductResponse.fromJson(json['product']),
     );
   }
   static List<OrderDetailsModel> listFromJson(List<dynamic>? json) {

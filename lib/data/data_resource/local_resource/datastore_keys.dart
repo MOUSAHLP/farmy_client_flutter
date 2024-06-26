@@ -10,5 +10,6 @@ class DataStoreKeys {
 
   ///Dynamic Keys
   static const basket = "basket";
+  static const localBasket = "localBasket";
   static const post = "post";
 }

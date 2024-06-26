@@ -40,8 +40,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-
-
     return BaseScreenScaffold(
       body: Column(
         children: [
@@ -57,7 +55,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       titleError: state.error),
                 );
-              } else if (state.screenState == ScreenState.success || state.screenState == ScreenState.loadMoreData) {
+              } else if (state.screenState == ScreenState.success ||
+                  state.screenState == ScreenState.loadMoreData) {
                 context.read<LocationBloc>().state.addressCurrent = context
                     .read<HomeBloc>()
                     .homePageDynamicModel!
@@ -157,117 +156,171 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 context.read<HomeBloc>().buildListViewFooter(),
                               ],
                             ),
-                            context.read<BasketBloc>().state.idbasket != 0
-                                ? Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: InkWell(
-                                      child: Container(
-                                        height: 40,
-                                        width: 1.sw - 100,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.primaryGreen,
-                                            borderRadius:
-                                                BorderRadius.circular(6)),
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                  context
-                                                      .read<BasketBloc>()
-                                                      .countProduct(context
-                                                          .read<BasketBloc>()
-                                                          .state
-                                                          .idbasket)
-                                                      .toString(),
-                                                  style: getBoldStyle(
-                                                      color: Colors.white)),
-                                              const SizedBox(
-                                                width: 10,
+                            BlocConsumer<BasketBloc, BasketState>(
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  return context
+                                              .read<BasketBloc>()
+                                              .state
+                                              .idbasket !=
+                                          0
+                                      ? Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: GestureDetector(
+                                            child: Container(
+                                              height: 40,
+                                              width: 1.sw - 100,
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      ColorManager.primaryGreen,
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                              child: Center(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                        context
+                                                            .read<BasketBloc>()
+                                                            .countProduct(context
+                                                                .read<
+                                                                    BasketBloc>()
+                                                                .state
+                                                                .idbasket)
+                                                            .toString(),
+                                                        style: getBoldStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .view_draft_items,
+                                                        style: getBoldStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                  ],
+                                                ),
                                               ),
-                                              Text(
-                                                  AppLocalizations.of(context)!
-                                                      .view_draft_items,
-                                                  style: getBoldStyle(
-                                                      color: Colors.white)),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        context
-                                            .read<BasketBloc>()
-                                            .add(SaveIdToBasket(0));
-                                        context.read<HomeBloc>().currentIndex =
-                                            3;
-                                        context
-                                            .read<MyOrderBloc>()
-                                            .state
-                                            .indexTap = 0;
-                                        AppRouter.push(
-                                            context, const OrderScreen());
-                                      },
-                                    ),
-                                  )
-                                : context
-                                        .read<BasketBloc>()
-                                        .mutableProducts
-                                        .isNotEmpty
-                                    ? Padding(
-                                        padding:
-                                            const EdgeInsetsDirectional.only(
-                                          start: 74,
-                                          end: 74,
-                                          bottom: 10,
-                                          top: 10,
-                                        ),
-                                        child: InkWell(
-                                          child: Container(
-                                            width: 1.sw,
-                                            height: 47.h,
-                                            decoration: BoxDecoration(
-                                              color: ColorManager.primaryGreen
-                                                  .withOpacity(.9),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
                                             ),
-                                            child: Center(
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                      context
-                                                          .read<BasketBloc>()
-                                                          .mutableProducts
-                                                          .length
-                                                          .toString(),
-                                                      style: getBoldStyle(
-                                                          color: Colors.white)),
-                                                  const SizedBox(
-                                                    width: 10,
+                                            onTap: () {
+                                              context
+                                                  .read<BasketBloc>()
+                                                  .add(SaveIdToBasket(0));
+                                              context
+                                                  .read<HomeBloc>()
+                                                  .currentIndex = 3;
+                                              context
+                                                  .read<MyOrderBloc>()
+                                                  .state
+                                                  .indexTap = 0;
+                                              AppRouter.push(
+                                                  context, const OrderScreen());
+                                            },
+                                          ),
+                                        )
+                                      : context
+                                              .read<BasketBloc>()
+                                              .mutableProducts
+                                              .isNotEmpty
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.all(15.0),
+                                              child: GestureDetector(
+                                                child: SizedBox(
+                                                  width: 1.sw - 100,
+                                                  child: Stack(
+                                                    clipBehavior: Clip.none,
+                                                    children: [
+                                                      Container(
+                                                        height: 40.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: ColorManager
+                                                              .primaryGreen,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(6),
+                                                        ),
+                                                        child: Center(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                AppLocalizations.of(
+                                                                        context)!
+                                                                    .view_basket,
+                                                                style:
+                                                                    getBoldStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text(
+                                                                "( ${context.read<BasketBloc>().finalPrice().toString()} ${AppLocalizations.of(context)!.curruncy} ) ",
+                                                                style:
+                                                                    getBoldStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Positioned(
+                                                        top: -10,
+                                                        left: -5,
+                                                        child: Container(
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            color: ColorManager
+                                                                .yellow,
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Text(
+                                                              context
+                                                                  .read<
+                                                                      BasketBloc>()
+                                                                  .mutableProducts
+                                                                  .length
+                                                                  .toString(),
+                                                              style:
+                                                                  getBoldStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .view_basket,
-                                                      style: getBoldStyle(
-                                                          color: Colors.white)),
-                                                ],
+                                                ),
+                                                onTap: () {
+                                                  context
+                                                      .read<HomeBloc>()
+                                                      .currentIndex = 2;
+                                                  AppRouter.push(context,
+                                                      const BasketScreen());
+                                                },
                                               ),
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            context
-                                                .read<HomeBloc>()
-                                                .currentIndex = 2;
-                                            AppRouter.push(
-                                                context, const BasketScreen());
-                                          },
-                                        ),
-                                      )
-                                    : const SizedBox()
+                                            )
+                                          : const SizedBox();
+                                })
                           ],
                         ),
                       ),
@@ -289,8 +342,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool checkIsOpening(BuildContext context) {
     DateTime dateTime = DateTime.now();
     List<String> endTime = [];
-    if(context.read<SettingBloc>().settingModel!=null) {
-       endTime = (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime).split(":");
+    if (context.read<SettingBloc>().settingModel != null) {
+      endTime = (context
+              .read<SettingBloc>()
+              .settingModel!
+              .data!
+              .openingTimes!
+              .endTime)
+          .split(":");
     }
     // print("======================================================================");
     // print(dateTime.hour);

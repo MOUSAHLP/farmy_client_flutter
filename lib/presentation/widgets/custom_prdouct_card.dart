@@ -81,19 +81,21 @@ class CustomProductCard extends StatelessWidget {
                                             .copyWith(height: 1),
                                       )
                                     : const SizedBox(),
-
                               ],
                             ),
                           ),
-
-                          productInfo.discountStatus == "0"
+                          productInfo.discountStatus == "0" &&
+                                  productInfo.price == ""
                               ? const SizedBox()
                               : Padding(
                                   padding: EdgeInsets.only(top: 3.h),
                                   child: Row(
                                     children: [
                                       Text(
-                                        Formatter.formatPrice(int.parse(productInfo.price??"0")),
+                                        Formatter.formatPrice(int.parse(
+                                            productInfo.price != ""
+                                                ? productInfo.price!
+                                                : "0")),
                                         style: getRegularStyle(
                                           color: ColorManager.grayForMessage,
                                           fontSize: FontSizeApp.s12,

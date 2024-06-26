@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'package:dartz/dartz.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
+import 'package:pharma/models/attribute_response.dart';
+import 'package:pharma/models/local_basket.dart';
+import 'package:pharma/models/product_response.dart';
 import '../../../models/basket_model.dart';
 import '../../../models/login_response.dart';
 import '../../../models/params/get_basket_params.dart';
@@ -22,6 +26,10 @@ class DataStore {
     Hive.registerAdapter(ProductAdapter());
     Hive.registerAdapter(GetBasketParamsAdapter());
     Hive.registerAdapter(BasketModelAdapter());
+    Hive.registerAdapter(AttributeResponseAdapter());
+    Hive.registerAdapter(ProductResponseAdapter());
+    Hive.registerAdapter(LocalBasketAdapter());
+
     box = await Hive.openBox(DataStoreKeys.box);
 
     log("Datastore initialized", name: "$runtimeType");
@@ -63,11 +71,7 @@ class DataStore {
   Future<void> setVersion(String value) =>
       box.put(DataStoreKeys.version, value);
 
-  // bool? get isShowOnborading {
-  //   if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
-  //   return box.get(DataStoreKeys.onBoarding);
-  // }
-  //
+
   // Future<void> setShowOnborading(bool value) =>
   //     box.put(DataStoreKeys.onBoarding, value);
 
@@ -76,11 +80,6 @@ class DataStore {
     await box.put(key, value);
   }
 
-  // bool? get isShowOnBoarding {
-  //   if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
-  //   return box.get(DataStoreKeys.onBoarding);
-  // }
-
   bool? get isShowOnBoarding {
     if (!box.containsKey(DataStoreKeys.onBoarding)) return false;
     return box.get(DataStoreKeys.onBoarding);
@@ -88,6 +87,14 @@ class DataStore {
 
   Future<void> setShowOnBoarding(bool value) =>
       box.put(DataStoreKeys.onBoarding, value);
+
+  List<ProductResponse> getLocalBasket() {
+    List<ProductResponse> basketProducts = [];
+    for (var element in box.get(DataStoreKeys.localBasket)) {
+      basketProducts.add(element);
+    }
+    return basketProducts;
+  }
 
   dynamic dynamicData<T>(String key) {
     if (!box.containsKey(key)) return null;

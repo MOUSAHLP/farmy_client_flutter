@@ -79,13 +79,22 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
           emit(state.copyWith(screenStates: ScreenStates.error));
         }, (r) {
           productDetailsList = r.homeCategoriesList ?? [];
+          Map invoice = {
+            "total": r.total,
+            "subTotal": r.subTotal,
+            "deliveryFee": r.deliveryFee,
+            "tax": r.tax,
+            "extra_discount": r.extra_discount,
+            "couponDiscount": r.couponDiscount,
+          };
           emit(
             state.copyWith(
-                total: r.total,
-                screenStates: ScreenStates.success,
-                productList: productDetailsList,
-                totalPrice: finalPrice(),
-                urlPdf: r.pdfUrl,
+              total: r.total,
+              invoice: invoice,
+              screenStates: ScreenStates.success,
+              productList: productDetailsList,
+              totalPrice: finalPrice(),
+              urlPdf: r.pdfUrl,
             ),
           );
         });

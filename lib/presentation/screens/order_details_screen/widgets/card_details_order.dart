@@ -49,7 +49,12 @@ class CardDetailsOrder extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            isEdit ? buildCounterWidget(context) : const SizedBox(),
+            isEdit
+                ? buildCounterWidget(context)
+                : Text(
+                    "${AppLocalizations.of(context)!.quantity} ${product.quantity}",
+                    style: getBoldStyle(
+                        color: ColorManager.primaryGreen, fontSize: 16)),
             if (onTapDelete != null)
               Expanded(
                 child: SizedBox(
@@ -127,40 +132,39 @@ class CardDetailsOrder extends StatelessWidget {
                   product.product!.discountStatus == "0"
                       ? const SizedBox()
                       : Padding(
-                    padding: EdgeInsets.only(top: 3.h,bottom: 4.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          Formatter.formatPrice(int.parse( product.product!.price??"0")),
-                          style: getRegularStyle(
-                            color: ColorManager.grayForMessage,
-                            fontSize: FontSizeApp.s12,
-                          )!
-                              .copyWith(
-                            decoration:
-                            TextDecoration.lineThrough,
-                            height: 1,
+                          padding: EdgeInsets.only(top: 3.h, bottom: 4.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                Formatter.formatPrice(
+                                    int.parse(product.product!.price ?? "0")),
+                                style: getRegularStyle(
+                                  color: ColorManager.grayForMessage,
+                                  fontSize: FontSizeApp.s12,
+                                )!
+                                    .copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  height: 1,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 1,
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!.curruncy,
+                                style: getRegularStyle(
+                                  color: ColorManager.grayForMessage,
+                                  fontSize: FontSizeApp.s13,
+                                )!
+                                    .copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  height: 1,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(
-                          width: 1,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.curruncy,
-                          style: getRegularStyle(
-                            color: ColorManager.grayForMessage,
-                            fontSize: FontSizeApp.s13,
-                          )!
-                              .copyWith(
-                            decoration:
-                            TextDecoration.lineThrough,
-                            height: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -186,6 +190,13 @@ class CardDetailsOrder extends StatelessWidget {
                                 .copyWith(height: 1))
                     ],
                   ),
+                  if (product.product!.tax != null)
+                    Text(
+                        "${AppLocalizations.of(context)!.tax} : ${Formatter.formatPrice(
+                      (double.parse(product.price!) * product.product!.tax!) *
+                          product.quantity! /
+                          100,
+                    )} ${AppLocalizations.of(context)!.curruncy}")
                 ],
               ),
             ),

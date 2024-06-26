@@ -8,7 +8,11 @@ class CustomCountWidget extends StatelessWidget {
   final double width;
 
   const CustomCountWidget(
-      {super.key,required this.width,required this.height, required this.myIcon, required this.onTap});
+      {super.key,
+      required this.width,
+      required this.height,
+      required this.myIcon,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {

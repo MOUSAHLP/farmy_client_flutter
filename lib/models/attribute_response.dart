@@ -1,6 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:hive/hive.dart';
+
+part 'attribute_response.g.dart';
+
+@HiveType(typeId: 100)
 class AttributeResponse {
+  @HiveField(0)
   String value;
+
+  @HiveField(1)
   String name;
 
   AttributeResponse({

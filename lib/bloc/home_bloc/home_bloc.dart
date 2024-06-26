@@ -81,7 +81,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _scrollListener() {
-    if (scrollController.position.pixels ==
+    if (scrollController.positions.length == 1 &&
+        scrollController.position.pixels ==
             scrollController.position.maxScrollExtent &&
         indexPagePagination <= lastPagePagination) {
       add(OnLoadingHomeData());

@@ -1,17 +1,21 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/data/repository/product_repo.dart';
 import 'package:pharma/models/product_response.dart';
 
-
 part 'productdetails_event.dart';
 
 part 'productdetails_state.dart';
 
-class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> {
+class ProductdetailsBloc
+    extends Bloc<ProductdetailsEvent, ProductdetailsState> {
   ProductRepo productRepo;
+  bool is_mounted = true;
   int quntity = 1;
   int quantityRelated = 0;
   int quantitySimilar = 0;
@@ -23,7 +27,7 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
   ProductdetailsBloc({required this.productRepo})
       : super(
           ProductdetailsState(
-            productDetailsResponse: ProductResponse(id:0),
+            productDetailsResponse: ProductResponse(id: 0),
           ),
         ) {
     on<ProductdetailsEvent>(
@@ -34,50 +38,79 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
           );
           (await productRepo.getProductDetailsById(event.id)).fold(
             (l) => emit(
-              state.copyWith(screenState: ScreenState.error,error: l),
+              state.copyWith(screenState: ScreenState.error, error: l),
             ),
             (r) {
               if (r.similarProducts != null) {
                 for (var similarProduct in r.similarProducts!) {
-                  listSimilarProductQuantity.add(
-                  similarProduct.quantity??0)
-              ;
+                  listSimilarProductQuantity.add(similarProduct.quantity ?? 0);
+
+                  // to add quantity to similar products if they are already in the basket
+                  if (event.basketProducts
+                      .any((element) => element.id == similarProduct.id)) {
+                    var similarProductTmp = similarProduct;
+                    similarProductTmp.quantity = event.basketProducts
+                        .firstWhere(
+                            (element) => element.id == similarProduct.id)
+                        .quantity;
+                    listSimilarProduct.add(similarProductTmp);
+                  }
                 }
               }
               if (r.relatedProducts != null) {
                 for (var relatedProduct in r.relatedProducts!) {
-                  listRelatedProductQuantity  .add(
-                   relatedProduct.quantity??0)
-                  ;
+                  listRelatedProductQuantity.add(relatedProduct.quantity ?? 0);
+                  // to add quantity to related products if they are already in the basket
+                  if (event.basketProducts
+                      .any((element) => element.id == relatedProduct.id)) {
+                    var relatedProductTmp = relatedProduct;
+                    relatedProductTmp.quantity = event.basketProducts
+                        .firstWhere(
+                            (element) => element.id == relatedProduct.id)
+                        .quantity;
+                    listRelatedProduct.add(relatedProductTmp);
+                  }
                 }
+              }
+              // to update quantity to this product if it is already in the basket
+              if (event.basketProducts
+                  .any((element) => element.id == event.id)) {
+                quntity = event.basketProducts
+                    .firstWhere((element) => element.id == event.id)
+                    .quantity!;
               }
               return emit(
                 state.copyWith(
-                  productDetailsResponse: r,
-                  screenState: ScreenState.success,
-                ),
+                    productDetailsResponse: r,
+                    screenState: ScreenState.success,
+                    quntity: quntity,
+                    listSimilarProduct: listSimilarProduct,
+                    listRelatedProduct: listRelatedProduct),
               );
             },
           );
         }
+
         if (event is AddQuntityToOrder) {
           quntity = event.quntity;
-          ++quntity;
+          quntity++;
           emit(
             state.copyWith(quntity: quntity),
           );
         }
         if (event is AddQuantityRelatedToOrder) {
           int index;
-          if (listRelatedProduct.any((element) => element.id == event.relatedProduct.id)) {
-            index = listRelatedProduct.indexWhere((element) => element.id == event.relatedProduct.id);
-            int tmp = listRelatedProduct[index].quantity??0;
-            if (listRelatedProductQuantity[event.index] > tmp) {
+          if (listRelatedProduct
+              .any((element) => element.id == event.relatedProduct.id)) {
+            index = listRelatedProduct
+                .indexWhere((element) => element.id == event.relatedProduct.id);
+            int tmp = listRelatedProduct[index].quantity ?? 0;
+            // if (listRelatedProductQuantity[event.index] > tmp) {
               tmp++;
               listRelatedProduct[index].quantity = tmp;
-            }
+            // }
           } else {
-            event.relatedProduct.quantity =1;
+            event.relatedProduct.quantity = 1;
             listRelatedProduct.add(event.relatedProduct);
             index = listRelatedProduct
                 .indexWhere((element) => element.id == event.relatedProduct.id);
@@ -92,11 +125,11 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
               .any((element) => element.id == event.similarProduct.id)) {
             index = listSimilarProduct
                 .indexWhere((element) => element.id == event.similarProduct.id);
-            int tmp = listSimilarProduct[index].quantity??0;
-            if (listSimilarProductQuantity[event.index] > tmp) {
-              tmp++;
-              listSimilarProduct[index].quantity = tmp;
-            }
+            int tmp = listSimilarProduct[index].quantity ?? 0;
+            // if (listSimilarProductQuantity[event.index] > tmp) {
+            tmp++;
+            listSimilarProduct[index].quantity = tmp;
+            // }
           } else {
             event.similarProduct.quantity = 1;
             listSimilarProduct.add(event.similarProduct);
@@ -108,8 +141,8 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
           );
         }
         if (event is RemoveQuntityToOrder) {
-          quntity = event.quntity;
-          --quntity;
+          // quntity = event.quntity;
+          quntity--;
           if (quntity < 1) quntity = 1;
           emit(
             state.copyWith(quntity: quntity),
@@ -121,7 +154,7 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
               .any((element) => element.id == event.relatedProduct.id)) {
             index = listRelatedProduct
                 .indexWhere((element) => element.id == event.relatedProduct.id);
-            int tmp = listRelatedProduct[index].quantity??0;
+            int tmp = listRelatedProduct[index].quantity ?? 0;
             if (tmp > 0) {
               tmp--;
             }
@@ -138,7 +171,7 @@ class ProductdetailsBloc extends Bloc<ProductdetailsEvent, ProductdetailsState> 
               .any((element) => element.id == event.product.id)) {
             index = listSimilarProduct
                 .indexWhere((element) => element.id == event.product.id);
-            int tmp = listSimilarProduct[index].quantity??0;
+            int tmp = listSimilarProduct[index].quantity ?? 0;
             if (tmp > 0) {
               tmp--;
             }

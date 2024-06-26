@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
@@ -21,7 +20,7 @@ part 'basket_state.dart';
 
 class BasketBloc extends Bloc<BasketEvent, BasketState> {
   BasketRepo basketRepo;
-  List<ProductResponse> mutableProducts = [];
+  List<ProductResponse> mutableProducts = DataStore.instance.getLocalBasket();
   BasketModel basketModelStore =
       DataStore.instance.dynamicData<BasketModel>(DataStoreKeys.basket) ??
           BasketModel(basketList: []);
@@ -61,8 +60,6 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     return sum;
   }
 
-
-
   int countProduct(int id) {
     GetBasketParams? basketItem =
         basketModelStore.basketList.firstWhere((element) => element.id == id);
@@ -76,12 +73,20 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           productList: mutableProducts,
         ),
       );
+      if (event is BasketInitState) {
+        emit(
+          state.copyWith(
+            productList: mutableProducts,
+          ),
+        );
+      }
+
       if (event is AddToBasket) {
         mutableProducts = List.from(state.productList!);
         for (var x in event.product) {
           for (var i in mutableProducts) {
             if (i.id == x.id) {
-              i.quantity = (x.quantity ?? 0) + (i.quantity ?? 0);
+              i.quantity = (x.quantity ?? 0) /*+ (i.quantity ?? 0)*/;
               emit(state.copyWith(
                   productList: mutableProducts,
                   addToBasketState: AddToBasketState.successAddedToBasket));
@@ -234,6 +239,8 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           emit(state.copyWith(idbasket: state.idbasket));
         }
       }
+      DataStore.instance
+          .setDynamicData(DataStoreKeys.localBasket, mutableProducts);
     });
   }
 }

@@ -110,66 +110,75 @@ class _BottomBarState extends State<BottomBar> {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  context.read<HomeBloc>().currentIndex = 2;
-                  AppRouter.pushAndRemoveAllStack(
-                      context, children[context.read<HomeBloc>().currentIndex]);
-                });
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stack(
-                    children: [
-                      SvgPicture.asset(
-                        ImageManager.basketIcon,
-                        height: 25,
-                        width: 25,
-                        color: context.read<HomeBloc>().currentIndex == 2
-                            ? ColorManager.primaryGreen
-                            : ColorManager.greyForUnSelectedItem,
-                      ),
-                      context.read<BasketBloc>().mutableProducts.isNotEmpty
-                          ? Container(
-                              decoration: BoxDecoration(
-                                  color:
-                                      context.read<HomeBloc>().currentIndex == 2
-                                          ? Colors.white
-                                          : ColorManager.primaryGreen,
-                                  shape: BoxShape.circle),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Text(
-                                  context
-                                      .read<BasketBloc>()
-                                      .mutableProducts
-                                      .length
-                                      .toString(),
-                                  style: getBoldStyle(
-                                      color: context
-                                                  .read<HomeBloc>()
-                                                  .currentIndex ==
-                                              2
-                                          ? ColorManager.primaryGreen
-                                          : Colors.white),
-                                ),
-                              ))
-                          : SizedBox()
-                    ],
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.basket,
-                    style: getUnderBoldStyle(
-                        color: context.read<HomeBloc>().currentIndex == 2
-                            ? ColorManager.primaryGreen
-                            : ColorManager.greyForUnSelectedItem,
-                        fontSize: FontSizeApp.s12),
-                  )
-                ],
-              ),
-            ),
+            BlocConsumer<BasketBloc, BasketState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        context.read<HomeBloc>().currentIndex = 2;
+                        AppRouter.pushAndRemoveAllStack(context,
+                            children[context.read<HomeBloc>().currentIndex]);
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Stack(
+                          children: [
+                            SvgPicture.asset(
+                              ImageManager.basketIcon,
+                              height: 25,
+                              width: 25,
+                              color: context.read<HomeBloc>().currentIndex == 2
+                                  ? ColorManager.primaryGreen
+                                  : ColorManager.greyForUnSelectedItem,
+                            ),
+                            context
+                                    .read<BasketBloc>()
+                                    .mutableProducts
+                                    .isNotEmpty
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                        color: context
+                                                    .read<HomeBloc>()
+                                                    .currentIndex ==
+                                                2
+                                            ? Colors.white
+                                            : ColorManager.primaryGreen,
+                                        shape: BoxShape.circle),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text(
+                                        context
+                                            .read<BasketBloc>()
+                                            .mutableProducts
+                                            .length
+                                            .toString(),
+                                        style: getBoldStyle(
+                                            color: context
+                                                        .read<HomeBloc>()
+                                                        .currentIndex ==
+                                                    2
+                                                ? ColorManager.primaryGreen
+                                                : Colors.white),
+                                      ),
+                                    ))
+                                : SizedBox()
+                          ],
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.basket,
+                          style: getUnderBoldStyle(
+                              color: context.read<HomeBloc>().currentIndex == 2
+                                  ? ColorManager.primaryGreen
+                                  : ColorManager.greyForUnSelectedItem,
+                              fontSize: FontSizeApp.s12),
+                        )
+                      ],
+                    ),
+                  );
+                }),
             GestureDetector(
               onTap: () {
                 setState(() {

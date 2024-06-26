@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(
                 create: (BuildContext context) =>
                     sl<HomeBloc>()..add(GetHomeData())),
-            BlocProvider(create: (BuildContext context) => sl<BasketBloc>()),
+            BlocProvider(create: (BuildContext context) => sl<BasketBloc>()..add(BasketInitState())),
             BlocProvider(
               create: (BuildContext context) => sl<FavoriteBloc>(),
             ),
@@ -99,11 +99,13 @@ class _MyAppState extends State<MyApp> {
                         GlobalCupertinoLocalizations.delegate,
                         GlobalWidgetsLocalizations.delegate,
                       ],
-                      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                      home:
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
                         // bloc: sl<AuthenticationBloc>()..add(AppStarted()),
                         builder: (context, state) {
                           switch (state.authenticationScreen) {
-                            case AuthenticationScreenStates.authenticationAuthenticated:
+                            case AuthenticationScreenStates
+                                  .authenticationAuthenticated:
                               print('HomeScreen');
                               return const HomeScreen();
                             case AuthenticationScreenStates

@@ -111,7 +111,7 @@ class BasketScreen extends StatelessWidget {
                                   width: 1.sw,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius:  BorderRadius.only(
+                                    borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(22.r),
                                       topRight: Radius.circular(22.r),
                                     ),
@@ -125,7 +125,7 @@ class BasketScreen extends StatelessWidget {
                                       ),
                                       Text(
                                           AppLocalizations.of(context)!
-                                              .total_price_without_delivery,
+                                              .total_price_without_delivery_nor_tax,
                                           style: getBoldStyle(
                                               color:
                                                   ColorManager.grayForMessage,
@@ -204,7 +204,9 @@ class BasketScreen extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: CustomButton(
-                                                label: AppLocalizations.of(context)!.save_as_draft,
+                                                label: AppLocalizations.of(
+                                                        context)!
+                                                    .save_as_draft,
                                                 fillColor:
                                                     ColorManager.primaryGreen,
                                                 labelColor: Colors.white,

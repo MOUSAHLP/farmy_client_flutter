@@ -32,12 +32,11 @@ class HomeSection extends StatefulWidget {
 }
 
 class _HomeSectionState extends State<HomeSection> {
-  late Map<int, bool> isAdd;
   @override
   void initState() {
-    isAdd = {};
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     String appLang = DataStore.instance.lang;
@@ -63,175 +62,182 @@ class _HomeSectionState extends State<HomeSection> {
               },
             ),
           ),
-          SizedBox(
-            height: 260.h,
-            width: 1.sw,
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
-              itemCount: widget.list.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                isAdd.putIfAbsent(
-                    index, () => context
-                    .read<BasketBloc>()
-                    .mutableProducts
-                    .any((element) =>
-                element.id ==
-                    widget.list[index]
-                        .id));
-                return GestureDetector(
-                  onLongPress: () {
-                    if (context
-                        .read<BasketBloc>()
-                        .mutableProducts.isEmpty) {
-                      AppRouter.push(
-                        context,
-                        ProductDetailsScreen(
-                          id: widget.list[
-                          index]
-                              .id,
+          BlocConsumer<BasketBloc, BasketState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                return SizedBox(
+                  height: 260.h,
+                  width: 1.sw,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 13, horizontal: 15),
+                    itemCount: widget.list.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onLongPress: () {
+                          if (!context.read<BasketBloc>().mutableProducts.any(
+                              (element) =>
+                                  element.id == widget.list[index].id)) {
+                            context
+                                .read<BasketBloc>()
+                                .add(AddToBasket(product: [
+                                  ProductResponse(
+                                    quantity: 1,
+                                    image: widget.list[index].image,
+                                    id: widget.list[index].id,
+                                    discountPrice:
+                                        widget.list[index].discountPrice,
+                                    discountStatus:
+                                        widget.list[index].discountStatus,
+                                    availabilityOfProduct: widget
+                                        .list[index].availabilityOfProduct,
+                                    nameOfProduct:
+                                        widget.list[index].nameOfProduct,
+                                    price: widget.list[index].price,
+                                    sellerName: widget.list[index].sellerName,
+                                  )
+                                ]));
+                          }
+                        },
+                        onDoubleTap: () {
+                          if (!context.read<BasketBloc>().mutableProducts.any(
+                              (element) =>
+                                  element.id == widget.list[index].id)) {
+                            context
+                                .read<BasketBloc>()
+                                .add(AddToBasket(product: [
+                                  ProductResponse(
+                                    quantity: 1,
+                                    image: widget.list[index].image,
+                                    id: widget.list[index].id,
+                                    discountPrice:
+                                        widget.list[index].discountPrice,
+                                    discountStatus:
+                                        widget.list[index].discountStatus,
+                                    availabilityOfProduct: widget
+                                        .list[index].availabilityOfProduct,
+                                    nameOfProduct:
+                                        widget.list[index].nameOfProduct,
+                                    price: widget.list[index].price,
+                                    sellerName: widget.list[index].sellerName,
+                                  )
+                                ]));
+                          }
+                        },
+                        onTap: () {
+                          AppRouter.push(
+                            context,
+                            ProductDetailsScreen(
+                              id: widget.list[index].id,
+                              //quantity: widget.list[index].quantity ?? 0,
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.only(
+                              bottom: 0, start: index == 0 ? 0 : 15),
+                          child: Stack(
+                            children: [
+                              CustomProductCard(
+                                productInfo: widget.list[index],
+                              ),
+                              context.read<BasketBloc>().mutableProducts.any(
+                                      (element) =>
+                                          element.id == widget.list[index].id)
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            context
+                                                .read<BasketBloc>()
+                                                .add(AddCount(
+                                                    widget.list[index].id,
+                                                    ProductResponse(
+                                                      quantity: 1,
+                                                      image: widget
+                                                          .list[index].image,
+                                                      id: widget.list[index].id,
+                                                      discountPrice: widget
+                                                          .list[index]
+                                                          .discountPrice,
+                                                      discountStatus: widget
+                                                          .list[index]
+                                                          .discountStatus,
+                                                      availabilityOfProduct: widget
+                                                          .list[index]
+                                                          .availabilityOfProduct,
+                                                      nameOfProduct: widget
+                                                          .list[index]
+                                                          .nameOfProduct,
+                                                      price: widget
+                                                          .list[index].price,
+                                                      sellerName: widget
+                                                          .list[index]
+                                                          .sellerName,
+                                                    )));
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                                color: Colors.green,
+                                                width: 20,
+                                                height: 20,
+                                                child: Center(
+                                                    child: Text(
+                                                  context
+                                                      .read<BasketBloc>()
+                                                      .mutableProducts
+                                                      .firstWhere((element) =>
+                                                          element.id ==
+                                                          widget.list[index].id)
+                                                      .quantity
+                                                      .toString(),
+                                                  style: getBoldStyle(
+                                                      color: Colors.white),
+                                                ))),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (context
+                                                .read<BasketBloc>()
+                                                .mutableProducts
+                                                .any((element) =>
+                                                    element.id ==
+                                                    widget.list[index].id)) {
+                                              context.read<BasketBloc>().add(
+                                                  DeleteProduct(
+                                                      widget.list[index].id));
+                                            }
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              color: Colors.red,
+                                              width: 20,
+                                              height: 20,
+                                              child: const Icon(Icons.remove,
+                                                  color: Colors.white,
+                                                  size: 20),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : SizedBox()
+                            ],
+                          ),
                         ),
                       );
-                    } else {
-                      if (!context
-                          .read<BasketBloc>()
-                          .mutableProducts
-                          .any((element) =>
-                      element.id ==
-                          widget.list[
-                          index]
-                              .id)) {
-                        context
-                            .read<BasketBloc>()
-                            .add(AddToBasket(
-                            product: [
-                              ProductResponse(
-                                quantity: 1,
-                                image: widget.list[
-                                index]
-                                    .image,
-                                id: widget.list[
-                                index]
-                                    .id,
-                                discountPrice: widget.list[
-                                index]
-                                    .discountPrice,
-                                discountStatus: widget.list[
-                                index]
-                                    .discountStatus,
-                                availabilityOfProduct:widget.list[
-                                index]
-                                    .availabilityOfProduct,
-                                nameOfProduct: widget.list[
-                                index]
-                                    .nameOfProduct,
-                                price: widget.list[
-                                index]
-                                    .price,
-                                sellerName:widget.list[
-                                index]
-                                    .sellerName,
-                              )
-                            ]));
-                        setState(() {
-                          isAdd[index] =
-                          !isAdd[index]!;
-                        });
-                      }
-                    }
-
-                  },
-                  onTap: (){
-                    AppRouter.push(
-                      context,
-                      ProductDetailsScreen(
-                        id: widget.list[index].id,
-                        //quantity: widget.list[index].quantity ?? 0,
-                      ),
-                    );
-
-                  },
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.only(
-                        bottom: 0, start: index == 0 ? 0 : 15),
-                    child: Stack(
-                      children: [
-                        CustomProductCard(
-                          productInfo: widget.list[index],
-                        ),
-                        isAdd[index]!
-                            ? Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment
-                              .spaceBetween,
-                          crossAxisAlignment:
-                          CrossAxisAlignment
-                              .start,
-                          children: [
-                            Padding(
-                              padding:
-                              const EdgeInsets
-                                  .all(
-                                  8.0),
-                              child: Container(
-                                  color: Colors
-                                      .green,
-                                  width: 20,
-                                  height:
-                                  20,
-                                  child: Center(
-                                      child:
-                                      Text("1",style: getBoldStyle(color: Colors.white),))),
-                            ),
-                            InkWell(
-                              onTap: (){
-                                if (context
-                                    .read<BasketBloc>()
-                                    .mutableProducts
-                                    .any((element) =>
-                                element.id ==
-                                    widget.list[
-                                    index]
-                                        .id)) {
-                                  context
-                                      .read<BasketBloc>()
-                                      .add(DeleteProduct(
-                                      widget.list[
-                                      index]
-                                          .id));
-                                  setState(() {
-                                    isAdd[index] =
-                                    !isAdd[index]!;
-                                  });
-                                }
-                              },
-                              child: Padding(
-                                padding:
-                                const EdgeInsets
-                                    .all(
-                                    8.0),
-                                child: Container(
-                                  color: Colors
-                                      .red,
-                                  width: 20,
-                                  height:
-                                  20,
-                                  child: const Icon(Icons
-                                      .remove,color: Colors.white
-                                      ,size: 20),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                            : SizedBox()
-                      ],
-                    ),
+                    },
                   ),
                 );
-              },
-            ),
-          )
+              })
         ],
       ),
     );

@@ -140,10 +140,15 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                       Text(
                         Formatter.formatPrice(
                           int.parse(
-                            product.discountStatus == "0"
-                                ? product.price ?? "0"
-                                : product.discountPrice ?? "0",
-                          ),
+                                product.discountStatus == "0"
+                                    ? product.price ?? "0"
+                                    : product.discountPrice ?? "0",
+                              ) *
+                              context
+                                  .read<MyOrderBloc>()
+                                  .state
+                                  .quantityInBasket[index]
+                                  .quantity,
                         ),
                         style: getBoldStyle(
                                 color: ColorManager.primaryGreen,
@@ -161,6 +166,20 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                         )
                     ],
                   ),
+                  if (product.tax != null)
+                    Text(
+                        "${AppLocalizations.of(context)!.tax} : ${Formatter.formatPrice(
+                      (product.discountStatus == "0"
+                              ? int.parse(product.price!) * product.tax!
+                              : int.parse(product.discountPrice!) *
+                                  product.tax!) *
+                          context
+                              .read<MyOrderBloc>()
+                              .state
+                              .quantityInBasket[index]
+                              .quantity /
+                          100,
+                    )} ${AppLocalizations.of(context)!.curruncy}")
                 ],
               ),
             ),

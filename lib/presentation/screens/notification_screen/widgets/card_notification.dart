@@ -21,7 +21,7 @@ class CardNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
+    return 
     Slidable(
       controller: _slidableController,
       actionPane: const SlidableDrawerActionPane(),
