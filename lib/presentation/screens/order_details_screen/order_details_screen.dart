@@ -7,6 +7,7 @@ import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/presentation/screens/order_details_screen/widgets/card_details_order.dart';
 import 'package:pharma/presentation/screens/payment/widgets/custom_bill_details_row.dart';
 import 'package:pharma/presentation/widgets/custom_error_screen.dart';
+import 'package:pharma/presentation/widgets/dialogs/confirm_payment_order_dialog.dart';
 import 'package:pharma/presentation/widgets/over_scroll_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../bloc/details_order_bloc/details_order_bloc.dart';
@@ -25,12 +26,14 @@ import '../base_screen/base_screen.dart';
 class OrderDetailsScreen extends StatelessWidget {
   final int id;
   final bool isEdit;
+  final bool isDelivered;
   final bool isDelivery;
 
   const OrderDetailsScreen({
     super.key,
     required this.id,
     this.isEdit = false,
+    this.isDelivered = false,
     this.isDelivery = false,
   });
 
@@ -40,7 +43,12 @@ class OrderDetailsScreen extends StatelessWidget {
       create: (context) {
         return sl<DetailsOrderBloc>()..add(ShowDetailsOrder(id: id));
       },
-      child: OrderDetailsBody(id: id, isEdit: isEdit, isDelivery: isDelivery),
+      child: OrderDetailsBody(
+        id: id,
+        isEdit: isEdit,
+        isDelivery: isDelivery,
+        isDelivered: isDelivered,
+      ),
     );
   }
 }
@@ -48,12 +56,14 @@ class OrderDetailsScreen extends StatelessWidget {
 class OrderDetailsBody extends StatelessWidget {
   final int id;
   final bool isEdit;
+  final bool isDelivered;
   final bool isDelivery;
 
   const OrderDetailsBody(
       {super.key,
       required this.id,
       this.isEdit = false,
+      this.isDelivered = false,
       this.isDelivery = false});
 
   @override
@@ -67,7 +77,9 @@ class OrderDetailsBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 21),
               child: Text(
-                AppLocalizations.of(context)!.payment_statment,
+                isDelivered
+                    ? AppLocalizations.of(context)!.return_statment
+                    : AppLocalizations.of(context)!.payment_statment,
                 style: getRegularStyle(
                   color: ColorManager.grayForMessage,
                   fontSize: FontSizeApp.s16,
@@ -117,8 +129,10 @@ class OrderDetailsBody extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) =>
                                     CardDetailsOrder(
-                                        product: state.productList[index],
-                                        isEdit: isEdit),
+                                  product: state.productList[index],
+                                  isEdit: isEdit,
+                                  isDelivered: isDelivered,
+                                ),
                                 itemCount: state.productList.length,
                               ),
                               const SizedBox(
@@ -147,15 +161,29 @@ class OrderDetailsBody extends StatelessWidget {
                                       subStatusBill:
                                           AppLocalizations.of(context)!
                                               .deliverycharges,
-                                      price: "${state.invoice!["deliveryFee"]}",
-                                    ),
-                                    CustomBillDetailsRow(
-                                      subStatusBill:
-                                          AppLocalizations.of(context)!.tax,
                                       price: Formatter.formatPrice(
-                                        state.invoice!["tax"],
-                                      ),
+                                          state.invoice!["deliveryFee"]),
                                     ),
+                                    if (state.invoice!["taxes"].length > 0)
+                                      ...List.generate(
+                                          state.invoice!["taxes"].length,
+                                          (index) {
+                                        return CustomBillDetailsRow(
+                                            subStatusBill:
+                                                state.invoice!["taxes"][index]
+                                                    ["name"],
+                                            price: Formatter.formatPrice(
+                                              state.invoice!["taxes"][index]
+                                                  ["tax_value"],
+                                            ));
+                                      }),
+                                    // CustomBillDetailsRow(
+                                    //   subStatusBill:
+                                    //       AppLocalizations.of(context)!.tax,
+                                    //   price: Formatter.formatPrice(
+                                    //     state.invoice!["tax"],
+                                    //   ),
+                                    // ),
                                     CustomBillDetailsRow(
                                       subStatusBill:
                                           AppLocalizations.of(context)!
@@ -231,6 +259,45 @@ class OrderDetailsBody extends StatelessWidget {
                                         horizontal: 27, vertical: 9),
                                     child: Row(
                                       children: [
+                                        if (isDelivered)
+                                          Expanded(
+                                            child: CustomButton(
+                                              label:
+                                                  AppLocalizations.of(context)!
+                                                      .confirm,
+                                              fillColor:
+                                                  ColorManager.primaryGreen,
+                                              onTap: () {
+                                                ConfirmPaymentOrderDialog().openDialog(
+                                                    context,
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .would_you_like_to_remove_the_selected_products_from_your_order,
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .when_you_remove_the_selected_products_the_new_invoice_will_be_calculated,
+                                                    onTap: () {
+                                                  try {
+                                                    ConfirmPaymentOrderDialog()
+                                                        .closeDialog(context);
+
+                                                    if (context
+                                                        .read<
+                                                            DetailsOrderBloc>()
+                                                        .returnedProducts
+                                                        .isNotEmpty) {
+                                                      context
+                                                          .read<
+                                                              DetailsOrderBloc>()
+                                                          .add(
+                                                              OrderReturnProducts(
+                                                                  id: id));
+                                                    }
+                                                  } catch (e) {}
+                                                });
+                                              },
+                                            ),
+                                          ),
                                         isEdit
                                             ? Expanded(
                                                 child: CustomButton(

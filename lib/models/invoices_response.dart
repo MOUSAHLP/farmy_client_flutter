@@ -3,6 +3,7 @@ class InvoicesResponse {
   int? total;
   int? couponValue;
   int? deliveryValue;
+  dynamic taxes;
   dynamic tax;
   int? subTotal;
   int? extraDiscount;
@@ -11,6 +12,7 @@ class InvoicesResponse {
     this.total,
     this.couponValue,
     this.deliveryValue,
+    this.taxes,
     this.tax,
     this.subTotal,
     this.extraDiscount,
@@ -21,6 +23,7 @@ class InvoicesResponse {
       subTotal: json["subtotal"],
       couponValue: json["coupon_price"],
       deliveryValue: json["delivery_price"],
+      taxes: json["taxes"],
       tax: json["tax"],
       total: json["total"],
       extraDiscount: json["extra_discount"],

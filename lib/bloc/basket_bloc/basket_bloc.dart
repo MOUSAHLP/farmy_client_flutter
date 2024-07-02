@@ -73,13 +73,6 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
           productList: mutableProducts,
         ),
       );
-      if (event is BasketInitState) {
-        // emit(
-        //   state.copyWith(
-        //     productList: mutableProducts,
-        //   ),
-        // );
-      }
 
       if (event is AddToBasket) {
         mutableProducts = List.from(state.productList!);
@@ -181,6 +174,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         ));
       }
       if (event is ClearBasket) {
+        mutableProducts.clear();
         state.productList?.clear();
         emit(state.copyWith(productList: []));
       }

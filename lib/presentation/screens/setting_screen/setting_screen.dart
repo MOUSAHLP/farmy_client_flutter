@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pharma/bloc/basket_bloc/basket_bloc.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/about_the_app/about_the_app_screen.dart';
@@ -213,6 +214,9 @@ class SettingScreen extends StatelessWidget {
                                                       .lang,
                                                 ),
                                               );
+                                              context
+                                                  .read<BasketBloc>()
+                                                  .add(ClearBasket());
                                               Restart.restartApp();
                                             },
                                           ),

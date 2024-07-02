@@ -36,7 +36,8 @@ class ConfirmPaymentOrderDialog {
     }
   }
 
-  void openDialog(BuildContext context, String? message, String? supMessage, {required Function() onTap}) {
+  void openDialog(BuildContext context, String? message, String? supMessage,
+      {required Function() onTap}) {
     _isShown = true;
     dialogTransitionBuilder(
         context,
@@ -53,7 +54,8 @@ class _ConfirmPaymentOrderDialogBody extends StatefulWidget {
   final String supMessage;
   final Function() onTap;
 
-  const _ConfirmPaymentOrderDialogBody({required this.message, required this.onTap, required this.supMessage});
+  const _ConfirmPaymentOrderDialogBody(
+      {required this.message, required this.onTap, required this.supMessage});
 
   @override
   State<_ConfirmPaymentOrderDialogBody> createState() =>
@@ -97,6 +99,7 @@ class _ConfirmPaymentOrderDialogBodyState
           SizedBox(height: 6.h),
           Text(
             widget.message,
+            textAlign: TextAlign.center,
             style: getBoldStyle(
               color: ColorManager.grayForSearchProduct,
               fontSize: FontSizeApp.s12.sp,
@@ -136,11 +139,7 @@ class _ConfirmPaymentOrderDialogBodyState
                     fillColor: ColorManager.white,
                     label: AppLocalizations.of(context)!.back,
                     onTap: () {
-                      context.read<HomeBloc>().currentIndex = 0;
-                      AppRouter.pushAndRemoveAllStack(
-                        context,
-                        const HomeScreen(),
-                      );
+                      ConfirmPaymentOrderDialog().closeDialog(context);
                     },
                   ),
                 ),

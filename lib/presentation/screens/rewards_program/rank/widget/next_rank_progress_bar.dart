@@ -78,7 +78,7 @@ class NextRankProgressBar extends StatelessWidget {
                     nextPoint:
                         state.rewardsRankUserModel!.data.userNextRank.limit,
                     userPoint: state.rewardsRankUserModel!.data.userPoints,
-                  ).abs()}${AppLocalizations.of(context)!.sp_remaining_to_get_the_next_level}",
+                  ).abs()} ${AppLocalizations.of(context)!.sp_remaining_to_get_the_next_level}",
                   style: getRegularStyle(
                     color: ColorManager.grayForMessage,
                     fontSize: FontSizeApp.s13.sp,

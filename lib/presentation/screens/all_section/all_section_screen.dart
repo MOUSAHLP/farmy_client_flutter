@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/categories_bloc/categories_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/categories_respoonse.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/screens/all_section/widgets/custom_category_screen.dart';
@@ -185,7 +186,7 @@ class _ALlSectionScreenBodyState extends State<ALlSectionScreenBody>
                                                       width: 10,
                                                     ),
                                                     Text(
-                                                      "( ${context.read<BasketBloc>().finalPrice().toString()} ${AppLocalizations.of(context)!.curruncy} ) ",
+                                                      "( ${Formatter.formatPrice(context.read<BasketBloc>().finalPrice())} ${AppLocalizations.of(context)!.curruncy} ) ",
                                                       style: getBoldStyle(
                                                         color: Colors.white,
                                                       ),

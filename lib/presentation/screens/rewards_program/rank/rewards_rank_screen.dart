@@ -52,7 +52,9 @@ class RewardsRankScreen extends StatelessWidget {
                     SizedBox(
                       height: 25.h,
                     ),
-                    const PointsExpireInWidget(expireInText: "90 يوم"),
+                    PointsExpireInWidget(
+                        expireInText:
+                            "90 ${AppLocalizations.of(context)!.day}"),
                     GestureDetector(
                       onTap: () {
                         context

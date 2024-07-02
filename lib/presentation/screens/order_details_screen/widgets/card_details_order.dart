@@ -20,13 +20,16 @@ class CardDetailsOrder extends StatelessWidget {
   final Function? onTapDelete;
   final Color? cardColor;
   final bool isEdit;
+  final bool isDelivered;
 
-  const CardDetailsOrder(
-      {super.key,
-      required this.product,
-      this.onTapDelete,
-      this.cardColor,
-      this.isEdit = false});
+  const CardDetailsOrder({
+    super.key,
+    required this.product,
+    this.onTapDelete,
+    this.cardColor,
+    this.isEdit = false,
+    this.isDelivered = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,14 @@ class CardDetailsOrder extends StatelessWidget {
                   ? ColorManager.shadowRedDown
                   : ColorManager.shadowGaryDown
             ],
-            color: cardColor ?? Colors.white,
+            color: cardColor == null
+                ? context
+                        .read<DetailsOrderBloc>()
+                        .returnedProducts
+                        .any((e) => e == product.id)
+                    ? Colors.red.shade200
+                    : Colors.white
+                : Colors.white,
             borderRadius: BorderRadius.circular(6)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -49,12 +59,14 @@ class CardDetailsOrder extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            isEdit
+            isEdit && !isDelivered
                 ? buildCounterWidget(context)
-                : Text(
-                    "${AppLocalizations.of(context)!.quantity} ${product.quantity}",
-                    style: getBoldStyle(
-                        color: ColorManager.primaryGreen, fontSize: 16)),
+                : !isEdit && isDelivered
+                    ? buildReturnButton(context)
+                    : Text(
+                        "${AppLocalizations.of(context)!.quantity} ${product.quantity}",
+                        style: getBoldStyle(
+                            color: ColorManager.primaryGreen, fontSize: 16)),
             if (onTapDelete != null)
               Expanded(
                 child: SizedBox(
@@ -190,13 +202,13 @@ class CardDetailsOrder extends StatelessWidget {
                                 .copyWith(height: 1))
                     ],
                   ),
-                  if (product.product!.tax != null)
-                    Text(
-                        "${AppLocalizations.of(context)!.tax} : ${Formatter.formatPrice(
-                      (double.parse(product.price!) * product.product!.tax!) *
-                          product.quantity! /
-                          100,
-                    )} ${AppLocalizations.of(context)!.curruncy}")
+                  // if (product.product!.tax != null)
+                  //   Text(
+                  //       "${AppLocalizations.of(context)!.tax} : ${Formatter.formatPrice(
+                  //     (double.parse(product.price!) * product.product!.tax!) *
+                  //         product.quantity! /
+                  //         100,
+                  //   )} ${AppLocalizations.of(context)!.curruncy}")
                 ],
               ),
             ),
@@ -218,6 +230,47 @@ class CardDetailsOrder extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget buildReturnButton(BuildContext context) {
+    return !context
+            .read<DetailsOrderBloc>()
+            .returnedProducts
+            .any((e) => e == product.id)
+        ? Container(
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              ColorManager.shadowGaryDown,
+            ]),
+            child: IconButton(
+              onPressed: () {
+                context
+                    .read<DetailsOrderBloc>()
+                    .add(ReturnProduct(product.id ?? 0));
+              },
+              icon: const Icon(
+                Icons.close_rounded,
+                color: Colors.red,
+                weight: 1000,
+                size: 35,
+              ),
+            ))
+        : Container(
+            decoration: BoxDecoration(color: Colors.red, boxShadow: [
+              ColorManager.shadowGaryDown,
+            ]),
+            child: IconButton(
+              onPressed: () {
+                context
+                    .read<DetailsOrderBloc>()
+                    .add(UnReturnProduct(product.id ?? 0));
+              },
+              icon: const Icon(
+                Icons.rotate_90_degrees_ccw_rounded,
+                color: Colors.white,
+                weight: 1000,
+                size: 35,
+              ),
+            ));
   }
 
   Column buildCounterWidget(BuildContext context) {

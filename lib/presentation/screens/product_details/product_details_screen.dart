@@ -269,39 +269,40 @@ class ProductDetailsBody extends StatelessWidget {
                                                                 productInfo: state
                                                                     .productDetailsResponse
                                                                     .relatedProducts![index],
-                                                              ),
-                                                              CustomAmount(
-                                                                quantityString: state
-                                                                            .listRelatedProduct ==
-                                                                        null
-                                                                    ? 0
-                                                                        .toString()
-                                                                    : state.listRelatedProduct!
-                                                                            .any(
-                                                                        (element) =>
-                                                                            element.id ==
-                                                                            targetId,
-                                                                      )
-                                                                        ? state
-                                                                            .listRelatedProduct!
-                                                                            .firstWhere(
-                                                                              (element) => element.id == targetId,
-                                                                            )
-                                                                            .quantity
-                                                                            .toString()
-                                                                        : 0.toString(),
-                                                                addEvent:
-                                                                    AddQuantityRelatedToOrder(
-                                                                  state.productDetailsResponse
-                                                                          .relatedProducts![
-                                                                      index],
-                                                                  index,
-                                                                ),
-                                                                removeEvent:
-                                                                    RemoveQuantityRelatedToOrder(
-                                                                  state.productDetailsResponse
-                                                                          .relatedProducts![
-                                                                      index],
+                                                                amountCounter:
+                                                                    CustomAmount(
+                                                                  quantityString: state
+                                                                              .listRelatedProduct ==
+                                                                          null
+                                                                      ? 0
+                                                                          .toString()
+                                                                      : state.listRelatedProduct!
+                                                                              .any(
+                                                                          (element) =>
+                                                                              element.id ==
+                                                                              targetId,
+                                                                        )
+                                                                          ? state
+                                                                              .listRelatedProduct!
+                                                                              .firstWhere(
+                                                                                (element) => element.id == targetId,
+                                                                              )
+                                                                              .quantity
+                                                                              .toString()
+                                                                          : 0.toString(),
+                                                                  addEvent:
+                                                                      AddQuantityRelatedToOrder(
+                                                                    state.productDetailsResponse
+                                                                            .relatedProducts![
+                                                                        index],
+                                                                    index,
+                                                                  ),
+                                                                  removeEvent:
+                                                                      RemoveQuantityRelatedToOrder(
+                                                                    state.productDetailsResponse
+                                                                            .relatedProducts![
+                                                                        index],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ],
@@ -357,7 +358,13 @@ class ProductDetailsBody extends StatelessWidget {
                                                                 .all(
                                                           8.0,
                                                         ),
-                                                        child: Stack(
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
                                                           children: [
                                                             GestureDetector(
                                                               onTap: () {
@@ -365,11 +372,6 @@ class ProductDetailsBody extends StatelessWidget {
                                                                     .pushReplacement(
                                                                   context,
                                                                   ProductDetailsScreen(
-                                                                    // quantity: state
-                                                                    //     .productDetailsResponse
-                                                                    //     .similarProducts![
-                                                                    //         index]
-                                                                    //     .quantity,
                                                                     id: state
                                                                         .productDetailsResponse
                                                                         .similarProducts![
@@ -383,42 +385,41 @@ class ProductDetailsBody extends StatelessWidget {
                                                                 productInfo: state
                                                                     .productDetailsResponse
                                                                     .similarProducts![index],
-                                                              ),
-                                                            ),
-                                                            CustomAmount(
-                                                              quantityString: state
-                                                                          .listSimilarProduct ==
-                                                                      null
-                                                                  ? 0.toString()
-                                                                  : state.listSimilarProduct!
-                                                                          .any(
-                                                                      (element) =>
-                                                                          element
-                                                                              .id ==
-                                                                          targetId,
-                                                                    )
-                                                                      ? state
-                                                                          .listSimilarProduct!
-                                                                          .firstWhere(
-                                                                            (element) =>
-                                                                                element.id ==
-                                                                                targetId,
-                                                                          )
-                                                                          .quantity
+                                                                amountCounter:
+                                                                    CustomAmount(
+                                                                  quantityString: state
+                                                                              .listSimilarProduct ==
+                                                                          null
+                                                                      ? 0
                                                                           .toString()
-                                                                      : 0.toString(),
-                                                              addEvent:
-                                                                  AddQuantitySimilarToOrder(
-                                                                state.productDetailsResponse
-                                                                        .similarProducts![
-                                                                    index],
-                                                                index,
-                                                              ),
-                                                              removeEvent:
-                                                                  RemoveQuantitySimilarToOrder(
-                                                                state.productDetailsResponse
-                                                                        .similarProducts![
-                                                                    index],
+                                                                      : state.listSimilarProduct!
+                                                                              .any(
+                                                                          (element) =>
+                                                                              element.id ==
+                                                                              targetId,
+                                                                        )
+                                                                          ? state
+                                                                              .listSimilarProduct!
+                                                                              .firstWhere(
+                                                                                (element) => element.id == targetId,
+                                                                              )
+                                                                              .quantity
+                                                                              .toString()
+                                                                          : 0.toString(),
+                                                                  addEvent:
+                                                                      AddQuantitySimilarToOrder(
+                                                                    state.productDetailsResponse
+                                                                            .similarProducts![
+                                                                        index],
+                                                                    index,
+                                                                  ),
+                                                                  removeEvent:
+                                                                      RemoveQuantitySimilarToOrder(
+                                                                    state.productDetailsResponse
+                                                                            .similarProducts![
+                                                                        index],
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ],

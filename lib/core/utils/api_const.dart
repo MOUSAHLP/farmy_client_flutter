@@ -65,6 +65,7 @@ class ApiConst {
   static const String getMyOrder = "/orders";
   static const String getMyOrderHistory = "/history-orders";
   static String getDetailsOrder(int id) => "/orders/order-details/$id";
+  static String orderReturnProducts = "/orders/order-return-products";
   static String deleteOrder(int id) => "/orders/$id";
   static String showBasket = "/get-cart-products-info";
   static String getCartPrices = "/get-carts-price";
@@ -77,8 +78,8 @@ class ApiConst {
   static String getOrderVerifyCode(int id) => "/displyCodeExists/$id";
 
   ///notification
-  static  String getNotifications(int type) => "/notifications?type=$type";
-  static  String deleteNotifications(int id) => "/notifications/$id";
+  static String getNotifications(int type) => "/notifications?type=$type";
+  static String deleteNotifications(int id) => "/notifications/$id";
 
   /// Rewards
   static const String getAllRewards = "/rewards";
@@ -88,16 +89,14 @@ class ApiConst {
   static const String getRewardsPointHistoryUsed = "/reward/purchases";
   static const String getRewardsPointHistoryValid = "/reward/points/valid";
   static const String getRewardMyCoupons = "/reward/coupons";
-  static const String getRewardActivityCoupons = "/reward/achievements/not-done";
+  static const String getRewardActivityCoupons =
+      "/reward/achievements/not-done";
   static const String getRewardsRankUser = "/reward/user-statistics";
   static const String getRewardsOfferCoupon = "/reward/coupons/offers";
   static const String buyCoupon = "/reward/coupons/buy";
-
 
   ///setting
   static const String getJoinOurTeamJobs = "/join-our-team/jobs";
   static const String addJoinOurTeamJobs = "/join-our-team";
   static const String getInvoices = "/invoices/get_invoices";
-
-
 }

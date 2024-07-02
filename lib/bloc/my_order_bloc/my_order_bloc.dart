@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/bloc/my_order_bloc/my_order_event.dart';
@@ -27,30 +26,28 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
           BasketModel(basketList: []);
 
   int finalPrice() {
-    double totalTax = 0;
+    // double totalTax = 0;
     int totalProduct = 0;
     for (int i = 0; i < productDetailsList.length; i++) {
-      int reversedIndex = productInBasketList.length - 1 - i;
-
       // totalTax += (productDetailsList[i].tax ?? 0 *  int.parse(productDetailsList[i].discountPrice ?? "0"))/100;
 
       if (productDetailsList[i].discountStatus == "1") {
         totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") *
             productInBasketList[i].quantity);
 
-        totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
-            (int.parse(productDetailsList[i].discountPrice ?? "0") *
-                productInBasketList[i].quantity);
+        // totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
+        //     (int.parse(productDetailsList[i].discountPrice ?? "0") *
+        //         productInBasketList[i].quantity);
       } else {
         totalProduct += (int.parse(productDetailsList[i].price ?? "0") *
             productInBasketList[i].quantity);
 
-        totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
-            (int.parse(productDetailsList[i].price ?? "0") *
-                productInBasketList[i].quantity);
+        // totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
+        //     (int.parse(productDetailsList[i].price ?? "0") *
+        //         productInBasketList[i].quantity);
       }
     }
-    sum = totalProduct + totalTax.toInt();
+    sum = totalProduct;
     return sum;
   }
 
@@ -74,6 +71,7 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
               screenStates: ScreenStates.success, myOrderList: r));
         });
       }
+
       if (event is DeleteOrder) {
         emit(state.copyWith(isLoadingDelete: true));
         final response = await MyOrderRepository.deleteOrder(event.id);
@@ -267,11 +265,8 @@ class MyOrderBloc extends Bloc<MyOrderEvent, MyOrderState> {
       }
       if (event is GetOrderHistory) {
         emit(state.copyWith(screenStates: ScreenStates.loading));
-        print("000000000000000000000");
         final response = await MyOrderRepository.getMyOrderHistory();
-        print("11111111111111111111");
         response.fold((l) {
-          print("22222222222222222");
           emit(
             state.copyWith(screenStates: ScreenStates.error, error: l),
           );

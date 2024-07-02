@@ -13,7 +13,7 @@ import 'package:pharma/translations.dart';
 
 class CustomDatePicker extends StatelessWidget {
   final List<String> listMinutes = [
-    "5",
+    "05",
     "10",
     "15",
     "20",
@@ -26,17 +26,16 @@ class CustomDatePicker extends StatelessWidget {
     "55",
   ];
 
-
   final List<String> listHours = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
     "10",
     "12",
     "13",
@@ -107,7 +106,8 @@ class CustomDatePicker extends StatelessWidget {
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () {
-                            paymentBloc.add(SelectedHoursEvents((state as PaymentState).isExpandedHours));
+                            paymentBloc.add(SelectedHoursEvents(
+                                (state as PaymentState).isExpandedHours));
                           },
                           child: SizedBox(
                             width: 80.w,
@@ -261,8 +261,8 @@ class CustomDatePicker extends StatelessWidget {
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () {
-                                      paymentBloc.add(
-                                          SelectedMinutesEvents(state.isExpandedMinutes));
+                                      paymentBloc.add(SelectedMinutesEvents(
+                                          state.isExpandedMinutes));
                                       minutes = listMinutes[index];
                                     },
                                     child: Text(

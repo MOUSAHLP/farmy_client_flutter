@@ -30,6 +30,7 @@ class TimeWorkDialog {
 
   void openDialog(BuildContext context) {
     _isShown = true;
+
     dialogTransitionBuilder(context, const _LoadingDialogBody())
         .whenComplete(() => _isShown = false);
   }

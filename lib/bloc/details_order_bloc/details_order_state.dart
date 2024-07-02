@@ -16,6 +16,7 @@ class DetailsOrderState extends Equatable {
   final bool success;
   final bool successEdit;
   List<OrderDetailsModel> productList;
+  List<int> returnedProducts;
 
   DetailsOrderState({
     this.screenStates = ScreenStates.loading,
@@ -30,6 +31,7 @@ class DetailsOrderState extends Equatable {
     this.urlPdf = '',
     this.errorEdit = '',
     this.productList = const [],
+    this.returnedProducts = const [],
   });
 
   DetailsOrderState copyWith({
@@ -45,6 +47,7 @@ class DetailsOrderState extends Equatable {
     String? urlPdf,
     String? errorEdit,
     List<OrderDetailsModel>? productList,
+    List<int>? returnedProducts,
   }) {
     return DetailsOrderState(
       screenStates: screenStates ?? ScreenStates.initialized,
@@ -56,6 +59,7 @@ class DetailsOrderState extends Equatable {
       urlPdf: urlPdf ?? this.urlPdf,
       errorEdit: errorEdit ?? '',
       productList: productList ?? this.productList,
+      returnedProducts: returnedProducts ?? this.returnedProducts,
       totalPrice: totalPrice ?? this.totalPrice,
       total: total ?? this.total,
       invoice: invoice ?? this.invoice,
@@ -73,6 +77,7 @@ class DetailsOrderState extends Equatable {
         error,
         errorEdit,
         productList,
+        returnedProducts,
         totalPrice,
         urlPdf,
         total,

@@ -166,20 +166,6 @@ class CardDetailsOrderNotInstall extends StatelessWidget {
                         )
                     ],
                   ),
-                  if (product.tax != null)
-                    Text(
-                        "${AppLocalizations.of(context)!.tax} : ${Formatter.formatPrice(
-                      (product.discountStatus == "0"
-                              ? int.parse(product.price!) * product.tax!
-                              : int.parse(product.discountPrice!) *
-                                  product.tax!) *
-                          context
-                              .read<MyOrderBloc>()
-                              .state
-                              .quantityInBasket[index]
-                              .quantity /
-                          100,
-                    )} ${AppLocalizations.of(context)!.curruncy}")
                 ],
               ),
             ),

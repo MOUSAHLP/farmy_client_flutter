@@ -53,7 +53,7 @@ class _OrderVerifyCodeState extends State<OrderVerifyCode> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "فارمي",
+                          AppLocalizations.of(context)!.farmy,
                           style: getBoldStyle(
                               color: Colors.white, fontSize: FontSizeApp.s24),
                         ),
@@ -117,7 +117,7 @@ class _OrderVerifyCodeState extends State<OrderVerifyCode> {
                           builder: (context, state) {
                             return Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               child: PinFieldAutoFill(
                                 decoration: BoxLooseDecoration(
                                   strokeColorBuilder: const FixedColorBuilder(

@@ -19,6 +19,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   int currentIndex = 0;
   int lastPagePagination = 1;
   int indexPagePagination = 2;
+  bool dialogWasShown=false;
   HomeRepo homeRepo;
 
   // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();

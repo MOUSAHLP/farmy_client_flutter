@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +11,7 @@ import 'package:pharma/bloc/location_bloc/location_bloc.dart';
 import 'package:pharma/bloc/location_bloc/location_state.dart';
 import 'package:pharma/bloc/setting_bloc/setting_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/home_page_dynamic_model.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_address.dart';
 import 'package:pharma/presentation/screens/home_screen/widgets/custom_delivery_servies.dart';
@@ -32,7 +35,6 @@ import '../basket_screen/basket_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -64,9 +66,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     .userAddressModel!;
                 Future.delayed(
                   Duration.zero,
-                  () => checkIsOpening(context)
-                      ? null
-                      : TimeWorkDialog().openDialog(context),
+                  () {
+                    if (!checkIsOpening(context) &&
+                        !context.read<HomeBloc>().dialogWasShown) {
+                      TimeWorkDialog().openDialog(context);
+                      context.read<HomeBloc>().dialogWasShown = true;
+                    }
+                  },
                 );
                 return Expanded(
                   child: Column(
@@ -265,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                                 width: 10,
                                                               ),
                                                               Text(
-                                                                "( ${context.read<BasketBloc>().finalPrice().toString()} ${AppLocalizations.of(context)!.curruncy} ) ",
+                                                                "( ${Formatter.formatPrice(context.read<BasketBloc>().finalPrice())} ${AppLocalizations.of(context)!.curruncy} ) ",
                                                                 style:
                                                                     getBoldStyle(
                                                                   color: Colors
@@ -351,12 +357,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               .endTime)
           .split(":");
     }
-    // print("======================================================================");
-    // print(dateTime.hour);
-    // print("======================================================================");
-    // print(endTime[0]);
-    // print("======================================================================");
-    if (int.parse(endTime[0]) > dateTime.hour) {
+    List<String> startTime = (context
+            .read<SettingBloc>()
+            .settingModel!
+            .data!
+            .openingTimes!
+            .startTime)
+        .split(":");
+
+    if (int.parse(endTime[0]) > dateTime.hour &&
+        int.parse(startTime[0]) < dateTime.hour) {
       return true;
     } else if (int.parse(endTime[0]) == dateTime.hour) {
       if (int.parse(endTime[1]) > dateTime.minute) {

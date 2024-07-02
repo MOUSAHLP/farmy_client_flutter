@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_bloc.dart';
 import 'package:pharma/bloc/rewards_bloc/rank_bloc/rewards_rank_state.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/presentation/resources/color_manager.dart';
 import 'package:pharma/presentation/resources/font_app.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
@@ -49,7 +50,8 @@ class YourPointsBox extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "${state.rewardsRankUserModel!.data.userPoints}",
+                          Formatter.formatPrice(
+                              state.rewardsRankUserModel!.data.userPoints),
                           style: getBoldStyle(
                             color: ColorManager.white,
                             fontSize: FontSizeApp.s26.sp,
@@ -74,7 +76,8 @@ class YourPointsBox extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "${state.rewardsRankUserModel!.data.pointsValue}",
+                        Formatter.formatPrice(
+                            state.rewardsRankUserModel!.data.pointsValue),
                         style: getBoldStyle(
                           color: ColorManager.primaryGreen,
                           fontSize: FontSizeApp.s26.sp,

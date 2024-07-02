@@ -118,7 +118,9 @@ class CardBasket extends StatelessWidget {
                                 productAddedToBasketDetails.discountStatus !=
                                     "0"
                             ? Text(
-                                "${int.parse(productAddedToBasketDetails.price!) * productAddedToBasketDetails.quantity!}",
+                                Formatter.formatPrice(int.parse(
+                                        productAddedToBasketDetails.price!) *
+                                    productAddedToBasketDetails.quantity!),
                                 style: getRegularStyle(
                                         color: ColorManager.grayForMessage,
                                         fontSize: FontSizeApp.s12)!

@@ -16,10 +16,10 @@ class StateButtons extends StatelessWidget {
     required this.status,
     required this.id,
     required this.expectedTime,
-    required this.deliveryType,
+    required this.isSchedule,
   }) : super(key: key);
   final String status;
-  final String deliveryType;
+  final bool isSchedule;
   final int id;
   final int expectedTime;
 
@@ -48,46 +48,46 @@ class StateButtons extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 2),
-            if (deliveryType == "طلب مجدول")
-              Expanded(
-                child: CustomButton(
-                  height: 38.h,
-                  radius: 6.r,
-                  label: AppLocalizations.of(context)!.edit_Orders,
-                  fillColor: ColorManager.yellow,
-                  labelColor: Colors.white,
-                  onTap: () {
-                    return AppRouter.push(
-                      context,
-                      OrderDetailsScreen(
-                        id: id,
-                        isEdit: true,
-                      ),
-                    );
-                  },
-                ),
+            // if (isSchedule)
+            Expanded(
+              child: CustomButton(
+                height: 38.h,
+                radius: 6.r,
+                label: AppLocalizations.of(context)!.edit_Orders,
+                fillColor: ColorManager.yellow,
+                labelColor: Colors.white,
+                onTap: () {
+                  return AppRouter.push(
+                    context,
+                    OrderDetailsScreen(
+                      id: id,
+                      isEdit: true,
+                    ),
+                  );
+                },
               ),
+            ),
             const SizedBox(width: 2),
-            if (deliveryType == "طلب مجدول")
-              Expanded(
-                child: CustomButton(
-                  height: 38.h,
-                  radius: 6.r,
-                  label: AppLocalizations.of(context)!.delete_Order,
-                  fillColor: Colors.white,
-                  borderColor: ColorManager.primaryGreen,
-                  isFilled: true,
-                  labelColor: ColorManager.primaryGreen,
-                  onTap: () {
-                    context.read<MyOrderBloc>().add(
-                          DeleteOrder(
-                            id: id,
-                          ),
-                        );
-                    //DeleteOrder
-                  },
-                ),
+            // if (isSchedule)
+            Expanded(
+              child: CustomButton(
+                height: 38.h,
+                radius: 6.r,
+                label: AppLocalizations.of(context)!.delete_Order,
+                fillColor: Colors.white,
+                borderColor: ColorManager.primaryGreen,
+                isFilled: true,
+                labelColor: ColorManager.primaryGreen,
+                onTap: () {
+                  context.read<MyOrderBloc>().add(
+                        DeleteOrder(
+                          id: id,
+                        ),
+                      );
+                  //DeleteOrder
+                },
               ),
+            ),
           ];
           break;
         case "Confirmed":
@@ -111,6 +111,7 @@ class StateButtons extends StatelessWidget {
             ),
           ];
           break;
+        // case "Confirmed":
         case "OnDelivery":
           buttons = [
             Expanded(
@@ -131,44 +132,89 @@ class StateButtons extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 2),
-            if (deliveryType != "طلب مجدول")
-              Expanded(
-                child: CustomButton(
-                  height: 38.h,
-                  radius: 6.r,
-                  label: AppLocalizations.of(context)!.track_Order,
-                  fillColor: Colors.white,
-                  borderColor: ColorManager.primaryGreen,
-                  isFilled: true,
-                  labelColor: ColorManager.primaryGreen,
-                  onTap: () {
-                    AppRouter.push(
-                      context,
-                      OrderTrackingScreen(
-                        expectedTime: expectedTime,
-                        orderId: id,
-                      ),
-                    );
-                  },
-                ),
+            // if (!isSchedule)
+            Expanded(
+              child: CustomButton(
+                height: 38.h,
+                radius: 6.r,
+                label: AppLocalizations.of(context)!.track_Order,
+                fillColor: Colors.white,
+                borderColor: ColorManager.primaryGreen,
+                isFilled: true,
+                labelColor: ColorManager.primaryGreen,
+                onTap: () {
+                  AppRouter.push(
+                    context,
+                    OrderTrackingScreen(
+                      expectedTime: expectedTime,
+                      orderId: id,
+                    ),
+                  );
+                },
               ),
+            ),
             const SizedBox(width: 2),
-            if (deliveryType != "طلب مجدول")
-              Expanded(
-                child: CustomButton(
-                  height: 38.h,
-                  radius: 6.r,
-                  label: AppLocalizations.of(context)!.returned,
-                  fillColor: ColorManager.grayForMessage,
-                  isFilled: true,
-                  labelColor: Colors.white,
-                  borderColor: ColorManager.grayForMessage,
-                  onTap: () {},
-                ),
+            // if (!isSchedule)
+            Expanded(
+              child: CustomButton(
+                height: 38.h,
+                radius: 6.r,
+                label: AppLocalizations.of(context)!.returned,
+                fillColor: ColorManager.grayForMessage,
+                isFilled: true,
+                labelColor: Colors.white,
+                borderColor: ColorManager.grayForMessage,
+                onTap: () {},
               ),
+            ),
           ];
           break;
+
         case "Deliverd":
+          buttons = [
+            Expanded(
+              child: CustomButton(
+                height: 38.h,
+                radius: 6.r,
+                label: AppLocalizations.of(context)!.show_Order,
+                fillColor: ColorManager.yellow,
+                labelColor: Colors.white,
+                onTap: () {
+                  return AppRouter.push(
+                    context,
+                    OrderDetailsScreen(
+                      id: id,
+                      isDelivery: true,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(width: 2),
+            Expanded(
+              child: CustomButton(
+                height: 38.h,
+                radius: 6.r,
+                label: AppLocalizations.of(context)!.returned,
+                fillColor: ColorManager.yellow,
+                isFilled: true,
+                labelColor: Colors.white,
+                borderColor: ColorManager.yellow,
+                onTap: () {
+                  return AppRouter.push(
+                    context,
+                    OrderDetailsScreen(
+                      id: id,
+                      isDelivery: false,
+                      isDelivered: true,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ];
+          break;
+        case "Done":
           buttons = [
             Expanded(
               child: CustomButton(

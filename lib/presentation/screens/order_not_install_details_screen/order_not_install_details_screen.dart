@@ -346,15 +346,15 @@ class OrderDetailsBody extends StatelessWidget {
     List<String> endTime =
         (context.read<SettingBloc>().settingModel!.data!.openingTimes!.endTime)
             .split(":");
-    print(
-        "======================================================================");
-    print(dateTime.hour);
-    print(
-        "======================================================================");
-    print(endTime[0]);
-    print(
-        "======================================================================");
-    if (int.parse(endTime[0]) > dateTime.hour) {
+    List<String> startTime = (context
+            .read<SettingBloc>()
+            .settingModel!
+            .data!
+            .openingTimes!
+            .startTime)
+        .split(":");
+    if (int.parse(endTime[0]) > dateTime.hour &&
+        int.parse(startTime[0]) < dateTime.hour) {
       return true;
     } else if (int.parse(endTime[0]) == dateTime.hour) {
       if (int.parse(endTime[1]) > dateTime.minute) {

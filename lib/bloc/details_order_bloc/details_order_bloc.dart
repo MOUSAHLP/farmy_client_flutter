@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import '../../data/repository/my_order_repository.dart';
@@ -9,6 +11,7 @@ import 'details_order_state.dart';
 class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
   List<OrderDetailsModel> productDetailsList = [];
   List<ProductEditPrams> product = [];
+  List<int> returnedProducts = [];
   int sum = 0;
 
   int countsProducts(int id) {
@@ -20,52 +23,27 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
   }
 
   int finalPrice() {
-    double totalTax = 0;
     int totalProduct = 0;
     for (int i = 0; i < productDetailsList.length; i++) {
       if (productDetailsList[i].product?.discountStatus == "0") {
         totalProduct +=
             (int.parse(productDetailsList[i].product!.price ?? "0") *
                 productDetailsList[i].quantity!);
-        totalTax += ((productDetailsList[i].product?.tax ?? 0) / 100) *
-            (int.parse(productDetailsList[i].product!.price ?? "0") *
-                productDetailsList[i].quantity!);
+        // totalTax += ((productDetailsList[i].product?.tax ?? 0) / 100) *
+        //     (int.parse(productDetailsList[i].product!.price ?? "0") *
+        //         productDetailsList[i].quantity!);
       }
       if (productDetailsList[i].product?.discountStatus != "0") {
         totalProduct +=
             (int.parse(productDetailsList[i].product!.discountPrice ?? "0") *
                 productDetailsList[i].quantity!);
-        totalTax += ((productDetailsList[i].product?.tax ?? 0) / 100) *
-            (int.parse(productDetailsList[i].product!.discountPrice ?? "0") *
-                productDetailsList[i].quantity!);
+        // totalTax += ((productDetailsList[i].product?.tax ?? 0) / 100) *
+        //     (int.parse(productDetailsList[i].product!.discountPrice ?? "0") *
+        //         productDetailsList[i].quantity!);
       }
-      print((((productDetailsList[i].product?.tax ?? 0) / 100) *
-                  (int.parse(productDetailsList[i].product!.price ?? "0") *
-                      productDetailsList[i].quantity!))
-              .toString() +
-          "tax%%%");
-      print(((int.parse(productDetailsList[i].product!.price ?? "0") *
-                  productDetailsList[i].quantity!))
-              .toString() +
-          "product%%%");
-      // double totalTax = 0;
-      // int totalProduct = 0;
-      // for (int i = 0; i < productDetailsList.length; i++) {
-      //   int reversedIndex = productInBasketList.length - 1 - i;
-
-      //   // totalTax += (productDetailsList[i].tax ?? 0 *  int.parse(productDetailsList[i].discountPrice ?? "0"))/100;
-      //   totalProduct += (int.parse(productDetailsList[i].discountPrice ?? "0") *
-      //       productInBasketList[i].quantity);
-
-      //   totalTax += ((productDetailsList[i].tax ?? 0) / 100) *
-      //       (int.parse(productDetailsList[i].discountPrice ?? "0") *
-      //           productInBasketList[i].quantity);
-      // }
-      // sum = totalProduct + totalTax.toInt();
-      // return sum;
     }
 
-    sum = totalProduct + totalTax.toInt();
+    sum = totalProduct;
 
     return sum;
   }
@@ -83,6 +61,7 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
             "total": r.total,
             "subTotal": r.subTotal,
             "deliveryFee": r.deliveryFee,
+            "taxes": r.taxes,
             "tax": r.tax,
             "extra_discount": r.extra_discount,
             "couponDiscount": r.couponDiscount,
@@ -99,6 +78,7 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
           );
         });
       }
+
       if (event is AddCount) {
         int index1 =
             productDetailsList.indexWhere((element) => element.id == event.id);
@@ -144,10 +124,67 @@ class DetailsOrderBloc extends Bloc<DetailsOrderEvent, DetailsOrderState> {
         response.fold((l) {
           emit(state.copyWith(errorEdit: l));
         }, (r) {
-          // sl<MyOrderBloc>()
-          //   .add(GetMyOrder());
+          product = [];
+          productDetailsList = r.homeCategoriesList ?? [];
+          Map invoice = {
+            "total": r.total,
+            "subTotal": r.subTotal,
+            "deliveryFee": r.deliveryFee,
+            "taxes": r.taxes,
+            "tax": r.tax,
+            "extra_discount": r.extra_discount,
+            "couponDiscount": r.couponDiscount,
+          };
+          emit(
+            state.copyWith(
+                total: r.total,
+                invoice: invoice,
+                screenStates: ScreenStates.success,
+                productList: productDetailsList,
+                totalPrice: finalPrice(),
+                urlPdf: r.pdfUrl,
+                successEdit: true),
+          );
 
-          emit(state.copyWith(successEdit: true));
+          // emit(state.copyWith(successEdit: true));
+        });
+      }
+      if (event is ReturnProduct) {
+        returnedProducts.add(event.id);
+        emit(state.copyWith(returnedProducts: returnedProducts));
+      }
+      if (event is UnReturnProduct) {
+        returnedProducts.remove(event.id);
+        emit(state.copyWith(returnedProducts: returnedProducts));
+      }
+      if (event is OrderReturnProducts) {
+        emit(state.copyWith(screenStates: ScreenStates.loading));
+        final response = await MyOrderRepository.orderReturnProducts(
+            event.id, returnedProducts);
+        response.fold((l) {
+          emit(state.copyWith(screenStates: ScreenStates.error));
+        }, (r) {
+          returnedProducts = [];
+          productDetailsList = r.homeCategoriesList ?? [];
+          Map invoice = {
+            "total": r.total,
+            "subTotal": r.subTotal,
+            "deliveryFee": r.deliveryFee,
+            "taxes": r.taxes,
+            "tax": r.tax,
+            "extra_discount": r.extra_discount,
+            "couponDiscount": r.couponDiscount,
+          };
+          emit(
+            state.copyWith(
+              total: r.total,
+              invoice: invoice,
+              screenStates: ScreenStates.success,
+              productList: productDetailsList,
+              totalPrice: finalPrice(),
+              urlPdf: r.pdfUrl,
+            ),
+          );
         });
       }
     });

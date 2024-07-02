@@ -21,78 +21,66 @@ class CustomAmount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductdetailsBloc, ProductdetailsState>(builder: (context, state) => Padding(
-      padding: EdgeInsets.only(
-        right: Directionality.of(context) == TextDirection.rtl ? 22 : 0,
-        left: Directionality.of(context) == TextDirection.ltr ? 22 : 0,
-      ),
-      child: Center(
-        child: Row(
-          children: [
-            SizedBox(
-              height: 25,
-              width: 30,
-              child: CustomCountWidget(
-                height: 25,
-                width: 30,
-                myIcon: Icons.add,
-                onTap: () {
-                    context.read<ProductdetailsBloc>().add(addEvent);
-                },
-              ),
-            ),
-            const SizedBox(
-              width: 9,
-            ),
-            InnerShadow(
-              shadows: [
-                Shadow(
-                  color: Colors.black.withOpacity(
-                    0.25,
-                  ),
-                  blurRadius: 10,
-                  offset: const Offset(
-                    2,
-                    5,
-                  ),
-                )
-              ],
-              child: Container(
-                height: 25,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: Colors.white,
+    return BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
+      builder: (context, state) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomCountWidget(
+            height: 30,
+            width: 30,
+            myIcon: Icons.add,
+            onTap: () {
+              context.read<ProductdetailsBloc>().add(addEvent);
+            },
+          ),
+          const SizedBox(
+            width: 9,
+          ),
+          InnerShadow(
+            shadows: [
+              Shadow(
+                color: Colors.black.withOpacity(
+                  0.25,
                 ),
-                child: Center(
-                  child: Text(
-                    quantityString,
-                    style: getUnderBoldStyle(
-                      color: ColorManager.primaryGreen,
-                      fontSize: FontSizeApp.s20,
-                    ),
+                blurRadius: 10,
+                offset: const Offset(
+                  2,
+                  5,
+                ),
+              )
+            ],
+            child: Container(
+              height: 25,
+              width: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: Colors.white,
+              ),
+              child: Center(
+                child: Text(
+                  quantityString,
+                  style: getUnderBoldStyle(
+                    color: ColorManager.primaryGreen,
+                    fontSize: FontSizeApp.s20,
                   ),
                 ),
               ),
             ),
-            const SizedBox(
-              width: 9,
-            ),
-            SizedBox(
-              height: 25,
-              width: 30,
-              child: CustomCountWidget(
-                height: 25,
-                width: 30,
-                myIcon: Icons.remove,
-                onTap: () {
-                  context.read<ProductdetailsBloc>().add(removeEvent);
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(
+            width: 9,
+          ),
+          CustomCountWidget(
+            height: 30,
+            width: 30,
+            myIcon: Icons.remove,
+            onTap: () {
+              context.read<ProductdetailsBloc>().add(removeEvent);
+            },
+          ),
+        ],
       ),
-    ),);
+    );
   }
 }

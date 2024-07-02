@@ -88,7 +88,7 @@ class CustomAppBar extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          "فارمي",
+                          AppLocalizations.of(context)!.farmy,
                           style: getBoldStyle(
                               color: Colors.white, fontSize: FontSizeApp.s24),
                         ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:pharma/data/data_resource/local_resource/data_store.dart';
 import 'package:pharma/models/basket_model.dart';
@@ -47,6 +49,20 @@ class MyOrderRepository {
     );
   }
 
+  static Future<Either<String, DetailsResponse>> orderReturnProducts(
+      int orderId, List<int> returnedProducts) {
+    return BaseApiClient.post<DetailsResponse>(
+      url: ApiConst.orderReturnProducts,
+      formData: {"order_id": orderId, "returned_products": returnedProducts},
+      queryParameters: {
+        'lang': DataStore.instance.lang,
+      },
+      converter: (e) {
+        return DetailsResponse.fromJson(e["data"]);
+      },
+    );
+  }
+
   static Future<Either<String, String>> deleteOrder(int id) {
     return BaseApiClient.delete<String>(
       url: ApiConst.deleteOrder(id),
@@ -59,20 +75,22 @@ class MyOrderRepository {
     );
   }
 
-  static Future<Either<String, String>> editOrder(
+  static Future<Either<String, DetailsResponse>> editOrder(
       int id, List<ProductEditPrams> product) {
     print("============edit order");
     print(ProductEditPrams.toJsonCardList(product));
     print("===============product");
     print(product);
-    return BaseApiClient.put<String>(
+    return BaseApiClient.put<DetailsResponse>(
       url: ApiConst.deleteOrder(id),
       queryParameters: {
         "products": ProductEditPrams.toJsonCardList(product),
         'lang': DataStore.instance.lang,
       },
       converter: (e) {
-        return e['message'];
+        // return e['message'];
+        return DetailsResponse.fromJson(e["data"]);
+
       },
     );
   }

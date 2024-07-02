@@ -51,6 +51,7 @@ class CardOrder extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               if (!myOrder.status!.contains("Deliverd") &&
+                  !myOrder.status!.contains("Done") &&
                   !myOrder.status!.contains("Canceled")) ...[
                 RowOrder(
                   title: AppLocalizations.of(context)!.expected_Time,
@@ -98,7 +99,7 @@ class CardOrder extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              if (myOrder.status == "Deliverd")
+              if (myOrder.status == "Done")
                 myOrder.rate != null && myOrder.rate != 0.0
                     ? RatingBar.builder(
                         ignoreGestures: true,
@@ -130,7 +131,7 @@ class CardOrder extends StatelessWidget {
                 height: 10,
               ),
               StateButtons(
-                deliveryType: myOrder.deliveryMethod!.name!,
+                isSchedule: myOrder.deliveryMethod!.isSchedule!,
                 status: myOrder.status ?? "",
                 id: myOrder.id,
                 expectedTime: myOrder.expectedTime,

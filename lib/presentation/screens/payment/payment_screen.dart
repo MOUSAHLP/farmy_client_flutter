@@ -577,41 +577,70 @@ class PaymentBody extends StatelessWidget {
                                         : AppValueConst.defaultInvoiceValue
                                             .toString(),
                                   ),
-                                  CustomBillDetailsRow(
-                                    subStatusBill:
-                                        AppLocalizations.of(context)!.hasm_code,
-                                    price: state
-                                                .paymentProcessResponse!
-                                                .invoicesResponse!
-                                                .couponValue !=
-                                            null
-                                        ? Formatter.formatPrice(
-                                            state.paymentProcessResponse!
-                                                .invoicesResponse!.couponValue!,
-                                          )
-                                        : AppValueConst.defaultInvoiceValue
-                                            .toString(),
-                                  ),
+                                  if (state.paymentProcessResponse!
+                                          .invoicesResponse!.couponValue !=
+                                      0)
+                                    CustomBillDetailsRow(
+                                      subStatusBill:
+                                          AppLocalizations.of(context)!
+                                              .hasm_code,
+                                      price: state
+                                                  .paymentProcessResponse!
+                                                  .invoicesResponse!
+                                                  .couponValue !=
+                                              null
+                                          ? Formatter.formatPrice(
+                                              state
+                                                  .paymentProcessResponse!
+                                                  .invoicesResponse!
+                                                  .couponValue!,
+                                            )
+                                          : AppValueConst.defaultInvoiceValue
+                                              .toString(),
+                                    ),
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .deliverycharges,
-                                    price: state.paymentProcessResponse!
-                                        .invoicesResponse!.deliveryValue
-                                        .toString(),
+                                    price: Formatter.formatPrice(state
+                                            .paymentProcessResponse!
+                                            .invoicesResponse!
+                                            .deliveryValue ??
+                                        0),
                                   ),
-                                  CustomBillDetailsRow(
-                                    subStatusBill:
-                                        AppLocalizations.of(context)!.tax,
-                                    price: state.paymentProcessResponse!
-                                                .invoicesResponse!.tax !=
-                                            null
-                                        ? Formatter.formatPrice(
-                                            state.paymentProcessResponse!
-                                                .invoicesResponse!.tax!,
-                                          )
-                                        : AppValueConst.defaultInvoiceValue
-                                            .toString(),
-                                  ),
+                                  if (state.paymentProcessResponse!
+                                          .invoicesResponse!.taxes !=
+                                      null)
+                                    ...List.generate(
+                                        state
+                                            .paymentProcessResponse!
+                                            .invoicesResponse!
+                                            .taxes
+                                            .length, (index) {
+                                      return CustomBillDetailsRow(
+                                          subStatusBill: state
+                                              .paymentProcessResponse!
+                                              .invoicesResponse!
+                                              .taxes[index]["name"],
+                                          price: Formatter.formatPrice(
+                                            state
+                                                .paymentProcessResponse!
+                                                .invoicesResponse!
+                                                .taxes[index]["tax_value"],
+                                          ));
+                                    }),
+                                  // CustomBillDetailsRow(
+                                  //   subStatusBill:
+                                  //       AppLocalizations.of(context)!.tax,
+                                  //   price: state.paymentProcessResponse!
+                                  //               .invoicesResponse!.tax !=
+                                  //           null
+                                  //       ? Formatter.formatPrice(
+                                  //           state.paymentProcessResponse!
+                                  //               .invoicesResponse!.tax!,
+                                  //         )
+                                  //       : AppValueConst.defaultInvoiceValue
+                                  //           .toString(),
+                                  // ),
                                   CustomBillDetailsRow(
                                     subStatusBill: AppLocalizations.of(context)!
                                         .additional_discount,
@@ -820,7 +849,7 @@ class PaymentBody extends StatelessWidget {
               );
             }
 
-            if (item.id == 3) {
+            if (item.isSchedule) {
               showDialog(
                 context: context,
                 builder: (unContext) => CustomDatePicker(
@@ -837,6 +866,7 @@ class PaymentBody extends StatelessWidget {
   bool checkIsOpening(BuildContext context) {
     try {
       DateTime dateTime = DateTime.now();
+
       List<String> endTime = (context
               .read<SettingBloc>()
               .settingModel!
@@ -844,8 +874,16 @@ class PaymentBody extends StatelessWidget {
               .openingTimes!
               .endTime)
           .split(":");
+      List<String> startTime = (context
+              .read<SettingBloc>()
+              .settingModel!
+              .data!
+              .openingTimes!
+              .startTime)
+          .split(":");
 
-      if (int.parse(endTime[0]) > dateTime.hour) {
+      if (int.parse(endTime[0]) > dateTime.hour &&
+          int.parse(startTime[0]) < dateTime.hour) {
         return true;
       } else if (int.parse(endTime[0]) == dateTime.hour) {
         if (int.parse(endTime[1]) > dateTime.minute) {

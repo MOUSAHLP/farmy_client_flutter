@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pharma/bloc/favorite_bloc/favorite_bloc.dart';
@@ -17,8 +18,10 @@ import 'favorite_heart.dart';
 
 class CustomProductCard extends StatelessWidget {
   final ProductResponse productInfo;
+  final Widget? amountCounter;
 
-  const CustomProductCard({super.key, required this.productInfo});
+  const CustomProductCard(
+      {super.key, required this.productInfo, this.amountCounter});
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +45,15 @@ class CustomProductCard extends StatelessWidget {
         alignment: AlignmentDirectional.topEnd,
         children: [
           SizedBox(
-            width: 164.w,
-            height: 218.h,
+            width: 165.w,
+            height: 244.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(6),
                   child: Container(
-                    height: 144.h,
+                    height: amountCounter == null ? 150.h : 125.h,
                     color: ColorManager.grayForPlaceholder,
                     child: CachedImage(
                       width: 163.w,
@@ -58,13 +61,17 @@ class CustomProductCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (amountCounter != null) amountCounter!,
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 7.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(bottom: 4),
@@ -195,6 +202,9 @@ class CustomProductCard extends StatelessWidget {
                       ),
                     )
                   ],
+                ),
+                const SizedBox(
+                  height: 10,
                 )
               ],
             ),

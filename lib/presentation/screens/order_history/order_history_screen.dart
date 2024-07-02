@@ -29,6 +29,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
     super.initState();
     context.read<MyOrderBloc>().add(GetOrderHistory());
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,25 +45,25 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
             Expanded(
               child: sl<AuthenticationBloc>().loggedIn
                   ? BlocBuilder<MyOrderBloc, MyOrderState>(
-                builder: (context, state) {
-                  print("state::::: ${state.screenStates}");
-                  if (state.screenStates == ScreenStates.loading) {
-                    return const BuildShimmerOrders();
-                  } else if (state.screenStates == ScreenStates.success) {
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: BodyOrders(
-                            state: state,
-                          ),
-                        )
-                      ],
-                    );
-                  } else {
-                    return const Text("");
-                  }
-                },
-              )
+                      builder: (context, state) {
+                        print("state::::: ${state.screenStates}");
+                        if (state.screenStates == ScreenStates.loading) {
+                          return const BuildShimmerOrders();
+                        } else if (state.screenStates == ScreenStates.success) {
+                          return Column(
+                            children: [
+                              Expanded(
+                                child: BodyOrders(
+                                  state: state,
+                                ),
+                              )
+                            ],
+                          );
+                        } else {
+                          return const Text("");
+                        }
+                      },
+                    )
                   : const GuestScreen(),
             ),
           ],
@@ -71,7 +72,6 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
     );
   }
 }
-
 
 class BodyOrders extends StatelessWidget {
   const BodyOrders({super.key, required this.state});

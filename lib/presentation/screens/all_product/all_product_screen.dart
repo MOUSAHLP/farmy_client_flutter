@@ -6,6 +6,7 @@ import 'package:pharma/bloc/products_bloc/products_bloc.dart';
 import 'package:pharma/core/app_enum.dart';
 import 'package:pharma/core/app_router/app_router.dart';
 import 'package:pharma/core/services/services_locator.dart';
+import 'package:pharma/core/utils/formatter.dart';
 import 'package:pharma/models/sub_category_response.dart';
 import 'package:pharma/presentation/resources/style_app.dart';
 import 'package:pharma/presentation/screens/product_details/product_details_screen.dart';
@@ -153,33 +154,43 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                                 .add(AddToBasket(
                                                                     product: [
                                                                       ProductResponse(
-                                                                        quantity:
-                                                                            1,
-                                                                        image: state
-                                                                            .productsList[index]
-                                                                            .image,
-                                                                        id: state
-                                                                            .productsList[index]
-                                                                            .id,
-                                                                        discountPrice: state
-                                                                            .productsList[index]
-                                                                            .discountPrice,
-                                                                        discountStatus: state
-                                                                            .productsList[index]
-                                                                            .discountStatus,
-                                                                        availabilityOfProduct: state
-                                                                            .productsList[index]
-                                                                            .availabilityOfProduct,
-                                                                        nameOfProduct: state
-                                                                            .productsList[index]
-                                                                            .nameOfProduct,
-                                                                        price: state
-                                                                            .productsList[index]
-                                                                            .price,
-                                                                        sellerName: state
-                                                                            .productsList[index]
-                                                                            .sellerName,
-                                                                      )
+                                                                          quantity:
+                                                                              1,
+                                                                          image: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .image,
+                                                                          id: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .id,
+                                                                          discountPrice: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .discountPrice,
+                                                                          discountStatus: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .discountStatus,
+                                                                          availabilityOfProduct: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .availabilityOfProduct,
+                                                                          nameOfProduct: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .nameOfProduct,
+                                                                          price: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .price,
+                                                                          sellerName: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .sellerName,
+                                                                          attributeList: state
+                                                                              .productsList[index]
+                                                                              .attributeList)
                                                                     ]));
                                                           }
                                                         },
@@ -200,33 +211,43 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                                 .add(AddToBasket(
                                                                     product: [
                                                                       ProductResponse(
-                                                                        quantity:
-                                                                            1,
-                                                                        image: state
-                                                                            .productsList[index]
-                                                                            .image,
-                                                                        id: state
-                                                                            .productsList[index]
-                                                                            .id,
-                                                                        discountPrice: state
-                                                                            .productsList[index]
-                                                                            .discountPrice,
-                                                                        discountStatus: state
-                                                                            .productsList[index]
-                                                                            .discountStatus,
-                                                                        availabilityOfProduct: state
-                                                                            .productsList[index]
-                                                                            .availabilityOfProduct,
-                                                                        nameOfProduct: state
-                                                                            .productsList[index]
-                                                                            .nameOfProduct,
-                                                                        price: state
-                                                                            .productsList[index]
-                                                                            .price,
-                                                                        sellerName: state
-                                                                            .productsList[index]
-                                                                            .sellerName,
-                                                                      )
+                                                                          quantity:
+                                                                              1,
+                                                                          image: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .image,
+                                                                          id: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .id,
+                                                                          discountPrice: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .discountPrice,
+                                                                          discountStatus: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .discountStatus,
+                                                                          availabilityOfProduct: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .availabilityOfProduct,
+                                                                          nameOfProduct: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .nameOfProduct,
+                                                                          price: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .price,
+                                                                          sellerName: state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .sellerName,
+                                                                          attributeList: state
+                                                                              .productsList[index]
+                                                                              .attributeList)
                                                                     ]));
                                                           }
                                                         },
@@ -256,89 +277,122 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                                         index],
                                                               ),
                                                             ),
-                                                            context
-                                                                    .read<
-                                                                        BasketBloc>()
-                                                                    .mutableProducts
-                                                                    .any((element) =>
-                                                                        element
-                                                                            .id ==
-                                                                        state
-                                                                            .productsList[index]
-                                                                            .id)
-                                                                ? Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .only(
-                                                                        bottom:
-                                                                            0,
-                                                                        start:
-                                                                            15),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                            context.read<BasketBloc>().add(AddCount(
-                                                                                state.productsList[index].id,
-                                                                                ProductResponse(
-                                                                                  quantity: 1,
-                                                                                  image: state.productsList[index].image,
-                                                                                  id: state.productsList[index].id,
-                                                                                  discountPrice: state.productsList[index].discountPrice,
-                                                                                  discountStatus: state.productsList[index].discountStatus,
-                                                                                  availabilityOfProduct: state.productsList[index].availabilityOfProduct,
-                                                                                  nameOfProduct: state.productsList[index].nameOfProduct,
-                                                                                  price: state.productsList[index].price,
-                                                                                  sellerName: state.productsList[index].sellerName,
-                                                                                )));
-                                                                          },
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child: Container(
-                                                                                color: Colors.green,
-                                                                                width: 20,
-                                                                                height: 20,
-                                                                                child: Center(
-                                                                                    child: Text(
-                                                                                  context.read<BasketBloc>().mutableProducts.firstWhere((element) => element.id == state.productsList[index].id).quantity.toString(),
-                                                                                  style: getBoldStyle(color: Colors.white),
-                                                                                ))),
-                                                                          ),
-                                                                        ),
-                                                                        GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                            if (context.read<BasketBloc>().mutableProducts.any((element) =>
+                                                            // context
+                                                            //         .read<
+                                                            //             BasketBloc>()
+                                                            //         .mutableProducts
+                                                            //         .any((element) =>
+                                                            //             element
+                                                            //                 .id ==
+                                                            //             state
+                                                            //                 .productsList[index]
+                                                            //                 .id)
+                                                            //     ?
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .only(
+                                                                      bottom: 0,
+                                                                      start:
+                                                                          15),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      context.read<BasketBloc>().add(AddCount(
+                                                                          state
+                                                                              .productsList[
+                                                                                  index]
+                                                                              .id,
+                                                                          ProductResponse(
+                                                                              quantity: 1,
+                                                                              image: state.productsList[index].image,
+                                                                              id: state.productsList[index].id,
+                                                                              discountPrice: state.productsList[index].discountPrice,
+                                                                              discountStatus: state.productsList[index].discountStatus,
+                                                                              availabilityOfProduct: state.productsList[index].availabilityOfProduct,
+                                                                              nameOfProduct: state.productsList[index].nameOfProduct,
+                                                                              price: state.productsList[index].price,
+                                                                              sellerName: state.productsList[index].sellerName,
+                                                                              attributeList: state.productsList[index].attributeList)));
+                                                                    },
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .all(
+                                                                          8.0),
+                                                                      child: Container(
+                                                                          color: Colors.green,
+                                                                          width: 22,
+                                                                          height: 22,
+                                                                          child: Center(
+                                                                              child: Text(
+                                                                            context.read<BasketBloc>().mutableProducts.any((element) => element.id == state.productsList[index].id)
+                                                                                ? context.read<BasketBloc>().mutableProducts.firstWhere((element) => element.id == state.productsList[index].id).quantity.toString()
+                                                                                : "+",
+                                                                            style:
+                                                                                getBoldStyle(color: Colors.white),
+                                                                          ))),
+                                                                    ),
+                                                                  ),
+                                                                  if (context
+                                                                      .read<
+                                                                          BasketBloc>()
+                                                                      .mutableProducts
+                                                                      .any((element) =>
+                                                                          element
+                                                                              .id ==
+                                                                          state
+                                                                              .productsList[index]
+                                                                              .id))
+                                                                    GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        if (context
+                                                                            .read<
+                                                                                BasketBloc>()
+                                                                            .mutableProducts
+                                                                            .any((element) =>
                                                                                 element.id ==
                                                                                 state.productsList[index].id)) {
-                                                                              context.read<BasketBloc>().add(DeleteProduct(state.productsList[index].id));
-                                                                            }
-                                                                          },
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child:
-                                                                                Container(
-                                                                              color: Colors.red,
-                                                                              width: 20,
-                                                                              height: 20,
-                                                                              child: const Icon(Icons.remove, color: Colors.white, size: 20),
-                                                                            ),
-                                                                          ),
+                                                                          if (context.read<BasketBloc>().mutableProducts.firstWhere((element) => element.id == state.productsList[index].id).quantity !=
+                                                                              1) {
+                                                                            context.read<BasketBloc>().add(MinusCount(state.productsList[index].id));
+                                                                          } else {
+                                                                            context.read<BasketBloc>().add(DeleteProduct(state.productsList[index].id));
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                        child:
+                                                                            Container(
+                                                                          color:
+                                                                              Colors.red,
+                                                                          width:
+                                                                              20,
+                                                                          height:
+                                                                              20,
+                                                                          child: const Icon(
+                                                                              Icons.remove,
+                                                                              color: Colors.white,
+                                                                              size: 20),
                                                                         ),
-                                                                      ],
+                                                                      ),
                                                                     ),
-                                                                  )
-                                                                : const SizedBox()
+                                                                ],
+                                                              ),
+                                                            )
+                                                            // : const SizedBox()
                                                           ],
                                                         ),
                                                       ),
@@ -390,7 +444,7 @@ class _AllLProductBodyState extends State<AllProductBody> {
                                                                               10,
                                                                         ),
                                                                         Text(
-                                                                          "( ${context.read<BasketBloc>().finalPrice().toString()} ${AppLocalizations.of(context)!.curruncy} ) ",
+                                                                          "( ${Formatter.formatPrice(context.read<BasketBloc>().finalPrice())} ${AppLocalizations.of(context)!.curruncy} ) ",
                                                                           style:
                                                                               getBoldStyle(
                                                                             color:
